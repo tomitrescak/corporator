@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
 
 import { HomeView } from '../home/home_view';
@@ -17,7 +17,8 @@ export const MainLayout: React.SFC = () => (
     <If condition={true}>
       <>True</>
     </If>
-    Main Layout
+    Main Layout,
+    <Link to="/luis">Luis</Link>
     <Route path="/" component={HomeView} />
   </div>
 );

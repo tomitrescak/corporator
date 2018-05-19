@@ -1,0 +1,120 @@
+{
+  "numFailedTestSuites": 0,
+  "numFailedTests": 0,
+  "numPassedTestSuites": 1,
+  "numPassedTests": 6,
+  "numPendingTestSuites": 0,
+  "numPendingTests": 0,
+  "numRuntimeErrorTestSuites": 0,
+  "numTotalTestSuites": 1,
+  "numTotalTests": 6,
+  "snapshot": {
+    "added": 1,
+    "didUpdate": false,
+    "failure": false,
+    "filesAdded": 1,
+    "filesRemoved": 0,
+    "filesUnmatched": 0,
+    "filesUpdated": 0,
+    "matched": 1,
+    "total": 2,
+    "unchecked": 0,
+    "uncheckedKeys": [],
+    "unmatched": 0,
+    "updated": 0
+  },
+  "success": true,
+  "testResults": [
+    {
+      "console": null,
+      "failureMessage": null,
+      "numFailingTests": 0,
+      "numPassingTests": 6,
+      "numPendingTests": 0,
+      "snapshot": {
+        "added": 1,
+        "fileDeleted": false,
+        "matched": 1,
+        "unchecked": 0,
+        "unmatched": 0,
+        "updated": 0,
+        "uncheckedKeys": []
+      },
+      "testFilePath": "/Users/tomi/Github/apps/corporatorts/src/client/modules/home/tests/home_view.test.tsx",
+      "testResults": [
+        {
+          "ancestorTitles": [
+            "Component With Test"
+          ],
+          "duration": 1,
+          "failureMessages": [],
+          "fullName": "Component With Test passes",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "passes"
+        },
+        {
+          "ancestorTitles": [
+            "Component With Test"
+          ],
+          "duration": 1,
+          "failureMessages": [],
+          "fullName": "Component With Test fails",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "fails"
+        },
+        {
+          "ancestorTitles": [
+            "Component 2 With Test"
+          ],
+          "duration": 1,
+          "failureMessages": [],
+          "fullName": "Component 2 With Test passes",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "passes"
+        },
+        {
+          "ancestorTitles": [
+            "Component 2 With Test"
+          ],
+          "duration": 0,
+          "failureMessages": [],
+          "fullName": "Component 2 With Test fails",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "fails"
+        },
+        {
+          "ancestorTitles": [],
+          "duration": 2,
+          "failureMessages": [],
+          "fullName": "renders without crashing",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "renders without crashing"
+        },
+        {
+          "ancestorTitles": [],
+          "duration": 0,
+          "failureMessages": [],
+          "fullName": "renders snapshot",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "renders snapshot"
+        }
+      ],
+      "sourceMaps": {},
+      "skipped": false,
+      "leaks": false
+    }
+  ],
+  "wasInterrupted": false
+}

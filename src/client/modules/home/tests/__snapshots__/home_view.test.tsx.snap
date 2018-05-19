@@ -1,5 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Component 2 With Test passes 1`] = `
+<div>
+  My Tested 2
+</div>
+`;
+
 exports[`renders snapshot 1`] = `
 <div>
   Home
