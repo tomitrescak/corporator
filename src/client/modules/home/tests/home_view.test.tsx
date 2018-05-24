@@ -32,7 +32,7 @@ storyOf(
     bar: 3,
     get component() {
       // just another notation
-      return <div>My Tested 2</div>;
+      return <div>My Tested 12</div>;
     }
   },
   data => {

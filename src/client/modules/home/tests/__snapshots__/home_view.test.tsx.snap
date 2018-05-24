@@ -2,7 +2,7 @@
 
 exports[`Component 2 With Test passes 1`] = `
 <div>
-  My Tested 2
+  My Tested 12
 </div>
 `;
 

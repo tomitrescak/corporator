@@ -13,6 +13,7 @@
     "graphql-tools": "^3.0.1",
     "jsx-control-statements": "^3.2.8",
     "jsx-controls-loader": "^0.1.1",
+    "luis": "^2.5.2",
     "react": "^16.3.2",
     "react-apollo": "^2.1.4",
     "react-dom": "^16.3.2",
@@ -24,7 +25,8 @@
   },
   "scripts": {
     "start": "node fuse.dev",
-    "test": "jest --watchAll"
+    "test": "jest --updateSnapshot --watchAll",
+    "luis": "luis src luis.ts"
   },
   "devDependencies": {
     "@playlyfe/gql": "^2.6.0",
@@ -36,6 +38,7 @@
     "fuse-box-graphql-plugin": "^1.0.0",
     "jest": "^22.4.4",
     "jest-transform-graphql": "^2.1.0",
+    "rootpath": "^0.1.2",
     "ts-jest": "^22.4.6",
     "tslint": "^5.10.0",
     "tslint-config-prettier": "^1.12.0",
