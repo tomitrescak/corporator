@@ -9,6 +9,9 @@ const snapshots = require('./snapshots');
 
 setupTestBridge(summary, snapshots);
 
-import './client/modules/home/tests/home_view.test';
+import './client/modules/home/tests';
+import './client/modules/process/views/tests';
+import './client/modules/email/views/tests';
+import './client/modules/resources/views/tests';
 
 renderLuis();

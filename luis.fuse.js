@@ -29,11 +29,11 @@ fuse
   .bundle('vendor')
   // Watching (to add dependencies) it's damn fast anyway
   // first bundle will get HMR related code injected
-  .instructions(` ~ luis.ts`); // nothing has changed here
+  .instructions(` ~ luis_app.ts`); // nothing has changed here
 
 fuse
   .bundle('app')
-  .instructions(` !> [luis.ts]`)
+  .instructions(` !> [luis_app.ts]`)
   .hmr()
   .watch();
 fuse.run();

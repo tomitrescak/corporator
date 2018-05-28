@@ -1,70 +1,33 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import * as renderer from 'react-test-renderer';
 
 import { HomeView } from '../home_view';
+import { MainLayout } from '../../core/main_layout';
 
-storyOf(
-  'Component With Test',
-  {
-    foo: 2,
-    bar: 3,
-    get component() {
-      // just another notation
-      return <div>My Tested</div>;
-    }
-  },
-  data => {
-    it('passes', () => {
-      expect(data.foo).toEqual(2);
-    });
-
-    it('fails', () => {
-      expect(data.bar).toEqual(3);
-    });
+storyOf('Home', {
+  get component() {
+    // just another notation
+    return (
+      <MainLayout>
+        <HomeView />
+      </MainLayout>
+    );
   }
-);
-
-storyOf(
-  'Component 2 With Test',
-  {
-    foo: 2,
-    bar: 3,
-    get component() {
-      // just another notation
-      return <div>My Tested 12</div>;
-    }
-  },
-  data => {
-    it('passes', () => {
-      expect(data.foo).toEqual(2);
-
-      const component = renderer.create(data.component);
-      const root = component.root;
-
-      expect(component).toMatchSnapshot();
-    });
-
-    it('fails', () => {
-      expect(data.bar).toEqual(3);
-    });
-  }
-);
-
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<HomeView />, div);
-  ReactDOM.unmountComponentAtNode(div);
 });
 
-it('renders snapshot', () => {
-  const component = renderer.create(<HomeView />);
-  const root = component.root;
+// it('renders without crashing', () => {
+//   const div = document.createElement('div');
+//   ReactDOM.render(<HomeView />, div);
+//   ReactDOM.unmountComponentAtNode(div);
+// });
 
-  expect(component).toMatchSnapshot();
+// it('renders snapshot', () => {
+//   const component = renderer.create(<HomeView />);
+//   const root = component.root;
 
-  // const button = root.findByType('button');
-  // button.props.onClick();
+//   expect(component).toMatchSnapshot();
 
-  // expect(component).toMatchSnapshot();
-});
+//   // const button = root.findByType('button');
+//   // button.props.onClick();
+
+//   // expect(component).toMatchSnapshot();
+// });

@@ -1,7 +1,5 @@
 // src/index.ts
-import * as React from 'react';
-
-import { Luis, setupJestBridge, setupTestBridge } from 'luis';
+import { Luis, setupTestBridge } from 'luis';
 
 const summary = require('../../../summary.json');
 const snapshots = require('../../../snapshots');

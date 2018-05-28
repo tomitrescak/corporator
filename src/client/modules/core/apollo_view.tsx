@@ -2,14 +2,14 @@
 import * as React from 'react';
 import * as BooksQuery from '../../../graphql/queries/books.graphql';
 
-import { DataProps, graphql } from 'react-apollo';
+import { graphql } from 'react-apollo';
 
 type Response = {
   books: any[];
 };
 
-const ApolloComponentView: React.SFC<QueryData<Response>> = ({
-  data: { books, error, loading }
-}) => <div>{books ? books.length : 'Loading ...'}</div>;
+const ApolloComponentView: React.SFC<QueryData<Response>> = ({ data: { books } }) => (
+  <div>{books ? books.length : 'Loading ...'}</div>
+);
 
 export const BooksContainer = graphql<{}, Response, {}>(BooksQuery)(ApolloComponentView);
