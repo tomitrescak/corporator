@@ -1,13 +1,13 @@
 {
-  "numFailedTestSuites": 0,
-  "numFailedTests": 0,
-  "numPassedTestSuites": 1,
-  "numPassedTests": 2,
+  "numFailedTestSuites": 1,
+  "numFailedTests": 1,
+  "numPassedTestSuites": 4,
+  "numPassedTests": 6,
   "numPendingTestSuites": 0,
-  "numPendingTests": 4,
+  "numPendingTests": 0,
   "numRuntimeErrorTestSuites": 0,
-  "numTotalTestSuites": 1,
-  "numTotalTests": 6,
+  "numTotalTestSuites": 5,
+  "numTotalTests": 7,
   "snapshot": {
     "added": 0,
     "didUpdate": true,
@@ -16,25 +16,190 @@
     "filesRemoved": 0,
     "filesUnmatched": 0,
     "filesUpdated": 0,
-    "matched": 1,
-    "total": 1,
+    "matched": 0,
+    "total": 0,
     "unchecked": 0,
     "uncheckedKeys": [],
     "unmatched": 0,
     "updated": 0
   },
-  "success": true,
+  "success": false,
   "testResults": [
     {
-      "console": null,
-      "failureMessage": null,
-      "numFailingTests": 0,
-      "numPassingTests": 2,
-      "numPendingTests": 4,
+      "console": [],
+      "failureMessage": "\u001b[1m\u001b[31m  \u001b[1m● \u001b[1mcreates a new instance from database\u001b[39m\u001b[22m\n\n    \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).not.toBeNull(\u001b[22m\u001b[2m)\u001b[22m\n    \n    Expected value not to be null, instead received\n      \u001b[31mnull\u001b[39m\n\u001b[2m\u001b[22m\n\u001b[2m    \u001b[0m \u001b[90m 11 | \u001b[39m  expect(model\u001b[33m.\u001b[39mactionCount)\u001b[33m.\u001b[39mtoEqual(\u001b[35m0\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\u001b[22m\n\u001b[2m    \u001b[0m \u001b[90m 12 | \u001b[39m  expect(model\u001b[33m.\u001b[39mgeneratedDescription)\u001b[33m.\u001b[39mtoBeNull()\u001b[33m;\u001b[39m\u001b[0m\u001b[22m\n\u001b[2m    \u001b[0m\u001b[31m\u001b[1m>\u001b[2m\u001b[39m\u001b[90m 13 | \u001b[39m  expect(model\u001b[33m.\u001b[39mdefinition)\u001b[33m.\u001b[39mnot\u001b[33m.\u001b[39mtoBeNull()\u001b[33m;\u001b[39m\u001b[0m\u001b[22m\n\u001b[2m    \u001b[0m \u001b[90m 14 | \u001b[39m})\u001b[33m;\u001b[39m\u001b[0m\u001b[22m\n\u001b[2m    \u001b[0m \u001b[90m 15 | \u001b[39m\u001b[0m\u001b[22m\n\u001b[2m      \u001b[22m\n\u001b[2m      \u001b[2mat Object.<anonymous>.it (\u001b[2m\u001b[0m\u001b[36msrc/server/models/tests/bpmn_model.test.ts\u001b[39m\u001b[0m\u001b[2m:13:32)\u001b[2m\u001b[22m\n",
+      "numFailingTests": 1,
+      "numPassingTests": 0,
+      "numPendingTests": 0,
       "snapshot": {
         "added": 0,
         "fileDeleted": false,
-        "matched": 1,
+        "matched": 0,
+        "unchecked": 0,
+        "unmatched": 0,
+        "updated": 0,
+        "uncheckedKeys": []
+      },
+      "testFilePath": "/Users/tomi/Github/apps/corporatorts/src/server/models/tests/bpmn_model.test.ts",
+      "testResults": [
+        {
+          "ancestorTitles": [],
+          "duration": 10,
+          "failureMessages": [
+            "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).not.toBeNull(\u001b[22m\u001b[2m)\u001b[22m\n\nExpected value not to be null, instead received\n  \u001b[31mnull\u001b[39m\n    at Object.<anonymous>.it (/Users/tomi/Github/apps/corporatorts/src/server/models/tests/bpmn_model.test.ts:13:32)\n    at Object.asyncFn (/Users/tomi/Github/apps/corporatorts/node_modules/jest-jasmine2/build/jasmine_async.js:82:37)\n    at resolve (/Users/tomi/Github/apps/corporatorts/node_modules/jest-jasmine2/build/queue_runner.js:52:12)\n    at new Promise (<anonymous>)\n    at mapper (/Users/tomi/Github/apps/corporatorts/node_modules/jest-jasmine2/build/queue_runner.js:39:19)\n    at promise.then (/Users/tomi/Github/apps/corporatorts/node_modules/jest-jasmine2/build/queue_runner.js:73:82)\n    at process._tickCallback (internal/process/next_tick.js:68:7)"
+          ],
+          "fullName": "creates a new instance from database",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "failed",
+          "title": "creates a new instance from database"
+        }
+      ],
+      "sourceMaps": {},
+      "skipped": false,
+      "leaks": false
+    },
+    {
+      "console": [],
+      "failureMessage": null,
+      "numFailingTests": 0,
+      "numPassingTests": 1,
+      "numPendingTests": 0,
+      "snapshot": {
+        "added": 0,
+        "fileDeleted": false,
+        "matched": 0,
+        "unchecked": 0,
+        "unmatched": 0,
+        "updated": 0,
+        "uncheckedKeys": []
+      },
+      "testFilePath": "/Users/tomi/Github/apps/corporatorts/src/client/modules/email/views/tests/email_view.test.tsx",
+      "testResults": [
+        {
+          "ancestorTitles": [
+            "Email",
+            "Dean"
+          ],
+          "duration": 2,
+          "failureMessages": [],
+          "fullName": "Email Dean renders correctly",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "renders correctly"
+        }
+      ],
+      "sourceMaps": {},
+      "skipped": false,
+      "leaks": false
+    },
+    {
+      "console": [],
+      "failureMessage": null,
+      "numFailingTests": 0,
+      "numPassingTests": 1,
+      "numPendingTests": 0,
+      "snapshot": {
+        "added": 0,
+        "fileDeleted": false,
+        "matched": 0,
+        "unchecked": 0,
+        "unmatched": 0,
+        "updated": 0,
+        "uncheckedKeys": []
+      },
+      "testFilePath": "/Users/tomi/Github/apps/corporatorts/src/client/modules/resources/views/tests/resource_search_view.test.tsx",
+      "testResults": [
+        {
+          "ancestorTitles": [
+            "Resource",
+            "Search"
+          ],
+          "duration": 2,
+          "failureMessages": [],
+          "fullName": "Resource Search renders correctly",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "renders correctly"
+        }
+      ],
+      "sourceMaps": {},
+      "skipped": false,
+      "leaks": false
+    },
+    {
+      "console": [],
+      "failureMessage": null,
+      "numFailingTests": 0,
+      "numPassingTests": 3,
+      "numPendingTests": 0,
+      "snapshot": {
+        "added": 0,
+        "fileDeleted": false,
+        "matched": 0,
+        "unchecked": 0,
+        "unmatched": 0,
+        "updated": 0,
+        "uncheckedKeys": []
+      },
+      "testFilePath": "/Users/tomi/Github/apps/corporatorts/src/client/modules/process/views/tests/process_view.test.tsx",
+      "testResults": [
+        {
+          "ancestorTitles": [
+            "Process",
+            "Stopped"
+          ],
+          "duration": 2,
+          "failureMessages": [],
+          "fullName": "Process Stopped renders correctly",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "renders correctly"
+        },
+        {
+          "ancestorTitles": [
+            "Process",
+            "Running"
+          ],
+          "duration": 0,
+          "failureMessages": [],
+          "fullName": "Process Running renders correctly",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "renders correctly"
+        },
+        {
+          "ancestorTitles": [
+            "Process",
+            "Versions"
+          ],
+          "duration": 0,
+          "failureMessages": [],
+          "fullName": "Process Versions renders correctly",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "renders correctly"
+        }
+      ],
+      "sourceMaps": {},
+      "skipped": false,
+      "leaks": false
+    },
+    {
+      "console": [],
+      "failureMessage": null,
+      "numFailingTests": 0,
+      "numPassingTests": 1,
+      "numPendingTests": 0,
+      "snapshot": {
+        "added": 0,
+        "fileDeleted": false,
+        "matched": 0,
         "unchecked": 0,
         "unmatched": 0,
         "updated": 0,
@@ -44,71 +209,15 @@
       "testResults": [
         {
           "ancestorTitles": [
-            "Component With Test"
+            "Home"
           ],
-          "duration": 0,
+          "duration": 3,
           "failureMessages": [],
-          "fullName": "Component With Test passes",
-          "location": null,
-          "numPassingAsserts": 0,
-          "status": "pending",
-          "title": "passes"
-        },
-        {
-          "ancestorTitles": [
-            "Component With Test"
-          ],
-          "duration": 0,
-          "failureMessages": [],
-          "fullName": "Component With Test fails",
-          "location": null,
-          "numPassingAsserts": 0,
-          "status": "pending",
-          "title": "fails"
-        },
-        {
-          "ancestorTitles": [
-            "Component 2 With Test"
-          ],
-          "duration": 9,
-          "failureMessages": [],
-          "fullName": "Component 2 With Test passes",
+          "fullName": "Home renders correctly",
           "location": null,
           "numPassingAsserts": 0,
           "status": "passed",
-          "title": "passes"
-        },
-        {
-          "ancestorTitles": [
-            "Component 2 With Test"
-          ],
-          "duration": 0,
-          "failureMessages": [],
-          "fullName": "Component 2 With Test fails",
-          "location": null,
-          "numPassingAsserts": 0,
-          "status": "passed",
-          "title": "fails"
-        },
-        {
-          "ancestorTitles": [],
-          "duration": 0,
-          "failureMessages": [],
-          "fullName": "renders without crashing",
-          "location": null,
-          "numPassingAsserts": 0,
-          "status": "pending",
-          "title": "renders without crashing"
-        },
-        {
-          "ancestorTitles": [],
-          "duration": 0,
-          "failureMessages": [],
-          "fullName": "renders snapshot",
-          "location": null,
-          "numPassingAsserts": 0,
-          "status": "pending",
-          "title": "renders snapshot"
+          "title": "renders correctly"
         }
       ],
       "sourceMaps": {},

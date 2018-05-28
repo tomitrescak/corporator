@@ -4,8 +4,10 @@
   "dependencies": {
     "apollo-cache-inmemory": "^1.2.1",
     "apollo-client": "^2.3.1",
+    "apollo-connector-mongodb": "^2.0.3",
     "apollo-link-http": "^1.5.4",
     "apollo-link-schema": "^1.1.0",
+    "bpmn-js": "^2.0.1",
     "connect-history-api-fallback": "^1.5.0",
     "fuse-box": "^3.2.2",
     "graphql": "0.13.0",
@@ -26,7 +28,8 @@
   "scripts": {
     "start": "node fuse.dev",
     "test": "jest --updateSnapshot --watchAll",
-    "luis": "luis src luis.ts"
+    "luis": "luis src luis.ts",
+    "clear": "jest --clearCache"
   },
   "devDependencies": {
     "@playlyfe/gql": "^2.6.0",
@@ -36,9 +39,8 @@
     "@types/react-router-dom": "^4.2.6",
     "@types/react-test-renderer": "^16.0.1",
     "fuse-box-graphql-plugin": "^1.0.0",
-    "jest": "^22.4.4",
+    "jest": "^23.0.1",
     "jest-transform-graphql": "^2.1.0",
-    "rootpath": "^0.1.2",
     "ts-jest": "^22.4.6",
     "tslint": "^5.10.0",
     "tslint-config-prettier": "^1.12.0",

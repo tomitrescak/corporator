@@ -5,16 +5,25 @@ module.exports = function() {
       'jest.setup.js',
       'test/*.js',
       'src/**/*.+(js|jsx|ts|tsx|json|snap|css|less|sass|scss|jpg|jpeg|gif|png|svg|graphql)',
-      '!src/**/tests/*.ts?(x)'
+      '!src/**/tests/*.+(ts|tsx)',
+      '!src/luis_app',
+      '!src/**/index.ts'
     ],
 
-    tests: ['src/**/tests/*.ts?(x)'],
+    tests: ['!src/**/tests/index.ts', 'src/**/tests/*.+(ts|tsx)'],
 
     env: {
       type: 'node',
       runner: 'node'
     },
-
+    // preprocessors: {
+    //   '**/*.js': file =>
+    //     require('babel-core').transform(file.content, {
+    //       sourceMap: true,
+    //       presets: ['es2015'],
+    //       plugins: ['transform-object-rest-spread']
+    //     })
+    // },
     testFramework: 'jest'
   };
 };

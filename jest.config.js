@@ -2,6 +2,7 @@ module.exports = {
   roots: ['<rootDir>/src'],
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
+    '^.+\\.js$': 'babel-jest',
     '\\.(gql|graphql)$': 'jest-transform-graphql'
   },
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
@@ -12,6 +13,7 @@ module.exports = {
   setupTestFrameworkScriptFile: '<rootDir>/jest.setup.js',
   moduleNameMapper: {
     '^.*[.](css|CSS)$': '<rootDir>/test/styleMock.js',
-    '^.*[.](jpg|gif|ttf|eot|svg)$': '<rootDir>/test/fileMock.js'
-  }
+    '^.*[.](jpg|gif|png|ttf|eot|svg)$': '<rootDir>/test/fileMock.js'
+  },
+  transformIgnorePatterns: ['/!node_modules\\/bpmn-moddle']
 };
