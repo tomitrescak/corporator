@@ -1,5 +1,5 @@
-import { Access } from './access_model';
 import BpmnModdle from 'bpmn-moddle';
+import { Access } from './accesses_model';
 
 var moddle = new BpmnModdle();
 
@@ -35,8 +35,8 @@ export class BpmnProcess {
         }
         this.definition = def;
 
-        console.log(JSON.stringify(def, null, 2));
-        console.log(Object.getOwnPropertyNames(def));
+        // console.log(JSON.stringify(def, null, 2));
+        // console.log(Object.getOwnPropertyNames(def));
 
         resolve(this.definition);
       });

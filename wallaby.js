@@ -2,7 +2,7 @@ module.exports = function() {
   return {
     files: [
       'tsconfig.json',
-      'jest.setup.js',
+      'jest.*',
       'test/*.js',
       'src/**/*.+(js|jsx|ts|tsx|json|snap|css|less|sass|scss|jpg|jpeg|gif|png|svg|graphql)',
       '!src/**/tests/*.+(ts|tsx)',
@@ -15,6 +15,10 @@ module.exports = function() {
     env: {
       type: 'node',
       runner: 'node'
+    },
+    workers: {
+      initial: 1,
+      regular: 1
     },
     // preprocessors: {
     //   '**/*.js': file =>

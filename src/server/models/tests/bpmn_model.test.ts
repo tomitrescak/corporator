@@ -1,10 +1,21 @@
+jest.mock('bpmn-moddle', () => {
+  class Moddle {
+    fromXML(xml: string, cb: Function) {
+      cb();
+    }
+  }
+  return {
+    default: Moddle
+  };
+});
+
 import { create } from '../../../shared/test_data';
-import { BpmnProcess } from '../bpmn_process_entity';
+import { BpmnProcess } from '../bpmn_process_model';
 
 const bpmn = `<?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <process id="theProcess2" isExecutable="true">
-  <startEvent id="theStart" />
+  <startEvent id="theStart1" />
   <exclusiveGateway id="decision" default="flow2" />
   <endEvent id="end1" />
   <endEvent id="end2" />
@@ -28,6 +39,8 @@ it('creates a new instance from database', async () => {
 
   await model.loadDefinition(bpmn);
 
-  console.log(Object.keys(model.definition));
+  // console.log(Object.keys(model.definition));
+  console.log(model.definition);
+  expect(model.definition).not.toBeUndefined();
   expect(model.definition).not.toBeNull();
 });

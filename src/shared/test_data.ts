@@ -1,4 +1,4 @@
-import { ProcessStatus } from '../server/models/bpmn_model';
+import { ProcessStatus } from '../server/models/bpmn_process_model';
 
 const defaultUser: Corpix.Collections.UserDao = {
   id: 'u',

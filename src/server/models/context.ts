@@ -15,8 +15,36 @@ export class ServerContext {
   Activities: ActivitiesModel;
   Users: UsersModel;
   User: UserModel;
+  conn: MongoConnector;
+
+  static async connect() {
+    const MongodbMemoryServer = require('mongodb-memory-server');
+
+    const MONGO_DB_NAME = 'jest';
+    const mongod = new MongodbMemoryServer.default({
+      instance: {
+        dbName: MONGO_DB_NAME
+      },
+      binary: {
+        version: '3.2.19'
+      }
+    });
+
+    // module.exports = function() {
+    global.__MONGO_DB_NAME__ = MONGO_DB_NAME;
+    global.__MONGO_URI__ = await mongod.getConnectionString();
+
+    let connector = new MongoConnector(global.__MONGO_URI__, global.__MONGO_DB_NAME__);
+    await connector.connect();
+    return new ServerContext(connector);
+  }
+
+  static async disconnect(context: ServerContext) {
+    return context.conn.dispose();
+  }
 
   constructor(conn: MongoConnector) {
+    this.conn = conn;
     this.BpmnProcess = new BpmnProcessesModel(conn);
     this.Actions = new ActionsModel(conn);
     this.Activities = new ActivitiesModel(conn);

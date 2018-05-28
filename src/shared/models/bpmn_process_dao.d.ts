@@ -28,6 +28,8 @@ declare namespace Corpix.Collections {
     execute: AccessConditionDao[];
   }
 
+  interface ActivityDao {}
+
   interface RoleDao extends EntityDao {}
 
   interface OrganisationDao extends EntityDao {}
