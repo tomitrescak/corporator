@@ -5,6 +5,8 @@ import { UsersModel } from './users_model';
 import { UserModel } from './user_model';
 import { MongoConnector } from 'apollo-connector-mongodb';
 
+import { Dictionary } from 'typescript-collections';
+
 declare global {
   namespace Corpix.Server { export type Context = ServerContext; }
 }
