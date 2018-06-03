@@ -11,6 +11,7 @@ module.exports = {
   testResultsProcessor: './node_modules/luis/dist/bridges/jest/reporter',
   watchPathIgnorePatterns: ['<rootDir>/src/summary.json', '<rootDir>/src/snapshots.js'],
   setupTestFrameworkScriptFile: '<rootDir>/jest.setup.js',
+  moduleDirectories: ['node_modules', 'src'],
   moduleNameMapper: {
     '^.*[.](css|CSS)$': '<rootDir>/test/styleMock.js',
     '^.*[.](jpg|gif|png|ttf|eot|svg)$': '<rootDir>/test/fileMock.js'

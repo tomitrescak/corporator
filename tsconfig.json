@@ -7,13 +7,14 @@
     "jsx": "react",
     "baseUrl": "./src",
     "noEmit": true,
-    // "skipLibCheck": true,
+    "skipLibCheck": true,
     "pretty": true,
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "strictNullChecks": false
+    "strictNullChecks": false,
+    "rootDirs": ["src"]
   }
 }

@@ -58,12 +58,23 @@ const defaultBpmnProcess: Corpix.Collections.BpmnProcessDao = {
   actionCount: 0
 };
 
+const defaultForm: Corpix.Collections.FormDao = {
+  id: 'form',
+  name: 'Form',
+  description: 'Test Form',
+  elements: [],
+  validations: []
+};
+
 export const create = {
   userDao(from: Partial<Corpix.Collections.UserDao> = {}): Corpix.Collections.UserDao {
     return { ...defaultUser, ...from };
   },
   accessDao(from: Partial<Corpix.Collections.AccessDao> = {}): Corpix.Collections.AccessDao {
     return { ...defaultAccess, ...from };
+  },
+  formDao(form: Partial<Corpix.Collections.FormDao> = {}) {
+    return { ...defaultForm, ...form };
   },
   bpmnProcessDao(
     from: Partial<Corpix.Collections.BpmnProcessDao> = {},

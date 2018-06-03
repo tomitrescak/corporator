@@ -8,6 +8,11 @@ const fuse = FuseBox.init({
   homeDir: '../../src',
   target: 'browser@es6',
   output: 'luis/$name.js',
+  alias: {
+    client: '~/client/',
+    server: '~/server/',
+    shared: '~/shared/'
+  },
   plugins: [
     WebIndexPlugin({ template: 'index.html', target: 'index.html' }),
     JsxControlsPugin,

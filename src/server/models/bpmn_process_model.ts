@@ -1,5 +1,7 @@
-import BpmnModdle from 'bpmn-moddle';
+// import BpmnModdle from 'bpmn-moddle';
 import { Access } from './accesses_model';
+
+class BpmnModdle {}
 
 var moddle = new BpmnModdle();
 
@@ -29,17 +31,18 @@ export class BpmnProcess {
 
   async loadDefinition(bpmn: string) {
     return new Promise((resolve, reject) => {
-      moddle.fromXML(bpmn, (error, def) => {
-        if (error) {
-          reject(error);
-        }
-        this.definition = def;
+      // moddle.fromXML(bpmn, (error, def) => {
+      //   if (error) {
+      //     reject(error);
+      //   }
+      //   this.definition = def;
 
-        // console.log(JSON.stringify(def, null, 2));
-        // console.log(Object.getOwnPropertyNames(def));
+      //   // console.log(JSON.stringify(def, null, 2));
+      //   // console.log(Object.getOwnPropertyNames(def));
 
-        resolve(this.definition);
-      });
+      //   resolve(this.definition);
+      // });
+      resolve(true);
     });
   }
 }

@@ -12,6 +12,7 @@
 # production
 /build
 /dist
+/luis/
 
 # misc
 .DS_Store
