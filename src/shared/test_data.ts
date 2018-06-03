@@ -66,6 +66,28 @@ const defaultForm: Corpix.Collections.FormDao = {
   validations: []
 };
 
+const defaultData: Corpix.Collections.DataDao = {
+  id: '1',
+  descriptor: null,
+  organisationId: 'oId',
+  ownerId: 'uId',
+  version: 0,
+  date: modifiedDate,
+  value: null
+};
+
+const defaultDescriptor: Corpix.Collections.DataDescriptorDao = {
+  id: '1',
+  name: null,
+  description: 'Description',
+  expression: null,
+  type: 'string',
+  isArray: false,
+  defaultValue: null,
+  validators: null,
+  access: null
+};
+
 export const create = {
   userDao(from: Partial<Corpix.Collections.UserDao> = {}): Corpix.Collections.UserDao {
     return { ...defaultUser, ...from };
@@ -73,8 +95,16 @@ export const create = {
   accessDao(from: Partial<Corpix.Collections.AccessDao> = {}): Corpix.Collections.AccessDao {
     return { ...defaultAccess, ...from };
   },
-  formDao(form: Partial<Corpix.Collections.FormDao> = {}) {
+  formDao(form: Partial<Corpix.Collections.FormDao> = {}): Corpix.Collections.FormDao {
     return { ...defaultForm, ...form };
+  },
+  dataDao(data: Partial<Corpix.Collections.DataDao> = {}): Corpix.Collections.DataDao {
+    return { ...defaultData, ...data };
+  },
+  descriptorDao(
+    data: Partial<Corpix.Collections.DataDescriptorDao> = {}
+  ): Corpix.Collections.DataDescriptorDao {
+    return { ...defaultDescriptor, ...data };
   },
   bpmnProcessDao(
     from: Partial<Corpix.Collections.BpmnProcessDao> = {},

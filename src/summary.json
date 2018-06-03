@@ -1,13 +1,13 @@
 {
-  "numFailedTestSuites": 0,
-  "numFailedTests": 0,
-  "numPassedTestSuites": 0,
-  "numPassedTests": 0,
+  "numFailedTestSuites": 1,
+  "numFailedTests": 1,
+  "numPassedTestSuites": 8,
+  "numPassedTests": 15,
   "numPendingTestSuites": 0,
   "numPendingTests": 0,
   "numRuntimeErrorTestSuites": 0,
-  "numTotalTestSuites": 3,
-  "numTotalTests": 0,
+  "numTotalTestSuites": 9,
+  "numTotalTests": 16,
   "openHandles": [],
   "snapshot": {
     "added": 0,
@@ -24,7 +24,417 @@
     "unmatched": 0,
     "updated": 0
   },
-  "success": true,
-  "testResults": [],
-  "wasInterrupted": true
+  "success": false,
+  "testResults": [
+    {
+      "console": [
+        {
+          "message": "2",
+          "origin": "/Users/tomi/Github/apps/corporatorts/src/server/models/tests/bpmn_processes_model.test.ts:12",
+          "type": "log"
+        },
+        {
+          "message": "3",
+          "origin": "/Users/tomi/Github/apps/corporatorts/src/server/models/tests/bpmn_processes_model.test.ts:24",
+          "type": "log"
+        }
+      ],
+      "failureMessage": null,
+      "numFailingTests": 0,
+      "numPassingTests": 5,
+      "numPendingTests": 0,
+      "snapshot": {
+        "added": 0,
+        "fileDeleted": false,
+        "matched": 0,
+        "unchecked": 0,
+        "unmatched": 0,
+        "updated": 0,
+        "uncheckedKeys": []
+      },
+      "testFilePath": "/Users/tomi/Github/apps/corporatorts/src/server/models/tests/bpmn_processes_model.test.ts",
+      "testResults": [
+        {
+          "ancestorTitles": [],
+          "duration": 19,
+          "failureMessages": [],
+          "fullName": "check \"ActionsModel\" mock in __mocks__ folder",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "check \"ActionsModel\" mock in __mocks__ folder"
+        },
+        {
+          "ancestorTitles": [],
+          "duration": 2,
+          "failureMessages": [],
+          "fullName": "create manual mocks",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "create manual mocks"
+        },
+        {
+          "ancestorTitles": [
+            "startActivity"
+          ],
+          "duration": 0,
+          "failureMessages": [],
+          "fullName": "startActivity checks access",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "checks access"
+        },
+        {
+          "ancestorTitles": [
+            "startActivity"
+          ],
+          "duration": 0,
+          "failureMessages": [],
+          "fullName": "startActivity launches a new activity, storing information in the database",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "launches a new activity, storing information in the database"
+        },
+        {
+          "ancestorTitles": [
+            "startActivity"
+          ],
+          "duration": 0,
+          "failureMessages": [],
+          "fullName": "startActivity runs all possible actions",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "runs all possible actions"
+        }
+      ],
+      "sourceMaps": {},
+      "skipped": false,
+      "leaks": false
+    },
+    {
+      "console": [
+        {
+          "message": "null",
+          "origin": "/Users/tomi/Github/apps/corporatorts/src/server/models/tests/bpmn_model.test.ts:43",
+          "type": "log"
+        }
+      ],
+      "failureMessage": null,
+      "numFailingTests": 0,
+      "numPassingTests": 1,
+      "numPendingTests": 0,
+      "snapshot": {
+        "added": 0,
+        "fileDeleted": false,
+        "matched": 0,
+        "unchecked": 0,
+        "unmatched": 0,
+        "updated": 0,
+        "uncheckedKeys": []
+      },
+      "testFilePath": "/Users/tomi/Github/apps/corporatorts/src/server/models/tests/bpmn_model.test.ts",
+      "testResults": [
+        {
+          "ancestorTitles": [],
+          "duration": 5,
+          "failureMessages": [],
+          "fullName": "creates a new instance from database",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "creates a new instance from database"
+        }
+      ],
+      "sourceMaps": {},
+      "skipped": false,
+      "leaks": false
+    },
+    {
+      "console": [],
+      "failureMessage": null,
+      "numFailingTests": 0,
+      "numPassingTests": 2,
+      "numPendingTests": 0,
+      "snapshot": {
+        "added": 0,
+        "fileDeleted": false,
+        "matched": 0,
+        "unchecked": 0,
+        "unmatched": 0,
+        "updated": 0,
+        "uncheckedKeys": []
+      },
+      "testFilePath": "/Users/tomi/Github/apps/corporatorts/src/client/modules/form/models/tests/form_model.test.ts",
+      "testResults": [
+        {
+          "ancestorTitles": [],
+          "duration": 4,
+          "failureMessages": [],
+          "fullName": "creates a new model",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "creates a new model"
+        },
+        {
+          "ancestorTitles": [],
+          "duration": 2,
+          "failureMessages": [],
+          "fullName": "sorts form fields when form is created",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "sorts form fields when form is created"
+        }
+      ],
+      "sourceMaps": {},
+      "skipped": false,
+      "leaks": false
+    },
+    {
+      "console": [
+        {
+          "message": "[Function]",
+          "origin": "/Users/tomi/Github/apps/corporatorts/node_modules/apollo-connector-mongodb/dist/mongo_connector.js:89",
+          "type": "log"
+        }
+      ],
+      "failureMessage": null,
+      "numFailingTests": 0,
+      "numPassingTests": 1,
+      "numPendingTests": 0,
+      "snapshot": {
+        "added": 0,
+        "fileDeleted": false,
+        "matched": 0,
+        "unchecked": 0,
+        "unmatched": 0,
+        "updated": 0,
+        "uncheckedKeys": []
+      },
+      "testFilePath": "/Users/tomi/Github/apps/corporatorts/src/server/models/tests/live_db.test.ts",
+      "testResults": [
+        {
+          "ancestorTitles": [],
+          "duration": 21,
+          "failureMessages": [],
+          "fullName": "should aggregate docs from collection",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "should aggregate docs from collection"
+        }
+      ],
+      "sourceMaps": {},
+      "skipped": false,
+      "leaks": false
+    },
+    {
+      "console": [],
+      "failureMessage": null,
+      "numFailingTests": 0,
+      "numPassingTests": 1,
+      "numPendingTests": 0,
+      "snapshot": {
+        "added": 0,
+        "fileDeleted": false,
+        "matched": 0,
+        "unchecked": 0,
+        "unmatched": 0,
+        "updated": 0,
+        "uncheckedKeys": []
+      },
+      "testFilePath": "/Users/tomi/Github/apps/corporatorts/src/client/modules/email/views/tests/email_view.test.tsx",
+      "testResults": [
+        {
+          "ancestorTitles": [
+            "Email",
+            "Dean"
+          ],
+          "duration": 1,
+          "failureMessages": [],
+          "fullName": "Email Dean renders correctly",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "renders correctly"
+        }
+      ],
+      "sourceMaps": {},
+      "skipped": false,
+      "leaks": false
+    },
+    {
+      "console": [],
+      "failureMessage": null,
+      "numFailingTests": 0,
+      "numPassingTests": 3,
+      "numPendingTests": 0,
+      "snapshot": {
+        "added": 0,
+        "fileDeleted": false,
+        "matched": 0,
+        "unchecked": 0,
+        "unmatched": 0,
+        "updated": 0,
+        "uncheckedKeys": []
+      },
+      "testFilePath": "/Users/tomi/Github/apps/corporatorts/src/client/modules/process/views/tests/process_view.test.tsx",
+      "testResults": [
+        {
+          "ancestorTitles": [
+            "Process",
+            "Stopped"
+          ],
+          "duration": 2,
+          "failureMessages": [],
+          "fullName": "Process Stopped renders correctly",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "renders correctly"
+        },
+        {
+          "ancestorTitles": [
+            "Process",
+            "Running"
+          ],
+          "duration": 0,
+          "failureMessages": [],
+          "fullName": "Process Running renders correctly",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "renders correctly"
+        },
+        {
+          "ancestorTitles": [
+            "Process",
+            "Versions"
+          ],
+          "duration": 0,
+          "failureMessages": [],
+          "fullName": "Process Versions renders correctly",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "renders correctly"
+        }
+      ],
+      "sourceMaps": {},
+      "skipped": false,
+      "leaks": false
+    },
+    {
+      "console": [],
+      "failureMessage": null,
+      "numFailingTests": 0,
+      "numPassingTests": 1,
+      "numPendingTests": 0,
+      "snapshot": {
+        "added": 0,
+        "fileDeleted": false,
+        "matched": 0,
+        "unchecked": 0,
+        "unmatched": 0,
+        "updated": 0,
+        "uncheckedKeys": []
+      },
+      "testFilePath": "/Users/tomi/Github/apps/corporatorts/src/client/modules/home/tests/home_view.test.tsx",
+      "testResults": [
+        {
+          "ancestorTitles": [
+            "Home"
+          ],
+          "duration": 5,
+          "failureMessages": [],
+          "fullName": "Home renders correctly",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "renders correctly"
+        }
+      ],
+      "sourceMaps": {},
+      "skipped": false,
+      "leaks": false
+    },
+    {
+      "console": [],
+      "failureMessage": null,
+      "numFailingTests": 0,
+      "numPassingTests": 1,
+      "numPendingTests": 0,
+      "snapshot": {
+        "added": 0,
+        "fileDeleted": false,
+        "matched": 0,
+        "unchecked": 0,
+        "unmatched": 0,
+        "updated": 0,
+        "uncheckedKeys": []
+      },
+      "testFilePath": "/Users/tomi/Github/apps/corporatorts/src/client/modules/resources/views/tests/resource_search_view.test.tsx",
+      "testResults": [
+        {
+          "ancestorTitles": [
+            "Resource",
+            "Search"
+          ],
+          "duration": 3,
+          "failureMessages": [],
+          "fullName": "Resource Search renders correctly",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "renders correctly"
+        }
+      ],
+      "sourceMaps": {},
+      "skipped": false,
+      "leaks": false
+    },
+    {
+      "console": [],
+      "failureMessage": "\u001b[1m\u001b[31m  \u001b[1m● \u001b[1mForm › Viewer › renders correctly\u001b[39m\u001b[22m\n\n    [mobx] Invariant failed: Expected one or two arguments to observable.object. Did you accidentally try to use observable.object as decorator?\n\u001b[2m\u001b[22m\n\u001b[2m    \u001b[0m \u001b[90m  98 | \u001b[39m\u001b[0m\u001b[22m\n\u001b[2m    \u001b[0m \u001b[90m  99 | \u001b[39m        \u001b[90m// creating a tree based on the \"Todo\" type, with initial data:\u001b[39m\u001b[0m\u001b[22m\n\u001b[2m    \u001b[0m\u001b[31m\u001b[1m>\u001b[2m\u001b[39m\u001b[90m 100 | \u001b[39m        \u001b[36mconst\u001b[39m coffeeTodo \u001b[33m=\u001b[39m \u001b[33mTodo\u001b[39m\u001b[33m.\u001b[39mcreate({\u001b[0m\u001b[22m\n\u001b[2m    \u001b[0m \u001b[90m     | \u001b[39m                                \u001b[31m\u001b[1m^\u001b[2m\u001b[39m\u001b[0m\u001b[22m\n\u001b[2m    \u001b[0m \u001b[90m 101 | \u001b[39m          title\u001b[33m:\u001b[39m \u001b[32m'Get coffee'\u001b[39m\u001b[0m\u001b[22m\n\u001b[2m    \u001b[0m \u001b[90m 102 | \u001b[39m        })\u001b[33m;\u001b[39m\u001b[0m\u001b[22m\n\u001b[2m    \u001b[0m \u001b[90m 103 | \u001b[39m\u001b[0m\u001b[22m\n\u001b[2m\u001b[22m\n\u001b[2m      \u001b[2mat invariant (\u001b[2mnode_modules/mobx/lib/mobx.js\u001b[2m:2465:15)\u001b[2m\u001b[22m\n\u001b[2m      \u001b[2mat fail (\u001b[2mnode_modules/mobx/lib/mobx.js\u001b[2m:2460:5)\u001b[2m\u001b[22m\n\u001b[2m      \u001b[2mat incorrectlyUsedAsDecorator (\u001b[2mnode_modules/mobx/lib/mobx.js\u001b[2m:2075:5)\u001b[2m\u001b[22m\n\u001b[2m      \u001b[2mat Function.object (\u001b[2mnode_modules/mobx/lib/mobx.js\u001b[2m:2005:13)\u001b[2m\u001b[22m\n\u001b[2m      \u001b[2mat ModelType$$1._this.createNewInstance (\u001b[2mnode_modules/mobx-state-tree/dist/mobx-state-tree.js\u001b[2m:3054:44)\u001b[2m\u001b[22m\n\u001b[2m      \u001b[2mat createNode$$1 (\u001b[2mnode_modules/mobx-state-tree/dist/mobx-state-tree.js\u001b[2m:2003:23)\u001b[2m\u001b[22m\n\u001b[2m      \u001b[2mat ModelType$$1.Object.<anonymous>.ModelType$$1.instantiate (\u001b[2mnode_modules/mobx-state-tree/dist/mobx-state-tree.js\u001b[2m:3244:16)\u001b[2m\u001b[22m\n\u001b[2m      \u001b[2mat ModelType$$1.Object.<anonymous>.ComplexType$$1.create (\u001b[2mnode_modules/mobx-state-tree/dist/mobx-state-tree.js\u001b[2m:1301:21)\u001b[2m\u001b[22m\n\u001b[2m      \u001b[2mat executeAction (\u001b[2mnode_modules/mobx/lib/mobx.js\u001b[2m:915:19)\u001b[2m\u001b[22m\n\u001b[2m      \u001b[2mat ModelType$$1.res (\u001b[2mnode_modules/mobx/lib/mobx.js\u001b[2m:906:16)\u001b[2m\u001b[22m\n\u001b[2m      \u001b[2mat Object.it (\u001b[2m\u001b[0m\u001b[36msrc/client/modules/form/views/tests/form_view.test.tsx\u001b[39m\u001b[0m\u001b[2m:100:33)\u001b[2m\u001b[22m\n",
+      "numFailingTests": 1,
+      "numPassingTests": 0,
+      "numPendingTests": 0,
+      "snapshot": {
+        "added": 0,
+        "fileDeleted": false,
+        "matched": 0,
+        "unchecked": 0,
+        "unmatched": 0,
+        "updated": 0,
+        "uncheckedKeys": []
+      },
+      "testFilePath": "/Users/tomi/Github/apps/corporatorts/src/client/modules/form/views/tests/form_view.test.tsx",
+      "testResults": [
+        {
+          "ancestorTitles": [
+            "Form",
+            "Viewer"
+          ],
+          "duration": 10,
+          "failureMessages": [
+            "Error: [mobx] Invariant failed: Expected one or two arguments to observable.object. Did you accidentally try to use observable.object as decorator?\n    at invariant (/Users/tomi/Github/apps/corporatorts/node_modules/mobx/lib/mobx.js:2465:15)\n    at fail (/Users/tomi/Github/apps/corporatorts/node_modules/mobx/lib/mobx.js:2460:5)\n    at incorrectlyUsedAsDecorator (/Users/tomi/Github/apps/corporatorts/node_modules/mobx/lib/mobx.js:2075:5)\n    at Function.object (/Users/tomi/Github/apps/corporatorts/node_modules/mobx/lib/mobx.js:2005:13)\n    at ModelType$$1._this.createNewInstance (/Users/tomi/Github/apps/corporatorts/node_modules/mobx-state-tree/dist/mobx-state-tree.js:3054:44)\n    at createNode$$1 (/Users/tomi/Github/apps/corporatorts/node_modules/mobx-state-tree/dist/mobx-state-tree.js:2003:23)\n    at ModelType$$1.Object.<anonymous>.ModelType$$1.instantiate (/Users/tomi/Github/apps/corporatorts/node_modules/mobx-state-tree/dist/mobx-state-tree.js:3244:16)\n    at ModelType$$1.Object.<anonymous>.ComplexType$$1.create (/Users/tomi/Github/apps/corporatorts/node_modules/mobx-state-tree/dist/mobx-state-tree.js:1301:21)\n    at executeAction (/Users/tomi/Github/apps/corporatorts/node_modules/mobx/lib/mobx.js:915:19)\n    at ModelType$$1.res (/Users/tomi/Github/apps/corporatorts/node_modules/mobx/lib/mobx.js:906:16)\n    at Object.it (/Users/tomi/Github/apps/corporatorts/src/client/modules/form/views/tests/form_view.test.tsx:100:33)\n    at Object.asyncFn (/Users/tomi/Github/apps/corporatorts/node_modules/jest-jasmine2/build/jasmine_async.js:108:37)\n    at resolve (/Users/tomi/Github/apps/corporatorts/node_modules/jest-jasmine2/build/queue_runner.js:56:12)\n    at new Promise (<anonymous>)\n    at mapper (/Users/tomi/Github/apps/corporatorts/node_modules/jest-jasmine2/build/queue_runner.js:43:19)\n    at promise.then (/Users/tomi/Github/apps/corporatorts/node_modules/jest-jasmine2/build/queue_runner.js:87:41)\n    at process._tickCallback (internal/process/next_tick.js:68:7)"
+          ],
+          "fullName": "Form Viewer renders correctly",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "failed",
+          "title": "renders correctly"
+        }
+      ],
+      "sourceMaps": {},
+      "skipped": false,
+      "leaks": false
+    }
+  ],
+  "wasInterrupted": false
 }
