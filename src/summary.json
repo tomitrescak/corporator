@@ -2,12 +2,12 @@
   "numFailedTestSuites": 1,
   "numFailedTests": 1,
   "numPassedTestSuites": 8,
-  "numPassedTests": 15,
+  "numPassedTests": 16,
   "numPendingTestSuites": 0,
   "numPendingTests": 0,
   "numRuntimeErrorTestSuites": 0,
   "numTotalTestSuites": 9,
-  "numTotalTests": 16,
+  "numTotalTests": 17,
   "openHandles": [],
   "snapshot": {
     "added": 0,
@@ -56,7 +56,7 @@
       "testResults": [
         {
           "ancestorTitles": [],
-          "duration": 19,
+          "duration": 31,
           "failureMessages": [],
           "fullName": "check \"ActionsModel\" mock in __mocks__ folder",
           "location": null,
@@ -66,7 +66,7 @@
         },
         {
           "ancestorTitles": [],
-          "duration": 2,
+          "duration": 4,
           "failureMessages": [],
           "fullName": "create manual mocks",
           "location": null,
@@ -90,7 +90,7 @@
           "ancestorTitles": [
             "startActivity"
           ],
-          "duration": 0,
+          "duration": 2,
           "failureMessages": [],
           "fullName": "startActivity launches a new activity, storing information in the database",
           "location": null,
@@ -109,6 +109,58 @@
           "numPassingAsserts": 0,
           "status": "passed",
           "title": "runs all possible actions"
+        }
+      ],
+      "sourceMaps": {},
+      "skipped": false,
+      "leaks": false
+    },
+    {
+      "console": [],
+      "failureMessage": null,
+      "numFailingTests": 0,
+      "numPassingTests": 3,
+      "numPendingTests": 0,
+      "snapshot": {
+        "added": 0,
+        "fileDeleted": false,
+        "matched": 0,
+        "unchecked": 0,
+        "unmatched": 0,
+        "updated": 0,
+        "uncheckedKeys": []
+      },
+      "testFilePath": "/Users/tomi/Github/apps/corporatorts/src/client/modules/form/models/tests/form_model.test.ts",
+      "testResults": [
+        {
+          "ancestorTitles": [],
+          "duration": 4,
+          "failureMessages": [],
+          "fullName": "creates a new model",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "creates a new model"
+        },
+        {
+          "ancestorTitles": [],
+          "duration": 1,
+          "failureMessages": [],
+          "fullName": "sorts form fields when form is created",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "sorts form fields when form is created"
+        },
+        {
+          "ancestorTitles": [],
+          "duration": 15,
+          "failureMessages": [],
+          "fullName": "builds MST",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "builds MST"
         }
       ],
       "sourceMaps": {},
@@ -154,48 +206,6 @@
       "leaks": false
     },
     {
-      "console": [],
-      "failureMessage": null,
-      "numFailingTests": 0,
-      "numPassingTests": 2,
-      "numPendingTests": 0,
-      "snapshot": {
-        "added": 0,
-        "fileDeleted": false,
-        "matched": 0,
-        "unchecked": 0,
-        "unmatched": 0,
-        "updated": 0,
-        "uncheckedKeys": []
-      },
-      "testFilePath": "/Users/tomi/Github/apps/corporatorts/src/client/modules/form/models/tests/form_model.test.ts",
-      "testResults": [
-        {
-          "ancestorTitles": [],
-          "duration": 4,
-          "failureMessages": [],
-          "fullName": "creates a new model",
-          "location": null,
-          "numPassingAsserts": 0,
-          "status": "passed",
-          "title": "creates a new model"
-        },
-        {
-          "ancestorTitles": [],
-          "duration": 2,
-          "failureMessages": [],
-          "fullName": "sorts form fields when form is created",
-          "location": null,
-          "numPassingAsserts": 0,
-          "status": "passed",
-          "title": "sorts form fields when form is created"
-        }
-      ],
-      "sourceMaps": {},
-      "skipped": false,
-      "leaks": false
-    },
-    {
       "console": [
         {
           "message": "[Function]",
@@ -220,7 +230,7 @@
       "testResults": [
         {
           "ancestorTitles": [],
-          "duration": 21,
+          "duration": 25,
           "failureMessages": [],
           "fullName": "should aggregate docs from collection",
           "location": null,
@@ -350,12 +360,55 @@
           "ancestorTitles": [
             "Home"
           ],
-          "duration": 5,
+          "duration": 3,
           "failureMessages": [],
           "fullName": "Home renders correctly",
           "location": null,
           "numPassingAsserts": 0,
           "status": "passed",
+          "title": "renders correctly"
+        }
+      ],
+      "sourceMaps": {},
+      "skipped": false,
+      "leaks": false
+    },
+    {
+      "console": [
+        {
+          "message": "The above error occurred in the <FormView> component:\n    in FormView\n    in div (created by Segment)\n    in Segment\n\nConsider adding an error boundary to your tree to customize error handling behavior.\nVisit https://fb.me/react-error-boundaries to learn more about error boundaries.",
+          "origin": "/Users/tomi/Github/apps/corporatorts/node_modules/react-test-renderer/cjs/react-test-renderer.development.js:5206",
+          "type": "error"
+        }
+      ],
+      "failureMessage": "\u001b[1m\u001b[31m  \u001b[1m● \u001b[1mForm › Viewer › renders correctly\u001b[39m\u001b[22m\n\n    ReferenceError: row is not defined\n\u001b[2m\u001b[22m\n\u001b[2m    \u001b[0m \u001b[90m 21 | \u001b[39m        \u001b[33m<\u001b[39m\u001b[33mFor\u001b[39m each\u001b[33m=\u001b[39m\u001b[32m\"element\"\u001b[39m of\u001b[33m=\u001b[39m{\u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mprops\u001b[33m.\u001b[39mform\u001b[33m.\u001b[39melements} index\u001b[33m=\u001b[39m\u001b[32m\"rowIndex\"\u001b[39m\u001b[33m>\u001b[39m\u001b[0m\u001b[22m\n\u001b[2m    \u001b[0m \u001b[90m 22 | \u001b[39m          \u001b[33m<\u001b[39m\u001b[33mGrid\u001b[39m\u001b[33m.\u001b[39m\u001b[33mRow\u001b[39m key\u001b[33m=\u001b[39m{rowIndex}\u001b[33m>\u001b[39m\u001b[0m\u001b[22m\n\u001b[2m    \u001b[0m\u001b[31m\u001b[1m>\u001b[2m\u001b[39m\u001b[90m 23 | \u001b[39m            \u001b[33m<\u001b[39m\u001b[33mFor\u001b[39m each\u001b[33m=\u001b[39m\u001b[32m\"column\"\u001b[39m of\u001b[33m=\u001b[39m{row\u001b[33m.\u001b[39mcolumns} index\u001b[33m=\u001b[39m\u001b[32m\"columnIndex\"\u001b[39m\u001b[33m>\u001b[39m\u001b[0m\u001b[22m\n\u001b[2m    \u001b[0m \u001b[90m    | \u001b[39m              \u001b[31m\u001b[1m^\u001b[2m\u001b[39m\u001b[0m\u001b[22m\n\u001b[2m    \u001b[0m \u001b[90m 24 | \u001b[39m              \u001b[33m<\u001b[39m\u001b[33mGrid\u001b[39m\u001b[33m.\u001b[39m\u001b[33mColumn\u001b[39m key\u001b[33m=\u001b[39m{columnIndex} width\u001b[33m=\u001b[39m{column\u001b[33m.\u001b[39mwidth}\u001b[33m>\u001b[39m\u001b[0m\u001b[22m\n\u001b[2m    \u001b[0m \u001b[90m 25 | \u001b[39m                {column\u001b[33m.\u001b[39mrenderControl(\u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mprops\u001b[33m.\u001b[39mdata)}\u001b[0m\u001b[22m\n\u001b[2m    \u001b[0m \u001b[90m 26 | \u001b[39m              \u001b[33m<\u001b[39m\u001b[33m/\u001b[39m\u001b[33mGrid\u001b[39m\u001b[33m.\u001b[39m\u001b[33mColumn\u001b[39m\u001b[33m>\u001b[39m\u001b[0m\u001b[22m\n\u001b[2m\u001b[22m\n\u001b[2m      \u001b[2mat React.createElement.props.form.elements.map (\u001b[2msrc/client/modules/form/views/form_view.tsx\u001b[2m:23:15)\u001b[2m\u001b[22m\n\u001b[2m          at Array.map (<anonymous>)\u001b[22m\n\u001b[2m      \u001b[2mat FormView.render (\u001b[2msrc/client/modules/form/views/form_view.tsx\u001b[2m:21:36)\u001b[2m\u001b[22m\n\u001b[2m      \u001b[2mat finishClassComponent (\u001b[2mnode_modules/react-test-renderer/cjs/react-test-renderer.development.js\u001b[2m:3952:33)\u001b[2m\u001b[22m\n\u001b[2m      \u001b[2mat updateClassComponent (\u001b[2mnode_modules/react-test-renderer/cjs/react-test-renderer.development.js\u001b[2m:3920:12)\u001b[2m\u001b[22m\n\u001b[2m      \u001b[2mat beginWork (\u001b[2mnode_modules/react-test-renderer/cjs/react-test-renderer.development.js\u001b[2m:4545:16)\u001b[2m\u001b[22m\n\u001b[2m      \u001b[2mat performUnitOfWork (\u001b[2mnode_modules/react-test-renderer/cjs/react-test-renderer.development.js\u001b[2m:7377:16)\u001b[2m\u001b[22m\n\u001b[2m      \u001b[2mat workLoop (\u001b[2mnode_modules/react-test-renderer/cjs/react-test-renderer.development.js\u001b[2m:7406:26)\u001b[2m\u001b[22m\n\u001b[2m      \u001b[2mat renderRoot (\u001b[2mnode_modules/react-test-renderer/cjs/react-test-renderer.development.js\u001b[2m:7437:9)\u001b[2m\u001b[22m\n\u001b[2m      \u001b[2mat performWorkOnRoot (\u001b[2mnode_modules/react-test-renderer/cjs/react-test-renderer.development.js\u001b[2m:8012:24)\u001b[2m\u001b[22m\n\u001b[2m      \u001b[2mat performWork (\u001b[2mnode_modules/react-test-renderer/cjs/react-test-renderer.development.js\u001b[2m:7933:9)\u001b[2m\u001b[22m\n\u001b[2m      \u001b[2mat performSyncWork (\u001b[2mnode_modules/react-test-renderer/cjs/react-test-renderer.development.js\u001b[2m:7910:5)\u001b[2m\u001b[22m\n\u001b[2m      \u001b[2mat requestWork (\u001b[2mnode_modules/react-test-renderer/cjs/react-test-renderer.development.js\u001b[2m:7810:7)\u001b[2m\u001b[22m\n\u001b[2m      \u001b[2mat scheduleWorkImpl (\u001b[2mnode_modules/react-test-renderer/cjs/react-test-renderer.development.js\u001b[2m:7685:13)\u001b[2m\u001b[22m\n\u001b[2m      \u001b[2mat scheduleWork (\u001b[2mnode_modules/react-test-renderer/cjs/react-test-renderer.development.js\u001b[2m:7645:12)\u001b[2m\u001b[22m\n\u001b[2m      \u001b[2mat scheduleRootUpdate (\u001b[2mnode_modules/react-test-renderer/cjs/react-test-renderer.development.js\u001b[2m:8273:5)\u001b[2m\u001b[22m\n\u001b[2m      \u001b[2mat updateContainerAtExpirationTime (\u001b[2mnode_modules/react-test-renderer/cjs/react-test-renderer.development.js\u001b[2m:8301:12)\u001b[2m\u001b[22m\n\u001b[2m      \u001b[2mat Object.updateContainer (\u001b[2mnode_modules/react-test-renderer/cjs/react-test-renderer.development.js\u001b[2m:8328:14)\u001b[2m\u001b[22m\n\u001b[2m      \u001b[2mat Object.create (\u001b[2mnode_modules/react-test-renderer/cjs/react-test-renderer.development.js\u001b[2m:9009:18)\u001b[2m\u001b[22m\n\u001b[2m      \u001b[2mat Object.it (\u001b[2m\u001b[0m\u001b[36msrc/client/modules/form/views/tests/form_view.test.tsx\u001b[39m\u001b[0m\u001b[2m:62:36)\u001b[2m\u001b[22m\n",
+      "numFailingTests": 1,
+      "numPassingTests": 0,
+      "numPendingTests": 0,
+      "snapshot": {
+        "added": 0,
+        "fileDeleted": false,
+        "matched": 0,
+        "unchecked": 0,
+        "unmatched": 0,
+        "updated": 0,
+        "uncheckedKeys": []
+      },
+      "testFilePath": "/Users/tomi/Github/apps/corporatorts/src/client/modules/form/views/tests/form_view.test.tsx",
+      "testResults": [
+        {
+          "ancestorTitles": [
+            "Form",
+            "Viewer"
+          ],
+          "duration": 32,
+          "failureMessages": [
+            "ReferenceError: row is not defined\n    at React.createElement.props.form.elements.map (/Users/tomi/Github/apps/corporatorts/src/client/modules/form/views/form_view.tsx:23:15)\n    at Array.map (<anonymous>)\n    at FormView.render (/Users/tomi/Github/apps/corporatorts/src/client/modules/form/views/form_view.tsx:21:36)\n    at finishClassComponent (/Users/tomi/Github/apps/corporatorts/node_modules/react-test-renderer/cjs/react-test-renderer.development.js:3952:33)\n    at updateClassComponent (/Users/tomi/Github/apps/corporatorts/node_modules/react-test-renderer/cjs/react-test-renderer.development.js:3920:12)\n    at beginWork (/Users/tomi/Github/apps/corporatorts/node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4545:16)\n    at performUnitOfWork (/Users/tomi/Github/apps/corporatorts/node_modules/react-test-renderer/cjs/react-test-renderer.development.js:7377:16)\n    at workLoop (/Users/tomi/Github/apps/corporatorts/node_modules/react-test-renderer/cjs/react-test-renderer.development.js:7406:26)\n    at renderRoot (/Users/tomi/Github/apps/corporatorts/node_modules/react-test-renderer/cjs/react-test-renderer.development.js:7437:9)\n    at performWorkOnRoot (/Users/tomi/Github/apps/corporatorts/node_modules/react-test-renderer/cjs/react-test-renderer.development.js:8012:24)\n    at performWork (/Users/tomi/Github/apps/corporatorts/node_modules/react-test-renderer/cjs/react-test-renderer.development.js:7933:9)\n    at performSyncWork (/Users/tomi/Github/apps/corporatorts/node_modules/react-test-renderer/cjs/react-test-renderer.development.js:7910:5)\n    at requestWork (/Users/tomi/Github/apps/corporatorts/node_modules/react-test-renderer/cjs/react-test-renderer.development.js:7810:7)\n    at scheduleWorkImpl (/Users/tomi/Github/apps/corporatorts/node_modules/react-test-renderer/cjs/react-test-renderer.development.js:7685:13)\n    at scheduleWork (/Users/tomi/Github/apps/corporatorts/node_modules/react-test-renderer/cjs/react-test-renderer.development.js:7645:12)\n    at scheduleRootUpdate (/Users/tomi/Github/apps/corporatorts/node_modules/react-test-renderer/cjs/react-test-renderer.development.js:8273:5)\n    at updateContainerAtExpirationTime (/Users/tomi/Github/apps/corporatorts/node_modules/react-test-renderer/cjs/react-test-renderer.development.js:8301:12)\n    at Object.updateContainer (/Users/tomi/Github/apps/corporatorts/node_modules/react-test-renderer/cjs/react-test-renderer.development.js:8328:14)\n    at Object.create (/Users/tomi/Github/apps/corporatorts/node_modules/react-test-renderer/cjs/react-test-renderer.development.js:9009:18)\n    at Object.it (/Users/tomi/Github/apps/corporatorts/src/client/modules/form/views/tests/form_view.test.tsx:62:36)\n    at Object.asyncFn (/Users/tomi/Github/apps/corporatorts/node_modules/jest-jasmine2/build/jasmine_async.js:108:37)\n    at resolve (/Users/tomi/Github/apps/corporatorts/node_modules/jest-jasmine2/build/queue_runner.js:56:12)\n    at new Promise (<anonymous>)\n    at mapper (/Users/tomi/Github/apps/corporatorts/node_modules/jest-jasmine2/build/queue_runner.js:43:19)\n    at promise.then (/Users/tomi/Github/apps/corporatorts/node_modules/jest-jasmine2/build/queue_runner.js:87:41)\n    at process._tickCallback (internal/process/next_tick.js:68:7)"
+          ],
+          "fullName": "Form Viewer renders correctly",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "failed",
           "title": "renders correctly"
         }
       ],
@@ -385,49 +438,12 @@
             "Resource",
             "Search"
           ],
-          "duration": 3,
+          "duration": 1,
           "failureMessages": [],
           "fullName": "Resource Search renders correctly",
           "location": null,
           "numPassingAsserts": 0,
           "status": "passed",
-          "title": "renders correctly"
-        }
-      ],
-      "sourceMaps": {},
-      "skipped": false,
-      "leaks": false
-    },
-    {
-      "console": [],
-      "failureMessage": "\u001b[1m\u001b[31m  \u001b[1m● \u001b[1mForm › Viewer › renders correctly\u001b[39m\u001b[22m\n\n    [mobx] Invariant failed: Expected one or two arguments to observable.object. Did you accidentally try to use observable.object as decorator?\n\u001b[2m\u001b[22m\n\u001b[2m    \u001b[0m \u001b[90m  98 | \u001b[39m\u001b[0m\u001b[22m\n\u001b[2m    \u001b[0m \u001b[90m  99 | \u001b[39m        \u001b[90m// creating a tree based on the \"Todo\" type, with initial data:\u001b[39m\u001b[0m\u001b[22m\n\u001b[2m    \u001b[0m\u001b[31m\u001b[1m>\u001b[2m\u001b[39m\u001b[90m 100 | \u001b[39m        \u001b[36mconst\u001b[39m coffeeTodo \u001b[33m=\u001b[39m \u001b[33mTodo\u001b[39m\u001b[33m.\u001b[39mcreate({\u001b[0m\u001b[22m\n\u001b[2m    \u001b[0m \u001b[90m     | \u001b[39m                                \u001b[31m\u001b[1m^\u001b[2m\u001b[39m\u001b[0m\u001b[22m\n\u001b[2m    \u001b[0m \u001b[90m 101 | \u001b[39m          title\u001b[33m:\u001b[39m \u001b[32m'Get coffee'\u001b[39m\u001b[0m\u001b[22m\n\u001b[2m    \u001b[0m \u001b[90m 102 | \u001b[39m        })\u001b[33m;\u001b[39m\u001b[0m\u001b[22m\n\u001b[2m    \u001b[0m \u001b[90m 103 | \u001b[39m\u001b[0m\u001b[22m\n\u001b[2m\u001b[22m\n\u001b[2m      \u001b[2mat invariant (\u001b[2mnode_modules/mobx/lib/mobx.js\u001b[2m:2465:15)\u001b[2m\u001b[22m\n\u001b[2m      \u001b[2mat fail (\u001b[2mnode_modules/mobx/lib/mobx.js\u001b[2m:2460:5)\u001b[2m\u001b[22m\n\u001b[2m      \u001b[2mat incorrectlyUsedAsDecorator (\u001b[2mnode_modules/mobx/lib/mobx.js\u001b[2m:2075:5)\u001b[2m\u001b[22m\n\u001b[2m      \u001b[2mat Function.object (\u001b[2mnode_modules/mobx/lib/mobx.js\u001b[2m:2005:13)\u001b[2m\u001b[22m\n\u001b[2m      \u001b[2mat ModelType$$1._this.createNewInstance (\u001b[2mnode_modules/mobx-state-tree/dist/mobx-state-tree.js\u001b[2m:3054:44)\u001b[2m\u001b[22m\n\u001b[2m      \u001b[2mat createNode$$1 (\u001b[2mnode_modules/mobx-state-tree/dist/mobx-state-tree.js\u001b[2m:2003:23)\u001b[2m\u001b[22m\n\u001b[2m      \u001b[2mat ModelType$$1.Object.<anonymous>.ModelType$$1.instantiate (\u001b[2mnode_modules/mobx-state-tree/dist/mobx-state-tree.js\u001b[2m:3244:16)\u001b[2m\u001b[22m\n\u001b[2m      \u001b[2mat ModelType$$1.Object.<anonymous>.ComplexType$$1.create (\u001b[2mnode_modules/mobx-state-tree/dist/mobx-state-tree.js\u001b[2m:1301:21)\u001b[2m\u001b[22m\n\u001b[2m      \u001b[2mat executeAction (\u001b[2mnode_modules/mobx/lib/mobx.js\u001b[2m:915:19)\u001b[2m\u001b[22m\n\u001b[2m      \u001b[2mat ModelType$$1.res (\u001b[2mnode_modules/mobx/lib/mobx.js\u001b[2m:906:16)\u001b[2m\u001b[22m\n\u001b[2m      \u001b[2mat Object.it (\u001b[2m\u001b[0m\u001b[36msrc/client/modules/form/views/tests/form_view.test.tsx\u001b[39m\u001b[0m\u001b[2m:100:33)\u001b[2m\u001b[22m\n",
-      "numFailingTests": 1,
-      "numPassingTests": 0,
-      "numPendingTests": 0,
-      "snapshot": {
-        "added": 0,
-        "fileDeleted": false,
-        "matched": 0,
-        "unchecked": 0,
-        "unmatched": 0,
-        "updated": 0,
-        "uncheckedKeys": []
-      },
-      "testFilePath": "/Users/tomi/Github/apps/corporatorts/src/client/modules/form/views/tests/form_view.test.tsx",
-      "testResults": [
-        {
-          "ancestorTitles": [
-            "Form",
-            "Viewer"
-          ],
-          "duration": 10,
-          "failureMessages": [
-            "Error: [mobx] Invariant failed: Expected one or two arguments to observable.object. Did you accidentally try to use observable.object as decorator?\n    at invariant (/Users/tomi/Github/apps/corporatorts/node_modules/mobx/lib/mobx.js:2465:15)\n    at fail (/Users/tomi/Github/apps/corporatorts/node_modules/mobx/lib/mobx.js:2460:5)\n    at incorrectlyUsedAsDecorator (/Users/tomi/Github/apps/corporatorts/node_modules/mobx/lib/mobx.js:2075:5)\n    at Function.object (/Users/tomi/Github/apps/corporatorts/node_modules/mobx/lib/mobx.js:2005:13)\n    at ModelType$$1._this.createNewInstance (/Users/tomi/Github/apps/corporatorts/node_modules/mobx-state-tree/dist/mobx-state-tree.js:3054:44)\n    at createNode$$1 (/Users/tomi/Github/apps/corporatorts/node_modules/mobx-state-tree/dist/mobx-state-tree.js:2003:23)\n    at ModelType$$1.Object.<anonymous>.ModelType$$1.instantiate (/Users/tomi/Github/apps/corporatorts/node_modules/mobx-state-tree/dist/mobx-state-tree.js:3244:16)\n    at ModelType$$1.Object.<anonymous>.ComplexType$$1.create (/Users/tomi/Github/apps/corporatorts/node_modules/mobx-state-tree/dist/mobx-state-tree.js:1301:21)\n    at executeAction (/Users/tomi/Github/apps/corporatorts/node_modules/mobx/lib/mobx.js:915:19)\n    at ModelType$$1.res (/Users/tomi/Github/apps/corporatorts/node_modules/mobx/lib/mobx.js:906:16)\n    at Object.it (/Users/tomi/Github/apps/corporatorts/src/client/modules/form/views/tests/form_view.test.tsx:100:33)\n    at Object.asyncFn (/Users/tomi/Github/apps/corporatorts/node_modules/jest-jasmine2/build/jasmine_async.js:108:37)\n    at resolve (/Users/tomi/Github/apps/corporatorts/node_modules/jest-jasmine2/build/queue_runner.js:56:12)\n    at new Promise (<anonymous>)\n    at mapper (/Users/tomi/Github/apps/corporatorts/node_modules/jest-jasmine2/build/queue_runner.js:43:19)\n    at promise.then (/Users/tomi/Github/apps/corporatorts/node_modules/jest-jasmine2/build/queue_runner.js:87:41)\n    at process._tickCallback (internal/process/next_tick.js:68:7)"
-          ],
-          "fullName": "Form Viewer renders correctly",
-          "location": null,
-          "numPassingAsserts": 0,
-          "status": "failed",
           "title": "renders correctly"
         }
       ],

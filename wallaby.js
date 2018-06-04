@@ -2,6 +2,7 @@ module.exports = function(wallaby) {
   return {
     files: [
       'tsconfig.json',
+      'transformer.js',
       'jest.*',
       'test/*.js',
       'src/**/*.+(js|jsx|ts|tsx|json|snap|css|less|sass|scss|jpg|jpeg|gif|png|svg|graphql)',
@@ -20,14 +21,9 @@ module.exports = function(wallaby) {
       initial: 1,
       regular: 1
     },
-    // preprocessors: {
-    //   '**/*.js': file =>
-    //     require('babel-core').transform(file.content, {
-    //       sourceMap: true,
-    //       presets: ['es2015'],
-    //       plugins: ['transform-object-rest-spread']
-    //     })
-    // },
+    preprocessors: {
+      '**/*.tsx': file => require('jsx-controls-loader').loader(file.content)
+    },
     testFramework: 'jest'
   };
 };

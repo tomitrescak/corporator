@@ -70,6 +70,9 @@ export class FormModel {
       .model('Store', mstDefinition)
       .views(() => viewDefinition)
       .actions(self => ({
+        getValue(key: string) {
+          return self[key];
+        },
         setValue(key: string, value: any) {
           self[key] = value;
         }

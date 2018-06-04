@@ -1,7 +1,11 @@
 import * as React from 'react';
-import { DataSet } from '../models/dataset_model';
-import { FormModel } from '../models/form_model';
+
 import { Grid } from 'semantic-ui-react';
+
+import { groupByArray } from 'shared/helpers';
+
+import { DataSet } from '../models/dataset_model';
+import { FormModel, FormControl } from '../models/form_model';
 
 interface Props {
   data: DataSet;
@@ -9,22 +13,42 @@ interface Props {
 }
 
 export class FormView extends React.Component<Props> {
+  lastRow = -1;
+  lastColumn = -1;
+
+  renderColumn(control: FormControl) {
+    if (control.row != this.lastRow) {
+      this.lastRow = control.row;
+      this.lastColumn = 0;
+    }
+    let columns = [];
+
+    // insert missing start column
+    if (control.column > this.lastColumn) {
+      columns.push(<Grid.Column key={this.lastColumn} width={control.column - this.lastColumn} />);
+    }
+
+    columns.push(
+      <Grid.Column key={control.column} width={control.width}>
+        {control.row + ' ' + control.column + ' ' + control.width}
+      </Grid.Column>
+    );
+
+    this.lastColumn = control.column + control.width;
+    return columns;
+  }
+
   render() {
-    let row: FormRowModel;
-    let column: FormColumnModel;
-    let rowIndex: number;
-    let columnIndex: number;
+    this.lastColumn = 0;
+    this.lastRow = 0;
+
+    let row: { key: number; values: FormControl[] };
+    const rows = groupByArray(this.props.form.elements, 'row');
 
     return (
       <Grid>
-        <For each="row" of={this.props.form.rows} index="rowIndex">
-          <Grid.Row key={rowIndex}>
-            <For each="column" of={row.columns} index="columnIndex">
-              <Grid.Column key={columnIndex} width={column.width}>
-                {column.renderControl(this.props.data)}
-              </Grid.Column>
-            </For>
-          </Grid.Row>
+        <For each="row" of={rows}>
+          <Grid.Row key={row.key}>{row.values.map(element => this.renderColumn(element))}</Grid.Row>
         </For>
       </Grid>
     );
