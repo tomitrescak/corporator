@@ -1,14 +1,7 @@
-import { FormValidationDao, FormValidation } from './form_validation_model';
+import { FormValidation } from './form_validation_model';
 import { types, ISimpleType } from 'mobx-state-tree';
 
-export class FormControl {
-  id: string;
-  row: number;
-  column: number;
-  width: number;
-}
-
-function formItemSort(a: FormControl, b: FormControl) {
+function formItemSort(a: Corpix.Collections.FormElementDao, b: Corpix.Collections.FormElementDao) {
   return a.row < b.row
     ? -1
     : a.row > b.row
@@ -34,7 +27,7 @@ export class FormModel {
   id: string;
   name: string;
   description: string;
-  elements: FormControl[];
+  elements: Corpix.Collections.FormElementDao[];
   validations: FormValidation[];
 
   static buildMST(

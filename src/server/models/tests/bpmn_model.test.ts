@@ -1,16 +1,18 @@
-jest.mock('bpmn-moddle', () => {
-  class Moddle {
-    fromXML(xml: string, cb: Function) {
-      cb();
-    }
-  }
-  return {
-    default: Moddle
-  };
-});
+// jest.mock('bpmn-moddle', () => {
+//   class Moddle {
+//     fromXML(xml: string, cb: Function) {
+//       cb();
+//     }
+//   }
+//   return {
+//     default: Moddle
+//   };
+// });
 
 import { create } from '../../../shared/test_data';
 import { BpmnProcess } from '../bpmn_process_model';
+
+// import moddle from 'bpmn-moddle';
 
 const bpmn = `<?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -38,6 +40,16 @@ it('creates a new instance from database', async () => {
   expect(model.generatedDescription).toBeNull();
 
   await model.loadDefinition(bpmn);
+
+  try {
+    const m = require('bpmn-moddle');
+  } catch (e) {
+    console.log(e);
+    console.trace();
+  }
+  // console.log(m.default());
+  // console.log(moddle.loaFromXml());
+  // m.loadFromXml();
 
   // console.log(Object.keys(model.definition));
   console.log(model.definition);

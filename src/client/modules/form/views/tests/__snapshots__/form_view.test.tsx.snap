@@ -1,3 +1,229 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Form Viewer renders correctly 1`] = `null`;
+exports[`Form Viewer renders correctly 1`] = `
+<div
+  className="ui segment ui form"
+>
+  <div>
+    <div>
+      <div
+        style={
+          Object {
+            "backgroundColor": "#fff",
+            "borderColor": "rgba(0, 0, 0, 0.1)",
+            "borderRadius": "0 0 2px 2px",
+            "borderStyle": "solid",
+            "borderWidth": "0 1px 1px",
+            "color": "rgba(0, 0, 0, 0.8)",
+            "display": "flex",
+            "fontFamily": "Helvetica, sans-serif",
+            "height": "26px",
+            "padding": "0 5px",
+            "position": "fixed",
+            "right": "20px",
+            "top": "0px",
+            "zIndex": "65000",
+          }
+        }
+      >
+        <button
+          onClick={[Function]}
+          onMouseOut={[Function]}
+          onMouseOver={[Function]}
+          style={
+            Object {
+              "active": Object {
+                ":hover": Object {
+                  "opacity": 1,
+                },
+                "opacity": 1,
+              },
+              "background": "transparent none center / 16px 16px no-repeat",
+              "backgroundImage": "url(data:image/svg+xml;base64,PHN2ZyBiYXNlUHJvZmlsZT0iYmFzaWMiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDE2IDE2IiBoZWlnaHQ9IjE2IiB3aWR0aD0iMTYiPgogICAgPGcgc3Ryb2tlPSIjMDAwIiBmaWxsPSJub25lIiBzdHJva2Utd2lkdGg9IjEiPgogICAgICAgIDxjaXJjbGUgY3g9IjguNSIgY3k9IjguNSIgcj0iNiIvPgogICAgICAgIDxwYXRoIGQ9Ik04LjUgMTBWNCIvPgogICAgPC9nPgogICAgPGcgc3Ryb2tlPSJub25lIiBmaWxsPSIjMDAwIj4KICAgICAgICA8Y2lyY2xlIGN4PSI4LjUiIGN5PSI4LjUiIHI9IjEiLz4KICAgICAgICA8cGF0aCBkPSJNNy41IDFoMnYxLjVoLTJ6Ii8+CiAgICAgICAgPHBhdGggZD0iTTE0IDEuNmwtLjcuNy4zLjMtLjcuOC43LjcuOC0uNy4zLjMuNy0uN3oiLz4KICAgIDwvZz4KPC9zdmc+Cg==)",
+              "border": "none",
+              "cursor": "pointer",
+              "hover": Object {
+                "opacity": 0.7,
+              },
+              "margin": "0 10px",
+              "opacity": 0.45,
+              "width": "26px",
+            }
+          }
+          title="Visualize component re-renders"
+          type="button"
+        />
+        <button
+          onClick={[Function]}
+          onMouseOut={[Function]}
+          onMouseOver={[Function]}
+          style={
+            Object {
+              "active": Object {
+                ":hover": Object {
+                  "opacity": 1,
+                },
+                "opacity": 1,
+              },
+              "background": "transparent none center / 16px 16px no-repeat",
+              "backgroundImage": "url(data:image/svg+xml;base64,PHN2ZyBiYXNlUHJvZmlsZT0iYmFzaWMiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDE2IDE2IiBoZWlnaHQ9IjE2IiB3aWR0aD0iMTYiPgogICAgPGcgc3Ryb2tlPSIjMDAwIiBmaWxsPSJub25lIiBzdHJva2Utd2lkdGg9IjEiPgogICAgICAgIDxwYXRoIGQ9Ik0yLjUgMi41aDl2MmgtOXoiLz4KICAgICAgICA8cGF0aCBkPSJNNy41IDcuNWg3djJoLTd6Ii8+CiAgICAgICAgPHBhdGggZD0iTTcuNSAxMi41aDd2MmgtN3oiLz4KICAgICAgICA8cGF0aCBkPSJNNC41IDQuNXY5aDMiLz4KICAgICAgICA8cGF0aCBkPSJNNy41IDguNWgtMyIvPgogICAgPC9nPgo8L3N2Zz4K)",
+              "border": "none",
+              "cursor": "pointer",
+              "hover": Object {
+                "opacity": 0.7,
+              },
+              "margin": "0 10px",
+              "opacity": 0.45,
+              "width": "26px",
+            }
+          }
+          title="Select a component and show its dependency tree"
+          type="button"
+        />
+        <button
+          onClick={[Function]}
+          onMouseOut={[Function]}
+          onMouseOver={[Function]}
+          style={
+            Object {
+              "active": Object {
+                ":hover": Object {
+                  "opacity": 1,
+                },
+                "opacity": 1,
+              },
+              "background": "transparent none center / 16px 16px no-repeat",
+              "backgroundImage": "url(data:image/svg+xml;base64,PHN2ZyBiYXNlUHJvZmlsZT0iYmFzaWMiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDE2IDE2IiBoZWlnaHQ9IjE2IiB3aWR0aD0iMTYiPgogICAgPGcgc3Ryb2tlPSIjMDAwIiBmaWxsPSJub25lIiBzdHJva2Utd2lkdGg9IjEiPgogICAgICAgIDxwYXRoIGQ9Ik0xMi41IDMuNWgtOGMtMS4xIDAtMiAuOS0yIDJ2NWMwIDEuMS45IDIgMiAyaDF2Mmw1LTJoMmMxLjEgMCAyLS45IDItMnYtNWMwLTEuMS0uOS0yLTItMnoiLz4KICAgICAgICA8cGF0aCBkPSJNNSA2LjVoNyIvPgogICAgICAgIDxwYXRoIGQ9Ik01IDkuNWg3Ii8+CiAgICA8L2c+Cjwvc3ZnPgo=)",
+              "border": "none",
+              "cursor": "pointer",
+              "hover": Object {
+                "opacity": 0.7,
+              },
+              "margin": "0 10px",
+              "opacity": 0.45,
+              "width": "26px",
+            }
+          }
+          title="Log all MobX state changes and reactions to the browser console (use F12 to show / hide the console). Use Chrome / Chromium for an optimal experience"
+          type="button"
+        />
+      </div>
+    </div>
+    <div />
+  </div>
+  <div
+    className="ui grid"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className="six wide column"
+      >
+        <div
+          className="field"
+        >
+          <label>
+            Mimo
+          </label>
+          <div
+            className="ui labeled input"
+          >
+            <div
+              className="ui label label"
+              onClick={[Function]}
+            >
+              http://
+            </div>
+            <input
+              onChange={[Function]}
+              type="text"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="two wide column"
+      />
+      <div
+        className="six wide column"
+      >
+        <div
+          className="field"
+        >
+          <div
+            className="ui input"
+          >
+            <input
+              onChange={[Function]}
+              type="text"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="row"
+    >
+      <div
+        className="two wide column"
+      />
+      <div
+        className="six wide column"
+      >
+        <div
+          className="field"
+        >
+          <div
+            className="ui input"
+          >
+            <input
+              onChange={[Function]}
+              type="text"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="six wide column"
+      >
+        <div
+          className="field"
+        >
+          <div
+            className="ui input"
+          >
+            <input
+              onChange={[Function]}
+              type="text"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="row"
+    >
+      <div
+        className="two wide column"
+      />
+      <div
+        className="six wide column"
+      >
+        <div
+          className="field"
+        >
+          <div
+            className="ui input"
+          >
+            <input
+              onChange={[Function]}
+              type="text"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

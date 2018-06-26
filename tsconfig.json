@@ -15,6 +15,7 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "strictNullChecks": false,
-    "rootDirs": ["src"]
+    "rootDirs": ["src"],
+    "experimentalDecorators": true
   }
 }
