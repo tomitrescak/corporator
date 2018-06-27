@@ -1,4 +1,11 @@
-const { FuseBox, WebIndexPlugin, ImageBase64Plugin, JSONPlugin } = require('fuse-box');
+const {
+  FuseBox,
+  WebIndexPlugin,
+  ImageBase64Plugin,
+  JSONPlugin,
+  CSSPlugin,
+  CSSResourcePlugin
+} = require('fuse-box');
 const JsxControlsPugin = require('jsx-controls-loader').fuseBoxPlugin;
 
 const { SnapshotPlugin } = require('luis/dist/bridges/jest/snapshot_plugin');
@@ -16,6 +23,7 @@ const fuse = FuseBox.init({
   plugins: [
     WebIndexPlugin({ template: 'index.html', target: 'index.html' }),
     JsxControlsPugin,
+    [CSSResourcePlugin({ inline: true }), CSSPlugin()],
     ImageBase64Plugin(),
     JSONPlugin(),
     SnapshotPlugin(),

@@ -34,7 +34,7 @@ export class FormView extends React.Component<Props> {
         control={formControl}
         controlProps={formElement.controlProps}
         owner={dataSet}
-        name={formElement.source}
+        source={formElement.source}
         label={formElement.label}
       />
     );
@@ -54,7 +54,9 @@ export class FormView extends React.Component<Props> {
         <Form.Field
           key={this.lastColumn}
           width={(control.column - this.lastColumn) as SemanticWIDTHSNUMBER}
-        />
+        >
+          &nbsp;
+        </Form.Field>
       );
     }
 

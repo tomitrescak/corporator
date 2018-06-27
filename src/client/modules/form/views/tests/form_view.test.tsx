@@ -7,8 +7,6 @@ import { create } from 'shared/test_data';
 import { FormView } from '../form_view';
 import { FormModel } from '../../models/form_model';
 
-import DevTools from 'mobx-react-devtools';
-
 describe('Form', () => {
   const descriptors = [
     create.descriptorDao({ name: 'owner.personal.name' }),
@@ -88,7 +86,6 @@ describe('Form', () => {
         // just another notation
         return (
           <Segment className="ui form">
-            <DevTools />
             <FormView form={form} data={dataSet} />
           </Segment>
         );
@@ -96,8 +93,16 @@ describe('Form', () => {
     },
     data => {
       it('renders correctly', () => {
-        // const component = renderer.create(data.component);
-        // expect(component).toMatchSnapshot();
+        const component = renderer.create(data.component);
+        expect(component).toMatchSnapshot();
+      });
+
+      it('changes value and all related formulas', () => {
+        const component = renderer.create(data.component);
+        const root = component.root;
+        const age = root.findByProps({ name: 'owner.personal.age' });
+        age.props.onChange({ target: { value: '40' } });
+        expect(component).toMatchSnapshot();
       });
     }
   );

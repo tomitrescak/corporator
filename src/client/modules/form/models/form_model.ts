@@ -1,6 +1,7 @@
 import { FormValidation } from './form_validation_model';
 import { types, ISimpleType } from 'mobx-state-tree';
 import * as validations from './validation';
+import { DataSet } from './dataset_model';
 
 function formItemSort(a: Corpix.Collections.FormElementDao, b: Corpix.Collections.FormElementDao) {
   return a.row < b.row
@@ -36,7 +37,7 @@ export class FormModel {
   static buildMST(
     descriptors: Corpix.Collections.DataDescriptorDao[],
     dataArray: Array<{ name: string; value: any }>
-  ) {
+  ): DataSet {
     // data initialisation
     const data: any = {};
     for (let element of dataArray) {
@@ -51,8 +52,44 @@ export class FormModel {
 
     // prepare model and views
     const mstDefinition: { [index: string]: any } = {};
-    const viewDefinition: { [index: string]: Function } = {};
+    const viewDefinition = (self: any) => {
+      const view = {
+        isExpression(key: string) {
+          return !!descriptorMap[key].expression;
+        },
+        getValue(key: string) {
+          return self[key];
+        },
+        getStringValue(key: string) {
+          // expressions are evaluated on the fly
+          if (descriptorMap[key].expression) {
+            // @ts-ignore
+            return self[key];
+          }
+          return self[key + '_str'];
+        },
+        getError(key: string) {
+          return self[key + '_error'];
+        }
+      };
 
+      // add expressions views
+      // expression are dynamic formulas evaluated from script
+
+      for (let desc of descriptors) {
+        // expressions do not need state tree entry they are evaluated automatically
+        if (desc.expression) {
+          (view as any).__defineGetter__(desc.name, function() {
+            return eval(desc.expression);
+          });
+        }
+      }
+
+      return view;
+    };
+
+    // add mst nodes for non expression fields
+    // expressions do not need custom nodes and are handled by views
     for (let desc of descriptors) {
       // expressions do not need state tree entry they are evaluated automatically
       if (!desc.expression) {
@@ -61,36 +98,15 @@ export class FormModel {
           : types.maybe(mstTypeFactory(desc.type));
         mstDefinition[desc.name + '_str'] = types.maybe(types.string);
         mstDefinition[desc.name + '_error'] = types.maybe(types.string);
-      } else {
-        viewDefinition.__defineGetter__(desc.name, function() {
-          return eval(desc.expression);
-        });
       }
     }
 
     // add generic method
-    viewDefinition.isExpression = function(key: string) {
-      return !!descriptorMap[key].expression;
-    };
-    viewDefinition.getValue = function(key: string) {
-      return this[key];
-    };
-    viewDefinition.getStringValue = function(key: string) {
-      // expressions are evaluated on the fly
-      if (descriptorMap[key].expression) {
-        // @ts-ignore
-        return this[key];
-      }
-      return this[key + '_str'];
-    };
-    viewDefinition.getError = function(key: string) {
-      return this[key + '_error'];
-    };
 
     // build tree
     const mst = types
       .model('Store', mstDefinition)
-      .views(() => viewDefinition)
+      .views(viewDefinition)
       .actions(self => ({
         parseValue(key: string, value: any) {
           const descriptor = descriptorMap[key];

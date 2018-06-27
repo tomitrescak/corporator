@@ -2,6 +2,8 @@
 // import * as FooTest from './tests/Foo.test';
 // import * as ComponentsTest from './tests/Component.test';
 
+import 'semantic-ui-css/semantic.min.css';
+
 import { renderLuis, setupTestBridge } from 'luis';
 
 const summary = require('./summary.json');
