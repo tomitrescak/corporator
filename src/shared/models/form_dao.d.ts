@@ -11,15 +11,15 @@ declare namespace Corpix.Collections {
     row: number;
     column: number;
     width: number;
-    control: FormControlType;
   }
 
   interface FormControlDao extends FormElementDao {
     source: string;
     label: string;
-    inputLabel: string;
     inline: boolean;
     defaultValue: any;
+    control: FormControlType;
+    controlProps: InputProps | DropdownProps;
   }
 
   interface FormDao {

@@ -63,6 +63,6 @@ it('builds MST', () => {
   });
 
   // check computed fields
-  instance.setValue('height', 10);
+  instance.parseValue('height', 10);
   expect(finalHeight).toEqual(20);
 });

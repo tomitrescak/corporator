@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Form, Input, InputProps } from 'semantic-ui-react';
+import { Form, Input, InputProps, Label } from 'semantic-ui-react';
 import { observer } from 'mobx-react';
 
 import { DataSet } from '../models/dataset_model';
@@ -10,6 +10,7 @@ type FormControlProps = {
   name: string;
   owner: DataSet;
   control: any; // TODO: Find the correct type
+  controlProps: any;
 };
 
 type Props = InputProps & FormControlProps;
@@ -18,13 +19,11 @@ type Props = InputProps & FormControlProps;
 export class FormControl extends React.Component<Props> {
   handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // find value
-    this.props.owner.setValue(this.props.name, e.target.value);
+    this.props.owner.setStringValue(this.props.name, e.target.value);
   };
   render() {
-    const { label, owner, inline, control: Control, name, inputLabel, ...rest } = this.props;
+    const { name, label, owner, inline, control: Control, controlProps } = this.props;
 
-    console.log(label);
-    console.log(inputLabel);
     // remap
     // rest.label = this.props.inputLabel;
 
@@ -33,12 +32,24 @@ export class FormControl extends React.Component<Props> {
         <If condition={label != null}>
           <label>{label}</label>
         </If>
-        <Control
-          {...rest}
-          value={owner.getValue(name)}
-          onChange={this.handleChange}
-          label={inputLabel}
-        />
+        <Choose>
+          <When condition={owner.isExpression(name)}>
+            <div style={{ padding: '.67em 0' }}>{owner.getStringValue(name)}</div>
+          </When>
+          <Otherwise>
+            <Control
+              {...controlProps}
+              value={owner.getStringValue(name)}
+              onChange={this.handleChange}
+            />
+          </Otherwise>
+        </Choose>
+
+        {owner.getError(name) && (
+          <Label pointing color="red">
+            {owner.getError(name)}
+          </Label>
+        )}
       </Form.Field>
     );
   }

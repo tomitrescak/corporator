@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Grid, SemanticWIDTHSNUMBER, Input } from 'semantic-ui-react';
+import { Form, SemanticWIDTHSNUMBER, Input } from 'semantic-ui-react';
 
 import { groupByArray } from 'shared/helpers';
 
@@ -21,21 +21,21 @@ export class FormView extends React.Component<Props> {
     const formElement = control as Corpix.Entities.FormControl;
     let formControl;
 
-    switch (control.control) {
+    switch (formElement.control) {
       case 'input':
         formControl = Input;
         break;
       default:
-        throw new Error('Not implemented: ' + control.control);
+        throw new Error('Not implemented: ' + formElement.control);
     }
 
     return (
       <FormControl
         control={formControl}
+        controlProps={formElement.controlProps}
         owner={dataSet}
         name={formElement.source}
         label={formElement.label}
-        inputLabel={formElement.inputLabel}
       />
     );
   }
@@ -51,7 +51,7 @@ export class FormView extends React.Component<Props> {
     // insert missing start column
     if (control.column > this.lastColumn) {
       columns.push(
-        <Grid.Column
+        <Form.Field
           key={this.lastColumn}
           width={(control.column - this.lastColumn) as SemanticWIDTHSNUMBER}
         />
@@ -59,9 +59,9 @@ export class FormView extends React.Component<Props> {
     }
 
     columns.push(
-      <Grid.Column key={control.column} width={control.width as SemanticWIDTHSNUMBER}>
+      <Form.Field key={control.column} width={control.width as SemanticWIDTHSNUMBER}>
         {this.renderControl(control, this.props.data)}
-      </Grid.Column>
+      </Form.Field>
     );
 
     this.lastColumn = control.column + control.width;
@@ -76,11 +76,13 @@ export class FormView extends React.Component<Props> {
     const rows = groupByArray(this.props.form.elements, 'row');
 
     return (
-      <Grid>
+      <Form>
         <For each="row" of={rows}>
-          <Grid.Row key={row.key}>{row.values.map(element => this.renderColumn(element))}</Grid.Row>
+          <Form.Group key={row.key}>
+            {row.values.map(element => this.renderColumn(element))}
+          </Form.Group>
         </For>
-      </Grid>
+      </Form>
     );
   }
 }

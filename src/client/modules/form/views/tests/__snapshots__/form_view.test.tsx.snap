@@ -111,14 +111,15 @@ exports[`Form Viewer renders correctly 1`] = `
     </div>
     <div />
   </div>
-  <div
-    className="ui grid"
+  <form
+    className="ui form"
+    onSubmit={[Function]}
   >
     <div
-      className="row"
+      className="fields"
     >
       <div
-        className="six wide column"
+        className="sixteen wide field"
       >
         <div
           className="field"
@@ -138,92 +139,82 @@ exports[`Form Viewer renders correctly 1`] = `
             <input
               onChange={[Function]}
               type="text"
-            />
-          </div>
-        </div>
-      </div>
-      <div
-        className="two wide column"
-      />
-      <div
-        className="six wide column"
-      >
-        <div
-          className="field"
-        >
-          <div
-            className="ui input"
-          >
-            <input
-              onChange={[Function]}
-              type="text"
+              value="Tomas"
             />
           </div>
         </div>
       </div>
     </div>
     <div
-      className="row"
+      className="fields"
     >
       <div
-        className="two wide column"
-      />
-      <div
-        className="six wide column"
+        className="eight wide field"
       >
         <div
           className="field"
         >
+          <label>
+            Age
+          </label>
           <div
             className="ui input"
           >
             <input
               onChange={[Function]}
               type="text"
+              value={33}
             />
           </div>
         </div>
       </div>
       <div
-        className="six wide column"
+        className="two wide field"
+      />
+      <div
+        className="three wide field"
       >
         <div
           className="field"
         >
+          <label>
+            Younger
+          </label>
           <div
             className="ui input"
           >
             <input
               onChange={[Function]}
               type="text"
+              value={[Function]}
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="one wide field"
+      />
+      <div
+        className="three wide field"
+      >
+        <div
+          className="field"
+        >
+          <label>
+            Older
+          </label>
+          <div
+            className="ui input"
+          >
+            <input
+              onChange={[Function]}
+              type="text"
+              value={[Function]}
             />
           </div>
         </div>
       </div>
     </div>
-    <div
-      className="row"
-    >
-      <div
-        className="two wide column"
-      />
-      <div
-        className="six wide column"
-      >
-        <div
-          className="field"
-        >
-          <div
-            className="ui input"
-          >
-            <input
-              onChange={[Function]}
-              type="text"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  </form>
 </div>
 `;
