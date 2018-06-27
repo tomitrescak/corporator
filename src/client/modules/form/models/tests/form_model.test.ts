@@ -4,8 +4,6 @@ import { create } from 'shared/test_data';
 import { types } from 'mobx-state-tree';
 import { autorun } from 'mobx';
 
-const m = types.model({});
-
 it('creates a new model', () => {
   var model = new FormModel({
     id: '1',
@@ -49,17 +47,17 @@ it('builds MST', () => {
     create.descriptorDao({
       name: 'taller',
       type: 'int',
-      expression: `self['height'] + 10`
+      expression: `this['height'] + 10`
     })
   ];
   const instance = FormModel.buildMST(descriptors, [{ name: 'height', value: 6 }]);
 
   expect(instance.height).toEqual(6);
-  expect(instance.taller(instance)).toEqual(16);
+  expect(instance.taller).toEqual(16);
 
   let finalHeight = 0;
   autorun(() => {
-    finalHeight = instance.taller(instance);
+    finalHeight = instance.taller;
   });
 
   // check computed fields

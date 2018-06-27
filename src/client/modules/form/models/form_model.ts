@@ -61,6 +61,10 @@ export class FormModel {
           : types.maybe(mstTypeFactory(desc.type));
         mstDefinition[desc.name + '_str'] = types.maybe(types.string);
         mstDefinition[desc.name + '_error'] = types.maybe(types.string);
+      } else {
+        viewDefinition.__defineGetter__(desc.name, function() {
+          return eval(desc.expression);
+        });
       }
     }
 
@@ -75,7 +79,7 @@ export class FormModel {
       // expressions are evaluated on the fly
       if (descriptorMap[key].expression) {
         // @ts-ignore
-        return eval(descriptorMap[key].expression);
+        return this[key];
       }
       return this[key + '_str'];
     };
