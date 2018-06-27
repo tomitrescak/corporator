@@ -4,7 +4,7 @@ declare namespace Corpix.Collections {
     params: Array<string | number>;
   }
 
-  type FormControlType = 'input';
+  type FormControlType = 'input' | 'select' | 'checkbox' | 'radio' | 'textarea';
 
   interface FormElementDao {
     id: string;
@@ -18,6 +18,9 @@ declare namespace Corpix.Collections {
     label: string;
     inline: boolean;
     defaultValue: any;
+    list: string;
+    filterSource: string;
+    filterColumn: string;
     control: FormControlType;
     controlProps: InputProps | DropdownProps;
   }

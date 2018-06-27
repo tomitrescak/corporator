@@ -92,6 +92,7 @@ describe('Form', () => {
       }
     },
     data => {
+      it('is true', () => {});
       it('renders correctly', () => {
         const component = renderer.create(data.component);
         expect(component).toMatchSnapshot();

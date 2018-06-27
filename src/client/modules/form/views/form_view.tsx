@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Form, SemanticWIDTHSNUMBER, Input } from 'semantic-ui-react';
+import { Form, SemanticWIDTHSNUMBER, Input, Select } from 'semantic-ui-react';
 
 import { groupByArray } from 'shared/helpers';
 
@@ -19,25 +19,8 @@ export class FormView extends React.Component<Props> {
 
   renderControl(control: Corpix.Entities.FormElement, dataSet: DataSet) {
     const formElement = control as Corpix.Entities.FormControl;
-    let formControl;
 
-    switch (formElement.control) {
-      case 'input':
-        formControl = Input;
-        break;
-      default:
-        throw new Error('Not implemented: ' + formElement.control);
-    }
-
-    return (
-      <FormControl
-        control={formControl}
-        controlProps={formElement.controlProps}
-        owner={dataSet}
-        source={formElement.source}
-        label={formElement.label}
-      />
-    );
+    return <FormControl formControl={formElement} owner={dataSet} />;
   }
 
   renderColumn(control: Corpix.Entities.FormElement) {

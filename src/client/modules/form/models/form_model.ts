@@ -36,7 +36,8 @@ export class FormModel {
 
   static buildMST(
     descriptors: Corpix.Collections.DataDescriptorDao[],
-    dataArray: Array<{ name: string; value: any }>
+    dataArray: Array<{ name: string; value: any }>,
+    lists?: Array<{ name: string; items: any[] }>
   ): DataSet {
     // data initialisation
     const data: any = {};
@@ -81,6 +82,14 @@ export class FormModel {
         if (desc.expression) {
           (view as any).__defineGetter__(desc.name, function() {
             return eval(desc.expression);
+          });
+        }
+      }
+
+      if (lists) {
+        for (let list of lists) {
+          (view as any).__defineGetter__(list.name, function() {
+            return list.items;
           });
         }
       }
