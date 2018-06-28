@@ -6,7 +6,10 @@ import { groupByArray } from 'shared/helpers';
 
 import { DataSet } from '../models/dataset_model';
 import { FormModel } from '../models/form_model';
-import { FormControl } from './input_view';
+import { InputView } from './input_view';
+import { SelectView } from './select_view';
+import { CheckboxView } from './checkbox_view';
+import { FormulaView } from './formula_view';
 
 interface Props {
   data: DataSet;
@@ -20,7 +23,20 @@ export class FormView extends React.Component<Props> {
   renderControl(control: Corpix.Entities.FormElement, dataSet: DataSet) {
     const formElement = control as Corpix.Entities.FormControl;
 
-    return <FormControl formControl={formElement} owner={dataSet} />;
+    if (dataSet.isExpression(formElement.source)) {
+      return <FormulaView owner={dataSet} formControl={formElement} />;
+    }
+
+    switch (formElement.control) {
+      case 'input':
+        return <InputView owner={dataSet} formControl={formElement} />;
+      case 'select':
+        return <SelectView owner={dataSet} formControl={formElement} />;
+      case 'checkbox':
+        return <CheckboxView owner={dataSet} formControl={formElement} />;
+    }
+
+    throw new Error('Not implemented: ' + formElement.control);
   }
 
   renderColumn(control: Corpix.Entities.FormElement) {

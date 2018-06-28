@@ -3,7 +3,9 @@ module.exports = function(wallaby) {
     files: [
       'tsconfig.json',
       'transformer.js',
-      'jest.*',
+      'jest.setup.js',
+      'jest.config.js',
+      //'jest.*',
       'test/*.js',
       'src/**/*.+(js|jsx|ts|tsx|json|snap|css|less|sass|scss|jpg|jpeg|gif|png|svg|graphql)',
       '!src/**/tests/*.+(ts|tsx)',
@@ -17,12 +19,12 @@ module.exports = function(wallaby) {
       type: 'node',
       runner: 'node'
     },
-    workers: {
-      initial: 1,
-      regular: 1
-    },
+    // workers: {
+    //   initial: 1,
+    //   regular: 1
+    // },
     preprocessors: {
-      '**/*.tsx': file => require('jsx-controls-loader').loader(file.content)
+      'src/**/*.tsx': file => require('jsx-controls-loader').loader(file.content)
     },
     testFramework: 'jest'
   };

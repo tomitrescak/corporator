@@ -23,8 +23,12 @@ function mstTypeFactory(type: string): ISimpleType<any> {
       return types.number;
     case 'float':
       return types.number;
+    case 'boolean':
+      return types.boolean;
+    case undefined:
+      return types.string;
   }
-  return types.string;
+  throw new Error('MST Type not supported: ' + type);
 }
 
 export class FormModel {

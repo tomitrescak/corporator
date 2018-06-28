@@ -14,30 +14,25 @@ type FormControlProps = {
 type Props = FormControlProps;
 
 @observer
-export class InputView extends React.Component<Props> {
+export class FormulaView extends React.Component<Props> {
   handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // find value
     this.props.owner.setStringValue(this.props.formControl.source, e.target.value);
   };
 
   render() {
-    const { formControl, owner } = this.props;
-    const { label, source, controlProps, inline } = formControl;
+    const {
+      formControl: { source, label },
+      owner
+    } = this.props;
 
     return (
-      <Form.Field inline={inline}>
+      <Form.Field>
         <If condition={label != null}>
           <label htmlFor={name}>{label}</label>
         </If>
 
-        <Input
-          {...controlProps}
-          name={source}
-          value={owner.getStringValue(source)}
-          onChange={this.handleInputChange}
-        />
-
-        <ErrorView owner={owner} source={source} />
+        <div style={{ padding: '.67em 0' }}>{owner.getStringValue(source)}</div>
       </Form.Field>
     );
   }

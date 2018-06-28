@@ -80,13 +80,17 @@ describe('Form', () => {
         expect(component).toMatchSnapshot();
       });
 
-      // it('changes value and all related formulas', () => {
-      //   const component = renderer.create(data.component);
-      //   const root = component.root;
-      //   const age = root.findByProps({ name: 'owner.personal.age' });
-      //   age.props.onChange({ target: { value: '40' } });
-      //   expect(component).toMatchSnapshot();
-      // });
+      it('changes value and all related formulas', () => {
+        const component = renderer.create(data.component);
+        const root = component.root;
+        const country = root.findByProps({ name: 'country' });
+        country.props.onChange(null, { value: 'AU' });
+
+        const city = root.findByProps({ name: 'city' });
+        city.props.onChange(null, { value: 'SYD' });
+
+        expect(component).toMatchSnapshot();
+      });
     }
   );
 });

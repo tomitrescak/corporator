@@ -14,15 +14,15 @@ type FormControlProps = {
 type Props = FormControlProps;
 
 @observer
-export class InputView extends React.Component<Props> {
-  handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+export class SelectView extends React.Component<Props> {
+  handleSelectChange = (e: React.ChangeEvent<HTMLInputElement>, control: HTMLSelectElement) => {
     // find value
-    this.props.owner.setStringValue(this.props.formControl.source, e.target.value);
+    this.props.owner.setStringValue(this.props.formControl.source, control.value);
   };
 
   render() {
     const { formControl, owner } = this.props;
-    const { label, source, controlProps, inline } = formControl;
+    const { label, source, controlProps, inline, list, filterSource, filterColumn } = formControl;
 
     return (
       <Form.Field inline={inline}>
@@ -30,11 +30,19 @@ export class InputView extends React.Component<Props> {
           <label htmlFor={name}>{label}</label>
         </If>
 
-        <Input
+        <Dropdown
           {...controlProps}
+          options={
+            filterSource
+              ? owner
+                  .getValue(list)
+                  .filter((v: any) => v[filterColumn] === owner.getValue(filterSource))
+              : owner.getValue(list)
+          }
           name={source}
+          selection={true}
           value={owner.getStringValue(source)}
-          onChange={this.handleInputChange}
+          onChange={this.handleSelectChange}
         />
 
         <ErrorView owner={owner} source={source} />

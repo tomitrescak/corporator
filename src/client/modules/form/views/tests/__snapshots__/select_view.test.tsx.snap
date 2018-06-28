@@ -1,5 +1,181 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Form Select changes value and all related formulas 1`] = `
+<div
+  className="ui segment ui form"
+>
+  <form
+    className="ui form"
+    onSubmit={[Function]}
+  >
+    <div
+      className="fields"
+    >
+      <div
+        className="eight wide field"
+      >
+        <div
+          className="field"
+        >
+          <label
+            htmlFor="nodejs"
+          >
+            Country
+          </label>
+          <div
+            aria-expanded={false}
+            className="ui selection dropdown"
+            name="country"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onMouseDown={[Function]}
+            role="listbox"
+            tabIndex={0}
+          >
+            <div
+              aria-live="polite"
+              className="text"
+              role="alert"
+            >
+              Australia
+            </div>
+            <i
+              aria-hidden="true"
+              className="dropdown icon"
+              onClick={[Function]}
+            />
+            <div
+              className="menu transition"
+            >
+              <div
+                aria-checked={true}
+                aria-selected={true}
+                className="active selected item"
+                onClick={[Function]}
+                role="option"
+                style={
+                  Object {
+                    "pointerEvents": "all",
+                  }
+                }
+              >
+                <span
+                  className="text"
+                >
+                  Australia
+                </span>
+              </div>
+              <div
+                aria-checked={false}
+                aria-selected={false}
+                className="item"
+                onClick={[Function]}
+                role="option"
+                style={
+                  Object {
+                    "pointerEvents": "all",
+                  }
+                }
+              >
+                <span
+                  className="text"
+                >
+                  Slovakia
+                </span>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      <div
+        className="eight wide field"
+      >
+        <div
+          className="field"
+        >
+          <label
+            htmlFor="nodejs"
+          >
+            City
+          </label>
+          <div
+            aria-expanded={false}
+            className="ui selection dropdown"
+            name="city"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onMouseDown={[Function]}
+            role="listbox"
+            tabIndex={0}
+          >
+            <div
+              aria-live="polite"
+              className="text"
+              role="alert"
+            >
+              Sydney
+            </div>
+            <i
+              aria-hidden="true"
+              className="dropdown icon"
+              onClick={[Function]}
+            />
+            <div
+              className="menu transition"
+            >
+              <div
+                aria-checked={true}
+                aria-selected={true}
+                className="active selected item"
+                country="AU"
+                onClick={[Function]}
+                role="option"
+                style={
+                  Object {
+                    "pointerEvents": "all",
+                  }
+                }
+              >
+                <span
+                  className="text"
+                >
+                  Sydney
+                </span>
+              </div>
+              <div
+                aria-checked={false}
+                aria-selected={false}
+                className="item"
+                country="AU"
+                onClick={[Function]}
+                role="option"
+                style={
+                  Object {
+                    "pointerEvents": "all",
+                  }
+                }
+              >
+                <span
+                  className="text"
+                >
+                  Melbourne
+                </span>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+`;
+
 exports[`Form Select renders correctly 1`] = `
 <div
   className="ui segment ui form"

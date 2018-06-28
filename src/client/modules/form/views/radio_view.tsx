@@ -14,29 +14,27 @@ type FormControlProps = {
 type Props = FormControlProps;
 
 @observer
-export class InputView extends React.Component<Props> {
-  handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+export class RadioView extends React.Component<Props> {
+  handleToggleChange = (_e: React.ChangeEvent<HTMLInputElement>, control: HTMLInputElement) => {
     // find value
-    this.props.owner.setStringValue(this.props.formControl.source, e.target.value);
+    this.props.owner.parseValue(this.props.formControl.source, control.checked);
   };
 
   render() {
-    const { formControl, owner } = this.props;
-    const { label, source, controlProps, inline } = formControl;
+    const {
+      formControl: { source, controlProps, label },
+      owner
+    } = this.props;
 
     return (
-      <Form.Field inline={inline}>
-        <If condition={label != null}>
-          <label htmlFor={name}>{label}</label>
-        </If>
-
-        <Input
+      <Form.Field>
+        <Checkbox
           {...controlProps}
           name={source}
-          value={owner.getStringValue(source)}
-          onChange={this.handleInputChange}
+          label={label}
+          checked={owner.getValue(source)}
+          onChange={this.handleToggleChange}
         />
-
         <ErrorView owner={owner} source={source} />
       </Form.Field>
     );
