@@ -27,13 +27,13 @@ export class FormulaView extends React.Component<Props> {
     } = this.props;
 
     return (
-      <Form.Field>
+      <>
         <If condition={label != null}>
           <label htmlFor={name}>{label}</label>
         </If>
 
         <div style={{ padding: '.67em 0' }}>{owner.getStringValue(source)}</div>
-      </Form.Field>
+      </>
     );
   }
 }

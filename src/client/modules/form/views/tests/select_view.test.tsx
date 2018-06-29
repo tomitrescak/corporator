@@ -59,6 +59,9 @@ describe('Form', () => {
                 list: 'cities',
                 filterSource: 'country',
                 filterColumn: 'country',
+                controlProps: {
+                  search: true
+                },
                 source: 'city',
                 label: 'City'
               }

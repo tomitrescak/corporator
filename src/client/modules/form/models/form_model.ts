@@ -1,6 +1,8 @@
-import { FormValidation } from './form_validation_model';
-import { types, ISimpleType } from 'mobx-state-tree';
 import * as validations from './validation';
+
+import { types, ISimpleType } from 'mobx-state-tree';
+
+import { FormValidation } from './form_validation_model';
 import { DataSet } from './dataset_model';
 
 function formItemSort(a: Corpix.Collections.FormElementDao, b: Corpix.Collections.FormElementDao) {
@@ -31,6 +33,12 @@ function mstTypeFactory(type: string): ISimpleType<any> {
   throw new Error('MST Type not supported: ' + type);
 }
 
+export interface ListValue {
+  [index: string]: string;
+  text: string;
+  value: string;
+}
+
 export class FormModel {
   id: string;
   name: string;
@@ -59,15 +67,24 @@ export class FormModel {
     const mstDefinition: { [index: string]: any } = {};
     const viewDefinition = (self: any) => {
       const view = {
+        getDescriptor(key: string) {
+          if (!descriptorMap[key]) {
+            throw new Error('Descriptor does not exist: ' + key)
+          }
+          return descriptorMap[key];
+        },
         isExpression(key: string) {
-          return !!descriptorMap[key].expression;
+          return !!this.getDescriptor(key).expression;
         },
         getValue(key: string) {
           return self[key];
         },
+        getList(key: string): ListValue[] {
+          return self[key];
+        },
         getStringValue(key: string) {
           // expressions are evaluated on the fly
-          if (descriptorMap[key].expression) {
+          if (this.getDescriptor(key).expression) {
             // @ts-ignore
             return self[key];
           }

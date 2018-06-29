@@ -25,7 +25,7 @@ export class InputView extends React.Component<Props> {
     const { label, source, controlProps, inline } = formControl;
 
     return (
-      <Form.Field inline={inline}>
+      <>
         <If condition={label != null}>
           <label htmlFor={name}>{label}</label>
         </If>
@@ -38,7 +38,7 @@ export class InputView extends React.Component<Props> {
         />
 
         <ErrorView owner={owner} source={source} />
-      </Form.Field>
+      </>
     );
   }
 }

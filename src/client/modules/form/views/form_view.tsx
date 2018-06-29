@@ -10,6 +10,7 @@ import { InputView } from './input_view';
 import { SelectView } from './select_view';
 import { CheckboxView } from './checkbox_view';
 import { FormulaView } from './formula_view';
+import { RadioView } from './radio_view';
 
 interface Props {
   data: DataSet;
@@ -34,6 +35,8 @@ export class FormView extends React.Component<Props> {
         return <SelectView owner={dataSet} formControl={formElement} />;
       case 'checkbox':
         return <CheckboxView owner={dataSet} formControl={formElement} />;
+      case 'radio':
+        return <RadioView owner={dataSet} formControl={formElement} />;
     }
 
     throw new Error('Not implemented: ' + formElement.control);

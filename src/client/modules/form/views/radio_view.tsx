@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import { Form, Input, InputProps, Label, Dropdown, Checkbox } from 'semantic-ui-react';
+import { Radio } from 'semantic-ui-react';
 import { observer } from 'mobx-react';
+import styled from 'styled-components';
 
 import { DataSet } from '../models/dataset_model';
-import { ErrorView } from './error_view';
 
 type FormControlProps = {
   formControl: Corpix.Entities.FormControl;
@@ -13,30 +13,43 @@ type FormControlProps = {
 
 type Props = FormControlProps;
 
+const FormRadio = styled(Radio)`
+  margin-right: 12px;
+  margin-bottom: 6px;
+`
+
 @observer
 export class RadioView extends React.Component<Props> {
   handleToggleChange = (_e: React.ChangeEvent<HTMLInputElement>, control: HTMLInputElement) => {
     // find value
-    this.props.owner.parseValue(this.props.formControl.source, control.checked);
+    this.props.owner.parseValue(this.props.formControl.source, control.value);
   };
 
   render() {
     const {
-      formControl: { source, controlProps, label },
+      formControl: { source, controlProps, list, inline, label },
       owner
     } = this.props;
+    const radioValues = owner.getList(list);
 
-    return (
-      <Form.Field>
-        <Checkbox
-          {...controlProps}
-          name={source}
-          label={label}
-          checked={owner.getValue(source)}
-          onChange={this.handleToggleChange}
-        />
-        <ErrorView owner={owner} source={source} />
-      </Form.Field>
-    );
+    return <>
+      <If condition={label != null}>
+        <label htmlFor={name}>{label}</label>
+      </If>
+      {radioValues.map((item, i) => (
+        <React.Fragment key={item.value}>
+          <FormRadio
+            {...controlProps}
+            name={source}
+            label={item.text}
+            value={item.value}
+            checked={owner.getValue(source) == item.value}
+            onChange={this.handleToggleChange}
+          />
+          <If condition={inline}><br /></If>
+        </React.Fragment>))
+      }
+    </>
+
   }
 }

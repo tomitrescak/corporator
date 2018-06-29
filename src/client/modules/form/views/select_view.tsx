@@ -25,7 +25,7 @@ export class SelectView extends React.Component<Props> {
     const { label, source, controlProps, inline, list, filterSource, filterColumn } = formControl;
 
     return (
-      <Form.Field inline={inline}>
+      <>
         <If condition={label != null}>
           <label htmlFor={name}>{label}</label>
         </If>
@@ -35,9 +35,9 @@ export class SelectView extends React.Component<Props> {
           options={
             filterSource
               ? owner
-                  .getValue(list)
+                  .getList(list)
                   .filter((v: any) => v[filterColumn] === owner.getValue(filterSource))
-              : owner.getValue(list)
+              : owner.getList(list)
           }
           name={source}
           selection={true}
@@ -46,7 +46,7 @@ export class SelectView extends React.Component<Props> {
         />
 
         <ErrorView owner={owner} source={source} />
-      </Form.Field>
+      </>
     );
   }
 }
