@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import { Form, Input, InputProps, Label, Dropdown, Checkbox } from 'semantic-ui-react';
+import { Input } from 'semantic-ui-react';
 import { observer } from 'mobx-react';
 
-import { DataSet } from '../models/dataset_model';
 import { ErrorView } from './error_view';
+import { DataSet } from '../models/form_model';
 
 type FormControlProps = {
   formControl: Corpix.Entities.FormControl;
@@ -22,7 +22,7 @@ export class InputView extends React.Component<Props> {
 
   render() {
     const { formControl, owner } = this.props;
-    const { label, source, controlProps, inline } = formControl;
+    const { label, source, controlProps } = formControl;
 
     return (
       <>

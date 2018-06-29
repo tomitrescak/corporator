@@ -4,7 +4,7 @@ declare namespace Corpix.Collections {
     params: Array<string | number>;
   }
 
-  type FormControlType = 'input' | 'select' | 'checkbox' | 'radio' | 'textarea';
+  type FormControlType = 'input' | 'select' | 'checkbox' | 'radio' | 'textarea' | 'repeater' | 'delete';
 
   interface FormElementDao {
     id: string;

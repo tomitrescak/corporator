@@ -3,7 +3,17 @@ import * as validations from './validation';
 import { types, ISimpleType } from 'mobx-state-tree';
 
 import { FormValidation } from './form_validation_model';
-import { DataSet } from './dataset_model';
+import { ListValue } from "./form_model";
+
+export interface DataSet {
+  getList(name: string): ListValue[];
+  getValue(name: string): any;
+  parseValue(name: string, value: any): void;
+  getError(name: string): any;
+  getStringValue(name: string): any;
+  setStringValue(name: string, value: any): void;
+  isExpression(key: string): boolean;
+}
 
 function formItemSort(a: Corpix.Collections.FormElementDao, b: Corpix.Collections.FormElementDao) {
   return a.row < b.row

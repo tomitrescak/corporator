@@ -4,7 +4,8 @@ import { Radio } from 'semantic-ui-react';
 import { observer } from 'mobx-react';
 import styled from 'styled-components';
 
-import { DataSet } from '../models/dataset_model';
+import { DataSet } from '../models/form_model';
+
 
 type FormControlProps = {
   formControl: Corpix.Entities.FormControl;
@@ -36,7 +37,7 @@ export class RadioView extends React.Component<Props> {
       <If condition={label != null}>
         <label htmlFor={name}>{label}</label>
       </If>
-      {radioValues.map((item, i) => (
+      {radioValues.map((item) => (
         <React.Fragment key={item.value}>
           <FormRadio
             {...controlProps}

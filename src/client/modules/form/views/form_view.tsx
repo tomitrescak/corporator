@@ -1,11 +1,11 @@
 import * as React from 'react';
 
-import { Form, SemanticWIDTHSNUMBER, Input, Select } from 'semantic-ui-react';
+import { Form, SemanticWIDTHSNUMBER, Button } from 'semantic-ui-react';
+import { IObservableArray } from 'mobx';
 
 import { groupByArray } from 'shared/helpers';
 
-import { DataSet } from '../models/dataset_model';
-import { FormModel } from '../models/form_model';
+import { FormModel, DataSet } from '../models/form_model';
 import { InputView } from './input_view';
 import { SelectView } from './select_view';
 import { CheckboxView } from './checkbox_view';
@@ -15,6 +15,7 @@ import { RadioView } from './radio_view';
 interface Props {
   data: DataSet;
   form: FormModel;
+  parent?: IObservableArray;
 }
 
 export class FormView extends React.Component<Props> {
@@ -37,6 +38,8 @@ export class FormView extends React.Component<Props> {
         return <CheckboxView owner={dataSet} formControl={formElement} />;
       case 'radio':
         return <RadioView owner={dataSet} formControl={formElement} />;
+      case 'delete':
+        return <Button icon="trash" color="red" onClick={null} />;
     }
 
     throw new Error('Not implemented: ' + formElement.control);

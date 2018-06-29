@@ -1,28 +1,26 @@
 import * as React from 'react';
 
-import { Form, Input, InputProps, Label, Dropdown, Checkbox } from 'semantic-ui-react';
+import { Dropdown } from 'semantic-ui-react';
 import { observer } from 'mobx-react';
 
-import { DataSet } from '../models/dataset_model';
 import { ErrorView } from './error_view';
+import { DataSet } from '../models/form_model';
 
-type FormControlProps = {
+type Props = {
   formControl: Corpix.Entities.FormControl;
   owner: DataSet;
 };
 
-type Props = FormControlProps;
-
 @observer
 export class SelectView extends React.Component<Props> {
-  handleSelectChange = (e: React.ChangeEvent<HTMLInputElement>, control: HTMLSelectElement) => {
+  handleSelectChange = (_e: React.ChangeEvent<HTMLInputElement>, control: HTMLSelectElement) => {
     // find value
     this.props.owner.setStringValue(this.props.formControl.source, control.value);
   };
 
   render() {
     const { formControl, owner } = this.props;
-    const { label, source, controlProps, inline, list, filterSource, filterColumn } = formControl;
+    const { label, source, controlProps, list, filterSource, filterColumn } = formControl;
 
     return (
       <>
