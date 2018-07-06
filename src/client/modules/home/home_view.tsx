@@ -1,13 +1,19 @@
 import * as React from 'react';
 
-import { MainLayout } from '../core/main_layout';
 import { Grid } from 'semantic-ui-react';
-import { NotificationListView } from '../notifications/views/notification_list';
-import { ProcessListView } from '../process/views/process_list_view';
+import { MainLayout } from '../core/main_layout';
 import { PagerView } from '../core/pager_view';
 import { SortView } from '../core/sort_view';
+import { NotificationListView } from '../notifications/views/notification_list';
+import { ProcessListView } from '../process/views/process_list_view';
 
-export const HomeLayout = () => (
+declare global {
+  interface PageProps {
+    path?: string;
+  }
+}
+
+export const HomeLayout: React.SFC<PageProps> = () => (
   <MainLayout>
     <HomeView />
   </MainLayout>

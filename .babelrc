@@ -1,4 +1,13 @@
 {
-  //"plugins": ["jsx-control-statements"],
-  //"presets": ["react-app"]
+  "presets": ["next/babel", "@zeit/next-typescript/babel"],
+  "plugins": [
+    [
+      "styled-components",
+      {
+        "ssr": true,
+        "displayName": true,
+        "preprocess": false
+      }
+    ]
+  ]
 }
