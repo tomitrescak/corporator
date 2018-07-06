@@ -4,18 +4,17 @@ exports[`Form Select changes value and all related formulas 1`] = `
 <div
   className="ui segment ui form"
 >
-  <form
+  <div
     className="ui form"
-    onSubmit={[Function]}
   >
     <div
       className="fields"
     >
       <div
-        className="eight wide field"
+        className="inline field"
       >
         <label
-          htmlFor="nodejs"
+          htmlFor="country"
         >
           Country
         </label>
@@ -90,7 +89,7 @@ exports[`Form Select changes value and all related formulas 1`] = `
         className="eight wide field"
       >
         <label
-          htmlFor="nodejs"
+          htmlFor="city"
         >
           City
         </label>
@@ -178,7 +177,7 @@ exports[`Form Select changes value and all related formulas 1`] = `
         
       </div>
     </div>
-  </form>
+  </div>
 </div>
 `;
 
@@ -186,18 +185,17 @@ exports[`Form Select renders correctly 1`] = `
 <div
   className="ui segment ui form"
 >
-  <form
+  <div
     className="ui form"
-    onSubmit={[Function]}
   >
     <div
       className="fields"
     >
       <div
-        className="eight wide field"
+        className="inline field"
       >
         <label
-          htmlFor="nodejs"
+          htmlFor="country"
         >
           Country
         </label>
@@ -271,7 +269,7 @@ exports[`Form Select renders correctly 1`] = `
         className="eight wide field"
       >
         <label
-          htmlFor="nodejs"
+          htmlFor="city"
         >
           City
         </label>
@@ -358,6 +356,6 @@ exports[`Form Select renders correctly 1`] = `
         </div>
       </div>
     </div>
-  </form>
+  </div>
 </div>
 `;

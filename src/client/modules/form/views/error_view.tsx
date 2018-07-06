@@ -1,7 +1,9 @@
 import * as React from 'react';
+
 import { observer } from 'mobx-react';
-import { DataSet } from '../models/dataset_model';
 import { Label } from 'semantic-ui-react';
+
+import { DataSet } from '../models/form_model';
 
 type ErrorProps = {
   owner: DataSet;

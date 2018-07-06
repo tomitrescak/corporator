@@ -4,26 +4,26 @@ import * as renderer from 'react-test-renderer';
 import { Segment } from 'semantic-ui-react';
 
 import { create } from 'shared/test_data';
-import { FormView } from '../form_view';
 import { FormModel } from '../../models/form_model';
+import { FormView } from '../form_view';
 
 describe('Form', () => {
   const descriptors = [
-    create.descriptorDao({ name: 'owner.personal.name' }),
-    create.descriptorDao({ name: 'owner.personal.age', type: 'float' }),
-    create.descriptorDao({
+    create.descriptor({ name: 'owner.personal.name' }),
+    create.descriptor({ name: 'owner.personal.age', type: 'float' }),
+    create.descriptor({
       name: 'younger',
       type: 'int',
       expression: `this['owner.personal.age'] - 10`
     }),
-    create.descriptorDao({
+    create.descriptor({
       name: 'older',
       type: 'int',
       expression: `this['owner.personal.age'] + 10`
     })
   ];
 
-  const data = [
+  const controlData = [
     { name: 'owner.personal.name', value: 'Tomas' },
     {
       name: 'owner.personal.age',
@@ -31,7 +31,7 @@ describe('Form', () => {
     }
   ];
 
-  const dataSet = FormModel.buildMST(descriptors, data);
+  const dataSet = FormModel.buildMstModel(descriptors, controlData);
 
   storyOf(
     'Viewer',
@@ -59,7 +59,8 @@ describe('Form', () => {
                 width: 7,
                 control: 'input',
                 source: 'owner.personal.age',
-                label: 'Age'
+                label: 'Age: ',
+                inline: true
               },
               {
                 id: '3',
@@ -92,11 +93,11 @@ describe('Form', () => {
       }
     },
     data => {
-      it('is true', () => {});
       it('renders correctly', () => {
         const component = renderer.create(data.component);
         expect(component).toMatchSnapshot();
       });
+
 
       it('changes value and all related formulas', () => {
         const component = renderer.create(data.component);

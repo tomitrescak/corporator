@@ -41,18 +41,18 @@ it('creates a new instance from database', async () => {
 
   await model.loadDefinition(bpmn);
 
-  try {
-    const m = require('bpmn-moddle');
-  } catch (e) {
-    console.log(e);
-    console.trace();
-  }
-  // console.log(m.default());
-  // console.log(moddle.loaFromXml());
-  // m.loadFromXml();
+  // try {
+  //   const m = require('bpmn-moddle');
+  // } catch (e) {
+  //   console.log(e);
+  //   console.trace();
+  // }
+  // // console.log(m.default());
+  // // console.log(moddle.loaFromXml());
+  // // m.loadFromXml();
 
-  // console.log(Object.keys(model.definition));
-  console.log(model.definition);
-  // expect(model.definition).not.toBeUndefined();
-  // expect(model.definition).not.toBeNull();
+  // // console.log(Object.keys(model.definition));
+  // console.log(model.definition);
+  // // expect(model.definition).not.toBeUndefined();
+  // // expect(model.definition).not.toBeNull();
 });

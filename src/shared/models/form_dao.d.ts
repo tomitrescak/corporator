@@ -4,7 +4,14 @@ declare namespace Corpix.Collections {
     params: Array<string | number>;
   }
 
-  type FormControlType = 'input' | 'select' | 'checkbox' | 'radio' | 'textarea' | 'repeater' | 'delete';
+  type FormControlType =
+    | 'input'
+    | 'select'
+    | 'checkbox'
+    | 'radio'
+    | 'textarea'
+    | 'repeater'
+    | 'deleteRow';
 
   interface FormElementDao {
     id: string;
@@ -23,6 +30,8 @@ declare namespace Corpix.Collections {
     filterColumn: string;
     control: FormControlType;
     controlProps: InputProps | DropdownProps;
+    vertical?: boolean;
+    elements?: FormControlDao[];
   }
 
   interface FormDao {

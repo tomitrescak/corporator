@@ -4,16 +4,16 @@ import * as renderer from 'react-test-renderer';
 import { Segment } from 'semantic-ui-react';
 
 import { create } from 'shared/test_data';
-import { FormView } from '../form_view';
 import { FormModel } from '../../models/form_model';
+import { FormView } from '../form_view';
 
 describe('Form', () => {
   const descriptors = [
-    create.descriptorDao({ name: 'country' }),
-    create.descriptorDao({ name: 'city' })
+    create.descriptor({ name: 'country' }),
+    create.descriptor({ name: 'city' })
   ];
 
-  const data = [{ name: 'country', value: 'SK' }, { name: 'city', value: 'KE' }];
+  const controlData = [{ name: 'country', value: 'SK' }, { name: 'city', value: 'KE' }];
 
   const lists = [
     {
@@ -31,7 +31,7 @@ describe('Form', () => {
     }
   ];
 
-  const dataSet = FormModel.buildMST(descriptors, data, lists);
+  const dataSet = FormModel.buildMstModel(descriptors, controlData, lists);
 
   storyOf(
     'Select',
@@ -48,7 +48,8 @@ describe('Form', () => {
                 list: 'countries',
                 control: 'select',
                 label: 'Country',
-                source: 'country'
+                source: 'country',
+                inline: true
               },
               {
                 id: '2',

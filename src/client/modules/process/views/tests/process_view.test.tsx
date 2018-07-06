@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { ProcessView } from '../process_view';
-import { MainLayout, ProcessLayout, ProcessVersionsLayout } from '../../../core/main_layout';
+import { ProcessLayout, ProcessVersionsLayout } from '../../../core/main_layout';
 import { ProcessVersions } from '../process_versions_view';
+import { ProcessView } from '../process_view';
 
 describe('Process', () => {
   storyOf(
@@ -18,7 +18,9 @@ describe('Process', () => {
       }
     },
     () => {
-      it('renders correctly', () => {});
+      it('renders correctly', () => {
+        /**/
+      });
     }
   );
 
@@ -35,7 +37,9 @@ describe('Process', () => {
       }
     },
     () => {
-      it('renders correctly', () => {});
+      it('renders correctly', () => {
+        /**/
+      });
     }
   );
 
@@ -52,7 +56,9 @@ describe('Process', () => {
       }
     },
     () => {
-      it('renders correctly', () => {});
+      it('renders correctly', () => {
+        /**/
+      });
     }
   );
 });

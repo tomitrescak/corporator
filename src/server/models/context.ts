@@ -1,24 +1,17 @@
-import { BpmnProcessesModel } from './bpmn_processes_model';
+import { MongoConnector } from 'apollo-connector-mongodb';
 import { ActionsModel } from './actions_model';
 import { ActivitiesModel } from './activities_model';
-import { UsersModel } from './users_model';
+import { BpmnProcessesModel } from './bpmn_processes_model';
 import { UserModel } from './user_model';
-import { MongoConnector } from 'apollo-connector-mongodb';
-
-import { Dictionary } from 'typescript-collections';
+import { UsersModel } from './users_model';
 
 declare global {
   namespace Corpix.Server { export type Context = ServerContext; }
 }
 
-export class ServerContext {
-  BpmnProcess: BpmnProcessesModel;
-  Actions: ActionsModel;
-  Activities: ActivitiesModel;
-  Users: UsersModel;
-  User: UserModel;
-  conn: MongoConnector;
+const g = global as LocalGlobal;
 
+export class ServerContext {
   static async connect() {
     const MongodbMemoryServer = require('mongodb-memory-server');
 
@@ -32,11 +25,10 @@ export class ServerContext {
       }
     });
 
-    // module.exports = function() {
-    global.__MONGO_DB_NAME__ = MONGO_DB_NAME;
-    global.__MONGO_URI__ = await mongod.getConnectionString();
+    g.__MONGO_DB_NAME__ = MONGO_DB_NAME;
+    g.__MONGO_URI__ = await mongod.getConnectionString();
 
-    let connector = new MongoConnector(global.__MONGO_URI__, global.__MONGO_DB_NAME__);
+    let connector = new MongoConnector(g.__MONGO_URI__, g.__MONGO_DB_NAME__);
     await connector.connect();
     return new ServerContext(connector);
   }
@@ -44,6 +36,13 @@ export class ServerContext {
   static async disconnect(context: ServerContext) {
     return context.conn.dispose();
   }
+
+  BpmnProcess: BpmnProcessesModel;
+  Actions: ActionsModel;
+  Activities: ActivitiesModel;
+  Users: UsersModel;
+  User: UserModel;
+  conn: MongoConnector;
 
   constructor(conn: MongoConnector) {
     this.conn = conn;

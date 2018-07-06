@@ -1,18 +1,18 @@
 import * as React from 'react';
 import {
+  Button,
+  Grid,
   Header,
   Icon,
-  Grid,
-  Segment,
   List,
-  Button,
   ListProps,
+  Segment,
   TextArea,
   TextAreaProps
 } from 'semantic-ui-react';
 
-import * as Diagram from './PatentApplicationHighLevel.png';
 import styled, { StyledComponentClass } from 'styled-components';
+import * as Diagram from './PatentApplicationHighLevel.png';
 
 const LogList: StyledComponentClass<ListProps, {}> = styled(List)`
   &&&&& .header {
@@ -33,12 +33,12 @@ interface Props {
   running: boolean;
 }
 
-const Roles: React.SFC<Props> = ({ running }) => (
+const Roles: React.SFC<Props> = () => (
   <>
     <Header inverted attached as="h5" icon="users" content="Roles" dividing />
     <Segment attached="bottom">
       <List>
-        <List.Item as="a" icon="user" content="Dean &middot; Simi Simivov" />
+        <List.Item as="a" icon="user" content="Dean &middot; Tomas Newman" />
         <List.Item as="a" icon="user" content="Travel Team &middot; Andrew Bold" />
       </List>
     </Segment>
@@ -152,7 +152,7 @@ export const ProcessView: React.SFC<Props> = ({ running }) => (
                 </List.Item>
                 <List.Item as="a">
                   <Icon name="check" />
-                  Approved by Ange Arthur &middot; 3 hours ago &middot; All details are correct
+                  Approved by Angela Arthur &middot; 3 hours ago &middot; All details are correct
                 </List.Item>
               </List>
             </Segment>

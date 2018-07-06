@@ -1,11 +1,10 @@
-import { FormModel } from '../form_model';
-import { create } from 'shared/test_data';
-
-import { types } from 'mobx-state-tree';
 import { autorun } from 'mobx';
 
+import { create } from 'shared/test_data';
+import { FormModel } from '../form_model';
+
 it('creates a new model', () => {
-  var model = new FormModel({
+  let model = new FormModel({
     id: '1',
     description: 'Desc',
     elements: [],
@@ -21,7 +20,7 @@ it('creates a new model', () => {
 });
 
 it('sorts form fields when form is created', () => {
-  var model = new FormModel(
+  let model = new FormModel(
     create.formDao({
       elements: [
         { id: '6', row: 3, column: 2, width: 6 },
@@ -42,22 +41,22 @@ it('sorts form fields when form is created', () => {
 
 it('builds MST', () => {
   const descriptors = [
-    create.descriptorDao({ name: 'age', type: 'int' }),
-    create.descriptorDao({ name: 'height', type: 'int', defaultValue: 5 }),
-    create.descriptorDao({
+    create.descriptor({ name: 'age', type: 'int' }),
+    create.descriptor({ name: 'height', type: 'int', defaultValue: 5 }),
+    create.descriptor({
       name: 'taller',
       type: 'int',
       expression: `this['height'] + 10`
     })
   ];
-  const instance = FormModel.buildMST(descriptors, [{ name: 'height', value: 6 }]);
+  const instance = FormModel.buildMstModel(descriptors, [{ name: 'height', value: 6 }]);
 
-  expect(instance.height).toEqual(6);
-  expect(instance.taller).toEqual(16);
+  expect(instance.getValue('height')).toEqual(6);
+  expect(instance.getValue('taller')).toEqual(16);
 
   let finalHeight = 0;
   autorun(() => {
-    finalHeight = instance.taller;
+    finalHeight = instance.getValue('taller');
   });
 
   // check computed fields

@@ -13,5 +13,7 @@ export interface ListItemsProvider {
 }
 
 export class DataProvider {
-  public value(id: string) {}
+  public value(_id: string) {
+    /**/
+  }
 }

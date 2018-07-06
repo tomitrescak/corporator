@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import { Dropdown } from 'semantic-ui-react';
 import { observer } from 'mobx-react';
+import { Dropdown } from 'semantic-ui-react';
 
-import { ErrorView } from './error_view';
 import { DataSet } from '../models/form_model';
+import { ErrorView } from './error_view';
 
 type Props = {
   formControl: Corpix.Entities.FormControl;
@@ -20,14 +20,10 @@ export class SelectView extends React.Component<Props> {
 
   render() {
     const { formControl, owner } = this.props;
-    const { label, source, controlProps, list, filterSource, filterColumn } = formControl;
+    const { source, controlProps, list, filterSource, filterColumn } = formControl;
 
     return (
       <>
-        <If condition={label != null}>
-          <label htmlFor={name}>{label}</label>
-        </If>
-
         <Dropdown
           {...controlProps}
           options={

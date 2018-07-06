@@ -4,20 +4,35 @@ import * as renderer from 'react-test-renderer';
 import { Segment } from 'semantic-ui-react';
 
 import { create } from 'shared/test_data';
-import { FormView } from '../form_view';
 import { FormModel } from '../../models/form_model';
+import { FormView } from '../form_view';
 
 describe('Form', () => {
   const descriptors = [
-    create.descriptorDao({ name: 'agree', type: 'boolean' }),
-    create.descriptorDao({ name: 'disagree', type: 'boolean' })
+    create.descriptor({
+      name: 'countries',
+      type: 'object',
+      isArray: true,
+      descriptors: [
+        create.descriptor({ name: 'name', type: 'string' }),
+        create.descriptor({ name: 'capital', type: 'string' })
+      ]
+    })
   ];
 
-  const data = [{ name: 'agree', value: true }, { name: 'disagree', value: false }];
-  const dataSet = FormModel.buildMST(descriptors, data);
+  const data = [
+    {
+      name: 'countries',
+      value: [
+        [{ name: 'name', value: 'Slovakia' }, { name: 'capital', value: 'Bratislava' }],
+        [{ name: 'name', value: 'Australia' }, { name: 'capital', value: 'Canberra' }]
+      ]
+    }
+  ];
+  const dataSet = FormModel.buildMstModel(descriptors, data);
 
   storyOf(
-    'Table',
+    'Repeater',
     {
       get component() {
         const form = new FormModel(
@@ -27,22 +42,29 @@ describe('Form', () => {
                 id: '1',
                 row: 0,
                 column: 0,
-                width: 8,
-                control: 'checkbox',
-                label: 'Agree With Terms and Conditions',
-                source: 'agree'
-              },
-              {
-                id: '2',
-                row: 1,
-                column: 0,
-                width: 8,
-                control: 'checkbox',
-                controlProps: {
-                  toggle: true
-                },
-                label: 'Disagree With Terms and Conditions',
-                source: 'disagree'
+                width: 16,
+                control: 'repeater',
+                source: 'countries',
+                elements: [
+                  {
+                    id: '2',
+                    row: 0,
+                    column: 0,
+                    width: 8,
+                    control: 'input',
+                    label: 'Name',
+                    source: 'name'
+                  },
+                  {
+                    id: '3',
+                    row: 0,
+                    column: 8,
+                    width: 8,
+                    control: 'input',
+                    label: 'Capital',
+                    source: 'capital'
+                  }
+                ]
               }
             ]
           })

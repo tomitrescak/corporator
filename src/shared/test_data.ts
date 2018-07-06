@@ -25,25 +25,25 @@ const defaultAccess: Corpix.Collections.AccessDao = {
   execute: null
 };
 
-const defaultRole: Corpix.Collections.RoleDao = {
-  id: 'default',
-  name: 'Role',
-  description: 'Role description'
-};
+// const defaultRole: Corpix.Collections.RoleDao = {
+//   id: 'default',
+//   name: 'Role',
+//   description: 'Role description'
+// };
 
-const defaultOrganisation: Corpix.Collections.OrganisationDao = {
-  id: 'default',
-  name: 'Organisation',
-  description: 'Organisation description'
-};
+// const defaultOrganisation: Corpix.Collections.OrganisationDao = {
+//   id: 'default',
+//   name: 'Organisation',
+//   description: 'Organisation description'
+// };
 
-const defaultAccessCondition: Corpix.Collections.AccessConditionDao = {
-  organisationId: defaultOrganisation.id,
-  roleId: defaultRole.id,
-  userId: defaultUser.id,
-  precondition: null,
-  postcondition: null
-};
+// const defaultAccessCondition: Corpix.Collections.AccessConditionDao = {
+//   organisationId: defaultOrganisation.id,
+//   roleId: defaultRole.id,
+//   userId: defaultUser.id,
+//   precondition: null,
+//   postcondition: null
+// };
 
 const defaultBpmnProcess: Corpix.Collections.BpmnProcessDao = {
   id: 'bpmn',
@@ -76,7 +76,19 @@ const defaultData: Corpix.Collections.DataDao = {
   value: null
 };
 
-const defaultDescriptor: Corpix.Collections.DataDescriptorDao = {
+const defaultDescriptorDao: Corpix.Collections.DataDescriptorDao = {
+  id: '1',
+  name: null,
+  description: 'Description',
+  expression: null,
+  type: 'string',
+  isArray: false,
+  defaultValue: null,
+  validators: null,
+  access: null
+};
+
+const defaultDescriptor: Corpix.Entities.DataDescriptor= {
   id: '1',
   name: null,
   description: 'Description',
@@ -99,11 +111,16 @@ export const create = {
     return { ...defaultForm, ...form };
   },
   dataDao(data: Partial<Corpix.Collections.DataDao> = {}): Corpix.Collections.DataDao {
-    return { ...defaultData, ...data };
+    return { ...defaultData, ...data }; 
   },
   descriptorDao(
     data: Partial<Corpix.Collections.DataDescriptorDao> = {}
   ): Corpix.Collections.DataDescriptorDao {
+    return { ...defaultDescriptorDao, ...data };
+  },
+  descriptor(
+    data: Partial<Corpix.Entities.DataDescriptor> = {}
+  ): Corpix.Entities.DataDescriptor {
     return { ...defaultDescriptor, ...data };
   },
   bpmnProcessDao(

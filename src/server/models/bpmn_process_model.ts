@@ -1,10 +1,6 @@
 // import BpmnModdle from 'bpmn-moddle';
 import { Access } from './accesses_model';
 
-class BpmnModdle {}
-
-var moddle = new BpmnModdle();
-
 export enum ProcessStatus {
   Draft = 'draft',
   Proposal = 'proposal',
@@ -22,15 +18,15 @@ export class BpmnProcess {
 
   constructor(processModelDao: Corpix.Collections.BpmnProcessDao) {
     this.access = new Access(processModelDao.access);
-    this.definition = this.generatedDescription = processModelDao.generatedDescription; //;
+    this.definition = this.generatedDescription = processModelDao.generatedDescription;
     this.version = processModelDao.version;
     this.status = processModelDao.status;
     this.roles = processModelDao.roles;
     this.actionCount = processModelDao.actionCount;
   }
 
-  async loadDefinition(bpmn: string) {
-    return new Promise((resolve, reject) => {
+  async loadDefinition(_bpmn: string) {
+    return new Promise((resolve, _reject) => {
       // moddle.fromXML(bpmn, (error, def) => {
       //   if (error) {
       //     reject(error);

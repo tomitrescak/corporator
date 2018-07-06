@@ -1,26 +1,37 @@
 import * as React from 'react';
 
-import { Form, SemanticWIDTHSNUMBER, Button } from 'semantic-ui-react';
-import { IObservableArray } from 'mobx';
+import { Button, Form, SemanticWIDTHSNUMBER } from 'semantic-ui-react';
 
-import { groupByArray } from 'shared/helpers';
+import { groupByArray } from '../../../../shared/helpers';
 
-import { FormModel, DataSet } from '../models/form_model';
-import { InputView } from './input_view';
-import { SelectView } from './select_view';
+import { DataSet } from '../models/form_model';
 import { CheckboxView } from './checkbox_view';
 import { FormulaView } from './formula_view';
+import { InputView } from './input_view';
 import { RadioView } from './radio_view';
+import { RepeaterView } from './repeater_view';
+import { SelectView } from './select_view';
+
+interface IFieldOwner {
+  elements?: Corpix.Entities.FormElement[];
+}
 
 interface Props {
   data: DataSet;
-  form: FormModel;
-  parent?: IObservableArray;
+  form: IFieldOwner;
+  owner?: DataSet;
+  ownerKey?: string;
+  index?: number;
 }
 
 export class FormView extends React.Component<Props> {
   lastRow = -1;
   lastColumn = -1;
+  showLabel = !this.props.owner || this.props.index === 0;
+
+  deleteRow = () => {
+    this.props.owner.removeRow(this.props.ownerKey, 1);
+  };
 
   renderControl(control: Corpix.Entities.FormElement, dataSet: DataSet) {
     const formElement = control as Corpix.Entities.FormControl;
@@ -38,20 +49,27 @@ export class FormView extends React.Component<Props> {
         return <CheckboxView owner={dataSet} formControl={formElement} />;
       case 'radio':
         return <RadioView owner={dataSet} formControl={formElement} />;
-      case 'delete':
-        return <Button icon="trash" color="red" onClick={null} />;
+      case 'repeater':
+        return <RepeaterView owner={dataSet} formControl={formElement} />;
+      case 'deleteRow':
+        return <Button icon="trash" color="red" onClick={this.deleteRow} />;
     }
 
     throw new Error('Not implemented: ' + formElement.control);
   }
 
   renderColumn(control: Corpix.Entities.FormElement) {
-    if (control.row != this.lastRow) {
+    if (control.row !== this.lastRow) {
       this.lastRow = control.row;
       this.lastColumn = 0;
     }
     // we initialise all columns and add missing ones in between
     let columns = [];
+    const formControl = control as Corpix.Entities.FormControl;
+
+    if (formControl.control === 'deleteRow') {
+      formControl.label = '\xA0';
+    }
 
     // insert missing start column
     if (control.column > this.lastColumn) {
@@ -66,7 +84,17 @@ export class FormView extends React.Component<Props> {
     }
 
     columns.push(
-      <Form.Field key={control.column} width={control.width as SemanticWIDTHSNUMBER}>
+      <Form.Field
+        key={control.column}
+        width={formControl.inline ? undefined : (control.width as SemanticWIDTHSNUMBER)}
+        inline={formControl.inline}
+      >
+        {this.showLabel &&
+          formControl.label &&
+          formControl.control !== 'checkbox' &&
+          formControl.label !== 'radio' && (
+            <label htmlFor={formControl.source}>{formControl.label}</label>
+          )}
         {this.renderControl(control, this.props.data)}
       </Form.Field>
     );
@@ -83,13 +111,13 @@ export class FormView extends React.Component<Props> {
     const rows = groupByArray(this.props.form.elements, 'row');
 
     return (
-      <Form>
+      <div className="ui form">
         <For each="row" of={rows}>
           <Form.Group key={row.key}>
             {row.values.map(element => this.renderColumn(element))}
           </Form.Group>
         </For>
-      </Form>
+      </div>
     );
   }
 }

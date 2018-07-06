@@ -38,7 +38,7 @@ function isFloat(n: string) {
 
 const positiveFloatReg = /^(\+)?\d*\.?\d+$/;
 function isPositiveFloat(n: string) {
-  return floatReg.test(n);
+  return positiveFloatReg.test(n);
 }
 
 const nonZeroFloatReg = /^(\+)?[1-9]\d*\.?\d+$/;

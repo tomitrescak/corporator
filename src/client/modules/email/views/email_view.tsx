@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Form, Button } from 'semantic-ui-react';
+import { Button, Form } from 'semantic-ui-react';
 
 const options = [
   { key: 'm', text: 'Male', value: 'male' },
@@ -9,10 +9,10 @@ const options = [
 class FormExampleSubcomponentControl extends React.Component {
   state = {};
 
-  handleChange = (e, { value }) => this.setState({ value });
+  handleChange = (_e: React.ChangeEvent<HTMLInputElement>, { value }: HTMLInputElement) =>
+    this.setState({ value });
 
   render() {
-    const { value } = this.state;
     return (
       <Form>
         <Form.Group widths="equal">
@@ -30,9 +30,13 @@ class FormExampleSubcomponentControl extends React.Component {
   }
 }
 
-export const EmailView = () => (
+interface Props {
+  receiver: string;
+}
+
+export const EmailView: React.SFC<Props> = ({ receiver }) => (
   <>
-    <p>Dear Simi</p>
+    <p>Dear {receiver}</p>
     <p>
       Please review following form for "International Travel to London" from "Tomas Trescak" and
       kindly approve or reject it

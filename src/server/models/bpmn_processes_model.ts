@@ -5,9 +5,9 @@ export class BpmnProcessesModel extends MongoEntity<Corpix.Collections.BpmnProce
     super(connector, 'BpmnProcesses');
   }
 
-  startActivity(context: Corpix.Server.Context, id: string) {
-    // check access
-    // launch activity -> store new fileds in the database
-    // execute as many actions as possible
-  }
+  // startActivity(_context: Corpix.Server.Context, _id: string) {
+  //   // check access
+  //   // launch activity -> store new fields in the database
+  //   // execute as many actions as possible
+  // }
 }

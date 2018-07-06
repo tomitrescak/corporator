@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import { Form, Checkbox } from 'semantic-ui-react';
 import { observer } from 'mobx-react';
+import { Checkbox, Form } from 'semantic-ui-react';
 
-import { ErrorView } from './error_view';
 import { DataSet } from '../models/form_model';
+import { ErrorView } from './error_view';
 
 type Props = {
   formControl: Corpix.Entities.FormControl;

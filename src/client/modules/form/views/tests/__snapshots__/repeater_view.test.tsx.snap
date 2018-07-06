@@ -1,0 +1,112 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Form Repeater renders correctly 1`] = `
+<div
+  className="ui segment ui form"
+>
+  <div
+    className="ui form"
+  >
+    <div
+      className="fields"
+    >
+      <div
+        className="sixteen wide field"
+      >
+        <div
+          className="ui form"
+        >
+          <div
+            className="fields"
+          >
+            <div
+              className="eight wide field"
+            >
+              <label
+                htmlFor="name"
+              >
+                Name
+              </label>
+              <div
+                className="ui input"
+              >
+                <input
+                  name="name"
+                  onChange={[Function]}
+                  type="text"
+                  value="Slovakia"
+                />
+              </div>
+            </div>
+            <div
+              className="eight wide field"
+            >
+              <label
+                htmlFor="capital"
+              >
+                Capital
+              </label>
+              <div
+                className="ui input"
+              >
+                <input
+                  name="capital"
+                  onChange={[Function]}
+                  type="text"
+                  value="Bratislava"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="ui form"
+        >
+          <div
+            className="fields"
+          >
+            <div
+              className="eight wide field"
+            >
+              <label
+                htmlFor="name"
+              >
+                Name
+              </label>
+              <div
+                className="ui input"
+              >
+                <input
+                  name="name"
+                  onChange={[Function]}
+                  type="text"
+                  value="Australia"
+                />
+              </div>
+            </div>
+            <div
+              className="eight wide field"
+            >
+              <label
+                htmlFor="capital"
+              >
+                Capital
+              </label>
+              <div
+                className="ui input"
+              >
+                <input
+                  name="capital"
+                  onChange={[Function]}
+                  type="text"
+                  value="Canberra"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

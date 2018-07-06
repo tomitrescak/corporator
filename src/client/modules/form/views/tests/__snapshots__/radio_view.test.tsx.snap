@@ -4,16 +4,20 @@ exports[`Form Radio changes values 1`] = `
 <div
   className="ui segment ui form"
 >
-  <form
+  <div
     className="ui form"
-    onSubmit={[Function]}
   >
     <div
       className="fields"
     >
       <div
-        className="sixteen wide field"
+        className="inline field"
       >
+        <label
+          htmlFor="religion"
+        >
+          Religions
+        </label>
         <label
           htmlFor="nodejs"
         >
@@ -88,6 +92,11 @@ exports[`Form Radio changes values 1`] = `
         className="sixteen wide field"
       >
         <label
+          htmlFor="lined_religion"
+        >
+          Religions
+        </label>
+        <label
           htmlFor="nodejs"
         >
           Religions
@@ -157,7 +166,7 @@ exports[`Form Radio changes values 1`] = `
         <br />
       </div>
     </div>
-  </form>
+  </div>
 </div>
 `;
 
@@ -165,16 +174,20 @@ exports[`Form Radio renders correctly 1`] = `
 <div
   className="ui segment ui form"
 >
-  <form
+  <div
     className="ui form"
-    onSubmit={[Function]}
   >
     <div
       className="fields"
     >
       <div
-        className="sixteen wide field"
+        className="inline field"
       >
+        <label
+          htmlFor="religion"
+        >
+          Religions
+        </label>
         <label
           htmlFor="nodejs"
         >
@@ -249,6 +262,11 @@ exports[`Form Radio renders correctly 1`] = `
         className="sixteen wide field"
       >
         <label
+          htmlFor="lined_religion"
+        >
+          Religions
+        </label>
+        <label
           htmlFor="nodejs"
         >
           Religions
@@ -318,6 +336,6 @@ exports[`Form Radio renders correctly 1`] = `
         <br />
       </div>
     </div>
-  </form>
+  </div>
 </div>
 `;

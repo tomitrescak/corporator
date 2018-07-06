@@ -4,17 +4,17 @@ import * as renderer from 'react-test-renderer';
 import { Segment } from 'semantic-ui-react';
 
 import { create } from 'shared/test_data';
-import { FormView } from '../form_view';
 import { FormModel } from '../../models/form_model';
+import { FormView } from '../form_view';
 
 describe('Form', () => {
   const descriptors = [
-    create.descriptorDao({ name: 'agree', type: 'boolean' }),
-    create.descriptorDao({ name: 'disagree', type: 'boolean' })
+    create.descriptor({ name: 'agree', type: 'boolean' }),
+    create.descriptor({ name: 'disagree', type: 'boolean' })
   ];
 
-  const data = [{ name: 'agree', value: true }, { name: 'disagree', value: false }];
-  const dataSet = FormModel.buildMST(descriptors, data);
+  const controlData = [{ name: 'agree', value: true }, { name: 'disagree', value: false }];
+  const dataSet = FormModel.buildMstModel(descriptors, controlData);
 
   storyOf(
     'Checkbox',

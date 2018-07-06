@@ -4,13 +4,13 @@ import * as renderer from 'react-test-renderer';
 import { Segment } from 'semantic-ui-react';
 
 import { create } from 'shared/test_data';
-import { FormView } from '../form_view';
 import { FormModel } from '../../models/form_model';
+import { FormView } from '../form_view';
 
 describe('Form', () => {
   const descriptors = [
-    create.descriptorDao({ name: 'religion', type: 'string' }),
-    create.descriptorDao({ name: 'lined_religion', type: 'string' })
+    create.descriptor({ name: 'religion', type: 'string' }),
+    create.descriptor({ name: 'lined_religion', type: 'string' })
   ];
 
   const lists = [
@@ -20,8 +20,8 @@ describe('Form', () => {
     }
   ];
 
-  const data = [{ name: 'religion', value: 'JE' }, { name: 'lined_religion', value: 'CH' }];
-  const dataSet = FormModel.buildMST(descriptors, data, lists);
+  const controlData = [{ name: 'religion', value: 'JE' }, { name: 'lined_religion', value: 'CH' }];
+  const dataSet = FormModel.buildMstModel(descriptors, controlData, lists);
 
   storyOf(
     'Radio',
@@ -38,7 +38,8 @@ describe('Form', () => {
                 list: 'religions',
                 control: 'radio',
                 label: 'Religions',
-                source: 'religion'
+                source: 'religion',
+                inline: true
               },
               {
                 id: '2',
@@ -46,10 +47,10 @@ describe('Form', () => {
                 column: 0,
                 width: 16,
                 list: 'religions',
-                inline: true,
                 control: 'radio',
                 label: 'Religions',
-                source: 'lined_religion'
+                source: 'lined_religion',
+                vertical: true
               }
             ]
           })

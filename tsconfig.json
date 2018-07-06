@@ -7,6 +7,7 @@
     "jsx": "react",
     "baseUrl": "./src",
     "noEmit": true,
+    "skipDefaultLibCheck": true,
     "skipLibCheck": true,
     "pretty": true,
     "strict": true,
@@ -16,6 +17,8 @@
     "noFallthroughCasesInSwitch": true,
     "strictNullChecks": false,
     "rootDirs": ["src"],
-    "experimentalDecorators": true
-  }
+    "experimentalDecorators": true,
+    "typeRoots": ["src/shared/models", "node_modules/@types"]
+  },
+  "exclude": ["node_modules", "**/node_modules/*"]
 }

@@ -1,11 +1,10 @@
 import * as React from 'react';
 
-import { Radio } from 'semantic-ui-react';
 import { observer } from 'mobx-react';
+import { Radio } from 'semantic-ui-react';
 import styled from 'styled-components';
 
 import { DataSet } from '../models/form_model';
-
 
 type FormControlProps = {
   formControl: Corpix.Entities.FormControl;
@@ -17,7 +16,7 @@ type Props = FormControlProps;
 const FormRadio = styled(Radio)`
   margin-right: 12px;
   margin-bottom: 6px;
-`
+`;
 
 @observer
 export class RadioView extends React.Component<Props> {
@@ -28,29 +27,32 @@ export class RadioView extends React.Component<Props> {
 
   render() {
     const {
-      formControl: { source, controlProps, list, inline, label },
+      formControl: { source, controlProps, list, vertical, label },
       owner
     } = this.props;
     const radioValues = owner.getList(list);
 
-    return <>
-      <If condition={label != null}>
-        <label htmlFor={name}>{label}</label>
-      </If>
-      {radioValues.map((item) => (
-        <React.Fragment key={item.value}>
-          <FormRadio
-            {...controlProps}
-            name={source}
-            label={item.text}
-            value={item.value}
-            checked={owner.getValue(source) == item.value}
-            onChange={this.handleToggleChange}
-          />
-          <If condition={inline}><br /></If>
-        </React.Fragment>))
-      }
-    </>
-
+    return (
+      <>
+        <If condition={label != null}>
+          <label htmlFor={name}>{label}</label>
+        </If>
+        {radioValues.map(item => (
+          <React.Fragment key={item.value}>
+            <FormRadio
+              {...controlProps}
+              name={source}
+              label={item.text}
+              value={item.value}
+              checked={owner.getValue(source) === item.value}
+              onChange={this.handleToggleChange}
+            />
+            <If condition={vertical}>
+              <br />
+            </If>
+          </React.Fragment>
+        ))}
+      </>
+    );
   }
 }

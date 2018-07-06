@@ -12,6 +12,7 @@ declare namespace Corpix.Collections {
     type: string;
     isArray: boolean;
     defaultValue: any;
+    descriptors?: string;
     validators: ValidatorDao;
     access: OrganisationAccessDao;
   }
@@ -24,5 +25,11 @@ declare namespace Corpix.Collections {
     version: number;
     date: Date;
     value: any;
+  }
+}
+
+declare namespace Corpix.Entities {
+  interface DataDescriptor extends Corpix.Collections.DataDescriptorDao {
+    descriptors?: DataDescriptor[];
   }
 }

@@ -4,9 +4,8 @@ exports[`Form Viewer changes value and all related formulas 1`] = `
 <div
   className="ui segment ui form"
 >
-  <form
+  <div
     className="ui form"
-    onSubmit={[Function]}
   >
     <div
       className="fields"
@@ -15,7 +14,7 @@ exports[`Form Viewer changes value and all related formulas 1`] = `
         className="sixteen wide field"
       >
         <label
-          htmlFor="nodejs"
+          htmlFor="owner.personal.name"
         >
           Mimo
         </label>
@@ -46,12 +45,12 @@ exports[`Form Viewer changes value and all related formulas 1`] = `
          
       </div>
       <div
-        className="seven wide field"
+        className="inline field"
       >
         <label
-          htmlFor="nodejs"
+          htmlFor="owner.personal.age"
         >
-          Age
+          Age: 
         </label>
         <div
           className="ui input"
@@ -73,6 +72,11 @@ exports[`Form Viewer changes value and all related formulas 1`] = `
       <div
         className="two wide field"
       >
+        <label
+          htmlFor="younger"
+        >
+          Younger
+        </label>
         <label
           htmlFor="nodejs"
         >
@@ -97,6 +101,11 @@ exports[`Form Viewer changes value and all related formulas 1`] = `
         className="two wide field"
       >
         <label
+          htmlFor="older"
+        >
+          Older
+        </label>
+        <label
           htmlFor="nodejs"
         >
           Older
@@ -112,7 +121,7 @@ exports[`Form Viewer changes value and all related formulas 1`] = `
         </div>
       </div>
     </div>
-  </form>
+  </div>
 </div>
 `;
 
@@ -120,9 +129,8 @@ exports[`Form Viewer renders correctly 1`] = `
 <div
   className="ui segment ui form"
 >
-  <form
+  <div
     className="ui form"
-    onSubmit={[Function]}
   >
     <div
       className="fields"
@@ -131,7 +139,7 @@ exports[`Form Viewer renders correctly 1`] = `
         className="sixteen wide field"
       >
         <label
-          htmlFor="nodejs"
+          htmlFor="owner.personal.name"
         >
           Mimo
         </label>
@@ -162,12 +170,12 @@ exports[`Form Viewer renders correctly 1`] = `
          
       </div>
       <div
-        className="seven wide field"
+        className="inline field"
       >
         <label
-          htmlFor="nodejs"
+          htmlFor="owner.personal.age"
         >
-          Age
+          Age: 
         </label>
         <div
           className="ui input"
@@ -188,6 +196,11 @@ exports[`Form Viewer renders correctly 1`] = `
       <div
         className="two wide field"
       >
+        <label
+          htmlFor="younger"
+        >
+          Younger
+        </label>
         <label
           htmlFor="nodejs"
         >
@@ -212,6 +225,11 @@ exports[`Form Viewer renders correctly 1`] = `
         className="two wide field"
       >
         <label
+          htmlFor="older"
+        >
+          Older
+        </label>
+        <label
           htmlFor="nodejs"
         >
           Older
@@ -227,6 +245,6 @@ exports[`Form Viewer renders correctly 1`] = `
         </div>
       </div>
     </div>
-  </form>
+  </div>
 </div>
 `;

@@ -4,15 +4,32 @@ import { EmailView } from '../email_view';
 
 describe('Email', () => {
   storyOf(
-    'Dean',
+    'Email To Tomas',
     {
       get component() {
         // just another notation
-        return <EmailView />;
+        return <EmailView receiver={'Tomas'} />;
       }
     },
     () => {
-      it('renders correctly', () => {});
+      it('renders correctly', () => {
+        /**/
+      });
+    }
+  );
+
+  storyOf(
+    'Email To Nguyen',
+    {
+      get component() {
+        // just another notation
+        return <EmailView receiver={'Nguyen'} />;
+      }
+    },
+    () => {
+      it('renders correctly', () => {
+        /**/
+      });
     }
   );
 });

@@ -1,11 +1,13 @@
 import * as validations from './validation';
 
-import { types, ISimpleType } from 'mobx-state-tree';
+import { ISimpleType, types } from 'mobx-state-tree';
 
+import { ListValue } from './form_model';
 import { FormValidation } from './form_validation_model';
-import { ListValue } from "./form_model";
 
 export interface DataSet {
+  addRow(key: string): void;
+  removeRow(key: string, index: number): void;
   getList(name: string): ListValue[];
   getValue(name: string): any;
   parseValue(name: string, value: any): void;
@@ -15,7 +17,15 @@ export interface DataSet {
   isExpression(key: string): boolean;
 }
 
-function formItemSort(a: Corpix.Collections.FormElementDao, b: Corpix.Collections.FormElementDao) {
+export type FormControlProps = {
+  formControl: Corpix.Entities.FormControl;
+  owner: DataSet;
+};
+
+function formItemSort(
+  a: Corpix.Collections.FormElementDao,
+  b: Corpix.Collections.FormElementDao
+) {
   return a.row < b.row
     ? -1
     : a.row > b.row
@@ -27,8 +37,11 @@ function formItemSort(a: Corpix.Collections.FormElementDao, b: Corpix.Collection
           : 0;
 }
 
-function mstTypeFactory(type: string): ISimpleType<any> {
-  switch (type) {
+function mstTypeFactory(
+  desc: Corpix.Entities.DataDescriptor,
+  lists: Array<{ name: string; items: any[] }>
+): ISimpleType<any> {
+  switch (desc.type) {
     case 'string':
       return types.string;
     case 'int':
@@ -37,10 +50,13 @@ function mstTypeFactory(type: string): ISimpleType<any> {
       return types.number;
     case 'boolean':
       return types.boolean;
+    case 'object':
+      return FormModel.buildMst(desc.descriptors, lists);
+    // return For
     case undefined:
       return types.string;
   }
-  throw new Error('MST Type not supported: ' + type);
+  throw new Error('MST Type not supported: ' + desc.type);
 }
 
 export interface ListValue {
@@ -50,25 +66,14 @@ export interface ListValue {
 }
 
 export class FormModel {
-  id: string;
-  name: string;
-  description: string;
-  elements: Corpix.Collections.FormElementDao[];
-  validations: FormValidation[];
 
-  static buildMST(
-    descriptors: Corpix.Collections.DataDescriptorDao[],
-    dataArray: Array<{ name: string; value: any }>,
+  static buildMst(
+    descriptors: Corpix.Entities.DataDescriptor[],
     lists?: Array<{ name: string; items: any[] }>
-  ): DataSet {
-    // data initialisation
-    const data: any = {};
-    for (let element of dataArray) {
-      data[element.name] = element.value;
-      data[element.name + '_str'] = element.value ? element.value.toString() : '';
-    }
-
-    const descriptorMap: { [index: string]: Corpix.Collections.DataDescriptorDao } = {};
+  ) {
+    const descriptorMap: {
+      [index: string]: Corpix.Entities.DataDescriptor;
+    } = {};
     for (let d of descriptors) {
       descriptorMap[d.name] = d;
     }
@@ -79,14 +84,17 @@ export class FormModel {
       const view = {
         getDescriptor(key: string) {
           if (!descriptorMap[key]) {
-            throw new Error('Descriptor does not exist: ' + key)
+            throw new Error('Descriptor does not exist: ' + key);
           }
           return descriptorMap[key];
         },
         isExpression(key: string) {
-          return !!this.getDescriptor(key).expression;
+          return !!(key && this.getDescriptor(key).expression);
         },
         getValue(key: string) {
+          if (self[key] == null) {
+            return this.getDescriptor(key).defaultValue;
+          }
           return self[key];
         },
         getList(key: string): ListValue[] {
@@ -98,7 +106,7 @@ export class FormModel {
             // @ts-ignore
             return self[key];
           }
-          return self[key + '_str'];
+          return self[key + '_str'] || this.getDescriptor(key).defaultValue || '';
         },
         getError(key: string) {
           return self[key + '_error'];
@@ -112,6 +120,7 @@ export class FormModel {
         // expressions do not need state tree entry they are evaluated automatically
         if (desc.expression) {
           (view as any).__defineGetter__(desc.name, function() {
+            // tslint:disable-next-line:no-eval
             return eval(desc.expression);
           });
         }
@@ -132,10 +141,12 @@ export class FormModel {
     // expressions do not need custom nodes and are handled by views
     for (let desc of descriptors) {
       // expressions do not need state tree entry they are evaluated automatically
-      if (!desc.expression) {
+      if (desc.isArray) {
+        mstDefinition[desc.name] = types.array(mstTypeFactory(desc, lists));
+      } else if (!desc.expression) {
         mstDefinition[desc.name] = desc.defaultValue
           ? desc.defaultValue
-          : types.maybe(mstTypeFactory(desc.type));
+          : types.maybe(mstTypeFactory(desc, lists));
         mstDefinition[desc.name + '_str'] = types.maybe(types.string);
         mstDefinition[desc.name + '_error'] = types.maybe(types.string);
       }
@@ -148,17 +159,25 @@ export class FormModel {
       .model('Store', mstDefinition)
       .views(viewDefinition)
       .actions(self => ({
+        addRow(key: string) {
+          self[key].push({});
+        },
+        removeRow(key: string, index: number) {
+          self[key].splice(index);
+        },
         parseValue(key: string, value: any) {
           const descriptor = descriptorMap[key];
           switch (descriptor.type) {
             case 'int':
-              self[key] = parseInt(value || 0) as any;
+              self[key] = parseInt(value || 0, 10) as any;
               break;
             case 'float':
               self[key] = parseFloat(value || 0) as any;
               break;
             case 'boolean':
-              self[key] = (value === true || value === 'true' || value === 'True') as any;
+              self[key] = (value === true ||
+                value === 'true' ||
+                value === 'True') as any;
               break;
             default:
               self[key] = value;
@@ -188,8 +207,49 @@ export class FormModel {
         }
       }));
 
+    return mst;
+  }
+
+  static initStrings(
+    data: any,
+    dataArray: Array<{ name: string; value: any }>
+  ) {
+    for (let item of dataArray) {
+      data[item.name] = item.value;
+      if (Array.isArray(item.value)) {
+        data[item.name] = [];
+        for (let m of item.value) {
+          const n = {};
+          data[item.name].push(n);
+          FormModel.initStrings(n, m);
+        }
+      } else {
+        data[item.name + '_str'] = item.value ? item.value.toString() : '';
+      }
+    }
+
+    return data;
+  }
+
+  static buildMstModel(
+    descriptors: Corpix.Entities.DataDescriptor[],
+    dataArray: Array<{ name: string; value: any }>,
+    lists?: Array<{ name: string; items: any[] }>
+  ): DataSet {
+    // data initialisation
+    const data: any = {};
+    FormModel.initStrings(data, dataArray);
+    
+
+    const mst = FormModel.buildMst(descriptors, lists);
     return mst.create(data);
   }
+
+  id: string;
+  name: string;
+  description: string;
+  elements: Corpix.Collections.FormElementDao[];
+  validations: FormValidation[];
 
   constructor(form: Corpix.Collections.FormDao) {
     this.id = form.id;
