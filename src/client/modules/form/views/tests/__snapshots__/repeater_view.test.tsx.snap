@@ -57,6 +57,23 @@ exports[`Form Repeater renders correctly 1`] = `
                 />
               </div>
             </div>
+            <div
+              className="one wide field"
+            >
+              <label>
+                 
+              </label>
+              <button
+                className="ui red icon button"
+                onClick={[Function]}
+                role="button"
+              >
+                <i
+                  aria-hidden="true"
+                  className="trash icon"
+                />
+              </button>
+            </div>
           </div>
         </div>
         <div
@@ -103,8 +120,36 @@ exports[`Form Repeater renders correctly 1`] = `
                 />
               </div>
             </div>
+            <div
+              className="one wide field"
+            >
+              <label>
+                 
+              </label>
+              <button
+                className="ui red icon button"
+                onClick={[Function]}
+                role="button"
+              >
+                <i
+                  aria-hidden="true"
+                  className="trash icon"
+                />
+              </button>
+            </div>
           </div>
         </div>
+        <button
+          className="ui icon primary left labeled button"
+          onClick={[Function]}
+          role="button"
+        >
+          <i
+            aria-hidden="true"
+            className="plus icon"
+          />
+          Add
+        </button>
       </div>
     </div>
   </div>

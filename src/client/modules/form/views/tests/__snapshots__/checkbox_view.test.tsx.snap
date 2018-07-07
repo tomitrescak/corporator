@@ -145,3 +145,76 @@ exports[`Form Checkbox renders correctly 1`] = `
   </div>
 </div>
 `;
+
+exports[`Form Checkbox renders other 1`] = `
+<div
+  className="ui segment ui form"
+>
+  <div
+    className="ui form"
+  >
+    <div
+      className="fields"
+    >
+      <div
+        className="eight wide field"
+      >
+        <div
+          className="field"
+        >
+          <div
+            className="ui checked checkbox"
+            onChange={[Function]}
+            onClick={[Function]}
+            onMouseDown={[Function]}
+          >
+            <input
+              checked={true}
+              className="hidden"
+              name="agree"
+              onClick={[Function]}
+              readOnly={true}
+              tabIndex={0}
+              type="checkbox"
+            />
+            <label>
+              Agree With Terms and Conditions
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="fields"
+    >
+      <div
+        className="eight wide field"
+      >
+        <div
+          className="field"
+        >
+          <div
+            className="ui toggle checkbox"
+            onChange={[Function]}
+            onClick={[Function]}
+            onMouseDown={[Function]}
+          >
+            <input
+              checked={false}
+              className="hidden"
+              name="disagree"
+              onClick={[Function]}
+              readOnly={true}
+              tabIndex={0}
+              type="checkbox"
+            />
+            <label>
+              Disagree With Terms and Conditions
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

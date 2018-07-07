@@ -16,7 +16,11 @@ describe('Form', () => {
   const lists = [
     {
       name: 'religions',
-      items: [{ text: 'Christian', value: 'CH' }, { text: 'Buddhist', value: 'BU' }, { text: 'Jedi', value: 'JE'}]
+      items: [
+        { text: 'Christian', value: 'CH' },
+        { text: 'Buddhist', value: 'BU' },
+        { text: 'Jedi', value: 'JE' }
+      ]
     }
   ];
 

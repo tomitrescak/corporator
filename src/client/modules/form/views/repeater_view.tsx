@@ -53,7 +53,7 @@ export class RepeaterView extends React.Component<Props> {
     const source = formControl.source;
     const list: IObservableArray<DataSet> = owner.getValue(source);
     return (
-      <div>
+      <>
         <Choose>
           <When condition={list == null || list.length === 0}>
             <Message>{i18n`No items`}</Message>
@@ -72,7 +72,7 @@ export class RepeaterView extends React.Component<Props> {
           </Otherwise>
         </Choose>
         <Button primary icon="plus" content="Add" labelPosition="left" onClick={this.addRow} />
-      </div>
+      </>
     );
   }
 }

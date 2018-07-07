@@ -5,7 +5,6 @@
     "moduleResolution": "node",
     "lib": ["es2017", "dom"],
     "jsx": "react",
-    "baseUrl": "./src",
     "noEmit": true,
     "skipDefaultLibCheck": true,
     "skipLibCheck": true,
@@ -16,6 +15,7 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "strictNullChecks": false,
+    "baseUrl": "./src",
     "rootDirs": ["src"],
     "experimentalDecorators": true,
     "typeRoots": ["src/shared/models", "node_modules/@types"]

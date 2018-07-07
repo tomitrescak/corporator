@@ -21,6 +21,7 @@ module.exports = {
     '^.*[.](css|CSS)$': '<rootDir>/test/styleMock.js',
     '^.*[.](jpg|gif|png|ttf|eot|svg)$': '<rootDir>/test/fileMock.js'
   },
+  snapshotSerializers: ['jest-spy-serialiser'],
   updateSnapshot: true
   //transformIgnorePatterns: ['<rootDir>/node_modules/', '/!node_modules\\/bpmn-moddle']
   //transformIgnorePatterns: ['node_modules/(?!(bpmn-moddle)/)'],
