@@ -1,13 +1,17 @@
+import * as shortid from 'shortid';
 import * as validations from './validation';
 
 import { ISimpleType, types } from 'mobx-state-tree';
 
+import { IObservableArray } from 'mobx';
 import { ListValue } from './form_model';
 import { FormValidation } from './form_validation_model';
 
 export interface DataSet {
+  id?: string;
   addRow(key: string): void;
   removeRow(key: string, index: number): void;
+  removeRowData<T>(key: string, data: T): void;
   getList(name: string): ListValue[];
   getValue(name: string): any;
   parseValue(name: string, value: any): void;
@@ -22,10 +26,7 @@ export type FormControlProps = {
   owner: DataSet;
 };
 
-function formItemSort(
-  a: Corpix.Collections.FormElementDao,
-  b: Corpix.Collections.FormElementDao
-) {
+function formItemSort(a: Corpix.Collections.FormElementDao, b: Corpix.Collections.FormElementDao) {
   return a.row < b.row
     ? -1
     : a.row > b.row
@@ -66,7 +67,6 @@ export interface ListValue {
 }
 
 export class FormModel {
-
   static buildMst(
     descriptors: Corpix.Entities.DataDescriptor[],
     lists?: Array<{ name: string; items: any[] }>
@@ -143,6 +143,8 @@ export class FormModel {
       // expressions do not need state tree entry they are evaluated automatically
       if (desc.isArray) {
         mstDefinition[desc.name] = types.array(mstTypeFactory(desc, lists));
+      } else if (desc.type === 'id') {
+        mstDefinition[desc.name] = types.optional(types.identifier(), () => shortid.generate());
       } else if (!desc.expression) {
         mstDefinition[desc.name] = desc.defaultValue
           ? desc.defaultValue
@@ -165,6 +167,9 @@ export class FormModel {
         removeRow(key: string, index: number) {
           self[key].splice(index);
         },
+        removeRowData<T>(key: string, data: T) {
+          (self[key] as IObservableArray<T>).remove(data);
+        },
         parseValue(key: string, value: any) {
           const descriptor = descriptorMap[key];
           switch (descriptor.type) {
@@ -175,9 +180,7 @@ export class FormModel {
               self[key] = parseFloat(value || 0) as any;
               break;
             case 'boolean':
-              self[key] = (value === true ||
-                value === 'true' ||
-                value === 'True') as any;
+              self[key] = (value === true || value === 'true' || value === 'True') as any;
               break;
             default:
               self[key] = value;
@@ -210,10 +213,7 @@ export class FormModel {
     return mst;
   }
 
-  static initStrings(
-    data: any,
-    dataArray: Array<{ name: string; value: any }>
-  ) {
+  static initStrings(data: any, dataArray: Array<{ name: string; value: any }>) {
     for (let item of dataArray) {
       data[item.name] = item.value;
       if (Array.isArray(item.value)) {
@@ -239,7 +239,6 @@ export class FormModel {
     // data initialisation
     const data: any = {};
     FormModel.initStrings(data, dataArray);
-    
 
     const mst = FormModel.buildMst(descriptors, lists);
     return mst.create(data);

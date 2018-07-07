@@ -14,13 +14,14 @@ describe('Form', () => {
       type: 'object',
       isArray: true,
       descriptors: [
+        create.descriptor({ name: 'id', type: 'id' }),
         create.descriptor({ name: 'name', type: 'string' }),
         create.descriptor({ name: 'capital', type: 'string' })
       ]
     })
   ];
 
-  const data = [
+  const dataSetData = [
     {
       name: 'countries',
       value: [
@@ -29,7 +30,7 @@ describe('Form', () => {
       ]
     }
   ];
-  const dataSet = FormModel.buildMstModel(descriptors, data);
+  const dataSet = FormModel.buildMstModel(descriptors, dataSetData);
 
   storyOf(
     'Repeater',
@@ -63,6 +64,14 @@ describe('Form', () => {
                     control: 'input',
                     label: 'Capital',
                     source: 'capital'
+                  },
+                  {
+                    id: '4',
+                    row: 0,
+                    column: 15,
+                    width: 1,
+                    control: 'deleteButton',
+                    label: '\xa0'
                   }
                 ]
               }

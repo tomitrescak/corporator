@@ -11,7 +11,7 @@ declare namespace Corpix.Collections {
     | 'radio'
     | 'textarea'
     | 'repeater'
-    | 'deleteRow';
+    | 'deleteButton';
 
   interface FormElementDao {
     id: string;

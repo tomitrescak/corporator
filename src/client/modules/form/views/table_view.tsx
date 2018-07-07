@@ -14,10 +14,10 @@ interface IFieldOwner {
 interface Props {
   data: DataSet;
   form: IFieldOwner;
-  handlers?: { [index: string]: () => void };
+  deleteForm: () => void;
 }
 
-export class FormView extends React.Component<Props> {
+export class TableView extends React.Component<Props> {
   lastRow = -1;
   lastColumn = -1;
 
@@ -57,7 +57,7 @@ export class FormView extends React.Component<Props> {
           formControl.label !== 'radio' && (
             <label htmlFor={formControl.source}>{formControl.label}</label>
           )}
-        {renderControl(control, this.props.data, this.props.handlers)}
+        {renderControl(control, this.props.data, null)}
       </Form.Field>
     );
 
