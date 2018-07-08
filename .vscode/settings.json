@@ -2,6 +2,5 @@
   "typescript.tsdk": "node_modules/typescript/lib",
   "tslint.autoFixOnSave": true,
   "snapshots.saveHtml": false,
-  "snapshots.previewCount": 1,
   "prettier.singleQuote": true
 }

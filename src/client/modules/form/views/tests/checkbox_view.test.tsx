@@ -1,19 +1,14 @@
 import * as React from 'react';
 import * as renderer from 'react-test-renderer';
 
-import { Segment } from 'semantic-ui-react';
-
 import { create } from 'shared/test_data';
 import { FormModel } from '../../models/form_model';
 import { FormView } from '../form_view';
 
-// expect.addSnapshotSerializer({
-//   test: val => true,
-//   print: val => {
-//     console.log('111');
-//     return `OO33`;
-//   }
-// });
+import 'jest-styled-components';
+
+import { Button, Segment } from 'semantic-ui-react';
+import styled from 'styled-components';
 
 describe('Form', () => {
   const descriptors = [
@@ -60,6 +55,7 @@ describe('Form', () => {
         return (
           <Segment className="ui form">
             <FormView form={form} data={dataSet} />
+            <Button />
           </Segment>
         );
       }
