@@ -2,6 +2,14 @@
 // import * as FooTest from './tests/Foo.test';
 // import * as ComponentsTest from './tests/Component.test';
 
+// hack the global scope
+if (!global.expect) {
+    global.expect = {
+        addSnapshotSerializer() { /**/ },
+        extend() { /**/ }
+    }
+}
+
 import 'semantic-ui-css/semantic.min.css';
 
 import { renderLuis, setupTestBridge } from 'luis';
