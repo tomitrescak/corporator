@@ -1,7 +1,7 @@
 import { MongoConnector, MongoEntity } from 'apollo-connector-mongodb';
 import { BpmnProcessInstance, InstanceStatus } from '../models/bpmn_process_instance_model';
 import { BpmnProcessModel } from '../models/bpmn_process_model';
-import { BaseElement } from './Bpmn/bpmn_base_element_model';
+
 import { BpmnTaskInstanceModel } from './bpmn_task_instance_model';
 // import { BpmnModdle } from 'bpmn-moddle';
 
@@ -11,7 +11,7 @@ export class BpmnProcessesModel extends MongoEntity<Corpix.Collections.BpmnProce
   }
 
   async startInstance(context: Corpix.Server.Context, bpmnProcessId: string): Promise<BpmnTaskInstanceModel[]> {
-    return await new Promise<BpmnTaskInstanceModel[]>(async (resolve, reject) => {
+    return new Promise<BpmnTaskInstanceModel[]>(async (resolve, reject) => {
       let bpmnProcess: BpmnProcessModel;
 
       // check access
@@ -84,7 +84,7 @@ export class BpmnProcessesModel extends MongoEntity<Corpix.Collections.BpmnProce
   }
 
   private async completeProcessInstance(instance: BpmnProcessInstance, context: Corpix.Server.Context): Promise<BpmnProcessInstance> {
-    return await new Promise<BpmnProcessInstance>(async (resolve, reject) => {
+    return new Promise<BpmnProcessInstance>(async (resolve, reject) => {
       try {
         // query to retrieve process instance from db
         const query = { id: instance.id };
@@ -99,9 +99,9 @@ export class BpmnProcessesModel extends MongoEntity<Corpix.Collections.BpmnProce
   }
 
   private async insertNewTaskInstance(bpmnProcess: BpmnProcessModel, taskInstanceDao: Corpix.Collections.BpmnTaskInstanceDao, context: Corpix.Server.Context): Promise<BpmnTaskInstanceModel> {
-    return await new Promise<BpmnTaskInstanceModel>(async (resolve, reject) => {
+    return new Promise<BpmnTaskInstanceModel>(async (resolve, reject) => {
       try {
-        await context.TaskInstances.insertOne(taskInstanceDao);
+        await context.BpmnTaskInstances.insertOne(taskInstanceDao);
         const action = new BpmnTaskInstanceModel(taskInstanceDao);
         resolve(action);
       } catch (error) {
@@ -114,22 +114,22 @@ export class BpmnProcessesModel extends MongoEntity<Corpix.Collections.BpmnProce
     bpmnProcess: BpmnProcessModel,
     context: Corpix.Server.Context
   ): Promise<BpmnProcessInstance> {
-    return await new Promise<BpmnProcessInstance>(async (resolve, reject) => {
+    return new Promise<BpmnProcessInstance>(async (resolve, reject) => {
       const newProcessInstanceDao = {
         id: '',     // what should the id be?
         name: '',   // what should the name be?
         description: '',  // should there even be a description?
         processId: bpmnProcess.id,
-        resources: null,
+        resources: null as any,
         ownerId: context.User.id,
         status: InstanceStatus.Running,
         dateStarted: new Date(),
-        dateFinished: null,
-        duration: null
-      } as Corpix.Collections.BpmnProcessInstanceDao;
+        dateFinished: null as Date,
+        duration: null as number
+      };
 
       try {
-        await context.ProcessInstances.insertOne(newProcessInstanceDao);
+        await context.BpmnProcessInstances.insertOne(newProcessInstanceDao);
         const instance = new BpmnProcessInstance(newProcessInstanceDao, bpmnProcess);
         resolve(instance);
       } catch (error) {

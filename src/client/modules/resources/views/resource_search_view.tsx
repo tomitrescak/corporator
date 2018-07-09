@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Header, List, ListProps, Label, Button, Segment } from 'semantic-ui-react';
+import { Header, List, ListProps } from 'semantic-ui-react';
 import styled, { StyledComponentClass } from 'styled-components';
 
 const VersionList: StyledComponentClass<ListProps, {}> = styled(List)`
@@ -14,7 +14,7 @@ export const ResourceSearchView = () => (
 
     <VersionList divided relaxed>
       <List.Item>
-        <List.Icon name="file text outline" verticalAlign="middle" />
+        <List.Icon name="file outline" verticalAlign="middle" />
         <List.Content>
           <List.Header as="a">Travel Request Form</List.Header>
           <List.Description as="a">
@@ -23,7 +23,7 @@ export const ResourceSearchView = () => (
         </List.Content>
       </List.Item>
       <List.Item>
-        <List.Icon name="file text outline" verticalAlign="middle" />
+        <List.Icon name="file outline" verticalAlign="middle" />
         <List.Content>
           <List.Header as="a">Equipment Request Form</List.Header>
           <List.Description as="a">

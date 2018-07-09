@@ -1,7 +1,7 @@
 // other option: https://github.com/MadRabbit/graphql-mock
 import { SchemaLink } from 'apollo-link-schema';
 import { addMockFunctionsToSchema, makeExecutableSchema } from 'graphql-tools';
-import { typeDefs } from '../../server/schemas';
+import { typeDefs } from '../../server/schemas/index';
 
 const schema = makeExecutableSchema({ typeDefs: typeDefs() });
 const mocks = {

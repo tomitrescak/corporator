@@ -1,6 +1,6 @@
+import { create } from '../../../shared/test_data';
 import { BpmnProcessesModel } from '../bpmn_processes_model';
 import { ServerContext } from '../context';
-import { create } from '../../../shared/test_data';
 
 const definition = `<?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/Bpmn/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -32,7 +32,7 @@ afterEach(async () => {
 describe('startActivity', () => {
   it('checks access', async () => {
     // fill db with activity
-    await context.BpmnProcess.insertMany([
+    await context.BpmnProcessModels.insertMany([
       create.bpmnProcessDao(
         { id: 'bpmn1', definition },
         create.accessDao({
@@ -50,18 +50,18 @@ describe('startActivity', () => {
     // create user in context
     // user without permission
     context.User = create.userDao({ id: 'u1', roles: ['other'] });
-    const activityModel1 = await model.startActivity(context, 'bpmn1');
+    const activityModel1 = await model.startInstance(context, 'bpmn1');
     expect(activityModel1).toBe(null);
 
     // user with permission
     context.User = create.userDao({ id: 'u2', roles: ['default', 'other'] });
-    const activityModel2 = await model.startActivity(context, 'bpmn1');
+    const activityModel2 = await model.startInstance(context, 'bpmn1');
     // console.log(activityModel2)
     expect(activityModel2).not.toBe(null);
   });
 
   it('launches a new activity, storing information in the database', async () => {
-    await context.BpmnProcess.insertMany([
+    await context.BpmnProcessModels.insertMany([
       create.bpmnProcessDao(
         { id: 'bpmn1', definition },
         create.accessDao({
@@ -78,11 +78,11 @@ describe('startActivity', () => {
 
     // user with permission
     context.User = create.userDao({ id: 'u2', roles: ['default', 'other'] });
-    const activityModel2 = await model.startActivity(context, 'bpmn1');
+    const activityModel2 = await model.startInstance(context, 'bpmn1');
     expect(activityModel2).not.toBe(null);
 
     // query db for new activity
-    const activities = await context.Activities.find({ id:'start1', processId: 'bpmn1' }).toArray();
+    const activities = await context.BpmnProcessInstances.find({ id:'start1', processId: 'bpmn1' }).toArray();
     expect(activities.length).toBe(1);
     // console.log(activities[0]);
 
@@ -91,7 +91,7 @@ describe('startActivity', () => {
 
   it('runs all possible actions', async () => {
     // fill db with activity
-    await context.BpmnProcess.insertMany([
+    await context.BpmnProcessModels.insertMany([
       create.bpmnProcessDao(
         { id: 'bpmn1', definition },
         create.accessDao({
@@ -109,16 +109,16 @@ describe('startActivity', () => {
     // create user in context
     // user without permission
     context.User = create.userDao({ id: 'u1', roles: ['other'] });
-    const activityModel1 = await model.startActivity(context, 'bpmn1');
+    const activityModel1 = await model.startInstance(context, 'bpmn1');
     expect(activityModel1).toBe(null);
 
     // user with permission
     context.User = create.userDao({ id: 'u2', roles: ['default', 'other'] });
-    const activityModel2 = await model.startActivity(context, 'bpmn1');
+    const activityModel2 = await model.startInstance(context, 'bpmn1');
     // console.log(activityModel2)
     // returned activity should be latest activity?
     // in this case, the end2 activity.
-    const activities = await context.Activities.find({ id:'end2', processId: 'bpmn1' }).toArray();
+    const activities = await context.BpmnProcessInstances.find({ id:'end2', processId: 'bpmn1' }).toArray();
     expect(activities.length).toBe(1);
     // console.log(activities[0]);
     expect(activityModel2).not.toBe(null);

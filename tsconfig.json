@@ -5,15 +5,20 @@
     "moduleResolution": "node",
     "lib": ["es2017", "dom"],
     "jsx": "react",
-    "baseUrl": "./src",
     "noEmit": true,
-    // "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true,
     "pretty": true,
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "strictNullChecks": false
-  }
+    "strictNullChecks": false,
+    "baseUrl": "./src",
+    "rootDirs": ["src"],
+    "experimentalDecorators": true,
+    "typeRoots": ["src/shared/models", "node_modules/@types"]
+  },
+  "exclude": ["node_modules", "**/node_modules/*"]
 }

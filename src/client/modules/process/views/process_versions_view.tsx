@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Header, List, ListProps, Label, Button } from 'semantic-ui-react';
+import { Header, Label, List, ListProps } from 'semantic-ui-react';
 import styled, { StyledComponentClass } from 'styled-components';
 
 const VersionList: StyledComponentClass<ListProps, {}> = styled(List)`

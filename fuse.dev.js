@@ -25,7 +25,7 @@ fuse.dev({ port: 3000 }, server => {
 });
 fuse
   .bundle('app')
-  .instructions(' > client/index.tsx')
+  .instructions(' > pages/router.tsx')
   .hmr()
   .watch();
 fuse.run();

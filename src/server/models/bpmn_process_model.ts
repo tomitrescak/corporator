@@ -19,10 +19,11 @@ import {
 } from './Bpmn';
 
 
-import { Dictionary } from 'typescript-collections';
 import BpmnModdle from 'bpmn-moddle';
 
-var moddle = new BpmnModdle();
+import { Dictionary } from 'typescript-collections';
+
+const moddle = new BpmnModdle();
 
 export enum ProcessStatus {
   Draft = 'draft',
@@ -73,7 +74,7 @@ export class BpmnProcessModel {
     this.name = processModelDao.name;
     this.description = processModelDao.description;
     this.access = new Access(processModelDao.access);
-    this.definition = this.generatedDescription = processModelDao.generatedDescription; //;
+    this.definition = this.generatedDescription = processModelDao.generatedDescription;
     this.version = processModelDao.version;
     this.status = processModelDao.status;
     this.roles = processModelDao.roles;
@@ -102,10 +103,10 @@ export class BpmnProcessModel {
     // for each element
 
     // only loads first process...
-    const flowElements = this.definition['rootElements'][0]['flowElements'];
+    const flowElements = this.definition.rootElements[0].flowElements;
 
     flowElements.forEach((elem: any) => {
-      const type = elem['$type'].toLowerCase();
+      const type = elem.$type.toLowerCase();
       let obj: BaseElement;
       if (type === BpmnTypes.Start) {
         const start = new StartEvent(elem);
@@ -206,9 +207,9 @@ export class BpmnProcessModel {
 
   private linkModels() {
     this.elementsDict.forEach((key, dict) => {
-      if (key === BpmnTypes.BaseElement) return;
-      if (key === BpmnTypes.FlowNode) return;
-      if (key === BpmnTypes.Gateway) return;
+      if (key === BpmnTypes.BaseElement) { return; }
+      if (key === BpmnTypes.FlowNode) { return; }
+      if (key === BpmnTypes.Gateway) { return; }
 
       dict.forEach((key, element) => {
         // check type and link:

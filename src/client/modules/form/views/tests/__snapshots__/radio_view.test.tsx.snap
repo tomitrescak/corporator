@@ -1,0 +1,341 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Form Radio changes values 1`] = `
+<div
+  className="ui segment ui form"
+>
+  <div
+    className="ui form"
+  >
+    <div
+      className="fields"
+    >
+      <div
+        className="inline field"
+      >
+        <label
+          htmlFor="religion"
+        >
+          Religions
+        </label>
+        <label
+          htmlFor="nodejs"
+        >
+          Religions
+        </label>
+        <div
+          className="ui radio checkbox sc-bdVaJa cakjOM"
+          onChange={[Function]}
+          onClick={[Function]}
+          onMouseDown={[Function]}
+        >
+          <input
+            checked={false}
+            className="hidden"
+            name="religion"
+            onClick={[Function]}
+            readOnly={true}
+            tabIndex={0}
+            type="radio"
+            value="CH"
+          />
+          <label>
+            Christian
+          </label>
+        </div>
+        <div
+          className="ui checked radio checkbox sc-bdVaJa cakjOM"
+          onChange={[Function]}
+          onClick={[Function]}
+          onMouseDown={[Function]}
+        >
+          <input
+            checked={true}
+            className="hidden"
+            name="religion"
+            onClick={[Function]}
+            readOnly={true}
+            tabIndex={0}
+            type="radio"
+            value="BU"
+          />
+          <label>
+            Buddhist
+          </label>
+        </div>
+        <div
+          className="ui radio checkbox sc-bdVaJa cakjOM"
+          onChange={[Function]}
+          onClick={[Function]}
+          onMouseDown={[Function]}
+        >
+          <input
+            checked={false}
+            className="hidden"
+            name="religion"
+            onClick={[Function]}
+            readOnly={true}
+            tabIndex={0}
+            type="radio"
+            value="JE"
+          />
+          <label>
+            Jedi
+          </label>
+        </div>
+      </div>
+    </div>
+    <div
+      className="fields"
+    >
+      <div
+        className="sixteen wide field"
+      >
+        <label
+          htmlFor="lined_religion"
+        >
+          Religions
+        </label>
+        <label
+          htmlFor="nodejs"
+        >
+          Religions
+        </label>
+        <div
+          className="ui checked radio checkbox sc-bdVaJa cakjOM"
+          onChange={[Function]}
+          onClick={[Function]}
+          onMouseDown={[Function]}
+        >
+          <input
+            checked={true}
+            className="hidden"
+            name="lined_religion"
+            onClick={[Function]}
+            readOnly={true}
+            tabIndex={0}
+            type="radio"
+            value="CH"
+          />
+          <label>
+            Christian
+          </label>
+        </div>
+        <br />
+        <div
+          className="ui radio checkbox sc-bdVaJa cakjOM"
+          onChange={[Function]}
+          onClick={[Function]}
+          onMouseDown={[Function]}
+        >
+          <input
+            checked={false}
+            className="hidden"
+            name="lined_religion"
+            onClick={[Function]}
+            readOnly={true}
+            tabIndex={0}
+            type="radio"
+            value="BU"
+          />
+          <label>
+            Buddhist
+          </label>
+        </div>
+        <br />
+        <div
+          className="ui radio checkbox sc-bdVaJa cakjOM"
+          onChange={[Function]}
+          onClick={[Function]}
+          onMouseDown={[Function]}
+        >
+          <input
+            checked={false}
+            className="hidden"
+            name="lined_religion"
+            onClick={[Function]}
+            readOnly={true}
+            tabIndex={0}
+            type="radio"
+            value="JE"
+          />
+          <label>
+            Jedi
+          </label>
+        </div>
+        <br />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Form Radio renders correctly 1`] = `
+<div
+  className="ui segment ui form"
+>
+  <div
+    className="ui form"
+  >
+    <div
+      className="fields"
+    >
+      <div
+        className="inline field"
+      >
+        <label
+          htmlFor="religion"
+        >
+          Religions
+        </label>
+        <label
+          htmlFor="nodejs"
+        >
+          Religions
+        </label>
+        <div
+          className="ui radio checkbox sc-bdVaJa cakjOM"
+          onChange={[Function]}
+          onClick={[Function]}
+          onMouseDown={[Function]}
+        >
+          <input
+            checked={false}
+            className="hidden"
+            name="religion"
+            onClick={[Function]}
+            readOnly={true}
+            tabIndex={0}
+            type="radio"
+            value="CH"
+          />
+          <label>
+            Christian
+          </label>
+        </div>
+        <div
+          className="ui radio checkbox sc-bdVaJa cakjOM"
+          onChange={[Function]}
+          onClick={[Function]}
+          onMouseDown={[Function]}
+        >
+          <input
+            checked={false}
+            className="hidden"
+            name="religion"
+            onClick={[Function]}
+            readOnly={true}
+            tabIndex={0}
+            type="radio"
+            value="BU"
+          />
+          <label>
+            Buddhist
+          </label>
+        </div>
+        <div
+          className="ui checked radio checkbox sc-bdVaJa cakjOM"
+          onChange={[Function]}
+          onClick={[Function]}
+          onMouseDown={[Function]}
+        >
+          <input
+            checked={true}
+            className="hidden"
+            name="religion"
+            onClick={[Function]}
+            readOnly={true}
+            tabIndex={0}
+            type="radio"
+            value="JE"
+          />
+          <label>
+            Jedi
+          </label>
+        </div>
+      </div>
+    </div>
+    <div
+      className="fields"
+    >
+      <div
+        className="sixteen wide field"
+      >
+        <label
+          htmlFor="lined_religion"
+        >
+          Religions
+        </label>
+        <label
+          htmlFor="nodejs"
+        >
+          Religions
+        </label>
+        <div
+          className="ui checked radio checkbox sc-bdVaJa cakjOM"
+          onChange={[Function]}
+          onClick={[Function]}
+          onMouseDown={[Function]}
+        >
+          <input
+            checked={true}
+            className="hidden"
+            name="lined_religion"
+            onClick={[Function]}
+            readOnly={true}
+            tabIndex={0}
+            type="radio"
+            value="CH"
+          />
+          <label>
+            Christian
+          </label>
+        </div>
+        <br />
+        <div
+          className="ui radio checkbox sc-bdVaJa cakjOM"
+          onChange={[Function]}
+          onClick={[Function]}
+          onMouseDown={[Function]}
+        >
+          <input
+            checked={false}
+            className="hidden"
+            name="lined_religion"
+            onClick={[Function]}
+            readOnly={true}
+            tabIndex={0}
+            type="radio"
+            value="BU"
+          />
+          <label>
+            Buddhist
+          </label>
+        </div>
+        <br />
+        <div
+          className="ui radio checkbox sc-bdVaJa cakjOM"
+          onChange={[Function]}
+          onClick={[Function]}
+          onMouseDown={[Function]}
+        >
+          <input
+            checked={false}
+            className="hidden"
+            name="lined_religion"
+            onClick={[Function]}
+            readOnly={true}
+            tabIndex={0}
+            type="radio"
+            value="JE"
+          />
+          <label>
+            Jedi
+          </label>
+        </div>
+        <br />
+      </div>
+    </div>
+  </div>
+</div>
+`;

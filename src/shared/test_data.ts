@@ -1,5 +1,5 @@
-import { ProcessStatus } from '../server/models/bpmn_process_model';
 import { InstanceStatus } from '../server/models/bpmn_process_instance_model';
+import { ProcessStatus } from '../server/models/bpmn_process_model';
 
 const defaultUser: Corpix.Collections.UserDao = {
   id: 'u',
@@ -78,6 +78,48 @@ const defaultBpmnProcess: Corpix.Collections.BpmnProcessDao = {
   actionCount: 0
 };
 
+const defaultForm: Corpix.Collections.FormDao = {
+  id: 'form',
+  name: 'Form',
+  description: 'Test Form',
+  elements: [],
+  validations: []
+};
+
+const defaultData: Corpix.Collections.DataDao = {
+  id: '1',
+  descriptor: null,
+  organisationId: 'oId',
+  ownerId: 'uId',
+  version: 0,
+  date: modifiedDate,
+  value: null
+};
+
+const defaultDescriptorDao: Corpix.Collections.DataDescriptorDao = {
+  id: '1',
+  name: null,
+  description: 'Description',
+  expression: null,
+  type: 'string',
+  isArray: false,
+  defaultValue: null,
+  validators: null,
+  access: null
+};
+
+const defaultDescriptor: Corpix.Entities.DataDescriptor= {
+  id: '1',
+  name: null,
+  description: 'Description',
+  expression: null,
+  type: 'string',
+  isArray: false,
+  defaultValue: null,
+  validators: null,
+  access: null
+};
+
 export const create = {
   userDao(from: Partial<Corpix.Collections.UserDao> = {}): Corpix.Collections.UserDao {
     return { ...defaultUser, ...from };
@@ -90,6 +132,22 @@ export const create = {
   },
   activityDao(from: Partial<Corpix.Collections.BpmnProcessInstanceDao> = {}): Corpix.Collections.BpmnProcessInstanceDao {
     return { ...defaultActivity, ...from };
+  },
+  formDao(form: Partial<Corpix.Collections.FormDao> = {}): Corpix.Collections.FormDao {
+    return { ...defaultForm, ...form };
+  },
+  dataDao(data: Partial<Corpix.Collections.DataDao> = {}): Corpix.Collections.DataDao {
+    return { ...defaultData, ...data }; 
+  },
+  descriptorDao(
+    data: Partial<Corpix.Collections.DataDescriptorDao> = {}
+  ): Corpix.Collections.DataDescriptorDao {
+    return { ...defaultDescriptorDao, ...data };
+  },
+  descriptor(
+    data: Partial<Corpix.Entities.DataDescriptor> = {}
+  ): Corpix.Entities.DataDescriptor {
+    return { ...defaultDescriptor, ...data };
   },
   bpmnProcessDao(
     from: Partial<Corpix.Collections.BpmnProcessDao> = {},
