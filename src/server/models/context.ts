@@ -1,8 +1,10 @@
+import { AccessesModel } from './accesses_model';
+import { TaskInstancesModel } from './bpmn_task_instances_model';
+import { BpmnProcessInstancesModel } from './bpmn_process_instances_model';
 import { BpmnProcessesModel } from './bpmn_processes_model';
-import { ActionsModel } from './actions_model';
-import { ActivitiesModel } from './activities_model';
-import { UsersModel } from './users_model';
 import { UserModel } from './user_model';
+import { UsersModel } from './users_model';
+
 import { MongoConnector } from 'apollo-connector-mongodb';
 
 declare global {
@@ -10,9 +12,10 @@ declare global {
 }
 
 export class ServerContext {
-  BpmnProcess: BpmnProcessesModel;
-  Actions: ActionsModel;
-  Activities: ActivitiesModel;
+  BpmnProcessModels: BpmnProcessesModel;
+  Accesses: AccessesModel;
+  TaskInstances: TaskInstancesModel;
+  ProcessInstances: BpmnProcessInstancesModel;
   Users: UsersModel;
   User: UserModel;
   conn: MongoConnector;
@@ -21,6 +24,9 @@ export class ServerContext {
     const MongodbMemoryServer = require('mongodb-memory-server');
 
     const MONGO_DB_NAME = 'jest';
+    
+    console.log(MongodbMemoryServer);
+    
     const mongod = new MongodbMemoryServer.default({
       instance: {
         dbName: MONGO_DB_NAME
@@ -46,8 +52,8 @@ export class ServerContext {
   constructor(conn: MongoConnector) {
     this.conn = conn;
     this.BpmnProcess = new BpmnProcessesModel(conn);
-    this.Actions = new ActionsModel(conn);
-    this.Activities = new ActivitiesModel(conn);
+    this.Actions = new TaskInstancesModel(conn);
+    this.Activities = new BpmnProcessInstancesModel(conn);
     this.Users = new UsersModel(conn);
     this.User = null as any;
   }

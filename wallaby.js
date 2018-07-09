@@ -5,12 +5,11 @@ module.exports = function() {
       'jest.*',
       'test/*.js',
       'src/**/*.+(js|jsx|ts|tsx|json|snap|css|less|sass|scss|jpg|jpeg|gif|png|svg|graphql)',
-      '!src/**/tests/*.+(ts|tsx)',
       '!src/luis_app',
       '!src/**/index.ts'
     ],
 
-    tests: ['!src/**/tests/index.ts', 'src/**/tests/*.+(ts|tsx)'],
+    tests: ['src/server/**/*.test.ts'],
 
     env: {
       type: 'node',

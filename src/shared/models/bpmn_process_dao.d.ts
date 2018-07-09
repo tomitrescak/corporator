@@ -8,7 +8,10 @@ declare namespace Corpix.Collections {
     description: string;
   }
 
-  interface UserDao extends EntityDao {}
+  interface UserDao extends EntityDao {
+    roles: string[],
+    password: string
+  }
 
   interface AccessConditionDao {
     organisationId: string;
@@ -28,7 +31,26 @@ declare namespace Corpix.Collections {
     execute: AccessConditionDao[];
   }
 
-  interface ActivityDao {}
+  interface BpmnProcessInstanceDao extends EntityDao {
+    processId: string;
+    resources: string;
+    ownerId: string;
+    status: string;
+    dateStarted: Date;
+    dateFinished: Date;
+    duration: number;
+  }
+
+  interface BpmnTaskInstanceDao extends Dao {
+    processInstanceId: string;
+    task: Bpmn.Task;
+    performerId: string;
+    performerRoles: string[];
+    dateStarted: Date;
+    dateFinished: Date;
+    duration: number;
+    snapshot: string; //json
+  }
 
   interface RoleDao extends EntityDao {}
 

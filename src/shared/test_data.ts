@@ -1,19 +1,26 @@
 import { ProcessStatus } from '../server/models/bpmn_process_model';
+import { InstanceStatus } from '../server/models/bpmn_process_instance_model';
 
 const defaultUser: Corpix.Collections.UserDao = {
   id: 'u',
   name: 'User',
-  description: 'User Description'
+  description: 'User Description',
+  roles: null,
+  password: 'pw'
 };
 
 const otherUser: Corpix.Collections.UserDao = {
   id: 'o',
   name: 'Other',
-  description: 'Other User Description'
+  description: 'Other User Description',
+  roles: null,
+  password: 'other pw'
 };
 
 const createdDate = new Date(2018, 1, 2);
 const modifiedDate = new Date(2018, 1, 10);
+const finishedDate = new Date(2018, 2, 15);
+// const dateDuration = (finishedDate - createdDate);
 
 const defaultAccess: Corpix.Collections.AccessDao = {
   createdById: defaultUser.id,
@@ -45,6 +52,19 @@ const defaultAccessCondition: Corpix.Collections.AccessConditionDao = {
   postcondition: null
 };
 
+const defaultActivity: Corpix.Collections.BpmnProcessInstanceDao = {
+  id: 'aid',
+  name: 'Activity',
+  description: 'Activity description',
+  processId: 'pid',
+  resources: null,
+  ownerId: 'oid',
+  status: InstanceStatus.Finished,
+  dateStarted: createdDate,
+  dateFinished: finishedDate,
+  duration: 0
+};
+
 const defaultBpmnProcess: Corpix.Collections.BpmnProcessDao = {
   id: 'bpmn',
   name: 'Bpmn',
@@ -64,6 +84,12 @@ export const create = {
   },
   accessDao(from: Partial<Corpix.Collections.AccessDao> = {}): Corpix.Collections.AccessDao {
     return { ...defaultAccess, ...from };
+  },
+  accessConditionDao(from: Partial<Corpix.Collections.AccessConditionDao> = {}): Corpix.Collections.AccessConditionDao {
+    return { ...defaultAccessCondition, ...from };
+  },
+  activityDao(from: Partial<Corpix.Collections.BpmnProcessInstanceDao> = {}): Corpix.Collections.BpmnProcessInstanceDao {
+    return { ...defaultActivity, ...from };
   },
   bpmnProcessDao(
     from: Partial<Corpix.Collections.BpmnProcessDao> = {},
