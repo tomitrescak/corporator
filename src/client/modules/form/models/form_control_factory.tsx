@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Button } from 'semantic-ui-react';
-import { DataSet } from '../models/form_model';
+import { DataSet } from './form_model';
 import { CheckboxView } from '../views/checkbox_view';
 import { FormulaView } from '../views/formula_view';
 import { InputView } from '../views/input_view';

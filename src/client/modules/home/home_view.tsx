@@ -4,7 +4,7 @@ import { Grid } from 'semantic-ui-react';
 import { MainLayout } from '../core/main_layout';
 import { PagerView } from '../core/pager_view';
 import { SortView } from '../core/sort_view';
-import { NotificationListView } from '../notifications/views/notification_list';
+import { NotificationListView } from '../notifications/views/notification_list_view';
 import { ProcessListView } from '../process/views/process_list_view';
 
 declare global {
@@ -20,7 +20,7 @@ export const HomeLayout: React.SFC<PageProps> = () => (
 );
 
 type Props = {
-  user: Corpix.User;
+  user?: Corpix.User;
 };
 
 export const HomeView: React.SFC<Props> = ({ user }) => (

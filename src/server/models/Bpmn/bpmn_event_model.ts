@@ -1,4 +1,4 @@
-import { BaseElement } from '.';
+import { BaseElement } from './index';
 import { BpmnProcessInstance } from '../bpmn_process_instance_model';
 import { BpmnTaskInstanceModel } from '../bpmn_task_instance_model';
 

@@ -1,6 +1,6 @@
 import { autorun } from 'mobx';
 
-import { create } from 'shared/test_data';
+import { create } from '../../../../../shared/test_data';
 import { FormModel } from '../form_model';
 
 it('creates a new model', () => {

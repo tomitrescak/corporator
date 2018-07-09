@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Notifications Item View renders default view 1`] = `
+<div
+  className="item"
+  onClick={[Function]}
+  role="listitem"
+>
+  <span
+    className="sc-bdVaJa cWCCxy"
+  >
+    Thu, 01 Feb 2018 13:00:00 GMT
+  </span>
+   · 
+  This is a comment
+</div>
+`;
+
+exports[`Notifications Item View renders default view 2`] = `
+<div
+  className="item"
+  onClick={[Function]}
+  role="listitem"
+>
+  <span
+    className="sc-bdVaJa cWCCxy"
+  >
+    Thu, 01 Feb 2018 13:00:00 GMT
+  </span>
+   · 
+  This is another comment
+</div>
+`;

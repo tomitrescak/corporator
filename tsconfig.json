@@ -7,7 +7,6 @@
     "jsx": "react",
     "noEmit": true,
     "skipDefaultLibCheck": true,
-    "skipLibCheck": true,
     "pretty": true,
     "strict": true,
     "noUnusedLocals": true,

@@ -1,6 +1,6 @@
 import { MongoConnector, MongoEntity } from 'apollo-connector-mongodb';
-import { BpmnProcessInstance, InstanceStatus } from '../models/bpmn_process_instance_model';
-import { BpmnProcessModel } from '../models/bpmn_process_model';
+import { BpmnProcessInstance, InstanceStatus } from './bpmn_process_instance_model';
+import { BpmnProcessModel } from './bpmn_process_model';
 
 import { BpmnTaskInstanceModel } from './bpmn_task_instance_model';
 // import { BpmnModdle } from 'bpmn-moddle';

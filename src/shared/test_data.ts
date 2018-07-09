@@ -119,6 +119,17 @@ const defaultDescriptor: Corpix.Entities.DataDescriptor= {
   access: null
 };
 
+const defaultNotification: Corpix.Entities.Notification= {
+  _id: '1',
+  processInstance: {},
+  owner: {},
+  code: '',
+  params: [],
+  date: createdDate,
+  visible: true,
+  comment: 'Notification'
+};
+
 export const create = {
   userDao(from: Partial<Corpix.Collections.UserDao> = {}): Corpix.Collections.UserDao {
     return { ...defaultUser, ...from };
@@ -155,5 +166,8 @@ export const create = {
     const result = { ...defaultBpmnProcess, ...from };
     result.access = { ...defaultAccess, ...access };
     return result;
-  }
+  },
+  notification(from: Partial<Corpix.Entities.Notification> = {}): Corpix.Entities.Notification {
+    return { ...defaultNotification, ...from };
+  },
 };

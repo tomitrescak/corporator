@@ -3,7 +3,7 @@ import * as renderer from 'react-test-renderer';
 
 import { Segment } from 'semantic-ui-react';
 
-import { create } from 'shared/test_data';
+import { create } from '../../../../../shared/test_data';
 import { FormModel } from '../../models/form_model';
 import { FormView } from '../form_view';
 

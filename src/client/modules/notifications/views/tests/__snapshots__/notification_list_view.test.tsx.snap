@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Notifications Item View renders no notifications 1`] = `
+<div
+  className="ui message"
+>
+  You have no new notifications.
+</div>
+`;
+
+exports[`Notifications Item View renders some notifications 1`] = `
+<div
+  className="ui segment"
+>
+  <h5
+    className="ui header"
+  >
+    <i
+      aria-hidden="true"
+      className="bell icon"
+    />
+    <div
+      className="content"
+    >
+      Notifications
+    </div>
+  </h5>
+  <div
+    className="ui divided list sc-bwzfXH flOgBY"
+    role="list"
+  >
+    <div
+      className="item"
+      onClick={[Function]}
+      role="listitem"
+    >
+      <span
+        className="sc-bdVaJa cWCCxy"
+      >
+        Tue, 02 Feb 2010 01:50:00 GMT
+      </span>
+       · 
+      Notification 1
+    </div>
+    <div
+      className="item"
+      onClick={[Function]}
+      role="listitem"
+    >
+      <span
+        className="sc-bdVaJa cWCCxy"
+      >
+        Mon, 01 Feb 2010 16:50:00 GMT
+      </span>
+       · 
+      Notification 2
+    </div>
+    <div
+      className="item"
+      onClick={[Function]}
+      role="listitem"
+    >
+      <span
+        className="sc-bdVaJa cWCCxy"
+      >
+        Thu, 01 Feb 2007 23:50:00 GMT
+      </span>
+       · 
+      Notification 3
+    </div>
+    <div
+      className="item"
+      onClick={[Function]}
+      role="listitem"
+    >
+      <span
+        className="sc-bdVaJa cWCCxy"
+      >
+        Tue, 02 Feb 2010 00:50:00 GMT
+      </span>
+       · 
+      Notification 4
+    </div>
+    <div
+      className="item"
+      onClick={[Function]}
+      role="listitem"
+    >
+      <span
+        className="sc-bdVaJa cWCCxy"
+      >
+        Wed, 02 Feb 2011 01:50:00 GMT
+      </span>
+       · 
+      Notification 5
+    </div>
+  </div>
+</div>
+`;

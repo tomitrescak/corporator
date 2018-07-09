@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Form, SemanticWIDTHSNUMBER } from 'semantic-ui-react';
 
-import { groupByArray } from 'shared/helpers';
+import { groupByArray } from '../../../../shared/helpers';
 
 import { renderControl } from '../models/form_control_factory';
 import { DataSet } from '../models/form_model';

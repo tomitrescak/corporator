@@ -1,14 +1,13 @@
 import * as React from 'react';
 import * as renderer from 'react-test-renderer';
 
-import { create } from 'shared/test_data';
+import { create } from '../../../../../shared/test_data';
 import { FormModel } from '../../models/form_model';
 import { FormView } from '../form_view';
 
 import 'jest-styled-components';
 
-import { Button, Segment } from 'semantic-ui-react';
-import styled from 'styled-components';
+import { Segment } from 'semantic-ui-react';
 
 describe('Form', () => {
   const descriptors = [

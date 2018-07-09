@@ -1,4 +1,4 @@
-import { Task } from './Bpmn';
+import { Task } from './bpmn/index';
 
 export class BpmnTaskInstanceModel {
   id: string;
