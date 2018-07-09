@@ -1,0 +1,3 @@
+type BpmnProcessInstance {
+  id: ID! @unique
+}

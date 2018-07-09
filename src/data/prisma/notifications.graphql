@@ -1,0 +1,17 @@
+#import BpmnProcessInstance from './bpmn_process_instance.graphql'
+#import User from './user.graphql'
+
+enum NotificationCode {
+  ServiceStarted
+}
+
+type Notification {
+  id: ID! @unique
+  processInstance: BpmnProcessInstance
+  owner: User!
+  code: NotificationCode
+  text: Localisation
+  params: [String!]!
+  date: DateTime
+  visible: Boolean
+}

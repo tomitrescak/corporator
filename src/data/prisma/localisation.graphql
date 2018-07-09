@@ -1,0 +1,9 @@
+enum LanguageCode {
+  EN
+}
+
+type Localisation {
+  id: ID! @unique
+  text: String!
+  language: LanguageCode!
+}

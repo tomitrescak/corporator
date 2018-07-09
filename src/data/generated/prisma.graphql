@@ -1,0 +1,958 @@
+# source: http://localhost:4466
+# timestamp: Mon Jul 09 2018 22:12:05 GMT+1000 (AEST)
+
+type AggregateBpmnProcessInstance {
+  count: Int!
+}
+
+type AggregateLocalisation {
+  count: Int!
+}
+
+type AggregateNotification {
+  count: Int!
+}
+
+type AggregateUser {
+  count: Int!
+}
+
+type BatchPayload {
+  """The number of nodes that have been affected by the Batch operation."""
+  count: Long!
+}
+
+type BpmnProcessInstance implements Node {
+  id: ID!
+}
+
+"""A connection to a list of items."""
+type BpmnProcessInstanceConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [BpmnProcessInstanceEdge]!
+  aggregate: AggregateBpmnProcessInstance!
+}
+
+input BpmnProcessInstanceCreateOneInput {
+  connect: BpmnProcessInstanceWhereUniqueInput
+}
+
+"""An edge in a connection."""
+type BpmnProcessInstanceEdge {
+  """The item at the end of the edge."""
+  node: BpmnProcessInstance!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum BpmnProcessInstanceOrderByInput {
+  id_ASC
+  id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type BpmnProcessInstancePreviousValues {
+  id: ID!
+}
+
+type BpmnProcessInstanceSubscriptionPayload {
+  mutation: MutationType!
+  node: BpmnProcessInstance
+  updatedFields: [String!]
+  previousValues: BpmnProcessInstancePreviousValues
+}
+
+input BpmnProcessInstanceSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [BpmnProcessInstanceSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [BpmnProcessInstanceSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [BpmnProcessInstanceSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: BpmnProcessInstanceWhereInput
+}
+
+input BpmnProcessInstanceUpdateOneInput {
+  connect: BpmnProcessInstanceWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+}
+
+input BpmnProcessInstanceWhereInput {
+  """Logical AND on all given filters."""
+  AND: [BpmnProcessInstanceWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [BpmnProcessInstanceWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [BpmnProcessInstanceWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+}
+
+input BpmnProcessInstanceWhereUniqueInput {
+  id: ID
+}
+
+scalar DateTime
+
+enum LanguageCode {
+  EN
+}
+
+type Localisation implements Node {
+  id: ID!
+  text: String!
+  language: LanguageCode!
+}
+
+"""A connection to a list of items."""
+type LocalisationConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [LocalisationEdge]!
+  aggregate: AggregateLocalisation!
+}
+
+input LocalisationCreateInput {
+  text: String!
+  language: LanguageCode!
+}
+
+input LocalisationCreateOneInput {
+  create: LocalisationCreateInput
+  connect: LocalisationWhereUniqueInput
+}
+
+"""An edge in a connection."""
+type LocalisationEdge {
+  """The item at the end of the edge."""
+  node: Localisation!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum LocalisationOrderByInput {
+  id_ASC
+  id_DESC
+  text_ASC
+  text_DESC
+  language_ASC
+  language_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type LocalisationPreviousValues {
+  id: ID!
+  text: String!
+  language: LanguageCode!
+}
+
+type LocalisationSubscriptionPayload {
+  mutation: MutationType!
+  node: Localisation
+  updatedFields: [String!]
+  previousValues: LocalisationPreviousValues
+}
+
+input LocalisationSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [LocalisationSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [LocalisationSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [LocalisationSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: LocalisationWhereInput
+}
+
+input LocalisationUpdateDataInput {
+  text: String
+  language: LanguageCode
+}
+
+input LocalisationUpdateInput {
+  text: String
+  language: LanguageCode
+}
+
+input LocalisationUpdateOneInput {
+  create: LocalisationCreateInput
+  connect: LocalisationWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: LocalisationUpdateDataInput
+  upsert: LocalisationUpsertNestedInput
+}
+
+input LocalisationUpsertNestedInput {
+  update: LocalisationUpdateDataInput!
+  create: LocalisationCreateInput!
+}
+
+input LocalisationWhereInput {
+  """Logical AND on all given filters."""
+  AND: [LocalisationWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [LocalisationWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [LocalisationWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  text: String
+
+  """All values that are not equal to given value."""
+  text_not: String
+
+  """All values that are contained in given list."""
+  text_in: [String!]
+
+  """All values that are not contained in given list."""
+  text_not_in: [String!]
+
+  """All values less than the given value."""
+  text_lt: String
+
+  """All values less than or equal the given value."""
+  text_lte: String
+
+  """All values greater than the given value."""
+  text_gt: String
+
+  """All values greater than or equal the given value."""
+  text_gte: String
+
+  """All values containing the given string."""
+  text_contains: String
+
+  """All values not containing the given string."""
+  text_not_contains: String
+
+  """All values starting with the given string."""
+  text_starts_with: String
+
+  """All values not starting with the given string."""
+  text_not_starts_with: String
+
+  """All values ending with the given string."""
+  text_ends_with: String
+
+  """All values not ending with the given string."""
+  text_not_ends_with: String
+  language: LanguageCode
+
+  """All values that are not equal to given value."""
+  language_not: LanguageCode
+
+  """All values that are contained in given list."""
+  language_in: [LanguageCode!]
+
+  """All values that are not contained in given list."""
+  language_not_in: [LanguageCode!]
+}
+
+input LocalisationWhereUniqueInput {
+  id: ID
+}
+
+"""
+The `Long` scalar type represents non-fractional signed whole numeric values.
+Long can represent values between -(2^63) and 2^63 - 1.
+"""
+scalar Long
+
+type Mutation {
+  createUser(data: UserCreateInput!): User!
+  createLocalisation(data: LocalisationCreateInput!): Localisation!
+  createNotification(data: NotificationCreateInput!): Notification!
+  createBpmnProcessInstance: BpmnProcessInstance!
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  updateLocalisation(data: LocalisationUpdateInput!, where: LocalisationWhereUniqueInput!): Localisation
+  updateNotification(data: NotificationUpdateInput!, where: NotificationWhereUniqueInput!): Notification
+  deleteUser(where: UserWhereUniqueInput!): User
+  deleteLocalisation(where: LocalisationWhereUniqueInput!): Localisation
+  deleteNotification(where: NotificationWhereUniqueInput!): Notification
+  deleteBpmnProcessInstance(where: BpmnProcessInstanceWhereUniqueInput!): BpmnProcessInstance
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  upsertLocalisation(where: LocalisationWhereUniqueInput!, create: LocalisationCreateInput!, update: LocalisationUpdateInput!): Localisation!
+  upsertNotification(where: NotificationWhereUniqueInput!, create: NotificationCreateInput!, update: NotificationUpdateInput!): Notification!
+  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
+  updateManyLocalisations(data: LocalisationUpdateInput!, where: LocalisationWhereInput): BatchPayload!
+  updateManyNotifications(data: NotificationUpdateInput!, where: NotificationWhereInput): BatchPayload!
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
+  deleteManyLocalisations(where: LocalisationWhereInput): BatchPayload!
+  deleteManyNotifications(where: NotificationWhereInput): BatchPayload!
+  deleteManyBpmnProcessInstances(where: BpmnProcessInstanceWhereInput): BatchPayload!
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+"""An object with an ID"""
+interface Node {
+  """The id of the object."""
+  id: ID!
+}
+
+type Notification implements Node {
+  id: ID!
+  processInstance(where: BpmnProcessInstanceWhereInput): BpmnProcessInstance
+  owner(where: UserWhereInput): User!
+  code: NotificationCode
+  text(where: LocalisationWhereInput): Localisation
+  params: [String!]
+  date: DateTime
+  visible: Boolean
+}
+
+enum NotificationCode {
+  ServiceStarted
+}
+
+"""A connection to a list of items."""
+type NotificationConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [NotificationEdge]!
+  aggregate: AggregateNotification!
+}
+
+input NotificationCreateInput {
+  code: NotificationCode
+  date: DateTime
+  visible: Boolean
+  params: NotificationCreateparamsInput
+  processInstance: BpmnProcessInstanceCreateOneInput
+  owner: UserCreateOneInput!
+  text: LocalisationCreateOneInput
+}
+
+input NotificationCreateparamsInput {
+  set: [String!]
+}
+
+"""An edge in a connection."""
+type NotificationEdge {
+  """The item at the end of the edge."""
+  node: Notification!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum NotificationOrderByInput {
+  id_ASC
+  id_DESC
+  code_ASC
+  code_DESC
+  date_ASC
+  date_DESC
+  visible_ASC
+  visible_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type NotificationPreviousValues {
+  id: ID!
+  code: NotificationCode
+  params: [String!]
+  date: DateTime
+  visible: Boolean
+}
+
+type NotificationSubscriptionPayload {
+  mutation: MutationType!
+  node: Notification
+  updatedFields: [String!]
+  previousValues: NotificationPreviousValues
+}
+
+input NotificationSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [NotificationSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [NotificationSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [NotificationSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: NotificationWhereInput
+}
+
+input NotificationUpdateInput {
+  code: NotificationCode
+  date: DateTime
+  visible: Boolean
+  params: NotificationUpdateparamsInput
+  processInstance: BpmnProcessInstanceUpdateOneInput
+  owner: UserUpdateOneInput
+  text: LocalisationUpdateOneInput
+}
+
+input NotificationUpdateparamsInput {
+  set: [String!]
+}
+
+input NotificationWhereInput {
+  """Logical AND on all given filters."""
+  AND: [NotificationWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [NotificationWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [NotificationWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  code: NotificationCode
+
+  """All values that are not equal to given value."""
+  code_not: NotificationCode
+
+  """All values that are contained in given list."""
+  code_in: [NotificationCode!]
+
+  """All values that are not contained in given list."""
+  code_not_in: [NotificationCode!]
+  date: DateTime
+
+  """All values that are not equal to given value."""
+  date_not: DateTime
+
+  """All values that are contained in given list."""
+  date_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  date_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  date_lt: DateTime
+
+  """All values less than or equal the given value."""
+  date_lte: DateTime
+
+  """All values greater than the given value."""
+  date_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  date_gte: DateTime
+  visible: Boolean
+
+  """All values that are not equal to given value."""
+  visible_not: Boolean
+  processInstance: BpmnProcessInstanceWhereInput
+  owner: UserWhereInput
+  text: LocalisationWhereInput
+}
+
+input NotificationWhereUniqueInput {
+  id: ID
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+type Query {
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  localisations(where: LocalisationWhereInput, orderBy: LocalisationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Localisation]!
+  notifications(where: NotificationWhereInput, orderBy: NotificationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Notification]!
+  bpmnProcessInstances(where: BpmnProcessInstanceWhereInput, orderBy: BpmnProcessInstanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BpmnProcessInstance]!
+  user(where: UserWhereUniqueInput!): User
+  localisation(where: LocalisationWhereUniqueInput!): Localisation
+  notification(where: NotificationWhereUniqueInput!): Notification
+  bpmnProcessInstance(where: BpmnProcessInstanceWhereUniqueInput!): BpmnProcessInstance
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  localisationsConnection(where: LocalisationWhereInput, orderBy: LocalisationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LocalisationConnection!
+  notificationsConnection(where: NotificationWhereInput, orderBy: NotificationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): NotificationConnection!
+  bpmnProcessInstancesConnection(where: BpmnProcessInstanceWhereInput, orderBy: BpmnProcessInstanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BpmnProcessInstanceConnection!
+
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
+}
+
+type Subscription {
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  localisation(where: LocalisationSubscriptionWhereInput): LocalisationSubscriptionPayload
+  notification(where: NotificationSubscriptionWhereInput): NotificationSubscriptionPayload
+  bpmnProcessInstance(where: BpmnProcessInstanceSubscriptionWhereInput): BpmnProcessInstanceSubscriptionPayload
+}
+
+type User implements Node {
+  id: ID!
+  name: String!
+  roles: [String!]
+  describe: String!
+}
+
+"""A connection to a list of items."""
+type UserConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [UserEdge]!
+  aggregate: AggregateUser!
+}
+
+input UserCreateInput {
+  name: String!
+  describe: String!
+  roles: UserCreaterolesInput
+}
+
+input UserCreateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreaterolesInput {
+  set: [String!]
+}
+
+"""An edge in a connection."""
+type UserEdge {
+  """The item at the end of the edge."""
+  node: User!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum UserOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  describe_ASC
+  describe_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type UserPreviousValues {
+  id: ID!
+  name: String!
+  roles: [String!]
+  describe: String!
+}
+
+type UserSubscriptionPayload {
+  mutation: MutationType!
+  node: User
+  updatedFields: [String!]
+  previousValues: UserPreviousValues
+}
+
+input UserSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [UserSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [UserSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [UserSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: UserWhereInput
+}
+
+input UserUpdateDataInput {
+  name: String
+  describe: String
+  roles: UserUpdaterolesInput
+}
+
+input UserUpdateInput {
+  name: String
+  describe: String
+  roles: UserUpdaterolesInput
+}
+
+input UserUpdateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+  delete: Boolean
+  update: UserUpdateDataInput
+  upsert: UserUpsertNestedInput
+}
+
+input UserUpdaterolesInput {
+  set: [String!]
+}
+
+input UserUpsertNestedInput {
+  update: UserUpdateDataInput!
+  create: UserCreateInput!
+}
+
+input UserWhereInput {
+  """Logical AND on all given filters."""
+  AND: [UserWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [UserWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [UserWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  describe: String
+
+  """All values that are not equal to given value."""
+  describe_not: String
+
+  """All values that are contained in given list."""
+  describe_in: [String!]
+
+  """All values that are not contained in given list."""
+  describe_not_in: [String!]
+
+  """All values less than the given value."""
+  describe_lt: String
+
+  """All values less than or equal the given value."""
+  describe_lte: String
+
+  """All values greater than the given value."""
+  describe_gt: String
+
+  """All values greater than or equal the given value."""
+  describe_gte: String
+
+  """All values containing the given string."""
+  describe_contains: String
+
+  """All values not containing the given string."""
+  describe_not_contains: String
+
+  """All values starting with the given string."""
+  describe_starts_with: String
+
+  """All values not starting with the given string."""
+  describe_not_starts_with: String
+
+  """All values ending with the given string."""
+  describe_ends_with: String
+
+  """All values not ending with the given string."""
+  describe_not_ends_with: String
+}
+
+input UserWhereUniqueInput {
+  id: ID
+}

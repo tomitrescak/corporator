@@ -1,0 +1,1850 @@
+import { Prisma as BasePrisma, BasePrismaOptions } from 'prisma-binding'
+import { GraphQLResolveInfo } from 'graphql'
+
+export const typeDefs = `
+type AggregateBpmnProcessInstance {
+  count: Int!
+}
+
+type AggregateLocalisation {
+  count: Int!
+}
+
+type AggregateNotification {
+  count: Int!
+}
+
+type AggregateUser {
+  count: Int!
+}
+
+type BatchPayload {
+  """
+  The number of nodes that have been affected by the Batch operation.
+  """
+  count: Long!
+}
+
+type BpmnProcessInstance implements Node {
+  id: ID!
+}
+
+"""
+A connection to a list of items.
+"""
+type BpmnProcessInstanceConnection {
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+  """
+  A list of edges.
+  """
+  edges: [BpmnProcessInstanceEdge]!
+  aggregate: AggregateBpmnProcessInstance!
+}
+
+input BpmnProcessInstanceCreateOneInput {
+  connect: BpmnProcessInstanceWhereUniqueInput
+}
+
+"""
+An edge in a connection.
+"""
+type BpmnProcessInstanceEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: BpmnProcessInstance!
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+}
+
+enum BpmnProcessInstanceOrderByInput {
+  id_ASC
+  id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type BpmnProcessInstancePreviousValues {
+  id: ID!
+}
+
+type BpmnProcessInstanceSubscriptionPayload {
+  mutation: MutationType!
+  node: BpmnProcessInstance
+  updatedFields: [String!]
+  previousValues: BpmnProcessInstancePreviousValues
+}
+
+input BpmnProcessInstanceSubscriptionWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [BpmnProcessInstanceSubscriptionWhereInput!]
+  """
+  Logical OR on all given filters.
+  """
+  OR: [BpmnProcessInstanceSubscriptionWhereInput!]
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [BpmnProcessInstanceSubscriptionWhereInput!]
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: BpmnProcessInstanceWhereInput
+}
+
+input BpmnProcessInstanceUpdateOneInput {
+  connect: BpmnProcessInstanceWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+}
+
+input BpmnProcessInstanceWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [BpmnProcessInstanceWhereInput!]
+  """
+  Logical OR on all given filters.
+  """
+  OR: [BpmnProcessInstanceWhereInput!]
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [BpmnProcessInstanceWhereInput!]
+  id: ID
+  """
+  All values that are not equal to given value.
+  """
+  id_not: ID
+  """
+  All values that are contained in given list.
+  """
+  id_in: [ID!]
+  """
+  All values that are not contained in given list.
+  """
+  id_not_in: [ID!]
+  """
+  All values less than the given value.
+  """
+  id_lt: ID
+  """
+  All values less than or equal the given value.
+  """
+  id_lte: ID
+  """
+  All values greater than the given value.
+  """
+  id_gt: ID
+  """
+  All values greater than or equal the given value.
+  """
+  id_gte: ID
+  """
+  All values containing the given string.
+  """
+  id_contains: ID
+  """
+  All values not containing the given string.
+  """
+  id_not_contains: ID
+  """
+  All values starting with the given string.
+  """
+  id_starts_with: ID
+  """
+  All values not starting with the given string.
+  """
+  id_not_starts_with: ID
+  """
+  All values ending with the given string.
+  """
+  id_ends_with: ID
+  """
+  All values not ending with the given string.
+  """
+  id_not_ends_with: ID
+}
+
+input BpmnProcessInstanceWhereUniqueInput {
+  id: ID
+}
+
+scalar DateTime
+
+enum LanguageCode {
+  EN
+}
+
+type Localisation implements Node {
+  id: ID!
+  text: String!
+  language: LanguageCode!
+}
+
+"""
+A connection to a list of items.
+"""
+type LocalisationConnection {
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+  """
+  A list of edges.
+  """
+  edges: [LocalisationEdge]!
+  aggregate: AggregateLocalisation!
+}
+
+input LocalisationCreateInput {
+  text: String!
+  language: LanguageCode!
+}
+
+input LocalisationCreateOneInput {
+  create: LocalisationCreateInput
+  connect: LocalisationWhereUniqueInput
+}
+
+"""
+An edge in a connection.
+"""
+type LocalisationEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: Localisation!
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+}
+
+enum LocalisationOrderByInput {
+  id_ASC
+  id_DESC
+  text_ASC
+  text_DESC
+  language_ASC
+  language_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type LocalisationPreviousValues {
+  id: ID!
+  text: String!
+  language: LanguageCode!
+}
+
+type LocalisationSubscriptionPayload {
+  mutation: MutationType!
+  node: Localisation
+  updatedFields: [String!]
+  previousValues: LocalisationPreviousValues
+}
+
+input LocalisationSubscriptionWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [LocalisationSubscriptionWhereInput!]
+  """
+  Logical OR on all given filters.
+  """
+  OR: [LocalisationSubscriptionWhereInput!]
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [LocalisationSubscriptionWhereInput!]
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: LocalisationWhereInput
+}
+
+input LocalisationUpdateDataInput {
+  text: String
+  language: LanguageCode
+}
+
+input LocalisationUpdateInput {
+  text: String
+  language: LanguageCode
+}
+
+input LocalisationUpdateOneInput {
+  create: LocalisationCreateInput
+  connect: LocalisationWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: LocalisationUpdateDataInput
+  upsert: LocalisationUpsertNestedInput
+}
+
+input LocalisationUpsertNestedInput {
+  update: LocalisationUpdateDataInput!
+  create: LocalisationCreateInput!
+}
+
+input LocalisationWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [LocalisationWhereInput!]
+  """
+  Logical OR on all given filters.
+  """
+  OR: [LocalisationWhereInput!]
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [LocalisationWhereInput!]
+  id: ID
+  """
+  All values that are not equal to given value.
+  """
+  id_not: ID
+  """
+  All values that are contained in given list.
+  """
+  id_in: [ID!]
+  """
+  All values that are not contained in given list.
+  """
+  id_not_in: [ID!]
+  """
+  All values less than the given value.
+  """
+  id_lt: ID
+  """
+  All values less than or equal the given value.
+  """
+  id_lte: ID
+  """
+  All values greater than the given value.
+  """
+  id_gt: ID
+  """
+  All values greater than or equal the given value.
+  """
+  id_gte: ID
+  """
+  All values containing the given string.
+  """
+  id_contains: ID
+  """
+  All values not containing the given string.
+  """
+  id_not_contains: ID
+  """
+  All values starting with the given string.
+  """
+  id_starts_with: ID
+  """
+  All values not starting with the given string.
+  """
+  id_not_starts_with: ID
+  """
+  All values ending with the given string.
+  """
+  id_ends_with: ID
+  """
+  All values not ending with the given string.
+  """
+  id_not_ends_with: ID
+  text: String
+  """
+  All values that are not equal to given value.
+  """
+  text_not: String
+  """
+  All values that are contained in given list.
+  """
+  text_in: [String!]
+  """
+  All values that are not contained in given list.
+  """
+  text_not_in: [String!]
+  """
+  All values less than the given value.
+  """
+  text_lt: String
+  """
+  All values less than or equal the given value.
+  """
+  text_lte: String
+  """
+  All values greater than the given value.
+  """
+  text_gt: String
+  """
+  All values greater than or equal the given value.
+  """
+  text_gte: String
+  """
+  All values containing the given string.
+  """
+  text_contains: String
+  """
+  All values not containing the given string.
+  """
+  text_not_contains: String
+  """
+  All values starting with the given string.
+  """
+  text_starts_with: String
+  """
+  All values not starting with the given string.
+  """
+  text_not_starts_with: String
+  """
+  All values ending with the given string.
+  """
+  text_ends_with: String
+  """
+  All values not ending with the given string.
+  """
+  text_not_ends_with: String
+  language: LanguageCode
+  """
+  All values that are not equal to given value.
+  """
+  language_not: LanguageCode
+  """
+  All values that are contained in given list.
+  """
+  language_in: [LanguageCode!]
+  """
+  All values that are not contained in given list.
+  """
+  language_not_in: [LanguageCode!]
+}
+
+input LocalisationWhereUniqueInput {
+  id: ID
+}
+
+"""
+The 'Long' scalar type represents non-fractional signed whole numeric values.
+Long can represent values between -(2^63) and 2^63 - 1.
+"""
+scalar Long
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+"""
+An object with an ID
+"""
+interface Node {
+  """
+  The id of the object.
+  """
+  id: ID!
+}
+
+type Notification implements Node {
+  id: ID!
+  processInstance(where: BpmnProcessInstanceWhereInput): BpmnProcessInstance
+  owner(where: UserWhereInput): User!
+  code: NotificationCode
+  text(where: LocalisationWhereInput): Localisation
+  params: [String!]
+  date: DateTime
+  visible: Boolean
+}
+
+enum NotificationCode {
+  ServiceStarted
+}
+
+"""
+A connection to a list of items.
+"""
+type NotificationConnection {
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+  """
+  A list of edges.
+  """
+  edges: [NotificationEdge]!
+  aggregate: AggregateNotification!
+}
+
+input NotificationCreateInput {
+  code: NotificationCode
+  date: DateTime
+  visible: Boolean
+  params: NotificationCreateparamsInput
+  processInstance: BpmnProcessInstanceCreateOneInput
+  owner: UserCreateOneInput!
+  text: LocalisationCreateOneInput
+}
+
+input NotificationCreateparamsInput {
+  set: [String!]
+}
+
+"""
+An edge in a connection.
+"""
+type NotificationEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: Notification!
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+}
+
+enum NotificationOrderByInput {
+  id_ASC
+  id_DESC
+  code_ASC
+  code_DESC
+  date_ASC
+  date_DESC
+  visible_ASC
+  visible_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type NotificationPreviousValues {
+  id: ID!
+  code: NotificationCode
+  params: [String!]
+  date: DateTime
+  visible: Boolean
+}
+
+type NotificationSubscriptionPayload {
+  mutation: MutationType!
+  node: Notification
+  updatedFields: [String!]
+  previousValues: NotificationPreviousValues
+}
+
+input NotificationSubscriptionWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [NotificationSubscriptionWhereInput!]
+  """
+  Logical OR on all given filters.
+  """
+  OR: [NotificationSubscriptionWhereInput!]
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [NotificationSubscriptionWhereInput!]
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: NotificationWhereInput
+}
+
+input NotificationUpdateInput {
+  code: NotificationCode
+  date: DateTime
+  visible: Boolean
+  params: NotificationUpdateparamsInput
+  processInstance: BpmnProcessInstanceUpdateOneInput
+  owner: UserUpdateOneInput
+  text: LocalisationUpdateOneInput
+}
+
+input NotificationUpdateparamsInput {
+  set: [String!]
+}
+
+input NotificationWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [NotificationWhereInput!]
+  """
+  Logical OR on all given filters.
+  """
+  OR: [NotificationWhereInput!]
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [NotificationWhereInput!]
+  id: ID
+  """
+  All values that are not equal to given value.
+  """
+  id_not: ID
+  """
+  All values that are contained in given list.
+  """
+  id_in: [ID!]
+  """
+  All values that are not contained in given list.
+  """
+  id_not_in: [ID!]
+  """
+  All values less than the given value.
+  """
+  id_lt: ID
+  """
+  All values less than or equal the given value.
+  """
+  id_lte: ID
+  """
+  All values greater than the given value.
+  """
+  id_gt: ID
+  """
+  All values greater than or equal the given value.
+  """
+  id_gte: ID
+  """
+  All values containing the given string.
+  """
+  id_contains: ID
+  """
+  All values not containing the given string.
+  """
+  id_not_contains: ID
+  """
+  All values starting with the given string.
+  """
+  id_starts_with: ID
+  """
+  All values not starting with the given string.
+  """
+  id_not_starts_with: ID
+  """
+  All values ending with the given string.
+  """
+  id_ends_with: ID
+  """
+  All values not ending with the given string.
+  """
+  id_not_ends_with: ID
+  code: NotificationCode
+  """
+  All values that are not equal to given value.
+  """
+  code_not: NotificationCode
+  """
+  All values that are contained in given list.
+  """
+  code_in: [NotificationCode!]
+  """
+  All values that are not contained in given list.
+  """
+  code_not_in: [NotificationCode!]
+  date: DateTime
+  """
+  All values that are not equal to given value.
+  """
+  date_not: DateTime
+  """
+  All values that are contained in given list.
+  """
+  date_in: [DateTime!]
+  """
+  All values that are not contained in given list.
+  """
+  date_not_in: [DateTime!]
+  """
+  All values less than the given value.
+  """
+  date_lt: DateTime
+  """
+  All values less than or equal the given value.
+  """
+  date_lte: DateTime
+  """
+  All values greater than the given value.
+  """
+  date_gt: DateTime
+  """
+  All values greater than or equal the given value.
+  """
+  date_gte: DateTime
+  visible: Boolean
+  """
+  All values that are not equal to given value.
+  """
+  visible_not: Boolean
+  processInstance: BpmnProcessInstanceWhereInput
+  owner: UserWhereInput
+  text: LocalisationWhereInput
+}
+
+input NotificationWhereUniqueInput {
+  id: ID
+}
+
+"""
+Information about pagination in a connection.
+"""
+type PageInfo {
+  """
+  When paginating forwards, are there more items?
+  """
+  hasNextPage: Boolean!
+  """
+  When paginating backwards, are there more items?
+  """
+  hasPreviousPage: Boolean!
+  """
+  When paginating backwards, the cursor to continue.
+  """
+  startCursor: String
+  """
+  When paginating forwards, the cursor to continue.
+  """
+  endCursor: String
+}
+
+type User implements Node {
+  id: ID!
+  name: String!
+  roles: [String!]
+  describe: String!
+}
+
+"""
+A connection to a list of items.
+"""
+type UserConnection {
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+  """
+  A list of edges.
+  """
+  edges: [UserEdge]!
+  aggregate: AggregateUser!
+}
+
+input UserCreateInput {
+  name: String!
+  describe: String!
+  roles: UserCreaterolesInput
+}
+
+input UserCreateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreaterolesInput {
+  set: [String!]
+}
+
+"""
+An edge in a connection.
+"""
+type UserEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: User!
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+}
+
+enum UserOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  describe_ASC
+  describe_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type UserPreviousValues {
+  id: ID!
+  name: String!
+  roles: [String!]
+  describe: String!
+}
+
+type UserSubscriptionPayload {
+  mutation: MutationType!
+  node: User
+  updatedFields: [String!]
+  previousValues: UserPreviousValues
+}
+
+input UserSubscriptionWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [UserSubscriptionWhereInput!]
+  """
+  Logical OR on all given filters.
+  """
+  OR: [UserSubscriptionWhereInput!]
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [UserSubscriptionWhereInput!]
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: UserWhereInput
+}
+
+input UserUpdateDataInput {
+  name: String
+  describe: String
+  roles: UserUpdaterolesInput
+}
+
+input UserUpdateInput {
+  name: String
+  describe: String
+  roles: UserUpdaterolesInput
+}
+
+input UserUpdateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+  delete: Boolean
+  update: UserUpdateDataInput
+  upsert: UserUpsertNestedInput
+}
+
+input UserUpdaterolesInput {
+  set: [String!]
+}
+
+input UserUpsertNestedInput {
+  update: UserUpdateDataInput!
+  create: UserCreateInput!
+}
+
+input UserWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [UserWhereInput!]
+  """
+  Logical OR on all given filters.
+  """
+  OR: [UserWhereInput!]
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [UserWhereInput!]
+  id: ID
+  """
+  All values that are not equal to given value.
+  """
+  id_not: ID
+  """
+  All values that are contained in given list.
+  """
+  id_in: [ID!]
+  """
+  All values that are not contained in given list.
+  """
+  id_not_in: [ID!]
+  """
+  All values less than the given value.
+  """
+  id_lt: ID
+  """
+  All values less than or equal the given value.
+  """
+  id_lte: ID
+  """
+  All values greater than the given value.
+  """
+  id_gt: ID
+  """
+  All values greater than or equal the given value.
+  """
+  id_gte: ID
+  """
+  All values containing the given string.
+  """
+  id_contains: ID
+  """
+  All values not containing the given string.
+  """
+  id_not_contains: ID
+  """
+  All values starting with the given string.
+  """
+  id_starts_with: ID
+  """
+  All values not starting with the given string.
+  """
+  id_not_starts_with: ID
+  """
+  All values ending with the given string.
+  """
+  id_ends_with: ID
+  """
+  All values not ending with the given string.
+  """
+  id_not_ends_with: ID
+  name: String
+  """
+  All values that are not equal to given value.
+  """
+  name_not: String
+  """
+  All values that are contained in given list.
+  """
+  name_in: [String!]
+  """
+  All values that are not contained in given list.
+  """
+  name_not_in: [String!]
+  """
+  All values less than the given value.
+  """
+  name_lt: String
+  """
+  All values less than or equal the given value.
+  """
+  name_lte: String
+  """
+  All values greater than the given value.
+  """
+  name_gt: String
+  """
+  All values greater than or equal the given value.
+  """
+  name_gte: String
+  """
+  All values containing the given string.
+  """
+  name_contains: String
+  """
+  All values not containing the given string.
+  """
+  name_not_contains: String
+  """
+  All values starting with the given string.
+  """
+  name_starts_with: String
+  """
+  All values not starting with the given string.
+  """
+  name_not_starts_with: String
+  """
+  All values ending with the given string.
+  """
+  name_ends_with: String
+  """
+  All values not ending with the given string.
+  """
+  name_not_ends_with: String
+  describe: String
+  """
+  All values that are not equal to given value.
+  """
+  describe_not: String
+  """
+  All values that are contained in given list.
+  """
+  describe_in: [String!]
+  """
+  All values that are not contained in given list.
+  """
+  describe_not_in: [String!]
+  """
+  All values less than the given value.
+  """
+  describe_lt: String
+  """
+  All values less than or equal the given value.
+  """
+  describe_lte: String
+  """
+  All values greater than the given value.
+  """
+  describe_gt: String
+  """
+  All values greater than or equal the given value.
+  """
+  describe_gte: String
+  """
+  All values containing the given string.
+  """
+  describe_contains: String
+  """
+  All values not containing the given string.
+  """
+  describe_not_contains: String
+  """
+  All values starting with the given string.
+  """
+  describe_starts_with: String
+  """
+  All values not starting with the given string.
+  """
+  describe_not_starts_with: String
+  """
+  All values ending with the given string.
+  """
+  describe_ends_with: String
+  """
+  All values not ending with the given string.
+  """
+  describe_not_ends_with: String
+}
+
+input UserWhereUniqueInput {
+  id: ID
+}
+
+type Mutation {
+  createUser(data: UserCreateInput!): User!
+  createLocalisation(data: LocalisationCreateInput!): Localisation!
+  createNotification(data: NotificationCreateInput!): Notification!
+  createBpmnProcessInstance: BpmnProcessInstance!
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  updateLocalisation(data: LocalisationUpdateInput!, where: LocalisationWhereUniqueInput!): Localisation
+  updateNotification(data: NotificationUpdateInput!, where: NotificationWhereUniqueInput!): Notification
+  deleteUser(where: UserWhereUniqueInput!): User
+  deleteLocalisation(where: LocalisationWhereUniqueInput!): Localisation
+  deleteNotification(where: NotificationWhereUniqueInput!): Notification
+  deleteBpmnProcessInstance(where: BpmnProcessInstanceWhereUniqueInput!): BpmnProcessInstance
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  upsertLocalisation(where: LocalisationWhereUniqueInput!, create: LocalisationCreateInput!, update: LocalisationUpdateInput!): Localisation!
+  upsertNotification(where: NotificationWhereUniqueInput!, create: NotificationCreateInput!, update: NotificationUpdateInput!): Notification!
+  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
+  updateManyLocalisations(data: LocalisationUpdateInput!, where: LocalisationWhereInput): BatchPayload!
+  updateManyNotifications(data: NotificationUpdateInput!, where: NotificationWhereInput): BatchPayload!
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
+  deleteManyLocalisations(where: LocalisationWhereInput): BatchPayload!
+  deleteManyNotifications(where: NotificationWhereInput): BatchPayload!
+  deleteManyBpmnProcessInstances(where: BpmnProcessInstanceWhereInput): BatchPayload!
+}
+
+type Query {
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  localisations(where: LocalisationWhereInput, orderBy: LocalisationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Localisation]!
+  notifications(where: NotificationWhereInput, orderBy: NotificationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Notification]!
+  bpmnProcessInstances(where: BpmnProcessInstanceWhereInput, orderBy: BpmnProcessInstanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BpmnProcessInstance]!
+  user(where: UserWhereUniqueInput!): User
+  localisation(where: LocalisationWhereUniqueInput!): Localisation
+  notification(where: NotificationWhereUniqueInput!): Notification
+  bpmnProcessInstance(where: BpmnProcessInstanceWhereUniqueInput!): BpmnProcessInstance
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  localisationsConnection(where: LocalisationWhereInput, orderBy: LocalisationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LocalisationConnection!
+  notificationsConnection(where: NotificationWhereInput, orderBy: NotificationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): NotificationConnection!
+  bpmnProcessInstancesConnection(where: BpmnProcessInstanceWhereInput, orderBy: BpmnProcessInstanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BpmnProcessInstanceConnection!
+  """
+  Fetches an object given its ID
+  """
+  node("""
+  The ID of an object
+  """
+  id: ID!): Node
+}
+
+type Subscription {
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  localisation(where: LocalisationSubscriptionWhereInput): LocalisationSubscriptionPayload
+  notification(where: NotificationSubscriptionWhereInput): NotificationSubscriptionPayload
+  bpmnProcessInstance(where: BpmnProcessInstanceSubscriptionWhereInput): BpmnProcessInstanceSubscriptionPayload
+}
+`
+
+export type LocalisationOrderByInput = 
+  'id_ASC' |
+  'id_DESC' |
+  'text_ASC' |
+  'text_DESC' |
+  'language_ASC' |
+  'language_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC'
+
+export type LanguageCode = 
+  'EN'
+
+export type MutationType = 
+  'CREATED' |
+  'UPDATED' |
+  'DELETED'
+
+export type NotificationCode = 
+  'ServiceStarted'
+
+export type NotificationOrderByInput = 
+  'id_ASC' |
+  'id_DESC' |
+  'code_ASC' |
+  'code_DESC' |
+  'date_ASC' |
+  'date_DESC' |
+  'visible_ASC' |
+  'visible_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC'
+
+export type BpmnProcessInstanceOrderByInput = 
+  'id_ASC' |
+  'id_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC'
+
+export type UserOrderByInput = 
+  'id_ASC' |
+  'id_DESC' |
+  'name_ASC' |
+  'name_DESC' |
+  'describe_ASC' |
+  'describe_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC'
+
+export interface LocalisationWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface NotificationCreateInput {
+  code?: NotificationCode
+  date?: DateTime
+  visible?: Boolean
+  params?: NotificationCreateparamsInput
+  processInstance?: BpmnProcessInstanceCreateOneInput
+  owner: UserCreateOneInput
+  text?: LocalisationCreateOneInput
+}
+
+export interface UserUpdateDataInput {
+  name?: String
+  describe?: String
+  roles?: UserUpdaterolesInput
+}
+
+export interface UserWhereInput {
+  AND?: UserWhereInput[] | UserWhereInput
+  OR?: UserWhereInput[] | UserWhereInput
+  NOT?: UserWhereInput[] | UserWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  name?: String
+  name_not?: String
+  name_in?: String[] | String
+  name_not_in?: String[] | String
+  name_lt?: String
+  name_lte?: String
+  name_gt?: String
+  name_gte?: String
+  name_contains?: String
+  name_not_contains?: String
+  name_starts_with?: String
+  name_not_starts_with?: String
+  name_ends_with?: String
+  name_not_ends_with?: String
+  describe?: String
+  describe_not?: String
+  describe_in?: String[] | String
+  describe_not_in?: String[] | String
+  describe_lt?: String
+  describe_lte?: String
+  describe_gt?: String
+  describe_gte?: String
+  describe_contains?: String
+  describe_not_contains?: String
+  describe_starts_with?: String
+  describe_not_starts_with?: String
+  describe_ends_with?: String
+  describe_not_ends_with?: String
+}
+
+export interface UserUpdateOneInput {
+  create?: UserCreateInput
+  connect?: UserWhereUniqueInput
+  delete?: Boolean
+  update?: UserUpdateDataInput
+  upsert?: UserUpsertNestedInput
+}
+
+export interface LocalisationWhereInput {
+  AND?: LocalisationWhereInput[] | LocalisationWhereInput
+  OR?: LocalisationWhereInput[] | LocalisationWhereInput
+  NOT?: LocalisationWhereInput[] | LocalisationWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  text?: String
+  text_not?: String
+  text_in?: String[] | String
+  text_not_in?: String[] | String
+  text_lt?: String
+  text_lte?: String
+  text_gt?: String
+  text_gte?: String
+  text_contains?: String
+  text_not_contains?: String
+  text_starts_with?: String
+  text_not_starts_with?: String
+  text_ends_with?: String
+  text_not_ends_with?: String
+  language?: LanguageCode
+  language_not?: LanguageCode
+  language_in?: LanguageCode[] | LanguageCode
+  language_not_in?: LanguageCode[] | LanguageCode
+}
+
+export interface BpmnProcessInstanceUpdateOneInput {
+  connect?: BpmnProcessInstanceWhereUniqueInput
+  disconnect?: Boolean
+  delete?: Boolean
+}
+
+export interface LocalisationUpsertNestedInput {
+  update: LocalisationUpdateDataInput
+  create: LocalisationCreateInput
+}
+
+export interface NotificationUpdateparamsInput {
+  set?: String[] | String
+}
+
+export interface LocalisationSubscriptionWhereInput {
+  AND?: LocalisationSubscriptionWhereInput[] | LocalisationSubscriptionWhereInput
+  OR?: LocalisationSubscriptionWhereInput[] | LocalisationSubscriptionWhereInput
+  NOT?: LocalisationSubscriptionWhereInput[] | LocalisationSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: LocalisationWhereInput
+}
+
+export interface NotificationUpdateInput {
+  code?: NotificationCode
+  date?: DateTime
+  visible?: Boolean
+  params?: NotificationUpdateparamsInput
+  processInstance?: BpmnProcessInstanceUpdateOneInput
+  owner?: UserUpdateOneInput
+  text?: LocalisationUpdateOneInput
+}
+
+export interface LocalisationUpdateOneInput {
+  create?: LocalisationCreateInput
+  connect?: LocalisationWhereUniqueInput
+  disconnect?: Boolean
+  delete?: Boolean
+  update?: LocalisationUpdateDataInput
+  upsert?: LocalisationUpsertNestedInput
+}
+
+export interface LocalisationUpdateInput {
+  text?: String
+  language?: LanguageCode
+}
+
+export interface UserWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface UserUpdaterolesInput {
+  set?: String[] | String
+}
+
+export interface NotificationWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface UserUpdateInput {
+  name?: String
+  describe?: String
+  roles?: UserUpdaterolesInput
+}
+
+export interface UserUpsertNestedInput {
+  update: UserUpdateDataInput
+  create: UserCreateInput
+}
+
+export interface LocalisationCreateOneInput {
+  create?: LocalisationCreateInput
+  connect?: LocalisationWhereUniqueInput
+}
+
+export interface UserSubscriptionWhereInput {
+  AND?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
+  OR?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
+  NOT?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: UserWhereInput
+}
+
+export interface UserCreateOneInput {
+  create?: UserCreateInput
+  connect?: UserWhereUniqueInput
+}
+
+export interface LocalisationUpdateDataInput {
+  text?: String
+  language?: LanguageCode
+}
+
+export interface BpmnProcessInstanceCreateOneInput {
+  connect?: BpmnProcessInstanceWhereUniqueInput
+}
+
+export interface BpmnProcessInstanceSubscriptionWhereInput {
+  AND?: BpmnProcessInstanceSubscriptionWhereInput[] | BpmnProcessInstanceSubscriptionWhereInput
+  OR?: BpmnProcessInstanceSubscriptionWhereInput[] | BpmnProcessInstanceSubscriptionWhereInput
+  NOT?: BpmnProcessInstanceSubscriptionWhereInput[] | BpmnProcessInstanceSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: BpmnProcessInstanceWhereInput
+}
+
+export interface LocalisationCreateInput {
+  text: String
+  language: LanguageCode
+}
+
+export interface UserCreaterolesInput {
+  set?: String[] | String
+}
+
+export interface UserCreateInput {
+  name: String
+  describe: String
+  roles?: UserCreaterolesInput
+}
+
+export interface NotificationCreateparamsInput {
+  set?: String[] | String
+}
+
+export interface BpmnProcessInstanceWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface NotificationSubscriptionWhereInput {
+  AND?: NotificationSubscriptionWhereInput[] | NotificationSubscriptionWhereInput
+  OR?: NotificationSubscriptionWhereInput[] | NotificationSubscriptionWhereInput
+  NOT?: NotificationSubscriptionWhereInput[] | NotificationSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: NotificationWhereInput
+}
+
+export interface BpmnProcessInstanceWhereInput {
+  AND?: BpmnProcessInstanceWhereInput[] | BpmnProcessInstanceWhereInput
+  OR?: BpmnProcessInstanceWhereInput[] | BpmnProcessInstanceWhereInput
+  NOT?: BpmnProcessInstanceWhereInput[] | BpmnProcessInstanceWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+}
+
+export interface NotificationWhereInput {
+  AND?: NotificationWhereInput[] | NotificationWhereInput
+  OR?: NotificationWhereInput[] | NotificationWhereInput
+  NOT?: NotificationWhereInput[] | NotificationWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  code?: NotificationCode
+  code_not?: NotificationCode
+  code_in?: NotificationCode[] | NotificationCode
+  code_not_in?: NotificationCode[] | NotificationCode
+  date?: DateTime
+  date_not?: DateTime
+  date_in?: DateTime[] | DateTime
+  date_not_in?: DateTime[] | DateTime
+  date_lt?: DateTime
+  date_lte?: DateTime
+  date_gt?: DateTime
+  date_gte?: DateTime
+  visible?: Boolean
+  visible_not?: Boolean
+  processInstance?: BpmnProcessInstanceWhereInput
+  owner?: UserWhereInput
+  text?: LocalisationWhereInput
+}
+
+/*
+ * An object with an ID
+
+ */
+export interface Node {
+  id: ID_Output
+}
+
+export interface AggregateBpmnProcessInstance {
+  count: Int
+}
+
+export interface BpmnProcessInstance extends Node {
+  id: ID_Output
+}
+
+export interface NotificationSubscriptionPayload {
+  mutation: MutationType
+  node?: Notification
+  updatedFields?: String[]
+  previousValues?: NotificationPreviousValues
+}
+
+export interface Notification extends Node {
+  id: ID_Output
+  processInstance?: BpmnProcessInstance
+  owner: User
+  code?: NotificationCode
+  text?: Localisation
+  params?: String[]
+  date?: DateTime
+  visible?: Boolean
+}
+
+export interface BpmnProcessInstancePreviousValues {
+  id: ID_Output
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface BpmnProcessInstanceEdge {
+  node: BpmnProcessInstance
+  cursor: String
+}
+
+export interface AggregateNotification {
+  count: Int
+}
+
+export interface BatchPayload {
+  count: Long
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface NotificationConnection {
+  pageInfo: PageInfo
+  edges: NotificationEdge[]
+  aggregate: AggregateNotification
+}
+
+export interface BpmnProcessInstanceSubscriptionPayload {
+  mutation: MutationType
+  node?: BpmnProcessInstance
+  updatedFields?: String[]
+  previousValues?: BpmnProcessInstancePreviousValues
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface LocalisationEdge {
+  node: Localisation
+  cursor: String
+}
+
+export interface NotificationPreviousValues {
+  id: ID_Output
+  code?: NotificationCode
+  params?: String[]
+  date?: DateTime
+  visible?: Boolean
+}
+
+export interface AggregateUser {
+  count: Int
+}
+
+export interface Localisation extends Node {
+  id: ID_Output
+  text: String
+  language: LanguageCode
+}
+
+/*
+ * Information about pagination in a connection.
+
+ */
+export interface PageInfo {
+  hasNextPage: Boolean
+  hasPreviousPage: Boolean
+  startCursor?: String
+  endCursor?: String
+}
+
+export interface UserSubscriptionPayload {
+  mutation: MutationType
+  node?: User
+  updatedFields?: String[]
+  previousValues?: UserPreviousValues
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface BpmnProcessInstanceConnection {
+  pageInfo: PageInfo
+  edges: BpmnProcessInstanceEdge[]
+  aggregate: AggregateBpmnProcessInstance
+}
+
+export interface AggregateLocalisation {
+  count: Int
+}
+
+export interface LocalisationPreviousValues {
+  id: ID_Output
+  text: String
+  language: LanguageCode
+}
+
+export interface LocalisationSubscriptionPayload {
+  mutation: MutationType
+  node?: Localisation
+  updatedFields?: String[]
+  previousValues?: LocalisationPreviousValues
+}
+
+export interface User extends Node {
+  id: ID_Output
+  name: String
+  roles?: String[]
+  describe: String
+}
+
+export interface UserPreviousValues {
+  id: ID_Output
+  name: String
+  roles?: String[]
+  describe: String
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface LocalisationConnection {
+  pageInfo: PageInfo
+  edges: LocalisationEdge[]
+  aggregate: AggregateLocalisation
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface NotificationEdge {
+  node: Notification
+  cursor: String
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface UserConnection {
+  pageInfo: PageInfo
+  edges: UserEdge[]
+  aggregate: AggregateUser
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface UserEdge {
+  node: User
+  cursor: String
+}
+
+/*
+The `Boolean` scalar type represents `true` or `false`.
+*/
+export type Boolean = boolean
+
+/*
+The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
+*/
+export type ID_Input = string | number
+export type ID_Output = string
+
+/*
+The 'Long' scalar type represents non-fractional signed whole numeric values.
+Long can represent values between -(2^63) and 2^63 - 1.
+*/
+export type Long = string
+
+/*
+The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
+*/
+export type String = string
+
+export type DateTime = string
+
+/*
+The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
+*/
+export type Int = number
+
+export interface Schema {
+  query: Query
+  mutation: Mutation
+  subscription: Subscription
+}
+
+export type Query = {
+  users: (args: { where?: UserWhereInput, orderBy?: UserOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string) => Promise<User[]>
+  localisations: (args: { where?: LocalisationWhereInput, orderBy?: LocalisationOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string) => Promise<Localisation[]>
+  notifications: (args: { where?: NotificationWhereInput, orderBy?: NotificationOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string) => Promise<Notification[]>
+  bpmnProcessInstances: (args: { where?: BpmnProcessInstanceWhereInput, orderBy?: BpmnProcessInstanceOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string) => Promise<BpmnProcessInstance[]>
+  user: (args: { where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string) => Promise<User | null>
+  localisation: (args: { where: LocalisationWhereUniqueInput }, info?: GraphQLResolveInfo | string) => Promise<Localisation | null>
+  notification: (args: { where: NotificationWhereUniqueInput }, info?: GraphQLResolveInfo | string) => Promise<Notification | null>
+  bpmnProcessInstance: (args: { where: BpmnProcessInstanceWhereUniqueInput }, info?: GraphQLResolveInfo | string) => Promise<BpmnProcessInstance | null>
+  usersConnection: (args: { where?: UserWhereInput, orderBy?: UserOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string) => Promise<UserConnection>
+  localisationsConnection: (args: { where?: LocalisationWhereInput, orderBy?: LocalisationOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string) => Promise<LocalisationConnection>
+  notificationsConnection: (args: { where?: NotificationWhereInput, orderBy?: NotificationOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string) => Promise<NotificationConnection>
+  bpmnProcessInstancesConnection: (args: { where?: BpmnProcessInstanceWhereInput, orderBy?: BpmnProcessInstanceOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string) => Promise<BpmnProcessInstanceConnection>
+  node: (args: { id: ID_Output }, info?: GraphQLResolveInfo | string) => Promise<Node | null>
+}
+
+export type Mutation = {
+  createUser: (args: { data: UserCreateInput }, info?: GraphQLResolveInfo | string) => Promise<User>
+  createLocalisation: (args: { data: LocalisationCreateInput }, info?: GraphQLResolveInfo | string) => Promise<Localisation>
+  createNotification: (args: { data: NotificationCreateInput }, info?: GraphQLResolveInfo | string) => Promise<Notification>
+  createBpmnProcessInstance: (args: {}, info?: GraphQLResolveInfo | string) => Promise<BpmnProcessInstance>
+  updateUser: (args: { data: UserUpdateInput, where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string) => Promise<User | null>
+  updateLocalisation: (args: { data: LocalisationUpdateInput, where: LocalisationWhereUniqueInput }, info?: GraphQLResolveInfo | string) => Promise<Localisation | null>
+  updateNotification: (args: { data: NotificationUpdateInput, where: NotificationWhereUniqueInput }, info?: GraphQLResolveInfo | string) => Promise<Notification | null>
+  deleteUser: (args: { where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string) => Promise<User | null>
+  deleteLocalisation: (args: { where: LocalisationWhereUniqueInput }, info?: GraphQLResolveInfo | string) => Promise<Localisation | null>
+  deleteNotification: (args: { where: NotificationWhereUniqueInput }, info?: GraphQLResolveInfo | string) => Promise<Notification | null>
+  deleteBpmnProcessInstance: (args: { where: BpmnProcessInstanceWhereUniqueInput }, info?: GraphQLResolveInfo | string) => Promise<BpmnProcessInstance | null>
+  upsertUser: (args: { where: UserWhereUniqueInput, create: UserCreateInput, update: UserUpdateInput }, info?: GraphQLResolveInfo | string) => Promise<User>
+  upsertLocalisation: (args: { where: LocalisationWhereUniqueInput, create: LocalisationCreateInput, update: LocalisationUpdateInput }, info?: GraphQLResolveInfo | string) => Promise<Localisation>
+  upsertNotification: (args: { where: NotificationWhereUniqueInput, create: NotificationCreateInput, update: NotificationUpdateInput }, info?: GraphQLResolveInfo | string) => Promise<Notification>
+  updateManyUsers: (args: { data: UserUpdateInput, where?: UserWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
+  updateManyLocalisations: (args: { data: LocalisationUpdateInput, where?: LocalisationWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
+  updateManyNotifications: (args: { data: NotificationUpdateInput, where?: NotificationWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
+  deleteManyUsers: (args: { where?: UserWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
+  deleteManyLocalisations: (args: { where?: LocalisationWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
+  deleteManyNotifications: (args: { where?: NotificationWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
+  deleteManyBpmnProcessInstances: (args: { where?: BpmnProcessInstanceWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
+}
+
+export type Subscription = {
+  user: (args: { where?: UserSubscriptionWhereInput }, infoOrQuery?: GraphQLResolveInfo | string) => Promise<AsyncIterator<UserSubscriptionPayload>>
+  localisation: (args: { where?: LocalisationSubscriptionWhereInput }, infoOrQuery?: GraphQLResolveInfo | string) => Promise<AsyncIterator<LocalisationSubscriptionPayload>>
+  notification: (args: { where?: NotificationSubscriptionWhereInput }, infoOrQuery?: GraphQLResolveInfo | string) => Promise<AsyncIterator<NotificationSubscriptionPayload>>
+  bpmnProcessInstance: (args: { where?: BpmnProcessInstanceSubscriptionWhereInput }, infoOrQuery?: GraphQLResolveInfo | string) => Promise<AsyncIterator<BpmnProcessInstanceSubscriptionPayload>>
+}
+
+export class Prisma extends BasePrisma {
+  
+  constructor({ endpoint, secret, fragmentReplacements, debug }: BasePrismaOptions) {
+    super({ typeDefs, endpoint, secret, fragmentReplacements, debug });
+  }
+
+  exists = {
+    User: (where: UserWhereInput): Promise<boolean> => super.existsDelegate('query', 'users', { where }, {}, '{ id }'),
+    Localisation: (where: LocalisationWhereInput): Promise<boolean> => super.existsDelegate('query', 'localisations', { where }, {}, '{ id }'),
+    Notification: (where: NotificationWhereInput): Promise<boolean> => super.existsDelegate('query', 'notifications', { where }, {}, '{ id }'),
+    BpmnProcessInstance: (where: BpmnProcessInstanceWhereInput): Promise<boolean> => super.existsDelegate('query', 'bpmnProcessInstances', { where }, {}, '{ id }')
+  }
+
+  query: Query = {
+    users: (args, info): Promise<User[]> => super.delegate('query', 'users', args, {}, info),
+    localisations: (args, info): Promise<Localisation[]> => super.delegate('query', 'localisations', args, {}, info),
+    notifications: (args, info): Promise<Notification[]> => super.delegate('query', 'notifications', args, {}, info),
+    bpmnProcessInstances: (args, info): Promise<BpmnProcessInstance[]> => super.delegate('query', 'bpmnProcessInstances', args, {}, info),
+    user: (args, info): Promise<User | null> => super.delegate('query', 'user', args, {}, info),
+    localisation: (args, info): Promise<Localisation | null> => super.delegate('query', 'localisation', args, {}, info),
+    notification: (args, info): Promise<Notification | null> => super.delegate('query', 'notification', args, {}, info),
+    bpmnProcessInstance: (args, info): Promise<BpmnProcessInstance | null> => super.delegate('query', 'bpmnProcessInstance', args, {}, info),
+    usersConnection: (args, info): Promise<UserConnection> => super.delegate('query', 'usersConnection', args, {}, info),
+    localisationsConnection: (args, info): Promise<LocalisationConnection> => super.delegate('query', 'localisationsConnection', args, {}, info),
+    notificationsConnection: (args, info): Promise<NotificationConnection> => super.delegate('query', 'notificationsConnection', args, {}, info),
+    bpmnProcessInstancesConnection: (args, info): Promise<BpmnProcessInstanceConnection> => super.delegate('query', 'bpmnProcessInstancesConnection', args, {}, info),
+    node: (args, info): Promise<Node | null> => super.delegate('query', 'node', args, {}, info)
+  }
+
+  mutation: Mutation = {
+    createUser: (args, info): Promise<User> => super.delegate('mutation', 'createUser', args, {}, info),
+    createLocalisation: (args, info): Promise<Localisation> => super.delegate('mutation', 'createLocalisation', args, {}, info),
+    createNotification: (args, info): Promise<Notification> => super.delegate('mutation', 'createNotification', args, {}, info),
+    createBpmnProcessInstance: (args, info): Promise<BpmnProcessInstance> => super.delegate('mutation', 'createBpmnProcessInstance', args, {}, info),
+    updateUser: (args, info): Promise<User | null> => super.delegate('mutation', 'updateUser', args, {}, info),
+    updateLocalisation: (args, info): Promise<Localisation | null> => super.delegate('mutation', 'updateLocalisation', args, {}, info),
+    updateNotification: (args, info): Promise<Notification | null> => super.delegate('mutation', 'updateNotification', args, {}, info),
+    deleteUser: (args, info): Promise<User | null> => super.delegate('mutation', 'deleteUser', args, {}, info),
+    deleteLocalisation: (args, info): Promise<Localisation | null> => super.delegate('mutation', 'deleteLocalisation', args, {}, info),
+    deleteNotification: (args, info): Promise<Notification | null> => super.delegate('mutation', 'deleteNotification', args, {}, info),
+    deleteBpmnProcessInstance: (args, info): Promise<BpmnProcessInstance | null> => super.delegate('mutation', 'deleteBpmnProcessInstance', args, {}, info),
+    upsertUser: (args, info): Promise<User> => super.delegate('mutation', 'upsertUser', args, {}, info),
+    upsertLocalisation: (args, info): Promise<Localisation> => super.delegate('mutation', 'upsertLocalisation', args, {}, info),
+    upsertNotification: (args, info): Promise<Notification> => super.delegate('mutation', 'upsertNotification', args, {}, info),
+    updateManyUsers: (args, info): Promise<BatchPayload> => super.delegate('mutation', 'updateManyUsers', args, {}, info),
+    updateManyLocalisations: (args, info): Promise<BatchPayload> => super.delegate('mutation', 'updateManyLocalisations', args, {}, info),
+    updateManyNotifications: (args, info): Promise<BatchPayload> => super.delegate('mutation', 'updateManyNotifications', args, {}, info),
+    deleteManyUsers: (args, info): Promise<BatchPayload> => super.delegate('mutation', 'deleteManyUsers', args, {}, info),
+    deleteManyLocalisations: (args, info): Promise<BatchPayload> => super.delegate('mutation', 'deleteManyLocalisations', args, {}, info),
+    deleteManyNotifications: (args, info): Promise<BatchPayload> => super.delegate('mutation', 'deleteManyNotifications', args, {}, info),
+    deleteManyBpmnProcessInstances: (args, info): Promise<BatchPayload> => super.delegate('mutation', 'deleteManyBpmnProcessInstances', args, {}, info)
+  }
+
+  subscription: Subscription = {
+    user: (args, infoOrQuery): Promise<AsyncIterator<UserSubscriptionPayload>> => super.delegateSubscription('user', args, {}, infoOrQuery),
+    localisation: (args, infoOrQuery): Promise<AsyncIterator<LocalisationSubscriptionPayload>> => super.delegateSubscription('localisation', args, {}, infoOrQuery),
+    notification: (args, infoOrQuery): Promise<AsyncIterator<NotificationSubscriptionPayload>> => super.delegateSubscription('notification', args, {}, infoOrQuery),
+    bpmnProcessInstance: (args, infoOrQuery): Promise<AsyncIterator<BpmnProcessInstanceSubscriptionPayload>> => super.delegateSubscription('bpmnProcessInstance', args, {}, infoOrQuery)
+  }
+}
