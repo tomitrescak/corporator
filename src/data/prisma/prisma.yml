@@ -7,4 +7,4 @@ datamodel:
 hooks:
   post-deploy:
     - graphql get-schema -p prisma
-    - graphql prepare
+    - graphql codegen

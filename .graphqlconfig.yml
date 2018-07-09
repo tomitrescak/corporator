@@ -5,14 +5,18 @@ projects:
     extensions:
       endpoints:
         default: "http://localhost:4000"
-      prepare-binding:
-        output: src/data/generated/api.ts
-        generator: binding-ts
+      codegen:
+        - generator: prisma-binding
+          language: typescript
+          output: 
+            binding: src/data/generated/api.ts
   prisma:
     schemaPath: "src/data/generated/prisma.graphql"
     includes: ["**/*.graphql"]
     extensions:
       prisma: src/data/prisma/prisma.yml
-      prepare-binding:
-        output: src/data/generated/prisma.ts
-        generator: prisma-ts
+      codegen:
+        - generator: prisma-binding
+          language: typescript
+          output: 
+            binding: src/data/generated/prisma.ts

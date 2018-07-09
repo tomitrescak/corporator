@@ -1,8 +1,8 @@
 import * as dayjs from 'dayjs';
 import * as React from 'react';
 
-
 // import relativeTime from 'dayjs/plugin/relativeTime'
+import { Notification } from 'data/generated/api';
 import { List } from 'semantic-ui-react';
 import styled from 'styled-components';
 
@@ -13,11 +13,11 @@ const Time = styled.span`
 `;
 
 type Props = {
-  notification: Corpix.Entities.Notification;
+  notification: Notification;
 };
 
 export const NotificationView: React.SFC<Props> = ({ notification }) => (
   <List.Item>
-    <Time>{ dayjs(notification.date).toString() }</Time> &middot; { notification.comment }
+    <Time>{dayjs(notification.date).toString()}</Time> &middot; {notification.comment}
   </List.Item>
 );
