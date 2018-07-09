@@ -1,25 +1,19 @@
 jest.mock('bpmn-moddle', () => {
   class Moddle {
     fromXML(xml: string, cb: Function) {
-      if(xml === 'SourceFlowError') {
+      if (xml === 'SourceFlowError') {
         cb(null, jsonSourceFlowError);
-      }
-      else if(xml === 'TargetFlowError') {
+      } else if (xml === 'TargetFlowError') {
         cb(null, jsonTargetFlowError);
-      }
-      else if(xml === 'SourceNodeError') {
+      } else if (xml === 'SourceNodeError') {
         cb(null, jsonSourceNodeError);
-      }
-      else if(xml === 'TargetNodeError') {
+      } else if (xml === 'TargetNodeError') {
         cb(null, jsonTargetNodeError);
-      }
-      else if(xml === 'DefaultNodeError') {
+      } else if (xml === 'DefaultNodeError') {
         cb(null, jsonDefaultNodeError);
-      }
-      else if(xml === 'NoSequenceFlowError') {
+      } else if (xml === 'NoSequenceFlowError') {
         cb(null, jsonNoSequenceFlowError);
-      }
-      else {
+      } else {
         cb(null, json);
       }
     }
@@ -30,22 +24,31 @@ jest.mock('bpmn-moddle', () => {
 });
 
 import { create } from '../../../shared/test_data';
+import {
+  EndEvent,
+  FlowNode,
+  Gateway,
+  ReceiveTask,
+  ScriptTask,
+  SendTask,
+  SequenceFlow,
+  StartEvent,
+  Task,
+  UserTask
+} from '../Bpmn';
 import { BpmnProcessModel, BpmnTypes } from '../bpmn_process_model';
-import { StartEvent } from '../Bpmn/bpmn_start_event_model';
-import { SequenceFlow } from '../Bpmn/bpmn_sequence_flow_model';
-// import { BaseElement } from '../Bpmn/bpmn_base_element.model';
-import { FlowNode } from '../Bpmn/bpmn_flow_node_model';
-import { EndEvent } from '../Bpmn/bpmn_end_event_model';
-import { Task } from '../Bpmn/bpmn_task_model';
-import { Gateway } from '../Bpmn/bpmn_gateway_model';
-import { bpmn, json, jsonTargetFlowError, jsonSourceFlowError, jsonSourceNodeError, jsonTargetNodeError, jsonDefaultNodeError, jsonNoSequenceFlowError } from './json_data';
-import { DefaultTask, UserTask, ScriptTask, SendTask, ReceiveTask } from '../Bpmn';
-
-
-
+import {
+  bpmn,
+  json,
+  jsonDefaultNodeError,
+  jsonNoSequenceFlowError,
+  jsonSourceFlowError,
+  jsonSourceNodeError,
+  jsonTargetFlowError,
+  jsonTargetNodeError
+} from './json_data';
 
 describe('bpmn process model', () => {
-  
   it('creates a new instance from database', async () => {
     const model = new BpmnProcessModel(create.bpmnProcessDao());
 
@@ -69,19 +72,25 @@ describe('bpmn process model', () => {
 
     await model.loadDefinition(bpmn);
     // number of types in dictionary
-    expect(model.elementsDict.size()).toEqual(14);
+    expect(model.elementsDict.size()).toEqual(15);
 
     // number of total elements in all inner dictionaries
     let total = 0;
     model.elementsDict.forEach((key, value) => {
       // do not count the abstract types because they are all duplicates
-      if (key === BpmnTypes.Gateway) return;
-      if (key === BpmnTypes.FlowNode) return;
-      if (key === BpmnTypes.BaseElement) return;
+      if (key === BpmnTypes.Gateway) {
+        return;
+      }
+      if (key === BpmnTypes.FlowNode) {
+        return;
+      }
+      if (key === BpmnTypes.BaseElement) {
+        return;
+      }
       total += value.size();
     });
 
-    expect(total).toEqual(30);
+    expect(total).toEqual(32);
   });
 
   it('links references for all StartEvent objects', async () => {
@@ -197,8 +206,8 @@ describe('bpmn process model', () => {
 
     task = taskDict.getValue('Task_08o4k6s');
     expect(task).toBeDefined();
-    expect(task instanceof DefaultTask).toEqual(true);
-    
+    expect(task instanceof Task).toEqual(true);
+
     if (task instanceof Task) {
       // one incoming
       expect(task.incoming.length).toEqual(1);
@@ -214,8 +223,8 @@ describe('bpmn process model', () => {
 
     task = taskDict.getValue('Task_0izqbtw');
     expect(task).toBeDefined();
-    expect(task instanceof DefaultTask).toEqual(true);
-    
+    expect(task instanceof Task).toEqual(true);
+
     if (task instanceof Task) {
       // one incoming
       expect(task.incoming.length).toEqual(1);
@@ -319,7 +328,7 @@ describe('bpmn process model', () => {
       expect(gate.default).toBeDefined();
       expect(gate.default.id).toEqual('SequenceFlow_05aak41');
       expect(gate.default instanceof SequenceFlow).toEqual(true);
-    }    
+    }
   });
 
   it('links references for all Inclusive Gateway objects', async () => {
@@ -350,7 +359,7 @@ describe('bpmn process model', () => {
       expect(gate.default).toBeDefined();
       expect(gate.default.id).toEqual('SequenceFlow_19tjykd');
       expect(gate.default instanceof SequenceFlow).toEqual(true);
-    }    
+    }
   });
 
   it('links references for all Sequence Flow objects', async () => {
@@ -532,10 +541,10 @@ describe('bpmn process model', () => {
   it('handles source flow error', async () => {
     const model = new BpmnProcessModel(create.bpmnProcessDao());
     let error = null;
-    
+
     try {
-     await model.loadDefinition('SourceFlowError');
-    } catch(e) {
+      await model.loadDefinition('SourceFlowError');
+    } catch (e) {
       error = e;
     }
 
@@ -545,10 +554,10 @@ describe('bpmn process model', () => {
   it('handles target flow error', async () => {
     const model = new BpmnProcessModel(create.bpmnProcessDao());
     let error = null;
-    
+
     try {
-     await model.loadDefinition('TargetFlowError');
-    } catch(e) {
+      await model.loadDefinition('TargetFlowError');
+    } catch (e) {
       error = e;
     }
 
@@ -558,40 +567,36 @@ describe('bpmn process model', () => {
   it('handles source node error', async () => {
     const model = new BpmnProcessModel(create.bpmnProcessDao());
     let error = null;
-    
+
     try {
-     await model.loadDefinition('SourceNodeError');
-    } catch(e) {
+      await model.loadDefinition('SourceNodeError');
+    } catch (e) {
       error = e;
     }
 
     expect(error).toEqual(new Error('Invalid Source Node'));
   });
 
-
-
   it('handles target node error', async () => {
     const model = new BpmnProcessModel(create.bpmnProcessDao());
     let error = null;
-    
+
     try {
-     await model.loadDefinition('TargetNodeError');
-    } catch(e) {
+      await model.loadDefinition('TargetNodeError');
+    } catch (e) {
       error = e;
     }
-    
-    expect(error).toEqual(new Error('Invalid Target Node'));
 
-    
+    expect(error).toEqual(new Error('Invalid Target Node'));
   });
 
   it('handles default node error', async () => {
     const model = new BpmnProcessModel(create.bpmnProcessDao());
     let error = null;
-    
+
     try {
-     await model.loadDefinition('DefaultNodeError');
-    } catch(e) {
+      await model.loadDefinition('DefaultNodeError');
+    } catch (e) {
       error = e;
     }
 
@@ -601,10 +606,10 @@ describe('bpmn process model', () => {
   it('handles non existing sequence flow', async () => {
     const model = new BpmnProcessModel(create.bpmnProcessDao());
     let error = null;
-    
+
     try {
-     await model.loadDefinition('NoSequenceFlowError');
-    } catch(e) {
+      await model.loadDefinition('NoSequenceFlowError');
+    } catch (e) {
       error = e;
     }
 

@@ -20,12 +20,12 @@ export abstract class FlowNode extends BaseElement {
     if(flowNode.incoming) {
       flowNode.incoming.forEach((seq) => {
         this.incomingIds.push(seq.id);
-      })
+      });
     }
     if(flowNode.outgoing) {
       flowNode.outgoing.forEach((seq) => {
         this.outgoingIds.push(seq.id);
-      })
+      });
     }
 
     // linked in bpmn process

@@ -1,4 +1,11 @@
 declare namespace Corpix.Collections {
+  enum InstanceStatus {
+    Running = 'running',
+    Paused = 'paused',
+    Finished = 'finished',
+    Aborted = 'aborted'
+  }
+  
   interface Dao {
     id: string;
   }
@@ -35,7 +42,7 @@ declare namespace Corpix.Collections {
     processId: string;
     resources: string;
     ownerId: string;
-    status: string;
+    status: InstanceStatus;
     dateStarted: Date;
     dateFinished: Date;
     duration: number;

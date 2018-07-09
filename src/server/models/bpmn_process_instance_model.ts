@@ -16,7 +16,7 @@ export class BpmnProcessInstance {
   processModel: BpmnProcessModel;
   resources: any; // JSON
   ownerId: string;
-  status: string;
+  status: InstanceStatus;
   dateStarted: Date;
   dateFinished: Date;
   duration: number;
@@ -42,10 +42,11 @@ export class BpmnProcessInstance {
   }
 
   pause() {
-
+    /* set status to paused */
   }
 
+
   abort() {
-    
+    /* set status to aborted */
   }
 }

@@ -1,8 +1,8 @@
 import { BpmnProcessInstance } from '../bpmn_process_instance_model';
 import { BpmnTaskInstanceModel } from '../bpmn_task_instance_model';
-import { FlowNode } from './bpmn_flow_node_model';
+import { BaseEvent } from './bpmn_base_event_model';
 
-export class EndEvent extends FlowNode {
+export class EndEvent extends BaseEvent {
   constructor(endEvent: EndEvent) {
     super(endEvent);    
   }

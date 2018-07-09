@@ -1,4 +1,4 @@
-import { FlowNode } from '.';
+import { FlowNode } from './bpmn_flow_node_model';
 
 export abstract class BaseEvent extends FlowNode {
 

@@ -1,26 +1,37 @@
-import { BaseEvent, FlowNode } from '.';
 import { BpmnProcessInstance } from '../bpmn_process_instance_model';
 import { BpmnTaskInstanceModel } from '../bpmn_task_instance_model';
+import { BoundaryEvent } from './bpmn_boundary_event_model';
+import { FlowNode } from './bpmn_flow_node_model';
 
-enum TaskMarkers {
+export enum TaskMarkers {
   None = 'none',
   Loop = 'loop',
   MultiInstance = 'multi-instance',
   Compensation = 'compensation'
 }
 
-export abstract class Task extends FlowNode {
+export class Task extends FlowNode {
   marker: TaskMarkers;
-  attachedEventId: string;
-  attachedEvent: BaseEvent;
 
-  constructor(task: Bpmn.Task, attachedEvent?: BaseEvent) {
+  // may not bee needed; may be handled by the event.outgoing
+  attachedEventIds: string[];
+  attachedEvents: BoundaryEvent[];
+
+  constructor(task: Bpmn.Task, attachedEvents?: BoundaryEvent[]) {
     super(task);
     this.marker = task.marker ? task.marker : TaskMarkers.None;
-    this.attachedEvent = attachedEvent;
+    
+    this.attachedEventIds = [];
+    if(task.attachedEvents) {
+      task.attachedEvents.forEach((ev) => {
+        this.attachedEventIds.push(ev.id);
+      });
+    }
 
-    this.attachedEventId = this.attachedEvent ? this.attachedEvent.id : null;
+    this.attachedEvents = attachedEvents ? attachedEvents : null;
   }
 
-  abstract execute(state: BpmnProcessInstance): Promise<BpmnTaskInstanceModel[]>;
+  execute(state: BpmnProcessInstance): Promise<BpmnTaskInstanceModel[]> {
+    return null;
+  }
 }

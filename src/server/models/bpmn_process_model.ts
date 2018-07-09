@@ -1,14 +1,14 @@
 import { Access } from './access_model';
 import {
   BaseElement,
-  DefaultTask,
+  BaseEvent,
   EndEvent,
   ExclusiveGateway,
   FlowNode,
   Gateway,
   InclusiveGateway,
-  ParallelGateway,
   // Pool,
+  ParallelGateway,
   ReceiveTask,
   ScriptTask,
   SendTask,
@@ -36,6 +36,7 @@ export enum BpmnTypes {
   FlowNode = 'bpmn:flownode', // abstract type
   Gateway = 'bpmn:gateway', // abstract type
   Task = 'bpmn:task', // abstract type
+  BaseEvent = 'bpmn:baseevent', // abstract type
   Start = 'bpmn:startevent',
   End = 'bpmn:endevent',
   SequenceFlow = 'bpmn:sequenceflow',
@@ -101,7 +102,7 @@ export class BpmnProcessModel {
   private loadModels() {
     // if (!this.definition) return;
     // for each element
-
+    
     // only loads first process...
     const flowElements = this.definition.rootElements[0].flowElements;
 
@@ -121,7 +122,7 @@ export class BpmnProcessModel {
         obj = end;
       }
       if (type === BpmnTypes.Task) {
-        const task = new DefaultTask(elem);
+        const task = new Task(elem);
         this.addToDictionary(task, task.$type, task.id);
         // this.elementsDict.setValue(task.id, task);
         obj = task;
@@ -188,6 +189,9 @@ export class BpmnProcessModel {
         if (obj instanceof Task) {
           this.addToDictionary(obj, BpmnTypes.Task, obj.id);
         }
+        if (obj instanceof BaseEvent) {
+          this.addToDictionary(obj, BpmnTypes.BaseEvent, obj.id);
+        }
       }
     });
 
@@ -208,6 +212,7 @@ export class BpmnProcessModel {
   private linkModels() {
     this.elementsDict.forEach((key, dict) => {
       if (key === BpmnTypes.BaseElement) { return; }
+      if (key === BpmnTypes.BaseEvent) { return; }
       if (key === BpmnTypes.FlowNode) { return; }
       if (key === BpmnTypes.Gateway) { return; }
 
@@ -282,8 +287,6 @@ export class BpmnProcessModel {
 
   private linkGateway(value: Gateway) {
     const seqFlowDict = this.elementsDict.getValue(BpmnTypes.SequenceFlow);
-
-    console.log(seqFlowDict);
 
     let defaultNode: BaseElement;
     defaultNode = null;

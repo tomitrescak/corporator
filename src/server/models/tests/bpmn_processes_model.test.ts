@@ -29,7 +29,7 @@ afterEach(async () => {
   await ServerContext.disconnect(context);
 });
 
-describe('startActivity', () => {
+describe('startProcessInstance', () => {
   it('checks access', async () => {
     // fill db with activity
     await context.BpmnProcessModels.insertMany([
@@ -60,7 +60,7 @@ describe('startActivity', () => {
     expect(activityModel2).not.toBe(null);
   });
 
-  it('launches a new activity, storing information in the database', async () => {
+  it('launches a new process instance, storing information in the database', async () => {
     await context.BpmnProcessModels.insertMany([
       create.bpmnProcessDao(
         { id: 'bpmn1', definition },
@@ -89,7 +89,7 @@ describe('startActivity', () => {
     expect(true).toBe(false);
   });
 
-  it('runs all possible actions', async () => {
+  it('runs all possible tasks', async () => {
     // fill db with activity
     await context.BpmnProcessModels.insertMany([
       create.bpmnProcessDao(
