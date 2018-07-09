@@ -55,7 +55,6 @@ describe('Form', () => {
         return (
           <Segment className="ui form">
             <FormView form={form} data={dataSet} />
-            <Button />
           </Segment>
         );
       }

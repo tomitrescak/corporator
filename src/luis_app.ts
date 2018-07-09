@@ -3,8 +3,8 @@
 // import * as ComponentsTest from './tests/Component.test';
 
 // hack the global scope
-if (!global.expect) {
-    global.expect = {
+if (!(global as any).expect) {
+    (global as any).expect = {
         addSnapshotSerializer() { /**/ },
         extend() { /**/ }
     }

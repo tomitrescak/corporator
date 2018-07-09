@@ -29,7 +29,7 @@
 // </process>
 // </definitions>`;
 
-it('creates a new instance from database', async () => {});
+it('creates a new instance from database', () => undefined);
 //   const model = new BpmnProcessModel(create.bpmnProcessDao());
 
 //   // test all properties

@@ -5,15 +5,18 @@ module.exports = function(wallaby) {
       'transformer.js',
       'jest.setup.js',
       'jest.config.js',
-      //'jest.*',
       'test/*.js',
       'src/**/*.+(js|jsx|ts|tsx|json|snap|css|less|sass|scss|jpg|jpeg|gif|png|svg|graphql)',
       '!src/luis_app',
       // '!src/**/index.ts',
-      '!src/**/*.test.ts'
+      '!src/**/tests/*.+(ts|tsx)'
     ],
 
-    tests: ['src/server/**/*.test.ts'],
+    tests: [
+      '!src/client/**/tests/index.ts',
+      'src/client/**/tests/*.+(ts|tsx)',
+      'src/shared/**/tests/*.+(ts|tsx)'
+    ],
 
     env: {
       type: 'node',
@@ -24,7 +27,8 @@ module.exports = function(wallaby) {
       regular: 1
     },
     preprocessors: {
-      'src/**/*.tsx': file => require('jsx-controls-loader').loader(file.content)
+      'src/**/*.tsx': file =>
+        require('jsx-controls-loader').loader(file.content)
     },
     testFramework: 'jest'
   };

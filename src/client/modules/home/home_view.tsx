@@ -19,18 +19,29 @@ export const HomeLayout: React.SFC<PageProps> = () => (
   </MainLayout>
 );
 
-export const HomeView: React.SFC = () => (
-  <>
-    <Grid>
-      <Grid.Column width={11}>
-        <SortView />
-        <ProcessListView />
-        <PagerView />
-      </Grid.Column>
+type Props = {
+  user: Corpix.User;
+};
 
-      <Grid.Column width={5}>
-        <NotificationListView />
-      </Grid.Column>
-    </Grid>
+export const HomeView: React.SFC<Props> = ({ user }) => (
+  <>
+    <Choose>
+      <When condition={user != null}>
+        <Grid>
+          <Grid.Column width={11}>
+            <SortView />
+            <ProcessListView />
+            <PagerView />
+          </Grid.Column>
+
+          <Grid.Column width={5}>
+            <NotificationListView />
+          </Grid.Column>
+        </Grid>
+      </When>
+      <Otherwise>
+        <>You need to login ....</>
+      </Otherwise>
+    </Choose>
   </>
 );

@@ -1,39 +1,39 @@
 import * as React from 'react';
 
+import { create } from 'react-test-renderer';
+
 import { HomeView } from '../home_view';
-import { MainLayout } from '../../core/main_layout';
 
-storyOf(
-  'Home',
-  {
-    get component() {
-      // just another notation
-      return (
-        <MainLayout>
-          <HomeView />
-        </MainLayout>
-      );
+describe('Home', () => {
+  storyOf(
+    'Logged In',
+    {
+      componentWithData(user: Corpix.User) {
+        return <HomeView user={null} />;
+      }
+    },
+    data => {
+      it('renders for logged in user', () => {
+        const root = create(data.componentWithData({}));
+        expect(root).toMatchSnapshot();
+      });
     }
-  },
-  () => {
-    it('renders correctly', () => {});
-  }
-);
+  );
 
-// it('renders without crashing', () => {
-//   const div = document.createElement('div');
-//   ReactDOM.render(<HomeView />, div);
-//   ReactDOM.unmountComponentAtNode(div);
-// });
+  storyOf(
+    'Logged Out',
+    {
+      componentWithData(user: Corpix.User) {
+        return <HomeView user={user} />;
+      }
+    },
+    data => {
+      it('renders for logged out user', () => {
+        const root = create(data.componentWithData(null));
+        expect(root).toMatchSnapshot();
+      });
+    }
+  );
+})
 
-// it('renders snapshot', () => {
-//   const component = renderer.create(<HomeView />);
-//   const root = component.root;
 
-//   expect(component).toMatchSnapshot();
-
-//   // const button = root.findByType('button');
-//   // button.props.onClick();
-
-//   // expect(component).toMatchSnapshot();
-// });

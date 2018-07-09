@@ -1,0 +1,543 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home Home renders for logged in user 1`] = `
+<div
+  className="ui grid"
+>
+  <div
+    className="eleven wide column"
+  >
+    <button
+      className="ui mini button"
+      onClick={[Function]}
+      role="button"
+    >
+      <i
+        aria-hidden="true"
+        className="grid layout icon"
+      />
+      Toggle Filters
+    </button>
+    <div
+      className="ui green mini right floated buttons"
+    >
+      <button
+        className="ui button"
+        onClick={[Function]}
+        role="button"
+      >
+        <i
+          aria-hidden="true"
+          className="angle up icon"
+        />
+        Name
+      </button>
+      <button
+        className="ui button"
+        onClick={[Function]}
+        role="button"
+      >
+        Actions
+      </button>
+      <button
+        className="ui button"
+        onClick={[Function]}
+        role="button"
+      >
+        Time to Complete
+      </button>
+    </div>
+    <div
+      className="ui items"
+    >
+      <div
+        className="item"
+      >
+        <i
+          aria-hidden="true"
+          className="sitemap large circular icon sc-htoDjs kfnbsj"
+        />
+        <div
+          className="content"
+        >
+          <a
+            className="header"
+          >
+            Domestic Travel
+          </a>
+          <div
+            className="meta"
+          >
+            3 peers · Estimated time to complete 20 hours 
+          </div>
+          <div
+            className="description"
+          >
+            This process describes standard procedures in obtaining permissions and handling travel bookings for short domestic trips with length shorter then 3 days.
+          </div>
+          <div
+            className="extra"
+          >
+            <div
+              className="ui label"
+              onClick={[Function]}
+            >
+              Version 11
+            </div>
+             · Modified by Tomas Trescak · 2 months ago
+          </div>
+        </div>
+      </div>
+      <div
+        className="item"
+      >
+        <i
+          aria-hidden="true"
+          className="travel large circular icon sc-htoDjs kfnbsj"
+        />
+        <div
+          className="content"
+        >
+          <a
+            className="header"
+          >
+            International Business Travel
+          </a>
+          <div
+            className="meta"
+          >
+            6 peers · Estimated time to complete 2 days 
+          </div>
+          <div
+            className="description"
+          >
+            This process describes standard procedures in obtaining permissions and handling travel bookings for long internationals trips with business purpose.
+          </div>
+          <div
+            className="extra"
+          >
+            <div
+              className="ui label"
+              onClick={[Function]}
+            >
+              Version 2
+            </div>
+             · Modified by Tomas Trescak · 1 months ago
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "margin": "auto",
+          "textAlign": "center",
+        }
+      }
+    >
+      <div
+        className="ui pagination menu"
+      >
+        <div
+          className="active item"
+          onClick={[Function]}
+        >
+          1
+        </div>
+        <div
+          className="disabled item"
+          onClick={[Function]}
+        >
+          ...
+        </div>
+        <div
+          className="item"
+          onClick={[Function]}
+        >
+          10
+        </div>
+        <div
+          className="item"
+          onClick={[Function]}
+        >
+          11
+        </div>
+        <div
+          className="item"
+          onClick={[Function]}
+        >
+          12
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="five wide column"
+  >
+    <div
+      className="ui segment"
+    >
+      <h5
+        className="ui header"
+      >
+        <i
+          aria-hidden="true"
+          className="bell icon"
+        />
+        <div
+          className="content"
+        >
+          Notifications
+        </div>
+      </h5>
+      <div
+        className="ui divided list sc-gzVnrw ktvyPe"
+        role="list"
+      >
+        <div
+          className="item"
+          onClick={[Function]}
+          role="listitem"
+        >
+          <span
+            className="sc-bZQynM dYvwIK"
+          >
+            3 hours ago
+          </span>
+           · You have a request to approve a
+           
+          <a
+            href="#"
+          >
+            Travel to London
+          </a>
+           by Michael Jackson Doe
+          <br />
+        </div>
+        <div
+          className="item"
+          onClick={[Function]}
+          role="listitem"
+        >
+          <span
+            className="sc-bZQynM dYvwIK"
+          >
+            11 hours ago
+          </span>
+           · Your 
+          <a
+            href="#"
+          >
+            domestic travel request to Newcastle
+          </a>
+           
+          has been approved by the Travel Manager
+          <br />
+        </div>
+        <div
+          className="item"
+          onClick={[Function]}
+          role="listitem"
+        >
+          Your domestic travel request "London" has been submitted
+          <br />
+          <span
+            className="sc-bZQynM dYvwIK"
+          >
+            2 days ago
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Home Home renders for logged out user 1`] = `"You need to login ...."`;
+
+exports[`Home Logged In renders for logged in user 1`] = `"You need to login ...."`;
+
+exports[`Home Logged Out renders for logged out user 1`] = `"You need to login ...."`;
+
+exports[`Home renders correctly 1`] = `
+<div
+  className="ui grid"
+>
+  <div
+    className="eleven wide column"
+  >
+    <button
+      className="ui mini button"
+      onClick={[Function]}
+      role="button"
+    >
+      <i
+        aria-hidden="true"
+        className="grid layout icon"
+      />
+      Toggle Filters
+    </button>
+    <div
+      className="ui green mini right floated buttons"
+    >
+      <button
+        className="ui button"
+        onClick={[Function]}
+        role="button"
+      >
+        <i
+          aria-hidden="true"
+          className="angle up icon"
+        />
+        Name
+      </button>
+      <button
+        className="ui button"
+        onClick={[Function]}
+        role="button"
+      >
+        Actions
+      </button>
+      <button
+        className="ui button"
+        onClick={[Function]}
+        role="button"
+      >
+        Time to Complete
+      </button>
+    </div>
+    <div
+      className="ui items"
+    >
+      <div
+        className="item"
+      >
+        <i
+          aria-hidden="true"
+          className="sitemap large circular icon sc-htoDjs kfnbsj"
+        />
+        <div
+          className="content"
+        >
+          <a
+            className="header"
+          >
+            Domestic Travel
+          </a>
+          <div
+            className="meta"
+          >
+            3 peers · Estimated time to complete 20 hours 
+          </div>
+          <div
+            className="description"
+          >
+            This process describes standard procedures in obtaining permissions and handling travel bookings for short domestic trips with length shorter then 3 days.
+          </div>
+          <div
+            className="extra"
+          >
+            <div
+              className="ui label"
+              onClick={[Function]}
+            >
+              Version 11
+            </div>
+             · Modified by Tomas Trescak · 2 months ago
+          </div>
+        </div>
+      </div>
+      <div
+        className="item"
+      >
+        <i
+          aria-hidden="true"
+          className="travel large circular icon sc-htoDjs kfnbsj"
+        />
+        <div
+          className="content"
+        >
+          <a
+            className="header"
+          >
+            International Business Travel
+          </a>
+          <div
+            className="meta"
+          >
+            6 peers · Estimated time to complete 2 days 
+          </div>
+          <div
+            className="description"
+          >
+            This process describes standard procedures in obtaining permissions and handling travel bookings for long internationals trips with business purpose.
+          </div>
+          <div
+            className="extra"
+          >
+            <div
+              className="ui label"
+              onClick={[Function]}
+            >
+              Version 2
+            </div>
+             · Modified by Tomas Trescak · 1 months ago
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "margin": "auto",
+          "textAlign": "center",
+        }
+      }
+    >
+      <div
+        className="ui pagination menu"
+      >
+        <div
+          className="active item"
+          onClick={[Function]}
+        >
+          1
+        </div>
+        <div
+          className="disabled item"
+          onClick={[Function]}
+        >
+          ...
+        </div>
+        <div
+          className="item"
+          onClick={[Function]}
+        >
+          10
+        </div>
+        <div
+          className="item"
+          onClick={[Function]}
+        >
+          11
+        </div>
+        <div
+          className="item"
+          onClick={[Function]}
+        >
+          12
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="five wide column"
+  >
+    <div
+      className="ui segment"
+    >
+      <h5
+        className="ui header"
+      >
+        <i
+          aria-hidden="true"
+          className="bell icon"
+        />
+        <div
+          className="content"
+        >
+          Notifications
+        </div>
+      </h5>
+      <div
+        className="ui divided list sc-gzVnrw ktvyPe"
+        role="list"
+      >
+        <div
+          className="item"
+          onClick={[Function]}
+          role="listitem"
+        >
+          <span
+            className="sc-bZQynM dYvwIK"
+          >
+            3 hours ago
+          </span>
+           · You have a request to approve a
+           
+          <a
+            href="#"
+          >
+            Travel to London
+          </a>
+           by Michael Jackson Doe
+          <br />
+        </div>
+        <div
+          className="item"
+          onClick={[Function]}
+          role="listitem"
+        >
+          <span
+            className="sc-bZQynM dYvwIK"
+          >
+            11 hours ago
+          </span>
+           · Your 
+          <a
+            href="#"
+          >
+            domestic travel request to Newcastle
+          </a>
+           
+          has been approved by the Travel Manager
+          <br />
+        </div>
+        <div
+          className="item"
+          onClick={[Function]}
+          role="listitem"
+        >
+          Your domestic travel request "London" has been submitted
+          <br />
+          <span
+            className="sc-bZQynM dYvwIK"
+          >
+            2 days ago
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Home renders f 1`] = `"You need to login ...."`;
+
+exports[`Home renders for  1`] = `"You need to login ...."`;
+
+exports[`Home renders for l 1`] = `"You need to login ...."`;
+
+exports[`Home renders for log 1`] = `"You need to login ...."`;
+
+exports[`Home renders for logge 1`] = `"You need to login ...."`;
+
+exports[`Home renders for logged  1`] = `"You need to login ...."`;
+
+exports[`Home renders for logged 1`] = `"You need to login ...."`;
+
+exports[`Home renders for logged i user 1`] = `"You need to login ...."`;
+
+exports[`Home renders for logged in user 1`] = `"You need to login ...."`;
+
+exports[`Home renders for logged o 1`] = `"You need to login ...."`;
+
+exports[`Home renders for logged ou 1`] = `"You need to login ...."`;
+
+exports[`Home renders for logged out u 1`] = `"You need to login ...."`;
+
+exports[`Home renders for logged out use 1`] = `"You need to login ...."`;
+
+exports[`Home renders for logged out user 1`] = `"You need to login ...."`;
+
+exports[`Home renders for logged out user 2`] = `"You need to login ...."`;

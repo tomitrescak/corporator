@@ -1,12 +1,8 @@
+import { InstanceStatus } from './bpmn_enums';
 import { BpmnProcessModel } from './bpmn_process_model';
 import { BpmnTaskInstanceModel } from './bpmn_task_instance_model';
 
-export enum InstanceStatus {
-  Running = 'running',
-  Paused = 'paused',
-  Finished = 'finished',
-  Aborted = 'aborted'
-}
+
 
 export class BpmnProcessInstance {
   id: string;

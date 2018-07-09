@@ -16,7 +16,7 @@ import {
   StartEvent,
   Task,
   UserTask
-} from './Bpmn';
+} from './bpmn/index';
 
 
 import BpmnModdle from 'bpmn-moddle';
@@ -24,12 +24,6 @@ import BpmnModdle from 'bpmn-moddle';
 import { Dictionary } from 'typescript-collections';
 
 const moddle = new BpmnModdle();
-
-export enum ProcessStatus {
-  Draft = 'draft',
-  Proposal = 'proposal',
-  Published = 'published'
-}
 
 export enum BpmnTypes {
   BaseElement = 'bpmn:baseelement', // abstract type
