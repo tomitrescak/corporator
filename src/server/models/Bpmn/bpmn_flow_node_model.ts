@@ -1,7 +1,7 @@
-import { SequenceFlow } from './bpmn_sequence_flow_model';
-import { BaseElement } from './bpmn_base_element_model';
 import { BpmnProcessInstance } from '../bpmn_process_instance_model';
 import { BpmnTaskInstanceModel } from '../bpmn_task_instance_model';
+import { BaseElement } from './bpmn_base_element_model';
+import { SequenceFlow } from './bpmn_sequence_flow_model';
 
 export abstract class FlowNode extends BaseElement {
   incoming: SequenceFlow[];

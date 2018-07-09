@@ -6,7 +6,6 @@ import { UserModel } from './user_model';
 import { UsersModel } from './users_model';
 
 import { MongoConnector } from 'apollo-connector-mongodb';
-import { BpmnProcessModel } from './bpmn_process_model';
 
 declare global {
   namespace Corpix.Server { export type Context = ServerContext; }
@@ -20,7 +19,7 @@ export class ServerContext {
 
     const MONGO_DB_NAME = 'jest';
     
-    console.log(MongodbMemoryServer);
+    // console.log(MongodbMemoryServer);
     
     const mongod = new MongodbMemoryServer.default({
       instance: {

@@ -1,5 +1,5 @@
-import { FlowNode } from './bpmn_flow_node_model';
 import { BaseElement } from './bpmn_base_element_model';
+import { FlowNode } from './bpmn_flow_node_model';
 
 export abstract class Flow extends BaseElement {
   sourceRef: FlowNode;

@@ -34,7 +34,5 @@ export class BpmnTaskInstanceModel {
     */
   }
 
-  validation() {
-
-  }
+  validation() {}
 }

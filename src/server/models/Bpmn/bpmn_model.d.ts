@@ -40,11 +40,11 @@ declare namespace Bpmn {
     incoming: SequenceFlow[];
     outgoing: SequenceFlow[];
   }
-  interface Event extends FlowNode {}
+  interface BaseEvent extends FlowNode {}
 
-  interface StartEvent extends Event {}
+  interface StartEvent extends BaseEvent {}
 
-  interface EndEvent extends Event {}
+  interface EndEvent extends BaseEvent {}
 
   interface Gateway extends FlowNode {
     direction: GatewayDirections;
@@ -79,6 +79,7 @@ declare namespace Bpmn {
 
   interface Task extends FlowNode {
     marker?: TaskMarkers;
+    attachedEvent?: BaseEvent;
   }
 
   interface UserTask extends Task {

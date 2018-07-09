@@ -1,4 +1,5 @@
 import { BaseElement } from './bpmn_base_element_model';
+import { BaseEvent } from './bpmn_base_event_model';
 import { DefaultTask } from './bpmn_default_task_model';
 import { EndEvent } from './bpmn_end_event_model';
 import { ExclusiveGateway } from './bpmn_exclusive_gateway_model';
@@ -17,6 +18,7 @@ import { UserTask } from './bpmn_user_task_model';
 
 export {
   BaseElement,
+  BaseEvent,
   DefaultTask,
   EndEvent,
   ExclusiveGateway,
