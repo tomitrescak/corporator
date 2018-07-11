@@ -1,5 +1,5 @@
 # source: http://localhost:4466
-# timestamp: Mon Jul 09 2018 22:12:05 GMT+1000 (AEST)
+# timestamp: Tue Jul 10 2018 11:48:41 GMT+1000 (AEST)
 
 type AggregateBpmnProcessInstance {
   count: Int!
@@ -156,13 +156,14 @@ input BpmnProcessInstanceWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  _MagicalBackRelation_BpmnProcessInstanceToNotification_every: NotificationWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceToNotification_some: NotificationWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceToNotification_none: NotificationWhereInput
 }
 
 input BpmnProcessInstanceWhereUniqueInput {
   id: ID
 }
-
-scalar DateTime
 
 enum LanguageCode {
   EN
@@ -384,6 +385,9 @@ input LocalisationWhereInput {
 
   """All values that are not contained in given list."""
   language_not_in: [LanguageCode!]
+  _MagicalBackRelation_LocalisationToNotification_every: NotificationWhereInput
+  _MagicalBackRelation_LocalisationToNotification_some: NotificationWhereInput
+  _MagicalBackRelation_LocalisationToNotification_none: NotificationWhereInput
 }
 
 input LocalisationWhereUniqueInput {
@@ -397,27 +401,27 @@ Long can represent values between -(2^63) and 2^63 - 1.
 scalar Long
 
 type Mutation {
-  createUser(data: UserCreateInput!): User!
-  createLocalisation(data: LocalisationCreateInput!): Localisation!
   createNotification(data: NotificationCreateInput!): Notification!
+  createUser(data: UserCreateInput!): User!
   createBpmnProcessInstance: BpmnProcessInstance!
+  createLocalisation(data: LocalisationCreateInput!): Localisation!
+  updateNotification(data: NotificationUpdateInput!, where: NotificationWhereUniqueInput!): Notification
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateLocalisation(data: LocalisationUpdateInput!, where: LocalisationWhereUniqueInput!): Localisation
-  updateNotification(data: NotificationUpdateInput!, where: NotificationWhereUniqueInput!): Notification
-  deleteUser(where: UserWhereUniqueInput!): User
-  deleteLocalisation(where: LocalisationWhereUniqueInput!): Localisation
   deleteNotification(where: NotificationWhereUniqueInput!): Notification
+  deleteUser(where: UserWhereUniqueInput!): User
   deleteBpmnProcessInstance(where: BpmnProcessInstanceWhereUniqueInput!): BpmnProcessInstance
+  deleteLocalisation(where: LocalisationWhereUniqueInput!): Localisation
+  upsertNotification(where: NotificationWhereUniqueInput!, create: NotificationCreateInput!, update: NotificationUpdateInput!): Notification!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertLocalisation(where: LocalisationWhereUniqueInput!, create: LocalisationCreateInput!, update: LocalisationUpdateInput!): Localisation!
-  upsertNotification(where: NotificationWhereUniqueInput!, create: NotificationCreateInput!, update: NotificationUpdateInput!): Notification!
+  updateManyNotifications(data: NotificationUpdateInput!, where: NotificationWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
   updateManyLocalisations(data: LocalisationUpdateInput!, where: LocalisationWhereInput): BatchPayload!
-  updateManyNotifications(data: NotificationUpdateInput!, where: NotificationWhereInput): BatchPayload!
-  deleteManyUsers(where: UserWhereInput): BatchPayload!
-  deleteManyLocalisations(where: LocalisationWhereInput): BatchPayload!
   deleteManyNotifications(where: NotificationWhereInput): BatchPayload!
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyBpmnProcessInstances(where: BpmnProcessInstanceWhereInput): BatchPayload!
+  deleteManyLocalisations(where: LocalisationWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -438,8 +442,7 @@ type Notification implements Node {
   owner(where: UserWhereInput): User!
   code: NotificationCode
   text(where: LocalisationWhereInput): Localisation
-  params: [String!]
-  date: DateTime
+  params: [String!]!
   visible: Boolean
 }
 
@@ -459,7 +462,6 @@ type NotificationConnection {
 
 input NotificationCreateInput {
   code: NotificationCode
-  date: DateTime
   visible: Boolean
   params: NotificationCreateparamsInput
   processInstance: BpmnProcessInstanceCreateOneInput
@@ -485,8 +487,6 @@ enum NotificationOrderByInput {
   id_DESC
   code_ASC
   code_DESC
-  date_ASC
-  date_DESC
   visible_ASC
   visible_DESC
   updatedAt_ASC
@@ -498,8 +498,7 @@ enum NotificationOrderByInput {
 type NotificationPreviousValues {
   id: ID!
   code: NotificationCode
-  params: [String!]
-  date: DateTime
+  params: [String!]!
   visible: Boolean
 }
 
@@ -544,7 +543,6 @@ input NotificationSubscriptionWhereInput {
 
 input NotificationUpdateInput {
   code: NotificationCode
-  date: DateTime
   visible: Boolean
   params: NotificationUpdateparamsInput
   processInstance: BpmnProcessInstanceUpdateOneInput
@@ -615,28 +613,6 @@ input NotificationWhereInput {
 
   """All values that are not contained in given list."""
   code_not_in: [NotificationCode!]
-  date: DateTime
-
-  """All values that are not equal to given value."""
-  date_not: DateTime
-
-  """All values that are contained in given list."""
-  date_in: [DateTime!]
-
-  """All values that are not contained in given list."""
-  date_not_in: [DateTime!]
-
-  """All values less than the given value."""
-  date_lt: DateTime
-
-  """All values less than or equal the given value."""
-  date_lte: DateTime
-
-  """All values greater than the given value."""
-  date_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  date_gte: DateTime
   visible: Boolean
 
   """All values that are not equal to given value."""
@@ -666,18 +642,18 @@ type PageInfo {
 }
 
 type Query {
-  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
-  localisations(where: LocalisationWhereInput, orderBy: LocalisationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Localisation]!
   notifications(where: NotificationWhereInput, orderBy: NotificationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Notification]!
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   bpmnProcessInstances(where: BpmnProcessInstanceWhereInput, orderBy: BpmnProcessInstanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BpmnProcessInstance]!
-  user(where: UserWhereUniqueInput!): User
-  localisation(where: LocalisationWhereUniqueInput!): Localisation
+  localisations(where: LocalisationWhereInput, orderBy: LocalisationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Localisation]!
   notification(where: NotificationWhereUniqueInput!): Notification
+  user(where: UserWhereUniqueInput!): User
   bpmnProcessInstance(where: BpmnProcessInstanceWhereUniqueInput!): BpmnProcessInstance
-  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
-  localisationsConnection(where: LocalisationWhereInput, orderBy: LocalisationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LocalisationConnection!
+  localisation(where: LocalisationWhereUniqueInput!): Localisation
   notificationsConnection(where: NotificationWhereInput, orderBy: NotificationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): NotificationConnection!
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   bpmnProcessInstancesConnection(where: BpmnProcessInstanceWhereInput, orderBy: BpmnProcessInstanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BpmnProcessInstanceConnection!
+  localisationsConnection(where: LocalisationWhereInput, orderBy: LocalisationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LocalisationConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -687,16 +663,16 @@ type Query {
 }
 
 type Subscription {
-  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
-  localisation(where: LocalisationSubscriptionWhereInput): LocalisationSubscriptionPayload
   notification(where: NotificationSubscriptionWhereInput): NotificationSubscriptionPayload
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   bpmnProcessInstance(where: BpmnProcessInstanceSubscriptionWhereInput): BpmnProcessInstanceSubscriptionPayload
+  localisation(where: LocalisationSubscriptionWhereInput): LocalisationSubscriptionPayload
 }
 
 type User implements Node {
   id: ID!
   name: String!
-  roles: [String!]
+  roles: [String!]!
   describe: String!
 }
 
@@ -750,7 +726,7 @@ enum UserOrderByInput {
 type UserPreviousValues {
   id: ID!
   name: String!
-  roles: [String!]
+  roles: [String!]!
   describe: String!
 }
 
@@ -951,6 +927,9 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   describe_not_ends_with: String
+  _MagicalBackRelation_NotificationToUser_every: NotificationWhereInput
+  _MagicalBackRelation_NotificationToUser_some: NotificationWhereInput
+  _MagicalBackRelation_NotificationToUser_none: NotificationWhereInput
 }
 
 input UserWhereUniqueInput {

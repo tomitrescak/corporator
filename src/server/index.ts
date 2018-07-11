@@ -1,56 +1,64 @@
+import * as session from 'express-session';
+
 import { importSchema } from 'graphql-import';
 import { GraphQLServer } from 'graphql-yoga';
 import { Prisma } from '../data/generated/prisma';
-import { Context } from './context';
 
-const resolvers: any = {
-  Query: {
-    user(_parent: any, { id }, context: Context, info: any) {
-      return context.db.query.user({ where: { id } }, info);
-    },
-    authenticate(parent, args, context: Context, info): any {
-      return null;
-    }
-    // drafts(parent, args, context: Context, info) {
-    //   return context.db.query.posts({ where: { isPublished: false } }, info)
-    // },
-    // post(parent, { id }, context: Context, info) {
-    //   return context.db.query.post({ where: { id: id } }, info)
-    // },
-  },
-  Mutation: {
-    signup(parent, args, context: Context, info): any {
-      return null;
-    }
-    // deletePost(parent, { id }, context: Context, info) {
-    //   return context.db.mutation.deletePost({ where: { id } }, info)
-    // },
-    // publish(parent, { id }, context: Context, info) {
-    //   return context.db.mutation.updatePost(
-    //     {
-    //       where: { id },
-    //       data: { isPublished: true },
-    //     },
-    //     info,
-    //   )
-    // },
+import { resolvers } from '../data/models';
+
+// opts for cors
+const opts = {
+  port: 4000,
+  cors: {
+    credentials: true,
+    origin: ['http://localhost:3000'] // your frontend url.
   }
 };
 
-const server = new GraphQLServer({
-  typeDefs: './src/data/schema.graphql',
-  resolvers,
-  resolverValidationOptions: {
-    requireResolversForResolveType: false
-  },
-  context: req => ({
-    ...req,
-    db: new Prisma({
-      endpoint: 'http://localhost:4466', // the endpoint of the Prisma API
-      debug: true // log all GraphQL queries & mutations sent to the Prisma API
-      // secret: 'mysecret123', // only needed if specified in `database/prisma.yml`
-    })
-  })
+// manipulate context
+const context = (req: any) => ({
+  req: req.request
 });
 
+const server = new GraphQLServer({
+  typeDefs: importSchema('./src/data/schema.graphql'),
+  resolvers,
+  // resolverValidationOptions: {
+  //   requireResolversForResolveType: false
+  // },
+  context: (req: any) => {
+    const result: any = {
+      ...req,
+      req: req.request,
+      db: new Prisma({
+        endpoint: 'http://localhost:4466',
+        debug: true
+        // secret: 'mysecret123', // only needed if specified in `database/prisma.yml`
+      })
+    };
+
+    // temporarily hard code user
+    req.request.session.user = {
+      id: '1'
+    };
+
+    return result;
+  }
+});
+
+// use session to maintain logged in state
+server.express.use(
+  session({
+    name: 'qid',
+    secret: `My%123#random^secret`, // TODO: Move to env
+    resave: true,
+    saveUninitialized: true,
+    cookie: {
+      secure: process.env.NODE_ENV === 'production',
+      maxAge: 1 * 24 * 60 * 60 * 1000 // 1 day
+    }
+  })
+);
+
+// tslint:disable-next-line:no-console
 server.start(() => console.log('Server is running on http://localhost:4000'));

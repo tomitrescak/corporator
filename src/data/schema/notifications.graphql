@@ -1,0 +1,12 @@
+type Query {
+  notifications(start: Int, end: Int): Notification!
+}
+
+type Mutation {
+  notify(
+    userId: ID
+    processInstanceId: ID
+    code: NotificationCode
+    params: [String!]!
+  ): Notification!
+}

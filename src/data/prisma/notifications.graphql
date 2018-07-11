@@ -12,6 +12,5 @@ type Notification {
   code: NotificationCode
   text: Localisation
   params: [String!]!
-  date: DateTime
   visible: Boolean
 }
