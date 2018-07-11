@@ -1,11 +1,11 @@
-module.exports = function (wallaby) {
+module.exports = function(wallaby) {
   return {
     files: [
       'tsconfig.json',
       { pattern: 'src/**/*test.ts*', ignore: true },
       'src/**/*.ts*',
       // '!src/**/*test.ts*',
-      
+
       'jest.config.js',
       'jest.setup.js',
       'test/*.*'
@@ -13,7 +13,7 @@ module.exports = function (wallaby) {
 
     tests: ['src/server/**/*test.ts*'],
     // workers: {
-    //   initial: 1,
+    //   initial: 1, // only one worker so that tests are not overriding each other
     //   regular: 1
     // },
     env: {

@@ -1,9 +1,10 @@
-#import User from './generated/prisma.graphql'
-#import Query.*, Mutation.* from './schema/notifications.graphql'
+#import User, Notification from '../generated/prisma.graphql'
+#import Query.*, Mutation.* from './notifications.graphql'
 
 type Query {
   authenticate(username: String, password: String): String!
   user(id: ID!): User
+  users: [User]!
 }
 
 type Mutation {

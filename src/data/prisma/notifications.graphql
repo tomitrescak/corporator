@@ -8,7 +8,6 @@ enum NotificationCode {
 type Notification {
   id: ID! @unique
   processInstance: BpmnProcessInstance
-  owner: User!
   code: NotificationCode
   text: Localisation
   params: [String!]!

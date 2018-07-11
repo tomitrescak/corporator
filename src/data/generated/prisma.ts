@@ -4,56 +4,56 @@ import { Options } from 'graphql-binding'
 import { makePrismaBindingClass, BasePrismaOptions } from 'prisma-binding'
 
 export interface Query {
-    notifications: <T = Notification[]>(args: { where?: NotificationWhereInput, orderBy?: NotificationOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     users: <T = User[]>(args: { where?: UserWhereInput, orderBy?: UserOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     bpmnProcessInstances: <T = BpmnProcessInstance[]>(args: { where?: BpmnProcessInstanceWhereInput, orderBy?: BpmnProcessInstanceOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    notifications: <T = Notification[]>(args: { where?: NotificationWhereInput, orderBy?: NotificationOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     localisations: <T = Localisation[]>(args: { where?: LocalisationWhereInput, orderBy?: LocalisationOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    notification: <T = Notification | null>(args: { where: NotificationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     user: <T = User | null>(args: { where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     bpmnProcessInstance: <T = BpmnProcessInstance | null>(args: { where: BpmnProcessInstanceWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    notification: <T = Notification | null>(args: { where: NotificationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     localisation: <T = Localisation | null>(args: { where: LocalisationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    notificationsConnection: <T = NotificationConnection>(args: { where?: NotificationWhereInput, orderBy?: NotificationOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     usersConnection: <T = UserConnection>(args: { where?: UserWhereInput, orderBy?: UserOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     bpmnProcessInstancesConnection: <T = BpmnProcessInstanceConnection>(args: { where?: BpmnProcessInstanceWhereInput, orderBy?: BpmnProcessInstanceOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    notificationsConnection: <T = NotificationConnection>(args: { where?: NotificationWhereInput, orderBy?: NotificationOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     localisationsConnection: <T = LocalisationConnection>(args: { where?: LocalisationWhereInput, orderBy?: LocalisationOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     node: <T = Node | null>(args: { id: ID_Output }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
   }
 
 export interface Mutation {
-    createNotification: <T = Notification>(args: { data: NotificationCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createUser: <T = User>(args: { data: UserCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createBpmnProcessInstance: <T = BpmnProcessInstance>(args?: {}, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    createNotification: <T = Notification>(args: { data: NotificationCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createLocalisation: <T = Localisation>(args: { data: LocalisationCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateNotification: <T = Notification | null>(args: { data: NotificationUpdateInput, where: NotificationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateUser: <T = User | null>(args: { data: UserUpdateInput, where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateNotification: <T = Notification | null>(args: { data: NotificationUpdateInput, where: NotificationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateLocalisation: <T = Localisation | null>(args: { data: LocalisationUpdateInput, where: LocalisationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    deleteNotification: <T = Notification | null>(args: { where: NotificationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteUser: <T = User | null>(args: { where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteBpmnProcessInstance: <T = BpmnProcessInstance | null>(args: { where: BpmnProcessInstanceWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteNotification: <T = Notification | null>(args: { where: NotificationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteLocalisation: <T = Localisation | null>(args: { where: LocalisationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    upsertNotification: <T = Notification>(args: { where: NotificationWhereUniqueInput, create: NotificationCreateInput, update: NotificationUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertUser: <T = User>(args: { where: UserWhereUniqueInput, create: UserCreateInput, update: UserUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    upsertNotification: <T = Notification>(args: { where: NotificationWhereUniqueInput, create: NotificationCreateInput, update: NotificationUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertLocalisation: <T = Localisation>(args: { where: LocalisationWhereUniqueInput, create: LocalisationCreateInput, update: LocalisationUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateManyNotifications: <T = BatchPayload>(args: { data: NotificationUpdateInput, where?: NotificationWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyUsers: <T = BatchPayload>(args: { data: UserUpdateInput, where?: UserWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyNotifications: <T = BatchPayload>(args: { data: NotificationUpdateInput, where?: NotificationWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyLocalisations: <T = BatchPayload>(args: { data: LocalisationUpdateInput, where?: LocalisationWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    deleteManyNotifications: <T = BatchPayload>(args: { where?: NotificationWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyUsers: <T = BatchPayload>(args: { where?: UserWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyBpmnProcessInstances: <T = BatchPayload>(args: { where?: BpmnProcessInstanceWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteManyNotifications: <T = BatchPayload>(args: { where?: NotificationWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyLocalisations: <T = BatchPayload>(args: { where?: LocalisationWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
   }
 
 export interface Subscription {
-    notification: <T = NotificationSubscriptionPayload | null>(args: { where?: NotificationSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     user: <T = UserSubscriptionPayload | null>(args: { where?: UserSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     bpmnProcessInstance: <T = BpmnProcessInstanceSubscriptionPayload | null>(args: { where?: BpmnProcessInstanceSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
+    notification: <T = NotificationSubscriptionPayload | null>(args: { where?: NotificationSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     localisation: <T = LocalisationSubscriptionPayload | null>(args: { where?: LocalisationSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> 
   }
 
 export interface Exists {
-  Notification: (where?: NotificationWhereInput) => Promise<boolean>
   User: (where?: UserWhereInput) => Promise<boolean>
   BpmnProcessInstance: (where?: BpmnProcessInstanceWhereInput) => Promise<boolean>
+  Notification: (where?: NotificationWhereInput) => Promise<boolean>
   Localisation: (where?: LocalisationWhereInput) => Promise<boolean>
 }
 
@@ -249,6 +249,7 @@ enum LanguageCode {
 
 type Localisation implements Node {
   id: ID!
+  code: String!
   text: String!
   language: LanguageCode!
 }
@@ -264,6 +265,7 @@ type LocalisationConnection {
 }
 
 input LocalisationCreateInput {
+  code: String!
   text: String!
   language: LanguageCode!
 }
@@ -285,6 +287,8 @@ type LocalisationEdge {
 enum LocalisationOrderByInput {
   id_ASC
   id_DESC
+  code_ASC
+  code_DESC
   text_ASC
   text_DESC
   language_ASC
@@ -297,6 +301,7 @@ enum LocalisationOrderByInput {
 
 type LocalisationPreviousValues {
   id: ID!
+  code: String!
   text: String!
   language: LanguageCode!
 }
@@ -341,11 +346,13 @@ input LocalisationSubscriptionWhereInput {
 }
 
 input LocalisationUpdateDataInput {
+  code: String
   text: String
   language: LanguageCode
 }
 
 input LocalisationUpdateInput {
+  code: String
   text: String
   language: LanguageCode
 }
@@ -413,6 +420,46 @@ input LocalisationWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  code: String
+
+  """All values that are not equal to given value."""
+  code_not: String
+
+  """All values that are contained in given list."""
+  code_in: [String!]
+
+  """All values that are not contained in given list."""
+  code_not_in: [String!]
+
+  """All values less than the given value."""
+  code_lt: String
+
+  """All values less than or equal the given value."""
+  code_lte: String
+
+  """All values greater than the given value."""
+  code_gt: String
+
+  """All values greater than or equal the given value."""
+  code_gte: String
+
+  """All values containing the given string."""
+  code_contains: String
+
+  """All values not containing the given string."""
+  code_not_contains: String
+
+  """All values starting with the given string."""
+  code_starts_with: String
+
+  """All values not starting with the given string."""
+  code_not_starts_with: String
+
+  """All values ending with the given string."""
+  code_ends_with: String
+
+  """All values not ending with the given string."""
+  code_not_ends_with: String
   text: String
 
   """All values that are not equal to given value."""
@@ -479,26 +526,26 @@ Long can represent values between -(2^63) and 2^63 - 1.
 scalar Long
 
 type Mutation {
-  createNotification(data: NotificationCreateInput!): Notification!
   createUser(data: UserCreateInput!): User!
   createBpmnProcessInstance: BpmnProcessInstance!
+  createNotification(data: NotificationCreateInput!): Notification!
   createLocalisation(data: LocalisationCreateInput!): Localisation!
-  updateNotification(data: NotificationUpdateInput!, where: NotificationWhereUniqueInput!): Notification
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  updateNotification(data: NotificationUpdateInput!, where: NotificationWhereUniqueInput!): Notification
   updateLocalisation(data: LocalisationUpdateInput!, where: LocalisationWhereUniqueInput!): Localisation
-  deleteNotification(where: NotificationWhereUniqueInput!): Notification
   deleteUser(where: UserWhereUniqueInput!): User
   deleteBpmnProcessInstance(where: BpmnProcessInstanceWhereUniqueInput!): BpmnProcessInstance
+  deleteNotification(where: NotificationWhereUniqueInput!): Notification
   deleteLocalisation(where: LocalisationWhereUniqueInput!): Localisation
-  upsertNotification(where: NotificationWhereUniqueInput!, create: NotificationCreateInput!, update: NotificationUpdateInput!): Notification!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  upsertNotification(where: NotificationWhereUniqueInput!, create: NotificationCreateInput!, update: NotificationUpdateInput!): Notification!
   upsertLocalisation(where: LocalisationWhereUniqueInput!, create: LocalisationCreateInput!, update: LocalisationUpdateInput!): Localisation!
-  updateManyNotifications(data: NotificationUpdateInput!, where: NotificationWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
+  updateManyNotifications(data: NotificationUpdateInput!, where: NotificationWhereInput): BatchPayload!
   updateManyLocalisations(data: LocalisationUpdateInput!, where: LocalisationWhereInput): BatchPayload!
-  deleteManyNotifications(where: NotificationWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyBpmnProcessInstances(where: BpmnProcessInstanceWhereInput): BatchPayload!
+  deleteManyNotifications(where: NotificationWhereInput): BatchPayload!
   deleteManyLocalisations(where: LocalisationWhereInput): BatchPayload!
 }
 
@@ -517,7 +564,6 @@ interface Node {
 type Notification implements Node {
   id: ID!
   processInstance(where: BpmnProcessInstanceWhereInput): BpmnProcessInstance
-  owner(where: UserWhereInput): User!
   code: NotificationCode
   text(where: LocalisationWhereInput): Localisation
   params: [String!]!
@@ -543,8 +589,12 @@ input NotificationCreateInput {
   visible: Boolean
   params: NotificationCreateparamsInput
   processInstance: BpmnProcessInstanceCreateOneInput
-  owner: UserCreateOneInput!
   text: LocalisationCreateOneInput
+}
+
+input NotificationCreateManyInput {
+  create: [NotificationCreateInput!]
+  connect: [NotificationWhereUniqueInput!]
 }
 
 input NotificationCreateparamsInput {
@@ -619,17 +669,44 @@ input NotificationSubscriptionWhereInput {
   node: NotificationWhereInput
 }
 
+input NotificationUpdateDataInput {
+  code: NotificationCode
+  visible: Boolean
+  params: NotificationUpdateparamsInput
+  processInstance: BpmnProcessInstanceUpdateOneInput
+  text: LocalisationUpdateOneInput
+}
+
 input NotificationUpdateInput {
   code: NotificationCode
   visible: Boolean
   params: NotificationUpdateparamsInput
   processInstance: BpmnProcessInstanceUpdateOneInput
-  owner: UserUpdateOneInput
   text: LocalisationUpdateOneInput
+}
+
+input NotificationUpdateManyInput {
+  create: [NotificationCreateInput!]
+  connect: [NotificationWhereUniqueInput!]
+  disconnect: [NotificationWhereUniqueInput!]
+  delete: [NotificationWhereUniqueInput!]
+  update: [NotificationUpdateWithWhereUniqueNestedInput!]
+  upsert: [NotificationUpsertWithWhereUniqueNestedInput!]
 }
 
 input NotificationUpdateparamsInput {
   set: [String!]
+}
+
+input NotificationUpdateWithWhereUniqueNestedInput {
+  where: NotificationWhereUniqueInput!
+  data: NotificationUpdateDataInput!
+}
+
+input NotificationUpsertWithWhereUniqueNestedInput {
+  where: NotificationWhereUniqueInput!
+  update: NotificationUpdateDataInput!
+  create: NotificationCreateInput!
 }
 
 input NotificationWhereInput {
@@ -696,8 +773,10 @@ input NotificationWhereInput {
   """All values that are not equal to given value."""
   visible_not: Boolean
   processInstance: BpmnProcessInstanceWhereInput
-  owner: UserWhereInput
   text: LocalisationWhereInput
+  _MagicalBackRelation_UserNotifications_every: UserWhereInput
+  _MagicalBackRelation_UserNotifications_some: UserWhereInput
+  _MagicalBackRelation_UserNotifications_none: UserWhereInput
 }
 
 input NotificationWhereUniqueInput {
@@ -720,17 +799,17 @@ type PageInfo {
 }
 
 type Query {
-  notifications(where: NotificationWhereInput, orderBy: NotificationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Notification]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   bpmnProcessInstances(where: BpmnProcessInstanceWhereInput, orderBy: BpmnProcessInstanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BpmnProcessInstance]!
+  notifications(where: NotificationWhereInput, orderBy: NotificationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Notification]!
   localisations(where: LocalisationWhereInput, orderBy: LocalisationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Localisation]!
-  notification(where: NotificationWhereUniqueInput!): Notification
   user(where: UserWhereUniqueInput!): User
   bpmnProcessInstance(where: BpmnProcessInstanceWhereUniqueInput!): BpmnProcessInstance
+  notification(where: NotificationWhereUniqueInput!): Notification
   localisation(where: LocalisationWhereUniqueInput!): Localisation
-  notificationsConnection(where: NotificationWhereInput, orderBy: NotificationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): NotificationConnection!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   bpmnProcessInstancesConnection(where: BpmnProcessInstanceWhereInput, orderBy: BpmnProcessInstanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BpmnProcessInstanceConnection!
+  notificationsConnection(where: NotificationWhereInput, orderBy: NotificationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): NotificationConnection!
   localisationsConnection(where: LocalisationWhereInput, orderBy: LocalisationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LocalisationConnection!
 
   """Fetches an object given its ID"""
@@ -741,9 +820,9 @@ type Query {
 }
 
 type Subscription {
-  notification(where: NotificationSubscriptionWhereInput): NotificationSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   bpmnProcessInstance(where: BpmnProcessInstanceSubscriptionWhereInput): BpmnProcessInstanceSubscriptionPayload
+  notification(where: NotificationSubscriptionWhereInput): NotificationSubscriptionPayload
   localisation(where: LocalisationSubscriptionWhereInput): LocalisationSubscriptionPayload
 }
 
@@ -751,7 +830,7 @@ type User implements Node {
   id: ID!
   name: String!
   roles: [String!]!
-  describe: String!
+  notifications(where: NotificationWhereInput, orderBy: NotificationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Notification!]
 }
 
 """A connection to a list of items."""
@@ -766,13 +845,8 @@ type UserConnection {
 
 input UserCreateInput {
   name: String!
-  describe: String!
   roles: UserCreaterolesInput
-}
-
-input UserCreateOneInput {
-  create: UserCreateInput
-  connect: UserWhereUniqueInput
+  notifications: NotificationCreateManyInput
 }
 
 input UserCreaterolesInput {
@@ -793,8 +867,6 @@ enum UserOrderByInput {
   id_DESC
   name_ASC
   name_DESC
-  describe_ASC
-  describe_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -805,7 +877,6 @@ type UserPreviousValues {
   id: ID!
   name: String!
   roles: [String!]!
-  describe: String!
 }
 
 type UserSubscriptionPayload {
@@ -847,33 +918,14 @@ input UserSubscriptionWhereInput {
   node: UserWhereInput
 }
 
-input UserUpdateDataInput {
-  name: String
-  describe: String
-  roles: UserUpdaterolesInput
-}
-
 input UserUpdateInput {
   name: String
-  describe: String
   roles: UserUpdaterolesInput
-}
-
-input UserUpdateOneInput {
-  create: UserCreateInput
-  connect: UserWhereUniqueInput
-  delete: Boolean
-  update: UserUpdateDataInput
-  upsert: UserUpsertNestedInput
+  notifications: NotificationUpdateManyInput
 }
 
 input UserUpdaterolesInput {
   set: [String!]
-}
-
-input UserUpsertNestedInput {
-  update: UserUpdateDataInput!
-  create: UserCreateInput!
 }
 
 input UserWhereInput {
@@ -965,49 +1017,9 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   name_not_ends_with: String
-  describe: String
-
-  """All values that are not equal to given value."""
-  describe_not: String
-
-  """All values that are contained in given list."""
-  describe_in: [String!]
-
-  """All values that are not contained in given list."""
-  describe_not_in: [String!]
-
-  """All values less than the given value."""
-  describe_lt: String
-
-  """All values less than or equal the given value."""
-  describe_lte: String
-
-  """All values greater than the given value."""
-  describe_gt: String
-
-  """All values greater than or equal the given value."""
-  describe_gte: String
-
-  """All values containing the given string."""
-  describe_contains: String
-
-  """All values not containing the given string."""
-  describe_not_contains: String
-
-  """All values starting with the given string."""
-  describe_starts_with: String
-
-  """All values not starting with the given string."""
-  describe_not_starts_with: String
-
-  """All values ending with the given string."""
-  describe_ends_with: String
-
-  """All values not ending with the given string."""
-  describe_not_ends_with: String
-  _MagicalBackRelation_NotificationToUser_every: NotificationWhereInput
-  _MagicalBackRelation_NotificationToUser_some: NotificationWhereInput
-  _MagicalBackRelation_NotificationToUser_none: NotificationWhereInput
+  notifications_every: NotificationWhereInput
+  notifications_some: NotificationWhereInput
+  notifications_none: NotificationWhereInput
 }
 
 input UserWhereUniqueInput {
@@ -1021,29 +1033,23 @@ export const Prisma = makePrismaBindingClass<BindingConstructor<Prisma>>({typeDe
  * Types
 */
 
+export type LanguageCode =   'EN'
+
+export type UserOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'name_ASC' |
+  'name_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC'
+
 export type NotificationOrderByInput =   'id_ASC' |
   'id_DESC' |
   'code_ASC' |
   'code_DESC' |
   'visible_ASC' |
   'visible_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
-  'createdAt_ASC' |
-  'createdAt_DESC'
-
-export type LanguageCode =   'EN'
-
-export type MutationType =   'CREATED' |
-  'UPDATED' |
-  'DELETED'
-
-export type UserOrderByInput =   'id_ASC' |
-  'id_DESC' |
-  'name_ASC' |
-  'name_DESC' |
-  'describe_ASC' |
-  'describe_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
@@ -1056,8 +1062,12 @@ export type BpmnProcessInstanceOrderByInput =   'id_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
+export type NotificationCode =   'ServiceStarted'
+
 export type LocalisationOrderByInput =   'id_ASC' |
   'id_DESC' |
+  'code_ASC' |
+  'code_DESC' |
   'text_ASC' |
   'text_DESC' |
   'language_ASC' |
@@ -1067,180 +1077,14 @@ export type LocalisationOrderByInput =   'id_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export type NotificationCode =   'ServiceStarted'
-
-export interface BpmnProcessInstanceWhereUniqueInput {
-  id?: ID_Input
-}
+export type MutationType =   'CREATED' |
+  'UPDATED' |
+  'DELETED'
 
 export interface UserCreateInput {
   name: String
-  describe: String
   roles?: UserCreaterolesInput
-}
-
-export interface LocalisationUpdateOneInput {
-  create?: LocalisationCreateInput
-  connect?: LocalisationWhereUniqueInput
-  disconnect?: Boolean
-  delete?: Boolean
-  update?: LocalisationUpdateDataInput
-  upsert?: LocalisationUpsertNestedInput
-}
-
-export interface NotificationWhereInput {
-  AND?: NotificationWhereInput[] | NotificationWhereInput
-  OR?: NotificationWhereInput[] | NotificationWhereInput
-  NOT?: NotificationWhereInput[] | NotificationWhereInput
-  id?: ID_Input
-  id_not?: ID_Input
-  id_in?: ID_Input[] | ID_Input
-  id_not_in?: ID_Input[] | ID_Input
-  id_lt?: ID_Input
-  id_lte?: ID_Input
-  id_gt?: ID_Input
-  id_gte?: ID_Input
-  id_contains?: ID_Input
-  id_not_contains?: ID_Input
-  id_starts_with?: ID_Input
-  id_not_starts_with?: ID_Input
-  id_ends_with?: ID_Input
-  id_not_ends_with?: ID_Input
-  code?: NotificationCode
-  code_not?: NotificationCode
-  code_in?: NotificationCode[] | NotificationCode
-  code_not_in?: NotificationCode[] | NotificationCode
-  visible?: Boolean
-  visible_not?: Boolean
-  processInstance?: BpmnProcessInstanceWhereInput
-  owner?: UserWhereInput
-  text?: LocalisationWhereInput
-}
-
-export interface UserUpsertNestedInput {
-  update: UserUpdateDataInput
-  create: UserCreateInput
-}
-
-export interface UserSubscriptionWhereInput {
-  AND?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
-  OR?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
-  NOT?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: UserWhereInput
-}
-
-export interface UserUpdaterolesInput {
-  set?: String[] | String
-}
-
-export interface LocalisationUpdateInput {
-  text?: String
-  language?: LanguageCode
-}
-
-export interface UserUpdateDataInput {
-  name?: String
-  describe?: String
-  roles?: UserUpdaterolesInput
-}
-
-export interface BpmnProcessInstanceSubscriptionWhereInput {
-  AND?: BpmnProcessInstanceSubscriptionWhereInput[] | BpmnProcessInstanceSubscriptionWhereInput
-  OR?: BpmnProcessInstanceSubscriptionWhereInput[] | BpmnProcessInstanceSubscriptionWhereInput
-  NOT?: BpmnProcessInstanceSubscriptionWhereInput[] | BpmnProcessInstanceSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: BpmnProcessInstanceWhereInput
-}
-
-export interface UserUpdateOneInput {
-  create?: UserCreateInput
-  connect?: UserWhereUniqueInput
-  delete?: Boolean
-  update?: UserUpdateDataInput
-  upsert?: UserUpsertNestedInput
-}
-
-export interface BpmnProcessInstanceWhereInput {
-  AND?: BpmnProcessInstanceWhereInput[] | BpmnProcessInstanceWhereInput
-  OR?: BpmnProcessInstanceWhereInput[] | BpmnProcessInstanceWhereInput
-  NOT?: BpmnProcessInstanceWhereInput[] | BpmnProcessInstanceWhereInput
-  id?: ID_Input
-  id_not?: ID_Input
-  id_in?: ID_Input[] | ID_Input
-  id_not_in?: ID_Input[] | ID_Input
-  id_lt?: ID_Input
-  id_lte?: ID_Input
-  id_gt?: ID_Input
-  id_gte?: ID_Input
-  id_contains?: ID_Input
-  id_not_contains?: ID_Input
-  id_starts_with?: ID_Input
-  id_not_starts_with?: ID_Input
-  id_ends_with?: ID_Input
-  id_not_ends_with?: ID_Input
-  _MagicalBackRelation_BpmnProcessInstanceToNotification_every?: NotificationWhereInput
-  _MagicalBackRelation_BpmnProcessInstanceToNotification_some?: NotificationWhereInput
-  _MagicalBackRelation_BpmnProcessInstanceToNotification_none?: NotificationWhereInput
-}
-
-export interface BpmnProcessInstanceUpdateOneInput {
-  connect?: BpmnProcessInstanceWhereUniqueInput
-  disconnect?: Boolean
-  delete?: Boolean
-}
-
-export interface UserWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface NotificationUpdateparamsInput {
-  set?: String[] | String
-}
-
-export interface LocalisationWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface NotificationUpdateInput {
-  code?: NotificationCode
-  visible?: Boolean
-  params?: NotificationUpdateparamsInput
-  processInstance?: BpmnProcessInstanceUpdateOneInput
-  owner?: UserUpdateOneInput
-  text?: LocalisationUpdateOneInput
-}
-
-export interface LocalisationUpdateDataInput {
-  text?: String
-  language?: LanguageCode
-}
-
-export interface LocalisationCreateInput {
-  text: String
-  language: LanguageCode
-}
-
-export interface NotificationSubscriptionWhereInput {
-  AND?: NotificationSubscriptionWhereInput[] | NotificationSubscriptionWhereInput
-  OR?: NotificationSubscriptionWhereInput[] | NotificationSubscriptionWhereInput
-  NOT?: NotificationSubscriptionWhereInput[] | NotificationSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: NotificationWhereInput
-}
-
-export interface LocalisationCreateOneInput {
-  create?: LocalisationCreateInput
-  connect?: LocalisationWhereUniqueInput
+  notifications?: NotificationCreateManyInput
 }
 
 export interface UserWhereInput {
@@ -1275,75 +1119,13 @@ export interface UserWhereInput {
   name_not_starts_with?: String
   name_ends_with?: String
   name_not_ends_with?: String
-  describe?: String
-  describe_not?: String
-  describe_in?: String[] | String
-  describe_not_in?: String[] | String
-  describe_lt?: String
-  describe_lte?: String
-  describe_gt?: String
-  describe_gte?: String
-  describe_contains?: String
-  describe_not_contains?: String
-  describe_starts_with?: String
-  describe_not_starts_with?: String
-  describe_ends_with?: String
-  describe_not_ends_with?: String
-  _MagicalBackRelation_NotificationToUser_every?: NotificationWhereInput
-  _MagicalBackRelation_NotificationToUser_some?: NotificationWhereInput
-  _MagicalBackRelation_NotificationToUser_none?: NotificationWhereInput
-}
-
-export interface UserCreaterolesInput {
-  set?: String[] | String
-}
-
-export interface LocalisationSubscriptionWhereInput {
-  AND?: LocalisationSubscriptionWhereInput[] | LocalisationSubscriptionWhereInput
-  OR?: LocalisationSubscriptionWhereInput[] | LocalisationSubscriptionWhereInput
-  NOT?: LocalisationSubscriptionWhereInput[] | LocalisationSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: LocalisationWhereInput
-}
-
-export interface UserCreateOneInput {
-  create?: UserCreateInput
-  connect?: UserWhereUniqueInput
-}
-
-export interface BpmnProcessInstanceCreateOneInput {
-  connect?: BpmnProcessInstanceWhereUniqueInput
+  notifications_every?: NotificationWhereInput
+  notifications_some?: NotificationWhereInput
+  notifications_none?: NotificationWhereInput
 }
 
 export interface NotificationCreateparamsInput {
   set?: String[] | String
-}
-
-export interface NotificationCreateInput {
-  code?: NotificationCode
-  visible?: Boolean
-  params?: NotificationCreateparamsInput
-  processInstance?: BpmnProcessInstanceCreateOneInput
-  owner: UserCreateOneInput
-  text?: LocalisationCreateOneInput
-}
-
-export interface LocalisationUpsertNestedInput {
-  update: LocalisationUpdateDataInput
-  create: LocalisationCreateInput
-}
-
-export interface NotificationWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface UserUpdateInput {
-  name?: String
-  describe?: String
-  roles?: UserUpdaterolesInput
 }
 
 export interface LocalisationWhereInput {
@@ -1364,6 +1146,20 @@ export interface LocalisationWhereInput {
   id_not_starts_with?: ID_Input
   id_ends_with?: ID_Input
   id_not_ends_with?: ID_Input
+  code?: String
+  code_not?: String
+  code_in?: String[] | String
+  code_not_in?: String[] | String
+  code_lt?: String
+  code_lte?: String
+  code_gt?: String
+  code_gte?: String
+  code_contains?: String
+  code_not_contains?: String
+  code_starts_with?: String
+  code_not_starts_with?: String
+  code_ends_with?: String
+  code_not_ends_with?: String
   text?: String
   text_not?: String
   text_in?: String[] | String
@@ -1387,6 +1183,234 @@ export interface LocalisationWhereInput {
   _MagicalBackRelation_LocalisationToNotification_none?: NotificationWhereInput
 }
 
+export interface LocalisationUpdateDataInput {
+  code?: String
+  text?: String
+  language?: LanguageCode
+}
+
+export interface BpmnProcessInstanceCreateOneInput {
+  connect?: BpmnProcessInstanceWhereUniqueInput
+}
+
+export interface LocalisationUpdateOneInput {
+  create?: LocalisationCreateInput
+  connect?: LocalisationWhereUniqueInput
+  disconnect?: Boolean
+  delete?: Boolean
+  update?: LocalisationUpdateDataInput
+  upsert?: LocalisationUpsertNestedInput
+}
+
+export interface LocalisationSubscriptionWhereInput {
+  AND?: LocalisationSubscriptionWhereInput[] | LocalisationSubscriptionWhereInput
+  OR?: LocalisationSubscriptionWhereInput[] | LocalisationSubscriptionWhereInput
+  NOT?: LocalisationSubscriptionWhereInput[] | LocalisationSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: LocalisationWhereInput
+}
+
+export interface BpmnProcessInstanceUpdateOneInput {
+  connect?: BpmnProcessInstanceWhereUniqueInput
+  disconnect?: Boolean
+  delete?: Boolean
+}
+
+export interface BpmnProcessInstanceSubscriptionWhereInput {
+  AND?: BpmnProcessInstanceSubscriptionWhereInput[] | BpmnProcessInstanceSubscriptionWhereInput
+  OR?: BpmnProcessInstanceSubscriptionWhereInput[] | BpmnProcessInstanceSubscriptionWhereInput
+  NOT?: BpmnProcessInstanceSubscriptionWhereInput[] | BpmnProcessInstanceSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: BpmnProcessInstanceWhereInput
+}
+
+export interface NotificationUpdateparamsInput {
+  set?: String[] | String
+}
+
+export interface NotificationWhereInput {
+  AND?: NotificationWhereInput[] | NotificationWhereInput
+  OR?: NotificationWhereInput[] | NotificationWhereInput
+  NOT?: NotificationWhereInput[] | NotificationWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  code?: NotificationCode
+  code_not?: NotificationCode
+  code_in?: NotificationCode[] | NotificationCode
+  code_not_in?: NotificationCode[] | NotificationCode
+  visible?: Boolean
+  visible_not?: Boolean
+  processInstance?: BpmnProcessInstanceWhereInput
+  text?: LocalisationWhereInput
+  _MagicalBackRelation_UserNotifications_every?: UserWhereInput
+  _MagicalBackRelation_UserNotifications_some?: UserWhereInput
+  _MagicalBackRelation_UserNotifications_none?: UserWhereInput
+}
+
+export interface NotificationUpdateDataInput {
+  code?: NotificationCode
+  visible?: Boolean
+  params?: NotificationUpdateparamsInput
+  processInstance?: BpmnProcessInstanceUpdateOneInput
+  text?: LocalisationUpdateOneInput
+}
+
+export interface BpmnProcessInstanceWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface NotificationUpdateWithWhereUniqueNestedInput {
+  where: NotificationWhereUniqueInput
+  data: NotificationUpdateDataInput
+}
+
+export interface LocalisationWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface NotificationUpdateManyInput {
+  create?: NotificationCreateInput[] | NotificationCreateInput
+  connect?: NotificationWhereUniqueInput[] | NotificationWhereUniqueInput
+  disconnect?: NotificationWhereUniqueInput[] | NotificationWhereUniqueInput
+  delete?: NotificationWhereUniqueInput[] | NotificationWhereUniqueInput
+  update?: NotificationUpdateWithWhereUniqueNestedInput[] | NotificationUpdateWithWhereUniqueNestedInput
+  upsert?: NotificationUpsertWithWhereUniqueNestedInput[] | NotificationUpsertWithWhereUniqueNestedInput
+}
+
+export interface NotificationUpdateInput {
+  code?: NotificationCode
+  visible?: Boolean
+  params?: NotificationUpdateparamsInput
+  processInstance?: BpmnProcessInstanceUpdateOneInput
+  text?: LocalisationUpdateOneInput
+}
+
+export interface UserUpdaterolesInput {
+  set?: String[] | String
+}
+
+export interface LocalisationUpsertNestedInput {
+  update: LocalisationUpdateDataInput
+  create: LocalisationCreateInput
+}
+
+export interface UserUpdateInput {
+  name?: String
+  roles?: UserUpdaterolesInput
+  notifications?: NotificationUpdateManyInput
+}
+
+export interface NotificationSubscriptionWhereInput {
+  AND?: NotificationSubscriptionWhereInput[] | NotificationSubscriptionWhereInput
+  OR?: NotificationSubscriptionWhereInput[] | NotificationSubscriptionWhereInput
+  NOT?: NotificationSubscriptionWhereInput[] | NotificationSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: NotificationWhereInput
+}
+
+export interface LocalisationCreateInput {
+  code: String
+  text: String
+  language: LanguageCode
+}
+
+export interface UserWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface LocalisationCreateOneInput {
+  create?: LocalisationCreateInput
+  connect?: LocalisationWhereUniqueInput
+}
+
+export interface NotificationCreateInput {
+  code?: NotificationCode
+  visible?: Boolean
+  params?: NotificationCreateparamsInput
+  processInstance?: BpmnProcessInstanceCreateOneInput
+  text?: LocalisationCreateOneInput
+}
+
+export interface NotificationCreateManyInput {
+  create?: NotificationCreateInput[] | NotificationCreateInput
+  connect?: NotificationWhereUniqueInput[] | NotificationWhereUniqueInput
+}
+
+export interface UserCreaterolesInput {
+  set?: String[] | String
+}
+
+export interface NotificationWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface UserSubscriptionWhereInput {
+  AND?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
+  OR?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
+  NOT?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: UserWhereInput
+}
+
+export interface BpmnProcessInstanceWhereInput {
+  AND?: BpmnProcessInstanceWhereInput[] | BpmnProcessInstanceWhereInput
+  OR?: BpmnProcessInstanceWhereInput[] | BpmnProcessInstanceWhereInput
+  NOT?: BpmnProcessInstanceWhereInput[] | BpmnProcessInstanceWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  _MagicalBackRelation_BpmnProcessInstanceToNotification_every?: NotificationWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceToNotification_some?: NotificationWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceToNotification_none?: NotificationWhereInput
+}
+
+export interface NotificationUpsertWithWhereUniqueNestedInput {
+  where: NotificationWhereUniqueInput
+  update: NotificationUpdateDataInput
+  create: NotificationCreateInput
+}
+
+export interface LocalisationUpdateInput {
+  code?: String
+  text?: String
+  language?: LanguageCode
+}
+
 /*
  * An object with an ID
 
@@ -1395,32 +1419,50 @@ export interface Node {
   id: ID_Output
 }
 
-export interface AggregateLocalisation {
-  count: Int
+export interface LocalisationPreviousValues {
+  id: ID_Output
+  code: String
+  text: String
+  language: LanguageCode
 }
 
 export interface BatchPayload {
   count: Long
 }
 
-export interface LocalisationPreviousValues {
-  id: ID_Output
-  text: String
-  language: LanguageCode
-}
-
 export interface User extends Node {
   id: ID_Output
   name: String
   roles: String[]
-  describe: String
+  notifications?: Notification[]
 }
 
-export interface BpmnProcessInstanceSubscriptionPayload {
+/*
+ * A connection to a list of items.
+
+ */
+export interface UserConnection {
+  pageInfo: PageInfo
+  edges: UserEdge[]
+  aggregate: AggregateUser
+}
+
+export interface NotificationSubscriptionPayload {
   mutation: MutationType
-  node?: BpmnProcessInstance
+  node?: Notification
   updatedFields?: String[]
-  previousValues?: BpmnProcessInstancePreviousValues
+  previousValues?: NotificationPreviousValues
+}
+
+export interface LocalisationSubscriptionPayload {
+  mutation: MutationType
+  node?: Localisation
+  updatedFields?: String[]
+  previousValues?: LocalisationPreviousValues
+}
+
+export interface AggregateLocalisation {
+  count: Int
 }
 
 /*
@@ -1432,62 +1474,60 @@ export interface LocalisationEdge {
   cursor: String
 }
 
-/*
- * A connection to a list of items.
-
- */
-export interface LocalisationConnection {
-  pageInfo: PageInfo
-  edges: LocalisationEdge[]
-  aggregate: AggregateLocalisation
-}
-
-export interface AggregateBpmnProcessInstance {
+export interface AggregateNotification {
   count: Int
-}
-
-/*
- * A connection to a list of items.
-
- */
-export interface BpmnProcessInstanceConnection {
-  pageInfo: PageInfo
-  edges: BpmnProcessInstanceEdge[]
-  aggregate: AggregateBpmnProcessInstance
-}
-
-export interface BpmnProcessInstance extends Node {
-  id: ID_Output
-}
-
-/*
- * An edge in a connection.
-
- */
-export interface UserEdge {
-  node: User
-  cursor: String
 }
 
 export interface Notification extends Node {
   id: ID_Output
   processInstance?: BpmnProcessInstance
-  owner: User
   code?: NotificationCode
   text?: Localisation
   params: String[]
   visible?: Boolean
 }
 
-export interface AggregateNotification {
+/*
+ * A connection to a list of items.
+
+ */
+export interface NotificationConnection {
+  pageInfo: PageInfo
+  edges: NotificationEdge[]
+  aggregate: AggregateNotification
+}
+
+export interface NotificationPreviousValues {
+  id: ID_Output
+  code?: NotificationCode
+  params: String[]
+  visible?: Boolean
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface BpmnProcessInstanceEdge {
+  node: BpmnProcessInstance
+  cursor: String
+}
+
+export interface UserSubscriptionPayload {
+  mutation: MutationType
+  node?: User
+  updatedFields?: String[]
+  previousValues?: UserPreviousValues
+}
+
+export interface AggregateUser {
   count: Int
 }
 
-export interface NotificationSubscriptionPayload {
-  mutation: MutationType
-  node?: Notification
-  updatedFields?: String[]
-  previousValues?: NotificationPreviousValues
+export interface UserPreviousValues {
+  id: ID_Output
+  name: String
+  roles: String[]
 }
 
 /*
@@ -1501,77 +1541,6 @@ export interface PageInfo {
   endCursor?: String
 }
 
-export interface NotificationPreviousValues {
-  id: ID_Output
-  code?: NotificationCode
-  params: String[]
-  visible?: Boolean
-}
-
-export interface Localisation extends Node {
-  id: ID_Output
-  text: String
-  language: LanguageCode
-}
-
-export interface AggregateUser {
-  count: Int
-}
-
-export interface BpmnProcessInstancePreviousValues {
-  id: ID_Output
-}
-
-export interface UserPreviousValues {
-  id: ID_Output
-  name: String
-  roles: String[]
-  describe: String
-}
-
-export interface UserSubscriptionPayload {
-  mutation: MutationType
-  node?: User
-  updatedFields?: String[]
-  previousValues?: UserPreviousValues
-}
-
-export interface LocalisationSubscriptionPayload {
-  mutation: MutationType
-  node?: Localisation
-  updatedFields?: String[]
-  previousValues?: LocalisationPreviousValues
-}
-
-/*
- * A connection to a list of items.
-
- */
-export interface UserConnection {
-  pageInfo: PageInfo
-  edges: UserEdge[]
-  aggregate: AggregateUser
-}
-
-/*
- * An edge in a connection.
-
- */
-export interface BpmnProcessInstanceEdge {
-  node: BpmnProcessInstance
-  cursor: String
-}
-
-/*
- * A connection to a list of items.
-
- */
-export interface NotificationConnection {
-  pageInfo: PageInfo
-  edges: NotificationEdge[]
-  aggregate: AggregateNotification
-}
-
 /*
  * An edge in a connection.
 
@@ -1581,6 +1550,61 @@ export interface NotificationEdge {
   cursor: String
 }
 
+export interface BpmnProcessInstance extends Node {
+  id: ID_Output
+}
+
+export interface BpmnProcessInstancePreviousValues {
+  id: ID_Output
+}
+
+export interface BpmnProcessInstanceSubscriptionPayload {
+  mutation: MutationType
+  node?: BpmnProcessInstance
+  updatedFields?: String[]
+  previousValues?: BpmnProcessInstancePreviousValues
+}
+
+export interface Localisation extends Node {
+  id: ID_Output
+  code: String
+  text: String
+  language: LanguageCode
+}
+
+export interface AggregateBpmnProcessInstance {
+  count: Int
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface LocalisationConnection {
+  pageInfo: PageInfo
+  edges: LocalisationEdge[]
+  aggregate: AggregateLocalisation
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface UserEdge {
+  node: User
+  cursor: String
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface BpmnProcessInstanceConnection {
+  pageInfo: PageInfo
+  edges: BpmnProcessInstanceEdge[]
+  aggregate: AggregateBpmnProcessInstance
+}
+
 /*
 The `Long` scalar type represents non-fractional signed whole numeric values.
 Long can represent values between -(2^63) and 2^63 - 1.
@@ -1588,15 +1612,15 @@ Long can represent values between -(2^63) and 2^63 - 1.
 export type Long = string
 
 /*
+The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
+*/
+export type Int = number
+
+/*
 The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
 */
 export type ID_Input = string | number
 export type ID_Output = string
-
-/*
-The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
-*/
-export type Int = number
 
 /*
 The `Boolean` scalar type represents `true` or `false`.

@@ -4,6 +4,7 @@ enum LanguageCode {
 
 type Localisation {
   id: ID! @unique
+  code: String!
   text: String!
   language: LanguageCode!
 }

@@ -4,7 +4,7 @@ import { importSchema } from 'graphql-import';
 import { GraphQLServer } from 'graphql-yoga';
 import { Prisma } from '../data/generated/prisma';
 
-import { resolvers } from '../data/models';
+import { resolvers } from '../data/yoga/models/index';
 
 // opts for cors
 const opts = {
@@ -21,7 +21,7 @@ const context = (req: any) => ({
 });
 
 const server = new GraphQLServer({
-  typeDefs: importSchema('./src/data/schema.graphql'),
+  typeDefs: importSchema('./src/data/yoga/schema.graphql'),
   resolvers,
   // resolverValidationOptions: {
   //   requireResolversForResolveType: false
@@ -37,10 +37,11 @@ const server = new GraphQLServer({
       })
     };
 
-    // temporarily hard code user
+    // temporarily hard code user and language
     req.request.session.user = {
       id: '1'
     };
+    req.request.session.language = 'EN';
 
     return result;
   }
