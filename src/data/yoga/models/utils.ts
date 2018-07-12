@@ -1,10 +1,12 @@
 // import * as jwt from 'jsonwebtoken';
-import * as Types from '../../generated/prisma';
+
+import * as Types from 'data/generated/prisma_types';
 export * from '../../generated/prisma';
 
 import { GraphQLResolveInfo } from 'graphql';
 
-import { Mutation as PrismaMutation, Query as PrismaQuery } from '../../generated/api';
+import { Mutation as PrismaMutation, Query as PrismaQuery } from 'data/generated/api';
+import { LanguageCode, Prisma, User } from 'data/generated/prisma';
 // import { Prisma, User } from '../../generated/prisma';
 
 export type FirstArgument<T> = T extends (arg1: infer U, ...args: any[]) => any ? U : any;
@@ -26,18 +28,18 @@ export type Mutation = Partial<Remapped<PrismaMutation>>;
 // export type Mutation = Remap<PrismaMutation>;
 
 export interface Context {
-  db: Types.Prisma;
+  db: Prisma;
   request: any;
   session: {
-    user: Types.User;
-    language: Types.LanguageCode;
+    user: User;
+    language: LanguageCode;
   };
 }
 
 export type Resolver<T> = {
-  [index: string]: {
+  [U in keyof Partial<typeof Types>]: {
     [P in keyof Partial<T>]: (parent: T, args: any, ctx: Context, info: GraphQLResolveInfo) => any
-  };
+  }
 };
 
 export function getUserId(ctx: Context): string {

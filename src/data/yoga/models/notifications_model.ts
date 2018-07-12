@@ -32,7 +32,7 @@ export const mutation: Mutation = {
       info
     );
 
-    return user.notifications[0];
+    // return user.notifications[0];
     // const notification = await ctx.db.query.notifications({ where: {     }); // .user()
 
     return true;

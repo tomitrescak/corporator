@@ -1,4 +1,4 @@
-import { LanguageCode, Prisma, User } from '../../../generated/prisma';
+import { LanguageCode, Prisma, User } from 'data/generated/prisma';
 import { Context } from '../utils';
 import { create } from './create';
 
@@ -56,12 +56,12 @@ export async function its(
     }
 
     if (options.user) {
-      // const users = await db.query.users({});
-      // if (users && users.length) {
-      //   for (let user of users) {
-      //     db.mutation.deleteUser({ where: { id: user.id } });
-      //   }
-      // }
+      const users = await db.query.users({});
+      if (users && users.length) {
+        for (let user of users) {
+          db.mutation.deleteUser({ where: { id: user.id } });
+        }
+      }
       context.session.user = await create.user(context, options.user);
     }
 
