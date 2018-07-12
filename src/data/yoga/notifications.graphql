@@ -1,3 +1,5 @@
+#import Notification, NotificationCode from '../generated/prisma.graphql'
+
 type Query {
   notifications(start: Int, end: Int): [Notification]!
 }

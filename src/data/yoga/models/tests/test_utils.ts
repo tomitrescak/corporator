@@ -1,4 +1,4 @@
-import { LanguageCode, Prisma, User } from 'data/generated/prisma';
+import { LanguageCode, Prisma, User } from '../../../generated/prisma';
 import { Context } from '../utils';
 import { create } from './create';
 

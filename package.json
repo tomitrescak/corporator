@@ -4,6 +4,7 @@
   "dependencies": {
     "@reach/router": "^1.1.1",
     "apollo": "^1.4.0",
+    "apollo-boost": "^0.1.10",
     "apollo-cache-inmemory": "^1.2.5",
     "apollo-client": "^2.3.5",
     "apollo-connector-mongodb": "^2.0.3",
@@ -18,7 +19,8 @@
     "express-session": "^1.15.6",
     "fuse-box": "^3.3.0",
     "global": "^4.3.2",
-    "graphql": "0.13.0",
+    "graphql": "^0.13.0",
+    "graphql-cli": "^2.16.4",
     "graphql-tag": "^2.9.2",
     "graphql-tools": "^3.0.5",
     "graphql-yoga": "^1.14.12",
@@ -50,6 +52,7 @@
     "clear": "jest --clearCache",
     "next": "next src",
     "prisma": "prisma deploy",
+    "playground": "prisma playground",
     "yoga": "graphql codegen"
   },
   "devDependencies": {
@@ -69,7 +72,6 @@
     "jest-transform-graphql": "^2.1.0",
     "json-socket": "^0.3.0",
     "mobx-react-devtools": "^5.0.1",
-    "mongodb-memory-server": "^1.9.0",
     "ts-jest": "^23.0.0",
     "tslint": "^5.10.0",
     "tslint-config-prettier": "^1.13.0",

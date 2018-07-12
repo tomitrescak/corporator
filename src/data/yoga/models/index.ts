@@ -1,3 +1,4 @@
+import * as bpmnProcess from './bpmn_process_model';
 import * as notifications from './notifications_model';
 
 import { addResolver } from './utils';
@@ -14,3 +15,4 @@ export const resolvers = {
 // import custom resolvers
 
 addResolver(resolvers, notifications);
+addResolver(resolvers, bpmnProcess);

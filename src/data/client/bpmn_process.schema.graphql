@@ -1,0 +1,6 @@
+query processes {
+  processes {
+    id
+    name
+  }
+}

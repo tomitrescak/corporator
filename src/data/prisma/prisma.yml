@@ -4,6 +4,10 @@ datamodel:
   - localisation.graphql
   - notifications.graphql
   - bpmn_process_instances.graphql
+  - bpmn_process.graphql
+  - access.graphql
+  - resource.graphql
+  - data_descriptor.graphql
 hooks:
   post-deploy:
     - graphql get-schema -p prisma

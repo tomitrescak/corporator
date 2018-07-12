@@ -1,12 +1,12 @@
 // import * as jwt from 'jsonwebtoken';
 
-import * as Types from 'data/generated/prisma_types';
+import * as Types from '../../generated/prisma_types';
 export * from '../../generated/prisma';
 
 import { GraphQLResolveInfo } from 'graphql';
 
-import { Mutation as PrismaMutation, Query as PrismaQuery } from 'data/generated/api';
-import { LanguageCode, Prisma, User } from 'data/generated/prisma';
+import { Mutation as PrismaMutation, Query as PrismaQuery } from '../../generated/api';
+import { LanguageCode, Prisma, User } from '../../generated/prisma';
 // import { Prisma, User } from '../../generated/prisma';
 
 export type FirstArgument<T> = T extends (arg1: infer U, ...args: any[]) => any ? U : any;

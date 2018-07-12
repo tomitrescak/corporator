@@ -15,7 +15,7 @@ let server = serverFuse
 // launch and restart express
 
 server
-  .watch('server/**') // watch only server related code.. bugs up atm
+  .watch('(server|data)/**') // watch only server related code.. bugs up atm
   .cache(true)
   .completed(proc => {
     console.log('STARTING SERVER ...');

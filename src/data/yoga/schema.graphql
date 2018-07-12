@@ -1,5 +1,6 @@
 #import User, Notification from '../generated/prisma.graphql'
 #import Query.*, Mutation.* from './notifications.graphql'
+#import Query.* from './bpmn_process.graphql'
 
 type Query {
   authenticate(username: String, password: String): String!

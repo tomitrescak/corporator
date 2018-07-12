@@ -27,7 +27,7 @@ const fuse = FuseBox.init({
     ImageBase64Plugin(),
     JSONPlugin(),
     SnapshotPlugin(),
-    GraphQLPlugin()
+    ['.graphql', GraphQLPlugin()],
   ],
   sourceMaps: true
 });

@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { create as render } from 'react-test-renderer';
 
-import { create } from 'shared/test_data';
+import { create } from '../../../../../shared/test_data';
 import { SearchView } from '../resource_search_item_view';
 
 describe('Resource', () => {
