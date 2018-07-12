@@ -107,7 +107,7 @@ const defaultDescriptorDao: Corpix.Collections.DataDescriptorDao = {
   access: null
 };
 
-const defaultDescriptor: Corpix.Entities.DataDescriptor= {
+const defaultDescriptor: Corpix.Entities.DataDescriptor = {
   id: '1',
   name: null,
   description: 'Description',
@@ -119,7 +119,7 @@ const defaultDescriptor: Corpix.Entities.DataDescriptor= {
   access: null
 };
 
-const defaultNotification: Corpix.Entities.Notification= {
+const defaultNotification: Corpix.Entities.Notification = {
   _id: '1',
   processInstance: {},
   owner: {},
@@ -130,7 +130,15 @@ const defaultNotification: Corpix.Entities.Notification= {
   comment: 'Notification'
 };
 
-export const create = {
+const defaultSearchItem: Corpix.Entities.Search = {
+    _id: '1',
+    owner: {},
+    date: createdDate,
+    category: null,
+    title: null
+}
+
+export const  create = {
   userDao(from: Partial<Corpix.Collections.UserDao> = {}): Corpix.Collections.UserDao {
     return { ...defaultUser, ...from };
   },
@@ -170,4 +178,7 @@ export const create = {
   notification(from: Partial<Corpix.Entities.Notification> = {}): Corpix.Entities.Notification {
     return { ...defaultNotification, ...from };
   },
+  searchItem(from: Partial<Corpix.Entities.Search> = {}): Corpix.Entities.Search {
+    return { ...defaultSearchItem, ...from };
+  }
 };

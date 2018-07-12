@@ -9,13 +9,13 @@ describe('Home', () => {
     'Logged In',
     {
       componentWithData(user: Corpix.User) {
-        return <HomeView user={null} />;
+        return <HomeView user={user} />;
       }
     },
     data => {
       it('renders for logged in user', () => {
         const root = create(data.componentWithData({}));
-        expect(root).toMatchSnapshot();
+        expect(root).toMatchSnapshot(); 
       });
     }
   );

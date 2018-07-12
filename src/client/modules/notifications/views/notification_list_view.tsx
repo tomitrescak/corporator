@@ -14,13 +14,12 @@ type Props = {
   notifications: Corpix.Entities.Notification[]
 }
 
-
 let notification: Corpix.Entities.Notification;
 
 export const NotificationListView: React.SFC<Props> = ({ notifications }) => (
   <>
     <Choose>
-      <When condition={notifications.length > 0}> 
+      <When condition={notifications && notifications.length > 0}> 
         <Segment>
           <Header content="Notifications" icon="bell" as="h5" />
            <NotificationList divided>

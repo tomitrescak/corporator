@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Item, Label, IconProps, Icon } from 'semantic-ui-react';
+import { Icon, IconProps, Item, Label } from 'semantic-ui-react';
 import styled, { StyledComponentClass } from 'styled-components';
 
 const ListIcon: StyledComponentClass<IconProps, {}> = styled(Icon)`

@@ -33,13 +33,41 @@ interface Props {
   running: boolean;
 }
 
-const Roles: React.SFC<Props> = () => (
+const Resources = () => (
   <>
-    <Header inverted attached as="h5" icon="users" content="Roles" dividing />
-    <Segment attached="bottom">
+    <Header inverted attached="top" as="h5" icon="file" content="Resources" dividing />
+    <Segment attached>
       <List>
-        <List.Item as="a" icon="user" content="Dean &middot; Tomas Newman" />
-        <List.Item as="a" icon="user" content="Travel Team &middot; Andrew Bold" />
+        <List.Item>
+          <List.Icon name="folder" />
+          <List.Content>
+            <List.Header>Forms</List.Header>
+            <List.Description>User forms of this process</List.Description>
+            <List.List>
+              <List.Item icon="archive" content="Travel Request" />
+              <List.Item icon="archive" content="DTS" />
+            </List.List>
+          </List.Content>
+        </List.Item>
+        <List.Item>
+          <List.Icon name="folder" />
+          <List.Content>
+            <List.Header>Reports and Receipts</List.Header>
+            <List.List>
+              <List.Item icon="newspaper" content="Dean's Report" />
+            </List.List>
+          </List.Content>
+        </List.Item>
+        <List.Item>
+          <List.Icon name="folder" />
+          <List.Content>
+            <List.Header>Resources</List.Header>
+            <List.List>
+              <List.Item icon="file word outline" content="TEMS Instructions" />
+              <List.Item icon="file excel outline" content="Max funding" />
+            </List.List>
+          </List.Content>
+        </List.Item>
       </List>
     </Segment>
   </>
@@ -78,41 +106,13 @@ const Log = () => (
   </>
 );
 
-const Resources = () => (
+const Roles: React.SFC<Props> = () => (
   <>
-    <Header inverted attached="top" as="h5" icon="file" content="Resources" dividing />
-    <Segment attached>
+    <Header inverted attached as="h5" icon="users" content="Roles" dividing />
+    <Segment attached="bottom">
       <List>
-        <List.Item>
-          <List.Icon name="folder" />
-          <List.Content>
-            <List.Header>Forms</List.Header>
-            <List.Description>User forms of this process</List.Description>
-            <List.List>
-              <List.Item icon="archive" content="Travel Request" />
-              <List.Item icon="archive" content="DTS" />
-            </List.List>
-          </List.Content>
-        </List.Item>
-        <List.Item>
-          <List.Icon name="folder" />
-          <List.Content>
-            <List.Header>Reports and Receipts</List.Header>
-            <List.List>
-              <List.Item icon="newspaper" content="Dean's Report" />
-            </List.List>
-          </List.Content>
-        </List.Item>
-        <List.Item>
-          <List.Icon name="folder" />
-          <List.Content>
-            <List.Header>Resources</List.Header>
-            <List.List>
-              <List.Item icon="file word outline" content="TEMS Instructions" />
-              <List.Item icon="file excel outline" content="Max funding" />
-            </List.List>
-          </List.Content>
-        </List.Item>
+        <List.Item as="a" icon="user" content="Dean &middot; Tomas Newman" />
+        <List.Item as="a" icon="user" content="Travel Team &middot; Andrew Bold" />
       </List>
     </Segment>
   </>

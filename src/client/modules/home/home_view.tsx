@@ -21,9 +21,10 @@ export const HomeLayout: React.SFC<PageProps> = () => (
 
 type Props = {
   user?: Corpix.User;
+  notification: Corpix.Entities.Notification[];
 };
 
-export const HomeView: React.SFC<Props> = ({ user }) => (
+export const HomeView: React.SFC<Props> = ({ user, notification }) => (
   <>
     <Choose>
       <When condition={user != null}>
@@ -35,7 +36,7 @@ export const HomeView: React.SFC<Props> = ({ user }) => (
           </Grid.Column>
 
           <Grid.Column width={5}>
-            <NotificationListView />
+            <NotificationListView notifications={notification} />
           </Grid.Column>
         </Grid>
       </When>
