@@ -3,20 +3,20 @@ import * as renderer from 'react-test-renderer';
 
 import { Segment } from 'semantic-ui-react';
 
-import { create } from '../../../../../shared/test_data';
+import { createData } from '../../../../../shared/test_data';
 import { FormModel } from '../../models/form_model';
 import { FormView } from '../form_view';
 
 describe('Form', () => {
   const descriptors = [
-    create.descriptor({
+    createData.descriptor({
       name: 'countries',
       type: 'object',
       isArray: true,
       descriptors: [
-        create.descriptor({ name: 'id', type: 'id' }),
-        create.descriptor({ name: 'name', type: 'string' }),
-        create.descriptor({ name: 'capital', type: 'string' })
+        createData.descriptor({ name: 'id', type: 'id' }),
+        createData.descriptor({ name: 'name', type: 'string' }),
+        createData.descriptor({ name: 'capital', type: 'string' })
       ]
     })
   ];
@@ -37,7 +37,7 @@ describe('Form', () => {
     {
       get component() {
         const form = new FormModel(
-          create.formDao({
+          createData.formDao({
             elements: [
               {
                 id: '1',

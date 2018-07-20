@@ -7,7 +7,7 @@ const { SnapshotPlugin } = require('luis/dist/bridges/jest/snapshot_plugin');
 const fuse = FuseBox.init({
   homeDir: 'src',
   target: 'browser@es6',
-  output: 'dist/$name.js',
+  output: '.fusebox/dist/$name.js',
   plugins: [
     WebIndexPlugin({ template: 'src/client/index.html', target: 'index.html' }),
     ['.graphql', GraphQLPlugin()],

@@ -1,4 +1,4 @@
-// import * as shortid from 'shortid';
+import * as shortid from 'shortid';
 import * as validations from './validation';
 
 import { ISimpleType, types } from 'mobx-state-tree';
@@ -66,8 +66,8 @@ export interface ListValue {
   value: string;
 }
 
-let time = Date.now();
-let i = 0;
+// let time = Date.now();
+// let i = 0;
 
 export class FormModel {
   static buildMst(
@@ -147,7 +147,7 @@ export class FormModel {
       if (desc.isArray) {
         mstDefinition[desc.name] = types.array(mstTypeFactory(desc, lists));
       } else if (desc.type === 'id') {
-        mstDefinition[desc.name] = types.optional(types.identifier(), () => (time + i++).toString() // shortid.generate());
+        mstDefinition[desc.name] = types.optional(types.identifier(), () => shortid.generate());
       } else if (!desc.expression) {
         mstDefinition[desc.name] = desc.defaultValue
           ? desc.defaultValue

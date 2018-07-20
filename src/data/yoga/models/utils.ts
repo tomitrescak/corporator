@@ -1,6 +1,6 @@
 // import * as jwt from 'jsonwebtoken';
 
-import * as Types from '../../generated/prisma_types';
+import * as Types from '../../prisma';
 export * from '../../generated/prisma';
 
 import { GraphQLResolveInfo } from 'graphql';

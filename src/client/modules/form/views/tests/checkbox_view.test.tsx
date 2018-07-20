@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as renderer from 'react-test-renderer';
 
-import { create } from '../../../../../shared/test_data';
+import { createData } from '../../../../../shared/test_data';
 import { FormModel } from '../../models/form_model';
 import { FormView } from '../form_view';
 
@@ -11,8 +11,8 @@ import { Segment } from 'semantic-ui-react';
 
 describe('Form', () => {
   const descriptors = [
-    create.descriptor({ name: 'agree', type: 'boolean' }),
-    create.descriptor({ name: 'disagree', type: 'boolean' })
+    createData.descriptor({ name: 'agree', type: 'boolean' }),
+    createData.descriptor({ name: 'disagree', type: 'boolean' })
   ];
 
   const controlData = [{ name: 'agree', value: true }, { name: 'disagree', value: false }];
@@ -23,7 +23,7 @@ describe('Form', () => {
     {
       get component() {
         const form = new FormModel(
-          create.formDao({
+          createData.formDao({
             elements: [
               {
                 id: '1',

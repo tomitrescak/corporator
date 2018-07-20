@@ -1,6 +1,13 @@
+import * as datejs from 'dayjs';
+import * as relativeTime from 'dayjs/plugin/relativeTime';
+
+import { Prisma } from '../data/prisma';
+import { Yoga } from '../data/yoga';
 import { InstanceStatus, ProcessStatus } from '../server/models/bpmn_enums';
 
-const defaultUser: Corpix.Collections.UserDao = {
+datejs.extend(relativeTime);
+
+const defaultUser: Prisma.User = {
   id: 'u',
   name: 'User',
   description: 'User Description',
@@ -8,7 +15,7 @@ const defaultUser: Corpix.Collections.UserDao = {
   password: 'pw'
 };
 
-const otherUser: Corpix.Collections.UserDao = {
+const otherUser: Prisma.User = {
   id: 'o',
   name: 'Other',
   description: 'Other User Description',
@@ -21,7 +28,8 @@ const modifiedDate = new Date(2018, 1, 10);
 const finishedDate = new Date(2018, 2, 15);
 // const dateDuration = (finishedDate - createdDate);
 
-const defaultAccess: Corpix.Collections.AccessDao = {
+const defaultAccess: Prisma.Access = {
+  id: 'a',
   createdById: defaultUser.id,
   createdOn: createdDate,
   modifiedById: otherUser.id,
@@ -31,27 +39,27 @@ const defaultAccess: Corpix.Collections.AccessDao = {
   execute: null
 };
 
-const defaultRole: Corpix.Collections.RoleDao = {
+const defaultRole: Prisma.Role = {
   id: 'default',
   name: 'Role',
   description: 'Role description'
 };
 
-const defaultOrganisation: Corpix.Collections.OrganisationDao = {
+const defaultOrganisation: Prisma.Organisation = {
   id: 'default',
   name: 'Organisation',
   description: 'Organisation description'
 };
 
-const defaultAccessCondition: Corpix.Collections.AccessConditionDao = {
+const defaultAccessCondition: Prisma.AccessCondition = {
   organisationId: defaultOrganisation.id,
   roleId: defaultRole.id,
-  userId: defaultUser.id,
-  precondition: null,
-  postcondition: null
+  userId: defaultUser.id
+  // precondition: null,
+  // postcondition: null
 };
 
-const defaultActivity: Corpix.Collections.BpmnProcessInstanceDao = {
+const defaultActivity: Prisma.BpmnProcessInstance = {
   id: 'aid',
   name: 'Activity',
   description: 'Activity description',
@@ -64,20 +72,21 @@ const defaultActivity: Corpix.Collections.BpmnProcessInstanceDao = {
   duration: 0
 };
 
-const defaultBpmnProcess: Corpix.Collections.BpmnProcessDao = {
+const defaultBpmnProcess: Prisma.BpmnProcess = {
   id: 'bpmn',
   name: 'Bpmn',
   description: 'Default process',
   access: defaultAccess,
   definition: null,
-  generatedDescription: null,
+  // generatedDescription: null,
+  model: null,
   version: 0,
   status: ProcessStatus.Published,
-  roles: ['default'],
+  // roles: ['default'],
   actionCount: 0
 };
 
-const defaultForm: Corpix.Collections.FormDao = {
+const defaultForm: Prisma.Form = {
   id: 'form',
   name: 'Form',
   description: 'Test Form',
@@ -85,7 +94,7 @@ const defaultForm: Corpix.Collections.FormDao = {
   validations: []
 };
 
-const defaultData: Corpix.Collections.DataDao = {
+const defaultData: Prisma.Data = {
   id: '1',
   descriptor: null,
   organisationId: 'oId',
@@ -95,7 +104,7 @@ const defaultData: Corpix.Collections.DataDao = {
   value: null
 };
 
-const defaultDescriptorDao: Corpix.Collections.DataDescriptorDao = {
+const defaultDescriptorDao: Prisma.DataDescriptor = {
   id: '1',
   name: null,
   description: 'Description',
@@ -107,7 +116,7 @@ const defaultDescriptorDao: Corpix.Collections.DataDescriptorDao = {
   access: null
 };
 
-const defaultDescriptor: Corpix.Entities.DataDescriptor = {
+const defaultDescriptor: Yoga.DataDescriptor = {
   id: '1',
   name: null,
   description: 'Description',
@@ -119,7 +128,7 @@ const defaultDescriptor: Corpix.Entities.DataDescriptor = {
   access: null
 };
 
-const defaultNotification: Corpix.Entities.Notification = {
+const defaultNotification: Yoga.Notification = {
   _id: '1',
   processInstance: {},
   owner: {},
@@ -130,55 +139,63 @@ const defaultNotification: Corpix.Entities.Notification = {
   comment: 'Notification'
 };
 
-const defaultSearchItem: Corpix.Entities.Search = {
-    _id: '1',
-    owner: {},
-    date: createdDate,
-    category: null,
-    title: null
-}
+const defaultSearchItem: Yoga.Search = {
+  _id: '1',
+  owner: {},
+  date: createdDate,
+  category: null,
+  title: null
+};
 
-export const  create = {
-  userDao(from: Partial<Corpix.Collections.UserDao> = {}): Corpix.Collections.UserDao {
+export const createData = {
+  mocks() {
+    // tslint:disable-next-line:no-shadowed-variable
+    const dayjs: any = () => ({
+      from(date: any) {
+        return datejs('2018/02/23').from(date);
+      }
+    });
+    dayjs.extend = () => {
+      /**/
+    };
+    jest.mock('dayjs', () => dayjs);
+  },
+  userDao(from: Partial<Prisma.User> = {}): Prisma.User {
     return { ...defaultUser, ...from };
   },
-  accessDao(from: Partial<Corpix.Collections.AccessDao> = {}): Corpix.Collections.AccessDao {
+  accessDao(from: Partial<Prisma.Access> = {}): Prisma.Access {
     return { ...defaultAccess, ...from };
   },
-  accessConditionDao(from: Partial<Corpix.Collections.AccessConditionDao> = {}): Corpix.Collections.AccessConditionDao {
+  accessConditionDao(from: Partial<Prisma.AccessCondition> = {}): Prisma.AccessCondition {
     return { ...defaultAccessCondition, ...from };
   },
-  activityDao(from: Partial<Corpix.Collections.BpmnProcessInstanceDao> = {}): Corpix.Collections.BpmnProcessInstanceDao {
+  activityDao(from: Partial<Prisma.BpmnProcessInstance> = {}): Prisma.BpmnProcessInstance {
     return { ...defaultActivity, ...from };
   },
-  formDao(form: Partial<Corpix.Collections.FormDao> = {}): Corpix.Collections.FormDao {
+  formDao(form: Partial<Prisma.Form> = {}): Prisma.Form {
     return { ...defaultForm, ...form };
   },
-  dataDao(data: Partial<Corpix.Collections.DataDao> = {}): Corpix.Collections.DataDao {
-    return { ...defaultData, ...data }; 
+  dataDao(data: Partial<Prisma.Data> = {}): Prisma.Data {
+    return { ...defaultData, ...data };
   },
-  descriptorDao(
-    data: Partial<Corpix.Collections.DataDescriptorDao> = {}
-  ): Corpix.Collections.DataDescriptorDao {
-    return { ...defaultDescriptorDao, ...data };
+  descriptorDao(data: Partial<Prisma.DataDescriptor> = {}): Prisma.DataDescriptor {
+    return { ...defaultDescriptor, ...data };
   },
-  descriptor(
-    data: Partial<Corpix.Entities.DataDescriptor> = {}
-  ): Corpix.Entities.DataDescriptor {
+  descriptor(data: Partial<Yoga.DataDescriptor> = {}): Yoga.DataDescriptor {
     return { ...defaultDescriptor, ...data };
   },
   bpmnProcessDao(
-    from: Partial<Corpix.Collections.BpmnProcessDao> = {},
-    access: Partial<Corpix.Collections.AccessDao> = {}
-  ): Corpix.Collections.BpmnProcessDao {
+    from: Partial<Prisma.BpmnProcess> = {},
+    access: Partial<Prisma.Access> = {}
+  ): Prisma.BpmnProcess {
     const result = { ...defaultBpmnProcess, ...from };
     result.access = { ...defaultAccess, ...access };
     return result;
   },
-  notification(from: Partial<Corpix.Entities.Notification> = {}): Corpix.Entities.Notification {
+  notification(from: Partial<Yoga.Notification> = {}): Yoga.Notification {
     return { ...defaultNotification, ...from };
   },
-  searchItem(from: Partial<Corpix.Entities.Search> = {}): Corpix.Entities.Search {
+  searchItem(from: Partial<Yoga.Search> = {}): Yoga.Search {
     return { ...defaultSearchItem, ...from };
   }
 };

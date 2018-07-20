@@ -29,70 +29,80 @@ exports[`Notifications Item View renders some notifications 1`] = `
     className="ui divided list sc-bwzfXH flOgBY"
     role="list"
   >
-    <div
-      className="item"
-      onClick={[Function]}
-      role="listitem"
-    >
-      <span
-        className="sc-bdVaJa cWCCxy"
+    <div>
+      <div
+        className="item"
+        onClick={[Function]}
+        role="listitem"
       >
-        Tue, 02 Feb 2010 01:50:00 GMT
-      </span>
-       · 
-      Notification 1
+        <span
+          className="sc-bdVaJa cWCCxy"
+        >
+          in 9 years
+        </span>
+         · 
+        
+      </div>
     </div>
-    <div
-      className="item"
-      onClick={[Function]}
-      role="listitem"
-    >
-      <span
-        className="sc-bdVaJa cWCCxy"
+    <div>
+      <div
+        className="item"
+        onClick={[Function]}
+        role="listitem"
       >
-        Mon, 01 Feb 2010 16:50:00 GMT
-      </span>
-       · 
-      Notification 2
+        <span
+          className="sc-bdVaJa cWCCxy"
+        >
+          in 9 years
+        </span>
+         · 
+        
+      </div>
     </div>
-    <div
-      className="item"
-      onClick={[Function]}
-      role="listitem"
-    >
-      <span
-        className="sc-bdVaJa cWCCxy"
+    <div>
+      <div
+        className="item"
+        onClick={[Function]}
+        role="listitem"
       >
-        Thu, 01 Feb 2007 23:50:00 GMT
-      </span>
-       · 
-      Notification 3
+        <span
+          className="sc-bdVaJa cWCCxy"
+        >
+          in 12 years
+        </span>
+         · 
+        
+      </div>
     </div>
-    <div
-      className="item"
-      onClick={[Function]}
-      role="listitem"
-    >
-      <span
-        className="sc-bdVaJa cWCCxy"
+    <div>
+      <div
+        className="item"
+        onClick={[Function]}
+        role="listitem"
       >
-        Tue, 02 Feb 2010 00:50:00 GMT
-      </span>
-       · 
-      Notification 4
+        <span
+          className="sc-bdVaJa cWCCxy"
+        >
+          in 9 years
+        </span>
+         · 
+        
+      </div>
     </div>
-    <div
-      className="item"
-      onClick={[Function]}
-      role="listitem"
-    >
-      <span
-        className="sc-bdVaJa cWCCxy"
+    <div>
+      <div
+        className="item"
+        onClick={[Function]}
+        role="listitem"
       >
-        Wed, 02 Feb 2011 01:50:00 GMT
-      </span>
-       · 
-      Notification 5
+        <span
+          className="sc-bdVaJa cWCCxy"
+        >
+          in 8 years
+        </span>
+         · 
+        
+      </div>
     </div>
   </div>
 </div>

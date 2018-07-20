@@ -33,7 +33,7 @@ const server = new GraphQLServer({
       db: new Prisma({
         endpoint: 'http://localhost:4466',
         debug: true
-        // secret: 'mysecret123', // only needed if specified in `database/prisma.yml`
+        // secret: 'my_secret123', // only needed if specified in `database/prisma.yml`
       })
     };
 

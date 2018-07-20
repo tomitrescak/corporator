@@ -1,13 +1,16 @@
 endpoint: http://localhost:4466
 datamodel: 
-  - users.graphql
-  - localisation.graphql
-  - notifications.graphql
+  - access.graphql
   - bpmn_process_instances.graphql
   - bpmn_process.graphql
-  - access.graphql
-  - resource.graphql
   - data_descriptor.graphql
+  - form.graphql
+  - localisation.graphql
+  - notifications.graphql
+  - organisation.graphql
+  - resource.graphql
+  - role.graphql
+  - users.graphql
 hooks:
   post-deploy:
     - graphql get-schema -p prisma

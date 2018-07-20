@@ -1,6 +1,8 @@
 import * as React from 'react';
 
 import { Grid } from 'semantic-ui-react';
+
+import { Yoga } from 'data/yoga';
 import { MainLayout } from '../core/main_layout';
 import { PagerView } from '../core/pager_view';
 import { SortView } from '../core/sort_view';
@@ -21,7 +23,7 @@ export const HomeLayout: React.SFC<PageProps> = () => (
 
 type Props = {
   user?: Corpix.User;
-  notification: Corpix.Entities.Notification[];
+  notification: Yoga.Notification[];
 };
 
 export const HomeView: React.SFC<Props> = ({ user, notification }) => (

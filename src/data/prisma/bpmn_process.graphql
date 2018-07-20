@@ -16,6 +16,7 @@ type BpmnProcess {
   description: String
   access: Access! @relation(name: "BpmnProcessAccess", onDelete: CASCADE)
   model: String!
+  definition: String
   resources: [Resource!]! @relation(name: "BpmnProcessResources", onDelete: CASCADE)
   data: [DataDescriptor!]!
   version: Int!

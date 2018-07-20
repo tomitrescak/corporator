@@ -1,7 +1,7 @@
 export enum ProcessStatus {
-  Draft = 'draft',
-  Proposal = 'proposal',
-  Published = 'published'
+  Draft = 'Draft',
+  Proposal = 'Proposal',
+  Published = 'Published'
 }
 
 export enum InstanceStatus {

@@ -1,0 +1,5 @@
+type Organisation {
+  id: ID! @unique
+  name: String!
+  description: String
+}

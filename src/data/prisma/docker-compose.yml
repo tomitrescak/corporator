@@ -18,7 +18,7 @@ services:
             user: root
             password: prisma
             migrations: true
-  mysql:
+  mysql:pr
     image: mysql:5.7
     restart: always
     environment:

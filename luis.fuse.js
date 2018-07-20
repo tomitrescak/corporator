@@ -14,7 +14,7 @@ const GraphQLPlugin = require('fuse-box-graphql-plugin');
 const fuse = FuseBox.init({
   homeDir: '../../src',
   target: 'browser@es6',
-  output: 'luis/$name.js',
+  output: '.fusebox/luis/$name.js',
   alias: {
     client: '~/client/',
     server: '~/server/',
@@ -27,7 +27,7 @@ const fuse = FuseBox.init({
     ImageBase64Plugin(),
     JSONPlugin(),
     SnapshotPlugin(),
-    ['.graphql', GraphQLPlugin()],
+    ['.graphql', GraphQLPlugin()]
   ],
   sourceMaps: true
 });

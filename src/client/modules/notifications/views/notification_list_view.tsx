@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { Header, List, ListProps, Message, Segment } from 'semantic-ui-react';
 import styled, { StyledComponentClass } from 'styled-components';
-import { NotificationView } from './notification_item_view';
 
+import { Yoga } from 'data/yoga';
+import { NotificationView } from './notification_item_view';
 
 const NotificationList: StyledComponentClass<ListProps, {}> = styled(List)`
   &&&&& .item {
@@ -11,27 +12,27 @@ const NotificationList: StyledComponentClass<ListProps, {}> = styled(List)`
 `;
 
 type Props = {
-  notifications: Corpix.Entities.Notification[]
-}
+  notifications: Yoga.Notification[];
+};
 
-let notification: Corpix.Entities.Notification;
+let notification: Yoga.Notification;
 
 export const NotificationListView: React.SFC<Props> = ({ notifications }) => (
   <>
     <Choose>
-      <When condition={notifications && notifications.length > 0}> 
+      <When condition={notifications && notifications.length > 0}>
         <Segment>
           <Header content="Notifications" icon="bell" as="h5" />
-           <NotificationList divided>
+          <NotificationList divided>
             <For each="notification" of={notifications}>
               <NotificationView notification={notification} />
             </For>
-          </NotificationList> 
+          </NotificationList>
         </Segment>
-       </When>
+      </When>
       <Otherwise>
         <Message>You have no new notifications.</Message>
       </Otherwise>
-    </Choose> 
+    </Choose>
   </>
 );

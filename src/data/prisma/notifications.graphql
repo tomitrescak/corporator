@@ -1,8 +1,8 @@
-#import BpmnProcessInstance from './bpmn_process_instance.graphql'
-#import User from './user.graphql'
+#import BpmnProcessInstance from './bpmn_process_instances.graphql'
 
 enum NotificationCode {
   ServiceStarted
+  ServiceStopped
 }
 
 type Notification {

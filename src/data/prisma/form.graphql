@@ -1,0 +1,14 @@
+type FormElement {
+  id: ID! @unique
+  row: Int
+  column: Int
+  width: Int
+}
+
+type Form {
+  id: ID! @unique
+  name: String!
+  description: String
+  elements: [FormElement!]!
+  validations: [FormValidation]
+}

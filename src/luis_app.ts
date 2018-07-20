@@ -4,10 +4,14 @@
 
 // hack the global scope
 if (!(global as any).expect) {
-    (global as any).expect = {
-        addSnapshotSerializer() { /**/ },
-        extend() { /**/ }
+  (global as any).expect = {
+    addSnapshotSerializer() {
+      /**/
+    },
+    extend() {
+      /**/
     }
+  };
 }
 
 import 'semantic-ui-css/semantic.min.css';
@@ -21,9 +25,9 @@ setupTestBridge(summary, snapshots);
 
 // import './client/modules/email/views/tests/index';
 import './client/modules/form/views/tests/index';
-// import './client/modules/home/tests/index';
-// import './client/modules/process/containers/tests/index';
-// import './client/modules/process/views/tests/index';
-// import './client/modules/resources/views/tests/index';
+import './client/modules/home/tests/index';
+import './client/modules/process/containers/tests/index';
+import './client/modules/process/views/tests/index';
+import './client/modules/resources/views/tests/index';
 
 renderLuis();

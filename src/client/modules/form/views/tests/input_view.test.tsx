@@ -3,20 +3,20 @@ import * as renderer from 'react-test-renderer';
 
 import { Segment } from 'semantic-ui-react';
 
-import { create } from '../../../../../shared/test_data';
+import { createData } from '../../../../../shared/test_data';
 import { FormModel } from '../../models/form_model';
 import { FormView } from '../form_view';
 
 describe('Form', () => {
   const descriptors = [
-    create.descriptor({ name: 'owner.personal.name' }),
-    create.descriptor({ name: 'owner.personal.age', type: 'float' }),
-    create.descriptor({
+    createData.descriptor({ name: 'owner.personal.name' }),
+    createData.descriptor({ name: 'owner.personal.age', type: 'float' }),
+    createData.descriptor({
       name: 'younger',
       type: 'int',
       expression: `this['owner.personal.age'] - 10`
     }),
-    create.descriptor({
+    createData.descriptor({
       name: 'older',
       type: 'int',
       expression: `this['owner.personal.age'] + 10`
@@ -38,7 +38,7 @@ describe('Form', () => {
     {
       get component() {
         const form = new FormModel(
-          create.formDao({
+          createData.formDao({
             elements: [
               {
                 id: '1',

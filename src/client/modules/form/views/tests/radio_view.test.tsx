@@ -3,14 +3,14 @@ import * as renderer from 'react-test-renderer';
 
 import { Segment } from 'semantic-ui-react';
 
-import { create } from '../../../../../shared/test_data';
+import { createData } from '../../../../../shared/test_data';
 import { FormModel } from '../../models/form_model';
 import { FormView } from '../form_view';
 
 describe('Form', () => {
   const descriptors = [
-    create.descriptor({ name: 'religion', type: 'string' }),
-    create.descriptor({ name: 'lined_religion', type: 'string' })
+    createData.descriptor({ name: 'religion', type: 'string' }),
+    createData.descriptor({ name: 'lined_religion', type: 'string' })
   ];
 
   const lists = [
@@ -32,7 +32,7 @@ describe('Form', () => {
     {
       get component() {
         const form = new FormModel(
-          create.formDao({
+          createData.formDao({
             elements: [
               {
                 id: '1',

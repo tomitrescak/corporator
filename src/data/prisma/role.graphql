@@ -1,0 +1,5 @@
+type Role {
+  id: ID! @unique
+  name: String!
+  description: String
+}

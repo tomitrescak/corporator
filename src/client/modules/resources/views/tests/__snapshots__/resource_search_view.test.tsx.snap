@@ -76,8 +76,9 @@ exports[`Resource Search renders some search items 1`] = `
           Tomas Trescak
            · 
           International Travel Request
-           · 
-          Thu, 01 Feb 2018 13:00:00 GMT
+           ·
+           
+          in 21 days
         </a>
       </div>
     </div>
@@ -105,8 +106,9 @@ exports[`Resource Search renders some search items 1`] = `
           Nguyen Vu
            · 
           International Travel Request
-           · 
-          Thu, 01 Feb 2018 13:00:00 GMT
+           ·
+           
+          in 21 days
         </a>
       </div>
     </div>
@@ -134,8 +136,9 @@ exports[`Resource Search renders some search items 1`] = `
           Tomas Trescak
            · 
           International Travel Request
-           · 
-          Thu, 01 Feb 2018 13:00:00 GMT
+           ·
+           
+          in 21 days
         </a>
       </div>
     </div>
