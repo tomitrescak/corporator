@@ -1,4 +1,4 @@
-import { Prisma } from '../data/generated/prisma';
+import { Prisma } from '../data/prisma';
 
 export interface Context {
   db: Prisma;

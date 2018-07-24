@@ -9,7 +9,8 @@ module.exports = function(wallaby) {
       'src/**/*.+(js|jsx|ts|tsx|json|snap|css|less|sass|scss|jpg|jpeg|gif|png|svg|graphql)',
       '!src/luis_app',
       // '!src/**/index.ts',
-      '!src/**/tests/*.+(ts|tsx)'
+      '!src/**/tests/*.+(ts|tsx)',
+      '!luis_app'
     ],
 
     tests: [

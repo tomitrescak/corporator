@@ -23,3 +23,36 @@ type BpmnProcess {
   status: ProcessStatus!
   actionCount: Int!
 }
+
+enum BpmnProcessInstanceStatus {
+  Running
+  Finished
+  Aborted
+  Paused
+}
+
+type BpmnProcessInstance {
+  id: ID! @unique
+  name: String!
+  description: String
+  process: BpmnProcess
+  resources: Json
+  ownerId: ID
+  status: BpmnProcessInstanceStatus
+  dateStarted: DateTime
+  dateFinished: DateTime
+  duration: Int
+}
+
+type BpmnTaskInstance {
+  processInstance: BpmnProcess
+  taskId: String
+  performer: User
+  performerId: String
+  performerRoles: [String!]!
+  dateStarted: DateTime
+  dateFinished: DateTime
+  duration: Int
+  snapshot: Json
+}
+

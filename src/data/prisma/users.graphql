@@ -5,4 +5,5 @@ type User {
   description: String
   password: String!
   notifications: [Notification!]! @relation(name: "UserNotifications", onDelete: CASCADE)
+  data: [Data!]! @relation(name: "UserData", onDelete: CASCADE)
 }

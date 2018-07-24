@@ -1,49 +1,49 @@
-declare namespace Corpix.Collections {
-  interface FormValidationDao {
-    name: string;
-    params: Array<string | number>;
-  }
+// declare namespace Corpix.Collections {
+//   interface FormValidationDao {
+//     name: string;
+//     params: Array<string | number>;
+//   }
 
-  type FormControlType =
-    | 'input'
-    | 'select'
-    | 'checkbox'
-    | 'radio'
-    | 'textarea'
-    | 'repeater'
-    | 'deleteButton';
+//   type FormControlType =
+//     | 'input'
+//     | 'select'
+//     | 'checkbox'
+//     | 'radio'
+//     | 'textarea'
+//     | 'repeater'
+//     | 'deleteButton';
 
-  interface FormElementDao {
-    id: string;
-    row: number;
-    column: number;
-    width: number;
-  }
+//   interface FormElementDao {
+//     id: string;
+//     row: number;
+//     column: number;
+//     width: number;
+//   }
 
-  interface FormControlDao extends FormElementDao {
-    source: string;
-    label: string;
-    inline: boolean;
-    defaultValue: any;
-    list: string;
-    filterSource: string;
-    filterColumn: string;
-    control: FormControlType;
-    controlProps: InputProps | DropdownProps;
-    vertical?: boolean;
-    elements?: FormControlDao[];
-  }
+//   interface FormControlDao extends FormElementDao {
+//     source: string;
+//     label: string;
+//     inline: boolean;
+//     defaultValue: any;
+//     list: string;
+//     filterSource: string;
+//     filterColumn: string;
+//     control: FormControlType;
+//     controlProps: InputProps | DropdownProps;
+//     vertical?: boolean;
+//     elements?: FormControlDao[];
+//   }
 
-  interface FormDao {
-    id: string;
-    name: string;
-    description: string;
-    elements: Array<FormElementDao | FormControlDao>;
-    validations: FormValidationDao[];
-  }
-}
+//   interface FormDao {
+//     id: string;
+//     name: string;
+//     description: string;
+//     elements: Array<FormElementDao | FormControlDao>;
+//     validations: FormValidationDao[];
+//   }
+// }
 
-declare namespace Corpix.Entities {
-  interface FormElement extends Corpix.Collections.FormElementDao {}
-  interface FormControl extends Corpix.Collections.FormControlDao {}
-}
+// declare namespace Corpix.Entities {
+//   interface FormElement extends Corpix.Collections.FormElementDao {}
+//   interface FormControl extends Corpix.Collections.FormControlDao {}
+// }

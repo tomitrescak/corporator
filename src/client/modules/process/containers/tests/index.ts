@@ -1,1 +1,1 @@
-import './process_list_container_test';
+import './process_list_container.test';

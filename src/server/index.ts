@@ -2,7 +2,7 @@ import * as session from 'express-session';
 
 import { importSchema } from 'graphql-import';
 import { GraphQLServer } from 'graphql-yoga';
-import { Prisma } from '../data/generated/prisma';
+import { Prisma } from '../data/prisma';
 
 import { resolvers } from '../data/yoga/models/index';
 

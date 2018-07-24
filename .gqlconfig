@@ -1,6 +1,6 @@
 {
    schema: {
-     files: "src/graphql/schema/**/*.graphql"
+     files: "src/data/yoga/**/*.graphql"
    },
    query: {
     files: [

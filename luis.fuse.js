@@ -16,6 +16,7 @@ const fuse = FuseBox.init({
   target: 'browser@es6',
   output: '.fusebox/luis/$name.js',
   alias: {
+    data: '~/data/',
     client: '~/client/',
     server: '~/server/',
     shared: '~/shared/'

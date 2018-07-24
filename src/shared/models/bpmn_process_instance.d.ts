@@ -1,3 +1,3 @@
-declare namespace Corpix.Entities {
+// declare namespace Corpix.Entities {
 
-}
+// }

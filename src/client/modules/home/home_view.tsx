@@ -6,6 +6,7 @@ import { Yoga } from 'data/yoga';
 import { MainLayout } from '../core/main_layout';
 import { PagerView } from '../core/pager_view';
 import { SortView } from '../core/sort_view';
+import { NotificationsContainer } from '../notifications/containers/notification_list_container';
 import { NotificationListView } from '../notifications/views/notification_list_view';
 import { ProcessListView } from '../process/views/process_list_view';
 
@@ -17,6 +18,7 @@ declare global {
 
 export const HomeLayout: React.SFC<PageProps> = () => (
   <MainLayout>
+    <NotificationsContainer />
     <HomeView />
   </MainLayout>
 );

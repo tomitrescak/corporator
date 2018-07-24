@@ -1,8 +1,7 @@
 endpoint: http://localhost:4466
 datamodel: 
   - access.graphql
-  - bpmn_process_instances.graphql
-  - bpmn_process.graphql
+  - bpmn.graphql
   - data_descriptor.graphql
   - form.graphql
   - localisation.graphql

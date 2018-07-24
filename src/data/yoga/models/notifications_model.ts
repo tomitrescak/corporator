@@ -2,10 +2,11 @@ import { getUserId, Mutation, Notification, Query, Resolver } from './utils';
 
 export const query: Query = {
   notifications(_parent, { start, end }, ctx, info) {
-    return ctx.db.query.notifications(
-      { where: { owner: { id: getUserId(ctx) } }, skip: start, last: end },
-      info
-    );
+    // return ctx.db.query.notifications(
+    //   { where: { owner: { id: getUserId(ctx) } }, skip: start, last: end },
+    //   info
+    // );
+    return ctx.db.query.notifications({}, info);
   }
 };
 
