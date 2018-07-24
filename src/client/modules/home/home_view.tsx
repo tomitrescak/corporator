@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Grid } from 'semantic-ui-react';
 
-import { Yoga } from 'data/yoga';
+import * as Yoga from 'data/yoga';
 import { MainLayout } from '../core/main_layout';
 import { PagerView } from '../core/pager_view';
 import { SortView } from '../core/sort_view';
