@@ -45,6 +45,7 @@ type BpmnProcessInstance {
 }
 
 type BpmnTaskInstance {
+  id: ID! @unique
   processInstance: BpmnProcess
   taskId: String
   performer: User

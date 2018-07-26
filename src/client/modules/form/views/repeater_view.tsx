@@ -4,18 +4,20 @@ import { observer } from 'mobx-react';
 
 import i18n from 'es2015-i18n-tag';
 import { IObservableArray } from 'mobx';
-
 import { Button, Message } from 'semantic-ui-react';
+
+import { Yoga } from 'data/yoga';
 import { DataSet } from '../models/form_model';
 import { FormView } from './form_view';
 
+
 type Props = {
-  formControl: Corpix.Entities.FormControl;
+  formControl: Yoga.FormElement;
   owner: DataSet;
 };
 
 type RowProps = {
-  formControl: Corpix.Entities.FormControl;
+  formControl: Yoga.FormElement;
   owner: DataSet;
   data: DataSet;
 };
@@ -23,7 +25,7 @@ type RowProps = {
 class RepeaterRow extends React.PureComponent<RowProps> {
   handlers = {
     delete: () => {
-      this.props.owner.removeRowData(this.props.formControl.source, this.props.data);
+      this.props.owner.removeRowData(this.props.formControl.source.name, this.props.data);
     }
   };
   render() {
@@ -37,7 +39,7 @@ class RepeaterRow extends React.PureComponent<RowProps> {
 export class RepeaterView extends React.Component<Props> {
   handleToggleChange = (_e: React.ChangeEvent<HTMLInputElement>, control: HTMLInputElement) => {
     // find value
-    this.props.owner.parseValue(this.props.formControl.source, control.checked);
+    this.props.owner.parseValue(this.props.formControl.source.name, control.checked);
   };
 
   addRow = () => {
@@ -45,13 +47,13 @@ export class RepeaterView extends React.Component<Props> {
       formControl: { source },
       owner
     } = this.props;
-    owner.addRow(source);
+    owner.addRow(source.name);
   };
 
   render(): JSX.Element {
     const { formControl, owner } = this.props;
     const source = formControl.source;
-    const list: IObservableArray<DataSet> = owner.getValue(source);
+    const list: IObservableArray<DataSet> = owner.getValue(source.name);
     return (
       <>
         <Choose>

@@ -1,6 +1,6 @@
-query notifications($start: Int!, $end: Int!) {
+query notifications2($start: Int!, $end: Int!) {
     notifications(start: $start, end: $end) {
       id
-      code
+      code1
     }
   }

@@ -1,37 +1,27 @@
 import * as React from 'react';
-import * as wait from 'waait';
 
-import { MockedProvider } from 'react-apollo/test-utils';
-import { create } from 'react-test-renderer';
+import { create, createData, mock, MockedProvider } from 'tests/client';
 
-import { createData } from 'shared/test_data';
 import { ProcessListContainer, QUERY } from '../process_list_container';
-
-// const client = new ApolloClient({
-//   uri: 'http://localhost:4000'
-// });
-
-let client;
 
 describe('Process', () => {
   describe('List', () => {
     storyOf(
       'Container',
       {
-        componentWithData() {
-          const mocks = [
-            {
-              request: { query: QUERY },
-              result: {
-                data: {
-                  notifications: [createData.notification(), createData.notification()]
-                }
-              }
-            }
-          ];
+        componentWithData(skipInit = false) {
+          // init for luis
+          if (!skipInit) {
+            mock.expect(QUERY).reply({
+              notifications: [
+                createData.notification(),
+                createData.notification()
+              ]
+            });
+          }
 
           return (
-            <MockedProvider mocks={mocks}>
+            <MockedProvider>
               <ProcessListContainer />
             </MockedProvider>
           );
@@ -39,15 +29,13 @@ describe('Process', () => {
       },
       data => {
         it('renders loading', () => {
+          mock.expect(QUERY).loading();
           const root = create(data.componentWithData());
           expect(root).toMatchSnapshot();
         });
 
         it('renders data', async () => {
           const root = create(data.componentWithData());
-
-          await wait(0);
-
           expect(root).toMatchSnapshot();
         });
       }

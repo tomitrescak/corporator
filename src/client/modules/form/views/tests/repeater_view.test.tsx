@@ -3,7 +3,7 @@ import * as renderer from 'react-test-renderer';
 
 import { Segment } from 'semantic-ui-react';
 
-import { createData } from '../../../../../shared/test_data';
+import { createData } from 'tests/test_data';
 import { FormModel } from '../../models/form_model';
 import { FormView } from '../form_view';
 
@@ -11,12 +11,12 @@ describe('Form', () => {
   const descriptors = [
     createData.descriptor({
       name: 'countries',
-      type: 'object',
+      type: 'Object',
       isArray: true,
       descriptors: [
-        createData.descriptor({ name: 'id', type: 'id' }),
-        createData.descriptor({ name: 'name', type: 'string' }),
-        createData.descriptor({ name: 'capital', type: 'string' })
+        createData.descriptor({ name: 'id', type: 'Id' }),
+        createData.descriptor({ name: 'name', type: 'String' }),
+        createData.descriptor({ name: 'capital', type: 'String' })
       ]
     })
   ];
@@ -44,33 +44,42 @@ describe('Form', () => {
                 row: 0,
                 column: 0,
                 width: 16,
-                control: 'repeater',
-                source: 'countries',
+                control: 'Repeater',
+                source: {
+                  id: '',
+                  name: 'countries'
+                },
                 elements: [
                   {
                     id: '2',
                     row: 0,
                     column: 0,
                     width: 8,
-                    control: 'input',
+                    control: 'Input',
                     label: 'Name',
-                    source: 'name'
+                    source: {
+                      id: '',
+                      name: 'name'
+                    }
                   },
                   {
                     id: '3',
                     row: 0,
                     column: 8,
                     width: 8,
-                    control: 'input',
+                    control: 'Input',
                     label: 'Capital',
-                    source: 'capital'
+                    source: {
+                      id: '',
+                      name: 'capital'
+                    }
                   },
                   {
                     id: '4',
                     row: 0,
                     column: 15,
                     width: 1,
-                    control: 'deleteButton',
+                    control: 'DeleteButton',
                     label: '\xa0'
                   }
                 ]

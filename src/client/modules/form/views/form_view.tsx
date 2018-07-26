@@ -4,11 +4,12 @@ import { Form, SemanticWIDTHSNUMBER } from 'semantic-ui-react';
 
 import { groupByArray } from '../../../../shared/helpers';
 
+import { Yoga } from 'data/yoga';
 import { renderControl } from '../models/form_control_factory';
 import { DataSet } from '../models/form_model';
 
 interface IFieldOwner {
-  elements?: Corpix.Entities.FormElement[];
+  elements?: Yoga.FormElement[];
 }
 
 interface Props {
@@ -21,16 +22,16 @@ export class FormView extends React.Component<Props> {
   lastRow = -1;
   lastColumn = -1;
 
-  renderColumn(control: Corpix.Entities.FormElement) {
+  renderColumn(control: Yoga.FormElement) {
     if (control.row !== this.lastRow) {
       this.lastRow = control.row;
       this.lastColumn = 0;
     }
     // we initialise all columns and add missing ones in between
     let columns = [];
-    const formControl = control as Corpix.Entities.FormControl;
+    const formControl = control;
 
-    if (formControl.control === 'deleteButton') {
+    if (formControl.control === 'DeleteButton') {
       formControl.label = '\xA0';
     }
 
@@ -53,9 +54,9 @@ export class FormView extends React.Component<Props> {
         inline={formControl.inline}
       >
         {formControl.label &&
-          formControl.control !== 'checkbox' &&
-          formControl.label !== 'radio' && (
-            <label htmlFor={formControl.source}>{formControl.label}</label>
+          formControl.control !== 'Checkbox' &&
+          formControl.label !== 'Radio' && (
+            <label htmlFor={formControl.source.name}>{formControl.label}</label>
           )}
         {renderControl(control, this.props.data, this.props.handlers)}
       </Form.Field>
@@ -69,7 +70,7 @@ export class FormView extends React.Component<Props> {
     this.lastColumn = 0;
     this.lastRow = 0;
 
-    let row: { key: number; values: Corpix.Entities.FormElement[] };
+    let row: { key: number; values: Yoga.FormElement[] };
     const rows = groupByArray(this.props.form.elements, 'row');
 
     return (

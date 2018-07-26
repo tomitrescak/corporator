@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { create as render } from 'react-test-renderer';
 
-import { createData } from 'shared/test_data';
+import { createData } from '../../../../../tests/test_data';
 createData.mocks();
 
 import { ResourceSearchListView } from '../resource_search_list_view';
@@ -28,7 +28,7 @@ describe('Resource', () => {
           title: 'International Travel Request'
         })
       ],
-      componentWithData(searchItems: Corpix.Entities.Search[]) {
+      componentWithData(searchItems: any[]) {
         return (
           <div>
             <ResourceSearchListView searchItems={searchItems} />

@@ -1,37 +1,39 @@
 import * as React from 'react';
 
 import { Button } from 'semantic-ui-react';
-import { DataSet } from './form_model';
+
+import { Yoga } from 'data/yoga';
 import { CheckboxView } from '../views/checkbox_view';
 import { FormulaView } from '../views/formula_view';
 import { InputView } from '../views/input_view';
 import { RadioView } from '../views/radio_view';
 import { RepeaterView } from '../views/repeater_view';
 import { SelectView } from '../views/select_view';
+import { DataSet } from './form_model';
 
 export function renderControl(
-  control: Corpix.Entities.FormElement,
+  control: Yoga.FormElement,
   dataSet: DataSet,
   handlers: { [index: string]: () => void }
 ) {
-  const formElement = control as Corpix.Entities.FormControl;
+  const formElement = control as Yoga.FormElement;
 
-  if (dataSet.isExpression(formElement.source)) {
+  if (dataSet.isExpression(formElement.source.name)) {
     return <FormulaView owner={dataSet} formControl={formElement} />;
   }
 
   switch (formElement.control) {
-    case 'input':
+    case 'Input':
       return <InputView owner={dataSet} formControl={formElement} />;
-    case 'select':
+    case 'Select':
       return <SelectView owner={dataSet} formControl={formElement} />;
-    case 'checkbox':
+    case 'Checkbox':
       return <CheckboxView owner={dataSet} formControl={formElement} />;
-    case 'radio':
+    case 'Radio':
       return <RadioView owner={dataSet} formControl={formElement} />;
-    case 'repeater':
+    case 'Repeater':
       return <RepeaterView owner={dataSet} formControl={formElement} />;
-    case 'deleteButton':
+    case 'DeleteButton':
       return <Button icon="trash" color="red" onClick={handlers.delete} />;
   }
 

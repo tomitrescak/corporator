@@ -1,6 +1,6 @@
 import { autorun } from 'mobx';
 
-import { createData } from '../../../../../shared/test_data';
+import { createData } from '../../../../../tests/test_data';
 import { FormModel } from '../form_model';
 
 it('creates a new model', () => {
@@ -41,11 +41,11 @@ it('sorts form fields when form is created', () => {
 
 it('builds MST', () => {
   const descriptors = [
-    createData.descriptor({ name: 'age', type: 'int' }),
-    createData.descriptor({ name: 'height', type: 'int', defaultValue: 5 }),
+    createData.descriptor({ name: 'age', type: 'Int' }),
+    createData.descriptor({ name: 'height', type: 'Int', defaultValue: '5' }),
     createData.descriptor({
       name: 'taller',
-      type: 'int',
+      type: 'Int',
       expression: `this['height'] + 10`
     })
   ];

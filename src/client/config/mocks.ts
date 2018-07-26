@@ -1,9 +1,9 @@
 // other option: https://github.com/MadRabbit/graphql-mock
 import { SchemaLink } from 'apollo-link-schema';
+import { typeDefs } from 'data/type_defs';
 import { addMockFunctionsToSchema, makeExecutableSchema } from 'graphql-tools';
-import { typeDefs } from '../../server/schemas/index';
 
-const schema = makeExecutableSchema({ typeDefs: typeDefs() });
+const schema = makeExecutableSchema({ typeDefs });
 const mocks = {
   Query: () => ({
     books: () => [{ title: 'Book1 ', author: 'Tomas' }, { title: 'Book 2', author: 'Valeria' }]

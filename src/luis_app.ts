@@ -16,7 +16,7 @@ if (!(global as any).expect) {
 
 if (!global.jest) {
   global.jest = {
-    mock() { }
+    mock() { /**/ }
   }
 }
 
@@ -29,12 +29,12 @@ const snapshots = require('./snapshots');
 
 setupTestBridge(summary, snapshots);
 
-// import './client/modules/email/views/tests/index';
+import './client/modules/email/views/tests/index';
 import './client/modules/form/views/tests/index';
 import './client/modules/home/tests/index';
 import './client/modules/notifications/containers/tests/index';
 // import './client/modules/process/containers/tests/index';
-import './client/modules/process/views/tests/index';
-import './client/modules/resources/views/tests/index'; 
+// import './client/modules/process/views/tests/index';
+// import './client/modules/resources/views/tests/index'; 
 
 renderLuis();

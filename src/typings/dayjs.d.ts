@@ -1,7 +1,7 @@
 declare module 'dayjs/plugin/relativeTime';
 
 declare namespace dayjs {
-  export interface Dayjs {
+  interface Dayjs {
     from(): string;
   }
 }

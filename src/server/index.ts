@@ -2,23 +2,23 @@ import * as session from 'express-session';
 
 import { importSchema } from 'graphql-import';
 import { GraphQLServer } from 'graphql-yoga';
-import { Prisma } from '../data/prisma';
+import { Prisma } from '../data/generated/prisma';
 
-import { resolvers } from '../data/yoga/models/index';
+import { resolvers } from 'data/yoga/resolvers';
 
 // opts for cors
-const opts = {
-  port: 4000,
-  cors: {
-    credentials: true,
-    origin: ['http://localhost:3000'] // your frontend url.
-  }
-};
+// const opts = {
+//   port: 4000,
+//   cors: {
+//     credentials: true,
+//     origin: ['http://localhost:3000'] // your frontend url.
+//   }
+// };
 
-// manipulate context
-const context = (req: any) => ({
-  req: req.request
-});
+// // manipulate context
+// const context = (req: any) => ({
+//   req: req.request
+// });
 
 const server = new GraphQLServer({
   typeDefs: importSchema('./src/data/yoga/schema.graphql'),

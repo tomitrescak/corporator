@@ -1,8 +1,10 @@
 enum DataType {
+  Id
   Boolean
   Float
   Int
   String
+  Object
 }
 
 type DataDescriptor {
@@ -10,7 +12,7 @@ type DataDescriptor {
   access: Access
   defaultValue: String
   description: String
-#  descriptors?: string
+  descriptors: [DataDescriptor!]!
   expression: String
   isArray: Boolean
   name: String

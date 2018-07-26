@@ -3,22 +3,22 @@ import * as renderer from 'react-test-renderer';
 
 import { Segment } from 'semantic-ui-react';
 
-import { createData } from '../../../../../shared/test_data';
+import { createData } from '../../../../../tests/test_data';
 import { FormModel } from '../../models/form_model';
 import { FormView } from '../form_view';
 
 describe('Form', () => {
   const descriptors = [
     createData.descriptor({ name: 'owner.personal.name' }),
-    createData.descriptor({ name: 'owner.personal.age', type: 'float' }),
+    createData.descriptor({ name: 'owner.personal.age', type: 'Float' }),
     createData.descriptor({
       name: 'younger',
-      type: 'int',
+      type: 'Int',
       expression: `this['owner.personal.age'] - 10`
     }),
     createData.descriptor({
       name: 'older',
-      type: 'int',
+      type: 'Int',
       expression: `this['owner.personal.age'] + 10`
     })
   ];
@@ -45,20 +45,26 @@ describe('Form', () => {
                 row: 0,
                 column: 0,
                 width: 16,
-                control: 'input',
+                control: 'Input',
                 controlProps: {
                   label: 'Name'
                 },
                 label: 'Mimo',
-                source: 'owner.personal.name'
+                source: {
+                  id: '',
+                  name: 'owner.personal.name'
+                } 
               },
               {
                 id: '2',
                 row: 1,
                 column: 1,
                 width: 7,
-                control: 'input',
-                source: 'owner.personal.age',
+                control: 'Input',
+                source: {
+                  id: '',
+                  name: 'owner.personal.age'
+                },
                 label: 'Age: ',
                 inline: true
               },
@@ -67,8 +73,11 @@ describe('Form', () => {
                 row: 1,
                 column: 10,
                 width: 2,
-                control: 'input',
-                source: 'younger',
+                control: 'Input',
+                source: {
+                  id: '',
+                  name: 'younger'
+                },
                 label: 'Younger'
               },
               {
@@ -76,8 +85,11 @@ describe('Form', () => {
                 row: 1,
                 column: 13,
                 width: 2,
-                control: 'input',
-                source: 'older',
+                control: 'Input',
+                source: {
+                  id: '',
+                  name: 'older'
+                },
                 label: 'Older'
               }
             ]

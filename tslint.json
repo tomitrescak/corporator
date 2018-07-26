@@ -1,5 +1,10 @@
 {
   "extends": ["tslint:latest", "tslint-react", "tslint-config-prettier"],
+  "linterOptions": {
+    "exclude": [
+      "src/data/generated/**"
+    ]
+  },
   "rules": {
     "ban-types": false,
     "interface-name": false,

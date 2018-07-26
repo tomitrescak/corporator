@@ -3,7 +3,7 @@ import * as renderer from 'react-test-renderer';
 
 import { Segment } from 'semantic-ui-react';
 
-import { createData } from '../../../../../shared/test_data';
+import { createData } from 'tests/test_data';
 import { FormModel } from '../../models/form_model';
 import { FormView } from '../form_view';
 
@@ -46,9 +46,12 @@ describe('Form', () => {
                 column: 0,
                 width: 8,
                 list: 'countries',
-                control: 'select',
+                control: 'Select',
                 label: 'Country',
-                source: 'country',
+                source: {
+                  id: '',
+                  name: 'country'
+                },
                 inline: true
               },
               {
@@ -56,14 +59,17 @@ describe('Form', () => {
                 row: 0,
                 column: 8,
                 width: 8,
-                control: 'select',
+                control: 'Select',
                 list: 'cities',
                 filterSource: 'country',
                 filterColumn: 'country',
                 controlProps: {
                   search: true
                 },
-                source: 'city',
+                source: {
+                  id: '',
+                  name: 'city'
+                },
                 label: 'City'
               }
             ]

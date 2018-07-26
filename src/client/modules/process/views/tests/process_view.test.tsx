@@ -68,7 +68,7 @@ describe('Process', () => {
     {
       get component() {
         // just another notation
-        return <ProcessListView />
+        return <ProcessListView searchItems={null} />
       }
     },
     () => {

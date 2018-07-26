@@ -1,5 +1,5 @@
 # source: http://localhost:4466
-# timestamp: Fri Jul 20 2018 19:34:49 GMT+0100 (GMT+01:00)
+# timestamp: Tue Jul 24 2018 22:54:36 GMT+0100 (GMT+01:00)
 
 type Access implements Node {
   id: ID!
@@ -1522,7 +1522,8 @@ input BpmnProcessWhereUniqueInput {
   id: ID
 }
 
-type BpmnTaskInstance {
+type BpmnTaskInstance implements Node {
+  id: ID!
   processInstance(where: BpmnProcessWhereInput): BpmnProcess
   taskId: String
   performer(where: UserWhereInput): User
@@ -1570,6 +1571,8 @@ type BpmnTaskInstanceEdge {
 }
 
 enum BpmnTaskInstanceOrderByInput {
+  id_ASC
+  id_DESC
   taskId_ASC
   taskId_DESC
   performerId_ASC
@@ -1582,8 +1585,6 @@ enum BpmnTaskInstanceOrderByInput {
   duration_DESC
   snapshot_ASC
   snapshot_DESC
-  id_ASC
-  id_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -1591,6 +1592,7 @@ enum BpmnTaskInstanceOrderByInput {
 }
 
 type BpmnTaskInstancePreviousValues {
+  id: ID!
   taskId: String
   performerId: String
   performerRoles: [String!]!
@@ -1664,6 +1666,46 @@ input BpmnTaskInstanceWhereInput {
 
   """Logical NOT on all given filters combined by AND."""
   NOT: [BpmnTaskInstanceWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
   taskId: String
 
   """All values that are not equal to given value."""
@@ -1814,6 +1856,10 @@ input BpmnTaskInstanceWhereInput {
   performer: UserWhereInput
 }
 
+input BpmnTaskInstanceWhereUniqueInput {
+  id: ID
+}
+
 type Data implements Node {
   id: ID!
   descriptor(where: DataDescriptorWhereInput): DataDescriptor
@@ -1851,6 +1897,7 @@ type DataDescriptor implements Node {
   access(where: AccessWhereInput): Access
   defaultValue: String
   description: String
+  descriptors(where: DataDescriptorWhereInput, orderBy: DataDescriptorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [DataDescriptor!]
   expression: String
   isArray: Boolean
   name: String
@@ -1876,6 +1923,7 @@ input DataDescriptorCreateInput {
   name: String
   type: DataType
   access: AccessCreateOneInput
+  descriptors: DataDescriptorCreateManyInput
   validators: ValidatorCreateOneInput
 }
 
@@ -1976,6 +2024,7 @@ input DataDescriptorUpdateDataInput {
   name: String
   type: DataType
   access: AccessUpdateOneInput
+  descriptors: DataDescriptorUpdateManyInput
   validators: ValidatorUpdateOneInput
 }
 
@@ -1987,6 +2036,7 @@ input DataDescriptorUpdateInput {
   name: String
   type: DataType
   access: AccessUpdateOneInput
+  descriptors: DataDescriptorUpdateManyInput
   validators: ValidatorUpdateOneInput
 }
 
@@ -2248,6 +2298,9 @@ input DataDescriptorWhereInput {
   """All values that are not contained in given list."""
   type_not_in: [DataType!]
   access: AccessWhereInput
+  descriptors_every: DataDescriptorWhereInput
+  descriptors_some: DataDescriptorWhereInput
+  descriptors_none: DataDescriptorWhereInput
   validators: ValidatorWhereInput
   _MagicalBackRelation_DataToDataDescriptor_every: DataWhereInput
   _MagicalBackRelation_DataToDataDescriptor_some: DataWhereInput
@@ -2255,6 +2308,9 @@ input DataDescriptorWhereInput {
   _MagicalBackRelation_DataDescriptorToFormElement_every: FormElementWhereInput
   _MagicalBackRelation_DataDescriptorToFormElement_some: FormElementWhereInput
   _MagicalBackRelation_DataDescriptorToFormElement_none: FormElementWhereInput
+  _MagicalBackRelation_DataDescriptorToDataDescriptor_every: DataDescriptorWhereInput
+  _MagicalBackRelation_DataDescriptorToDataDescriptor_some: DataDescriptorWhereInput
+  _MagicalBackRelation_DataDescriptorToDataDescriptor_none: DataDescriptorWhereInput
   _MagicalBackRelation_BpmnProcessToDataDescriptor_every: BpmnProcessWhereInput
   _MagicalBackRelation_BpmnProcessToDataDescriptor_some: BpmnProcessWhereInput
   _MagicalBackRelation_BpmnProcessToDataDescriptor_none: BpmnProcessWhereInput
@@ -2338,10 +2394,12 @@ input DataSubscriptionWhereInput {
 }
 
 enum DataType {
+  Id
   Boolean
   Float
   Int
   String
+  Object
 }
 
 input DataUpdateDataInput {
@@ -3697,6 +3755,7 @@ type Mutation {
   createBpmnProcess(data: BpmnProcessCreateInput!): BpmnProcess!
   createFormElement(data: FormElementCreateInput!): FormElement!
   createAccessCondition(data: AccessConditionCreateInput!): AccessCondition!
+  updateBpmnTaskInstance(data: BpmnTaskInstanceUpdateInput!, where: BpmnTaskInstanceWhereUniqueInput!): BpmnTaskInstance
   updateOrganisation(data: OrganisationUpdateInput!, where: OrganisationWhereUniqueInput!): Organisation
   updateRole(data: RoleUpdateInput!, where: RoleWhereUniqueInput!): Role
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
@@ -3711,6 +3770,7 @@ type Mutation {
   updateData(data: DataUpdateInput!, where: DataWhereUniqueInput!): Data
   updateBpmnProcess(data: BpmnProcessUpdateInput!, where: BpmnProcessWhereUniqueInput!): BpmnProcess
   updateFormElement(data: FormElementUpdateInput!, where: FormElementWhereUniqueInput!): FormElement
+  deleteBpmnTaskInstance(where: BpmnTaskInstanceWhereUniqueInput!): BpmnTaskInstance
   deleteOrganisation(where: OrganisationWhereUniqueInput!): Organisation
   deleteRole(where: RoleWhereUniqueInput!): Role
   deleteUser(where: UserWhereUniqueInput!): User
@@ -3725,6 +3785,7 @@ type Mutation {
   deleteData(where: DataWhereUniqueInput!): Data
   deleteBpmnProcess(where: BpmnProcessWhereUniqueInput!): BpmnProcess
   deleteFormElement(where: FormElementWhereUniqueInput!): FormElement
+  upsertBpmnTaskInstance(where: BpmnTaskInstanceWhereUniqueInput!, create: BpmnTaskInstanceCreateInput!, update: BpmnTaskInstanceUpdateInput!): BpmnTaskInstance!
   upsertOrganisation(where: OrganisationWhereUniqueInput!, create: OrganisationCreateInput!, update: OrganisationUpdateInput!): Organisation!
   upsertRole(where: RoleWhereUniqueInput!, create: RoleCreateInput!, update: RoleUpdateInput!): Role!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
@@ -3787,6 +3848,7 @@ interface Node {
 
 type Notification implements Node {
   id: ID!
+  date: DateTime
   processInstance(where: BpmnProcessInstanceWhereInput): BpmnProcessInstance
   code: NotificationCode
   text(where: LocalisationWhereInput): Localisation
@@ -3810,6 +3872,7 @@ type NotificationConnection {
 }
 
 input NotificationCreateInput {
+  date: DateTime
   code: NotificationCode
   visible: Boolean
   params: NotificationCreateparamsInput
@@ -3838,6 +3901,8 @@ type NotificationEdge {
 enum NotificationOrderByInput {
   id_ASC
   id_DESC
+  date_ASC
+  date_DESC
   code_ASC
   code_DESC
   visible_ASC
@@ -3850,6 +3915,7 @@ enum NotificationOrderByInput {
 
 type NotificationPreviousValues {
   id: ID!
+  date: DateTime
   code: NotificationCode
   params: [String!]!
   visible: Boolean
@@ -3895,6 +3961,7 @@ input NotificationSubscriptionWhereInput {
 }
 
 input NotificationUpdateDataInput {
+  date: DateTime
   code: NotificationCode
   visible: Boolean
   params: NotificationUpdateparamsInput
@@ -3903,6 +3970,7 @@ input NotificationUpdateDataInput {
 }
 
 input NotificationUpdateInput {
+  date: DateTime
   code: NotificationCode
   visible: Boolean
   params: NotificationUpdateparamsInput
@@ -3983,6 +4051,28 @@ input NotificationWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  date: DateTime
+
+  """All values that are not equal to given value."""
+  date_not: DateTime
+
+  """All values that are contained in given list."""
+  date_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  date_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  date_lt: DateTime
+
+  """All values less than or equal the given value."""
+  date_lte: DateTime
+
+  """All values greater than the given value."""
+  date_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  date_gte: DateTime
   code: NotificationCode
 
   """All values that are not equal to given value."""
@@ -4274,6 +4364,7 @@ type Query {
   bpmnProcesses(where: BpmnProcessWhereInput, orderBy: BpmnProcessOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BpmnProcess]!
   formElements(where: FormElementWhereInput, orderBy: FormElementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FormElement]!
   accessConditions(where: AccessConditionWhereInput, orderBy: AccessConditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [AccessCondition]!
+  bpmnTaskInstance(where: BpmnTaskInstanceWhereUniqueInput!): BpmnTaskInstance
   organisation(where: OrganisationWhereUniqueInput!): Organisation
   role(where: RoleWhereUniqueInput!): Role
   user(where: UserWhereUniqueInput!): User

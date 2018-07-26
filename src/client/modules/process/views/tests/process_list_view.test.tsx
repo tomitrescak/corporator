@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { create as render } from 'react-test-renderer';
 
-import { createData } from '../../../../../shared/test_data';
+import { createData } from '../../../../../tests/test_data';
 import { ProcessListView } from '../process_list_view';
 
 describe('Process', () => {
@@ -10,7 +10,7 @@ describe('Process', () => {
     storyOf(
       'Empty',
       {
-        componentWithData(searchItems: Corpix.Entities.Search[]) {
+        componentWithData(searchItems: any[]) {
           return (
             <div>
               <ProcessListView searchItems={searchItems} />
@@ -46,7 +46,7 @@ describe('Process', () => {
             title: 'International Travel Request'
           })
         ],
-        componentWithData(searchItems: Corpix.Entities.Search[]) {
+        componentWithData(searchItems: any[]) {
           searchItems = searchItems || this.searchItems;
 
           return (

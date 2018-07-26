@@ -12,10 +12,10 @@ const VersionList: StyledComponentClass<ListProps, {}> = styled(List)`
 `;
 
 type Props = {
-  searchItems: Corpix.Entities.Search[]
+  searchItems: any[]
 }
 
-let searchItem: Corpix.Entities.Search;
+let searchItem: any;
 
 export const ProcessListView: React.SFC<Props> = ({ searchItems }) => (
   <>

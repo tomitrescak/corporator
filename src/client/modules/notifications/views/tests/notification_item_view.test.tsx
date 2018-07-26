@@ -2,27 +2,26 @@ import * as React from 'react';
 
 import { create as render } from 'react-test-renderer';
 
-import { Prisma } from '../../../../../data/prisma';
-import { createData } from '../../../../../shared/test_data';
+import { createData, Yoga } from 'tests/client';
 import { NotificationView } from '../notification_item_view';
 
 describe('Notifications', () => {
   storyOf(
     'Item View',
     {
-      componentWithData(notification: Prisma.Notification) {
+      componentWithData(notification: Yoga.Notification) {
         return <NotificationView notification={notification} />;
       }
     },
     data => {
       it('renders default view', () => {
         const root = render(
-          data.componentWithData(createData.notification({ comment: 'This is a comment' }))
+          data.componentWithData(createData.notification({ code: 'ServiceStarted' }))
         );
         expect(root).toMatchSnapshot();
 
         const root1 = render(
-          data.componentWithData(createData.notification({ comment: 'This is another comment' }))
+          data.componentWithData(createData.notification({ code: 'ServiceStopped' }))
         );
         expect(root1).toMatchSnapshot();
       });

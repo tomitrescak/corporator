@@ -2,14 +2,14 @@ import * as React from 'react';
 
 import { create as render } from 'react-test-renderer';
 
-import { createData } from '../../../../../shared/test_data';
+import { createData } from '../../../../../tests/test_data';
 import { SearchView } from '../resource_search_item_view';
 
 describe('Resource', () => {
   storyOf(
     'Search',
     {
-      componentWithData(searchItem: Corpix.Entities.Search) {
+      componentWithData(searchItem: any) {
         return <SearchView searchItem={searchItem} />;
       }
     },

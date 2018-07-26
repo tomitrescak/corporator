@@ -9,7 +9,7 @@ describe('Home', () => {
     'Logged In',
     {
       componentWithData(user: Corpix.User) {
-        return <HomeView user={user} />;
+        return <HomeView user={user} notification={null} />;
       }
     },
     data => {
@@ -24,7 +24,7 @@ describe('Home', () => {
     'Logged Out',
     {
       componentWithData(user: Corpix.User) {
-        return <HomeView user={user} />;
+        return <HomeView user={user} notification={null} />;
       }
     },
     data => {

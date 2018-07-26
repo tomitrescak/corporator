@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import { Query } from 'react-apollo';
 
-import { Notification } from 'data/yoga';
+import { Notification } from '../../../../data/generated/yoga';
 import { NotificationListView } from '../views/notification_list_view';
 
 export const QUERY = NOTIFICATIONS;

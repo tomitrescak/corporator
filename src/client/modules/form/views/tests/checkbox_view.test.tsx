@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as renderer from 'react-test-renderer';
 
-import { createData } from '../../../../../shared/test_data';
+import { createData } from 'tests/client';
 import { FormModel } from '../../models/form_model';
 import { FormView } from '../form_view';
 
@@ -11,8 +11,8 @@ import { Segment } from 'semantic-ui-react';
 
 describe('Form', () => {
   const descriptors = [
-    createData.descriptor({ name: 'agree', type: 'boolean' }),
-    createData.descriptor({ name: 'disagree', type: 'boolean' })
+    createData.descriptor({ name: 'agree', type: 'Boolean' }),
+    createData.descriptor({ name: 'disagree', type: 'Boolean' })
   ];
 
   const controlData = [{ name: 'agree', value: true }, { name: 'disagree', value: false }];
@@ -30,21 +30,27 @@ describe('Form', () => {
                 row: 0,
                 column: 0,
                 width: 8,
-                control: 'checkbox',
+                control: 'Checkbox',
                 label: 'Agree With Terms and Conditions',
-                source: 'agree'
+                source: {
+                  id: '',
+                  name: 'agree'
+                }
               },
               {
                 id: '2',
                 row: 1,
                 column: 0,
                 width: 8,
-                control: 'checkbox',
+                control: 'Checkbox',
                 controlProps: {
                   toggle: true
                 },
                 label: 'Disagree With Terms and Conditions',
-                source: 'disagree'
+                source: {
+                  id: '',
+                  name: 'disagree'
+                }
               }
             ]
           })

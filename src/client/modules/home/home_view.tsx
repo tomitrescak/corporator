@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Grid } from 'semantic-ui-react';
 
-import * as Yoga from 'data/yoga';
+import * as Yoga from '../../../data/generated/yoga';
 import { MainLayout } from '../core/main_layout';
 import { PagerView } from '../core/pager_view';
 import { SortView } from '../core/sort_view';
@@ -19,7 +19,7 @@ declare global {
 export const HomeLayout: React.SFC<PageProps> = () => (
   <MainLayout>
     <NotificationsContainer />
-    <HomeView />
+    <HomeView notification={null} />
   </MainLayout>
 );
 
@@ -35,7 +35,7 @@ export const HomeView: React.SFC<Props> = ({ user, notification }) => (
         <Grid>
           <Grid.Column width={11}>
             <SortView />
-            <ProcessListView />
+            <ProcessListView searchItems={null} />
             <PagerView />
           </Grid.Column>
 

@@ -14,3 +14,4 @@ hooks:
   post-deploy:
     - graphql get-schema -p prisma
     - graphql codegen
+    - node save_schema.js

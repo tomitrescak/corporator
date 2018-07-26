@@ -1,10 +1,12 @@
 import * as dayjs from 'dayjs';
 import * as relativeTime from 'dayjs/plugin/relativeTime';
 
+import { Yoga } from 'data/yoga';
+
 dayjs.extend(relativeTime);
 
 const Ui = {
-  relativeDate(date: Date) {
+  relativeDate(date: Date | string | Yoga.DateTime) {
     // @ts-ignore
     return dayjs().from(date);
   }

@@ -4,7 +4,7 @@ import * as React from 'react';
 import { List } from 'semantic-ui-react';
 
 type Props = {
-  searchItem: Corpix.Entities.Search;
+  searchItem: any;
 }
 
 export const ProcessListItemView: React.SFC<Props> = ({ searchItem }) => (

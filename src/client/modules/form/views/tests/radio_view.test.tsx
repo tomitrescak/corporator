@@ -3,14 +3,14 @@ import * as renderer from 'react-test-renderer';
 
 import { Segment } from 'semantic-ui-react';
 
-import { createData } from '../../../../../shared/test_data';
+import { createData } from '../../../../../tests/test_data';
 import { FormModel } from '../../models/form_model';
 import { FormView } from '../form_view';
 
 describe('Form', () => {
   const descriptors = [
-    createData.descriptor({ name: 'religion', type: 'string' }),
-    createData.descriptor({ name: 'lined_religion', type: 'string' })
+    createData.descriptor({ name: 'religion', type: 'String' }),
+    createData.descriptor({ name: 'lined_religion', type: 'String' })
   ];
 
   const lists = [
@@ -40,9 +40,12 @@ describe('Form', () => {
                 column: 0,
                 width: 16,
                 list: 'religions',
-                control: 'radio',
+                control: 'Radio',
                 label: 'Religions',
-                source: 'religion',
+                source: {
+                  id: '',
+                  name: 'religion'
+                },
                 inline: true
               },
               {
@@ -51,9 +54,12 @@ describe('Form', () => {
                 column: 0,
                 width: 16,
                 list: 'religions',
-                control: 'radio',
+                control: 'Radio',
                 label: 'Religions',
-                source: 'lined_religion',
+                source: {
+                  id: '',
+                  name: 'lined_religion'
+                },
                 vertical: true
               }
             ]

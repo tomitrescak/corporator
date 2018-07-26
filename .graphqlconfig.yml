@@ -6,10 +6,12 @@ projects:
       endpoints:
         default: "http://localhost:4000"
       codegen:
-        - generator: prisma-binding
+        - generator: graphql-binding
           language: typescript
+          input:
+            schema: src/data/schema.ts
           output: 
-            binding: src/data/yoga.ts
+            binding: src/data/generated/yoga.ts
   prisma:
     schemaPath: "src/data/generated/prisma.graphql"
     includes: ["src/**/*.graphql"]
@@ -19,4 +21,4 @@ projects:
         - generator: prisma-binding
           language: typescript
           output: 
-            binding: src/data/prisma.ts
+            binding: src/data/generated/prisma.ts

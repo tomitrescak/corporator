@@ -10,7 +10,7 @@ import { ErrorView } from './error_view';
 export class InputView extends React.Component<FormControlProps> {
   handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // find value
-    this.props.owner.setStringValue(this.props.formControl.source, e.target.value);
+    this.props.owner.setStringValue(this.props.formControl.source.name, e.target.value);
   };
 
   render() {
@@ -22,11 +22,11 @@ export class InputView extends React.Component<FormControlProps> {
         <Input
           {...controlProps}
           name={source}
-          value={owner.getStringValue(source)}
+          value={owner.getStringValue(source.name)}
           onChange={this.handleInputChange}
         />
 
-        <ErrorView owner={owner} source={source} />
+        <ErrorView owner={owner} source={source.name} />
       </>
     );
   }

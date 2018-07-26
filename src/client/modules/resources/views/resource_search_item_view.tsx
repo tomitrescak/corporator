@@ -2,10 +2,10 @@ import * as React from 'react';
 
 import { List } from 'semantic-ui-react';
 
-import { context } from 'client/config/context';
+import { context } from '../../../config/context';
 
 type Props = {
-  searchItem: Corpix.Entities.Search;
+  searchItem: any;
 };
 
 export const SearchView: React.SFC<Props> = ({ searchItem }) => (
