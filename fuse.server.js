@@ -3,6 +3,12 @@ const { FuseBox } = require('fuse-box');
 const serverFuse = FuseBox.init({
   homeDir: 'src',
   output: 'dist/$name.js',
+  alias: {
+    data: '~/data/',
+    tests: '~/tests/',
+    server: '~/server/',
+    shared: '~/shared/'
+  },
   sourceMaps: { project: false, vendor: false }
   // tsConfig: startServer ? 'tsconfig.json' : 'tsconfig.server.json'
 });

@@ -2608,6 +2608,7 @@ enum DataType {
   Float
   Int
   String
+  Date
   Object
 }
 
@@ -5879,6 +5880,7 @@ export type DataType =   'Id' |
   'Float' |
   'Int' |
   'String' |
+  'Date' |
   'Object'
 
 export type FormElementOrderByInput =   'id_ASC' |

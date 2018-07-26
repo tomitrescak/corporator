@@ -6,8 +6,8 @@ import { ProcessListContainer, QUERY } from '../process_list_container';
 
 describe('Process', () => {
   describe('List', () => {
-    storyOf(
-      'Container',
+    storyOf( 
+      'Container', 
       {
         componentWithData(skipInit = false) {
           // init for luis
@@ -31,10 +31,11 @@ describe('Process', () => {
         it('renders loading', () => {
           mock.expect(QUERY).loading();
           const root = create(data.componentWithData());
-          expect(root).toMatchSnapshot();
+          expect(root).toMatchSnapshot(); 
         });
 
         it('renders data', async () => {
+          mock.reset();
           const root = create(data.componentWithData());
           expect(root).toMatchSnapshot();
         });

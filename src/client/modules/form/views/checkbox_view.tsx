@@ -29,7 +29,7 @@ export class CheckboxView extends React.Component<Props> {
       <Form.Field>
         <Checkbox
           {...controlProps}
-          name={source}
+          name={source.name}
           label={label}
           checked={owner.getValue(source.name)}
           onChange={this.handleToggleChange}

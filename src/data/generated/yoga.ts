@@ -115,6 +115,7 @@ export type DataType =   'Id' |
   'Float' |
   'Int' |
   'String' |
+  'Date' |
   'Object'
 
 export type FormControl =   'Input' |

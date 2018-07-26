@@ -1,6 +1,6 @@
 import { autorun } from 'mobx';
 
-import { createData } from '../../../../../tests/test_data';
+import { createData } from 'tests/test_data';
 import { FormModel } from '../form_model';
 
 it('creates a new model', () => {
@@ -48,7 +48,7 @@ it('builds MST', () => {
       type: 'Int',
       expression: `this['height'] + 10`
     })
-  ];
+  ]; 
   const instance = FormModel.buildMstModel(descriptors, [{ name: 'height', value: 6 }]);
 
   expect(instance.getValue('height')).toEqual(6);

@@ -14,6 +14,7 @@ type Props = {
 }
 
 let searchItem: any;
+let index: number;
 
 export const ResourceSearchListView: React.SFC<Props> = ({ searchItems }) => (
   <>
@@ -21,8 +22,8 @@ export const ResourceSearchListView: React.SFC<Props> = ({ searchItems }) => (
     <Choose>
       <When condition={searchItems && searchItems.length > 0}>
         <VersionList divided relaxed>
-          <For each="searchItem" of={searchItems}>
-            <SearchView searchItem={searchItem} />
+          <For each="searchItem" of={searchItems} index="index">
+            <SearchView searchItem={searchItem} key={index} />
           </For>
         </VersionList>
       </When>

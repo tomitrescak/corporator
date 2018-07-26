@@ -9,7 +9,7 @@ import { NotificationsContainer, QUERY } from '../notification_list_container';
 describe('Notifications', () => {
   storyOf(
     'Container',
-    {
+    { 
       componentWithData(notifications: Yoga.Notification[] = null) {
         if (!notifications) {
           mock.expect(QUERY).reply({

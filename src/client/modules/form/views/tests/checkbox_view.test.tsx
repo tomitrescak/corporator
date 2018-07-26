@@ -22,7 +22,7 @@ describe('Form', () => {
     'Checkbox',
     {
       get component() {
-        const form = new FormModel(
+        const form = new FormModel( 
           createData.formDao({
             elements: [
               {

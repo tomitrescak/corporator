@@ -2900,6 +2900,7 @@ enum DataType {
   Float
   Int
   String
+  Date
   Object
 }
 

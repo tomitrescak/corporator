@@ -35,7 +35,7 @@ export class SelectView extends React.Component<Props> {
                   .filter((v: any) => v[filterColumn] === owner.getValue(filterSource))
               : owner.getList(list)
           }
-          name={source}
+          name={source.name}
           selection={true}
           value={owner.getStringValue(source.name)}
           onChange={this.handleSelectChange}

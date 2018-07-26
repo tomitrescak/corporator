@@ -19,11 +19,6 @@ describe('Notifications', () => {
           data.componentWithData(createData.notification({ code: 'ServiceStarted' }))
         );
         expect(root).toMatchSnapshot();
-
-        const root1 = render(
-          data.componentWithData(createData.notification({ code: 'ServiceStopped' }))
-        );
-        expect(root1).toMatchSnapshot();
       });
     }
   );

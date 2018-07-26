@@ -8,15 +8,13 @@ module.exports = function(wallaby) {
       'test/*.js',
       'src/**/*.+(js|jsx|ts|tsx|json|snap|css|less|sass|scss|jpg|jpeg|gif|png|svg|graphql)',
       '!src/luis_app',
-      // '!src/**/index.ts',
-      '!src/**/tests/*.+(ts|tsx)',
-      '!luis_app'
+      '!src/**/*.test.+(ts|tsx)',
     ],
 
     tests: [
-      '!src/client/**/tests/index.ts',
-      'src/client/**/tests/*.+(ts|tsx)',
-      'src/shared/**/tests/*.+(ts|tsx)'
+      //'src/client/modules/form/**/checkbox_view.test.+(ts|tsx)',
+      'src/client/**/*.test.+(ts|tsx)',
+      'src/shared/**/*.test.+(ts|tsx)'
     ],
 
     env: {

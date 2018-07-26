@@ -35,7 +35,7 @@ export class RadioView extends React.Component<FormControlProps> {
           <React.Fragment key={item.value}>
             <FormRadio
               {...controlProps}
-              name={source}
+              name={source.name}
               label={item.text}
               value={item.value}
               checked={owner.getValue(source.name) === item.value}

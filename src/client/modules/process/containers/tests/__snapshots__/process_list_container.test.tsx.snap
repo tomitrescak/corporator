@@ -21,9 +21,59 @@ Array [
     </div>
   </div>,
   <div
-    className="ui message"
+    className="ui divided relaxed list sc-bdVaJa bviDoP"
+    role="list"
   >
-    There are no search results.
+    <div
+      className="item"
+      onClick={[Function]}
+      role="listitem"
+    >
+      <i
+        aria-hidden="true"
+        className="file outline icon middle aligned"
+      />
+      <div
+        className="content"
+      >
+        <a
+          className="header"
+        />
+        <a
+          className="description"
+        >
+          Submitted by 
+           · 
+           · 
+          Thu, 01 Feb 2018 23:00:00 GMT
+        </a>
+      </div>
+    </div>
+    <div
+      className="item"
+      onClick={[Function]}
+      role="listitem"
+    >
+      <i
+        aria-hidden="true"
+        className="file outline icon middle aligned"
+      />
+      <div
+        className="content"
+      >
+        <a
+          className="header"
+        />
+        <a
+          className="description"
+        >
+          Submitted by 
+           · 
+           · 
+          Thu, 01 Feb 2018 23:00:00 GMT
+        </a>
+      </div>
+    </div>
   </div>,
 ]
 `;

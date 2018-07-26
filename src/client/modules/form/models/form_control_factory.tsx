@@ -18,7 +18,7 @@ export function renderControl(
 ) {
   const formElement = control as Yoga.FormElement;
 
-  if (dataSet.isExpression(formElement.source.name)) {
+  if (formElement.source && dataSet.isExpression(formElement.source.name)) { 
     return <FormulaView owner={dataSet} formControl={formElement} />;
   }
 

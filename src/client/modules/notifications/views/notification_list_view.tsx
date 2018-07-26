@@ -25,7 +25,7 @@ export const NotificationListView: React.SFC<Props> = ({ notifications }) => (
           <Header content="Notifications" icon="bell" as="h5" />
           <NotificationList divided>
             <For each="notification" of={notifications}>
-              <NotificationView notification={notification} />
+              <NotificationView key={notification.id} notification={notification} />
             </For>
           </NotificationList>
         </Segment>

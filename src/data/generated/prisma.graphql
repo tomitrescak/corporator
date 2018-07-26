@@ -1,5 +1,5 @@
 # source: http://localhost:4466
-# timestamp: Tue Jul 24 2018 22:54:36 GMT+0100 (GMT+01:00)
+# timestamp: Thu Jul 26 2018 22:08:33 GMT+0100 (GMT+01:00)
 
 type Access implements Node {
   id: ID!
@@ -2399,6 +2399,7 @@ enum DataType {
   Float
   Int
   String
+  Date
   Object
 }
 

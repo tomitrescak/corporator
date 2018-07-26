@@ -71,6 +71,21 @@ let time = Date.now();
 let i = 0;
 
 export class FormModel {
+  static parseDefault(descriptor: Yoga.DataDescriptor) {
+    switch (descriptor.type) {
+      case 'Int':
+        return parseInt(descriptor.defaultValue || '0', 10) as any;
+      case 'Float':
+        return parseFloat(descriptor.defaultValue || '0') as any;
+      case 'Boolean':
+        return (descriptor.defaultValue === 'true' ||
+          descriptor.defaultValue === 'True') as any;
+      case 'Date':
+        return new Date(descriptor.defaultValue);
+    }
+    return descriptor.defaultValue;
+  }
+
   static buildMst(
     descriptors: Yoga.DataDescriptor[],
     lists?: Array<{ name: string; items: any[] }>
@@ -110,7 +125,9 @@ export class FormModel {
             // @ts-ignore
             return self[key];
           }
-          return self[key + '_str'] || this.getDescriptor(key).defaultValue || '';
+          return (
+            self[key + '_str'] || this.getDescriptor(key).defaultValue || ''
+          );
         },
         getError(key: string) {
           return self[key + '_error'];
@@ -148,10 +165,12 @@ export class FormModel {
       if (desc.isArray) {
         mstDefinition[desc.name] = types.array(mstTypeFactory(desc, lists));
       } else if (desc.type === 'Id') {
-        mstDefinition[desc.name] = types.optional(types.identifier(), () => (time + i++).toString()); // shortid.generate());
+        mstDefinition[desc.name] = types.optional(types.identifier(), () =>
+          (time + i++).toString()
+        ); // shortid.generate());
       } else if (!desc.expression) {
         mstDefinition[desc.name] = desc.defaultValue
-          ? desc.defaultValue
+          ? FormModel.parseDefault(desc)
           : types.maybe(mstTypeFactory(desc, lists));
         mstDefinition[desc.name + '_str'] = types.maybe(types.string);
         mstDefinition[desc.name + '_error'] = types.maybe(types.string);
@@ -184,7 +203,9 @@ export class FormModel {
               self[key] = parseFloat(value || 0) as any;
               break;
             case 'Boolean':
-              self[key] = (value === true || value === 'true' || value === 'True') as any;
+              self[key] = (value === true ||
+                value === 'true' ||
+                value === 'True') as any;
               break;
             default:
               self[key] = value;
@@ -217,7 +238,10 @@ export class FormModel {
     return mst;
   }
 
-  static initStrings(data: any, dataArray: Array<{ name: string; value: any }>) {
+  static initStrings(
+    data: any,
+    dataArray: Array<{ name: string; value: any }>
+  ) {
     for (let item of dataArray) {
       data[item.name] = item.value;
       if (Array.isArray(item.value)) {

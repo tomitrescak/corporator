@@ -16,15 +16,15 @@ type Props = {
 }
 
 let searchItem: any;
-
+let index: number;
 export const ProcessListView: React.SFC<Props> = ({ searchItems }) => (
   <>
     <Header icon="find" content="Search" subheader="Find process resources" />
     <Choose>
       <When condition={searchItems && searchItems.length > 0}>
         <VersionList divided relaxed>
-          <For each="searchItem" of={searchItems}>
-            <ProcessListItemView searchItem={searchItem} />
+          <For each="searchItem" of={searchItems} index="index">
+            <ProcessListItemView key={index} searchItem={searchItem} />
           </For>
         </VersionList>
       </When>
