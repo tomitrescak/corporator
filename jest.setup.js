@@ -36,5 +36,28 @@ it = function(name, impl) {
   
 }
 
+const React = require('react');
+const Mui = ({ children, ...rest }) => React.createElement('div', {...rest}, children);
+
+// jest.mock('semantic-ui-react', () => ({
+//   Checkbox: Mui,
+//   Radio: Mui,
+//   Input: Mui,
+//   TextArea: Mui,
+//   Menu: Mui,
+//   MenuItem: Mui,
+//   Icon: Mui,
+//   Image: Mui,
+//   Segment: Mui,
+//   Input: Mui,
+//   Header: Mui,
+//   HeaderItem: Mui,
+//   List: Mui,
+//   ListItem: Mui,
+//   Message: Mui,
+//   Grid: Mui
+  
+// }));
+
 const { Checkbox  } = require('semantic-ui-react');
 

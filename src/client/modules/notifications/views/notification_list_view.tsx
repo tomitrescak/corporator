@@ -5,7 +5,7 @@ import styled, { StyledComponentClass } from 'styled-components';
 import { Yoga } from 'data/yoga';
 import { NotificationView } from './notification_item_view';
 
-const NotificationList: StyledComponentClass<ListProps, {}> = styled(List)`
+const NotificationList: StyledComponentClass<ListProps, {}> = styled(List)` 
   &&&&& .item {
     line-height: inherit;
   }

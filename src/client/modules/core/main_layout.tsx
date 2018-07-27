@@ -1,10 +1,10 @@
 import * as React from 'react';
-import * as logo from './logo.png';
 import * as jenny from './jenny.jpg';
+import * as logo from './logo.png';
 
 import styled, { StyledComponentClass } from 'styled-components';
 
-import { Menu, Input, Icon, InputProps, Image, MenuProps } from 'semantic-ui-react';
+import { Icon, Image, Input, InputProps, Menu, MenuProps } from 'semantic-ui-react';
 
 const Logo = styled.img`
   &&&&& {
