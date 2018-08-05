@@ -7,7 +7,7 @@ import { createData } from 'tests/test_data';
 import { FormModel } from '../../models/form_model';
 import { FormView } from '../form_view';
 
-describe('Form', () => {
+describe('Form', function() {
   const descriptors = [
     createData.descriptor({ name: 'country' }),
     createData.descriptor({ name: 'city' })
@@ -33,74 +33,72 @@ describe('Form', () => {
 
   const dataSet = FormModel.buildMstModel(descriptors, controlData, lists);
 
-  storyOf(
-    'Select',
-    {
-      get component() {
-        const form = new FormModel(
-          createData.formDao({
-            elements: [
-              {
-                id: '1',
-                row: 0,
-                column: 0,
-                width: 8,
-                list: 'countries',
-                control: 'Select',
-                label: 'Country',
-                source: {
-                  id: '',
-                  name: 'country'
-                },
-                inline: true
+  describe('Select', function() {
+    function componentWithData() {
+      const form = new FormModel(
+        createData.formDao({
+          elements: [
+            {
+              id: '1',
+              row: 0,
+              column: 0,
+              width: 8,
+              list: 'countries',
+              control: 'Select',
+              label: 'Country',
+              source: {
+                id: '',
+                name: 'country'
               },
-              {
-                id: '2',
-                row: 0,
-                column: 8,
-                width: 8,
-                control: 'Select',
-                list: 'cities',
-                filterSource: 'country',
-                filterColumn: 'country',
-                controlProps: {
-                  search: true
-                },
-                source: {
-                  id: '',
-                  name: 'city'
-                },
-                label: 'City'
-              }
-            ]
-          })
-        );
+              inline: true
+            },
+            {
+              id: '2',
+              row: 0,
+              column: 8,
+              width: 8,
+              control: 'Select',
+              list: 'cities',
+              filterSource: 'country',
+              filterColumn: 'country',
+              controlProps: {
+                search: true
+              },
+              source: {
+                id: '',
+                name: 'city'
+              },
+              label: 'City'
+            }
+          ]
+        })
+      );
 
-        // just another notation
-        return (
-          <Segment className="ui form">
-            <FormView form={form} data={dataSet} />
-          </Segment>
-        );
-      }
-    },
-    data => {
-      it('renders correctly', () => {
-        const component = renderer.create(data.component);
-        expect(component).toMatchSnapshot();
-      });
-
-      it('changes value and all related formulas', () => {
-        const component = renderer.create(data.component);
-        const root = component.root;
-        const country = root.findByProps({ name: 'country' });
-        country.props.onChange(null, { value: 'AU' });
-
-        const city = root.findByProps({ name: 'city' });
-        city.props.onChange(null, { value: 'SYD' });
-
-        expect(component).toMatchSnapshot();
-      });
+      // just another notation
+      return (
+        <Segment className="ui form">
+          <FormView form={form} data={dataSet} />
+        </Segment>
+      );
     }
-  );
+
+    it('renders correctly', () => {
+      const component = renderer.create(componentWithData());
+      expect(component).toMatchSnapshot();
+    });
+
+    it('changes value and all related formulas', () => {
+      const component = renderer.create(componentWithData());
+      const root = component.root;
+      const country = root.findByProps({ name: 'country' });
+      country.props.onChange(null, { value: 'AU' });
+
+      const city = root.findByProps({ name: 'city' });
+      city.props.onChange(null, { value: 'SYD' });
+
+      expect(component).toMatchSnapshot();
+    });
+
+    return { componentWithData };
+  });
 });

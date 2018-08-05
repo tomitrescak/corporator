@@ -7,7 +7,6 @@ import { Yoga } from 'data/yoga';
 import { DataSet } from '../models/form_model';
 import { ErrorView } from './error_view';
 
-
 type Props = {
   formControl: Yoga.FormElement;
   owner: DataSet;

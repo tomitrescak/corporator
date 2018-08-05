@@ -25,13 +25,15 @@ module.exports = {
   //transformIgnorePatterns: ['<rootDir>/node_modules/', '/!node_modules\\/bpmn-moddle']
   //transformIgnorePatterns: ['node_modules/(?!(bpmn-moddle)/)'],
   // transformIgnorePatterns: ['/!node_modules\\/bpmn-moddle'],
-  
+
   // globalSetup: './jest.global.setup.js',
   // globalTeardown: './jest.global.teardown.js',
   // testEnvironment: './jest.environment.js'
   // snapshotSerializers: ['jest-spy-serialiser'],
   // reporters: ['<rootDir>/reporter.js'],
-  updateSnapshot: true
+  updateSnapshot: true,
+  testURL: 'http://localhost'
+  // testEnvironment: 'node'
   //transformIgnorePatterns: ['<rootDir>/node_modules/', '/!node_modules\\/bpmn-moddle']
   //transformIgnorePatterns: ['node_modules/(?!(bpmn-moddle)/)'],
 };
