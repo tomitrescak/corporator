@@ -1,3 +1,3 @@
-import * as Yoga from './generated/yoga';
+import * as Yoga from './generated/yoga_client';
 
 export { Yoga };

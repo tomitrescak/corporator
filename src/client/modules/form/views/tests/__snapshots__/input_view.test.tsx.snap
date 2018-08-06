@@ -62,7 +62,6 @@ exports[`Form Viewer changes value and all related formulas 1`] = `
             value="40"
           />
         </div>
-        
       </div>
       <div
         className="two wide field"

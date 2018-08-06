@@ -2,7 +2,7 @@ global.storyOf = function(name, props, impl) {
   describe(name, () => impl && impl(props));
 };
 
-require('jest-spy-serialiser').registerSpy();
+require('jest-spy-serialiser').registerSpy({ port: 9753 });
 
 const css = require('css');
 const stringify = css.stringify;
@@ -18,9 +18,8 @@ if (!window.localStorage) {
   window.localStorage = { debug: false };
 }
 
-
-const mockedWarn = jest.spyOn(global.console, 'warn'); 
-const mockedError = jest.spyOn(global.console, 'error'); 
+const mockedWarn = jest.spyOn(global.console, 'warn');
+const mockedError = jest.spyOn(global.console, 'error');
 
 // override it
 const itOrig = it;
@@ -33,11 +32,10 @@ it = function(name, impl) {
     expect(mockedError).not.toBeCalled();
     return result;
   });
-  
-}
+};
 
 const React = require('react');
-const Mui = ({ children, ...rest }) => React.createElement('div', {...rest}, children);
+const Mui = ({ children, ...rest }) => React.createElement('div', { ...rest }, children);
 
 // jest.mock('semantic-ui-react', () => ({
 //   Checkbox: Mui,
@@ -56,8 +54,7 @@ const Mui = ({ children, ...rest }) => React.createElement('div', {...rest}, chi
 //   ListItem: Mui,
 //   Message: Mui,
 //   Grid: Mui
-  
+
 // }));
 
-const { Checkbox  } = require('semantic-ui-react');
-
+const { Checkbox } = require('semantic-ui-react');
