@@ -6,7 +6,9 @@ import { Label } from 'semantic-ui-react';
 import { DataSet } from '../models/form_model';
 
 type ErrorProps = {
-  owner: DataSet;
+  owner: {
+    getError(source?: string): string;
+  };
   source: string;
 };
 
@@ -17,6 +19,19 @@ export const ErrorView = observer(({ owner, source }: ErrorProps) => {
   return (
     <Label pointing color="red">
       {owner.getError(source)}
+    </Label>
+  );
+});
+
+type ErrorLabelProps = { error: string };
+
+export const ErrorLabel = observer(({ error }: ErrorLabelProps) => {
+  if (!error) {
+    return null;
+  }
+  return (
+    <Label pointing color="red">
+      {error}
     </Label>
   );
 });

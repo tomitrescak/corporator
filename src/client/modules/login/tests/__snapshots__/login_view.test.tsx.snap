@@ -1,0 +1,277 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Login default renders 1`] = `
+<form
+  className="ui form"
+  onSubmit={[Function]}
+>
+  <div
+    className="ui segment"
+  >
+    <div
+      className="field"
+    >
+      <label>
+        User
+      </label>
+      <div
+        className="ui fluid icon input"
+      >
+        <input
+          autoComplete="username"
+          name="user"
+          onChange={[Function]}
+          placeholder="Your Staff ID"
+          type="text"
+          value=""
+        />
+        <i
+          aria-hidden="true"
+          className="user icon"
+        />
+      </div>
+    </div>
+    <div
+      className="field"
+    >
+      <label>
+        Password
+      </label>
+      <div
+        className="ui fluid icon input"
+      >
+        <input
+          autoComplete="current-password"
+          name="password"
+          onChange={[Function]}
+          placeholder="Your Password"
+          type="password"
+          value=""
+        />
+        <i
+          aria-hidden="true"
+          className="lock icon"
+        />
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "textAlign": "center",
+        }
+      }
+    >
+      <button
+        className="ui primary button sc-bdVaJa cLHDqx"
+        onClick={[Function]}
+        role="button"
+      >
+        <i
+          aria-hidden="true"
+          className="thumbs up icon"
+        />
+        Login
+      </button>
+      <span
+        style={
+          Object {
+            "marginTop": "6px",
+            "position": "absolute",
+            "right": "20px",
+          }
+        }
+      >
+        Forgot Password?
+      </span>
+    </div>
+  </div>
+</form>
+`;
+
+exports[`Login default validates 1`] = `
+<form
+  className="ui form"
+  onSubmit={[Function]}
+>
+  <div
+    className="ui segment"
+  >
+    <div
+      className="field"
+    >
+      <label>
+        User
+      </label>
+      <div
+        className="ui error fluid icon input"
+      >
+        <input
+          autoComplete="username"
+          name="user"
+          onChange={[Function]}
+          placeholder="Your Staff ID"
+          type="text"
+          value=""
+        />
+        <i
+          aria-hidden="true"
+          className="user icon"
+        />
+      </div>
+      <div
+        className="ui red pointing label"
+        onClick={[Function]}
+      >
+        This field is required!
+      </div>
+    </div>
+    <div
+      className="field"
+    >
+      <label>
+        Password
+      </label>
+      <div
+        className="ui error fluid icon input"
+      >
+        <input
+          autoComplete="current-password"
+          name="password"
+          onChange={[Function]}
+          placeholder="Your Password"
+          type="password"
+          value=""
+        />
+        <i
+          aria-hidden="true"
+          className="lock icon"
+        />
+      </div>
+      <div
+        className="ui red pointing label"
+        onClick={[Function]}
+      >
+        This field is required!
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "textAlign": "center",
+        }
+      }
+    >
+      <button
+        className="ui primary button sc-bdVaJa cLHDqx"
+        onClick={[Function]}
+        role="button"
+      >
+        <i
+          aria-hidden="true"
+          className="thumbs up icon"
+        />
+        Login
+      </button>
+      <span
+        style={
+          Object {
+            "marginTop": "6px",
+            "position": "absolute",
+            "right": "20px",
+          }
+        }
+      >
+        Forgot Password?
+      </span>
+    </div>
+  </div>
+</form>
+`;
+
+exports[`Login default validates 2`] = `
+<form
+  className="ui form"
+  onSubmit={[Function]}
+>
+  <div
+    className="ui segment"
+  >
+    <div
+      className="field"
+    >
+      <label>
+        User
+      </label>
+      <div
+        className="ui fluid icon input"
+      >
+        <input
+          autoComplete="username"
+          name="user"
+          onChange={[Function]}
+          placeholder="Your Staff ID"
+          type="text"
+          value="tomas"
+        />
+        <i
+          aria-hidden="true"
+          className="user icon"
+        />
+      </div>
+    </div>
+    <div
+      className="field"
+    >
+      <label>
+        Password
+      </label>
+      <div
+        className="ui fluid icon input"
+      >
+        <input
+          autoComplete="current-password"
+          name="password"
+          onChange={[Function]}
+          placeholder="Your Password"
+          type="password"
+          value="tomas"
+        />
+        <i
+          aria-hidden="true"
+          className="lock icon"
+        />
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "textAlign": "center",
+        }
+      }
+    >
+      <button
+        className="ui primary button sc-bdVaJa cLHDqx"
+        onClick={[Function]}
+        role="button"
+      >
+        <i
+          aria-hidden="true"
+          className="thumbs up icon"
+        />
+        Login
+      </button>
+      <span
+        style={
+          Object {
+            "marginTop": "6px",
+            "position": "absolute",
+            "right": "20px",
+          }
+        }
+      >
+        Forgot Password?
+      </span>
+    </div>
+  </div>
+</form>
+`;
