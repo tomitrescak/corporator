@@ -16,6 +16,12 @@ const fuse = FuseBox.init({
     JSONPlugin(),
     SnapshotPlugin()
   ],
+  alias: {
+    data: '~/data/',
+    client: '~/client/',
+    server: '~/server/',
+    shared: '~/shared/'
+  },
   sourceMaps: true
 });
 const historyAPIFallback = require('connect-history-api-fallback');

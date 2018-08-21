@@ -1,7 +1,0 @@
-{
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "tslint.autoFixOnSave": true,
-  "snapshots.saveHtml": false,
-  "prettier.singleQuote": true,
-  "snapshots.port": 9753
-}

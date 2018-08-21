@@ -2,7 +2,7 @@ global.storyOf = function(name, props, impl) {
   describe(name, () => impl && impl(props));
 };
 
-require('jest-spy-serialiser').registerSpy({ port: 9753 });
+require('jest-spy-serialiser').registerSpy();
 
 const css = require('css');
 const stringify = css.stringify;

@@ -15,7 +15,7 @@ describe('Home', () => {
     data => {
       it('renders for logged in user', () => {
         const root = create(data.componentWithData({}));
-        expect(root).toMatchSnapshot(); 
+        expect(root).toMatchSnapshot();
       });
     }
   );
@@ -24,7 +24,7 @@ describe('Home', () => {
     'Logged Out',
     {
       componentWithData(user: Corpix.User) {
-        return <HomeView user={user} notification={null} />;
+        return <HomeView user={user} />;
       }
     },
     data => {
@@ -34,6 +34,4 @@ describe('Home', () => {
       });
     }
   );
-})
-
-
+});

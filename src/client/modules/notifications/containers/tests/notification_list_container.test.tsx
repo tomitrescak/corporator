@@ -1,7 +1,6 @@
 // dog.test.js
 import * as React from 'react';
 import { create, mock, MockedProvider, Yoga } from 'tests/client';
-
 import { NotificationsContainer, QUERY } from '../notification_list_container';
 
 // import wait from 'waait';
@@ -9,7 +8,7 @@ import { NotificationsContainer, QUERY } from '../notification_list_container';
 describe('Notifications', () => {
   storyOf(
     'Container',
-    { 
+    {
       componentWithData(notifications: Yoga.Notification[] = null) {
         if (!notifications) {
           mock.expect(QUERY).reply({

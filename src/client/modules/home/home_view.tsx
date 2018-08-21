@@ -25,10 +25,13 @@ export const HomeLayout: React.SFC<PageProps> = () => (
 
 type Props = {
   user?: Corpix.User;
-  notification: Yoga.Notification[];
 };
 
-export const HomeView: React.SFC<Props> = ({ user, notification }) => (
+export const HomeViewAuth = () => <div />;
+
+export const HomeViewAnonymous = () => <div />;
+
+export const HomeView: React.SFC<Props> = ({ user }) => (
   <>
     <Choose>
       <When condition={user != null}>
@@ -40,7 +43,7 @@ export const HomeView: React.SFC<Props> = ({ user, notification }) => (
           </Grid.Column>
 
           <Grid.Column width={5}>
-            <NotificationListView notifications={notification} />
+            <NotificationListView notifications={null} />
           </Grid.Column>
         </Grid>
       </When>
