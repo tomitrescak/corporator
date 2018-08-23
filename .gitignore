@@ -2,6 +2,7 @@
 
 # fuse
 /.fusebox
+/.cache
 
 # dependencies
 /node_modules

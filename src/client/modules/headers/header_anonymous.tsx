@@ -16,7 +16,7 @@ const TopMenu: StyledComponentClass<MenuProps, {}> = styled(Menu)`
     border-radius: 0px;
     background: inherit;
     box-shadow: inherit;
-    margin-bottom: 0px;
+    margin-bottom: 12px;
   }
 `;
 

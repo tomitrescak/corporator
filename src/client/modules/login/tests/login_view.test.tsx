@@ -1,11 +1,13 @@
 import * as React from 'react';
 
+import 'jest-styled-components';
+
 import { create } from 'react-test-renderer';
 import { LoginStore } from '../login_store';
 import { LoginView } from '../login_view';
 
 describe('Login', () => {
-  describe('default', () => {
+  describe('Default', () => {
     const store = LoginStore.create();
 
     const Login = <LoginView store={store} />;

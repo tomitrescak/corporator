@@ -1,5 +1,173 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Home Logged  renders for logged in user 1`] = `
+<div
+  className="sc-gZMcBi ibDgNx"
+>
+  <form
+    className="ui form"
+    onSubmit={[Function]}
+  >
+    <div
+      className="field"
+    >
+      <label>
+        User
+      </label>
+      <div
+        className="ui fluid icon input"
+      >
+        <input
+          autoComplete="username"
+          name="user"
+          onChange={[Function]}
+          placeholder="Your Staff ID"
+          type="text"
+          value=""
+        />
+        <i
+          aria-hidden="true"
+          className="user icon"
+        />
+      </div>
+    </div>
+    <div
+      className="field"
+    >
+      <label>
+        Password
+      </label>
+      <div
+        className="ui fluid icon input"
+      >
+        <input
+          autoComplete="current-password"
+          name="password"
+          onChange={[Function]}
+          placeholder="Your Password"
+          type="password"
+          value=""
+        />
+        <i
+          aria-hidden="true"
+          className="lock icon"
+        />
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "textAlign": "center",
+        }
+      }
+    >
+      <button
+        className="ui primary button sc-bZQynM fbWOyj"
+        onClick={[Function]}
+        role="button"
+      >
+        <i
+          aria-hidden="true"
+          className="thumbs up icon"
+        />
+        Login
+      </button>
+      <a
+        className="sc-gzVnrw iYODHq"
+        href="https://www.westernsydney.edu.au/information_technology_services/its/servicedesk/password_expiry_faq"
+        target="_blank"
+      >
+        Forgot Password?
+      </a>
+    </div>
+  </form>
+</div>
+`;
+
+exports[`Home Logged I renders for logged in user 1`] = `
+<div
+  className="sc-gZMcBi ibDgNx"
+>
+  <form
+    className="ui form"
+    onSubmit={[Function]}
+  >
+    <div
+      className="field"
+    >
+      <label>
+        User
+      </label>
+      <div
+        className="ui fluid icon input"
+      >
+        <input
+          autoComplete="username"
+          name="user"
+          onChange={[Function]}
+          placeholder="Your Staff ID"
+          type="text"
+          value=""
+        />
+        <i
+          aria-hidden="true"
+          className="user icon"
+        />
+      </div>
+    </div>
+    <div
+      className="field"
+    >
+      <label>
+        Password
+      </label>
+      <div
+        className="ui fluid icon input"
+      >
+        <input
+          autoComplete="current-password"
+          name="password"
+          onChange={[Function]}
+          placeholder="Your Password"
+          type="password"
+          value=""
+        />
+        <i
+          aria-hidden="true"
+          className="lock icon"
+        />
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "textAlign": "center",
+        }
+      }
+    >
+      <button
+        className="ui primary button sc-bZQynM fbWOyj"
+        onClick={[Function]}
+        role="button"
+      >
+        <i
+          aria-hidden="true"
+          className="thumbs up icon"
+        />
+        Login
+      </button>
+      <a
+        className="sc-gzVnrw iYODHq"
+        href="https://www.westernsydney.edu.au/information_technology_services/its/servicedesk/password_expiry_faq"
+        target="_blank"
+      >
+        Forgot Password?
+      </a>
+    </div>
+  </form>
+</div>
+`;
+
 exports[`Home Logged In renders for logged in user 1`] = `
 <div
   className="ui grid"
@@ -126,4 +294,424 @@ exports[`Home Logged In renders for logged in user 1`] = `
 </div>
 `;
 
+exports[`Home Logged O renders for logged in user 1`] = `
+<div
+  className="sc-gZMcBi ibDgNx"
+>
+  <form
+    className="ui form"
+    onSubmit={[Function]}
+  >
+    <div
+      className="field"
+    >
+      <label>
+        User
+      </label>
+      <div
+        className="ui fluid icon input"
+      >
+        <input
+          autoComplete="username"
+          name="user"
+          onChange={[Function]}
+          placeholder="Your Staff ID"
+          type="text"
+          value=""
+        />
+        <i
+          aria-hidden="true"
+          className="user icon"
+        />
+      </div>
+    </div>
+    <div
+      className="field"
+    >
+      <label>
+        Password
+      </label>
+      <div
+        className="ui fluid icon input"
+      >
+        <input
+          autoComplete="current-password"
+          name="password"
+          onChange={[Function]}
+          placeholder="Your Password"
+          type="password"
+          value=""
+        />
+        <i
+          aria-hidden="true"
+          className="lock icon"
+        />
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "textAlign": "center",
+        }
+      }
+    >
+      <button
+        className="ui primary button sc-bZQynM fbWOyj"
+        onClick={[Function]}
+        role="button"
+      >
+        <i
+          aria-hidden="true"
+          className="thumbs up icon"
+        />
+        Login
+      </button>
+      <a
+        className="sc-gzVnrw iYODHq"
+        href="https://www.westernsydney.edu.au/information_technology_services/its/servicedesk/password_expiry_faq"
+        target="_blank"
+      >
+        Forgot Password?
+      </a>
+    </div>
+  </form>
+</div>
+`;
+
+exports[`Home Logged Out renders for logged  user 1`] = `
+<div
+  className="sc-gZMcBi ibDgNx"
+>
+  <form
+    className="ui form"
+    onSubmit={[Function]}
+  >
+    <div
+      className="field"
+    >
+      <label>
+        User
+      </label>
+      <div
+        className="ui fluid icon input"
+      >
+        <input
+          autoComplete="username"
+          name="user"
+          onChange={[Function]}
+          placeholder="Your Staff ID"
+          type="text"
+          value=""
+        />
+        <i
+          aria-hidden="true"
+          className="user icon"
+        />
+      </div>
+    </div>
+    <div
+      className="field"
+    >
+      <label>
+        Password
+      </label>
+      <div
+        className="ui fluid icon input"
+      >
+        <input
+          autoComplete="current-password"
+          name="password"
+          onChange={[Function]}
+          placeholder="Your Password"
+          type="password"
+          value=""
+        />
+        <i
+          aria-hidden="true"
+          className="lock icon"
+        />
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "textAlign": "center",
+        }
+      }
+    >
+      <button
+        className="ui primary button sc-bZQynM fbWOyj"
+        onClick={[Function]}
+        role="button"
+      >
+        <i
+          aria-hidden="true"
+          className="thumbs up icon"
+        />
+        Login
+      </button>
+      <a
+        className="sc-gzVnrw iYODHq"
+        href="https://www.westernsydney.edu.au/information_technology_services/its/servicedesk/password_expiry_faq"
+        target="_blank"
+      >
+        Forgot Password?
+      </a>
+    </div>
+  </form>
+</div>
+`;
+
+exports[`Home Logged Out renders for logged i user 1`] = `
+<div
+  className="sc-gZMcBi ibDgNx"
+>
+  <form
+    className="ui form"
+    onSubmit={[Function]}
+  >
+    <div
+      className="field"
+    >
+      <label>
+        User
+      </label>
+      <div
+        className="ui fluid icon input"
+      >
+        <input
+          autoComplete="username"
+          name="user"
+          onChange={[Function]}
+          placeholder="Your Staff ID"
+          type="text"
+          value=""
+        />
+        <i
+          aria-hidden="true"
+          className="user icon"
+        />
+      </div>
+    </div>
+    <div
+      className="field"
+    >
+      <label>
+        Password
+      </label>
+      <div
+        className="ui fluid icon input"
+      >
+        <input
+          autoComplete="current-password"
+          name="password"
+          onChange={[Function]}
+          placeholder="Your Password"
+          type="password"
+          value=""
+        />
+        <i
+          aria-hidden="true"
+          className="lock icon"
+        />
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "textAlign": "center",
+        }
+      }
+    >
+      <button
+        className="ui primary button sc-bZQynM fbWOyj"
+        onClick={[Function]}
+        role="button"
+      >
+        <i
+          aria-hidden="true"
+          className="thumbs up icon"
+        />
+        Login
+      </button>
+      <a
+        className="sc-gzVnrw iYODHq"
+        href="https://www.westernsydney.edu.au/information_technology_services/its/servicedesk/password_expiry_faq"
+        target="_blank"
+      >
+        Forgot Password?
+      </a>
+    </div>
+  </form>
+</div>
+`;
+
+exports[`Home Logged Out renders for logged in user 1`] = `
+<div
+  className="sc-gZMcBi ibDgNx"
+>
+  <form
+    className="ui form"
+    onSubmit={[Function]}
+  >
+    <div
+      className="field"
+    >
+      <label>
+        User
+      </label>
+      <div
+        className="ui fluid icon input"
+      >
+        <input
+          autoComplete="username"
+          name="user"
+          onChange={[Function]}
+          placeholder="Your Staff ID"
+          type="text"
+          value=""
+        />
+        <i
+          aria-hidden="true"
+          className="user icon"
+        />
+      </div>
+    </div>
+    <div
+      className="field"
+    >
+      <label>
+        Password
+      </label>
+      <div
+        className="ui fluid icon input"
+      >
+        <input
+          autoComplete="current-password"
+          name="password"
+          onChange={[Function]}
+          placeholder="Your Password"
+          type="password"
+          value=""
+        />
+        <i
+          aria-hidden="true"
+          className="lock icon"
+        />
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "textAlign": "center",
+        }
+      }
+    >
+      <button
+        className="ui primary button sc-bZQynM fbWOyj"
+        onClick={[Function]}
+        role="button"
+      >
+        <i
+          aria-hidden="true"
+          className="thumbs up icon"
+        />
+        Login
+      </button>
+      <a
+        className="sc-gzVnrw iYODHq"
+        href="https://www.westernsydney.edu.au/information_technology_services/its/servicedesk/password_expiry_faq"
+        target="_blank"
+      >
+        Forgot Password?
+      </a>
+    </div>
+  </form>
+</div>
+`;
+
 exports[`Home Logged Out renders for logged out user 1`] = `"You need to login ...."`;
+
+exports[`Home Logged Out renders for logged out user 2`] = `
+<div
+  className="sc-gZMcBi ibDgNx"
+>
+  <form
+    className="ui form"
+    onSubmit={[Function]}
+  >
+    <div
+      className="field"
+    >
+      <label>
+        User
+      </label>
+      <div
+        className="ui fluid icon input"
+      >
+        <input
+          autoComplete="username"
+          name="user"
+          onChange={[Function]}
+          placeholder="Your Staff ID"
+          type="text"
+          value=""
+        />
+        <i
+          aria-hidden="true"
+          className="user icon"
+        />
+      </div>
+    </div>
+    <div
+      className="field"
+    >
+      <label>
+        Password
+      </label>
+      <div
+        className="ui fluid icon input"
+      >
+        <input
+          autoComplete="current-password"
+          name="password"
+          onChange={[Function]}
+          placeholder="Your Password"
+          type="password"
+          value=""
+        />
+        <i
+          aria-hidden="true"
+          className="lock icon"
+        />
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "textAlign": "center",
+        }
+      }
+    >
+      <button
+        className="ui primary button sc-bZQynM fbWOyj"
+        onClick={[Function]}
+        role="button"
+      >
+        <i
+          aria-hidden="true"
+          className="thumbs up icon"
+        />
+        Login
+      </button>
+      <a
+        className="sc-gzVnrw iYODHq"
+        href="https://www.westernsydney.edu.au/information_technology_services/its/servicedesk/password_expiry_faq"
+        target="_blank"
+      >
+        Forgot Password?
+      </a>
+    </div>
+  </form>
+</div>
+`;
