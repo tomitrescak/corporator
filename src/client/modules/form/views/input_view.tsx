@@ -20,7 +20,7 @@ export class InputView extends React.Component<FormControlProps> {
     const { source, controlProps } = formControl;
 
     return (
-      <>
+      <React.Fragment>
         <Input
           {...controlProps}
           name={source.name}
@@ -29,7 +29,7 @@ export class InputView extends React.Component<FormControlProps> {
         />
 
         <ErrorView owner={owner} source={source.name} />
-      </>
+      </React.Fragment>
     );
   }
 }

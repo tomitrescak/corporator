@@ -12,13 +12,13 @@ const VersionList: StyledComponentClass<ListProps, {}> = styled(List)`
 `;
 
 type Props = {
-  searchItems: any[]
-}
+  searchItems: any[];
+};
 
 let searchItem: any;
 let index: number;
 export const ProcessListView: React.SFC<Props> = ({ searchItems }) => (
-  <>
+  <React.Fragment>
     <Header icon="find" content="Search" subheader="Find process resources" />
     <Choose>
       <When condition={searchItems && searchItems.length > 0}>
@@ -32,5 +32,5 @@ export const ProcessListView: React.SFC<Props> = ({ searchItems }) => (
         <Message>There are no search results.</Message>
       </Otherwise>
     </Choose>
-  </>
+  </React.Fragment>
 );

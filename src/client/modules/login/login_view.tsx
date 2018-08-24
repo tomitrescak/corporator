@@ -20,6 +20,33 @@ const ForgotLink = styled.a`
   margin-top: 6px;
 `;
 
+export const LoginButton = () => {
+  let input;
+
+  return (
+    <Mutation mutation={ADD_TODO}>
+      {(addTodo, { data }) => (
+        <div>
+          <form
+            onSubmit={e => {
+              e.preventDefault();
+              addTodo({ variables: { type: input.value } });
+              input.value = '';
+            }}
+          >
+            <input
+              ref={node => {
+                input = node;
+              }}
+            />
+            <button type="submit">Add Todo</button>
+          </form>
+        </div>
+      )}
+    </Mutation>
+  );
+};
+
 export const LoginView = ({ store }: Props) => (
   <Form>
     <FormInput

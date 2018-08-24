@@ -1,5 +1,4 @@
 export const typeDefs = `type Query {
-  authenticate(username: String, password: String): String!
   user(id: ID!): User
   users: [User]!
   notifications(start: Int, end: Int): [Notification]!
@@ -7,6 +6,8 @@ export const typeDefs = `type Query {
 }
 
 type Mutation {
+  login(username: String, password: String): User
+  resume(token: String): User
   signup(name: String!): User!
   notify(userId: ID, processInstanceId: ID, code: NotificationCode, params: [String!]!): Notification!
 }

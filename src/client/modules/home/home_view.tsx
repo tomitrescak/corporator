@@ -57,7 +57,7 @@ export const HomeViewAnonymous = () => (
 );
 
 export const HomeView: React.SFC<Props> = ({ user }) => (
-  <>
+  <React.Fragment>
     <Choose>
       <When condition={user != null}>
         <Grid>
@@ -73,13 +73,13 @@ export const HomeView: React.SFC<Props> = ({ user }) => (
         </Grid>
       </When>
       <Otherwise>
-        <>
+        <React.Fragment>
           <HeaderAnonymous />
           <HomeViewAnonymous />
-        </>
+        </React.Fragment>
       </Otherwise>
     </Choose>
-  </>
+  </React.Fragment>
 );
 
 export const HomeContainer = inject('store')(observer(HomeView));

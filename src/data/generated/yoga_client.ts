@@ -3,7 +3,6 @@ import { GraphQLResolveInfo, GraphQLSchema } from 'graphql'
 import { IResolvers } from 'graphql-tools/dist/Interfaces'
 
 export interface Query {
-    authenticate: <T = String>(args: { username?: String, password?: String }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     user: <T = User | null>(args: { id: ID_Output }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     users: <T = User[]>(args?: {}, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     notifications: <T = Notification[]>(args: { start?: Int, end?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -11,6 +10,8 @@ export interface Query {
   }
 
 export interface Mutation {
+    login: <T = User | null>(args: { username?: String, password?: String }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    resume: <T = User | null>(args: { token?: String }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     signup: <T = User>(args: { name: String }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     notify: <T = Notification>(args: { userId?: ID_Output, processInstanceId?: ID_Output, code?: NotificationCode, params: String[] }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
   }
@@ -46,20 +47,13 @@ export type BpmnProcessInstanceStatus =   'Running' |
   'Aborted' |
   'Paused'
 
-export type DataOrderByInput =   'id_ASC' |
-  'id_DESC' |
-  'organisationId_ASC' |
-  'organisationId_DESC' |
-  'version_ASC' |
-  'version_DESC' |
-  'date_ASC' |
-  'date_DESC' |
-  'value_ASC' |
-  'value_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
-  'createdAt_ASC' |
-  'createdAt_DESC'
+export type DataType =   'Id' |
+  'Boolean' |
+  'Float' |
+  'Int' |
+  'String' |
+  'Date' |
+  'Object'
 
 export type FormElementOrderByInput =   'id_ASC' |
   'id_DESC' |
@@ -105,43 +99,6 @@ export type AccessConditionOrderByInput =   'organisationId_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export type LanguageCode =   'EN'
-
-export type DataType =   'Id' |
-  'Boolean' |
-  'Float' |
-  'Int' |
-  'String' |
-  'Date' |
-  'Object'
-
-export type FormControl =   'Input' |
-  'Select' |
-  'Checkbox' |
-  'Radio' |
-  'Textarea' |
-  'Repeater' |
-  'Table' |
-  'DeleteButton'
-
-export type ProcessStatus =   'Draft' |
-  'Proposal' |
-  'Published'
-
-export type ResourceType =   'Url' |
-  'File' |
-  'Form' |
-  'Report'
-
-export type ValidatorOrderByInput =   'id_ASC' |
-  'id_DESC' |
-  'name_ASC' |
-  'name_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
-  'createdAt_ASC' |
-  'createdAt_DESC'
-
 export type NotificationOrderByInput =   'id_ASC' |
   'id_DESC' |
   'date_ASC' |
@@ -155,6 +112,24 @@ export type NotificationOrderByInput =   'id_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
+export type FormControl =   'Input' |
+  'Select' |
+  'Checkbox' |
+  'Radio' |
+  'Textarea' |
+  'Repeater' |
+  'Table' |
+  'DeleteButton'
+
+export type ResourceType =   'Url' |
+  'File' |
+  'Form' |
+  'Report'
+
+export type ProcessStatus =   'Draft' |
+  'Proposal' |
+  'Published'
+
 export type ResourceOrderByInput =   'id_ASC' |
   'id_DESC' |
   'type_ASC' |
@@ -167,6 +142,32 @@ export type ResourceOrderByInput =   'id_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
   'createdAt_DESC'
+
+export type ValidatorOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'name_ASC' |
+  'name_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC'
+
+export type DataOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'organisationId_ASC' |
+  'organisationId_DESC' |
+  'version_ASC' |
+  'version_DESC' |
+  'date_ASC' |
+  'date_DESC' |
+  'value_ASC' |
+  'value_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC'
+
+export type LanguageCode =   'EN'
 
 export type DataDescriptorOrderByInput =   'id_ASC' |
   'id_DESC' |
@@ -502,63 +503,6 @@ export interface UserWhereInput {
   _MagicalBackRelation_BpmnTaskInstanceToUser_none?: BpmnTaskInstanceWhereInput
 }
 
-export interface AccessConditionWhereInput {
-  AND?: AccessConditionWhereInput[] | AccessConditionWhereInput
-  OR?: AccessConditionWhereInput[] | AccessConditionWhereInput
-  NOT?: AccessConditionWhereInput[] | AccessConditionWhereInput
-  organisationId?: ID_Input
-  organisationId_not?: ID_Input
-  organisationId_in?: ID_Input[] | ID_Input
-  organisationId_not_in?: ID_Input[] | ID_Input
-  organisationId_lt?: ID_Input
-  organisationId_lte?: ID_Input
-  organisationId_gt?: ID_Input
-  organisationId_gte?: ID_Input
-  organisationId_contains?: ID_Input
-  organisationId_not_contains?: ID_Input
-  organisationId_starts_with?: ID_Input
-  organisationId_not_starts_with?: ID_Input
-  organisationId_ends_with?: ID_Input
-  organisationId_not_ends_with?: ID_Input
-  roleId?: ID_Input
-  roleId_not?: ID_Input
-  roleId_in?: ID_Input[] | ID_Input
-  roleId_not_in?: ID_Input[] | ID_Input
-  roleId_lt?: ID_Input
-  roleId_lte?: ID_Input
-  roleId_gt?: ID_Input
-  roleId_gte?: ID_Input
-  roleId_contains?: ID_Input
-  roleId_not_contains?: ID_Input
-  roleId_starts_with?: ID_Input
-  roleId_not_starts_with?: ID_Input
-  roleId_ends_with?: ID_Input
-  roleId_not_ends_with?: ID_Input
-  userId?: ID_Input
-  userId_not?: ID_Input
-  userId_in?: ID_Input[] | ID_Input
-  userId_not_in?: ID_Input[] | ID_Input
-  userId_lt?: ID_Input
-  userId_lte?: ID_Input
-  userId_gt?: ID_Input
-  userId_gte?: ID_Input
-  userId_contains?: ID_Input
-  userId_not_contains?: ID_Input
-  userId_starts_with?: ID_Input
-  userId_not_starts_with?: ID_Input
-  userId_ends_with?: ID_Input
-  userId_not_ends_with?: ID_Input
-  _MagicalBackRelation_CanExecute_every?: AccessWhereInput
-  _MagicalBackRelation_CanExecute_some?: AccessWhereInput
-  _MagicalBackRelation_CanExecute_none?: AccessWhereInput
-  _MagicalBackRelation_CanWrite_every?: AccessWhereInput
-  _MagicalBackRelation_CanWrite_some?: AccessWhereInput
-  _MagicalBackRelation_CanWrite_none?: AccessWhereInput
-  _MagicalBackRelation_CanRead_every?: AccessWhereInput
-  _MagicalBackRelation_CanRead_some?: AccessWhereInput
-  _MagicalBackRelation_CanRead_none?: AccessWhereInput
-}
-
 export interface FormWhereInput {
   AND?: FormWhereInput[] | FormWhereInput
   OR?: FormWhereInput[] | FormWhereInput
@@ -655,61 +599,6 @@ export interface NotificationWhereInput {
   _MagicalBackRelation_UserNotifications_none?: UserWhereInput
 }
 
-export interface LocalisationWhereInput {
-  AND?: LocalisationWhereInput[] | LocalisationWhereInput
-  OR?: LocalisationWhereInput[] | LocalisationWhereInput
-  NOT?: LocalisationWhereInput[] | LocalisationWhereInput
-  id?: ID_Input
-  id_not?: ID_Input
-  id_in?: ID_Input[] | ID_Input
-  id_not_in?: ID_Input[] | ID_Input
-  id_lt?: ID_Input
-  id_lte?: ID_Input
-  id_gt?: ID_Input
-  id_gte?: ID_Input
-  id_contains?: ID_Input
-  id_not_contains?: ID_Input
-  id_starts_with?: ID_Input
-  id_not_starts_with?: ID_Input
-  id_ends_with?: ID_Input
-  id_not_ends_with?: ID_Input
-  code?: String
-  code_not?: String
-  code_in?: String[] | String
-  code_not_in?: String[] | String
-  code_lt?: String
-  code_lte?: String
-  code_gt?: String
-  code_gte?: String
-  code_contains?: String
-  code_not_contains?: String
-  code_starts_with?: String
-  code_not_starts_with?: String
-  code_ends_with?: String
-  code_not_ends_with?: String
-  text?: String
-  text_not?: String
-  text_in?: String[] | String
-  text_not_in?: String[] | String
-  text_lt?: String
-  text_lte?: String
-  text_gt?: String
-  text_gte?: String
-  text_contains?: String
-  text_not_contains?: String
-  text_starts_with?: String
-  text_not_starts_with?: String
-  text_ends_with?: String
-  text_not_ends_with?: String
-  language?: LanguageCode
-  language_not?: LanguageCode
-  language_in?: LanguageCode[] | LanguageCode
-  language_not_in?: LanguageCode[] | LanguageCode
-  _MagicalBackRelation_LocalisationToNotification_every?: NotificationWhereInput
-  _MagicalBackRelation_LocalisationToNotification_some?: NotificationWhereInput
-  _MagicalBackRelation_LocalisationToNotification_none?: NotificationWhereInput
-}
-
 export interface BpmnProcessInstanceWhereInput {
   AND?: BpmnProcessInstanceWhereInput[] | BpmnProcessInstanceWhereInput
   OR?: BpmnProcessInstanceWhereInput[] | BpmnProcessInstanceWhereInput
@@ -802,6 +691,170 @@ export interface BpmnProcessInstanceWhereInput {
   _MagicalBackRelation_BpmnProcessInstanceToNotification_every?: NotificationWhereInput
   _MagicalBackRelation_BpmnProcessInstanceToNotification_some?: NotificationWhereInput
   _MagicalBackRelation_BpmnProcessInstanceToNotification_none?: NotificationWhereInput
+}
+
+export interface LocalisationWhereInput {
+  AND?: LocalisationWhereInput[] | LocalisationWhereInput
+  OR?: LocalisationWhereInput[] | LocalisationWhereInput
+  NOT?: LocalisationWhereInput[] | LocalisationWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  code?: String
+  code_not?: String
+  code_in?: String[] | String
+  code_not_in?: String[] | String
+  code_lt?: String
+  code_lte?: String
+  code_gt?: String
+  code_gte?: String
+  code_contains?: String
+  code_not_contains?: String
+  code_starts_with?: String
+  code_not_starts_with?: String
+  code_ends_with?: String
+  code_not_ends_with?: String
+  text?: String
+  text_not?: String
+  text_in?: String[] | String
+  text_not_in?: String[] | String
+  text_lt?: String
+  text_lte?: String
+  text_gt?: String
+  text_gte?: String
+  text_contains?: String
+  text_not_contains?: String
+  text_starts_with?: String
+  text_not_starts_with?: String
+  text_ends_with?: String
+  text_not_ends_with?: String
+  language?: LanguageCode
+  language_not?: LanguageCode
+  language_in?: LanguageCode[] | LanguageCode
+  language_not_in?: LanguageCode[] | LanguageCode
+  _MagicalBackRelation_LocalisationToNotification_every?: NotificationWhereInput
+  _MagicalBackRelation_LocalisationToNotification_some?: NotificationWhereInput
+  _MagicalBackRelation_LocalisationToNotification_none?: NotificationWhereInput
+}
+
+export interface BpmnProcessWhereInput {
+  AND?: BpmnProcessWhereInput[] | BpmnProcessWhereInput
+  OR?: BpmnProcessWhereInput[] | BpmnProcessWhereInput
+  NOT?: BpmnProcessWhereInput[] | BpmnProcessWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  name?: String
+  name_not?: String
+  name_in?: String[] | String
+  name_not_in?: String[] | String
+  name_lt?: String
+  name_lte?: String
+  name_gt?: String
+  name_gte?: String
+  name_contains?: String
+  name_not_contains?: String
+  name_starts_with?: String
+  name_not_starts_with?: String
+  name_ends_with?: String
+  name_not_ends_with?: String
+  description?: String
+  description_not?: String
+  description_in?: String[] | String
+  description_not_in?: String[] | String
+  description_lt?: String
+  description_lte?: String
+  description_gt?: String
+  description_gte?: String
+  description_contains?: String
+  description_not_contains?: String
+  description_starts_with?: String
+  description_not_starts_with?: String
+  description_ends_with?: String
+  description_not_ends_with?: String
+  model?: String
+  model_not?: String
+  model_in?: String[] | String
+  model_not_in?: String[] | String
+  model_lt?: String
+  model_lte?: String
+  model_gt?: String
+  model_gte?: String
+  model_contains?: String
+  model_not_contains?: String
+  model_starts_with?: String
+  model_not_starts_with?: String
+  model_ends_with?: String
+  model_not_ends_with?: String
+  definition?: String
+  definition_not?: String
+  definition_in?: String[] | String
+  definition_not_in?: String[] | String
+  definition_lt?: String
+  definition_lte?: String
+  definition_gt?: String
+  definition_gte?: String
+  definition_contains?: String
+  definition_not_contains?: String
+  definition_starts_with?: String
+  definition_not_starts_with?: String
+  definition_ends_with?: String
+  definition_not_ends_with?: String
+  version?: Int
+  version_not?: Int
+  version_in?: Int[] | Int
+  version_not_in?: Int[] | Int
+  version_lt?: Int
+  version_lte?: Int
+  version_gt?: Int
+  version_gte?: Int
+  status?: ProcessStatus
+  status_not?: ProcessStatus
+  status_in?: ProcessStatus[] | ProcessStatus
+  status_not_in?: ProcessStatus[] | ProcessStatus
+  actionCount?: Int
+  actionCount_not?: Int
+  actionCount_in?: Int[] | Int
+  actionCount_not_in?: Int[] | Int
+  actionCount_lt?: Int
+  actionCount_lte?: Int
+  actionCount_gt?: Int
+  actionCount_gte?: Int
+  access?: AccessWhereInput
+  resources_every?: ResourceWhereInput
+  resources_some?: ResourceWhereInput
+  resources_none?: ResourceWhereInput
+  data_every?: DataDescriptorWhereInput
+  data_some?: DataDescriptorWhereInput
+  data_none?: DataDescriptorWhereInput
+  _MagicalBackRelation_BpmnProcessToBpmnTaskInstance_every?: BpmnTaskInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessToBpmnTaskInstance_some?: BpmnTaskInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessToBpmnTaskInstance_none?: BpmnTaskInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessToBpmnProcessInstance_every?: BpmnProcessInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessToBpmnProcessInstance_some?: BpmnProcessInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessToBpmnProcessInstance_none?: BpmnProcessInstanceWhereInput
 }
 
 export interface FormElementWhereInput {
@@ -976,171 +1029,6 @@ export interface ValidatorWhereInput {
   _MagicalBackRelation_DataDescriptorToValidator_none?: DataDescriptorWhereInput
 }
 
-export interface BpmnProcessWhereInput {
-  AND?: BpmnProcessWhereInput[] | BpmnProcessWhereInput
-  OR?: BpmnProcessWhereInput[] | BpmnProcessWhereInput
-  NOT?: BpmnProcessWhereInput[] | BpmnProcessWhereInput
-  id?: ID_Input
-  id_not?: ID_Input
-  id_in?: ID_Input[] | ID_Input
-  id_not_in?: ID_Input[] | ID_Input
-  id_lt?: ID_Input
-  id_lte?: ID_Input
-  id_gt?: ID_Input
-  id_gte?: ID_Input
-  id_contains?: ID_Input
-  id_not_contains?: ID_Input
-  id_starts_with?: ID_Input
-  id_not_starts_with?: ID_Input
-  id_ends_with?: ID_Input
-  id_not_ends_with?: ID_Input
-  name?: String
-  name_not?: String
-  name_in?: String[] | String
-  name_not_in?: String[] | String
-  name_lt?: String
-  name_lte?: String
-  name_gt?: String
-  name_gte?: String
-  name_contains?: String
-  name_not_contains?: String
-  name_starts_with?: String
-  name_not_starts_with?: String
-  name_ends_with?: String
-  name_not_ends_with?: String
-  description?: String
-  description_not?: String
-  description_in?: String[] | String
-  description_not_in?: String[] | String
-  description_lt?: String
-  description_lte?: String
-  description_gt?: String
-  description_gte?: String
-  description_contains?: String
-  description_not_contains?: String
-  description_starts_with?: String
-  description_not_starts_with?: String
-  description_ends_with?: String
-  description_not_ends_with?: String
-  model?: String
-  model_not?: String
-  model_in?: String[] | String
-  model_not_in?: String[] | String
-  model_lt?: String
-  model_lte?: String
-  model_gt?: String
-  model_gte?: String
-  model_contains?: String
-  model_not_contains?: String
-  model_starts_with?: String
-  model_not_starts_with?: String
-  model_ends_with?: String
-  model_not_ends_with?: String
-  definition?: String
-  definition_not?: String
-  definition_in?: String[] | String
-  definition_not_in?: String[] | String
-  definition_lt?: String
-  definition_lte?: String
-  definition_gt?: String
-  definition_gte?: String
-  definition_contains?: String
-  definition_not_contains?: String
-  definition_starts_with?: String
-  definition_not_starts_with?: String
-  definition_ends_with?: String
-  definition_not_ends_with?: String
-  version?: Int
-  version_not?: Int
-  version_in?: Int[] | Int
-  version_not_in?: Int[] | Int
-  version_lt?: Int
-  version_lte?: Int
-  version_gt?: Int
-  version_gte?: Int
-  status?: ProcessStatus
-  status_not?: ProcessStatus
-  status_in?: ProcessStatus[] | ProcessStatus
-  status_not_in?: ProcessStatus[] | ProcessStatus
-  actionCount?: Int
-  actionCount_not?: Int
-  actionCount_in?: Int[] | Int
-  actionCount_not_in?: Int[] | Int
-  actionCount_lt?: Int
-  actionCount_lte?: Int
-  actionCount_gt?: Int
-  actionCount_gte?: Int
-  access?: AccessWhereInput
-  resources_every?: ResourceWhereInput
-  resources_some?: ResourceWhereInput
-  resources_none?: ResourceWhereInput
-  data_every?: DataDescriptorWhereInput
-  data_some?: DataDescriptorWhereInput
-  data_none?: DataDescriptorWhereInput
-  _MagicalBackRelation_BpmnProcessToBpmnTaskInstance_every?: BpmnTaskInstanceWhereInput
-  _MagicalBackRelation_BpmnProcessToBpmnTaskInstance_some?: BpmnTaskInstanceWhereInput
-  _MagicalBackRelation_BpmnProcessToBpmnTaskInstance_none?: BpmnTaskInstanceWhereInput
-  _MagicalBackRelation_BpmnProcessToBpmnProcessInstance_every?: BpmnProcessInstanceWhereInput
-  _MagicalBackRelation_BpmnProcessToBpmnProcessInstance_some?: BpmnProcessInstanceWhereInput
-  _MagicalBackRelation_BpmnProcessToBpmnProcessInstance_none?: BpmnProcessInstanceWhereInput
-}
-
-export interface ResourceWhereInput {
-  AND?: ResourceWhereInput[] | ResourceWhereInput
-  OR?: ResourceWhereInput[] | ResourceWhereInput
-  NOT?: ResourceWhereInput[] | ResourceWhereInput
-  id?: ID_Input
-  id_not?: ID_Input
-  id_in?: ID_Input[] | ID_Input
-  id_not_in?: ID_Input[] | ID_Input
-  id_lt?: ID_Input
-  id_lte?: ID_Input
-  id_gt?: ID_Input
-  id_gte?: ID_Input
-  id_contains?: ID_Input
-  id_not_contains?: ID_Input
-  id_starts_with?: ID_Input
-  id_not_starts_with?: ID_Input
-  id_ends_with?: ID_Input
-  id_not_ends_with?: ID_Input
-  type?: ResourceType
-  type_not?: ResourceType
-  type_in?: ResourceType[] | ResourceType
-  type_not_in?: ResourceType[] | ResourceType
-  name?: String
-  name_not?: String
-  name_in?: String[] | String
-  name_not_in?: String[] | String
-  name_lt?: String
-  name_lte?: String
-  name_gt?: String
-  name_gte?: String
-  name_contains?: String
-  name_not_contains?: String
-  name_starts_with?: String
-  name_not_starts_with?: String
-  name_ends_with?: String
-  name_not_ends_with?: String
-  content?: String
-  content_not?: String
-  content_in?: String[] | String
-  content_not_in?: String[] | String
-  content_lt?: String
-  content_lte?: String
-  content_gt?: String
-  content_gte?: String
-  content_contains?: String
-  content_not_contains?: String
-  content_starts_with?: String
-  content_not_starts_with?: String
-  content_ends_with?: String
-  content_not_ends_with?: String
-  form?: FormWhereInput
-  _MagicalBackRelation_BpmnProcessResources_every?: BpmnProcessWhereInput
-  _MagicalBackRelation_BpmnProcessResources_some?: BpmnProcessWhereInput
-  _MagicalBackRelation_BpmnProcessResources_none?: BpmnProcessWhereInput
-}
-
 export interface AccessWhereInput {
   AND?: AccessWhereInput[] | AccessWhereInput
   OR?: AccessWhereInput[] | AccessWhereInput
@@ -1218,6 +1106,119 @@ export interface AccessWhereInput {
   _MagicalBackRelation_AccessToDataDescriptor_every?: DataDescriptorWhereInput
   _MagicalBackRelation_AccessToDataDescriptor_some?: DataDescriptorWhereInput
   _MagicalBackRelation_AccessToDataDescriptor_none?: DataDescriptorWhereInput
+}
+
+export interface ResourceWhereInput {
+  AND?: ResourceWhereInput[] | ResourceWhereInput
+  OR?: ResourceWhereInput[] | ResourceWhereInput
+  NOT?: ResourceWhereInput[] | ResourceWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  type?: ResourceType
+  type_not?: ResourceType
+  type_in?: ResourceType[] | ResourceType
+  type_not_in?: ResourceType[] | ResourceType
+  name?: String
+  name_not?: String
+  name_in?: String[] | String
+  name_not_in?: String[] | String
+  name_lt?: String
+  name_lte?: String
+  name_gt?: String
+  name_gte?: String
+  name_contains?: String
+  name_not_contains?: String
+  name_starts_with?: String
+  name_not_starts_with?: String
+  name_ends_with?: String
+  name_not_ends_with?: String
+  content?: String
+  content_not?: String
+  content_in?: String[] | String
+  content_not_in?: String[] | String
+  content_lt?: String
+  content_lte?: String
+  content_gt?: String
+  content_gte?: String
+  content_contains?: String
+  content_not_contains?: String
+  content_starts_with?: String
+  content_not_starts_with?: String
+  content_ends_with?: String
+  content_not_ends_with?: String
+  form?: FormWhereInput
+  _MagicalBackRelation_BpmnProcessResources_every?: BpmnProcessWhereInput
+  _MagicalBackRelation_BpmnProcessResources_some?: BpmnProcessWhereInput
+  _MagicalBackRelation_BpmnProcessResources_none?: BpmnProcessWhereInput
+}
+
+export interface AccessConditionWhereInput {
+  AND?: AccessConditionWhereInput[] | AccessConditionWhereInput
+  OR?: AccessConditionWhereInput[] | AccessConditionWhereInput
+  NOT?: AccessConditionWhereInput[] | AccessConditionWhereInput
+  organisationId?: ID_Input
+  organisationId_not?: ID_Input
+  organisationId_in?: ID_Input[] | ID_Input
+  organisationId_not_in?: ID_Input[] | ID_Input
+  organisationId_lt?: ID_Input
+  organisationId_lte?: ID_Input
+  organisationId_gt?: ID_Input
+  organisationId_gte?: ID_Input
+  organisationId_contains?: ID_Input
+  organisationId_not_contains?: ID_Input
+  organisationId_starts_with?: ID_Input
+  organisationId_not_starts_with?: ID_Input
+  organisationId_ends_with?: ID_Input
+  organisationId_not_ends_with?: ID_Input
+  roleId?: ID_Input
+  roleId_not?: ID_Input
+  roleId_in?: ID_Input[] | ID_Input
+  roleId_not_in?: ID_Input[] | ID_Input
+  roleId_lt?: ID_Input
+  roleId_lte?: ID_Input
+  roleId_gt?: ID_Input
+  roleId_gte?: ID_Input
+  roleId_contains?: ID_Input
+  roleId_not_contains?: ID_Input
+  roleId_starts_with?: ID_Input
+  roleId_not_starts_with?: ID_Input
+  roleId_ends_with?: ID_Input
+  roleId_not_ends_with?: ID_Input
+  userId?: ID_Input
+  userId_not?: ID_Input
+  userId_in?: ID_Input[] | ID_Input
+  userId_not_in?: ID_Input[] | ID_Input
+  userId_lt?: ID_Input
+  userId_lte?: ID_Input
+  userId_gt?: ID_Input
+  userId_gte?: ID_Input
+  userId_contains?: ID_Input
+  userId_not_contains?: ID_Input
+  userId_starts_with?: ID_Input
+  userId_not_starts_with?: ID_Input
+  userId_ends_with?: ID_Input
+  userId_not_ends_with?: ID_Input
+  _MagicalBackRelation_CanExecute_every?: AccessWhereInput
+  _MagicalBackRelation_CanExecute_some?: AccessWhereInput
+  _MagicalBackRelation_CanExecute_none?: AccessWhereInput
+  _MagicalBackRelation_CanWrite_every?: AccessWhereInput
+  _MagicalBackRelation_CanWrite_some?: AccessWhereInput
+  _MagicalBackRelation_CanWrite_none?: AccessWhereInput
+  _MagicalBackRelation_CanRead_every?: AccessWhereInput
+  _MagicalBackRelation_CanRead_some?: AccessWhereInput
+  _MagicalBackRelation_CanRead_none?: AccessWhereInput
 }
 
 /*
@@ -1310,12 +1311,6 @@ export interface Access extends Node {
   execute?: AccessCondition[]
 }
 
-export interface Organisation extends Node {
-  id: ID_Output
-  name: String
-  description?: String
-}
-
 export interface User extends Node {
   id: ID_Output
   name: String
@@ -1333,6 +1328,19 @@ export interface Data extends Node {
   version?: Int
   date?: DateTime
   value?: String
+}
+
+export interface BpmnTaskInstance extends Node {
+  id: ID_Output
+  processInstance?: BpmnProcess
+  taskId?: String
+  performer?: User
+  performerId?: String
+  performerRoles: String[]
+  dateStarted?: DateTime
+  dateFinished?: DateTime
+  duration?: Int
+  snapshot?: Json
 }
 
 export interface Validator extends Node {
@@ -1365,17 +1373,10 @@ export interface AccessCondition {
   userId?: ID_Output
 }
 
-export interface BpmnTaskInstance extends Node {
+export interface Organisation extends Node {
   id: ID_Output
-  processInstance?: BpmnProcess
-  taskId?: String
-  performer?: User
-  performerId?: String
-  performerRoles: String[]
-  dateStarted?: DateTime
-  dateFinished?: DateTime
-  duration?: Int
-  snapshot?: Json
+  name: String
+  description?: String
 }
 
 export interface Form extends Node {
@@ -1390,11 +1391,6 @@ export interface Form extends Node {
 The `Boolean` scalar type represents `true` or `false`.
 */
 export type Boolean = boolean
-
-/*
-The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
-*/
-export type String = string
 
 /*
 The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
@@ -1413,3 +1409,8 @@ Raw JSON value
 export type Json = any
 
 export type DateTime = Date | string
+
+/*
+The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
+*/
+export type String = string

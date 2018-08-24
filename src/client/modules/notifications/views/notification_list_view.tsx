@@ -5,7 +5,7 @@ import styled, { StyledComponentClass } from 'styled-components';
 import { Yoga } from 'data/yoga';
 import { NotificationView } from './notification_item_view';
 
-const NotificationList: StyledComponentClass<ListProps, {}> = styled(List)` 
+const NotificationList: StyledComponentClass<ListProps, {}> = styled(List)`
   &&&&& .item {
     line-height: inherit;
   }
@@ -18,7 +18,7 @@ type Props = {
 let notification: Yoga.Notification;
 
 export const NotificationListView: React.SFC<Props> = ({ notifications }) => (
-  <>
+  <React.Fragment>
     <Choose>
       <When condition={notifications && notifications.length > 0}>
         <Segment>
@@ -34,5 +34,5 @@ export const NotificationListView: React.SFC<Props> = ({ notifications }) => (
         <Message>You have no new notifications.</Message>
       </Otherwise>
     </Choose>
-  </>
+  </React.Fragment>
 );

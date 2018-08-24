@@ -4,7 +4,7 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "lib": ["esnext", "dom"],
-    "jsx": "react",
+    "jsx": "preserve",
     "noEmit": true,
     "skipDefaultLibCheck": true,
     "skipLibCheck": true,
@@ -20,8 +20,6 @@
     "experimentalDecorators": true,
     "typeRoots": ["src/typings", "node_modules/@types"]
   },
-  "include": [
-    "src/**/*"
-  ],
+  "include": ["src/**/*"],
   "exclude": ["src/data/generated/*", "node_modules", "**/node_modules/**"]
 }

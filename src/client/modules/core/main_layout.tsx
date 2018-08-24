@@ -65,7 +65,7 @@ const Top = () => (
 );
 
 export const MainLayout: React.SFC = ({ children }) => (
-  <>
+  <React.Fragment>
     <TopPanel>
       <Top />
 
@@ -84,11 +84,11 @@ export const MainLayout: React.SFC = ({ children }) => (
 
     {/* <Link to="/luis">Luis</Link> */}
     {/* <Route path="/" component={HomeView} /> */}
-  </>
+  </React.Fragment>
 );
 
 export const ProcessLayout: React.SFC = ({ children }) => (
-  <>
+  <React.Fragment>
     <TopPanel>
       <Top />
 
@@ -102,11 +102,11 @@ export const ProcessLayout: React.SFC = ({ children }) => (
 
     {/* <Link to="/luis">Luis</Link> */}
     {/* <Route path="/" component={HomeView} /> */}
-  </>
+  </React.Fragment>
 );
 
 export const ProcessVersionsLayout: React.SFC = ({ children }) => (
-  <>
+  <React.Fragment>
     <TopPanel>
       <Top />
 
@@ -120,5 +120,5 @@ export const ProcessVersionsLayout: React.SFC = ({ children }) => (
 
     {/* <Link to="/luis">Luis</Link> */}
     {/* <Route path="/" component={HomeView} /> */}
-  </>
+  </React.Fragment>
 );
