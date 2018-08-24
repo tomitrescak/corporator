@@ -5,7 +5,7 @@ import { Form, Input, InputProps } from 'semantic-ui-react';
 
 import { action, observable } from 'mobx';
 import { FormControlProps } from '../models/form_model';
-import { IFormStore } from '../models/form_store';
+import { IFormStore, IValidator } from '../models/form_store';
 import { ErrorLabel, ErrorView } from './error_view';
 
 @observer
@@ -34,36 +34,17 @@ export class InputView extends React.Component<FormControlProps> {
   }
 }
 
-type IValidator = (input: string) => string;
-
 interface InputBoundProps {
   name: string;
   owner: IFormStore;
   label: string;
-  validators?: IValidator[];
 }
 
 @observer
 export class FormInput extends React.Component<InputBoundProps & InputProps> {
-  @action
-  validate(value: string) {
-    this.props.owner.setError(this.props.name, '');
-
-    if (this.props.validators) {
-      for (let v of this.props.validators) {
-        let result = v(value);
-        if (result) {
-          this.props.owner.setError(this.props.name, result);
-          return;
-        }
-      }
-    }
-  }
-
   handleInputChange: React.ReactEventHandler<HTMLInputElement> = e => {
     // find value
     this.props.owner.setItem(this.props.name, e.currentTarget.value);
-    this.validate(e.currentTarget.value);
   };
 
   render() {

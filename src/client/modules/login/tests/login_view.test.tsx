@@ -2,17 +2,24 @@ import * as React from 'react';
 
 import 'jest-styled-components';
 
-import { create } from 'react-test-renderer';
-import { LoginStore } from '../login_store';
-import { LoginView } from '../login_view';
+import { AppStore } from 'client/stores/app_store';
+import { create, mock, MockedProvider } from 'tests/client';
+import { LoginButton, LoginView } from '../login_view';
 
-describe('Login', () => {
-  describe('Default', () => {
-    const store = LoginStore.create();
+import LOGIN_QUERY = require('data/client/login.mutation.graphql');
+import { Button } from 'semantic-ui-react';
 
-    const Login = <LoginView store={store} />;
+describe('Login', function() {
+  describe('Default', function() {
+    const store = AppStore.create();
 
-    it('renders', () => {
+    const Login = (
+      <MockedProvider>
+        <LoginView store={store} />
+      </MockedProvider>
+    );
+
+    it('renders', function() {
       const component = create(Login);
       expect(component).toMatchSnapshot();
     });

@@ -1,4 +1,4 @@
-query processes {
+query Processes {
   processes {
     id
     name

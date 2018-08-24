@@ -91,6 +91,210 @@ exports[`Login Default renders 1`] = `
 </form>
 `;
 
+exports[`Login Default renders: Ren 1`] = `
+<style>
+</style>
+
+<div>
+  wewerewr
+</div>
+`;
+
+exports[`Login Default renders: Renders 1`] = `
+<style>
+</style>
+
+<div>
+  wewerewr
+</div>
+`;
+
+exports[`Login Default renders: ren 1`] = `
+<style>
+.c0 {
+  margin: 'auto';
+}
+
+.c1 {
+  position: absolute !important;
+  right: 20px;
+  margin-top: 6px;
+}</style>
+
+<div>
+  <form
+    className="ui form"
+    onSubmit={[Function]}
+  >
+    <div
+      className="field"
+    >
+      <label>
+        User
+      </label>
+      <div
+        className="ui fluid icon input"
+      >
+        <input
+          autoComplete="username"
+          name="user"
+          onChange={[Function]}
+          placeholder="Your Staff ID"
+          type="text"
+          value=""
+        />
+        <i
+          aria-hidden="true"
+          className="user icon"
+        />
+      </div>
+    </div>
+    <div
+      className="field"
+    >
+      <label>
+        Password
+      </label>
+      <div
+        className="ui fluid icon input"
+      >
+        <input
+          autoComplete="current-password"
+          name="password"
+          onChange={[Function]}
+          placeholder="Your Password"
+          type="password"
+          value=""
+        />
+        <i
+          aria-hidden="true"
+          className="lock icon"
+        />
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "textAlign": "center",
+        }
+      }
+    >
+      <button
+        className="ui primary button c0"
+        onClick={[Function]}
+        role="button"
+      >
+        <i
+          aria-hidden="true"
+          className="thumbs up icon"
+        />
+        Login
+      </button>
+      <a
+        className="c1"
+        href="https://www.westernsydney.edu.au/information_technology_services/its/servicedesk/password_expiry_faq"
+        target="_blank"
+      >
+        Forgot Password?
+      </a>
+    </div>
+  </form>
+</div>
+`;
+
+exports[`Login Default renders: renders 1`] = `
+<style>
+.c0 {
+  margin: 'auto';
+}
+
+.c1 {
+  position: absolute !important;
+  right: 20px;
+  margin-top: 6px;
+}</style>
+
+<div>
+  <form
+    className="ui form"
+    onSubmit={[Function]}
+  >
+    <div
+      className="field"
+    >
+      <label>
+        User
+      </label>
+      <div
+        className="ui fluid icon input"
+      >
+        <input
+          autoComplete="username"
+          name="user"
+          onChange={[Function]}
+          placeholder="Your Staff ID"
+          type="text"
+          value=""
+        />
+        <i
+          aria-hidden="true"
+          className="user icon"
+        />
+      </div>
+    </div>
+    <div
+      className="field"
+    >
+      <label>
+        Password
+      </label>
+      <div
+        className="ui fluid icon input"
+      >
+        <input
+          autoComplete="current-password"
+          name="password"
+          onChange={[Function]}
+          placeholder="Your Password"
+          type="password"
+          value=""
+        />
+        <i
+          aria-hidden="true"
+          className="lock icon"
+        />
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "textAlign": "center",
+        }
+      }
+    >
+      <button
+        className="ui primary button c0"
+        onClick={[Function]}
+        role="button"
+      >
+        <i
+          aria-hidden="true"
+          className="thumbs up icon"
+        />
+        Login
+      </button>
+      <a
+        className="c1"
+        href="https://www.westernsydney.edu.au/information_technology_services/its/servicedesk/password_expiry_faq"
+        target="_blank"
+      >
+        Forgot Password?
+      </a>
+    </div>
+  </form>
+</div>
+`;
+
 exports[`Login Default validates 1`] = `
 <style>
 .c0 {
@@ -283,6 +487,44 @@ exports[`Login Default validates 2`] = `
     </a>
   </div>
 </form>
+`;
+
+exports[`Login LoginButton renders 1`] = `
+<style>
+.c0 {
+  margin: 'auto';
+}</style>
+
+<button
+  className="ui primary button c0"
+  onClick={[Function]}
+  role="button"
+>
+  <i
+    aria-hidden="true"
+    className="thumbs up icon"
+  />
+  Login
+</button>
+`;
+
+exports[`Login LoginButton renders loading 1`] = `
+<style>
+.c0 {
+  margin: 'auto';
+}</style>
+
+<button
+  className="ui loading primary button c0"
+  onClick={[Function]}
+  role="button"
+>
+  <i
+    aria-hidden="true"
+    className="thumbs up icon"
+  />
+  Login
+</button>
 `;
 
 exports[`Login default renders 1`] = `

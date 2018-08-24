@@ -9,7 +9,6 @@ import { PagerView } from '../core/pager_view';
 import { SortView } from '../core/sort_view';
 import { HeaderAnonymous } from '../headers/header_anonymous';
 import { LoginContainer } from '../login/login_container';
-import { NotificationsContainer } from '../notifications/containers/notification_list_container';
 import { NotificationListView } from '../notifications/views/notification_list_view';
 import { ProcessListView } from '../process/views/process_list_view';
 
@@ -34,7 +33,7 @@ export const HomeLayout: React.SFC<PageProps> = () => (
 );
 
 type Props = {
-  user?: Corpix.User;
+  store?: App.Store;
   path?: string;
 };
 
@@ -56,10 +55,10 @@ export const HomeViewAnonymous = () => (
   </Centered>
 );
 
-export const HomeView: React.SFC<Props> = ({ user }) => (
-  <React.Fragment>
+export const HomeView: React.SFC<Props> = ({ store }) => (
+  <>
     <Choose>
-      <When condition={user != null}>
+      <When condition={!!store.userId}>
         <Grid>
           <Grid.Column width={11}>
             <SortView />
@@ -73,13 +72,13 @@ export const HomeView: React.SFC<Props> = ({ user }) => (
         </Grid>
       </When>
       <Otherwise>
-        <React.Fragment>
+        <>
           <HeaderAnonymous />
           <HomeViewAnonymous />
-        </React.Fragment>
+        </>
       </Otherwise>
     </Choose>
-  </React.Fragment>
+  </>
 );
 
 export const HomeContainer = inject('store')(observer(HomeView));

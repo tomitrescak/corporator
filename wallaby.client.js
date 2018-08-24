@@ -8,7 +8,7 @@ module.exports = function(wallaby) {
       'test/*.js',
       'src/**/*.+(js|jsx|ts|tsx|json|snap|css|less|sass|scss|jpg|jpeg|gif|png|svg|graphql)',
       '!src/luis_app',
-      '!src/**/*.test.+(ts|tsx)',
+      '!src/**/*.test.+(ts|tsx)'
     ],
 
     tests: [
@@ -26,8 +26,7 @@ module.exports = function(wallaby) {
       regular: 1
     },
     preprocessors: {
-      'src/**/*.tsx': file =>
-        require('jsx-controls-loader').loader(file.content)
+      'src/**/*.tsx': file => require('jsx-controls-loader').loader(file.content)
     },
     testFramework: 'jest'
   };

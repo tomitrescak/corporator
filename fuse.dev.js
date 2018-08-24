@@ -1,4 +1,11 @@
-const { FuseBox, WebIndexPlugin, ImageBase64Plugin, JSONPlugin } = require('fuse-box');
+const {
+  FuseBox,
+  WebIndexPlugin,
+  ImageBase64Plugin,
+  JSONPlugin,
+  CSSPlugin,
+  CSSResourcePlugin
+} = require('fuse-box');
 const GraphQLPlugin = require('fuse-box-graphql-plugin');
 const JsxControlsPugin = require('jsx-controls-loader').fuseBoxPlugin;
 
@@ -10,11 +17,12 @@ const fuse = FuseBox.init({
   output: '.fusebox/dist/$name.js',
   plugins: [
     WebIndexPlugin({ template: 'src/client/index.html', target: 'index.html' }),
-    ['.graphql', GraphQLPlugin()],
     JsxControlsPugin,
+    [CSSResourcePlugin({ inline: true }), CSSPlugin()],
     ImageBase64Plugin(),
     JSONPlugin(),
-    SnapshotPlugin()
+    SnapshotPlugin(),
+    ['.graphql', GraphQLPlugin()]
   ],
   alias: {
     data: '~/data/',

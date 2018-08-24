@@ -5152,6 +5152,7 @@ type Subscription {
 
 type User implements Node {
   id: ID!
+  uid: String!
   name: String!
   roles: [String!]!
   description: String
@@ -5171,6 +5172,7 @@ type UserConnection {
 }
 
 input UserCreateInput {
+  uid: String!
   name: String!
   description: String
   password: String!
@@ -5200,6 +5202,8 @@ type UserEdge {
 enum UserOrderByInput {
   id_ASC
   id_DESC
+  uid_ASC
+  uid_DESC
   name_ASC
   name_DESC
   description_ASC
@@ -5214,6 +5218,7 @@ enum UserOrderByInput {
 
 type UserPreviousValues {
   id: ID!
+  uid: String!
   name: String!
   roles: [String!]!
   description: String
@@ -5260,6 +5265,7 @@ input UserSubscriptionWhereInput {
 }
 
 input UserUpdateDataInput {
+  uid: String
   name: String
   description: String
   password: String
@@ -5269,6 +5275,7 @@ input UserUpdateDataInput {
 }
 
 input UserUpdateInput {
+  uid: String
   name: String
   description: String
   password: String
@@ -5344,6 +5351,46 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  uid: String
+
+  """All values that are not equal to given value."""
+  uid_not: String
+
+  """All values that are contained in given list."""
+  uid_in: [String!]
+
+  """All values that are not contained in given list."""
+  uid_not_in: [String!]
+
+  """All values less than the given value."""
+  uid_lt: String
+
+  """All values less than or equal the given value."""
+  uid_lte: String
+
+  """All values greater than the given value."""
+  uid_gt: String
+
+  """All values greater than or equal the given value."""
+  uid_gte: String
+
+  """All values containing the given string."""
+  uid_contains: String
+
+  """All values not containing the given string."""
+  uid_not_contains: String
+
+  """All values starting with the given string."""
+  uid_starts_with: String
+
+  """All values not starting with the given string."""
+  uid_not_starts_with: String
+
+  """All values ending with the given string."""
+  uid_ends_with: String
+
+  """All values not ending with the given string."""
+  uid_not_ends_with: String
   name: String
 
   """All values that are not equal to given value."""
@@ -5477,6 +5524,7 @@ input UserWhereInput {
 
 input UserWhereUniqueInput {
   id: ID
+  uid: String
 }
 
 type Validator implements Node {
@@ -5845,6 +5893,8 @@ export type ResourceType =   'Url' |
 
 export type UserOrderByInput =   'id_ASC' |
   'id_DESC' |
+  'uid_ASC' |
+  'uid_DESC' |
   'name_ASC' |
   'name_DESC' |
   'description_ASC' |
@@ -6383,6 +6433,7 @@ export interface AccessSubscriptionWhereInput {
 }
 
 export interface UserUpdateDataInput {
+  uid?: String
   name?: String
   description?: String
   password?: String
@@ -6881,6 +6932,7 @@ export interface ValidatorUpdateOneInput {
 
 export interface UserWhereUniqueInput {
   id?: ID_Input
+  uid?: String
 }
 
 export interface DataDescriptorUpsertWithWhereUniqueNestedInput {
@@ -7048,6 +7100,7 @@ export interface AccessCreateInput {
 }
 
 export interface UserUpdateInput {
+  uid?: String
   name?: String
   description?: String
   password?: String
@@ -7438,6 +7491,7 @@ export interface LocalisationWhereUniqueInput {
 }
 
 export interface UserCreateInput {
+  uid: String
   name: String
   description?: String
   password: String
@@ -7845,6 +7899,20 @@ export interface UserWhereInput {
   id_not_starts_with?: ID_Input
   id_ends_with?: ID_Input
   id_not_ends_with?: ID_Input
+  uid?: String
+  uid_not?: String
+  uid_in?: String[] | String
+  uid_not_in?: String[] | String
+  uid_lt?: String
+  uid_lte?: String
+  uid_gt?: String
+  uid_gte?: String
+  uid_contains?: String
+  uid_not_contains?: String
+  uid_starts_with?: String
+  uid_not_starts_with?: String
+  uid_ends_with?: String
+  uid_not_ends_with?: String
   name?: String
   name_not?: String
   name_in?: String[] | String
@@ -8429,6 +8497,7 @@ export interface AggregateForm {
 
 export interface UserPreviousValues {
   id: ID_Output
+  uid: String
   name: String
   roles: String[]
   description?: String
@@ -8591,6 +8660,7 @@ export interface FormElementConnection {
 
 export interface User extends Node {
   id: ID_Output
+  uid: String
   name: String
   roles: String[]
   description?: String

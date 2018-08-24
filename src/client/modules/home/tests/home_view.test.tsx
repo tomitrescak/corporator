@@ -4,6 +4,7 @@ import { Provider } from 'mobx-react';
 import { create } from 'react-test-renderer';
 
 import { AppStore } from 'client/stores/app_store';
+import { MockedProvider } from 'tests/client';
 import { HomeView } from '../home_view';
 
 describe('Home', () => {
@@ -12,7 +13,9 @@ describe('Home', () => {
 
     return (
       <Provider store={store}>
-        <HomeView user={null} />
+        <MockedProvider>
+          <HomeView store={store} />
+        </MockedProvider>
       </Provider>
     );
   }
@@ -27,7 +30,6 @@ describe('Home', () => {
   });
 
   describe('Logged In', () => {
-    
     it('renders for logged in user', () => {
       const root = create(componentWithData());
       expect(root).toMatchSnapshot();

@@ -1,16 +1,21 @@
 import * as React from 'react';
-import { Button, Form, Segment } from 'semantic-ui-react';
 
-import styled from 'styled-components';
+import { Mutation, MutationResult, QueryResult } from 'react-apollo';
+import { Button, ButtonProps, Form } from 'semantic-ui-react';
+import styled, { StyledComponentClass } from 'styled-components';
+
 import { requiredValidator } from '../form/models/validation';
-import { FormInput, InputView } from '../form/views/input_view';
-import { LoginStore } from './login_store';
+import { FormInput } from '../form/views/input_view';
+
+import LOGIN_MUTATION = require('data/client/login.mutation.graphql');
+import { Yoga } from 'data/yoga';
+import { FirstArgument } from 'data/yoga/utils';
 
 interface Props {
-  store?: typeof LoginStore.Type;
+  store?: App.Store;
 }
 
-const CentredButton = styled(Button)`
+const CentredButton: StyledComponentClass<ButtonProps, {}> = styled(Button)`
   margin: 'auto';
 `;
 
@@ -20,65 +25,68 @@ const ForgotLink = styled.a`
   margin-top: 6px;
 `;
 
-export const LoginButton = () => {
-  let input;
+class LoginMutation extends Mutation<{ login: Yoga.AuthPayload }, { input: Yoga.AuthInput }> {}
 
+export const LoginButton = ({ store }: Props) => {
   return (
-    <Mutation mutation={ADD_TODO}>
-      {(addTodo, { data }) => (
-        <div>
-          <form
-            onSubmit={e => {
-              e.preventDefault();
-              addTodo({ variables: { type: input.value } });
-              input.value = '';
+    <LoginMutation mutation={LOGIN_MUTATION}>
+      {(login, { data, loading }) => {
+        if (data) {
+          store.setUser(data.login.user);
+        }
+
+        return (
+          <CentredButton
+            content="Login"
+            primary
+            loading={loading}
+            icon="thumbs up"
+            onClick={() => {
+              if (store.login.validate()) {
+                login({
+                  variables: { input: { user: store.login.user, password: store.login.password } }
+                });
+              }
             }}
-          >
-            <input
-              ref={node => {
-                input = node;
-              }}
-            />
-            <button type="submit">Add Todo</button>
-          </form>
-        </div>
-      )}
-    </Mutation>
+          />
+        );
+      }}
+    </LoginMutation>
   );
 };
 
-export const LoginView = ({ store }: Props) => (
-  <Form>
-    <FormInput
-      owner={store}
-      label="User"
-      name="user"
-      icon="user"
-      placeholder="Your Staff ID"
-      fluid
-      autoComplete="username"
-      validators={[requiredValidator]}
-    />
-    <FormInput
-      owner={store}
-      label="Password"
-      name="password"
-      icon="lock"
-      fluid
-      autoComplete="current-password"
-      type="password"
-      validators={[requiredValidator]}
-      placeholder="Your Password"
-    />
+export const LoginView = ({ store }: Props) => {
+  return (
+    <Form>
+      <FormInput
+        owner={store.login}
+        label="User"
+        name="user"
+        icon="user"
+        placeholder="Your Staff ID"
+        fluid
+        autoComplete="username"
+      />
+      <FormInput
+        owner={store.login}
+        label="Password"
+        name="password"
+        icon="lock"
+        fluid
+        autoComplete="current-password"
+        type="password"
+        placeholder="Your Password"
+      />
 
-    <div style={{ textAlign: 'center' }}>
-      <CentredButton content="Login" primary icon="thumbs up" />
-      <ForgotLink
-        href="https://www.westernsydney.edu.au/information_technology_services/its/servicedesk/password_expiry_faq"
-        target="_blank"
-      >
-        Forgot Password?
-      </ForgotLink>
-    </div>
-  </Form>
-);
+      <div style={{ textAlign: 'center' }}>
+        <LoginButton store={store} />
+        <ForgotLink
+          href="https://www.westernsydney.edu.au/information_technology_services/its/servicedesk/password_expiry_faq"
+          target="_blank"
+        >
+          Forgot Password?
+        </ForgotLink>
+      </div>
+    </Form>
+  );
+};

@@ -56,4 +56,3 @@ type BpmnTaskInstance {
   duration: Int
   snapshot: Json
 }
-

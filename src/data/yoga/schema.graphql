@@ -2,12 +2,23 @@
 #import Query.*, Mutation.* from './notifications.graphql'
 #import Query.* from './bpmn_process.graphql'
 
+type AuthPayload {
+  user: User!
+  token: String!
+}
+
+input AuthInput {
+  user: String
+  password: String
+}
+
 type Query {
-  authenticate(username: String, password: String): String!
   user(id: ID!): User
   users: [User]!
 }
 
 type Mutation {
-  signup(name: String!): User!
+  login(input: AuthInput!): AuthPayload!
+  signup(input: AuthInput!): AuthPayload!
+  resume(token: String!): AuthPayload!
 }

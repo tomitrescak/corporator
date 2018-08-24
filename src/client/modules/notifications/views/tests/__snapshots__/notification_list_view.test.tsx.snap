@@ -26,7 +26,7 @@ exports[`Notifications Item View renders some notifications 1`] = `
     </div>
   </h5>
   <div
-    className="ui divided list sc-bwzfXH MMmcJ"
+    className="ui divided list sc-bwzfXH flOgBY"
     role="list"
   >
     <div>

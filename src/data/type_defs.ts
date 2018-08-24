@@ -6,14 +6,25 @@ export const typeDefs = `type Query {
 }
 
 type Mutation {
-  login(username: String, password: String): User
-  resume(token: String): User
-  signup(name: String!): User!
+  login(input: AuthInput!): AuthPayload!
+  signup(input: AuthInput!): AuthPayload!
+  resume(token: String!): AuthPayload!
   notify(userId: ID, processInstanceId: ID, code: NotificationCode, params: [String!]!): Notification!
+}
+
+type AuthPayload {
+  user: User!
+  token: String!
+}
+
+input AuthInput {
+  user: String
+  password: String
 }
 
 type User implements Node {
   id: ID!
+  uid: String!
   name: String!
   roles: [String!]!
   description: String
@@ -2331,6 +2342,59 @@ input UserWhereInput {
   All values not ending with the given string.
   """
   id_not_ends_with: ID
+  uid: String
+  """
+  All values that are not equal to given value.
+  """
+  uid_not: String
+  """
+  All values that are contained in given list.
+  """
+  uid_in: [String!]
+  """
+  All values that are not contained in given list.
+  """
+  uid_not_in: [String!]
+  """
+  All values less than the given value.
+  """
+  uid_lt: String
+  """
+  All values less than or equal the given value.
+  """
+  uid_lte: String
+  """
+  All values greater than the given value.
+  """
+  uid_gt: String
+  """
+  All values greater than or equal the given value.
+  """
+  uid_gte: String
+  """
+  All values containing the given string.
+  """
+  uid_contains: String
+  """
+  All values not containing the given string.
+  """
+  uid_not_contains: String
+  """
+  All values starting with the given string.
+  """
+  uid_starts_with: String
+  """
+  All values not starting with the given string.
+  """
+  uid_not_starts_with: String
+  """
+  All values ending with the given string.
+  """
+  uid_ends_with: String
+  """
+  All values not ending with the given string.
+  """
+  uid_not_ends_with: String
   name: String
   """
   All values that are not equal to given value.
