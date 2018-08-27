@@ -4,7 +4,7 @@ import { importSchema } from 'graphql-import';
 import { GraphQLServer } from 'graphql-yoga';
 import { Prisma } from '../data/generated/prisma';
 
-import { resolvers } from 'data/yoga/resolvers';
+import { fixtures, resolvers } from 'data/yoga/resolvers';
 
 // opts for cors
 // const opts = {
@@ -26,7 +26,7 @@ const server = new GraphQLServer({
   // resolverValidationOptions: {
   //   requireResolversForResolveType: false
   // },
-  context: (req: any) => {
+  context: async (req: any) => {
     const result: any = {
       ...req,
       req: req.request,
@@ -36,6 +36,9 @@ const server = new GraphQLServer({
         // secret: 'my_secret123', // only needed if specified in `database/prisma.yml`
       })
     };
+
+    // load fixtures
+    await fixtures(result);
 
     // temporarily hard code user and language
     req.request.session.user = {

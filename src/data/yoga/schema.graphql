@@ -1,24 +1,12 @@
 #import User, Notification from '../generated/prisma.graphql'
 #import Query.*, Mutation.* from './notifications.graphql'
 #import Query.* from './bpmn_process.graphql'
-
-type AuthPayload {
-  user: User!
-  token: String!
-}
-
-input AuthInput {
-  user: String
-  password: String
-}
+#import Query.*, Mutation.* from './users.graphql'
 
 type Query {
-  user(id: ID!): User
-  users: [User]!
+  testQuery: Boolean
 }
 
 type Mutation {
-  login(input: AuthInput!): AuthPayload!
-  signup(input: AuthInput!): AuthPayload!
-  resume(token: String!): AuthPayload!
+  testMutation: Boolean
 }

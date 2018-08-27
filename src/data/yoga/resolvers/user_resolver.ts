@@ -1,4 +1,4 @@
-import { Mutation, Query, Resolver, User } from '../utils';
+import { Context, Mutation, Query, Resolver, User } from '../utils';
 
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
@@ -7,6 +7,27 @@ export const query: Query = {};
 
 if (!process.env.JWT_SECRET) {
   process.env.JWT_SECRET = 'QWERY%$#@!12345';
+}
+
+export async function fixtures(context: Context) {
+  const hasUsers = await context.db.exists.User();
+  if (!hasUsers) {
+    // tslint:disable-next-line:no-console
+    console.log('Fixtures users');
+
+    const password = await bcrypt.hash('1234567', 10);
+
+    context.db.mutation.createUser({
+      data: {
+        name: 'Tomas Trescak',
+        uid: '30031005',
+        roles: {
+          set: ['admin']
+        },
+        password
+      }
+    });
+  }
 }
 
 export const mutation: Mutation = {

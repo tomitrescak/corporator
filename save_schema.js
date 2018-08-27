@@ -14,6 +14,8 @@ yoga = yoga.replace(
   'export const Binding = makeBindingClass<BindingConstructor<Binding>>({ schema })\n',
   ''
 );
+
+// remove errors
 yoga = yoga.replace('new(...args): T', '// @ts-ignore\n  new(...args): T');
 fs.writeFileSync(path.resolve('./src/data/generated/yoga_client.ts'), yoga, { encoding: 'utf-8' });
 

@@ -1,15 +1,14 @@
 import * as React from 'react';
 
 import { Mutation, MutationResult, QueryResult } from 'react-apollo';
-import { Button, ButtonProps, Form } from 'semantic-ui-react';
+import { Button, ButtonProps, Form, Message } from 'semantic-ui-react';
 import styled, { StyledComponentClass } from 'styled-components';
 
-import { requiredValidator } from '../form/models/validation';
 import { FormInput } from '../form/views/input_view';
 
 import LOGIN_MUTATION = require('data/client/login.mutation.graphql');
 import { Yoga } from 'data/yoga';
-import { FirstArgument } from 'data/yoga/utils';
+import { observer } from 'mobx-react';
 
 interface Props {
   store?: App.Store;
@@ -27,14 +26,22 @@ const ForgotLink = styled.a`
 
 class LoginMutation extends Mutation<{ login: Yoga.AuthPayload }, { input: Yoga.AuthInput }> {}
 
+type ErrorViewProps = { owner: { error: string } };
+export const ErrorView: React.SFC<ErrorViewProps> = observer(({ owner }) => {
+  if (owner.error) {
+    return <Message negative content={owner.error} />;
+  }
+  return null;
+});
+
 export const LoginButton = ({ store }: Props) => {
   return (
-    <LoginMutation mutation={LOGIN_MUTATION}>
-      {(login, { data, loading }) => {
-        if (data) {
-          store.setUser(data.login.user);
-        }
-
+    <LoginMutation
+      mutation={LOGIN_MUTATION}
+      onError={() => store.login.setError(store.i18n`User or password is incorrect`)}
+      onCompleted={data => store.setUser(data.login.user)}
+    >
+      {(login, { loading }) => {
         return (
           <CentredButton
             content="Login"
@@ -58,6 +65,7 @@ export const LoginButton = ({ store }: Props) => {
 export const LoginView = ({ store }: Props) => {
   return (
     <Form>
+      <ErrorView owner={store.login} />
       <FormInput
         owner={store.login}
         label="User"

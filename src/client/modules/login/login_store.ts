@@ -6,7 +6,8 @@ export const LoginStore = FormStore.named('LoginStore')
   .props({
     view: types.optional(types.enumeration('Views', ['login', 'forgot']), 'login'),
     user: '',
-    password: ''
+    password: '',
+    error: ''
   })
   .volatile(self => ({
     validators: {
@@ -17,5 +18,8 @@ export const LoginStore = FormStore.named('LoginStore')
   .actions(self => ({
     setView(view: 'login' | 'forgot') {
       self.view = view;
+    },
+    setError(error: string) {
+      self.error = error;
     }
   }));

@@ -1,3 +1,4 @@
+import i18n from 'es2015-i18n-tag';
 import { types } from 'mobx-state-tree';
 
 import { Yoga } from 'data/yoga';
@@ -14,6 +15,9 @@ export const AppStore = types
     user: types.optional(UserStore, {}),
     login: types.optional(LoginStore, () => LoginStore.create({}))
   })
+  .volatile(self => ({
+    i18n
+  }))
   .actions(self => {
     return {
       setUser(user: Yoga.User) {

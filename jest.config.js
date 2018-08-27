@@ -7,7 +7,7 @@ module.exports = {
   },
   transform: {
     '^.+\\.tsx?$': './transformer.js',
-    '^.+\\.js$': 'babel-jest',
+    // '^.+\\.js$': 'babel-jest',
     '\\.(gql|graphql)$': 'jest-transform-graphql'
   },
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',

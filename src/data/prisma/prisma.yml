@@ -12,6 +12,6 @@ datamodel:
   - users.graphql
 hooks:
   post-deploy:
-    - graphql get-schema -p prisma
+    - graphql get-schema -p prisma --output schema.json --json
     - graphql codegen
     - node save_schema.js

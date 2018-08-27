@@ -1,0 +1,20 @@
+type AuthPayload {
+  user: User!
+  token: String!
+}
+
+input AuthInput {
+  user: String
+  password: String
+}
+
+type Query {
+  user(id: ID!): User
+  users: [User]!
+}
+
+type Mutation {
+  login(input: AuthInput!): AuthPayload!
+  signup(input: AuthInput!): AuthPayload!
+  resume(token: String!): AuthPayload!
+}

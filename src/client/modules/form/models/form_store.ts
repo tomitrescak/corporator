@@ -2,7 +2,7 @@ import { types } from 'mobx-state-tree';
 
 export type IValidator = (input: string) => string;
 
-export type IFormStore = typeof FormStore.Type & { [index: string]: string };
+export type IFormStore = typeof FormStore.Type;
 
 export const FormStore = types
   .model({
@@ -36,7 +36,7 @@ export const FormStore = types
       validate() {
         let valid = true;
         for (let key of Object.getOwnPropertyNames(self.validators)) {
-          valid = (self as IFormStore).validateField(key, (self as IFormStore)[key]) && valid;
+          valid = (self as IFormStore).validateField(key, (self as any)[key]) && valid;
         }
         return valid;
       },
@@ -54,23 +54,17 @@ export const FormStore = types
         }
       },
       setItem(item: string, value: string): void {
-        (self as IFormStore)[item] = value;
+        (self as any)[item] = value;
         (self as IFormStore).validateField(item, value);
       }
     };
   })
   .views(self => ({
     getItem(item: string): string {
-      return (self as IFormStore)[item];
+      return (self as any)[item];
     },
     getError(item: string): string {
       return self.errors.get(item);
-    },
-    get errorList() {
-      return self.errors.values();
-    },
-    get hasError() {
-      return self.errors.size > 0;
     }
   }));
 

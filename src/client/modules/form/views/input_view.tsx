@@ -3,9 +3,8 @@ import * as React from 'react';
 import { observer } from 'mobx-react';
 import { Form, Input, InputProps } from 'semantic-ui-react';
 
-import { action, observable } from 'mobx';
 import { FormControlProps } from '../models/form_model';
-import { IFormStore, IValidator } from '../models/form_store';
+import { IFormStore } from '../models/form_store';
 import { ErrorLabel, ErrorView } from './error_view';
 
 @observer
