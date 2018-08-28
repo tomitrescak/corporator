@@ -35,9 +35,9 @@ type Props = {
 @inject('store')
 @observer
 export class LogoutMenu extends React.Component<Props> {
-  logout() {
+  logout = () => {
     this.props.store.logout();
-  }
+  };
 
   onCompleted = (data: Yoga.AuthPayload | {}) => {
     this.props.store.setUser((data as Data).resume.user);

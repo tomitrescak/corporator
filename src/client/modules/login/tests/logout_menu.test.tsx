@@ -6,7 +6,7 @@ import { AppStore } from 'client/stores/app_store';
 import { create, mock, MockedProvider } from 'tests/client';
 
 import RESUME_MUTATION = require('data/client/resume_query.graphql');
-import { Menu } from 'semantic-ui-react';
+import { Dropdown, Menu } from 'semantic-ui-react';
 import { LogoutMenu, ResumeQuery } from '../logout_menu';
 
 describe('Logout', function() {
@@ -100,6 +100,20 @@ describe('Logout', function() {
       expect(store.user).toEqual(user);
 
       component.unmount();
+    });
+
+    it('logs out', () => {
+      mock
+        .expect(RESUME_MUTATION)
+        .reply({ resume: { user: { id: '2', name: 'Tomas Trescak' }, token: 'ABCD' } });
+
+      const store = AppStore.create({ userId: '1', user: { id: '1', name: 'Tomas' } });
+      const component = CreateLogoutMenu('1234', store);
+
+      component.root.findByProps({ icon: 'sign out' }).props.onClick();
+
+      expect(store.userId).not.toBeDefined();
+      expect(store.user).not.toBeDefined();
     });
 
     return {

@@ -1,5 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Logout Menu Button logs out 1`] = `
+<style>
+</style>
+
+<div
+  className="ui menu"
+/>
+`;
+
 exports[`Logout Menu Button renders and sets value 1`] = `
 <style>
 </style>
