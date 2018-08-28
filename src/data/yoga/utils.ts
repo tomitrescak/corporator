@@ -34,16 +34,17 @@ declare global {
 export interface Context {
   db: Prisma;
   request: any;
+  userId: string;
   session: {
-    user: User;
     language: LanguageCode;
   };
 }
 
 export type Resolver<T> = {
-  [index: string]: {  //  [U in keyof Partial<typeof Types>]: {
+  [index: string]: {
+    //  [U in keyof Partial<typeof Types>]: {
     [P in keyof Partial<T>]: (parent: T, args: any, ctx: Context, info: GraphQLResolveInfo) => any
-  }
+  };
 };
 
 export function getUserId(ctx: Context): string {

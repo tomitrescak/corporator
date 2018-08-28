@@ -27,8 +27,9 @@ export const AppStore = types
         self.user = user;
       },
       logout() {
-        self.userId = null;
-        self.user = null;
+        self.userId = undefined;
+        self.user = undefined;
+        self.client.resetStore();
         localStorage.removeItem('corpix.token');
       }
     };

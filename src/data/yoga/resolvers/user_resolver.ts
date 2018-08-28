@@ -6,7 +6,7 @@ import * as jwt from 'jsonwebtoken';
 export const query: Query = {};
 
 if (!process.env.JWT_SECRET) {
-  process.env.JWT_SECRET = 'QWERY%$#@!12345';
+  process.env.JWT_SECRET = 'QWERTY%$#@!12345';
 }
 
 export async function fixtures(context: Context) {
@@ -27,6 +27,20 @@ export async function fixtures(context: Context) {
         password
       }
     });
+  }
+}
+
+export function authenticate(context: ServerContext) {
+  const authHeader = context.request.headers.authorization;
+  if (!authHeader || !authHeader.match(/Bearer /)) {
+    return;
+  }
+  const token = authHeader.split(' ')[1];
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET) as any;
+    context.userId = decoded.userId;
+  } catch (ex) {
+    throw new Error('Invalid token');
   }
 }
 

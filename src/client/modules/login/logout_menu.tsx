@@ -26,7 +26,8 @@ export class LogoutMenu extends React.Component<Props> {
         .then(({ data: { resume: { user, token } } }) => {
           this.props.store.setUser(user);
           localStorage.setItem('corpix.token', token);
-        });
+        })
+        .catch(() => this.props.store.logout());
     }
   }
 

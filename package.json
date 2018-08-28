@@ -5,6 +5,7 @@
     "@reach/router": "^1.1.1",
     "apollo-cache-inmemory": "^1.2.6",
     "apollo-client": "^2.3.7",
+    "apollo-link-context": "^1.0.8",
     "apollo-link-http": "^1.5.4",
     "apollo-link-schema": "^1.1.0",
     "bpmn-js": "^2.5.0",

@@ -17,6 +17,7 @@
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
 import { ApolloLink } from 'apollo-link';
+import { setContext } from 'apollo-link-context';
 import { onError } from 'apollo-link-error';
 import { HttpLink } from 'apollo-link-http';
 
@@ -34,6 +35,17 @@ export const client = new ApolloClient({
         // tslint:disable-next-line:no-console
         console.log(`[Network error]: ${networkError}`);
       }
+    }),
+    setContext((_, { headers }) => {
+      // get the authentication token from local storage if it exists
+      const token = localStorage.getItem('corpix.token');
+      // return the headers to the context so httpLink can read them
+      return {
+        headers: {
+          ...headers,
+          authorization: token ? `Bearer ${token}` : ''
+        }
+      };
     }),
     new HttpLink({
       uri: 'http://localhost:4000',

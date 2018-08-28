@@ -5,6 +5,7 @@ import { GraphQLServer } from 'graphql-yoga';
 import { Prisma } from '../data/generated/prisma';
 
 import { fixtures, resolvers } from 'data/yoga/resolvers';
+import { authenticate } from 'data/yoga/resolvers/user_resolver';
 
 // opts for cors
 // const opts = {
@@ -31,38 +32,45 @@ const server = new GraphQLServer({
       ...req,
       req: req.request,
       db: new Prisma({
-        endpoint: 'http://localhost:4466',
-        debug: true
+        endpoint: 'http://localhost:4466'
+        // debug: true
         // secret: 'my_secret123', // only needed if specified in `database/prisma.yml`
-      })
+      }),
+      userId: null,
+      session: {
+        language: 'EN'
+      }
     };
+
+    // proceed with authentication
+    authenticate(result);
 
     // load fixtures
     await fixtures(result);
 
     // temporarily hard code user and language
-    req.request.session.user = {
-      id: '1'
-    };
-    req.request.session.language = 'EN';
+    // req.request.session.user = {
+    //   id: '1'
+    // };
+    // req.request.session.language = 'EN';
 
     return result;
   }
 });
 
 // use session to maintain logged in state
-server.express.use(
-  session({
-    name: 'qid',
-    secret: `My%123#random^secret`, // TODO: Move to env
-    resave: true,
-    saveUninitialized: true,
-    cookie: {
-      secure: process.env.NODE_ENV === 'production',
-      maxAge: 1 * 24 * 60 * 60 * 1000 // 1 day
-    }
-  })
-);
+// server.express.use(
+//   session({
+//     name: 'qid',
+//     secret: `My%123#random^secret`, // TODO: Move to env
+//     resave: true,
+//     saveUninitialized: true,
+//     cookie: {
+//       secure: process.env.NODE_ENV === 'production',
+//       maxAge: 1 * 24 * 60 * 60 * 1000 // 1 day
+//     }
+//   })
+// );
 
 // tslint:disable-next-line:no-console
 server.start(() => console.log('Server is running on http://localhost:4000'));
