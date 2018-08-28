@@ -3,10 +3,13 @@
 // import { Prisma as Types } from '../../prisma';
 export * from '../generated/prisma';
 
+export { Yoga } from '../yoga';
+
 import { GraphQLResolveInfo } from 'graphql';
 
 import { LanguageCode, Prisma, User } from '../generated/prisma';
 import { Mutation as PrismaMutation, Query as PrismaQuery } from '../generated/yoga';
+
 // import { Prisma, User } from '../../generated/prisma';
 
 export type FirstArgument<T> = T extends (arg1: infer U, ...args: any[]) => any ? U : any;

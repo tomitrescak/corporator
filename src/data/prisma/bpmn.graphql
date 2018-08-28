@@ -12,16 +12,17 @@ enum ProcessStatus {
 
 type BpmnProcess {
   id: ID! @unique
-  name: String!
-  description: String
   access: Access! @relation(name: "BpmnProcessAccess", onDelete: CASCADE)
-  model: String!
-  definition: String
-  resources: [Resource!]! @relation(name: "BpmnProcessResources", onDelete: CASCADE)
-  data: [DataDescriptor!]!
-  version: Int!
-  status: ProcessStatus!
   actionCount: Int!
+  data: [DataDescriptor!]!
+  definition: String
+  description: String
+  model: String!
+  name: String!
+  resources: [Resource!]! @relation(name: "BpmnProcessResources", onDelete: CASCADE)
+  status: ProcessStatus!
+  version: Int!
+  versions: [BpmnProcess!]! @relation(name: "BpmnProcessVersions", onDelete: CASCADE)
 }
 
 enum BpmnProcessInstanceStatus {
@@ -33,26 +34,28 @@ enum BpmnProcessInstanceStatus {
 
 type BpmnProcessInstance {
   id: ID! @unique
-  name: String!
+  comments: [Comment!]!
+  dateFinished: DateTime
+  dateStarted: DateTime
   description: String
+  duration: Int
+  name: String!
+  ownerId: ID
   process: BpmnProcess
   resources: Json
-  ownerId: ID
   status: BpmnProcessInstanceStatus
-  dateStarted: DateTime
-  dateFinished: DateTime
-  duration: Int
+  tasks: [BpmnTaskInstance!]! @relation(name: "BpmnProcessTasks", onDelete: CASCADE)
 }
 
 type BpmnTaskInstance {
   id: ID! @unique
-  processInstance: BpmnProcess
-  taskId: String
+  dateFinished: DateTime
+  dateStarted: DateTime
+  duration: Int
   performer: User
   performerId: String
   performerRoles: [String!]!
-  dateStarted: DateTime
-  dateFinished: DateTime
-  duration: Int
+  processInstance: BpmnProcess
   snapshot: Json
+  taskId: String
 }

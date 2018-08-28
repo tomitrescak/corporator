@@ -7,7 +7,7 @@ if (!process.env.JWT_SECRET) {
   process.env.JWT_SECRET = 'QWERTY%$#@!12345';
 }
 
-export async function fixtures(context: Context) {
+export async function fixtures(context: Context): string {
   const hasUsers = await context.db.exists.User();
   if (!hasUsers) {
     // tslint:disable-next-line:no-console
@@ -15,7 +15,7 @@ export async function fixtures(context: Context) {
 
     const password = await bcrypt.hash('1234567', 10);
 
-    context.db.mutation.createUser({
+    const user = await context.db.mutation.createUser({
       data: {
         name: 'Tomas Trescak',
         uid: '30031005',
@@ -25,7 +25,11 @@ export async function fixtures(context: Context) {
         password
       }
     });
+
+    return user.id;
   }
+
+  return null;
 }
 
 export function authenticate(context: ServerContext) {

@@ -57,13 +57,14 @@ export const HeaderAuthorised = () => (
     </TopMenu>
 
     <BottomMenu secondary borderless pointing color="grey">
-      <Menu.Item name="home" content="All" />
-      <Menu.Item name="messages" content="Running" />
+      <Menu.Item name="messages" content="Running" active={true} />
       <Menu.Item name="messages" content="Finished" />
-      <Menu.Item name="friends" content="Team" />
-      <Menu.Item name="friends" content="Recommended" active={true} />
-      <Menu.Item name="favourites" content="Favourites" icon="star" />
+      <Menu.Item name="home" content="All" />
       <Menu.Item name="statistics" content="Statistics" />
+      <Menu.Item as="a" icon="plus" name="home" content="Create" />
+      <Menu.Menu position="right">
+        <Menu.Item name="favourites" content="Favourites" icon="star" />
+      </Menu.Menu>
     </BottomMenu>
   </TopPanel>
 );

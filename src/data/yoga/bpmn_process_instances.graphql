@@ -1,0 +1,18 @@
+#import BpmnProcessInstance, BpmnProcessInstanceStatus from '../generated/prisma.graphql'
+
+# ========================================================= #
+#  Queries
+# ========================================================= # */
+
+input BpmnProcessInstancesInput {
+  status: ProcessStatus
+  name: String
+  dateStarted: DateTime
+  dateFinished: DateTime
+  duration: Int
+  processId: String
+}
+
+type Query {
+  bpmnProcesses(input: BpmnProcessInstancesInput!): [BpmnProcessInstance]!
+}

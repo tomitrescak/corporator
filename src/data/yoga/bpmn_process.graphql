@@ -1,5 +1,0 @@
-#import BpmnProcess from '../generated/prisma.graphql'
-
-type Query {
-  processes: [BpmnProcess]!
-}

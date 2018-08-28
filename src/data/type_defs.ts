@@ -1,7 +1,7 @@
 export const typeDefs = `type Query {
   testQuery: Boolean
-  notifications(start: Int, end: Int): [Notification]!
-  processes: [BpmnProcess]!
+  notifications(input: NotificationsInput): [NotificationsPayload]!
+  bpmnProcesses: [BpmnProcess]!
   user(id: ID!): User
   users: [User]!
   resume(token: String!): AuthPayload!
@@ -9,33 +9,36 @@ export const typeDefs = `type Query {
 
 type Mutation {
   testMutation: Boolean
-  notify(userId: ID, processInstanceId: ID, code: NotificationCode, params: [String!]!): Notification!
+  notify(input: NotifyInput): Notification!
   login(input: AuthInput!): AuthPayload!
   signup(input: AuthInput!): AuthPayload!
 }
 
-type Notification implements Node {
-  id: ID!
+type NotificationsPayload {
+  id: ID
   date: DateTime
-  processInstance(where: BpmnProcessInstanceWhereInput): BpmnProcessInstance
-  code: NotificationCode
-  text(where: LocalisationWhereInput): Localisation
-  params: [String!]!
+  text: String
+}
+
+input NotificationsInput {
   visible: Boolean
+  skip: Int
+  first: Int
 }
 
 type BpmnProcess implements Node {
   id: ID!
-  name: String!
-  description: String
   access(where: AccessWhereInput): Access!
-  model: String!
-  definition: String
-  resources(where: ResourceWhereInput, orderBy: ResourceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Resource!]
-  data(where: DataDescriptorWhereInput, orderBy: DataDescriptorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [DataDescriptor!]
-  version: Int!
-  status: ProcessStatus!
   actionCount: Int!
+  data(where: DataDescriptorWhereInput, orderBy: DataDescriptorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [DataDescriptor!]
+  definition: String
+  description: String
+  model: String!
+  name: String!
+  resources(where: ResourceWhereInput, orderBy: ResourceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Resource!]
+  status: ProcessStatus!
+  version: Int!
+  versions(where: BpmnProcessWhereInput, orderBy: BpmnProcessOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BpmnProcess!]
 }
 
 type User implements Node {
@@ -54,9 +57,21 @@ type AuthPayload {
   token: String!
 }
 
-enum NotificationCode {
-  ServiceStarted
-  ServiceStopped
+type Notification implements Node {
+  id: ID!
+  date: DateTime
+  processInstance(where: BpmnProcessInstanceWhereInput): BpmnProcessInstance
+  code: NotificationCode
+  text(where: LocalisationWhereInput): Localisation
+  params: [String!]!
+  visible: Boolean
+}
+
+input NotifyInput {
+  userId: ID
+  processInstanceId: ID
+  code: NotificationCode
+  params: [String!]!
 }
 
 input AuthInput {
@@ -78,15 +93,17 @@ scalar DateTime
 
 type BpmnProcessInstance implements Node {
   id: ID!
-  name: String!
+  comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
+  dateFinished: DateTime
+  dateStarted: DateTime
   description: String
+  duration: Int
+  name: String!
+  ownerId: ID
   process(where: BpmnProcessWhereInput): BpmnProcess
   resources: Json
-  ownerId: ID
   status: BpmnProcessInstanceStatus
-  dateStarted: DateTime
-  dateFinished: DateTime
-  duration: Int
+  tasks(where: BpmnTaskInstanceWhereInput, orderBy: BpmnTaskInstanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BpmnTaskInstance!]
 }
 
 input BpmnProcessInstanceWhereInput {
@@ -155,59 +172,64 @@ input BpmnProcessInstanceWhereInput {
   All values not ending with the given string.
   """
   id_not_ends_with: ID
-  name: String
+  dateFinished: DateTime
   """
   All values that are not equal to given value.
   """
-  name_not: String
+  dateFinished_not: DateTime
   """
   All values that are contained in given list.
   """
-  name_in: [String!]
+  dateFinished_in: [DateTime!]
   """
   All values that are not contained in given list.
   """
-  name_not_in: [String!]
+  dateFinished_not_in: [DateTime!]
   """
   All values less than the given value.
   """
-  name_lt: String
+  dateFinished_lt: DateTime
   """
   All values less than or equal the given value.
   """
-  name_lte: String
+  dateFinished_lte: DateTime
   """
   All values greater than the given value.
   """
-  name_gt: String
+  dateFinished_gt: DateTime
   """
   All values greater than or equal the given value.
   """
-  name_gte: String
+  dateFinished_gte: DateTime
+  dateStarted: DateTime
   """
-  All values containing the given string.
+  All values that are not equal to given value.
   """
-  name_contains: String
+  dateStarted_not: DateTime
   """
-  All values not containing the given string.
+  All values that are contained in given list.
   """
-  name_not_contains: String
+  dateStarted_in: [DateTime!]
   """
-  All values starting with the given string.
+  All values that are not contained in given list.
   """
-  name_starts_with: String
+  dateStarted_not_in: [DateTime!]
   """
-  All values not starting with the given string.
+  All values less than the given value.
   """
-  name_not_starts_with: String
+  dateStarted_lt: DateTime
   """
-  All values ending with the given string.
+  All values less than or equal the given value.
   """
-  name_ends_with: String
+  dateStarted_lte: DateTime
   """
-  All values not ending with the given string.
+  All values greater than the given value.
   """
-  name_not_ends_with: String
+  dateStarted_gt: DateTime
+  """
+  All values greater than or equal the given value.
+  """
+  dateStarted_gte: DateTime
   description: String
   """
   All values that are not equal to given value.
@@ -261,6 +283,88 @@ input BpmnProcessInstanceWhereInput {
   All values not ending with the given string.
   """
   description_not_ends_with: String
+  duration: Int
+  """
+  All values that are not equal to given value.
+  """
+  duration_not: Int
+  """
+  All values that are contained in given list.
+  """
+  duration_in: [Int!]
+  """
+  All values that are not contained in given list.
+  """
+  duration_not_in: [Int!]
+  """
+  All values less than the given value.
+  """
+  duration_lt: Int
+  """
+  All values less than or equal the given value.
+  """
+  duration_lte: Int
+  """
+  All values greater than the given value.
+  """
+  duration_gt: Int
+  """
+  All values greater than or equal the given value.
+  """
+  duration_gte: Int
+  name: String
+  """
+  All values that are not equal to given value.
+  """
+  name_not: String
+  """
+  All values that are contained in given list.
+  """
+  name_in: [String!]
+  """
+  All values that are not contained in given list.
+  """
+  name_not_in: [String!]
+  """
+  All values less than the given value.
+  """
+  name_lt: String
+  """
+  All values less than or equal the given value.
+  """
+  name_lte: String
+  """
+  All values greater than the given value.
+  """
+  name_gt: String
+  """
+  All values greater than or equal the given value.
+  """
+  name_gte: String
+  """
+  All values containing the given string.
+  """
+  name_contains: String
+  """
+  All values not containing the given string.
+  """
+  name_not_contains: String
+  """
+  All values starting with the given string.
+  """
+  name_starts_with: String
+  """
+  All values not starting with the given string.
+  """
+  name_not_starts_with: String
+  """
+  All values ending with the given string.
+  """
+  name_ends_with: String
+  """
+  All values not ending with the given string.
+  """
+  name_not_ends_with: String
   ownerId: ID
   """
   All values that are not equal to given value.
@@ -327,97 +431,25 @@ input BpmnProcessInstanceWhereInput {
   All values that are not contained in given list.
   """
   status_not_in: [BpmnProcessInstanceStatus!]
-  dateStarted: DateTime
-  """
-  All values that are not equal to given value.
-  """
-  dateStarted_not: DateTime
-  """
-  All values that are contained in given list.
-  """
-  dateStarted_in: [DateTime!]
-  """
-  All values that are not contained in given list.
-  """
-  dateStarted_not_in: [DateTime!]
-  """
-  All values less than the given value.
-  """
-  dateStarted_lt: DateTime
-  """
-  All values less than or equal the given value.
-  """
-  dateStarted_lte: DateTime
-  """
-  All values greater than the given value.
-  """
-  dateStarted_gt: DateTime
-  """
-  All values greater than or equal the given value.
-  """
-  dateStarted_gte: DateTime
-  dateFinished: DateTime
-  """
-  All values that are not equal to given value.
-  """
-  dateFinished_not: DateTime
-  """
-  All values that are contained in given list.
-  """
-  dateFinished_in: [DateTime!]
-  """
-  All values that are not contained in given list.
-  """
-  dateFinished_not_in: [DateTime!]
-  """
-  All values less than the given value.
-  """
-  dateFinished_lt: DateTime
-  """
-  All values less than or equal the given value.
-  """
-  dateFinished_lte: DateTime
-  """
-  All values greater than the given value.
-  """
-  dateFinished_gt: DateTime
-  """
-  All values greater than or equal the given value.
-  """
-  dateFinished_gte: DateTime
-  duration: Int
-  """
-  All values that are not equal to given value.
-  """
-  duration_not: Int
-  """
-  All values that are contained in given list.
-  """
-  duration_in: [Int!]
-  """
-  All values that are not contained in given list.
-  """
-  duration_not_in: [Int!]
-  """
-  All values less than the given value.
-  """
-  duration_lt: Int
-  """
-  All values less than or equal the given value.
-  """
-  duration_lte: Int
-  """
-  All values greater than the given value.
-  """
-  duration_gt: Int
-  """
-  All values greater than or equal the given value.
-  """
-  duration_gte: Int
+  comments_every: CommentWhereInput
+  comments_some: CommentWhereInput
+  comments_none: CommentWhereInput
   process: BpmnProcessWhereInput
+  tasks_every: BpmnTaskInstanceWhereInput
+  tasks_some: BpmnTaskInstanceWhereInput
+  tasks_none: BpmnTaskInstanceWhereInput
   _MagicalBackRelation_BpmnProcessInstanceToNotification_every: NotificationWhereInput
   _MagicalBackRelation_BpmnProcessInstanceToNotification_some: NotificationWhereInput
   _MagicalBackRelation_BpmnProcessInstanceToNotification_none: NotificationWhereInput
+}
+
+enum NotificationCode {
+  ProcessStarted
+  ProcessFinished
+  ProcessAborted
+  ActionStarted
+  ActionFinished
+  ActionRequired
 }
 
 type Localisation implements Node {
@@ -1272,220 +1304,6 @@ input AccessWhereInput {
   _MagicalBackRelation_AccessToDataDescriptor_none: DataDescriptorWhereInput
 }
 
-type Resource implements Node {
-  id: ID!
-  type: ResourceType!
-  name: String!
-  content: String!
-  form(where: FormWhereInput): Form
-}
-
-input ResourceWhereInput {
-  """
-  Logical AND on all given filters.
-  """
-  AND: [ResourceWhereInput!]
-  """
-  Logical OR on all given filters.
-  """
-  OR: [ResourceWhereInput!]
-  """
-  Logical NOT on all given filters combined by AND.
-  """
-  NOT: [ResourceWhereInput!]
-  id: ID
-  """
-  All values that are not equal to given value.
-  """
-  id_not: ID
-  """
-  All values that are contained in given list.
-  """
-  id_in: [ID!]
-  """
-  All values that are not contained in given list.
-  """
-  id_not_in: [ID!]
-  """
-  All values less than the given value.
-  """
-  id_lt: ID
-  """
-  All values less than or equal the given value.
-  """
-  id_lte: ID
-  """
-  All values greater than the given value.
-  """
-  id_gt: ID
-  """
-  All values greater than or equal the given value.
-  """
-  id_gte: ID
-  """
-  All values containing the given string.
-  """
-  id_contains: ID
-  """
-  All values not containing the given string.
-  """
-  id_not_contains: ID
-  """
-  All values starting with the given string.
-  """
-  id_starts_with: ID
-  """
-  All values not starting with the given string.
-  """
-  id_not_starts_with: ID
-  """
-  All values ending with the given string.
-  """
-  id_ends_with: ID
-  """
-  All values not ending with the given string.
-  """
-  id_not_ends_with: ID
-  type: ResourceType
-  """
-  All values that are not equal to given value.
-  """
-  type_not: ResourceType
-  """
-  All values that are contained in given list.
-  """
-  type_in: [ResourceType!]
-  """
-  All values that are not contained in given list.
-  """
-  type_not_in: [ResourceType!]
-  name: String
-  """
-  All values that are not equal to given value.
-  """
-  name_not: String
-  """
-  All values that are contained in given list.
-  """
-  name_in: [String!]
-  """
-  All values that are not contained in given list.
-  """
-  name_not_in: [String!]
-  """
-  All values less than the given value.
-  """
-  name_lt: String
-  """
-  All values less than or equal the given value.
-  """
-  name_lte: String
-  """
-  All values greater than the given value.
-  """
-  name_gt: String
-  """
-  All values greater than or equal the given value.
-  """
-  name_gte: String
-  """
-  All values containing the given string.
-  """
-  name_contains: String
-  """
-  All values not containing the given string.
-  """
-  name_not_contains: String
-  """
-  All values starting with the given string.
-  """
-  name_starts_with: String
-  """
-  All values not starting with the given string.
-  """
-  name_not_starts_with: String
-  """
-  All values ending with the given string.
-  """
-  name_ends_with: String
-  """
-  All values not ending with the given string.
-  """
-  name_not_ends_with: String
-  content: String
-  """
-  All values that are not equal to given value.
-  """
-  content_not: String
-  """
-  All values that are contained in given list.
-  """
-  content_in: [String!]
-  """
-  All values that are not contained in given list.
-  """
-  content_not_in: [String!]
-  """
-  All values less than the given value.
-  """
-  content_lt: String
-  """
-  All values less than or equal the given value.
-  """
-  content_lte: String
-  """
-  All values greater than the given value.
-  """
-  content_gt: String
-  """
-  All values greater than or equal the given value.
-  """
-  content_gte: String
-  """
-  All values containing the given string.
-  """
-  content_contains: String
-  """
-  All values not containing the given string.
-  """
-  content_not_contains: String
-  """
-  All values starting with the given string.
-  """
-  content_starts_with: String
-  """
-  All values not starting with the given string.
-  """
-  content_not_starts_with: String
-  """
-  All values ending with the given string.
-  """
-  content_ends_with: String
-  """
-  All values not ending with the given string.
-  """
-  content_not_ends_with: String
-  form: FormWhereInput
-  _MagicalBackRelation_BpmnProcessResources_every: BpmnProcessWhereInput
-  _MagicalBackRelation_BpmnProcessResources_some: BpmnProcessWhereInput
-  _MagicalBackRelation_BpmnProcessResources_none: BpmnProcessWhereInput
-}
-
-enum ResourceOrderByInput {
-  id_ASC
-  id_DESC
-  type_ASC
-  type_DESC
-  name_ASC
-  name_DESC
-  content_ASC
-  content_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
-}
-
 type DataDescriptor implements Node {
   id: ID!
   access(where: AccessWhereInput): Access
@@ -1835,67 +1653,224 @@ enum DataDescriptorOrderByInput {
   createdAt_DESC
 }
 
+type Resource implements Node {
+  id: ID!
+  type: ResourceType!
+  name: String!
+  content: String!
+  form(where: FormWhereInput): Form
+}
+
+input ResourceWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [ResourceWhereInput!]
+  """
+  Logical OR on all given filters.
+  """
+  OR: [ResourceWhereInput!]
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [ResourceWhereInput!]
+  id: ID
+  """
+  All values that are not equal to given value.
+  """
+  id_not: ID
+  """
+  All values that are contained in given list.
+  """
+  id_in: [ID!]
+  """
+  All values that are not contained in given list.
+  """
+  id_not_in: [ID!]
+  """
+  All values less than the given value.
+  """
+  id_lt: ID
+  """
+  All values less than or equal the given value.
+  """
+  id_lte: ID
+  """
+  All values greater than the given value.
+  """
+  id_gt: ID
+  """
+  All values greater than or equal the given value.
+  """
+  id_gte: ID
+  """
+  All values containing the given string.
+  """
+  id_contains: ID
+  """
+  All values not containing the given string.
+  """
+  id_not_contains: ID
+  """
+  All values starting with the given string.
+  """
+  id_starts_with: ID
+  """
+  All values not starting with the given string.
+  """
+  id_not_starts_with: ID
+  """
+  All values ending with the given string.
+  """
+  id_ends_with: ID
+  """
+  All values not ending with the given string.
+  """
+  id_not_ends_with: ID
+  type: ResourceType
+  """
+  All values that are not equal to given value.
+  """
+  type_not: ResourceType
+  """
+  All values that are contained in given list.
+  """
+  type_in: [ResourceType!]
+  """
+  All values that are not contained in given list.
+  """
+  type_not_in: [ResourceType!]
+  name: String
+  """
+  All values that are not equal to given value.
+  """
+  name_not: String
+  """
+  All values that are contained in given list.
+  """
+  name_in: [String!]
+  """
+  All values that are not contained in given list.
+  """
+  name_not_in: [String!]
+  """
+  All values less than the given value.
+  """
+  name_lt: String
+  """
+  All values less than or equal the given value.
+  """
+  name_lte: String
+  """
+  All values greater than the given value.
+  """
+  name_gt: String
+  """
+  All values greater than or equal the given value.
+  """
+  name_gte: String
+  """
+  All values containing the given string.
+  """
+  name_contains: String
+  """
+  All values not containing the given string.
+  """
+  name_not_contains: String
+  """
+  All values starting with the given string.
+  """
+  name_starts_with: String
+  """
+  All values not starting with the given string.
+  """
+  name_not_starts_with: String
+  """
+  All values ending with the given string.
+  """
+  name_ends_with: String
+  """
+  All values not ending with the given string.
+  """
+  name_not_ends_with: String
+  content: String
+  """
+  All values that are not equal to given value.
+  """
+  content_not: String
+  """
+  All values that are contained in given list.
+  """
+  content_in: [String!]
+  """
+  All values that are not contained in given list.
+  """
+  content_not_in: [String!]
+  """
+  All values less than the given value.
+  """
+  content_lt: String
+  """
+  All values less than or equal the given value.
+  """
+  content_lte: String
+  """
+  All values greater than the given value.
+  """
+  content_gt: String
+  """
+  All values greater than or equal the given value.
+  """
+  content_gte: String
+  """
+  All values containing the given string.
+  """
+  content_contains: String
+  """
+  All values not containing the given string.
+  """
+  content_not_contains: String
+  """
+  All values starting with the given string.
+  """
+  content_starts_with: String
+  """
+  All values not starting with the given string.
+  """
+  content_not_starts_with: String
+  """
+  All values ending with the given string.
+  """
+  content_ends_with: String
+  """
+  All values not ending with the given string.
+  """
+  content_not_ends_with: String
+  form: FormWhereInput
+  _MagicalBackRelation_BpmnProcessResources_every: BpmnProcessWhereInput
+  _MagicalBackRelation_BpmnProcessResources_some: BpmnProcessWhereInput
+  _MagicalBackRelation_BpmnProcessResources_none: BpmnProcessWhereInput
+}
+
+enum ResourceOrderByInput {
+  id_ASC
+  id_DESC
+  type_ASC
+  type_DESC
+  name_ASC
+  name_DESC
+  content_ASC
+  content_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
 enum ProcessStatus {
   Draft
   Proposal
   Published
-}
-
-type BpmnTaskInstance implements Node {
-  id: ID!
-  processInstance(where: BpmnProcessWhereInput): BpmnProcess
-  taskId: String
-  performer(where: UserWhereInput): User
-  performerId: String
-  performerRoles: [String!]!
-  dateStarted: DateTime
-  dateFinished: DateTime
-  duration: Int
-  snapshot: Json
-}
-
-type Form implements Node {
-  id: ID!
-  name: String!
-  description: String
-  elements(where: FormElementWhereInput, orderBy: FormElementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FormElement!]
-  validations(where: ValidatorWhereInput, orderBy: ValidatorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Validator!]
-}
-
-type FormElement implements Node {
-  id: ID!
-  row: Int
-  column: Int
-  width: Int
-  source(where: DataDescriptorWhereInput): DataDescriptor
-  label: String
-  inline: Boolean
-  defaultValue: String
-  list: String
-  filterSource: String
-  filterColumn: String
-  control: FormControl
-  controlProps: Json
-  vertical: Boolean
-  elements(where: FormElementWhereInput, orderBy: FormElementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FormElement!]
-}
-
-type Organisation implements Node {
-  id: ID!
-  name: String!
-  description: String
-}
-
-type Role implements Node {
-  id: ID!
-  name: String!
-  description: String
-}
-
-type Validator implements Node {
-  id: ID!
-  name: String!
-  params: [String!]!
 }
 
 input BpmnProcessWhereInput {
@@ -1964,59 +1939,88 @@ input BpmnProcessWhereInput {
   All values not ending with the given string.
   """
   id_not_ends_with: ID
-  name: String
+  actionCount: Int
   """
   All values that are not equal to given value.
   """
-  name_not: String
+  actionCount_not: Int
   """
   All values that are contained in given list.
   """
-  name_in: [String!]
+  actionCount_in: [Int!]
   """
   All values that are not contained in given list.
   """
-  name_not_in: [String!]
+  actionCount_not_in: [Int!]
   """
   All values less than the given value.
   """
-  name_lt: String
+  actionCount_lt: Int
   """
   All values less than or equal the given value.
   """
-  name_lte: String
+  actionCount_lte: Int
   """
   All values greater than the given value.
   """
-  name_gt: String
+  actionCount_gt: Int
   """
   All values greater than or equal the given value.
   """
-  name_gte: String
+  actionCount_gte: Int
+  definition: String
+  """
+  All values that are not equal to given value.
+  """
+  definition_not: String
+  """
+  All values that are contained in given list.
+  """
+  definition_in: [String!]
+  """
+  All values that are not contained in given list.
+  """
+  definition_not_in: [String!]
+  """
+  All values less than the given value.
+  """
+  definition_lt: String
+  """
+  All values less than or equal the given value.
+  """
+  definition_lte: String
+  """
+  All values greater than the given value.
+  """
+  definition_gt: String
+  """
+  All values greater than or equal the given value.
+  """
+  definition_gte: String
   """
   All values containing the given string.
   """
-  name_contains: String
+  definition_contains: String
   """
   All values not containing the given string.
   """
-  name_not_contains: String
+  definition_not_contains: String
   """
   All values starting with the given string.
   """
-  name_starts_with: String
+  definition_starts_with: String
   """
   All values not starting with the given string.
   """
-  name_not_starts_with: String
+  definition_not_starts_with: String
   """
   All values ending with the given string.
   """
-  name_ends_with: String
+  definition_ends_with: String
   """
   All values not ending with the given string.
   """
-  name_not_ends_with: String
+  definition_not_ends_with: String
   description: String
   """
   All values that are not equal to given value.
@@ -2123,59 +2127,72 @@ input BpmnProcessWhereInput {
   All values not ending with the given string.
   """
   model_not_ends_with: String
-  definition: String
+  name: String
   """
   All values that are not equal to given value.
   """
-  definition_not: String
+  name_not: String
   """
   All values that are contained in given list.
   """
-  definition_in: [String!]
+  name_in: [String!]
   """
   All values that are not contained in given list.
   """
-  definition_not_in: [String!]
+  name_not_in: [String!]
   """
   All values less than the given value.
   """
-  definition_lt: String
+  name_lt: String
   """
   All values less than or equal the given value.
   """
-  definition_lte: String
+  name_lte: String
   """
   All values greater than the given value.
   """
-  definition_gt: String
+  name_gt: String
   """
   All values greater than or equal the given value.
   """
-  definition_gte: String
+  name_gte: String
   """
   All values containing the given string.
   """
-  definition_contains: String
+  name_contains: String
   """
   All values not containing the given string.
   """
-  definition_not_contains: String
+  name_not_contains: String
   """
   All values starting with the given string.
   """
-  definition_starts_with: String
+  name_starts_with: String
   """
   All values not starting with the given string.
   """
-  definition_not_starts_with: String
+  name_not_starts_with: String
   """
   All values ending with the given string.
   """
-  definition_ends_with: String
+  name_ends_with: String
   """
   All values not ending with the given string.
   """
-  definition_not_ends_with: String
+  name_not_ends_with: String
+  status: ProcessStatus
+  """
+  All values that are not equal to given value.
+  """
+  status_not: ProcessStatus
+  """
+  All values that are contained in given list.
+  """
+  status_in: [ProcessStatus!]
+  """
+  All values that are not contained in given list.
+  """
+  status_not_in: [ProcessStatus!]
   version: Int
   """
   All values that are not equal to given value.
@@ -2205,61 +2222,281 @@ input BpmnProcessWhereInput {
   All values greater than or equal the given value.
   """
   version_gte: Int
-  status: ProcessStatus
-  """
-  All values that are not equal to given value.
-  """
-  status_not: ProcessStatus
-  """
-  All values that are contained in given list.
-  """
-  status_in: [ProcessStatus!]
-  """
-  All values that are not contained in given list.
-  """
-  status_not_in: [ProcessStatus!]
-  actionCount: Int
-  """
-  All values that are not equal to given value.
-  """
-  actionCount_not: Int
-  """
-  All values that are contained in given list.
-  """
-  actionCount_in: [Int!]
-  """
-  All values that are not contained in given list.
-  """
-  actionCount_not_in: [Int!]
-  """
-  All values less than the given value.
-  """
-  actionCount_lt: Int
-  """
-  All values less than or equal the given value.
-  """
-  actionCount_lte: Int
-  """
-  All values greater than the given value.
-  """
-  actionCount_gt: Int
-  """
-  All values greater than or equal the given value.
-  """
-  actionCount_gte: Int
   access: AccessWhereInput
-  resources_every: ResourceWhereInput
-  resources_some: ResourceWhereInput
-  resources_none: ResourceWhereInput
   data_every: DataDescriptorWhereInput
   data_some: DataDescriptorWhereInput
   data_none: DataDescriptorWhereInput
+  resources_every: ResourceWhereInput
+  resources_some: ResourceWhereInput
+  resources_none: ResourceWhereInput
+  versions_every: BpmnProcessWhereInput
+  versions_some: BpmnProcessWhereInput
+  versions_none: BpmnProcessWhereInput
   _MagicalBackRelation_BpmnProcessToBpmnTaskInstance_every: BpmnTaskInstanceWhereInput
   _MagicalBackRelation_BpmnProcessToBpmnTaskInstance_some: BpmnTaskInstanceWhereInput
   _MagicalBackRelation_BpmnProcessToBpmnTaskInstance_none: BpmnTaskInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessVersions_every: BpmnProcessWhereInput
+  _MagicalBackRelation_BpmnProcessVersions_some: BpmnProcessWhereInput
+  _MagicalBackRelation_BpmnProcessVersions_none: BpmnProcessWhereInput
   _MagicalBackRelation_BpmnProcessToBpmnProcessInstance_every: BpmnProcessInstanceWhereInput
   _MagicalBackRelation_BpmnProcessToBpmnProcessInstance_some: BpmnProcessInstanceWhereInput
   _MagicalBackRelation_BpmnProcessToBpmnProcessInstance_none: BpmnProcessInstanceWhereInput
+}
+
+enum BpmnProcessOrderByInput {
+  id_ASC
+  id_DESC
+  actionCount_ASC
+  actionCount_DESC
+  definition_ASC
+  definition_DESC
+  description_ASC
+  description_DESC
+  model_ASC
+  model_DESC
+  name_ASC
+  name_DESC
+  status_ASC
+  status_DESC
+  version_ASC
+  version_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type BpmnTaskInstance implements Node {
+  id: ID!
+  dateFinished: DateTime
+  dateStarted: DateTime
+  duration: Int
+  performer(where: UserWhereInput): User
+  performerId: String
+  performerRoles: [String!]!
+  processInstance(where: BpmnProcessWhereInput): BpmnProcess
+  snapshot: Json
+  taskId: String
+}
+
+type Form implements Node {
+  id: ID!
+  name: String!
+  description: String
+  elements(where: FormElementWhereInput, orderBy: FormElementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FormElement!]
+  validations(where: ValidatorWhereInput, orderBy: ValidatorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Validator!]
+}
+
+type FormElement implements Node {
+  id: ID!
+  row: Int
+  column: Int
+  width: Int
+  source(where: DataDescriptorWhereInput): DataDescriptor
+  label: String
+  inline: Boolean
+  defaultValue: String
+  list: String
+  filterSource: String
+  filterColumn: String
+  control: FormControl
+  controlProps: Json
+  vertical: Boolean
+  elements(where: FormElementWhereInput, orderBy: FormElementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FormElement!]
+}
+
+type Organisation implements Node {
+  id: ID!
+  name: String!
+  description: String
+}
+
+type Role implements Node {
+  id: ID!
+  name: String!
+  description: String
+}
+
+type Validator implements Node {
+  id: ID!
+  name: String!
+  params: [String!]!
+}
+
+type Comment {
+  text: String!
+  user(where: UserWhereInput): User!
+  date: DateTime!
+  replyTo: String
+}
+
+input CommentWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [CommentWhereInput!]
+  """
+  Logical OR on all given filters.
+  """
+  OR: [CommentWhereInput!]
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [CommentWhereInput!]
+  text: String
+  """
+  All values that are not equal to given value.
+  """
+  text_not: String
+  """
+  All values that are contained in given list.
+  """
+  text_in: [String!]
+  """
+  All values that are not contained in given list.
+  """
+  text_not_in: [String!]
+  """
+  All values less than the given value.
+  """
+  text_lt: String
+  """
+  All values less than or equal the given value.
+  """
+  text_lte: String
+  """
+  All values greater than the given value.
+  """
+  text_gt: String
+  """
+  All values greater than or equal the given value.
+  """
+  text_gte: String
+  """
+  All values containing the given string.
+  """
+  text_contains: String
+  """
+  All values not containing the given string.
+  """
+  text_not_contains: String
+  """
+  All values starting with the given string.
+  """
+  text_starts_with: String
+  """
+  All values not starting with the given string.
+  """
+  text_not_starts_with: String
+  """
+  All values ending with the given string.
+  """
+  text_ends_with: String
+  """
+  All values not ending with the given string.
+  """
+  text_not_ends_with: String
+  date: DateTime
+  """
+  All values that are not equal to given value.
+  """
+  date_not: DateTime
+  """
+  All values that are contained in given list.
+  """
+  date_in: [DateTime!]
+  """
+  All values that are not contained in given list.
+  """
+  date_not_in: [DateTime!]
+  """
+  All values less than the given value.
+  """
+  date_lt: DateTime
+  """
+  All values less than or equal the given value.
+  """
+  date_lte: DateTime
+  """
+  All values greater than the given value.
+  """
+  date_gt: DateTime
+  """
+  All values greater than or equal the given value.
+  """
+  date_gte: DateTime
+  replyTo: String
+  """
+  All values that are not equal to given value.
+  """
+  replyTo_not: String
+  """
+  All values that are contained in given list.
+  """
+  replyTo_in: [String!]
+  """
+  All values that are not contained in given list.
+  """
+  replyTo_not_in: [String!]
+  """
+  All values less than the given value.
+  """
+  replyTo_lt: String
+  """
+  All values less than or equal the given value.
+  """
+  replyTo_lte: String
+  """
+  All values greater than the given value.
+  """
+  replyTo_gt: String
+  """
+  All values greater than or equal the given value.
+  """
+  replyTo_gte: String
+  """
+  All values containing the given string.
+  """
+  replyTo_contains: String
+  """
+  All values not containing the given string.
+  """
+  replyTo_not_contains: String
+  """
+  All values starting with the given string.
+  """
+  replyTo_starts_with: String
+  """
+  All values not starting with the given string.
+  """
+  replyTo_not_starts_with: String
+  """
+  All values ending with the given string.
+  """
+  replyTo_ends_with: String
+  """
+  All values not ending with the given string.
+  """
+  replyTo_not_ends_with: String
+  user: UserWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceToComment_every: BpmnProcessInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceToComment_some: BpmnProcessInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceToComment_none: BpmnProcessInstanceWhereInput
+}
+
+enum CommentOrderByInput {
+  text_ASC
+  text_DESC
+  date_ASC
+  date_DESC
+  replyTo_ASC
+  replyTo_DESC
+  id_ASC
+  id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
 }
 
 """
@@ -2272,6 +2509,293 @@ enum BpmnProcessInstanceStatus {
   Finished
   Aborted
   Paused
+}
+
+input BpmnTaskInstanceWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [BpmnTaskInstanceWhereInput!]
+  """
+  Logical OR on all given filters.
+  """
+  OR: [BpmnTaskInstanceWhereInput!]
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [BpmnTaskInstanceWhereInput!]
+  id: ID
+  """
+  All values that are not equal to given value.
+  """
+  id_not: ID
+  """
+  All values that are contained in given list.
+  """
+  id_in: [ID!]
+  """
+  All values that are not contained in given list.
+  """
+  id_not_in: [ID!]
+  """
+  All values less than the given value.
+  """
+  id_lt: ID
+  """
+  All values less than or equal the given value.
+  """
+  id_lte: ID
+  """
+  All values greater than the given value.
+  """
+  id_gt: ID
+  """
+  All values greater than or equal the given value.
+  """
+  id_gte: ID
+  """
+  All values containing the given string.
+  """
+  id_contains: ID
+  """
+  All values not containing the given string.
+  """
+  id_not_contains: ID
+  """
+  All values starting with the given string.
+  """
+  id_starts_with: ID
+  """
+  All values not starting with the given string.
+  """
+  id_not_starts_with: ID
+  """
+  All values ending with the given string.
+  """
+  id_ends_with: ID
+  """
+  All values not ending with the given string.
+  """
+  id_not_ends_with: ID
+  dateFinished: DateTime
+  """
+  All values that are not equal to given value.
+  """
+  dateFinished_not: DateTime
+  """
+  All values that are contained in given list.
+  """
+  dateFinished_in: [DateTime!]
+  """
+  All values that are not contained in given list.
+  """
+  dateFinished_not_in: [DateTime!]
+  """
+  All values less than the given value.
+  """
+  dateFinished_lt: DateTime
+  """
+  All values less than or equal the given value.
+  """
+  dateFinished_lte: DateTime
+  """
+  All values greater than the given value.
+  """
+  dateFinished_gt: DateTime
+  """
+  All values greater than or equal the given value.
+  """
+  dateFinished_gte: DateTime
+  dateStarted: DateTime
+  """
+  All values that are not equal to given value.
+  """
+  dateStarted_not: DateTime
+  """
+  All values that are contained in given list.
+  """
+  dateStarted_in: [DateTime!]
+  """
+  All values that are not contained in given list.
+  """
+  dateStarted_not_in: [DateTime!]
+  """
+  All values less than the given value.
+  """
+  dateStarted_lt: DateTime
+  """
+  All values less than or equal the given value.
+  """
+  dateStarted_lte: DateTime
+  """
+  All values greater than the given value.
+  """
+  dateStarted_gt: DateTime
+  """
+  All values greater than or equal the given value.
+  """
+  dateStarted_gte: DateTime
+  duration: Int
+  """
+  All values that are not equal to given value.
+  """
+  duration_not: Int
+  """
+  All values that are contained in given list.
+  """
+  duration_in: [Int!]
+  """
+  All values that are not contained in given list.
+  """
+  duration_not_in: [Int!]
+  """
+  All values less than the given value.
+  """
+  duration_lt: Int
+  """
+  All values less than or equal the given value.
+  """
+  duration_lte: Int
+  """
+  All values greater than the given value.
+  """
+  duration_gt: Int
+  """
+  All values greater than or equal the given value.
+  """
+  duration_gte: Int
+  performerId: String
+  """
+  All values that are not equal to given value.
+  """
+  performerId_not: String
+  """
+  All values that are contained in given list.
+  """
+  performerId_in: [String!]
+  """
+  All values that are not contained in given list.
+  """
+  performerId_not_in: [String!]
+  """
+  All values less than the given value.
+  """
+  performerId_lt: String
+  """
+  All values less than or equal the given value.
+  """
+  performerId_lte: String
+  """
+  All values greater than the given value.
+  """
+  performerId_gt: String
+  """
+  All values greater than or equal the given value.
+  """
+  performerId_gte: String
+  """
+  All values containing the given string.
+  """
+  performerId_contains: String
+  """
+  All values not containing the given string.
+  """
+  performerId_not_contains: String
+  """
+  All values starting with the given string.
+  """
+  performerId_starts_with: String
+  """
+  All values not starting with the given string.
+  """
+  performerId_not_starts_with: String
+  """
+  All values ending with the given string.
+  """
+  performerId_ends_with: String
+  """
+  All values not ending with the given string.
+  """
+  performerId_not_ends_with: String
+  taskId: String
+  """
+  All values that are not equal to given value.
+  """
+  taskId_not: String
+  """
+  All values that are contained in given list.
+  """
+  taskId_in: [String!]
+  """
+  All values that are not contained in given list.
+  """
+  taskId_not_in: [String!]
+  """
+  All values less than the given value.
+  """
+  taskId_lt: String
+  """
+  All values less than or equal the given value.
+  """
+  taskId_lte: String
+  """
+  All values greater than the given value.
+  """
+  taskId_gt: String
+  """
+  All values greater than or equal the given value.
+  """
+  taskId_gte: String
+  """
+  All values containing the given string.
+  """
+  taskId_contains: String
+  """
+  All values not containing the given string.
+  """
+  taskId_not_contains: String
+  """
+  All values starting with the given string.
+  """
+  taskId_starts_with: String
+  """
+  All values not starting with the given string.
+  """
+  taskId_not_starts_with: String
+  """
+  All values ending with the given string.
+  """
+  taskId_ends_with: String
+  """
+  All values not ending with the given string.
+  """
+  taskId_not_ends_with: String
+  performer: UserWhereInput
+  processInstance: BpmnProcessWhereInput
+  _MagicalBackRelation_BpmnProcessTasks_every: BpmnProcessInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessTasks_some: BpmnProcessInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessTasks_none: BpmnProcessInstanceWhereInput
+}
+
+enum BpmnTaskInstanceOrderByInput {
+  id_ASC
+  id_DESC
+  dateFinished_ASC
+  dateFinished_DESC
+  dateStarted_ASC
+  dateStarted_DESC
+  duration_ASC
+  duration_DESC
+  performerId_ASC
+  performerId_DESC
+  snapshot_ASC
+  snapshot_DESC
+  taskId_ASC
+  taskId_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
 }
 
 enum LanguageCode {
@@ -2565,6 +3089,9 @@ input UserWhereInput {
   _MagicalBackRelation_BpmnTaskInstanceToUser_every: BpmnTaskInstanceWhereInput
   _MagicalBackRelation_BpmnTaskInstanceToUser_some: BpmnTaskInstanceWhereInput
   _MagicalBackRelation_BpmnTaskInstanceToUser_none: BpmnTaskInstanceWhereInput
+  _MagicalBackRelation_CommentToUser_every: CommentWhereInput
+  _MagicalBackRelation_CommentToUser_some: CommentWhereInput
+  _MagicalBackRelation_CommentToUser_none: CommentWhereInput
 }
 
 type AccessCondition {
@@ -2769,196 +3296,6 @@ enum AccessConditionOrderByInput {
   updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
-}
-
-enum ResourceType {
-  Url
-  File
-  Form
-  Report
-}
-
-input FormWhereInput {
-  """
-  Logical AND on all given filters.
-  """
-  AND: [FormWhereInput!]
-  """
-  Logical OR on all given filters.
-  """
-  OR: [FormWhereInput!]
-  """
-  Logical NOT on all given filters combined by AND.
-  """
-  NOT: [FormWhereInput!]
-  id: ID
-  """
-  All values that are not equal to given value.
-  """
-  id_not: ID
-  """
-  All values that are contained in given list.
-  """
-  id_in: [ID!]
-  """
-  All values that are not contained in given list.
-  """
-  id_not_in: [ID!]
-  """
-  All values less than the given value.
-  """
-  id_lt: ID
-  """
-  All values less than or equal the given value.
-  """
-  id_lte: ID
-  """
-  All values greater than the given value.
-  """
-  id_gt: ID
-  """
-  All values greater than or equal the given value.
-  """
-  id_gte: ID
-  """
-  All values containing the given string.
-  """
-  id_contains: ID
-  """
-  All values not containing the given string.
-  """
-  id_not_contains: ID
-  """
-  All values starting with the given string.
-  """
-  id_starts_with: ID
-  """
-  All values not starting with the given string.
-  """
-  id_not_starts_with: ID
-  """
-  All values ending with the given string.
-  """
-  id_ends_with: ID
-  """
-  All values not ending with the given string.
-  """
-  id_not_ends_with: ID
-  name: String
-  """
-  All values that are not equal to given value.
-  """
-  name_not: String
-  """
-  All values that are contained in given list.
-  """
-  name_in: [String!]
-  """
-  All values that are not contained in given list.
-  """
-  name_not_in: [String!]
-  """
-  All values less than the given value.
-  """
-  name_lt: String
-  """
-  All values less than or equal the given value.
-  """
-  name_lte: String
-  """
-  All values greater than the given value.
-  """
-  name_gt: String
-  """
-  All values greater than or equal the given value.
-  """
-  name_gte: String
-  """
-  All values containing the given string.
-  """
-  name_contains: String
-  """
-  All values not containing the given string.
-  """
-  name_not_contains: String
-  """
-  All values starting with the given string.
-  """
-  name_starts_with: String
-  """
-  All values not starting with the given string.
-  """
-  name_not_starts_with: String
-  """
-  All values ending with the given string.
-  """
-  name_ends_with: String
-  """
-  All values not ending with the given string.
-  """
-  name_not_ends_with: String
-  description: String
-  """
-  All values that are not equal to given value.
-  """
-  description_not: String
-  """
-  All values that are contained in given list.
-  """
-  description_in: [String!]
-  """
-  All values that are not contained in given list.
-  """
-  description_not_in: [String!]
-  """
-  All values less than the given value.
-  """
-  description_lt: String
-  """
-  All values less than or equal the given value.
-  """
-  description_lte: String
-  """
-  All values greater than the given value.
-  """
-  description_gt: String
-  """
-  All values greater than or equal the given value.
-  """
-  description_gte: String
-  """
-  All values containing the given string.
-  """
-  description_contains: String
-  """
-  All values not containing the given string.
-  """
-  description_not_contains: String
-  """
-  All values starting with the given string.
-  """
-  description_starts_with: String
-  """
-  All values not starting with the given string.
-  """
-  description_not_starts_with: String
-  """
-  All values ending with the given string.
-  """
-  description_ends_with: String
-  """
-  All values not ending with the given string.
-  """
-  description_not_ends_with: String
-  elements_every: FormElementWhereInput
-  elements_some: FormElementWhereInput
-  elements_none: FormElementWhereInput
-  validations_every: ValidatorWhereInput
-  validations_some: ValidatorWhereInput
-  validations_none: ValidatorWhereInput
-  _MagicalBackRelation_FormToResource_every: ResourceWhereInput
-  _MagicalBackRelation_FormToResource_some: ResourceWhereInput
-  _MagicalBackRelation_FormToResource_none: ResourceWhereInput
 }
 
 enum DataType {
@@ -3551,74 +3888,26 @@ input FormElementWhereInput {
   _MagicalBackRelation_FormElementToFormElement_none: FormElementWhereInput
 }
 
-enum FormElementOrderByInput {
-  id_ASC
-  id_DESC
-  row_ASC
-  row_DESC
-  column_ASC
-  column_DESC
-  width_ASC
-  width_DESC
-  label_ASC
-  label_DESC
-  inline_ASC
-  inline_DESC
-  defaultValue_ASC
-  defaultValue_DESC
-  list_ASC
-  list_DESC
-  filterSource_ASC
-  filterSource_DESC
-  filterColumn_ASC
-  filterColumn_DESC
-  control_ASC
-  control_DESC
-  controlProps_ASC
-  controlProps_DESC
-  vertical_ASC
-  vertical_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
+enum ResourceType {
+  Url
+  File
+  Form
+  Report
 }
 
-enum ValidatorOrderByInput {
-  id_ASC
-  id_DESC
-  name_ASC
-  name_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
-}
-
-enum FormControl {
-  Input
-  Select
-  Checkbox
-  Radio
-  Textarea
-  Repeater
-  Table
-  DeleteButton
-}
-
-input BpmnTaskInstanceWhereInput {
+input FormWhereInput {
   """
   Logical AND on all given filters.
   """
-  AND: [BpmnTaskInstanceWhereInput!]
+  AND: [FormWhereInput!]
   """
   Logical OR on all given filters.
   """
-  OR: [BpmnTaskInstanceWhereInput!]
+  OR: [FormWhereInput!]
   """
   Logical NOT on all given filters combined by AND.
   """
-  NOT: [BpmnTaskInstanceWhereInput!]
+  NOT: [FormWhereInput!]
   id: ID
   """
   All values that are not equal to given value.
@@ -3672,200 +3961,175 @@ input BpmnTaskInstanceWhereInput {
   All values not ending with the given string.
   """
   id_not_ends_with: ID
-  taskId: String
+  name: String
   """
   All values that are not equal to given value.
   """
-  taskId_not: String
+  name_not: String
   """
   All values that are contained in given list.
   """
-  taskId_in: [String!]
+  name_in: [String!]
   """
   All values that are not contained in given list.
   """
-  taskId_not_in: [String!]
+  name_not_in: [String!]
   """
   All values less than the given value.
   """
-  taskId_lt: String
+  name_lt: String
   """
   All values less than or equal the given value.
   """
-  taskId_lte: String
+  name_lte: String
   """
   All values greater than the given value.
   """
-  taskId_gt: String
+  name_gt: String
   """
   All values greater than or equal the given value.
   """
-  taskId_gte: String
+  name_gte: String
   """
   All values containing the given string.
   """
-  taskId_contains: String
+  name_contains: String
   """
   All values not containing the given string.
   """
-  taskId_not_contains: String
+  name_not_contains: String
   """
   All values starting with the given string.
   """
-  taskId_starts_with: String
+  name_starts_with: String
   """
   All values not starting with the given string.
   """
-  taskId_not_starts_with: String
+  name_not_starts_with: String
   """
   All values ending with the given string.
   """
-  taskId_ends_with: String
+  name_ends_with: String
   """
   All values not ending with the given string.
   """
-  taskId_not_ends_with: String
-  performerId: String
+  name_not_ends_with: String
+  description: String
   """
   All values that are not equal to given value.
   """
-  performerId_not: String
+  description_not: String
   """
   All values that are contained in given list.
   """
-  performerId_in: [String!]
+  description_in: [String!]
   """
   All values that are not contained in given list.
   """
-  performerId_not_in: [String!]
+  description_not_in: [String!]
   """
   All values less than the given value.
   """
-  performerId_lt: String
+  description_lt: String
   """
   All values less than or equal the given value.
   """
-  performerId_lte: String
+  description_lte: String
   """
   All values greater than the given value.
   """
-  performerId_gt: String
+  description_gt: String
   """
   All values greater than or equal the given value.
   """
-  performerId_gte: String
+  description_gte: String
   """
   All values containing the given string.
   """
-  performerId_contains: String
+  description_contains: String
   """
   All values not containing the given string.
   """
-  performerId_not_contains: String
+  description_not_contains: String
   """
   All values starting with the given string.
   """
-  performerId_starts_with: String
+  description_starts_with: String
   """
   All values not starting with the given string.
   """
-  performerId_not_starts_with: String
+  description_not_starts_with: String
   """
   All values ending with the given string.
   """
-  performerId_ends_with: String
+  description_ends_with: String
   """
   All values not ending with the given string.
   """
-  performerId_not_ends_with: String
-  dateStarted: DateTime
-  """
-  All values that are not equal to given value.
-  """
-  dateStarted_not: DateTime
-  """
-  All values that are contained in given list.
-  """
-  dateStarted_in: [DateTime!]
-  """
-  All values that are not contained in given list.
-  """
-  dateStarted_not_in: [DateTime!]
-  """
-  All values less than the given value.
-  """
-  dateStarted_lt: DateTime
-  """
-  All values less than or equal the given value.
-  """
-  dateStarted_lte: DateTime
-  """
-  All values greater than the given value.
-  """
-  dateStarted_gt: DateTime
-  """
-  All values greater than or equal the given value.
-  """
-  dateStarted_gte: DateTime
-  dateFinished: DateTime
-  """
-  All values that are not equal to given value.
-  """
-  dateFinished_not: DateTime
-  """
-  All values that are contained in given list.
-  """
-  dateFinished_in: [DateTime!]
-  """
-  All values that are not contained in given list.
-  """
-  dateFinished_not_in: [DateTime!]
-  """
-  All values less than the given value.
-  """
-  dateFinished_lt: DateTime
-  """
-  All values less than or equal the given value.
-  """
-  dateFinished_lte: DateTime
-  """
-  All values greater than the given value.
-  """
-  dateFinished_gt: DateTime
-  """
-  All values greater than or equal the given value.
-  """
-  dateFinished_gte: DateTime
-  duration: Int
-  """
-  All values that are not equal to given value.
-  """
-  duration_not: Int
-  """
-  All values that are contained in given list.
-  """
-  duration_in: [Int!]
-  """
-  All values that are not contained in given list.
-  """
-  duration_not_in: [Int!]
-  """
-  All values less than the given value.
-  """
-  duration_lt: Int
-  """
-  All values less than or equal the given value.
-  """
-  duration_lte: Int
-  """
-  All values greater than the given value.
-  """
-  duration_gt: Int
-  """
-  All values greater than or equal the given value.
-  """
-  duration_gte: Int
-  processInstance: BpmnProcessWhereInput
-  performer: UserWhereInput
+  description_not_ends_with: String
+  elements_every: FormElementWhereInput
+  elements_some: FormElementWhereInput
+  elements_none: FormElementWhereInput
+  validations_every: ValidatorWhereInput
+  validations_some: ValidatorWhereInput
+  validations_none: ValidatorWhereInput
+  _MagicalBackRelation_FormToResource_every: ResourceWhereInput
+  _MagicalBackRelation_FormToResource_some: ResourceWhereInput
+  _MagicalBackRelation_FormToResource_none: ResourceWhereInput
+}
+
+enum FormElementOrderByInput {
+  id_ASC
+  id_DESC
+  row_ASC
+  row_DESC
+  column_ASC
+  column_DESC
+  width_ASC
+  width_DESC
+  label_ASC
+  label_DESC
+  inline_ASC
+  inline_DESC
+  defaultValue_ASC
+  defaultValue_DESC
+  list_ASC
+  list_DESC
+  filterSource_ASC
+  filterSource_DESC
+  filterColumn_ASC
+  filterColumn_DESC
+  control_ASC
+  control_DESC
+  controlProps_ASC
+  controlProps_DESC
+  vertical_ASC
+  vertical_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+enum ValidatorOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+enum FormControl {
+  Input
+  Select
+  Checkbox
+  Radio
+  Textarea
+  Repeater
+  Table
+  DeleteButton
 }
 `

@@ -1,8 +1,13 @@
 #import BpmnProcessInstance from './bpmn_process_instances.graphql'
 
 enum NotificationCode {
-  ServiceStarted
-  ServiceStopped
+  ProcessStarted
+  ProcessFinished
+  ProcessAborted
+  ActionStarted
+  ActionFinished
+  ActionFinished
+  ActionRequired
 }
 
 type Notification {

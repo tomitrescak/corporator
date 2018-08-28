@@ -1,5 +1,5 @@
 # source: http://localhost:4466
-# timestamp: Fri Aug 24 2018 20:35:12 GMT+1000 (Australian Eastern Standard Time)
+# timestamp: Tue Aug 28 2018 19:50:22 GMT+1000 (Australian Eastern Standard Time)
 
 type Access implements Node {
   id: ID!
@@ -602,6 +602,10 @@ type AggregateBpmnTaskInstance {
   count: Int!
 }
 
+type AggregateComment {
+  count: Int!
+}
+
 type AggregateData {
   count: Int!
 }
@@ -653,16 +657,17 @@ type BatchPayload {
 
 type BpmnProcess implements Node {
   id: ID!
-  name: String!
-  description: String
   access(where: AccessWhereInput): Access!
-  model: String!
-  definition: String
-  resources(where: ResourceWhereInput, orderBy: ResourceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Resource!]
-  data(where: DataDescriptorWhereInput, orderBy: DataDescriptorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [DataDescriptor!]
-  version: Int!
-  status: ProcessStatus!
   actionCount: Int!
+  data(where: DataDescriptorWhereInput, orderBy: DataDescriptorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [DataDescriptor!]
+  definition: String
+  description: String
+  model: String!
+  name: String!
+  resources(where: ResourceWhereInput, orderBy: ResourceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Resource!]
+  status: ProcessStatus!
+  version: Int!
+  versions(where: BpmnProcessWhereInput, orderBy: BpmnProcessOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BpmnProcess!]
 }
 
 """A connection to a list of items."""
@@ -676,16 +681,22 @@ type BpmnProcessConnection {
 }
 
 input BpmnProcessCreateInput {
-  name: String!
+  actionCount: Int!
+  definition: String
   description: String
   model: String!
-  definition: String
-  version: Int!
+  name: String!
   status: ProcessStatus!
-  actionCount: Int!
+  version: Int!
   access: AccessCreateOneInput!
-  resources: ResourceCreateManyInput
   data: DataDescriptorCreateManyInput
+  resources: ResourceCreateManyInput
+  versions: BpmnProcessCreateManyInput
+}
+
+input BpmnProcessCreateManyInput {
+  create: [BpmnProcessCreateInput!]
+  connect: [BpmnProcessWhereUniqueInput!]
 }
 
 input BpmnProcessCreateOneInput {
@@ -704,15 +715,17 @@ type BpmnProcessEdge {
 
 type BpmnProcessInstance implements Node {
   id: ID!
-  name: String!
+  comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
+  dateFinished: DateTime
+  dateStarted: DateTime
   description: String
+  duration: Int
+  name: String!
+  ownerId: ID
   process(where: BpmnProcessWhereInput): BpmnProcess
   resources: Json
-  ownerId: ID
   status: BpmnProcessInstanceStatus
-  dateStarted: DateTime
-  dateFinished: DateTime
-  duration: Int
+  tasks(where: BpmnTaskInstanceWhereInput, orderBy: BpmnTaskInstanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BpmnTaskInstance!]
 }
 
 """A connection to a list of items."""
@@ -726,15 +739,17 @@ type BpmnProcessInstanceConnection {
 }
 
 input BpmnProcessInstanceCreateInput {
-  name: String!
-  description: String
-  resources: Json
-  ownerId: ID
-  status: BpmnProcessInstanceStatus
-  dateStarted: DateTime
   dateFinished: DateTime
+  dateStarted: DateTime
+  description: String
   duration: Int
+  name: String!
+  ownerId: ID
+  resources: Json
+  status: BpmnProcessInstanceStatus
+  comments: CommentCreateManyInput
   process: BpmnProcessCreateOneInput
+  tasks: BpmnTaskInstanceCreateManyInput
 }
 
 input BpmnProcessInstanceCreateOneInput {
@@ -754,22 +769,22 @@ type BpmnProcessInstanceEdge {
 enum BpmnProcessInstanceOrderByInput {
   id_ASC
   id_DESC
-  name_ASC
-  name_DESC
-  description_ASC
-  description_DESC
-  resources_ASC
-  resources_DESC
-  ownerId_ASC
-  ownerId_DESC
-  status_ASC
-  status_DESC
-  dateStarted_ASC
-  dateStarted_DESC
   dateFinished_ASC
   dateFinished_DESC
+  dateStarted_ASC
+  dateStarted_DESC
+  description_ASC
+  description_DESC
   duration_ASC
   duration_DESC
+  name_ASC
+  name_DESC
+  ownerId_ASC
+  ownerId_DESC
+  resources_ASC
+  resources_DESC
+  status_ASC
+  status_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -778,14 +793,14 @@ enum BpmnProcessInstanceOrderByInput {
 
 type BpmnProcessInstancePreviousValues {
   id: ID!
-  name: String!
-  description: String
-  resources: Json
-  ownerId: ID
-  status: BpmnProcessInstanceStatus
-  dateStarted: DateTime
   dateFinished: DateTime
+  dateStarted: DateTime
+  description: String
   duration: Int
+  name: String!
+  ownerId: ID
+  resources: Json
+  status: BpmnProcessInstanceStatus
 }
 
 enum BpmnProcessInstanceStatus {
@@ -835,27 +850,31 @@ input BpmnProcessInstanceSubscriptionWhereInput {
 }
 
 input BpmnProcessInstanceUpdateDataInput {
-  name: String
-  description: String
-  resources: Json
-  ownerId: ID
-  status: BpmnProcessInstanceStatus
-  dateStarted: DateTime
   dateFinished: DateTime
+  dateStarted: DateTime
+  description: String
   duration: Int
+  name: String
+  ownerId: ID
+  resources: Json
+  status: BpmnProcessInstanceStatus
+  comments: CommentUpdateManyInput
   process: BpmnProcessUpdateOneInput
+  tasks: BpmnTaskInstanceUpdateManyInput
 }
 
 input BpmnProcessInstanceUpdateInput {
-  name: String
-  description: String
-  resources: Json
-  ownerId: ID
-  status: BpmnProcessInstanceStatus
-  dateStarted: DateTime
   dateFinished: DateTime
+  dateStarted: DateTime
+  description: String
   duration: Int
+  name: String
+  ownerId: ID
+  resources: Json
+  status: BpmnProcessInstanceStatus
+  comments: CommentUpdateManyInput
   process: BpmnProcessUpdateOneInput
+  tasks: BpmnTaskInstanceUpdateManyInput
 }
 
 input BpmnProcessInstanceUpdateOneInput {
@@ -921,46 +940,50 @@ input BpmnProcessInstanceWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
-  name: String
+  dateFinished: DateTime
 
   """All values that are not equal to given value."""
-  name_not: String
+  dateFinished_not: DateTime
 
   """All values that are contained in given list."""
-  name_in: [String!]
+  dateFinished_in: [DateTime!]
 
   """All values that are not contained in given list."""
-  name_not_in: [String!]
+  dateFinished_not_in: [DateTime!]
 
   """All values less than the given value."""
-  name_lt: String
+  dateFinished_lt: DateTime
 
   """All values less than or equal the given value."""
-  name_lte: String
+  dateFinished_lte: DateTime
 
   """All values greater than the given value."""
-  name_gt: String
+  dateFinished_gt: DateTime
 
   """All values greater than or equal the given value."""
-  name_gte: String
+  dateFinished_gte: DateTime
+  dateStarted: DateTime
 
-  """All values containing the given string."""
-  name_contains: String
+  """All values that are not equal to given value."""
+  dateStarted_not: DateTime
 
-  """All values not containing the given string."""
-  name_not_contains: String
+  """All values that are contained in given list."""
+  dateStarted_in: [DateTime!]
 
-  """All values starting with the given string."""
-  name_starts_with: String
+  """All values that are not contained in given list."""
+  dateStarted_not_in: [DateTime!]
 
-  """All values not starting with the given string."""
-  name_not_starts_with: String
+  """All values less than the given value."""
+  dateStarted_lt: DateTime
 
-  """All values ending with the given string."""
-  name_ends_with: String
+  """All values less than or equal the given value."""
+  dateStarted_lte: DateTime
 
-  """All values not ending with the given string."""
-  name_not_ends_with: String
+  """All values greater than the given value."""
+  dateStarted_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  dateStarted_gte: DateTime
   description: String
 
   """All values that are not equal to given value."""
@@ -1001,6 +1024,68 @@ input BpmnProcessInstanceWhereInput {
 
   """All values not ending with the given string."""
   description_not_ends_with: String
+  duration: Int
+
+  """All values that are not equal to given value."""
+  duration_not: Int
+
+  """All values that are contained in given list."""
+  duration_in: [Int!]
+
+  """All values that are not contained in given list."""
+  duration_not_in: [Int!]
+
+  """All values less than the given value."""
+  duration_lt: Int
+
+  """All values less than or equal the given value."""
+  duration_lte: Int
+
+  """All values greater than the given value."""
+  duration_gt: Int
+
+  """All values greater than or equal the given value."""
+  duration_gte: Int
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
   ownerId: ID
 
   """All values that are not equal to given value."""
@@ -1051,73 +1136,13 @@ input BpmnProcessInstanceWhereInput {
 
   """All values that are not contained in given list."""
   status_not_in: [BpmnProcessInstanceStatus!]
-  dateStarted: DateTime
-
-  """All values that are not equal to given value."""
-  dateStarted_not: DateTime
-
-  """All values that are contained in given list."""
-  dateStarted_in: [DateTime!]
-
-  """All values that are not contained in given list."""
-  dateStarted_not_in: [DateTime!]
-
-  """All values less than the given value."""
-  dateStarted_lt: DateTime
-
-  """All values less than or equal the given value."""
-  dateStarted_lte: DateTime
-
-  """All values greater than the given value."""
-  dateStarted_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  dateStarted_gte: DateTime
-  dateFinished: DateTime
-
-  """All values that are not equal to given value."""
-  dateFinished_not: DateTime
-
-  """All values that are contained in given list."""
-  dateFinished_in: [DateTime!]
-
-  """All values that are not contained in given list."""
-  dateFinished_not_in: [DateTime!]
-
-  """All values less than the given value."""
-  dateFinished_lt: DateTime
-
-  """All values less than or equal the given value."""
-  dateFinished_lte: DateTime
-
-  """All values greater than the given value."""
-  dateFinished_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  dateFinished_gte: DateTime
-  duration: Int
-
-  """All values that are not equal to given value."""
-  duration_not: Int
-
-  """All values that are contained in given list."""
-  duration_in: [Int!]
-
-  """All values that are not contained in given list."""
-  duration_not_in: [Int!]
-
-  """All values less than the given value."""
-  duration_lt: Int
-
-  """All values less than or equal the given value."""
-  duration_lte: Int
-
-  """All values greater than the given value."""
-  duration_gt: Int
-
-  """All values greater than or equal the given value."""
-  duration_gte: Int
+  comments_every: CommentWhereInput
+  comments_some: CommentWhereInput
+  comments_none: CommentWhereInput
   process: BpmnProcessWhereInput
+  tasks_every: BpmnTaskInstanceWhereInput
+  tasks_some: BpmnTaskInstanceWhereInput
+  tasks_none: BpmnTaskInstanceWhereInput
   _MagicalBackRelation_BpmnProcessInstanceToNotification_every: NotificationWhereInput
   _MagicalBackRelation_BpmnProcessInstanceToNotification_some: NotificationWhereInput
   _MagicalBackRelation_BpmnProcessInstanceToNotification_none: NotificationWhereInput
@@ -1130,20 +1155,20 @@ input BpmnProcessInstanceWhereUniqueInput {
 enum BpmnProcessOrderByInput {
   id_ASC
   id_DESC
-  name_ASC
-  name_DESC
+  actionCount_ASC
+  actionCount_DESC
+  definition_ASC
+  definition_DESC
   description_ASC
   description_DESC
   model_ASC
   model_DESC
-  definition_ASC
-  definition_DESC
-  version_ASC
-  version_DESC
+  name_ASC
+  name_DESC
   status_ASC
   status_DESC
-  actionCount_ASC
-  actionCount_DESC
+  version_ASC
+  version_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -1152,13 +1177,13 @@ enum BpmnProcessOrderByInput {
 
 type BpmnProcessPreviousValues {
   id: ID!
-  name: String!
+  actionCount: Int!
+  definition: String
   description: String
   model: String!
-  definition: String
-  version: Int!
+  name: String!
   status: ProcessStatus!
-  actionCount: Int!
+  version: Int!
 }
 
 type BpmnProcessSubscriptionPayload {
@@ -1201,29 +1226,40 @@ input BpmnProcessSubscriptionWhereInput {
 }
 
 input BpmnProcessUpdateDataInput {
-  name: String
+  actionCount: Int
+  definition: String
   description: String
   model: String
-  definition: String
-  version: Int
+  name: String
   status: ProcessStatus
-  actionCount: Int
+  version: Int
   access: AccessUpdateOneInput
-  resources: ResourceUpdateManyInput
   data: DataDescriptorUpdateManyInput
+  resources: ResourceUpdateManyInput
+  versions: BpmnProcessUpdateManyInput
 }
 
 input BpmnProcessUpdateInput {
-  name: String
+  actionCount: Int
+  definition: String
   description: String
   model: String
-  definition: String
-  version: Int
+  name: String
   status: ProcessStatus
-  actionCount: Int
+  version: Int
   access: AccessUpdateOneInput
-  resources: ResourceUpdateManyInput
   data: DataDescriptorUpdateManyInput
+  resources: ResourceUpdateManyInput
+  versions: BpmnProcessUpdateManyInput
+}
+
+input BpmnProcessUpdateManyInput {
+  create: [BpmnProcessCreateInput!]
+  connect: [BpmnProcessWhereUniqueInput!]
+  disconnect: [BpmnProcessWhereUniqueInput!]
+  delete: [BpmnProcessWhereUniqueInput!]
+  update: [BpmnProcessUpdateWithWhereUniqueNestedInput!]
+  upsert: [BpmnProcessUpsertWithWhereUniqueNestedInput!]
 }
 
 input BpmnProcessUpdateOneInput {
@@ -1235,7 +1271,18 @@ input BpmnProcessUpdateOneInput {
   upsert: BpmnProcessUpsertNestedInput
 }
 
+input BpmnProcessUpdateWithWhereUniqueNestedInput {
+  where: BpmnProcessWhereUniqueInput!
+  data: BpmnProcessUpdateDataInput!
+}
+
 input BpmnProcessUpsertNestedInput {
+  update: BpmnProcessUpdateDataInput!
+  create: BpmnProcessCreateInput!
+}
+
+input BpmnProcessUpsertWithWhereUniqueNestedInput {
+  where: BpmnProcessWhereUniqueInput!
   update: BpmnProcessUpdateDataInput!
   create: BpmnProcessCreateInput!
 }
@@ -1289,46 +1336,68 @@ input BpmnProcessWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
-  name: String
+  actionCount: Int
 
   """All values that are not equal to given value."""
-  name_not: String
+  actionCount_not: Int
 
   """All values that are contained in given list."""
-  name_in: [String!]
+  actionCount_in: [Int!]
 
   """All values that are not contained in given list."""
-  name_not_in: [String!]
+  actionCount_not_in: [Int!]
 
   """All values less than the given value."""
-  name_lt: String
+  actionCount_lt: Int
 
   """All values less than or equal the given value."""
-  name_lte: String
+  actionCount_lte: Int
 
   """All values greater than the given value."""
-  name_gt: String
+  actionCount_gt: Int
 
   """All values greater than or equal the given value."""
-  name_gte: String
+  actionCount_gte: Int
+  definition: String
+
+  """All values that are not equal to given value."""
+  definition_not: String
+
+  """All values that are contained in given list."""
+  definition_in: [String!]
+
+  """All values that are not contained in given list."""
+  definition_not_in: [String!]
+
+  """All values less than the given value."""
+  definition_lt: String
+
+  """All values less than or equal the given value."""
+  definition_lte: String
+
+  """All values greater than the given value."""
+  definition_gt: String
+
+  """All values greater than or equal the given value."""
+  definition_gte: String
 
   """All values containing the given string."""
-  name_contains: String
+  definition_contains: String
 
   """All values not containing the given string."""
-  name_not_contains: String
+  definition_not_contains: String
 
   """All values starting with the given string."""
-  name_starts_with: String
+  definition_starts_with: String
 
   """All values not starting with the given string."""
-  name_not_starts_with: String
+  definition_not_starts_with: String
 
   """All values ending with the given string."""
-  name_ends_with: String
+  definition_ends_with: String
 
   """All values not ending with the given string."""
-  name_not_ends_with: String
+  definition_not_ends_with: String
   description: String
 
   """All values that are not equal to given value."""
@@ -1409,46 +1478,56 @@ input BpmnProcessWhereInput {
 
   """All values not ending with the given string."""
   model_not_ends_with: String
-  definition: String
+  name: String
 
   """All values that are not equal to given value."""
-  definition_not: String
+  name_not: String
 
   """All values that are contained in given list."""
-  definition_in: [String!]
+  name_in: [String!]
 
   """All values that are not contained in given list."""
-  definition_not_in: [String!]
+  name_not_in: [String!]
 
   """All values less than the given value."""
-  definition_lt: String
+  name_lt: String
 
   """All values less than or equal the given value."""
-  definition_lte: String
+  name_lte: String
 
   """All values greater than the given value."""
-  definition_gt: String
+  name_gt: String
 
   """All values greater than or equal the given value."""
-  definition_gte: String
+  name_gte: String
 
   """All values containing the given string."""
-  definition_contains: String
+  name_contains: String
 
   """All values not containing the given string."""
-  definition_not_contains: String
+  name_not_contains: String
 
   """All values starting with the given string."""
-  definition_starts_with: String
+  name_starts_with: String
 
   """All values not starting with the given string."""
-  definition_not_starts_with: String
+  name_not_starts_with: String
 
   """All values ending with the given string."""
-  definition_ends_with: String
+  name_ends_with: String
 
   """All values not ending with the given string."""
-  definition_not_ends_with: String
+  name_not_ends_with: String
+  status: ProcessStatus
+
+  """All values that are not equal to given value."""
+  status_not: ProcessStatus
+
+  """All values that are contained in given list."""
+  status_in: [ProcessStatus!]
+
+  """All values that are not contained in given list."""
+  status_not_in: [ProcessStatus!]
   version: Int
 
   """All values that are not equal to given value."""
@@ -1471,48 +1550,22 @@ input BpmnProcessWhereInput {
 
   """All values greater than or equal the given value."""
   version_gte: Int
-  status: ProcessStatus
-
-  """All values that are not equal to given value."""
-  status_not: ProcessStatus
-
-  """All values that are contained in given list."""
-  status_in: [ProcessStatus!]
-
-  """All values that are not contained in given list."""
-  status_not_in: [ProcessStatus!]
-  actionCount: Int
-
-  """All values that are not equal to given value."""
-  actionCount_not: Int
-
-  """All values that are contained in given list."""
-  actionCount_in: [Int!]
-
-  """All values that are not contained in given list."""
-  actionCount_not_in: [Int!]
-
-  """All values less than the given value."""
-  actionCount_lt: Int
-
-  """All values less than or equal the given value."""
-  actionCount_lte: Int
-
-  """All values greater than the given value."""
-  actionCount_gt: Int
-
-  """All values greater than or equal the given value."""
-  actionCount_gte: Int
   access: AccessWhereInput
-  resources_every: ResourceWhereInput
-  resources_some: ResourceWhereInput
-  resources_none: ResourceWhereInput
   data_every: DataDescriptorWhereInput
   data_some: DataDescriptorWhereInput
   data_none: DataDescriptorWhereInput
+  resources_every: ResourceWhereInput
+  resources_some: ResourceWhereInput
+  resources_none: ResourceWhereInput
+  versions_every: BpmnProcessWhereInput
+  versions_some: BpmnProcessWhereInput
+  versions_none: BpmnProcessWhereInput
   _MagicalBackRelation_BpmnProcessToBpmnTaskInstance_every: BpmnTaskInstanceWhereInput
   _MagicalBackRelation_BpmnProcessToBpmnTaskInstance_some: BpmnTaskInstanceWhereInput
   _MagicalBackRelation_BpmnProcessToBpmnTaskInstance_none: BpmnTaskInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessVersions_every: BpmnProcessWhereInput
+  _MagicalBackRelation_BpmnProcessVersions_some: BpmnProcessWhereInput
+  _MagicalBackRelation_BpmnProcessVersions_none: BpmnProcessWhereInput
   _MagicalBackRelation_BpmnProcessToBpmnProcessInstance_every: BpmnProcessInstanceWhereInput
   _MagicalBackRelation_BpmnProcessToBpmnProcessInstance_some: BpmnProcessInstanceWhereInput
   _MagicalBackRelation_BpmnProcessToBpmnProcessInstance_none: BpmnProcessInstanceWhereInput
@@ -1524,15 +1577,15 @@ input BpmnProcessWhereUniqueInput {
 
 type BpmnTaskInstance implements Node {
   id: ID!
-  processInstance(where: BpmnProcessWhereInput): BpmnProcess
-  taskId: String
+  dateFinished: DateTime
+  dateStarted: DateTime
+  duration: Int
   performer(where: UserWhereInput): User
   performerId: String
   performerRoles: [String!]!
-  dateStarted: DateTime
-  dateFinished: DateTime
-  duration: Int
+  processInstance(where: BpmnProcessWhereInput): BpmnProcess
   snapshot: Json
+  taskId: String
 }
 
 """A connection to a list of items."""
@@ -1546,15 +1599,20 @@ type BpmnTaskInstanceConnection {
 }
 
 input BpmnTaskInstanceCreateInput {
-  taskId: String
-  performerId: String
-  dateStarted: DateTime
   dateFinished: DateTime
+  dateStarted: DateTime
   duration: Int
+  performerId: String
   snapshot: Json
+  taskId: String
   performerRoles: BpmnTaskInstanceCreateperformerRolesInput
-  processInstance: BpmnProcessCreateOneInput
   performer: UserCreateOneInput
+  processInstance: BpmnProcessCreateOneInput
+}
+
+input BpmnTaskInstanceCreateManyInput {
+  create: [BpmnTaskInstanceCreateInput!]
+  connect: [BpmnTaskInstanceWhereUniqueInput!]
 }
 
 input BpmnTaskInstanceCreateperformerRolesInput {
@@ -1573,18 +1631,18 @@ type BpmnTaskInstanceEdge {
 enum BpmnTaskInstanceOrderByInput {
   id_ASC
   id_DESC
-  taskId_ASC
-  taskId_DESC
-  performerId_ASC
-  performerId_DESC
-  dateStarted_ASC
-  dateStarted_DESC
   dateFinished_ASC
   dateFinished_DESC
+  dateStarted_ASC
+  dateStarted_DESC
   duration_ASC
   duration_DESC
+  performerId_ASC
+  performerId_DESC
   snapshot_ASC
   snapshot_DESC
+  taskId_ASC
+  taskId_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -1593,13 +1651,13 @@ enum BpmnTaskInstanceOrderByInput {
 
 type BpmnTaskInstancePreviousValues {
   id: ID!
-  taskId: String
+  dateFinished: DateTime
+  dateStarted: DateTime
+  duration: Int
   performerId: String
   performerRoles: [String!]!
-  dateStarted: DateTime
-  dateFinished: DateTime
-  duration: Int
   snapshot: Json
+  taskId: String
 }
 
 type BpmnTaskInstanceSubscriptionPayload {
@@ -1641,20 +1699,52 @@ input BpmnTaskInstanceSubscriptionWhereInput {
   node: BpmnTaskInstanceWhereInput
 }
 
-input BpmnTaskInstanceUpdateInput {
-  taskId: String
-  performerId: String
-  dateStarted: DateTime
+input BpmnTaskInstanceUpdateDataInput {
   dateFinished: DateTime
+  dateStarted: DateTime
   duration: Int
+  performerId: String
   snapshot: Json
+  taskId: String
   performerRoles: BpmnTaskInstanceUpdateperformerRolesInput
-  processInstance: BpmnProcessUpdateOneInput
   performer: UserUpdateOneInput
+  processInstance: BpmnProcessUpdateOneInput
+}
+
+input BpmnTaskInstanceUpdateInput {
+  dateFinished: DateTime
+  dateStarted: DateTime
+  duration: Int
+  performerId: String
+  snapshot: Json
+  taskId: String
+  performerRoles: BpmnTaskInstanceUpdateperformerRolesInput
+  performer: UserUpdateOneInput
+  processInstance: BpmnProcessUpdateOneInput
+}
+
+input BpmnTaskInstanceUpdateManyInput {
+  create: [BpmnTaskInstanceCreateInput!]
+  connect: [BpmnTaskInstanceWhereUniqueInput!]
+  disconnect: [BpmnTaskInstanceWhereUniqueInput!]
+  delete: [BpmnTaskInstanceWhereUniqueInput!]
+  update: [BpmnTaskInstanceUpdateWithWhereUniqueNestedInput!]
+  upsert: [BpmnTaskInstanceUpsertWithWhereUniqueNestedInput!]
 }
 
 input BpmnTaskInstanceUpdateperformerRolesInput {
   set: [String!]
+}
+
+input BpmnTaskInstanceUpdateWithWhereUniqueNestedInput {
+  where: BpmnTaskInstanceWhereUniqueInput!
+  data: BpmnTaskInstanceUpdateDataInput!
+}
+
+input BpmnTaskInstanceUpsertWithWhereUniqueNestedInput {
+  where: BpmnTaskInstanceWhereUniqueInput!
+  update: BpmnTaskInstanceUpdateDataInput!
+  create: BpmnTaskInstanceCreateInput!
 }
 
 input BpmnTaskInstanceWhereInput {
@@ -1706,46 +1796,72 @@ input BpmnTaskInstanceWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
-  taskId: String
+  dateFinished: DateTime
 
   """All values that are not equal to given value."""
-  taskId_not: String
+  dateFinished_not: DateTime
 
   """All values that are contained in given list."""
-  taskId_in: [String!]
+  dateFinished_in: [DateTime!]
 
   """All values that are not contained in given list."""
-  taskId_not_in: [String!]
+  dateFinished_not_in: [DateTime!]
 
   """All values less than the given value."""
-  taskId_lt: String
+  dateFinished_lt: DateTime
 
   """All values less than or equal the given value."""
-  taskId_lte: String
+  dateFinished_lte: DateTime
 
   """All values greater than the given value."""
-  taskId_gt: String
+  dateFinished_gt: DateTime
 
   """All values greater than or equal the given value."""
-  taskId_gte: String
+  dateFinished_gte: DateTime
+  dateStarted: DateTime
 
-  """All values containing the given string."""
-  taskId_contains: String
+  """All values that are not equal to given value."""
+  dateStarted_not: DateTime
 
-  """All values not containing the given string."""
-  taskId_not_contains: String
+  """All values that are contained in given list."""
+  dateStarted_in: [DateTime!]
 
-  """All values starting with the given string."""
-  taskId_starts_with: String
+  """All values that are not contained in given list."""
+  dateStarted_not_in: [DateTime!]
 
-  """All values not starting with the given string."""
-  taskId_not_starts_with: String
+  """All values less than the given value."""
+  dateStarted_lt: DateTime
 
-  """All values ending with the given string."""
-  taskId_ends_with: String
+  """All values less than or equal the given value."""
+  dateStarted_lte: DateTime
 
-  """All values not ending with the given string."""
-  taskId_not_ends_with: String
+  """All values greater than the given value."""
+  dateStarted_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  dateStarted_gte: DateTime
+  duration: Int
+
+  """All values that are not equal to given value."""
+  duration_not: Int
+
+  """All values that are contained in given list."""
+  duration_in: [Int!]
+
+  """All values that are not contained in given list."""
+  duration_not_in: [Int!]
+
+  """All values less than the given value."""
+  duration_lt: Int
+
+  """All values less than or equal the given value."""
+  duration_lte: Int
+
+  """All values greater than the given value."""
+  duration_gt: Int
+
+  """All values greater than or equal the given value."""
+  duration_gte: Int
   performerId: String
 
   """All values that are not equal to given value."""
@@ -1786,78 +1902,280 @@ input BpmnTaskInstanceWhereInput {
 
   """All values not ending with the given string."""
   performerId_not_ends_with: String
-  dateStarted: DateTime
+  taskId: String
 
   """All values that are not equal to given value."""
-  dateStarted_not: DateTime
+  taskId_not: String
 
   """All values that are contained in given list."""
-  dateStarted_in: [DateTime!]
+  taskId_in: [String!]
 
   """All values that are not contained in given list."""
-  dateStarted_not_in: [DateTime!]
+  taskId_not_in: [String!]
 
   """All values less than the given value."""
-  dateStarted_lt: DateTime
+  taskId_lt: String
 
   """All values less than or equal the given value."""
-  dateStarted_lte: DateTime
+  taskId_lte: String
 
   """All values greater than the given value."""
-  dateStarted_gt: DateTime
+  taskId_gt: String
 
   """All values greater than or equal the given value."""
-  dateStarted_gte: DateTime
-  dateFinished: DateTime
+  taskId_gte: String
 
-  """All values that are not equal to given value."""
-  dateFinished_not: DateTime
+  """All values containing the given string."""
+  taskId_contains: String
 
-  """All values that are contained in given list."""
-  dateFinished_in: [DateTime!]
+  """All values not containing the given string."""
+  taskId_not_contains: String
 
-  """All values that are not contained in given list."""
-  dateFinished_not_in: [DateTime!]
+  """All values starting with the given string."""
+  taskId_starts_with: String
 
-  """All values less than the given value."""
-  dateFinished_lt: DateTime
+  """All values not starting with the given string."""
+  taskId_not_starts_with: String
 
-  """All values less than or equal the given value."""
-  dateFinished_lte: DateTime
+  """All values ending with the given string."""
+  taskId_ends_with: String
 
-  """All values greater than the given value."""
-  dateFinished_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  dateFinished_gte: DateTime
-  duration: Int
-
-  """All values that are not equal to given value."""
-  duration_not: Int
-
-  """All values that are contained in given list."""
-  duration_in: [Int!]
-
-  """All values that are not contained in given list."""
-  duration_not_in: [Int!]
-
-  """All values less than the given value."""
-  duration_lt: Int
-
-  """All values less than or equal the given value."""
-  duration_lte: Int
-
-  """All values greater than the given value."""
-  duration_gt: Int
-
-  """All values greater than or equal the given value."""
-  duration_gte: Int
-  processInstance: BpmnProcessWhereInput
+  """All values not ending with the given string."""
+  taskId_not_ends_with: String
   performer: UserWhereInput
+  processInstance: BpmnProcessWhereInput
+  _MagicalBackRelation_BpmnProcessTasks_every: BpmnProcessInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessTasks_some: BpmnProcessInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessTasks_none: BpmnProcessInstanceWhereInput
 }
 
 input BpmnTaskInstanceWhereUniqueInput {
   id: ID
+}
+
+type Comment {
+  text: String!
+  user(where: UserWhereInput): User!
+  date: DateTime!
+  replyTo: String
+}
+
+"""A connection to a list of items."""
+type CommentConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [CommentEdge]!
+  aggregate: AggregateComment!
+}
+
+input CommentCreateInput {
+  text: String!
+  date: DateTime!
+  replyTo: String
+  user: UserCreateOneInput!
+}
+
+input CommentCreateManyInput {
+  create: [CommentCreateInput!]
+}
+
+"""An edge in a connection."""
+type CommentEdge {
+  """The item at the end of the edge."""
+  node: Comment!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum CommentOrderByInput {
+  text_ASC
+  text_DESC
+  date_ASC
+  date_DESC
+  replyTo_ASC
+  replyTo_DESC
+  id_ASC
+  id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type CommentPreviousValues {
+  text: String!
+  date: DateTime!
+  replyTo: String
+}
+
+type CommentSubscriptionPayload {
+  mutation: MutationType!
+  node: Comment
+  updatedFields: [String!]
+  previousValues: CommentPreviousValues
+}
+
+input CommentSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CommentSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CommentSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CommentSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: CommentWhereInput
+}
+
+input CommentUpdateInput {
+  text: String
+  date: DateTime
+  replyTo: String
+  user: UserUpdateOneInput
+}
+
+input CommentUpdateManyInput {
+  create: [CommentCreateInput!]
+}
+
+input CommentWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CommentWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CommentWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CommentWhereInput!]
+  text: String
+
+  """All values that are not equal to given value."""
+  text_not: String
+
+  """All values that are contained in given list."""
+  text_in: [String!]
+
+  """All values that are not contained in given list."""
+  text_not_in: [String!]
+
+  """All values less than the given value."""
+  text_lt: String
+
+  """All values less than or equal the given value."""
+  text_lte: String
+
+  """All values greater than the given value."""
+  text_gt: String
+
+  """All values greater than or equal the given value."""
+  text_gte: String
+
+  """All values containing the given string."""
+  text_contains: String
+
+  """All values not containing the given string."""
+  text_not_contains: String
+
+  """All values starting with the given string."""
+  text_starts_with: String
+
+  """All values not starting with the given string."""
+  text_not_starts_with: String
+
+  """All values ending with the given string."""
+  text_ends_with: String
+
+  """All values not ending with the given string."""
+  text_not_ends_with: String
+  date: DateTime
+
+  """All values that are not equal to given value."""
+  date_not: DateTime
+
+  """All values that are contained in given list."""
+  date_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  date_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  date_lt: DateTime
+
+  """All values less than or equal the given value."""
+  date_lte: DateTime
+
+  """All values greater than the given value."""
+  date_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  date_gte: DateTime
+  replyTo: String
+
+  """All values that are not equal to given value."""
+  replyTo_not: String
+
+  """All values that are contained in given list."""
+  replyTo_in: [String!]
+
+  """All values that are not contained in given list."""
+  replyTo_not_in: [String!]
+
+  """All values less than the given value."""
+  replyTo_lt: String
+
+  """All values less than or equal the given value."""
+  replyTo_lte: String
+
+  """All values greater than the given value."""
+  replyTo_gt: String
+
+  """All values greater than or equal the given value."""
+  replyTo_gte: String
+
+  """All values containing the given string."""
+  replyTo_contains: String
+
+  """All values not containing the given string."""
+  replyTo_not_contains: String
+
+  """All values starting with the given string."""
+  replyTo_starts_with: String
+
+  """All values not starting with the given string."""
+  replyTo_not_starts_with: String
+
+  """All values ending with the given string."""
+  replyTo_ends_with: String
+
+  """All values not ending with the given string."""
+  replyTo_not_ends_with: String
+  user: UserWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceToComment_every: BpmnProcessInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceToComment_some: BpmnProcessInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceToComment_none: BpmnProcessInstanceWhereInput
 }
 
 type Data implements Node {
@@ -3740,14 +4058,15 @@ Long can represent values between -(2^63) and 2^63 - 1.
 scalar Long
 
 type Mutation {
-  createBpmnTaskInstance(data: BpmnTaskInstanceCreateInput!): BpmnTaskInstance!
   createOrganisation(data: OrganisationCreateInput!): Organisation!
   createRole(data: RoleCreateInput!): Role!
+  createBpmnTaskInstance(data: BpmnTaskInstanceCreateInput!): BpmnTaskInstance!
   createUser(data: UserCreateInput!): User!
   createLocalisation(data: LocalisationCreateInput!): Localisation!
   createForm(data: FormCreateInput!): Form!
   createValidator(data: ValidatorCreateInput!): Validator!
   createBpmnProcessInstance(data: BpmnProcessInstanceCreateInput!): BpmnProcessInstance!
+  createComment(data: CommentCreateInput!): Comment!
   createNotification(data: NotificationCreateInput!): Notification!
   createDataDescriptor(data: DataDescriptorCreateInput!): DataDescriptor!
   createResource(data: ResourceCreateInput!): Resource!
@@ -3756,9 +4075,9 @@ type Mutation {
   createBpmnProcess(data: BpmnProcessCreateInput!): BpmnProcess!
   createFormElement(data: FormElementCreateInput!): FormElement!
   createAccessCondition(data: AccessConditionCreateInput!): AccessCondition!
-  updateBpmnTaskInstance(data: BpmnTaskInstanceUpdateInput!, where: BpmnTaskInstanceWhereUniqueInput!): BpmnTaskInstance
   updateOrganisation(data: OrganisationUpdateInput!, where: OrganisationWhereUniqueInput!): Organisation
   updateRole(data: RoleUpdateInput!, where: RoleWhereUniqueInput!): Role
+  updateBpmnTaskInstance(data: BpmnTaskInstanceUpdateInput!, where: BpmnTaskInstanceWhereUniqueInput!): BpmnTaskInstance
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateLocalisation(data: LocalisationUpdateInput!, where: LocalisationWhereUniqueInput!): Localisation
   updateForm(data: FormUpdateInput!, where: FormWhereUniqueInput!): Form
@@ -3771,9 +4090,9 @@ type Mutation {
   updateData(data: DataUpdateInput!, where: DataWhereUniqueInput!): Data
   updateBpmnProcess(data: BpmnProcessUpdateInput!, where: BpmnProcessWhereUniqueInput!): BpmnProcess
   updateFormElement(data: FormElementUpdateInput!, where: FormElementWhereUniqueInput!): FormElement
-  deleteBpmnTaskInstance(where: BpmnTaskInstanceWhereUniqueInput!): BpmnTaskInstance
   deleteOrganisation(where: OrganisationWhereUniqueInput!): Organisation
   deleteRole(where: RoleWhereUniqueInput!): Role
+  deleteBpmnTaskInstance(where: BpmnTaskInstanceWhereUniqueInput!): BpmnTaskInstance
   deleteUser(where: UserWhereUniqueInput!): User
   deleteLocalisation(where: LocalisationWhereUniqueInput!): Localisation
   deleteForm(where: FormWhereUniqueInput!): Form
@@ -3786,9 +4105,9 @@ type Mutation {
   deleteData(where: DataWhereUniqueInput!): Data
   deleteBpmnProcess(where: BpmnProcessWhereUniqueInput!): BpmnProcess
   deleteFormElement(where: FormElementWhereUniqueInput!): FormElement
-  upsertBpmnTaskInstance(where: BpmnTaskInstanceWhereUniqueInput!, create: BpmnTaskInstanceCreateInput!, update: BpmnTaskInstanceUpdateInput!): BpmnTaskInstance!
   upsertOrganisation(where: OrganisationWhereUniqueInput!, create: OrganisationCreateInput!, update: OrganisationUpdateInput!): Organisation!
   upsertRole(where: RoleWhereUniqueInput!, create: RoleCreateInput!, update: RoleUpdateInput!): Role!
+  upsertBpmnTaskInstance(where: BpmnTaskInstanceWhereUniqueInput!, create: BpmnTaskInstanceCreateInput!, update: BpmnTaskInstanceUpdateInput!): BpmnTaskInstance!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertLocalisation(where: LocalisationWhereUniqueInput!, create: LocalisationCreateInput!, update: LocalisationUpdateInput!): Localisation!
   upsertForm(where: FormWhereUniqueInput!, create: FormCreateInput!, update: FormUpdateInput!): Form!
@@ -3801,14 +4120,15 @@ type Mutation {
   upsertData(where: DataWhereUniqueInput!, create: DataCreateInput!, update: DataUpdateInput!): Data!
   upsertBpmnProcess(where: BpmnProcessWhereUniqueInput!, create: BpmnProcessCreateInput!, update: BpmnProcessUpdateInput!): BpmnProcess!
   upsertFormElement(where: FormElementWhereUniqueInput!, create: FormElementCreateInput!, update: FormElementUpdateInput!): FormElement!
-  updateManyBpmnTaskInstances(data: BpmnTaskInstanceUpdateInput!, where: BpmnTaskInstanceWhereInput): BatchPayload!
   updateManyOrganisations(data: OrganisationUpdateInput!, where: OrganisationWhereInput): BatchPayload!
   updateManyRoles(data: RoleUpdateInput!, where: RoleWhereInput): BatchPayload!
+  updateManyBpmnTaskInstances(data: BpmnTaskInstanceUpdateInput!, where: BpmnTaskInstanceWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
   updateManyLocalisations(data: LocalisationUpdateInput!, where: LocalisationWhereInput): BatchPayload!
   updateManyForms(data: FormUpdateInput!, where: FormWhereInput): BatchPayload!
   updateManyValidators(data: ValidatorUpdateInput!, where: ValidatorWhereInput): BatchPayload!
   updateManyBpmnProcessInstances(data: BpmnProcessInstanceUpdateInput!, where: BpmnProcessInstanceWhereInput): BatchPayload!
+  updateManyComments(data: CommentUpdateInput!, where: CommentWhereInput): BatchPayload!
   updateManyNotifications(data: NotificationUpdateInput!, where: NotificationWhereInput): BatchPayload!
   updateManyDataDescriptors(data: DataDescriptorUpdateInput!, where: DataDescriptorWhereInput): BatchPayload!
   updateManyResources(data: ResourceUpdateInput!, where: ResourceWhereInput): BatchPayload!
@@ -3817,14 +4137,15 @@ type Mutation {
   updateManyBpmnProcesses(data: BpmnProcessUpdateInput!, where: BpmnProcessWhereInput): BatchPayload!
   updateManyFormElements(data: FormElementUpdateInput!, where: FormElementWhereInput): BatchPayload!
   updateManyAccessConditions(data: AccessConditionUpdateInput!, where: AccessConditionWhereInput): BatchPayload!
-  deleteManyBpmnTaskInstances(where: BpmnTaskInstanceWhereInput): BatchPayload!
   deleteManyOrganisations(where: OrganisationWhereInput): BatchPayload!
   deleteManyRoles(where: RoleWhereInput): BatchPayload!
+  deleteManyBpmnTaskInstances(where: BpmnTaskInstanceWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyLocalisations(where: LocalisationWhereInput): BatchPayload!
   deleteManyForms(where: FormWhereInput): BatchPayload!
   deleteManyValidators(where: ValidatorWhereInput): BatchPayload!
   deleteManyBpmnProcessInstances(where: BpmnProcessInstanceWhereInput): BatchPayload!
+  deleteManyComments(where: CommentWhereInput): BatchPayload!
   deleteManyNotifications(where: NotificationWhereInput): BatchPayload!
   deleteManyDataDescriptors(where: DataDescriptorWhereInput): BatchPayload!
   deleteManyResources(where: ResourceWhereInput): BatchPayload!
@@ -3858,8 +4179,12 @@ type Notification implements Node {
 }
 
 enum NotificationCode {
-  ServiceStarted
-  ServiceStopped
+  ProcessStarted
+  ProcessFinished
+  ProcessAborted
+  ActionStarted
+  ActionFinished
+  ActionRequired
 }
 
 """A connection to a list of items."""
@@ -4349,14 +4674,15 @@ enum ProcessStatus {
 }
 
 type Query {
-  bpmnTaskInstances(where: BpmnTaskInstanceWhereInput, orderBy: BpmnTaskInstanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BpmnTaskInstance]!
   organisations(where: OrganisationWhereInput, orderBy: OrganisationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Organisation]!
   roles(where: RoleWhereInput, orderBy: RoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Role]!
+  bpmnTaskInstances(where: BpmnTaskInstanceWhereInput, orderBy: BpmnTaskInstanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BpmnTaskInstance]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   localisations(where: LocalisationWhereInput, orderBy: LocalisationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Localisation]!
   forms(where: FormWhereInput, orderBy: FormOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Form]!
   validators(where: ValidatorWhereInput, orderBy: ValidatorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Validator]!
   bpmnProcessInstances(where: BpmnProcessInstanceWhereInput, orderBy: BpmnProcessInstanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BpmnProcessInstance]!
+  comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment]!
   notifications(where: NotificationWhereInput, orderBy: NotificationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Notification]!
   dataDescriptors(where: DataDescriptorWhereInput, orderBy: DataDescriptorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [DataDescriptor]!
   resources(where: ResourceWhereInput, orderBy: ResourceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Resource]!
@@ -4365,9 +4691,9 @@ type Query {
   bpmnProcesses(where: BpmnProcessWhereInput, orderBy: BpmnProcessOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BpmnProcess]!
   formElements(where: FormElementWhereInput, orderBy: FormElementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FormElement]!
   accessConditions(where: AccessConditionWhereInput, orderBy: AccessConditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [AccessCondition]!
-  bpmnTaskInstance(where: BpmnTaskInstanceWhereUniqueInput!): BpmnTaskInstance
   organisation(where: OrganisationWhereUniqueInput!): Organisation
   role(where: RoleWhereUniqueInput!): Role
+  bpmnTaskInstance(where: BpmnTaskInstanceWhereUniqueInput!): BpmnTaskInstance
   user(where: UserWhereUniqueInput!): User
   localisation(where: LocalisationWhereUniqueInput!): Localisation
   form(where: FormWhereUniqueInput!): Form
@@ -4380,14 +4706,15 @@ type Query {
   data(where: DataWhereUniqueInput!): Data
   bpmnProcess(where: BpmnProcessWhereUniqueInput!): BpmnProcess
   formElement(where: FormElementWhereUniqueInput!): FormElement
-  bpmnTaskInstancesConnection(where: BpmnTaskInstanceWhereInput, orderBy: BpmnTaskInstanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BpmnTaskInstanceConnection!
   organisationsConnection(where: OrganisationWhereInput, orderBy: OrganisationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): OrganisationConnection!
   rolesConnection(where: RoleWhereInput, orderBy: RoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RoleConnection!
+  bpmnTaskInstancesConnection(where: BpmnTaskInstanceWhereInput, orderBy: BpmnTaskInstanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BpmnTaskInstanceConnection!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   localisationsConnection(where: LocalisationWhereInput, orderBy: LocalisationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LocalisationConnection!
   formsConnection(where: FormWhereInput, orderBy: FormOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FormConnection!
   validatorsConnection(where: ValidatorWhereInput, orderBy: ValidatorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ValidatorConnection!
   bpmnProcessInstancesConnection(where: BpmnProcessInstanceWhereInput, orderBy: BpmnProcessInstanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BpmnProcessInstanceConnection!
+  commentsConnection(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CommentConnection!
   notificationsConnection(where: NotificationWhereInput, orderBy: NotificationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): NotificationConnection!
   dataDescriptorsConnection(where: DataDescriptorWhereInput, orderBy: DataDescriptorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DataDescriptorConnection!
   resourcesConnection(where: ResourceWhereInput, orderBy: ResourceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ResourceConnection!
@@ -4923,14 +5250,15 @@ input RoleWhereUniqueInput {
 }
 
 type Subscription {
-  bpmnTaskInstance(where: BpmnTaskInstanceSubscriptionWhereInput): BpmnTaskInstanceSubscriptionPayload
   organisation(where: OrganisationSubscriptionWhereInput): OrganisationSubscriptionPayload
   role(where: RoleSubscriptionWhereInput): RoleSubscriptionPayload
+  bpmnTaskInstance(where: BpmnTaskInstanceSubscriptionWhereInput): BpmnTaskInstanceSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   localisation(where: LocalisationSubscriptionWhereInput): LocalisationSubscriptionPayload
   form(where: FormSubscriptionWhereInput): FormSubscriptionPayload
   validator(where: ValidatorSubscriptionWhereInput): ValidatorSubscriptionPayload
   bpmnProcessInstance(where: BpmnProcessInstanceSubscriptionWhereInput): BpmnProcessInstanceSubscriptionPayload
+  comment(where: CommentSubscriptionWhereInput): CommentSubscriptionPayload
   notification(where: NotificationSubscriptionWhereInput): NotificationSubscriptionPayload
   dataDescriptor(where: DataDescriptorSubscriptionWhereInput): DataDescriptorSubscriptionPayload
   resource(where: ResourceSubscriptionWhereInput): ResourceSubscriptionPayload
@@ -5311,6 +5639,9 @@ input UserWhereInput {
   _MagicalBackRelation_BpmnTaskInstanceToUser_every: BpmnTaskInstanceWhereInput
   _MagicalBackRelation_BpmnTaskInstanceToUser_some: BpmnTaskInstanceWhereInput
   _MagicalBackRelation_BpmnTaskInstanceToUser_none: BpmnTaskInstanceWhereInput
+  _MagicalBackRelation_CommentToUser_every: CommentWhereInput
+  _MagicalBackRelation_CommentToUser_some: CommentWhereInput
+  _MagicalBackRelation_CommentToUser_none: CommentWhereInput
 }
 
 input UserWhereUniqueInput {

@@ -25,6 +25,7 @@ export const AppStore = types
   .actions(self => {
     return {
       setUser(user: Yoga.User) {
+        self.login.password = '';
         self.userId = user.id;
         self.user = user;
         self.localStorage.userId = user.id;

@@ -1,7 +1,7 @@
 import { Mutation, Notification, Query, Resolver, Yoga } from '../utils';
 
 export const query: Query = {
-  notifications(_parent, { input: { skip = 0, first = 100, visible } }, ctx, info) {
+  bpmnProcesses(_parent, { input: { skip = 0, first = 100, visible } }, ctx, info) {
     // return ctx.db.query.notifications(
     //   { where: { owner: { id: getUserId(ctx) } }, skip: start, last: end },
     //   info

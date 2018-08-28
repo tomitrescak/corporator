@@ -1,4 +1,4 @@
-import * as bpmnProcess from '../resolvers/bpmn_process_resolver';
+import * as bpmnProcess from '../resolvers/bpmn_resolver';
 import * as notifications from './notifications_resolver';
 import * as users from './user_resolver';
 
@@ -10,7 +10,10 @@ export const resolvers = {
 };
 
 export async function fixtures(context: Context) {
-  await users.fixtures(context);
+  const userId = await users.fixtures(context);
+  if (userId) {
+    await notifications.fixtures(context, userId);
+  }
 }
 
 // import custom resolvers

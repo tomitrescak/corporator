@@ -1,14 +1,36 @@
 #import Notification, NotificationCode from '../generated/prisma.graphql'
 
+# ========================================================= #
+#  QUERIES
+# ========================================================= # */
+
+type NotificationsPayload {
+  id: ID
+  date: DateTime
+  text: String
+}
+
+input NotificationsInput {
+  visible: Boolean
+  skip: Int
+  first: Int
+}
+
 type Query {
-  notifications(start: Int, end: Int): [Notification]!
+  notifications(input: NotificationsInput): [NotificationsPayload]!
+}
+
+# ========================================================= #
+#  MUTATIONS
+# ========================================================= # */
+
+input NotifyInput {
+  userId: ID
+  processInstanceId: ID
+  code: NotificationCode
+  params: [String!]!
 }
 
 type Mutation {
-  notify(
-    userId: ID
-    processInstanceId: ID
-    code: NotificationCode
-    params: [String!]!
-  ): Notification!
+  notify(input: NotifyInput): Notification!
 }
