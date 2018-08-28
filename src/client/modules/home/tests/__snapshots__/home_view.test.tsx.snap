@@ -14,7 +14,7 @@ Array [
       >
         <img
           alt="logo"
-          className="sc-bZQynM jOQacR"
+          className="sc-bdVaJa kPmfWy"
           src="file"
         />
       </div>
@@ -24,7 +24,7 @@ Array [
     </div>
   </div>,
   <div
-    className="sc-jTzLTM gTBAGw"
+    className="sc-gqjmRU eMGxVF"
   >
     <div
       style={
@@ -34,7 +34,7 @@ Array [
       }
     >
       <div
-        className="ui secondary segment sc-fjdhpX llytZJ"
+        className="ui secondary segment sc-VigVT bPSoUG"
       >
         <div
           className="ui dividing header"
@@ -118,7 +118,7 @@ Array [
               Login
             </button>
             <a
-              className="sc-iwsKbI HMgkI"
+              className="sc-gZMcBi deSGsC"
               href="https://www.westernsydney.edu.au/information_technology_services/its/servicedesk/password_expiry_faq"
               target="_blank"
             >
@@ -146,7 +146,7 @@ Array [
       >
         <img
           alt="logo"
-          className="sc-bZQynM jOQacR"
+          className="sc-bdVaJa kPmfWy"
           src="file"
         />
       </div>
@@ -156,7 +156,7 @@ Array [
     </div>
   </div>,
   <div
-    className="sc-jTzLTM gTBAGw"
+    className="sc-gqjmRU eMGxVF"
   >
     <div
       style={
@@ -166,7 +166,7 @@ Array [
       }
     >
       <div
-        className="ui secondary segment sc-fjdhpX llytZJ"
+        className="ui secondary segment sc-VigVT bPSoUG"
       >
         <div
           className="ui dividing header"
@@ -250,7 +250,7 @@ Array [
               Login
             </button>
             <a
-              className="sc-iwsKbI HMgkI"
+              className="sc-gZMcBi deSGsC"
               href="https://www.westernsydney.edu.au/information_technology_services/its/servicedesk/password_expiry_faq"
               target="_blank"
             >

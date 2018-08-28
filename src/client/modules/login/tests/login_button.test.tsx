@@ -4,7 +4,7 @@ import 'jest-styled-components';
 
 import { AppStore } from 'client/stores/app_store';
 import { create, mock, MockedProvider, ReactTestRenderer } from 'tests/client';
-import { LoginButton } from '../login_view';
+import { LoginButton } from '../login_button_view';
 
 import LOGIN_MUTATION = require('data/client/login_mutation.graphql');
 import { Button } from 'semantic-ui-react';

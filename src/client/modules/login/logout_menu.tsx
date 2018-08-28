@@ -14,7 +14,7 @@ type Props = {
 @inject('store')
 @observer
 export class LogoutMenu extends React.Component<Props> {
-  componentDidMount() {
+  componentWillMount() {
     if (this.props.token) {
       this.props.store.client
         .mutate<{ resume: Yoga.AuthPayload }, { token: string }>({
@@ -28,7 +28,7 @@ export class LogoutMenu extends React.Component<Props> {
           this.props.store.localStorage.token = token;
         })
         .catch(() => {
-          if (process.env.NODE_ENV === 'production') {
+          if (process.env.NODE_ENV !== 'development') {
             this.props.store.logout();
           }
         });
