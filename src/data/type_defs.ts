@@ -1,7 +1,9 @@
 export const typeDefs = `type Query {
   testQuery: Boolean
   notifications(input: NotificationsInput): [NotificationsPayload]!
-  bpmnProcesses: [BpmnProcess]!
+  bpmnProcesses(input: BpmnProcessesInput!): [BpmnProcess]!
+  bpmnProcessInstances(input: BpmnProcessInstancesInput!): [BpmnProcessInstance]!
+  bpmnTasks(input: BpmnTasksInput!): [BpmnTaskInstance]!
   user(id: ID!): User
   users: [User]!
   resume(token: String!): AuthPayload!
@@ -10,6 +12,7 @@ export const typeDefs = `type Query {
 type Mutation {
   testMutation: Boolean
   notify(input: NotifyInput): Notification!
+  createProcess(input: CreateProcessInput!): BpmnProcess
   login(input: AuthInput!): AuthPayload!
   signup(input: AuthInput!): AuthPayload!
 }
@@ -31,7 +34,6 @@ type BpmnProcess implements Node {
   access(where: AccessWhereInput): Access!
   actionCount: Int!
   data(where: DataDescriptorWhereInput, orderBy: DataDescriptorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [DataDescriptor!]
-  definition: String
   description: String
   model: String!
   name: String!
@@ -39,6 +41,57 @@ type BpmnProcess implements Node {
   status: ProcessStatus!
   version: Int!
   versions(where: BpmnProcessWhereInput, orderBy: BpmnProcessOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BpmnProcess!]
+}
+
+input BpmnProcessesInput {
+  status: ProcessStatus
+  name: String
+  descritpion: String
+  skip: Int
+  first: Int
+}
+
+type BpmnProcessInstance implements Node {
+  id: ID!
+  comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
+  dateFinished: DateTime
+  dateStarted: DateTime
+  description: String
+  duration: Int
+  name: String!
+  ownerId: ID
+  process(where: BpmnProcessWhereInput): BpmnProcess
+  resources: Json
+  status: BpmnProcessInstanceStatus
+  tasks(where: BpmnTaskInstanceWhereInput, orderBy: BpmnTaskInstanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BpmnTaskInstance!]
+}
+
+input BpmnProcessInstancesInput {
+  status: ProcessStatus
+  name: String
+  dateStarted: DateTime
+  dateFinished: DateTime
+  duration: Int
+  processId: String
+  skip: Int
+  first: Int
+}
+
+type BpmnTaskInstance implements Node {
+  id: ID!
+  dateFinished: DateTime
+  dateStarted: DateTime
+  duration: Int
+  performer(where: UserWhereInput): User
+  performerId: String
+  performerRoles: [String!]!
+  processInstance(where: BpmnProcessWhereInput): BpmnProcess
+  snapshot: Json
+  taskId: String
+}
+
+input BpmnTasksInput {
+  processInstanceId: String!
 }
 
 type User implements Node {
@@ -74,6 +127,13 @@ input NotifyInput {
   params: [String!]!
 }
 
+input CreateProcessInput {
+  name: String!
+  description: String
+  model: String
+  status: ProcessStatus
+}
+
 input AuthInput {
   user: String
   password: String
@@ -90,21 +150,6 @@ interface Node {
 }
 
 scalar DateTime
-
-type BpmnProcessInstance implements Node {
-  id: ID!
-  comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
-  dateFinished: DateTime
-  dateStarted: DateTime
-  description: String
-  duration: Int
-  name: String!
-  ownerId: ID
-  process(where: BpmnProcessWhereInput): BpmnProcess
-  resources: Json
-  status: BpmnProcessInstanceStatus
-  tasks(where: BpmnTaskInstanceWhereInput, orderBy: BpmnTaskInstanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BpmnTaskInstance!]
-}
 
 input BpmnProcessInstanceWhereInput {
   """
@@ -647,403 +692,6 @@ input LocalisationWhereInput {
   _MagicalBackRelation_LocalisationToNotification_every: NotificationWhereInput
   _MagicalBackRelation_LocalisationToNotification_some: NotificationWhereInput
   _MagicalBackRelation_LocalisationToNotification_none: NotificationWhereInput
-}
-
-input NotificationWhereInput {
-  """
-  Logical AND on all given filters.
-  """
-  AND: [NotificationWhereInput!]
-  """
-  Logical OR on all given filters.
-  """
-  OR: [NotificationWhereInput!]
-  """
-  Logical NOT on all given filters combined by AND.
-  """
-  NOT: [NotificationWhereInput!]
-  id: ID
-  """
-  All values that are not equal to given value.
-  """
-  id_not: ID
-  """
-  All values that are contained in given list.
-  """
-  id_in: [ID!]
-  """
-  All values that are not contained in given list.
-  """
-  id_not_in: [ID!]
-  """
-  All values less than the given value.
-  """
-  id_lt: ID
-  """
-  All values less than or equal the given value.
-  """
-  id_lte: ID
-  """
-  All values greater than the given value.
-  """
-  id_gt: ID
-  """
-  All values greater than or equal the given value.
-  """
-  id_gte: ID
-  """
-  All values containing the given string.
-  """
-  id_contains: ID
-  """
-  All values not containing the given string.
-  """
-  id_not_contains: ID
-  """
-  All values starting with the given string.
-  """
-  id_starts_with: ID
-  """
-  All values not starting with the given string.
-  """
-  id_not_starts_with: ID
-  """
-  All values ending with the given string.
-  """
-  id_ends_with: ID
-  """
-  All values not ending with the given string.
-  """
-  id_not_ends_with: ID
-  date: DateTime
-  """
-  All values that are not equal to given value.
-  """
-  date_not: DateTime
-  """
-  All values that are contained in given list.
-  """
-  date_in: [DateTime!]
-  """
-  All values that are not contained in given list.
-  """
-  date_not_in: [DateTime!]
-  """
-  All values less than the given value.
-  """
-  date_lt: DateTime
-  """
-  All values less than or equal the given value.
-  """
-  date_lte: DateTime
-  """
-  All values greater than the given value.
-  """
-  date_gt: DateTime
-  """
-  All values greater than or equal the given value.
-  """
-  date_gte: DateTime
-  code: NotificationCode
-  """
-  All values that are not equal to given value.
-  """
-  code_not: NotificationCode
-  """
-  All values that are contained in given list.
-  """
-  code_in: [NotificationCode!]
-  """
-  All values that are not contained in given list.
-  """
-  code_not_in: [NotificationCode!]
-  visible: Boolean
-  """
-  All values that are not equal to given value.
-  """
-  visible_not: Boolean
-  processInstance: BpmnProcessInstanceWhereInput
-  text: LocalisationWhereInput
-  _MagicalBackRelation_UserNotifications_every: UserWhereInput
-  _MagicalBackRelation_UserNotifications_some: UserWhereInput
-  _MagicalBackRelation_UserNotifications_none: UserWhereInput
-}
-
-enum NotificationOrderByInput {
-  id_ASC
-  id_DESC
-  date_ASC
-  date_DESC
-  code_ASC
-  code_DESC
-  visible_ASC
-  visible_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
-}
-
-type Data implements Node {
-  id: ID!
-  descriptor(where: DataDescriptorWhereInput): DataDescriptor
-  organisationId: String
-  version: Int
-  date: DateTime
-  value: String
-}
-
-input DataWhereInput {
-  """
-  Logical AND on all given filters.
-  """
-  AND: [DataWhereInput!]
-  """
-  Logical OR on all given filters.
-  """
-  OR: [DataWhereInput!]
-  """
-  Logical NOT on all given filters combined by AND.
-  """
-  NOT: [DataWhereInput!]
-  id: ID
-  """
-  All values that are not equal to given value.
-  """
-  id_not: ID
-  """
-  All values that are contained in given list.
-  """
-  id_in: [ID!]
-  """
-  All values that are not contained in given list.
-  """
-  id_not_in: [ID!]
-  """
-  All values less than the given value.
-  """
-  id_lt: ID
-  """
-  All values less than or equal the given value.
-  """
-  id_lte: ID
-  """
-  All values greater than the given value.
-  """
-  id_gt: ID
-  """
-  All values greater than or equal the given value.
-  """
-  id_gte: ID
-  """
-  All values containing the given string.
-  """
-  id_contains: ID
-  """
-  All values not containing the given string.
-  """
-  id_not_contains: ID
-  """
-  All values starting with the given string.
-  """
-  id_starts_with: ID
-  """
-  All values not starting with the given string.
-  """
-  id_not_starts_with: ID
-  """
-  All values ending with the given string.
-  """
-  id_ends_with: ID
-  """
-  All values not ending with the given string.
-  """
-  id_not_ends_with: ID
-  organisationId: String
-  """
-  All values that are not equal to given value.
-  """
-  organisationId_not: String
-  """
-  All values that are contained in given list.
-  """
-  organisationId_in: [String!]
-  """
-  All values that are not contained in given list.
-  """
-  organisationId_not_in: [String!]
-  """
-  All values less than the given value.
-  """
-  organisationId_lt: String
-  """
-  All values less than or equal the given value.
-  """
-  organisationId_lte: String
-  """
-  All values greater than the given value.
-  """
-  organisationId_gt: String
-  """
-  All values greater than or equal the given value.
-  """
-  organisationId_gte: String
-  """
-  All values containing the given string.
-  """
-  organisationId_contains: String
-  """
-  All values not containing the given string.
-  """
-  organisationId_not_contains: String
-  """
-  All values starting with the given string.
-  """
-  organisationId_starts_with: String
-  """
-  All values not starting with the given string.
-  """
-  organisationId_not_starts_with: String
-  """
-  All values ending with the given string.
-  """
-  organisationId_ends_with: String
-  """
-  All values not ending with the given string.
-  """
-  organisationId_not_ends_with: String
-  version: Int
-  """
-  All values that are not equal to given value.
-  """
-  version_not: Int
-  """
-  All values that are contained in given list.
-  """
-  version_in: [Int!]
-  """
-  All values that are not contained in given list.
-  """
-  version_not_in: [Int!]
-  """
-  All values less than the given value.
-  """
-  version_lt: Int
-  """
-  All values less than or equal the given value.
-  """
-  version_lte: Int
-  """
-  All values greater than the given value.
-  """
-  version_gt: Int
-  """
-  All values greater than or equal the given value.
-  """
-  version_gte: Int
-  date: DateTime
-  """
-  All values that are not equal to given value.
-  """
-  date_not: DateTime
-  """
-  All values that are contained in given list.
-  """
-  date_in: [DateTime!]
-  """
-  All values that are not contained in given list.
-  """
-  date_not_in: [DateTime!]
-  """
-  All values less than the given value.
-  """
-  date_lt: DateTime
-  """
-  All values less than or equal the given value.
-  """
-  date_lte: DateTime
-  """
-  All values greater than the given value.
-  """
-  date_gt: DateTime
-  """
-  All values greater than or equal the given value.
-  """
-  date_gte: DateTime
-  value: String
-  """
-  All values that are not equal to given value.
-  """
-  value_not: String
-  """
-  All values that are contained in given list.
-  """
-  value_in: [String!]
-  """
-  All values that are not contained in given list.
-  """
-  value_not_in: [String!]
-  """
-  All values less than the given value.
-  """
-  value_lt: String
-  """
-  All values less than or equal the given value.
-  """
-  value_lte: String
-  """
-  All values greater than the given value.
-  """
-  value_gt: String
-  """
-  All values greater than or equal the given value.
-  """
-  value_gte: String
-  """
-  All values containing the given string.
-  """
-  value_contains: String
-  """
-  All values not containing the given string.
-  """
-  value_not_contains: String
-  """
-  All values starting with the given string.
-  """
-  value_starts_with: String
-  """
-  All values not starting with the given string.
-  """
-  value_not_starts_with: String
-  """
-  All values ending with the given string.
-  """
-  value_ends_with: String
-  """
-  All values not ending with the given string.
-  """
-  value_not_ends_with: String
-  descriptor: DataDescriptorWhereInput
-  _MagicalBackRelation_UserData_every: UserWhereInput
-  _MagicalBackRelation_UserData_some: UserWhereInput
-  _MagicalBackRelation_UserData_none: UserWhereInput
-}
-
-enum DataOrderByInput {
-  id_ASC
-  id_DESC
-  organisationId_ASC
-  organisationId_DESC
-  version_ASC
-  version_DESC
-  date_ASC
-  date_DESC
-  value_ASC
-  value_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
 }
 
 type Access implements Node {
@@ -1968,59 +1616,6 @@ input BpmnProcessWhereInput {
   All values greater than or equal the given value.
   """
   actionCount_gte: Int
-  definition: String
-  """
-  All values that are not equal to given value.
-  """
-  definition_not: String
-  """
-  All values that are contained in given list.
-  """
-  definition_in: [String!]
-  """
-  All values that are not contained in given list.
-  """
-  definition_not_in: [String!]
-  """
-  All values less than the given value.
-  """
-  definition_lt: String
-  """
-  All values less than or equal the given value.
-  """
-  definition_lte: String
-  """
-  All values greater than the given value.
-  """
-  definition_gt: String
-  """
-  All values greater than or equal the given value.
-  """
-  definition_gte: String
-  """
-  All values containing the given string.
-  """
-  definition_contains: String
-  """
-  All values not containing the given string.
-  """
-  definition_not_contains: String
-  """
-  All values starting with the given string.
-  """
-  definition_starts_with: String
-  """
-  All values not starting with the given string.
-  """
-  definition_not_starts_with: String
-  """
-  All values ending with the given string.
-  """
-  definition_ends_with: String
-  """
-  All values not ending with the given string.
-  """
-  definition_not_ends_with: String
   description: String
   """
   All values that are not equal to given value.
@@ -2248,8 +1843,6 @@ enum BpmnProcessOrderByInput {
   id_DESC
   actionCount_ASC
   actionCount_DESC
-  definition_ASC
-  definition_DESC
   description_ASC
   description_DESC
   model_ASC
@@ -2264,63 +1857,6 @@ enum BpmnProcessOrderByInput {
   updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
-}
-
-type BpmnTaskInstance implements Node {
-  id: ID!
-  dateFinished: DateTime
-  dateStarted: DateTime
-  duration: Int
-  performer(where: UserWhereInput): User
-  performerId: String
-  performerRoles: [String!]!
-  processInstance(where: BpmnProcessWhereInput): BpmnProcess
-  snapshot: Json
-  taskId: String
-}
-
-type Form implements Node {
-  id: ID!
-  name: String!
-  description: String
-  elements(where: FormElementWhereInput, orderBy: FormElementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FormElement!]
-  validations(where: ValidatorWhereInput, orderBy: ValidatorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Validator!]
-}
-
-type FormElement implements Node {
-  id: ID!
-  row: Int
-  column: Int
-  width: Int
-  source(where: DataDescriptorWhereInput): DataDescriptor
-  label: String
-  inline: Boolean
-  defaultValue: String
-  list: String
-  filterSource: String
-  filterColumn: String
-  control: FormControl
-  controlProps: Json
-  vertical: Boolean
-  elements(where: FormElementWhereInput, orderBy: FormElementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FormElement!]
-}
-
-type Organisation implements Node {
-  id: ID!
-  name: String!
-  description: String
-}
-
-type Role implements Node {
-  id: ID!
-  name: String!
-  description: String
-}
-
-type Validator implements Node {
-  id: ID!
-  name: String!
-  params: [String!]!
 }
 
 type Comment {
@@ -2798,10 +2334,6 @@ enum BpmnTaskInstanceOrderByInput {
   createdAt_DESC
 }
 
-enum LanguageCode {
-  EN
-}
-
 input UserWhereInput {
   """
   Logical AND on all given filters.
@@ -3092,6 +2624,451 @@ input UserWhereInput {
   _MagicalBackRelation_CommentToUser_every: CommentWhereInput
   _MagicalBackRelation_CommentToUser_some: CommentWhereInput
   _MagicalBackRelation_CommentToUser_none: CommentWhereInput
+}
+
+input NotificationWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [NotificationWhereInput!]
+  """
+  Logical OR on all given filters.
+  """
+  OR: [NotificationWhereInput!]
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [NotificationWhereInput!]
+  id: ID
+  """
+  All values that are not equal to given value.
+  """
+  id_not: ID
+  """
+  All values that are contained in given list.
+  """
+  id_in: [ID!]
+  """
+  All values that are not contained in given list.
+  """
+  id_not_in: [ID!]
+  """
+  All values less than the given value.
+  """
+  id_lt: ID
+  """
+  All values less than or equal the given value.
+  """
+  id_lte: ID
+  """
+  All values greater than the given value.
+  """
+  id_gt: ID
+  """
+  All values greater than or equal the given value.
+  """
+  id_gte: ID
+  """
+  All values containing the given string.
+  """
+  id_contains: ID
+  """
+  All values not containing the given string.
+  """
+  id_not_contains: ID
+  """
+  All values starting with the given string.
+  """
+  id_starts_with: ID
+  """
+  All values not starting with the given string.
+  """
+  id_not_starts_with: ID
+  """
+  All values ending with the given string.
+  """
+  id_ends_with: ID
+  """
+  All values not ending with the given string.
+  """
+  id_not_ends_with: ID
+  date: DateTime
+  """
+  All values that are not equal to given value.
+  """
+  date_not: DateTime
+  """
+  All values that are contained in given list.
+  """
+  date_in: [DateTime!]
+  """
+  All values that are not contained in given list.
+  """
+  date_not_in: [DateTime!]
+  """
+  All values less than the given value.
+  """
+  date_lt: DateTime
+  """
+  All values less than or equal the given value.
+  """
+  date_lte: DateTime
+  """
+  All values greater than the given value.
+  """
+  date_gt: DateTime
+  """
+  All values greater than or equal the given value.
+  """
+  date_gte: DateTime
+  code: NotificationCode
+  """
+  All values that are not equal to given value.
+  """
+  code_not: NotificationCode
+  """
+  All values that are contained in given list.
+  """
+  code_in: [NotificationCode!]
+  """
+  All values that are not contained in given list.
+  """
+  code_not_in: [NotificationCode!]
+  visible: Boolean
+  """
+  All values that are not equal to given value.
+  """
+  visible_not: Boolean
+  processInstance: BpmnProcessInstanceWhereInput
+  text: LocalisationWhereInput
+  _MagicalBackRelation_UserNotifications_every: UserWhereInput
+  _MagicalBackRelation_UserNotifications_some: UserWhereInput
+  _MagicalBackRelation_UserNotifications_none: UserWhereInput
+}
+
+enum NotificationOrderByInput {
+  id_ASC
+  id_DESC
+  date_ASC
+  date_DESC
+  code_ASC
+  code_DESC
+  visible_ASC
+  visible_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type Data implements Node {
+  id: ID!
+  descriptor(where: DataDescriptorWhereInput): DataDescriptor
+  organisationId: String
+  version: Int
+  date: DateTime
+  value: String
+}
+
+input DataWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [DataWhereInput!]
+  """
+  Logical OR on all given filters.
+  """
+  OR: [DataWhereInput!]
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [DataWhereInput!]
+  id: ID
+  """
+  All values that are not equal to given value.
+  """
+  id_not: ID
+  """
+  All values that are contained in given list.
+  """
+  id_in: [ID!]
+  """
+  All values that are not contained in given list.
+  """
+  id_not_in: [ID!]
+  """
+  All values less than the given value.
+  """
+  id_lt: ID
+  """
+  All values less than or equal the given value.
+  """
+  id_lte: ID
+  """
+  All values greater than the given value.
+  """
+  id_gt: ID
+  """
+  All values greater than or equal the given value.
+  """
+  id_gte: ID
+  """
+  All values containing the given string.
+  """
+  id_contains: ID
+  """
+  All values not containing the given string.
+  """
+  id_not_contains: ID
+  """
+  All values starting with the given string.
+  """
+  id_starts_with: ID
+  """
+  All values not starting with the given string.
+  """
+  id_not_starts_with: ID
+  """
+  All values ending with the given string.
+  """
+  id_ends_with: ID
+  """
+  All values not ending with the given string.
+  """
+  id_not_ends_with: ID
+  organisationId: String
+  """
+  All values that are not equal to given value.
+  """
+  organisationId_not: String
+  """
+  All values that are contained in given list.
+  """
+  organisationId_in: [String!]
+  """
+  All values that are not contained in given list.
+  """
+  organisationId_not_in: [String!]
+  """
+  All values less than the given value.
+  """
+  organisationId_lt: String
+  """
+  All values less than or equal the given value.
+  """
+  organisationId_lte: String
+  """
+  All values greater than the given value.
+  """
+  organisationId_gt: String
+  """
+  All values greater than or equal the given value.
+  """
+  organisationId_gte: String
+  """
+  All values containing the given string.
+  """
+  organisationId_contains: String
+  """
+  All values not containing the given string.
+  """
+  organisationId_not_contains: String
+  """
+  All values starting with the given string.
+  """
+  organisationId_starts_with: String
+  """
+  All values not starting with the given string.
+  """
+  organisationId_not_starts_with: String
+  """
+  All values ending with the given string.
+  """
+  organisationId_ends_with: String
+  """
+  All values not ending with the given string.
+  """
+  organisationId_not_ends_with: String
+  version: Int
+  """
+  All values that are not equal to given value.
+  """
+  version_not: Int
+  """
+  All values that are contained in given list.
+  """
+  version_in: [Int!]
+  """
+  All values that are not contained in given list.
+  """
+  version_not_in: [Int!]
+  """
+  All values less than the given value.
+  """
+  version_lt: Int
+  """
+  All values less than or equal the given value.
+  """
+  version_lte: Int
+  """
+  All values greater than the given value.
+  """
+  version_gt: Int
+  """
+  All values greater than or equal the given value.
+  """
+  version_gte: Int
+  date: DateTime
+  """
+  All values that are not equal to given value.
+  """
+  date_not: DateTime
+  """
+  All values that are contained in given list.
+  """
+  date_in: [DateTime!]
+  """
+  All values that are not contained in given list.
+  """
+  date_not_in: [DateTime!]
+  """
+  All values less than the given value.
+  """
+  date_lt: DateTime
+  """
+  All values less than or equal the given value.
+  """
+  date_lte: DateTime
+  """
+  All values greater than the given value.
+  """
+  date_gt: DateTime
+  """
+  All values greater than or equal the given value.
+  """
+  date_gte: DateTime
+  value: String
+  """
+  All values that are not equal to given value.
+  """
+  value_not: String
+  """
+  All values that are contained in given list.
+  """
+  value_in: [String!]
+  """
+  All values that are not contained in given list.
+  """
+  value_not_in: [String!]
+  """
+  All values less than the given value.
+  """
+  value_lt: String
+  """
+  All values less than or equal the given value.
+  """
+  value_lte: String
+  """
+  All values greater than the given value.
+  """
+  value_gt: String
+  """
+  All values greater than or equal the given value.
+  """
+  value_gte: String
+  """
+  All values containing the given string.
+  """
+  value_contains: String
+  """
+  All values not containing the given string.
+  """
+  value_not_contains: String
+  """
+  All values starting with the given string.
+  """
+  value_starts_with: String
+  """
+  All values not starting with the given string.
+  """
+  value_not_starts_with: String
+  """
+  All values ending with the given string.
+  """
+  value_ends_with: String
+  """
+  All values not ending with the given string.
+  """
+  value_not_ends_with: String
+  descriptor: DataDescriptorWhereInput
+  _MagicalBackRelation_UserData_every: UserWhereInput
+  _MagicalBackRelation_UserData_some: UserWhereInput
+  _MagicalBackRelation_UserData_none: UserWhereInput
+}
+
+enum DataOrderByInput {
+  id_ASC
+  id_DESC
+  organisationId_ASC
+  organisationId_DESC
+  version_ASC
+  version_DESC
+  date_ASC
+  date_DESC
+  value_ASC
+  value_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type Form implements Node {
+  id: ID!
+  name: String!
+  description: String
+  elements(where: FormElementWhereInput, orderBy: FormElementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FormElement!]
+  validations(where: ValidatorWhereInput, orderBy: ValidatorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Validator!]
+}
+
+type FormElement implements Node {
+  id: ID!
+  row: Int
+  column: Int
+  width: Int
+  source(where: DataDescriptorWhereInput): DataDescriptor
+  label: String
+  inline: Boolean
+  defaultValue: String
+  list: String
+  filterSource: String
+  filterColumn: String
+  control: FormControl
+  controlProps: Json
+  vertical: Boolean
+  elements(where: FormElementWhereInput, orderBy: FormElementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FormElement!]
+}
+
+type Organisation implements Node {
+  id: ID!
+  name: String!
+  description: String
+}
+
+type Role implements Node {
+  id: ID!
+  name: String!
+  description: String
+}
+
+type Validator implements Node {
+  id: ID!
+  name: String!
+  params: [String!]!
+}
+
+enum LanguageCode {
+  EN
 }
 
 type AccessCondition {

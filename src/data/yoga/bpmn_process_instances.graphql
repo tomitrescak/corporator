@@ -11,8 +11,10 @@ input BpmnProcessInstancesInput {
   dateFinished: DateTime
   duration: Int
   processId: String
+  skip: Int
+  first: Int
 }
 
 type Query {
-  bpmnProcesses(input: BpmnProcessInstancesInput!): [BpmnProcessInstance]!
+  bpmnProcessInstances(input: BpmnProcessInstancesInput!): [BpmnProcessInstance]!
 }

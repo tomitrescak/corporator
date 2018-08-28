@@ -1,5 +1,5 @@
 # source: http://localhost:4466
-# timestamp: Tue Aug 28 2018 19:50:22 GMT+1000 (Australian Eastern Standard Time)
+# timestamp: Tue Aug 28 2018 20:58:31 GMT+1000 (Australian Eastern Standard Time)
 
 type Access implements Node {
   id: ID!
@@ -660,7 +660,6 @@ type BpmnProcess implements Node {
   access(where: AccessWhereInput): Access!
   actionCount: Int!
   data(where: DataDescriptorWhereInput, orderBy: DataDescriptorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [DataDescriptor!]
-  definition: String
   description: String
   model: String!
   name: String!
@@ -682,7 +681,6 @@ type BpmnProcessConnection {
 
 input BpmnProcessCreateInput {
   actionCount: Int!
-  definition: String
   description: String
   model: String!
   name: String!
@@ -1157,8 +1155,6 @@ enum BpmnProcessOrderByInput {
   id_DESC
   actionCount_ASC
   actionCount_DESC
-  definition_ASC
-  definition_DESC
   description_ASC
   description_DESC
   model_ASC
@@ -1178,7 +1174,6 @@ enum BpmnProcessOrderByInput {
 type BpmnProcessPreviousValues {
   id: ID!
   actionCount: Int!
-  definition: String
   description: String
   model: String!
   name: String!
@@ -1227,7 +1222,6 @@ input BpmnProcessSubscriptionWhereInput {
 
 input BpmnProcessUpdateDataInput {
   actionCount: Int
-  definition: String
   description: String
   model: String
   name: String
@@ -1241,7 +1235,6 @@ input BpmnProcessUpdateDataInput {
 
 input BpmnProcessUpdateInput {
   actionCount: Int
-  definition: String
   description: String
   model: String
   name: String
@@ -1358,46 +1351,6 @@ input BpmnProcessWhereInput {
 
   """All values greater than or equal the given value."""
   actionCount_gte: Int
-  definition: String
-
-  """All values that are not equal to given value."""
-  definition_not: String
-
-  """All values that are contained in given list."""
-  definition_in: [String!]
-
-  """All values that are not contained in given list."""
-  definition_not_in: [String!]
-
-  """All values less than the given value."""
-  definition_lt: String
-
-  """All values less than or equal the given value."""
-  definition_lte: String
-
-  """All values greater than the given value."""
-  definition_gt: String
-
-  """All values greater than or equal the given value."""
-  definition_gte: String
-
-  """All values containing the given string."""
-  definition_contains: String
-
-  """All values not containing the given string."""
-  definition_not_contains: String
-
-  """All values starting with the given string."""
-  definition_starts_with: String
-
-  """All values not starting with the given string."""
-  definition_not_starts_with: String
-
-  """All values ending with the given string."""
-  definition_ends_with: String
-
-  """All values not ending with the given string."""
-  definition_not_ends_with: String
   description: String
 
   """All values that are not equal to given value."""

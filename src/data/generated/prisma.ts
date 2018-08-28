@@ -876,7 +876,6 @@ type BpmnProcess implements Node {
   access(where: AccessWhereInput): Access!
   actionCount: Int!
   data(where: DataDescriptorWhereInput, orderBy: DataDescriptorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [DataDescriptor!]
-  definition: String
   description: String
   model: String!
   name: String!
@@ -898,7 +897,6 @@ type BpmnProcessConnection {
 
 input BpmnProcessCreateInput {
   actionCount: Int!
-  definition: String
   description: String
   model: String!
   name: String!
@@ -1373,8 +1371,6 @@ enum BpmnProcessOrderByInput {
   id_DESC
   actionCount_ASC
   actionCount_DESC
-  definition_ASC
-  definition_DESC
   description_ASC
   description_DESC
   model_ASC
@@ -1394,7 +1390,6 @@ enum BpmnProcessOrderByInput {
 type BpmnProcessPreviousValues {
   id: ID!
   actionCount: Int!
-  definition: String
   description: String
   model: String!
   name: String!
@@ -1443,7 +1438,6 @@ input BpmnProcessSubscriptionWhereInput {
 
 input BpmnProcessUpdateDataInput {
   actionCount: Int
-  definition: String
   description: String
   model: String
   name: String
@@ -1457,7 +1451,6 @@ input BpmnProcessUpdateDataInput {
 
 input BpmnProcessUpdateInput {
   actionCount: Int
-  definition: String
   description: String
   model: String
   name: String
@@ -1574,46 +1567,6 @@ input BpmnProcessWhereInput {
 
   """All values greater than or equal the given value."""
   actionCount_gte: Int
-  definition: String
-
-  """All values that are not equal to given value."""
-  definition_not: String
-
-  """All values that are contained in given list."""
-  definition_in: [String!]
-
-  """All values that are not contained in given list."""
-  definition_not_in: [String!]
-
-  """All values less than the given value."""
-  definition_lt: String
-
-  """All values less than or equal the given value."""
-  definition_lte: String
-
-  """All values greater than the given value."""
-  definition_gt: String
-
-  """All values greater than or equal the given value."""
-  definition_gte: String
-
-  """All values containing the given string."""
-  definition_contains: String
-
-  """All values not containing the given string."""
-  definition_not_contains: String
-
-  """All values starting with the given string."""
-  definition_starts_with: String
-
-  """All values not starting with the given string."""
-  definition_not_starts_with: String
-
-  """All values ending with the given string."""
-  definition_ends_with: String
-
-  """All values not ending with the given string."""
-  definition_not_ends_with: String
   description: String
 
   """All values that are not equal to given value."""
@@ -6266,8 +6219,6 @@ export type BpmnProcessOrderByInput =   'id_ASC' |
   'id_DESC' |
   'actionCount_ASC' |
   'actionCount_DESC' |
-  'definition_ASC' |
-  'definition_DESC' |
   'description_ASC' |
   'description_DESC' |
   'model_ASC' |
@@ -6930,20 +6881,6 @@ export interface BpmnProcessWhereInput {
   actionCount_lte?: Int
   actionCount_gt?: Int
   actionCount_gte?: Int
-  definition?: String
-  definition_not?: String
-  definition_in?: String[] | String
-  definition_not_in?: String[] | String
-  definition_lt?: String
-  definition_lte?: String
-  definition_gt?: String
-  definition_gte?: String
-  definition_contains?: String
-  definition_not_contains?: String
-  definition_starts_with?: String
-  definition_not_starts_with?: String
-  definition_ends_with?: String
-  definition_not_ends_with?: String
   description?: String
   description_not?: String
   description_in?: String[] | String
@@ -7695,7 +7632,6 @@ export interface BpmnTaskInstanceUpsertWithWhereUniqueNestedInput {
 
 export interface BpmnProcessCreateInput {
   actionCount: Int
-  definition?: String
   description?: String
   model: String
   name: String
@@ -8394,7 +8330,6 @@ export interface UserUpdateDataInput {
 
 export interface BpmnProcessUpdateInput {
   actionCount?: Int
-  definition?: String
   description?: String
   model?: String
   name?: String
@@ -8641,7 +8576,6 @@ export interface AccessUpdateOneInput {
 
 export interface BpmnProcessUpdateDataInput {
   actionCount?: Int
-  definition?: String
   description?: String
   model?: String
   name?: String
@@ -8771,7 +8705,6 @@ export interface OrganisationConnection {
 export interface BpmnProcessPreviousValues {
   id: ID_Output
   actionCount: Int
-  definition?: String
   description?: String
   model: String
   name: String
@@ -9480,7 +9413,6 @@ export interface BpmnProcess extends Node {
   access: Access
   actionCount: Int
   data?: DataDescriptor[]
-  definition?: String
   description?: String
   model: String
   name: String

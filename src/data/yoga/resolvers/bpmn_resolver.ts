@@ -1,85 +1,55 @@
-import { Mutation, Notification, Query, Resolver, Yoga } from '../utils';
+import { Mutation, Notification, purge, Query, Resolver, Yoga } from '../utils';
+import { FixtureContext } from './common';
 
 export const query: Query = {
-  bpmnProcesses(_parent, { input: { skip = 0, first = 100, visible } }, ctx, info) {
+  bpmnProcesses(_parent, { input: { status, name, skip = 0, first = 10 } }, ctx, info) {
     // return ctx.db.query.notifications(
     //   { where: { owner: { id: getUserId(ctx) } }, skip: start, last: end },
     //   info
     // );
-    return ctx.db.query.notifications(
-      { where: visible == null ? {} : { visible }, skip, first },
+    return ctx.db.query.bpmnProcesses(
+      {
+        where: purge<Yoga.BpmnProcessWhereInput>({ name_contains: 'we', status }),
+        skip,
+        first
+      },
       info
     );
   }
 };
 
 export const mutation: Mutation = {
-  async notify(_parent, { input }, ctx, info) {
-    await ctx.db.mutation.updateUser(
+  async createProcess(_parent, { input: { description, status, name, model } }, ctx, info) {
+    const process = await ctx.db.mutation.createBpmnProcess(
       {
-        where: { id: input.userId },
         data: {
-          notifications: {
-            create: {
-              code: input.code,
-              params: { set: input.params },
-              processInstance: {
-                connect: {
-                  id: input.processInstanceId
-                }
-              },
-              visible: true
-            }
-          }
+          actionCount: 0,
+          data: {},
+          description,
+          model,
+          name,
+          status,
+          version: 0,
+          access: null
         }
       },
       info
     );
-
-    // return user.notifications[0];
-    // const notification = await ctx.db.query.notifications({ where: {     }); // .user()
-
-    return true;
+    return process;
   }
 };
 
-export const resolver: Resolver<Notification> = {
-  Notification: {
-    text: async (parent, _args, ctx, _info) => {
-      const results = await ctx.db.query.localisations({
-        where: { code: parent.code, language: ctx.session.language }
-      });
-      return results[0];
-    }
-  }
-};
-
-export async function fixtures(ctx: ServerContext, userId: string) {
-  const notifications: Yoga.NotifyInput[] = [
-    { userId, processInstanceId: null, code: 'ProcessStarted', params: ['Process Name'] },
-    { userId, processInstanceId: null, code: 'ProcessFinished', params: ['Process Name'] },
-    { userId, processInstanceId: null, code: 'ProcessAborted', params: ['Process Name'] },
-    {
-      userId,
-      processInstanceId: null,
-      code: 'ActionStarted',
-      params: ['Process Name', 'Action Name']
-    },
-    {
-      userId,
-      processInstanceId: null,
-      code: 'ActionFinished',
-      params: ['Process Name', 'Action Name', 'Action Result']
-    },
-    {
-      userId,
-      processInstanceId: null,
-      code: 'ActionRequired',
-      params: ['Process Name', 'Action Name']
-    }
+export async function fixtures(ctx: ServerContext, fixtureContext: FixtureContext) {
+  const processes: Yoga.CreateProcessInput[] = [
+    { name: 'Process 1', description: 'Process 1 description', model: '', status: 'Published' },
+    { name: 'Process 4', description: 'Process 4 description', model: '', status: 'Published' },
+    { name: 'Process 2', description: 'Process 2 description', model: '', status: 'Draft' },
+    { name: 'Process 3', description: 'Process 3 description', model: '', status: 'Proposal' }
   ];
 
-  for (let input of notifications) {
-    await mutation.notify(null, { input }, ctx);
+  let inserted: Yoga.BpmnProcess[] = [];
+  for (let input of processes) {
+    const process = await mutation.createProcess(null, { input }, ctx);
+    inserted.push(process);
   }
 }

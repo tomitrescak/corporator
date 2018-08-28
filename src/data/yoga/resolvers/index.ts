@@ -3,21 +3,29 @@ import * as notifications from './notifications_resolver';
 import * as users from './user_resolver';
 
 import { addResolver, Context } from '../utils';
+import { FixtureContext } from './common';
+
+/* =========================================================
+    Resolvers
+   ======================================================== */
 
 export const resolvers = {
   Query: {},
   Mutation: {}
 };
 
-export async function fixtures(context: Context) {
-  const userId = await users.fixtures(context);
-  if (userId) {
-    await notifications.fixtures(context, userId);
-  }
-}
-
-// import custom resolvers
-
 addResolver(resolvers, notifications);
 addResolver(resolvers, bpmnProcess);
 addResolver(resolvers, users);
+
+/* =========================================================
+    Fixtures
+   ======================================================== */
+
+export async function fixtures(context: Context) {
+  const fixtureContext: FixtureContext = {};
+  fixtureContext.userId = await users.fixtures(context);
+  if (fixtureContext.userId) {
+    await notifications.fixtures(context, fixtureContext);
+  }
+}

@@ -1,4 +1,5 @@
 import { Mutation, Notification, Query, Resolver, Yoga } from '../utils';
+import { FixtureContext } from './common';
 
 export const query: Query = {
   notifications(_parent, { input: { skip = 0, first = 100, visible } }, ctx, info) {
@@ -54,7 +55,8 @@ export const resolver: Resolver<Notification> = {
   }
 };
 
-export async function fixtures(ctx: ServerContext, userId: string) {
+export async function fixtures(ctx: ServerContext, fixtureContext: FixtureContext) {
+  const { userId } = fixtureContext;
   const notifications: Yoga.NotifyInput[] = [
     { userId, processInstanceId: null, code: 'ProcessStarted', params: ['Process Name'] },
     { userId, processInstanceId: null, code: 'ProcessFinished', params: ['Process Name'] },
