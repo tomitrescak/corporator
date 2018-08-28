@@ -27,6 +27,7 @@ export const AppStore = types
       setUser(user: Yoga.User) {
         self.userId = user.id;
         self.user = user;
+        self.localStorage.userId = user.id;
       },
       logout() {
         self.userId = undefined;

@@ -1,147 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Log Logout renders loading 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
-/>
-`;
-
-exports[`Logi Logout renders loading 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
-/>
-`;
-
-exports[`Login L renders loading 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
-/>
-`;
-
-exports[`Login Log renders loading 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
-/>
-`;
-
-exports[`Login LoginButton renders and sets value 1`] = `null`;
-
-exports[`Login LoginButton renders loading 1`] = `
-<Unknown>
-  <Menu>
-    <inject-LogoutMenu-with-store
-      store={
-        Object {
-          "login": Object {
-            "error": "",
-            "errors": Object {},
-            "password": "",
-            "user": "",
-            "view": "login",
-          },
-          "user": undefined,
-          "userId": undefined,
-        }
-      }
-      token="1234"
-    />
-  </Menu>
-</Unknown>
-`;
-
-exports[`Login Logout renders loading 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
-/>
-`;
-
-exports[`Logo Logout renders loading 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
-/>
-`;
-
-exports[`Logout  renders loading 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
-/>
-`;
-
-exports[`Logout Log renders loading 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
-/>
-`;
-
-exports[`Logout Logou renders loading 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
-/>
-`;
-
-exports[`Logout Logout renders loading 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
-/>
-`;
-
-exports[`Logout M renders loading 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
-/>
-`;
-
-exports[`Logout Menu  renders loading 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
-/>
-`;
-
-exports[`Logout Menu Bu renders loading 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
-/>
-`;
-
 exports[`Logout Menu Button renders and sets value 1`] = `
 <style>
 </style>
@@ -150,212 +8,52 @@ exports[`Logout Menu Button renders and sets value 1`] = `
   className="ui menu"
 >
   <div
-    className="item"
+    aria-expanded={false}
+    className="ui item dropdown"
+    onBlur={[Function]}
+    onChange={[Function]}
     onClick={[Function]}
+    onFocus={[Function]}
+    onMouseDown={[Function]}
+    role="listbox"
+    tabIndex={0}
   >
-    <div
-      className="ui mini active inline loader"
+    <span>
+      <i
+        aria-hidden="true"
+        className="user icon"
+      />
+      Tomas Trescak
+    </span>
+    <i
+      aria-hidden="true"
+      className="dropdown icon"
+      onClick={[Function]}
     />
+    <div
+      className="menu transition"
+    >
+      <div
+        className="ui divider"
+      />
+      <div
+        className="item"
+        onClick={[Function]}
+        role="option"
+      >
+        <i
+          aria-hidden="true"
+          className="sign out icon"
+        />
+        <span
+          className="text"
+        >
+          Logout
+        </span>
+      </div>
+    </div>
   </div>
 </div>
-`;
-
-exports[`Logout Menu Button renders e 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
-/>
-`;
-
-exports[`Logout Menu Button renders emp 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
-/>
-`;
-
-exports[`Logout Menu Button renders empty  1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
-/>
-`;
-
-exports[`Logout Menu Button renders empty i 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
-/>
-`;
-
-exports[`Logout Menu Button renders empty if  1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
-/>
-`;
-
-exports[`Logout Menu Button renders empty if e 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
-/>
-`;
-
-exports[`Logout Menu Button renders empty if er 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
-/>
-`;
-
-exports[`Logout Menu Button renders empty if error 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
-/>
-`;
-
-exports[`Logout Menu Button renders empty if error a 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
-/>
-`;
-
-exports[`Logout Menu Button renders empty if error and  1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
-/>
-`;
-
-exports[`Logout Menu Button renders empty if error and res 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
-/>
-`;
-
-exports[`Logout Menu Button renders empty if error and rese 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
-/>
-`;
-
-exports[`Logout Menu Button renders empty if error and resets 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
-/>
-`;
-
-exports[`Logout Menu Button renders empty if error and resets st 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
-/>
-`;
-
-exports[`Logout Menu Button renders empty if error and resets store 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
-/>
-`;
-
-exports[`Logout Menu Button renders empty if no 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
-/>
-`;
-
-exports[`Logout Menu Button renders empty if no u 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
-/>
-`;
-
-exports[`Logout Menu Button renders empty if no use 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
-/>
-`;
-
-exports[`Logout Menu Button renders empty if no user  1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
-/>
-`;
-
-exports[`Logout Menu Button renders empty if no user pre 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
-/>
-`;
-
-exports[`Logout Menu Button renders empty if no user presen 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
-/>
-`;
-
-exports[`Logout Menu Button renders empty if no user present  1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
-/>
 `;
 
 exports[`Logout Menu Button renders empty if no user present 1`] = `
@@ -368,33 +66,6 @@ exports[`Logout Menu Button renders empty if no user present 1`] = `
 `;
 
 exports[`Logout Menu Button renders empty if no user present 2`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
-/>
-`;
-
-exports[`Logout Menu Button renders empty if no user present a 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
-/>
-`;
-
-exports[`Logout Menu Button renders empty if no user present and l 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
-/>
-`;
-
-exports[`Logout Menu Button renders empty if no user present and load 1`] = `
 <style>
 </style>
 
@@ -421,79 +92,7 @@ exports[`Logout Menu Button renders empty if no user present and loading 2`] = `
 />
 `;
 
-exports[`Logout Menu Button renders l if error and resets store 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
->
-  <div
-    className="item"
-    onClick={[Function]}
-  >
-    <div
-      className="ui mini active inline loader"
-    />
-  </div>
-</div>
-`;
-
-exports[`Logout Menu Button renders lo if error and resets store 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
->
-  <div
-    className="item"
-    onClick={[Function]}
-  >
-    <div
-      className="ui mini active inline loader"
-    />
-  </div>
-</div>
-`;
-
-exports[`Logout Menu Button renders loa if error and resets store 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
->
-  <div
-    className="item"
-    onClick={[Function]}
-  >
-    <div
-      className="ui mini active inline loader"
-    />
-  </div>
-</div>
-`;
-
-exports[`Logout Menu Button renders loadi if error and resets store 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
->
-  <div
-    className="item"
-    onClick={[Function]}
-  >
-    <div
-      className="ui mini active inline loader"
-    />
-  </div>
-</div>
-`;
-
-exports[`Logout Menu Button renders loading 1`] = `
+exports[`Logout Menu Button renders empty if no user returned  1`] = `
 <style>
 </style>
 
@@ -502,7 +101,25 @@ exports[`Logout Menu Button renders loading 1`] = `
 />
 `;
 
-exports[`Logout Menu Button renders loading if error and resets store 1`] = `
+exports[`Logout Menu Button renders fail and resets store 1`] = `
+<style>
+</style>
+
+<div
+  className="ui menu"
+/>
+`;
+
+exports[`Logout Menu Button renders fail and resets store 2`] = `
+<style>
+</style>
+
+<div
+  className="ui menu"
+/>
+`;
+
+exports[`Logout Menu Button renders loading  1`] = `
 <style>
 </style>
 
@@ -520,277 +137,7 @@ exports[`Logout Menu Button renders loading if error and resets store 1`] = `
 </div>
 `;
 
-exports[`Logout Menu Button renders loading if u and resets store 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
->
-  <div
-    className="item"
-    onClick={[Function]}
-  >
-    <div
-      className="ui mini active inline loader"
-    />
-  </div>
-</div>
-`;
-
-exports[`Logout Menu Button renders loading if use and resets store 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
->
-  <div
-    className="item"
-    onClick={[Function]}
-  >
-    <div
-      className="ui mini active inline loader"
-    />
-  </div>
-</div>
-`;
-
-exports[`Logout Menu Button renders loading if user  and resets store 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
->
-  <div
-    className="item"
-    onClick={[Function]}
-  >
-    <div
-      className="ui mini active inline loader"
-    />
-  </div>
-</div>
-`;
-
-exports[`Logout Menu Button renders loading if user d and resets store 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
->
-  <div
-    className="item"
-    onClick={[Function]}
-  >
-    <div
-      className="ui mini active inline loader"
-    />
-  </div>
-</div>
-`;
-
-exports[`Logout Menu Button renders loading if user id  and resets store 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
->
-  <div
-    className="item"
-    onClick={[Function]}
-  >
-    <div
-      className="ui mini active inline loader"
-    />
-  </div>
-</div>
-`;
-
-exports[`Logout Menu Button renders loading if user id pre and resets store 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
->
-  <div
-    className="item"
-    onClick={[Function]}
-  >
-    <div
-      className="ui mini active inline loader"
-    />
-  </div>
-</div>
-`;
-
-exports[`Logout Menu Button renders loading if user id prese and resets store 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
->
-  <div
-    className="item"
-    onClick={[Function]}
-  >
-    <div
-      className="ui mini active inline loader"
-    />
-  </div>
-</div>
-`;
-
-exports[`Logout Menu Button renders loading if user id present b and resets store 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
->
-  <div
-    className="item"
-    onClick={[Function]}
-  >
-    <div
-      className="ui mini active inline loader"
-    />
-  </div>
-</div>
-`;
-
-exports[`Logout Menu Button renders loading if user id present bu and resets store 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
->
-  <div
-    className="item"
-    onClick={[Function]}
-  >
-    <div
-      className="ui mini active inline loader"
-    />
-  </div>
-</div>
-`;
-
-exports[`Logout Menu Button renders loading if user id present but  and resets store 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
->
-  <div
-    className="item"
-    onClick={[Function]}
-  >
-    <div
-      className="ui mini active inline loader"
-    />
-  </div>
-</div>
-`;
-
-exports[`Logout Menu Button renders loading if user id present but no us and resets store 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
->
-  <div
-    className="item"
-    onClick={[Function]}
-  >
-    <div
-      className="ui mini active inline loader"
-    />
-  </div>
-</div>
-`;
-
-exports[`Logout Menu Button renders loading if user id present but no user and resets store 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
->
-  <div
-    className="item"
-    onClick={[Function]}
-  >
-    <div
-      className="ui mini active inline loader"
-    />
-  </div>
-</div>
-`;
-
-exports[`Logout Menu Button renders loading if user id present but no user,  and resets store 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
->
-  <div
-    className="item"
-    onClick={[Function]}
-  >
-    <div
-      className="ui mini active inline loader"
-    />
-  </div>
-</div>
-`;
-
-exports[`Logout Menu Button renders loading if user id present but no user, and resets store 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
->
-  <div
-    className="item"
-    onClick={[Function]}
-  >
-    <div
-      className="ui mini active inline loader"
-    />
-  </div>
-</div>
-`;
-
-exports[`Logout Menu Button renders loading if user id present but no user, f and resets store 1`] = `
-<style>
-</style>
-
-<div
-  className="ui menu"
->
-  <div
-    className="item"
-    onClick={[Function]}
-  >
-    <div
-      className="ui mini active inline loader"
-    />
-  </div>
-</div>
-`;
-
-exports[`Logout Menu Button renders loading if user id present but no user, fails and resets store 1`] = `
+exports[`Logout Menu Button renders loading  2`] = `
 <style>
 </style>
 

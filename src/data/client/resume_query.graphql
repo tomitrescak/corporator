@@ -1,4 +1,4 @@
-mutation Resume($token: String!) {
+query Resume($token: String!) {
   resume(token: $token) {
     user {
       id

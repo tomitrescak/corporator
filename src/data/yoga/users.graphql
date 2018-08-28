@@ -11,10 +11,10 @@ input AuthInput {
 type Query {
   user(id: ID!): User
   users: [User]!
+  resume(token: String!): AuthPayload!
 }
 
 type Mutation {
   login(input: AuthInput!): AuthPayload!
   signup(input: AuthInput!): AuthPayload!
-  resume(token: String!): AuthPayload!
 }

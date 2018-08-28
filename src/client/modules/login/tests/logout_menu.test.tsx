@@ -3,11 +3,11 @@ import * as React from 'react';
 import 'jest-styled-components';
 
 import { AppStore } from 'client/stores/app_store';
-import { create, mock, MockedProvider, ReactTestRenderer } from 'tests/client';
+import { create, mock, MockedProvider } from 'tests/client';
 
-import RESUME_MUTATION = require('data/client/resume_mutation.graphql');
-import { Button, Menu } from 'semantic-ui-react';
-import { LogoutMenu } from '../logout_menu';
+import RESUME_MUTATION = require('data/client/resume_query.graphql');
+import { Menu } from 'semantic-ui-react';
+import { LogoutMenu, ResumeQuery } from '../logout_menu';
 
 describe('Logout', function() {
   describe('Menu Button', () => {
@@ -42,15 +42,37 @@ describe('Logout', function() {
       component.unmount();
     });
 
-    it('renders loading if user id present but no user, fails and resets store', () => {
+    it('renders loading ', () => {
+      mock.expect(RESUME_MUTATION).loading();
+
+      const store = AppStore.create({ userId: '1' });
+      const component = CreateLogoutMenu('1234', store);
+      expect(component).toMatchSnapshot();
+
+      component.unmount();
+    });
+
+    it('renders empty if no user returned ', () => {
+      mock.expect(RESUME_MUTATION).reply({ resume: {} });
+
+      const store = AppStore.create({ userId: '1' });
+      const component = CreateLogoutMenu('1234', store);
+      expect(component).toMatchSnapshot();
+
+      component.unmount();
+    });
+
+    it('renders fail and resets store', () => {
       mock.expect(RESUME_MUTATION).fail('Token Fail');
 
       const store = AppStore.create({ userId: '1' });
-
       const component = CreateLogoutMenu('1234', store);
-
       expect(component).toMatchSnapshot();
 
+      // test callback
+
+      const query = component.root.findByType(ResumeQuery);
+      query.props.onError();
       expect(store.userId).not.toBeDefined();
 
       component.unmount();
@@ -59,21 +81,29 @@ describe('Logout', function() {
     it('renders and sets value', () => {
       mock
         .expect(RESUME_MUTATION)
-        .reply({ resume: { user: { id: '2', name: 'Tomi' }, token: 'ABCD' } });
+        .reply({ resume: { user: { id: '2', name: 'Tomas Trescak' }, token: 'ABCD' } });
+
+      // const d = component.root.findByType(LogoutMenu).instance;
+      // const spy = jest.fn();
+      // d.wrappedInstance.onError = spy;
 
       const store = AppStore.create({ userId: '1' });
-
       const component = CreateLogoutMenu('1234', store);
-
       expect(component).toMatchSnapshot();
 
-      expect(store.userId).not.toBeDefined();
+      // test callback
+
+      const query = component.root.findByType(ResumeQuery);
+      const user = { id: '2', name: 'Tomi' };
+      query.props.onCompleted({ resume: { user } });
+      expect(store.userId).toBe('2');
+      expect(store.user).toEqual(user);
 
       component.unmount();
     });
 
     return {
-      component: Login
+      component: CreateLogoutMenu('123')
     };
   });
 });

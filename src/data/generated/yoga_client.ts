@@ -7,15 +7,15 @@ export interface Query {
     notifications: <T = Notification[]>(args: { start?: Int, end?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     processes: <T = BpmnProcess[]>(args?: {}, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     user: <T = User | null>(args: { id: ID_Output }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    users: <T = User[]>(args?: {}, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
+    users: <T = User[]>(args?: {}, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    resume: <T = AuthPayload>(args: { token: String }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
   }
 
 export interface Mutation {
     testMutation: <T = Boolean | null>(args?: {}, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     notify: <T = Notification>(args: { userId?: ID_Output, processInstanceId?: ID_Output, code?: NotificationCode, params: String[] }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     login: <T = AuthPayload>(args: { input: AuthInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    signup: <T = AuthPayload>(args: { input: AuthInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    resume: <T = AuthPayload>(args: { token: String }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
+    signup: <T = AuthPayload>(args: { input: AuthInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
   }
 
 export interface Subscription {}
@@ -1322,6 +1322,11 @@ export interface BpmnProcessInstance extends Node {
   duration?: Int
 }
 
+export interface AuthPayload {
+  user: User
+  token: String
+}
+
 export interface Notification extends Node {
   id: ID_Output
   date?: DateTime
@@ -1330,11 +1335,6 @@ export interface Notification extends Node {
   text?: Localisation
   params: String[]
   visible?: Boolean
-}
-
-export interface AuthPayload {
-  user: User
-  token: String
 }
 
 export interface User extends Node {

@@ -4,6 +4,7 @@ export const typeDefs = `type Query {
   processes: [BpmnProcess]!
   user(id: ID!): User
   users: [User]!
+  resume(token: String!): AuthPayload!
 }
 
 type Mutation {
@@ -11,7 +12,6 @@ type Mutation {
   notify(userId: ID, processInstanceId: ID, code: NotificationCode, params: [String!]!): Notification!
   login(input: AuthInput!): AuthPayload!
   signup(input: AuthInput!): AuthPayload!
-  resume(token: String!): AuthPayload!
 }
 
 type Notification implements Node {
@@ -49,14 +49,14 @@ type User implements Node {
   data(where: DataWhereInput, orderBy: DataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Data!]
 }
 
-enum NotificationCode {
-  ServiceStarted
-  ServiceStopped
-}
-
 type AuthPayload {
   user: User!
   token: String!
+}
+
+enum NotificationCode {
+  ServiceStarted
+  ServiceStopped
 }
 
 input AuthInput {

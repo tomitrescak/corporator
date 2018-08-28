@@ -3,8 +3,6 @@ import { Context, Mutation, Query } from '../utils';
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 
-export const query: Query = {};
-
 if (!process.env.JWT_SECRET) {
   process.env.JWT_SECRET = 'QWERTY%$#@!12345';
 }
@@ -57,6 +55,25 @@ export const mutation: Mutation = {
   //   };
   // },
 
+  async login(_, { input: { user, password } }, ctx) {
+    const userDb = await ctx.db.query.user({ where: { uid: user } });
+    if (!userDb) {
+      throw new Error(`AUTHENTICATION ERROR`);
+    }
+
+    const valid = await bcrypt.compare(password, userDb.password);
+    if (!valid) {
+      throw new Error('AUTHENTICATION ERROR');
+    }
+
+    return {
+      token: jwt.sign({ userId: userDb.id }, process.env.JWT_SECRET),
+      user: userDb
+    };
+  }
+};
+
+export const query: Query = {
   async resume(_, args, ctx) {
     let userId = '';
     try {
@@ -73,23 +90,6 @@ export const mutation: Mutation = {
     return {
       token: jwt.sign({ userId: user.id }, process.env.JWT_SECRET),
       user
-    };
-  },
-
-  async login(_, { input: { user, password } }, ctx) {
-    const userDb = await ctx.db.query.user({ where: { uid: user } });
-    if (!userDb) {
-      throw new Error(`AUTHENTICATION ERROR`);
-    }
-
-    const valid = await bcrypt.compare(password, userDb.password);
-    if (!valid) {
-      throw new Error('AUTHENTICATION ERROR');
-    }
-
-    return {
-      token: jwt.sign({ userId: userDb.id }, process.env.JWT_SECRET),
-      user: userDb
     };
   }
 };
