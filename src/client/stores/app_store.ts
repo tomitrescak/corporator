@@ -37,3 +37,5 @@ export const AppStore = types
       }
     };
   });
+
+export const appStore = AppStore.create({ userId: LocalStorage.userId });

@@ -8,6 +8,7 @@ import { MainLayout } from '../core/main_layout';
 import { PagerView } from '../core/pager_view';
 import { SortView } from '../core/sort_view';
 import { HeaderAnonymous } from '../headers/header_anonymous';
+import { HeaderAuthorised } from '../headers/header_authorised';
 import { LoginContainer } from '../login/login_container';
 import { NotificationListView } from '../notifications/views/notification_list_view';
 import { ProcessListView } from '../process/views/process_list_view';
@@ -58,24 +59,16 @@ export const HomeViewAnonymous = () => (
 export const HomeView: React.SFC<Props> = ({ store }) => (
   <>
     <Choose>
-      <When condition={!!store.userId}>
-        <Grid>
-          <Grid.Column width={11}>
-            <SortView />
-            <ProcessListView searchItems={null} />
-            <PagerView />
-          </Grid.Column>
-
-          <Grid.Column width={5}>
-            <NotificationListView notifications={null} />
-          </Grid.Column>
-        </Grid>
-      </When>
-      <Otherwise>
+      <When condition={!store.userId}>
         <>
           <HeaderAnonymous />
           <HomeViewAnonymous />
         </>
+      </When>
+      <Otherwise>
+        <MainLayout>
+          <div>Home</div>
+        </MainLayout>
       </Otherwise>
     </Choose>
   </>

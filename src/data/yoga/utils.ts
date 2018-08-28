@@ -35,6 +35,7 @@ export interface Context {
   db: Prisma;
   request: any;
   userId: string;
+  user: User;
   session: {
     language: LanguageCode;
   };
@@ -56,14 +57,14 @@ export function getUserId(ctx: Context): string {
   // }
 
   // try session
-  if (ctx.session.user) {
-    return ctx.session.user.id;
+  if (ctx.userId) {
+    return ctx.userId;
   }
 
   throw new AuthError();
 }
 
-export function getUser(ctx: Context): User {
+export async function getUser(ctx: Context): Promise<User> {
   // const Authorization = ctx.request.get('Authorization');
   // if (Authorization) {
   //   const token = Authorization.replace('Bearer ', '');
@@ -71,9 +72,18 @@ export function getUser(ctx: Context): User {
   //   return userId;
   // }
 
-  // try session
-  if (ctx.session.user) {
-    return ctx.session.user;
+  if (ctx.user) {
+    return ctx.user;
+  }
+
+  if (ctx.userId) {
+    const user = await ctx.db.query.user({ where: { id: ctx.userId } });
+
+    if (user) {
+      // try session
+      ctx.user = user;
+      return user;
+    }
   }
 
   throw new AuthError();

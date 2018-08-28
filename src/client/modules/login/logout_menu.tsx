@@ -4,7 +4,7 @@ import { inject, observer } from 'mobx-react';
 
 import RESUME = require('data/client/resume_mutation.graphql');
 import { Yoga } from 'data/yoga';
-import { Dropdown } from 'semantic-ui-react';
+import { Divider, Dropdown, Icon, Loader, Menu } from 'semantic-ui-react';
 
 type Props = {
   store?: App.Store;
@@ -27,7 +27,11 @@ export class LogoutMenu extends React.Component<Props> {
           this.props.store.setUser(user);
           this.props.store.localStorage.token = token;
         })
-        .catch(() => this.props.store.logout());
+        .catch(() => {
+          if (process.env.NODE_ENV === 'production') {
+            this.props.store.logout();
+          }
+        });
     }
   }
 
@@ -39,12 +43,32 @@ export class LogoutMenu extends React.Component<Props> {
     if (!this.props.store.userId) {
       return null;
     }
+    if (!this.props.store.user) {
+      return (
+        <Menu.Item>
+          <Loader active inline size="mini" />
+        </Menu.Item>
+      );
+    }
     return (
-      <Dropdown item text={this.props.store.user.name}>
-        <Dropdown.Item icon="logout" onClick={this.logout}>
-          Logout
-        </Dropdown.Item>
-        {this.props.children}
+      <Dropdown
+        item
+        trigger={
+          <span>
+            <Icon name="user" />
+            {this.props.store.user.name}
+          </span>
+        }
+      >
+        <Dropdown.Menu>
+          {this.props.children}
+          <Divider />
+          <Dropdown.Item
+            icon="sign out"
+            onClick={this.logout}
+            content={this.props.store.i18n`Logout`}
+          />
+        </Dropdown.Menu>
       </Dropdown>
     );
   }
