@@ -4,6 +4,7 @@ import logo = require('./logo.png');
 import { Menu, MenuProps } from 'semantic-ui-react';
 import styled, { StyledComponentClass } from 'styled-components';
 
+import { LocalStorage } from '../../config/local_storage';
 import { LogoutMenu } from '../login/logout_menu';
 import { Logo } from './header_logo';
 
@@ -30,7 +31,7 @@ export const HeaderAnonymous = () => (
         <Logo src={logo} alt="logo" />
       </Menu.Item>
       <Menu.Menu position="right">
-        <LogoutMenu token={localStorage.getItem('corpix.token')} />
+        <LogoutMenu token={LocalStorage.token} />
       </Menu.Menu>
     </TopMenu>
   </TopPanel>

@@ -3,6 +3,7 @@ import { types } from 'mobx-state-tree';
 
 import { client } from 'client/config/apollo';
 import { Yoga } from 'data/yoga';
+import { LocalStorage } from '../config/local_storage';
 import { LoginStore } from '../modules/login/login_store';
 import { UserStore } from '../modules/user/user_store';
 
@@ -18,7 +19,8 @@ export const AppStore = types
   })
   .volatile(_self => ({
     i18n,
-    client
+    client,
+    localStorage: LocalStorage
   }))
   .actions(self => {
     return {
@@ -30,7 +32,8 @@ export const AppStore = types
         self.userId = undefined;
         self.user = undefined;
         self.client.resetStore();
-        localStorage.removeItem('corpix.token');
+        self.localStorage.token = null;
+        self.localStorage.userId = null;
       }
     };
   });

@@ -20,6 +20,7 @@ import { ApolloLink } from 'apollo-link';
 import { setContext } from 'apollo-link-context';
 import { onError } from 'apollo-link-error';
 import { HttpLink } from 'apollo-link-http';
+import { LocalStorage } from './local_storage';
 
 export const client = new ApolloClient({
   link: ApolloLink.from([
@@ -38,7 +39,7 @@ export const client = new ApolloClient({
     }),
     setContext((_, { headers }) => {
       // get the authentication token from local storage if it exists
-      const token = localStorage.getItem('corpix.token');
+      const token = LocalStorage.token;
       // return the headers to the context so httpLink can read them
       return {
         headers: {

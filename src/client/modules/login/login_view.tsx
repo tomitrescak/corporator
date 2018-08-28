@@ -40,7 +40,8 @@ export const LoginButton = ({ store }: Props) => {
       mutation={LOGIN_MUTATION}
       onError={() => store.login.setError(store.i18n`User or password is incorrect`)}
       onCompleted={data => {
-        localStorage.setItem('corpix.token', data.login.token);
+        store.localStorage.token = data.login.token;
+        store.localStorage.userId = data.login.user.id;
         store.setUser(data.login.user);
       }}
     >
