@@ -17,6 +17,9 @@ exports[`Headers Anonymous renders correctly 1`] = `
         src="file"
       />
     </div>
+    <div
+      className="right menu"
+    />
   </div>
 </div>
 `;

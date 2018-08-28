@@ -18,6 +18,9 @@ Array [
           src="file"
         />
       </div>
+      <div
+        className="right menu"
+      />
     </div>
   </div>,
   <div
@@ -147,6 +150,9 @@ Array [
           src="file"
         />
       </div>
+      <div
+        className="right menu"
+      />
     </div>
   </div>,
   <div

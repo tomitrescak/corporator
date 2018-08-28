@@ -3,15 +3,16 @@ import * as React from 'react';
 import 'jest-styled-components';
 
 import { AppStore } from 'client/stores/app_store';
-import { create, mock, MockedProvider } from 'tests/client';
+import { create, mock, MockedProvider, ReactTestRenderer } from 'tests/client';
 import { LoginButton } from '../login_view';
 
-import LOGIN_QUERY = require('data/client/login.mutation.graphql');
+import LOGIN_MUTATION = require('data/client/login_mutation.graphql');
 import { Button } from 'semantic-ui-react';
 
 describe('Login', function() {
   describe('LoginButton', () => {
     const store = AppStore.create();
+    store.login.validate = jest.fn().mockReturnValue(true);
 
     const Login = (
       <MockedProvider>
@@ -19,27 +20,41 @@ describe('Login', function() {
       </MockedProvider>
     );
 
-    it('renders loading', () => {
+    let cmp: ReactTestRenderer;
+
+    beforeEach(() => {
       mock.reset();
-      mock.expect(LOGIN_QUERY).loading();
+      cmp = create(Login);
+    });
 
-      const component = create(Login);
-      component.root.findByType(Button).props.onClick();
+    afterEach(() => {
+      cmp.unmount();
+    });
 
-      expect(component).toMatchSnapshot();
-      component.unmount();
+    it('renders loading', () => {
+      mock.expect(LOGIN_MUTATION).loading();
+
+      cmp.root.findByType(Button).props.onClick();
+
+      expect(cmp).toMatchSnapshot();
+      cmp.unmount();
+    });
+
+    it('renders error', () => {
+      mock.expect(LOGIN_MUTATION).fail('any');
+
+      cmp.root.findByType(Button).props.onClick();
+
+      expect(store.login.error).toEqual('User or password is incorrect');
     });
 
     it('renders and sets value', () => {
-      mock.reset();
-      mock.expect(LOGIN_QUERY).reply({ login: { id: '1' } });
+      mock.expect(LOGIN_MUTATION).reply({ login: { user: { id: '1', name: 'Tomas' } } });
 
-      const component = create(Login);
-      expect(component).toMatchSnapshot();
+      expect(cmp).toMatchSnapshot();
 
-      component.root.findByType(Button).props.onClick();
+      cmp.root.findByType(Button).props.onClick();
       expect(store.userId).toBe('1');
-      component.unmount();
     });
 
     return {

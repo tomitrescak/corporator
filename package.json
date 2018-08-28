@@ -47,7 +47,8 @@
     "next": "next src",
     "prisma": "prisma deploy",
     "playground": "prisma playground --port 3001",
-    "yoga": "graphql codegen"
+    "yoga": "graphql codegen",
+    "dev": "npm run start | npm run server | npm run luis"
   },
   "devDependencies": {
     "@playlyfe/gql": "^2.6.0",

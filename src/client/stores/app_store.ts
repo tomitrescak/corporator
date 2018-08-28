@@ -1,6 +1,7 @@
 import i18n from 'es2015-i18n-tag';
 import { types } from 'mobx-state-tree';
 
+import { client } from 'client/config/apollo';
 import { Yoga } from 'data/yoga';
 import { LoginStore } from '../modules/login/login_store';
 import { UserStore } from '../modules/user/user_store';
@@ -11,18 +12,24 @@ declare global {
 
 export const AppStore = types
   .model('AppStore', {
-    userId: types.optional(types.string, ''),
-    user: types.optional(UserStore, {}),
+    userId: types.maybe(types.string),
+    user: types.maybe(UserStore),
     login: types.optional(LoginStore, () => LoginStore.create({}))
   })
-  .volatile(self => ({
-    i18n
+  .volatile(_self => ({
+    i18n,
+    client
   }))
   .actions(self => {
     return {
       setUser(user: Yoga.User) {
         self.userId = user.id;
         self.user = user;
+      },
+      logout() {
+        self.userId = null;
+        self.user = null;
+        localStorage.removeItem('corpix.token');
       }
     };
   });

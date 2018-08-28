@@ -2,6 +2,9 @@ global.storyOf = function(name, props, impl) {
   describe(name, () => impl && impl(props));
 };
 
+// mock
+jest.mock('apollo-link-http');
+
 require('jest-spy-serialiser').registerSpy();
 
 const css = require('css');

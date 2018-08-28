@@ -1,12 +1,12 @@
 import * as React from 'react';
 
-import { Mutation, MutationResult, QueryResult } from 'react-apollo';
+import { Mutation } from 'react-apollo';
 import { Button, ButtonProps, Form, Message } from 'semantic-ui-react';
 import styled, { StyledComponentClass } from 'styled-components';
 
 import { FormInput } from '../form/views/input_view';
 
-import LOGIN_MUTATION = require('data/client/login.mutation.graphql');
+import LOGIN_MUTATION = require('data/client/login_mutation.graphql');
 import { Yoga } from 'data/yoga';
 import { observer } from 'mobx-react';
 
@@ -39,7 +39,10 @@ export const LoginButton = ({ store }: Props) => {
     <LoginMutation
       mutation={LOGIN_MUTATION}
       onError={() => store.login.setError(store.i18n`User or password is incorrect`)}
-      onCompleted={data => store.setUser(data.login.user)}
+      onCompleted={data => {
+        localStorage.setItem('corpix.token', data.login.token);
+        store.setUser(data.login.user);
+      }}
     >
       {(login, { loading }) => {
         return (

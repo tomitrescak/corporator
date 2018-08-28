@@ -3,11 +3,8 @@ import * as React from 'react';
 import 'jest-styled-components';
 
 import { AppStore } from 'client/stores/app_store';
-import { create, mock, MockedProvider } from 'tests/client';
-import { LoginButton, LoginView } from '../login_view';
-
-import LOGIN_QUERY = require('data/client/login.mutation.graphql');
-import { Button } from 'semantic-ui-react';
+import { create, MockedProvider } from 'tests/client';
+import { LoginView } from '../login_view';
 
 describe('Login', function() {
   describe('Default', function() {

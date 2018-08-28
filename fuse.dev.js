@@ -9,7 +9,7 @@ const {
 const GraphQLPlugin = require('fuse-box-graphql-plugin');
 const JsxControlsPugin = require('jsx-controls-loader').fuseBoxPlugin;
 
-const { SnapshotPlugin } = require('luis/dist/bridges/jest/snapshot_plugin');
+// const { SnapshotPlugin } = require('luis/dist/bridges/jest/snapshot_plugin');
 
 const fuse = FuseBox.init({
   homeDir: 'src',
@@ -21,7 +21,7 @@ const fuse = FuseBox.init({
     [CSSResourcePlugin({ inline: true }), CSSPlugin()],
     ImageBase64Plugin(),
     JSONPlugin(),
-    SnapshotPlugin(),
+    // SnapshotPlugin(),
     ['.graphql', GraphQLPlugin()]
   ],
   alias: {
@@ -39,7 +39,7 @@ fuse.dev({ port: 3000 }, server => {
 });
 fuse
   .bundle('app')
-  .instructions(' > pages/router.tsx')
+  .instructions(' > pages/router.tsx -*.snap')
   .hmr()
   .watch();
 fuse.run();
