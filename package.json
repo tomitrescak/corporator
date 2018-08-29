@@ -41,7 +41,8 @@
   "scripts": {
     "start": "node fuse.dev",
     "server": "node fuse.server",
-    "test": "jest --all --runInBand",
+    "test": "jest --runInBand",
+    "us": "jest --updateSnapshot",
     "test-watch": "jest --watch",
     "luis": "luis src luis.ts",
     "clear": "jest --clearCache",
