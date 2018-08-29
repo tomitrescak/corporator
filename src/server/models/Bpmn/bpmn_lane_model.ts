@@ -1,17 +1,27 @@
-import { BpmnProcessInstance } from '../bpmn_process_instance_model';
-import { BpmnTaskInstanceModel } from '../bpmn_task_instance_model';
+import { Dictionary } from 'typescript-collections';
 import { BaseElement } from './bpmn_base_element_model';
-import { FlowNode } from './bpmn_flow_node_model';
+import { LaneElement } from './bpmn_lane_element_model';
 
 export class Lane extends BaseElement {
-  nodes: FlowNode[];
+  nodes: Dictionary<string, Dictionary<string, LaneElement>>;
+  roles: string[];
 
-  constructor(lane: Bpmn.Lane, nodes?: FlowNode[]) {
+  nodeIds: string[];
+
+  constructor(lane: Bpmn.Lane, nodes?: Dictionary<string, Dictionary<string, LaneElement>>) {
     super(lane);
-    this.nodes = nodes ? nodes : null;
+
+    this.nodeIds = [];
+
+    // store incoming/outgoing ids for linkiing references by BpmnProcess
+    if(lane.nodes) {
+      lane.nodes.forEach((node) => {
+        this.nodeIds.push(node.id);
+      });
+    }
+
+    this.nodes = nodes ? nodes : new Dictionary<string, Dictionary<string, LaneElement>>();
+    this.roles = this.name.split(' |,');
   }
 
-  execute(state: BpmnProcessInstance): Promise<BpmnTaskInstanceModel[]> {
-    return null;
-  }
 } 

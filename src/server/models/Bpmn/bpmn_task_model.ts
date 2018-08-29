@@ -1,7 +1,7 @@
 import { BpmnProcessInstance } from '../bpmn_process_instance_model';
-import { BpmnTaskInstanceModel } from '../bpmn_task_instance_model';
 import { BoundaryEvent } from './bpmn_boundary_event_model';
 import { FlowNode } from './bpmn_flow_node_model';
+import { Lane } from './bpmn_lane_model';
 
 export enum TaskMarkers {
   None = 'none',
@@ -10,28 +10,50 @@ export enum TaskMarkers {
   Compensation = 'compensation'
 }
 
-export class Task extends FlowNode {
-  marker: TaskMarkers;
+export abstract class Task extends FlowNode {
+  marker?: TaskMarkers;
 
-  // may not bee needed; may be handled by the event.outgoing
+  // may not be needed; may be handled by the event.outgoing
   attachedEventIds: string[];
-  attachedEvents: BoundaryEvent[];
+  interruptEventId: string;
+  // may need to split into array of non-interrupting and 1 variable of interrupting
 
-  constructor(task: Bpmn.Task, attachedEvents?: BoundaryEvent[]) {
-    super(task);
+  attachedEvents?: BoundaryEvent[];
+  interruptEvent?: BoundaryEvent;
+
+  constructor(task: Bpmn.Task, lane?: Lane, attachedEvents?: BoundaryEvent[]) {
+    super(task, lane);
     this.marker = task.marker ? task.marker : TaskMarkers.None;
     
     this.attachedEventIds = [];
     if(task.attachedEvents) {
       task.attachedEvents.forEach((ev) => {
-        this.attachedEventIds.push(ev.id);
+        if(ev.interrupting) {
+          // add event to single interrupt var
+          this.interruptEventId = ev.id;
+        } else {
+          // add event to list of non interrupt events
+          this.attachedEventIds.push(ev.id);
+        }
       });
     }
-
-    this.attachedEvents = attachedEvents ? attachedEvents : null;
+    
+    if(attachedEvents) {
+      // add boundary events to list and interrupting event if found
+      this.attachedEvents = [];
+      attachedEvents.forEach(ev => {
+        if(ev.interrupting) {
+          // event in interrupting
+          this.interruptEvent = ev;
+        } else {
+          // event is non-interrupting
+          this.attachedEvents.push(ev);
+        }
+      });
+    } else {
+      this.attachedEvents = null;
+    }  
   }
-
-  execute(state: BpmnProcessInstance): Promise<BpmnTaskInstanceModel[]> {
-    return null;
-  }
+  
+  abstract execute(state: BpmnProcessInstance, context: Corpix.Server.Context): void;
 }

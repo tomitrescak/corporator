@@ -1,6 +1,6 @@
 import { BpmnProcessInstance } from '../bpmn_process_instance_model';
-import { BpmnTaskInstanceModel } from '../bpmn_task_instance_model';
 import { FlowNode } from './bpmn_flow_node_model';
+import { Lane } from './bpmn_lane_model';
 import { SequenceFlow } from './bpmn_sequence_flow_model';
 
 export enum GatewayDirections {
@@ -16,13 +16,13 @@ export abstract class Gateway extends FlowNode {
 
   defaultId: string;
 
-  constructor(gateway: Bpmn.Gateway, defaultFlow?: SequenceFlow) {
-    super(gateway);
+  constructor(gateway: Bpmn.Gateway, lane?: Lane, defaultFlow?: SequenceFlow) {
+    super(gateway, lane);
     this.direction = gateway.direction ? gateway.direction : GatewayDirections.Unspecified;
     this.default = defaultFlow ? defaultFlow : null;
     // store id to link reference to in bpmn process
     this.defaultId = gateway.default ? gateway.default.id : null;
   }
 
-  abstract execute(state: BpmnProcessInstance): Promise<BpmnTaskInstanceModel[]>;
+  abstract execute(state: BpmnProcessInstance): void;
 }

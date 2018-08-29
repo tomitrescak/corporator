@@ -35,7 +35,7 @@ import {
   StartEvent,
   Task,
   UserTask
-} from '../Bpmn';
+} from '../Bpmn/index';
 import { BpmnProcessModel, BpmnTypes } from '../bpmn_process_model';
 import {
   bpmn,

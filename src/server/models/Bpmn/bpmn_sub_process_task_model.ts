@@ -3,13 +3,17 @@ import { BoundaryEvent } from './bpmn_boundary_event_model';
 import { Lane } from './bpmn_lane_model';
 import { Task } from './bpmn_task_model';
 
-export class ReceiveTask extends Task {
+export class SubProcessTask extends Task {
 
-  constructor(task: Bpmn.ReceiveTask, lane?: Lane, attachedEvents?: BoundaryEvent[]) {
+  processRef: string;
+  
+  constructor(task: Bpmn.SubProcessTask, lane?: Lane, attachedEvents?: BoundaryEvent[]) {
     super(task, lane, attachedEvents);
+    this.processRef = task.processRef;
   }
 
   execute(state: BpmnProcessInstance, context: Corpix.Server.Context): void {
-    return;
+    // create new process instance using context and start instance
+    return null;
   }
 }

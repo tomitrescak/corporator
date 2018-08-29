@@ -1,13 +1,13 @@
 import { BpmnProcessInstance } from '../bpmn_process_instance_model';
-import { BpmnTaskInstanceModel } from '../bpmn_task_instance_model';
 import { Gateway } from './bpmn_gateway_model';
+import { Lane } from './bpmn_lane_model';
 
 export class InclusiveGateway extends Gateway {
-  constructor(inclusiveGateway: Bpmn.InclusiveGateway) {
-    super(inclusiveGateway);
+  constructor(inclusiveGateway: Bpmn.InclusiveGateway, lane?: Lane) {
+    super(inclusiveGateway, lane);
   }
 
-  async execute(state: BpmnProcessInstance): Promise<BpmnTaskInstanceModel[]> {// state: BPMNModelInstance) {
+  async execute(state: BpmnProcessInstance): Promise<Bpmn.ITrigger[]> {// state: BPMNModelInstance) {
     
 
     

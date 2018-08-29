@@ -1,15 +1,16 @@
-import { BaseElement } from './bpmn_base_element_model';
 import { FlowNode } from './bpmn_flow_node_model';
+import { LaneElement } from './bpmn_lane_element_model';
+import { Lane } from './bpmn_lane_model';
 
-export abstract class Flow extends BaseElement {
+export abstract class Flow extends LaneElement {
   sourceRef: FlowNode;
   targetRef: FlowNode;
 
   sourceId: string;
   targetId: string;
 
-  constructor(flow: Bpmn.Flow, sourceRef?: FlowNode, targetRef?: FlowNode) {
-    super(flow);
+  constructor(flow: Bpmn.Flow, lane?: Lane, sourceRef?: FlowNode, targetRef?: FlowNode) {
+    super(flow, lane);
 
     // linked in bpmn process using sourceId
     this.sourceRef = sourceRef ? sourceRef : null;

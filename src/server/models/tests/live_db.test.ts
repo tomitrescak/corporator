@@ -1,6 +1,6 @@
-import { ServerContext } from '../context';
 import { create } from '../../../shared/test_data';
 import { InstanceStatus } from '../bpmn_process_instance_model';
+import { ServerContext } from '../context';
 
 let context: ServerContext;
 
@@ -15,7 +15,7 @@ afterAll(async () => {
 });
 
 it('should aggregate docs from collection', async () => {
-  await context.Activities.insertMany([
+  await context.BpmnProcessInstances.insertMany([
     create.activityDao({id: 'aid1', status: InstanceStatus.Finished}),
     create.activityDao({id: 'aid2', status: InstanceStatus.Finished}),
     create.activityDao({id: 'aid3', status: InstanceStatus.Finished}),
@@ -24,10 +24,10 @@ it('should aggregate docs from collection', async () => {
     create.activityDao({id: 'aid6', status: InstanceStatus.Aborted}),
   ]);
 
-  const images = await context.Activities.find({ status: 'paused' }).toArray();
+  const images = await context.BpmnProcessInstances.find({ status: 'paused' }).toArray();
   expect(images.length).toBe(2);
 
-  const topFiles = await context.Activities.collection
+  const topFiles = await context.BpmnProcessInstances.collection
     .aggregate([{ $group: { _id: '$status', count: { $sum: 1 } } }, { $sort: { count: -1 } }])
     .toArray();
 

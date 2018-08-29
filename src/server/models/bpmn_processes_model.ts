@@ -1,6 +1,6 @@
 import { MongoConnector, MongoEntity } from 'apollo-connector-mongodb';
-import { BpmnProcessInstance, InstanceStatus } from '../models/bpmn_process_instance_model';
-import { BpmnProcessModel } from '../models/bpmn_process_model';
+import { BpmnProcessInstance, InstanceStatus } from './bpmn_process_instance_model';
+import { BpmnProcessModel } from './bpmn_process_model';
 
 import { BpmnTaskInstanceModel } from './bpmn_task_instance_model';
 // import { BpmnModdle } from 'bpmn-moddle';
@@ -76,7 +76,7 @@ export class BpmnProcessesModel extends MongoEntity<Corpix.Collections.BpmnProce
       }
 
       taskInstances.forEach(task => {
-        this.insertNewTaskInstance(bpmnProcess, task, context);
+        context.BpmnTaskInstances.insertNewTaskInstance(bpmnProcess, task, context);
       });
 
       resolve(taskInstances);
@@ -98,17 +98,7 @@ export class BpmnProcessesModel extends MongoEntity<Corpix.Collections.BpmnProce
     });
   }
 
-  private async insertNewTaskInstance(bpmnProcess: BpmnProcessModel, taskInstanceDao: Corpix.Collections.BpmnTaskInstanceDao, context: Corpix.Server.Context): Promise<BpmnTaskInstanceModel> {
-    return new Promise<BpmnTaskInstanceModel>(async (resolve, reject) => {
-      try {
-        await context.BpmnTaskInstances.insertOne(taskInstanceDao);
-        const action = new BpmnTaskInstanceModel(taskInstanceDao);
-        resolve(action);
-      } catch (error) {
-        reject(error);
-      }
-    });
-  }
+  
 
   private async insertNewProcessInstance(
     bpmnProcess: BpmnProcessModel,

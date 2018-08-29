@@ -50,7 +50,7 @@ declare namespace Corpix.Collections {
 
   interface BpmnTaskInstanceDao extends Dao {
     processInstanceId: string;
-    task: Bpmn.Task;
+    task: string;
     performerId: string;
     performerRoles: string[];
     dateStarted: Date;

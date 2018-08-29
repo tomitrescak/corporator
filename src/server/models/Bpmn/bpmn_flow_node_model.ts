@@ -1,18 +1,19 @@
 import { BpmnProcessInstance } from '../bpmn_process_instance_model';
-import { BpmnTaskInstanceModel } from '../bpmn_task_instance_model';
-import { BaseElement } from './bpmn_base_element_model';
+import { LaneElement } from './bpmn_lane_element_model';
+import { Lane } from './bpmn_lane_model';
 import { SequenceFlow } from './bpmn_sequence_flow_model';
 
-export abstract class FlowNode extends BaseElement {
+export abstract class FlowNode extends LaneElement {
+  
   incoming: SequenceFlow[];
   outgoing: SequenceFlow[];
 
   incomingIds: string[];
   outgoingIds: string[];
 
-  constructor(flowNode: Bpmn.FlowNode, incoming?: SequenceFlow[], outgoing?: SequenceFlow[]) {
-    super(flowNode);
-    
+  constructor(flowNode: Bpmn.FlowNode, lane?: Lane, incoming?: SequenceFlow[], outgoing?: SequenceFlow[]) {
+    super(flowNode, lane);
+
     this.incomingIds = [];
     this.outgoingIds = [];
 
@@ -33,5 +34,5 @@ export abstract class FlowNode extends BaseElement {
     this.outgoing = outgoing ? outgoing : null;
   }
 
-  abstract execute(state: BpmnProcessInstance): Promise<BpmnTaskInstanceModel[]>;
+  abstract execute(state: BpmnProcessInstance, context: Corpix.Server.Context): void;
 }
