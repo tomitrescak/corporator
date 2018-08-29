@@ -48,6 +48,18 @@
 //     duration: number;
 //   }
 
+<<<<<<< HEAD
+  interface BpmnTaskInstanceDao extends Dao {
+    processInstanceId: string;
+    task: string;
+    performerId: string;
+    performerRoles: string[];
+    dateStarted: Date;
+    dateFinished: Date;
+    duration: number;
+    snapshot: string; //json
+  }
+=======
 //   interface BpmnTaskInstanceDao extends Dao {
 //     processInstanceId: string;
 //     task: Bpmn.Task;
@@ -58,6 +70,7 @@
 //     duration: number;
 //     snapshot: string; //json
 //   }
+>>>>>>> 44933f36a14bc497ba1da653af840b658dcadc17
 
 //   interface RoleDao extends EntityDao {}
 

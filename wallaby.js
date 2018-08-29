@@ -9,8 +9,13 @@ module.exports = function(wallaby) {
       'test/*.js',
       'src/**/*.+(js|jsx|ts|tsx|json|snap|css|less|sass|scss|jpg|jpeg|gif|png|svg|graphql)',
       '!src/luis_app',
+<<<<<<< HEAD
+      'src/**/index.ts',
+      '!src/server/**/*.test.ts'
+=======
       // '!src/**/index.ts',
       '!src/**/*.test.ts'
+>>>>>>> 44933f36a14bc497ba1da653af840b658dcadc17
     ],
 
     tests: ['src/server/**/*.test.ts'],

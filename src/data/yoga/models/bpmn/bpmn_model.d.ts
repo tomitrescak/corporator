@@ -24,6 +24,10 @@ declare namespace Bpmn {
     Compensation = 'compensation'
   }
 
+  interface ITrigger {
+    async trigger(state: BpmnProcessInstance) : Promise<ITrigger[]>;
+  }
+
   interface Group {
     organisation: string;
     roles: string[];
@@ -36,13 +40,19 @@ declare namespace Bpmn {
     description: string;
   }
   
-  interface FlowNode extends BaseElement {
+  interface LaneElement extends BaseElement {
+    lane: Lane;
+  }
+
+  interface FlowNode extends LaneElement {
     incoming: SequenceFlow[];
     outgoing: SequenceFlow[];
   }
   interface BaseEvent extends FlowNode {}
   
-  interface BoundaryEvent extends BaseEvent {}
+  interface BoundaryEvent extends BaseEvent {
+    interrupting: boolean;
+  }
 
   interface StartEvent extends BaseEvent {}
 
@@ -59,7 +69,7 @@ declare namespace Bpmn {
 
   interface ParallelGateway extends Gateway {}
 
-  interface Flow extends BaseElement {
+  interface Flow extends LaneElement {
     sourceRef: FlowNode;
     targetRef: FlowNode;
   }
@@ -70,7 +80,7 @@ declare namespace Bpmn {
     condition: string;
   }
 
-  interface Pool extends BaseElement {
+  interface LaneSet extends BaseElement {
     lanes: Lane[];
   }
 
@@ -81,7 +91,7 @@ declare namespace Bpmn {
 
   interface Task extends FlowNode {
     marker?: TaskMarkers;
-    attachedEvents?: BaseEvent[];
+    attachedEvents?: BoundaryEvent[];
   }
 
   interface UserTask extends Task {
@@ -94,6 +104,10 @@ declare namespace Bpmn {
 
   interface ReceiveTask extends Task {
     
+  }
+
+  interface SubProcessTask extends Task {
+    processRef: string;
   }
 
   // interface ServiceTask extends Task {

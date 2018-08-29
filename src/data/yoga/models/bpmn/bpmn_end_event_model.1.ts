@@ -1,4 +1,4 @@
-import { BpmnProcessInstance } from 'data/yoga/models/bpmn_process_instance_model';
+import { BpmnProcessInstance } from '../bpmn_process_instance_model';
 import { BaseEvent } from './bpmn_base_event_model';
 import { Lane } from './bpmn_lane_model';
 

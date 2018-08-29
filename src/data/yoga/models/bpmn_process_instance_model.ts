@@ -32,6 +32,7 @@ export class BpmnProcessInstance {
 
   async start(): Promise<BpmnTaskInstanceModel[]> {
     // execute start event node?
+    // does it always start with the start node?
     return null;
   }
 

@@ -5,7 +5,9 @@ import { ExclusiveGateway } from './bpmn_exclusive_gateway_model';
 import { FlowNode } from './bpmn_flow_node_model';
 import { Gateway } from './bpmn_gateway_model';
 import { InclusiveGateway } from './bpmn_inclusive_gateway_model';
+import { LaneElement } from './bpmn_lane_element_model';
 import { Lane } from './bpmn_lane_model';
+import { LaneSet } from './bpmn_lane_set_model';
 import { ParallelGateway } from './bpmn_parallel_gateway_model';
 import { ReceiveTask } from './bpmn_receive_task_model';
 import { ScriptTask } from './bpmn_script_task_model';
@@ -23,8 +25,10 @@ export {
   FlowNode,
   Gateway,
   InclusiveGateway,
+  LaneElement,
   Lane,
   ParallelGateway,
+  LaneSet,
   ReceiveTask,
   ScriptTask,
   SendTask,

@@ -1,13 +1,19 @@
-import { BpmnProcessInstance } from 'data/yoga/models/bpmn_process_instance_model';
-import { BpmnTaskInstanceModel } from 'data/yoga/models/bpmn_task_instance_model';
-import { BaseEvent } from './index';
+import { BpmnProcessInstance } from '../bpmn_process_instance_model';
+import { BaseEvent } from './bpmn_base_event_model';
+import { Lane } from './bpmn_lane_model';
 
 export class StartEvent extends BaseEvent {
-  constructor(startEvent: Bpmn.StartEvent) {
-    super(startEvent);
+  constructor(startEvent: Bpmn.StartEvent, lane?: Lane) {
+    super(startEvent, lane);
   }
 
-  execute(_state: BpmnProcessInstance): Promise<BpmnTaskInstanceModel[]> {
-    return null;
+  async execute(_state: BpmnProcessInstance, context: Corpix.Server.Context) : void {
+    // execute outgoing nodes
+    const ret = [] as Array<Promise<Bpmn.ITrigger[]>>;
+    // execute each outgoing node
+    this.outgoing.forEach(node => {
+      // place returned arrays into a list
+      node.execute(_state, context);
+    });
   }
 } 

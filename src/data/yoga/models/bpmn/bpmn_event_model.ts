@@ -9,5 +9,5 @@ export abstract class Event extends BaseElement {
 
   }
 
-  abstract execute(state: BpmnProcessInstance): Promise<BpmnTaskInstanceModel[]>;
+  abstract execute(_state: BpmnProcessInstance): Promise<BpmnTaskInstanceModel[]>;
 }

@@ -6,7 +6,9 @@ import {
   FlowNode,
   Gateway,
   InclusiveGateway,
-  // Pool,
+  Lane,
+  LaneElement,
+  LaneSet,
   ParallelGateway,
   ReceiveTask,
   ScriptTask,
@@ -32,6 +34,7 @@ export enum BpmnTypes {
   Gateway = 'bpmn:gateway', // abstract type
   Task = 'bpmn:task', // abstract type
   BaseEvent = 'bpmn:baseevent', // abstract type
+  LaneElement = 'bpmn:laneelement', // abstract type
   Start = 'bpmn:startevent',
   End = 'bpmn:endevent',
   SequenceFlow = 'bpmn:sequenceflow',
@@ -97,8 +100,19 @@ export class BpmnProcessModel {
   private loadModels() {
     // if (!this.definition) return;
     // for each element
-    
-    // only loads first process...
+
+    /*
+      create laneSet and lane objects
+        LaneSet
+          Store lane ids
+        Lane
+          Store LaneElement ids
+      linkModels()
+        link Lanes into LaneSet
+        link LaneElements into Lane (add to dictionary)
+    */
+
+    // only loads first process... which is correct...?
     const flowElements = this.definition.rootElements[0].flowElements;
 
     flowElements.forEach((elem: any) => {
@@ -115,12 +129,6 @@ export class BpmnProcessModel {
         this.addToDictionary(end, end.$type, end.id);
         // this.elementsDict.setValue(end.id, end);
         obj = end;
-      }
-      if (type === BpmnTypes.Task) {
-        const task = new Task(elem);
-        this.addToDictionary(task, task.$type, task.id);
-        // this.elementsDict.setValue(task.id, task);
-        obj = task;
       }
       if (type === BpmnTypes.UserTask) {
         const task = new UserTask(elem);
@@ -170,6 +178,18 @@ export class BpmnProcessModel {
         // this.elementsDict.setValue(gate.id, gate);
         obj = gate;
       }
+      if (type === BpmnTypes.Lane) {
+        const lane = new Lane(elem);
+        this.addToDictionary(lane, lane.$type, lane.id);
+        // this.elementsDict.setValue(lane.id, lane);
+        obj = lane;
+      }
+      if (type === BpmnTypes.LaneSet) {
+        const laneSet = new LaneSet(elem);
+        this.addToDictionary(laneSet, laneSet.$type, laneSet.id);
+        // this.elementsDict.setValue(laneSet.id, laneSet);
+        obj = laneSet;
+      }
       if (obj) {
         // add to abtract lists as well
         if (obj instanceof BaseElement) {
@@ -186,6 +206,9 @@ export class BpmnProcessModel {
         }
         if (obj instanceof BaseEvent) {
           this.addToDictionary(obj, BpmnTypes.BaseEvent, obj.id);
+        }
+        if (obj instanceof LaneElement) {
+          this.addToDictionary(obj, BpmnTypes.LaneElement, obj.id);
         }
       }
     });
@@ -206,16 +229,38 @@ export class BpmnProcessModel {
 
   private linkModels() {
     this.elementsDict.forEach((key, dict) => {
-      if (key === BpmnTypes.BaseElement) { return; }
-      if (key === BpmnTypes.BaseEvent) { return; }
-      if (key === BpmnTypes.FlowNode) { return; }
-      if (key === BpmnTypes.Gateway) { return; }
+      if (key === BpmnTypes.LaneElement) {
+        return;
+      }
+      if (key === BpmnTypes.BaseElement) {
+        return;
+      }
+      if (key === BpmnTypes.BaseEvent) {
+        return;
+      }
+      if (key === BpmnTypes.FlowNode) {
+        return;
+      }
+      if (key === BpmnTypes.Gateway) {
+        return;
+      }
+      if (key === BpmnTypes.Task) {
+        return;
+      }
 
       dict.forEach((_key, element) => {
         // check type and link:
-        // incoming/outgoing for flow node or
+        // lanes for lane set
+        // lane elements for lane
+        // incoming/outgoing for flow node
         // sourceRef/targetRef for sequence flow
         // default for gate way
+        if (element instanceof LaneSet) {
+          this.linkLaneSet(element);
+        }
+        if (element instanceof Lane) {
+          this.linkLane(element);
+        }
         if (element instanceof FlowNode) {
           this.linkFlowNode(element);
         }
@@ -227,6 +272,52 @@ export class BpmnProcessModel {
         }
       });
     });
+  }
+
+  private linkLaneSet(value: LaneSet) {
+    const lanes = [] as Lane[];
+
+    if (value.lanesIds) {
+      value.lanesIds.forEach(elem => {
+        const dict = this.elementsDict.getValue(BpmnTypes.Lane);
+        let lane = dict ? dict.getValue(elem) : null;
+
+        if (lane instanceof Lane) {
+          lanes.push(lane);
+        } else {
+          throw new Error('Invalid Lane');
+        }
+      });
+    }
+    value.lanes = lanes;
+  }
+
+  private linkLane(value: Lane) {
+    const nodes = new Dictionary<string, Dictionary<string, LaneElement>>();
+
+    if (value.nodeIds) {
+      value.nodeIds.forEach(elem => {
+        const dict = this.elementsDict.getValue(BpmnTypes.LaneElement);
+        let node = dict ? dict.getValue(elem) : null;
+
+        if (node instanceof LaneElement) {
+          // use node.type as first key
+          if (!value.nodes.getValue(node.$type)) {
+            value.nodes.setValue(node.$type, new Dictionary<string, LaneElement>());
+          }
+          // retrieve inner dictionary and store node with node.id as second key
+          const innerDict = value.nodes.getValue(node.$type);
+          innerDict.setValue(node.id, node);
+
+          // add reference to lane in laneElement
+          node.lane = value;
+        } else {
+          throw new Error('Invalid Lane Element');
+        }
+      });
+    }
+
+    value.nodes = nodes;
   }
 
   private linkFlowNode(value: FlowNode) {
@@ -244,8 +335,8 @@ export class BpmnProcessModel {
           throw new Error('Invalid Source Flow');
         }
       });
-      value.incoming = incoming;
     }
+    value.incoming = incoming;
 
     if (value.outgoingIds) {
       value.outgoingIds.forEach(elem => {
@@ -258,8 +349,8 @@ export class BpmnProcessModel {
           throw new Error('Invalid Target Flow');
         }
       });
-      value.outgoing = outgoing;
     }
+    value.outgoing = outgoing;
   }
 
   private linkSequenceFlow(value: SequenceFlow) {

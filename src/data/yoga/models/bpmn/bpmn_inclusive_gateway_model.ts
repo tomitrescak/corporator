@@ -1,18 +1,19 @@
 import { BpmnProcessInstance } from 'data/yoga/models/bpmn_process_instance_model';
-import { BpmnTaskInstanceModel } from 'data/yoga/models/bpmn_task_instance_model';
 import { Gateway } from './bpmn_gateway_model';
+import { Lane } from './bpmn_lane_model';
 
 export class InclusiveGateway extends Gateway {
-  constructor(inclusiveGateway: Bpmn.InclusiveGateway) {
-    super(inclusiveGateway);
+  constructor(inclusiveGateway: Bpmn.InclusiveGateway, lane?: Lane) {
+    super(inclusiveGateway, lane);
   }
 
-  async execute(_state: BpmnProcessInstance): Promise<BpmnTaskInstanceModel[]> {// state: BPMNModelInstance) {
+  async execute(_state: BpmnProcessInstance, context: Corpix.Server.Context): void {// state: BPMNModelInstance) {
+  
     
 
     
     
-    return null;
+    return;
     // if need to pass the flow further down
     // if () {
     //   return this.outgoing[0].execute(state)
