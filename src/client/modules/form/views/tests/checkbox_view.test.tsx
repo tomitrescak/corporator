@@ -1,19 +1,18 @@
 import * as React from 'react';
 import * as renderer from 'react-test-renderer';
 
-import { create } from 'shared/test_data';
+import { createData } from 'tests/client';
 import { FormModel } from '../../models/form_model';
 import { FormView } from '../form_view';
 
 import 'jest-styled-components';
 
-import { Button, Segment } from 'semantic-ui-react';
-import styled from 'styled-components';
+import { Segment } from 'semantic-ui-react';
 
 describe('Form', () => {
   const descriptors = [
-    create.descriptor({ name: 'agree', type: 'boolean' }),
-    create.descriptor({ name: 'disagree', type: 'boolean' })
+    createData.descriptor({ name: 'agree', type: 'Boolean' }),
+    createData.descriptor({ name: 'disagree', type: 'Boolean' })
   ];
 
   const controlData = [{ name: 'agree', value: true }, { name: 'disagree', value: false }];
@@ -23,29 +22,35 @@ describe('Form', () => {
     'Checkbox',
     {
       get component() {
-        const form = new FormModel(
-          create.formDao({
+        const form = new FormModel( 
+          createData.formDao({
             elements: [
               {
                 id: '1',
                 row: 0,
                 column: 0,
                 width: 8,
-                control: 'checkbox',
+                control: 'Checkbox',
                 label: 'Agree With Terms and Conditions',
-                source: 'agree'
+                source: {
+                  id: '',
+                  name: 'agree'
+                }
               },
               {
                 id: '2',
                 row: 1,
                 column: 0,
                 width: 8,
-                control: 'checkbox',
+                control: 'Checkbox',
                 controlProps: {
                   toggle: true
                 },
                 label: 'Disagree With Terms and Conditions',
-                source: 'disagree'
+                source: {
+                  id: '',
+                  name: 'disagree'
+                }
               }
             ]
           })
@@ -55,7 +60,6 @@ describe('Form', () => {
         return (
           <Segment className="ui form">
             <FormView form={form} data={dataSet} />
-            <Button />
           </Segment>
         );
       }

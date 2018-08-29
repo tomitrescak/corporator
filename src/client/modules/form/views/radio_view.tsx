@@ -4,14 +4,8 @@ import { observer } from 'mobx-react';
 import { Radio } from 'semantic-ui-react';
 import styled from 'styled-components';
 
-import { DataSet } from '../models/form_model';
+import { FormControlProps } from '../models/form_model';
 
-type FormControlProps = {
-  formControl: Corpix.Entities.FormControl;
-  owner: DataSet;
-};
-
-type Props = FormControlProps;
 
 const FormRadio = styled(Radio)`
   margin-right: 12px;
@@ -19,10 +13,10 @@ const FormRadio = styled(Radio)`
 `;
 
 @observer
-export class RadioView extends React.Component<Props> {
+export class RadioView extends React.Component<FormControlProps> {
   handleToggleChange = (_e: React.ChangeEvent<HTMLInputElement>, control: HTMLInputElement) => {
     // find value
-    this.props.owner.parseValue(this.props.formControl.source, control.value);
+    this.props.owner.parseValue(this.props.formControl.source.name, control.value);
   };
 
   render() {
@@ -41,10 +35,10 @@ export class RadioView extends React.Component<Props> {
           <React.Fragment key={item.value}>
             <FormRadio
               {...controlProps}
-              name={source}
+              name={source.name}
               label={item.text}
               value={item.value}
-              checked={owner.getValue(source) === item.value}
+              checked={owner.getValue(source.name) === item.value}
               onChange={this.handleToggleChange}
             />
             <If condition={vertical}>

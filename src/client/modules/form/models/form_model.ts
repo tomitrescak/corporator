@@ -1,9 +1,10 @@
-import * as shortid from 'shortid';
+// import * as shortid from 'shortid';
 import * as validations from './validation';
 
+import { IObservableArray } from 'mobx';
 import { ISimpleType, types } from 'mobx-state-tree';
 
-import { IObservableArray } from 'mobx';
+import { Yoga } from 'data/yoga';
 import { ListValue } from './form_model';
 import { FormValidation } from './form_validation_model';
 
@@ -22,11 +23,11 @@ export interface DataSet {
 }
 
 export type FormControlProps = {
-  formControl: Corpix.Entities.FormControl;
+  formControl: Yoga.FormElement;
   owner: DataSet;
 };
 
-function formItemSort(a: Corpix.Collections.FormElementDao, b: Corpix.Collections.FormElementDao) {
+function formItemSort(a: Yoga.FormElement, b: Yoga.FormElement) {
   return a.row < b.row
     ? -1
     : a.row > b.row
@@ -39,19 +40,19 @@ function formItemSort(a: Corpix.Collections.FormElementDao, b: Corpix.Collection
 }
 
 function mstTypeFactory(
-  desc: Corpix.Entities.DataDescriptor,
+  desc: Yoga.DataDescriptor,
   lists: Array<{ name: string; items: any[] }>
 ): ISimpleType<any> {
   switch (desc.type) {
-    case 'string':
+    case 'String':
       return types.string;
-    case 'int':
+    case 'Int':
       return types.number;
-    case 'float':
+    case 'Float':
       return types.number;
-    case 'boolean':
+    case 'Boolean':
       return types.boolean;
-    case 'object':
+    case 'Object':
       return FormModel.buildMst(desc.descriptors, lists);
     // return For
     case undefined:
@@ -66,13 +67,30 @@ export interface ListValue {
   value: string;
 }
 
+let time = Date.now();
+let i = 0;
+
 export class FormModel {
+  static parseDefault(descriptor: Yoga.DataDescriptor) {
+    switch (descriptor.type) {
+      case 'Int':
+        return parseInt(descriptor.defaultValue || '0', 10) as any;
+      case 'Float':
+        return parseFloat(descriptor.defaultValue || '0') as any;
+      case 'Boolean':
+        return (descriptor.defaultValue === 'true' || descriptor.defaultValue === 'True') as any;
+      case 'Date':
+        return new Date(descriptor.defaultValue);
+    }
+    return descriptor.defaultValue;
+  }
+
   static buildMst(
-    descriptors: Corpix.Entities.DataDescriptor[],
+    descriptors: Yoga.DataDescriptor[],
     lists?: Array<{ name: string; items: any[] }>
   ) {
     const descriptorMap: {
-      [index: string]: Corpix.Entities.DataDescriptor;
+      [index: string]: Yoga.DataDescriptor;
     } = {};
     for (let d of descriptors) {
       descriptorMap[d.name] = d;
@@ -143,11 +161,11 @@ export class FormModel {
       // expressions do not need state tree entry they are evaluated automatically
       if (desc.isArray) {
         mstDefinition[desc.name] = types.array(mstTypeFactory(desc, lists));
-      } else if (desc.type === 'id') {
-        mstDefinition[desc.name] = types.optional(types.identifier(), () => shortid.generate());
+      } else if (desc.type === 'Id') {
+        mstDefinition[desc.name] = types.optional(types.identifier, () => (time + i++).toString()); // shortid.generate());
       } else if (!desc.expression) {
         mstDefinition[desc.name] = desc.defaultValue
-          ? desc.defaultValue
+          ? FormModel.parseDefault(desc)
           : types.maybe(mstTypeFactory(desc, lists));
         mstDefinition[desc.name + '_str'] = types.maybe(types.string);
         mstDefinition[desc.name + '_error'] = types.maybe(types.string);
@@ -173,13 +191,13 @@ export class FormModel {
         parseValue(key: string, value: any) {
           const descriptor = descriptorMap[key];
           switch (descriptor.type) {
-            case 'int':
+            case 'Int':
               self[key] = parseInt(value || 0, 10) as any;
               break;
-            case 'float':
+            case 'Float':
               self[key] = parseFloat(value || 0) as any;
               break;
-            case 'boolean':
+            case 'Boolean':
               self[key] = (value === true || value === 'true' || value === 'True') as any;
               break;
             default:
@@ -192,10 +210,10 @@ export class FormModel {
           const descriptor = descriptorMap[key];
           let error = '';
           switch (descriptor.type) {
-            case 'int':
+            case 'Int':
               error = validations.intValidator(value);
               break;
-            case 'float':
+            case 'Float':
               error = validations.floatValidator(value);
               break;
           }
@@ -232,7 +250,7 @@ export class FormModel {
   }
 
   static buildMstModel(
-    descriptors: Corpix.Entities.DataDescriptor[],
+    descriptors: Yoga.DataDescriptor[],
     dataArray: Array<{ name: string; value: any }>,
     lists?: Array<{ name: string; items: any[] }>
   ): DataSet {
@@ -247,10 +265,10 @@ export class FormModel {
   id: string;
   name: string;
   description: string;
-  elements: Corpix.Collections.FormElementDao[];
+  elements: Yoga.FormElement[];
   validations: FormValidation[];
 
-  constructor(form: Corpix.Collections.FormDao) {
+  constructor(form: Yoga.Form) {
     this.id = form.id;
     this.name = form.name;
     this.description = form.description;

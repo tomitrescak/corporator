@@ -1,6 +1,6 @@
 import { autorun } from 'mobx';
 
-import { create } from 'shared/test_data';
+import { createData } from 'tests/test_data';
 import { FormModel } from '../form_model';
 
 it('creates a new model', () => {
@@ -21,7 +21,7 @@ it('creates a new model', () => {
 
 it('sorts form fields when form is created', () => {
   let model = new FormModel(
-    create.formDao({
+    createData.formDao({
       elements: [
         { id: '6', row: 3, column: 2, width: 6 },
         { id: '5', row: 3, column: 2, width: 6 },
@@ -41,14 +41,14 @@ it('sorts form fields when form is created', () => {
 
 it('builds MST', () => {
   const descriptors = [
-    create.descriptor({ name: 'age', type: 'int' }),
-    create.descriptor({ name: 'height', type: 'int', defaultValue: 5 }),
-    create.descriptor({
+    createData.descriptor({ name: 'age', type: 'Int' }),
+    createData.descriptor({ name: 'height', type: 'Int', defaultValue: '5' }),
+    createData.descriptor({
       name: 'taller',
-      type: 'int',
+      type: 'Int',
       expression: `this['height'] + 10`
     })
-  ];
+  ]; 
   const instance = FormModel.buildMstModel(descriptors, [{ name: 'height', value: 6 }]);
 
   expect(instance.getValue('height')).toEqual(6);

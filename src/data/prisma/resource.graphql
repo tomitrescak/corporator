@@ -1,0 +1,14 @@
+enum ResourceType {
+  Url
+  File
+  Form
+  Report
+}
+
+type Resource {
+  id: ID! @unique
+  type: ResourceType!
+  name: String!
+  content: String!
+  form: Form
+}

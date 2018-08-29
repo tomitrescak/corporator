@@ -1,6 +1,7 @@
 {
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "tslint.autoFixOnSave": true,
-  "snapshots.saveHtml": false,
-  "prettier.singleQuote": true
+  "path-intellisense.mappings": {
+    "/": "${workspaceRoot}",
+    "data": "${workspaceRoot}/data",
+    "client": "${workspaceRoot}/client"
+  }
 }

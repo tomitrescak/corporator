@@ -1,0 +1,10 @@
+type User {
+  id: ID! @unique
+  uid: String! @unique
+  name: String!
+  roles: [String!]!
+  description: String
+  password: String!
+  notifications: [Notification!]! @relation(name: "UserNotifications", onDelete: CASCADE)
+  data: [Data!]! @relation(name: "UserData", onDelete: CASCADE)
+}

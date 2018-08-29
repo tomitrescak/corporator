@@ -1,21 +1,35 @@
-const { FuseBox, WebIndexPlugin, ImageBase64Plugin, JSONPlugin } = require('fuse-box');
+const {
+  FuseBox,
+  WebIndexPlugin,
+  ImageBase64Plugin,
+  JSONPlugin,
+  CSSPlugin,
+  CSSResourcePlugin
+} = require('fuse-box');
 const GraphQLPlugin = require('fuse-box-graphql-plugin');
 const JsxControlsPugin = require('jsx-controls-loader').fuseBoxPlugin;
 
-const { SnapshotPlugin } = require('luis/dist/bridges/jest/snapshot_plugin');
+// const { SnapshotPlugin } = require('luis/dist/bridges/jest/snapshot_plugin');
 
 const fuse = FuseBox.init({
   homeDir: 'src',
   target: 'browser@es6',
-  output: 'dist/$name.js',
+  output: '.fusebox/dist/$name.js',
   plugins: [
     WebIndexPlugin({ template: 'src/client/index.html', target: 'index.html' }),
-    ['.graphql', GraphQLPlugin()],
     JsxControlsPugin,
+    [CSSResourcePlugin({ inline: true }), CSSPlugin()],
     ImageBase64Plugin(),
     JSONPlugin(),
-    SnapshotPlugin()
+    // SnapshotPlugin(),
+    ['.graphql', GraphQLPlugin()]
   ],
+  alias: {
+    data: '~/data/',
+    client: '~/client/',
+    server: '~/server/',
+    shared: '~/shared/'
+  },
   sourceMaps: true
 });
 const historyAPIFallback = require('connect-history-api-fallback');
@@ -25,7 +39,7 @@ fuse.dev({ port: 3000 }, server => {
 });
 fuse
   .bundle('app')
-  .instructions(' > pages/router.tsx')
+  .instructions(' > pages/router.tsx -*.snap')
   .hmr()
   .watch();
 fuse.run();

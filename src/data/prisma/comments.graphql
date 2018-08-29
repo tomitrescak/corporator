@@ -1,0 +1,7 @@
+# A comment ...
+type Comment {
+  text: String!
+  user: User!
+  date: DateTime!
+  replyTo: String
+}

@@ -7,7 +7,7 @@ module.exports = {
   },
   transform: {
     '^.+\\.tsx?$': './transformer.js',
-    '^.+\\.js$': 'babel-jest',
+    // '^.+\\.js$': 'babel-jest',
     '\\.(gql|graphql)$': 'jest-transform-graphql'
   },
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
@@ -21,17 +21,19 @@ module.exports = {
     '^.*[.](css|CSS)$': '<rootDir>/test/styleMock.js',
     '^.*[.](jpg|gif|png|ttf|eot|svg)$': '<rootDir>/test/fileMock.js'
   },
-  moduleDirectories: ['node_modules', 'src'],
+  moduleDirectories: ['node_modules', 'src']
   //transformIgnorePatterns: ['<rootDir>/node_modules/', '/!node_modules\\/bpmn-moddle']
   //transformIgnorePatterns: ['node_modules/(?!(bpmn-moddle)/)'],
   // transformIgnorePatterns: ['/!node_modules\\/bpmn-moddle'],
-  
+
   // globalSetup: './jest.global.setup.js',
   // globalTeardown: './jest.global.teardown.js',
   // testEnvironment: './jest.environment.js'
   // snapshotSerializers: ['jest-spy-serialiser'],
   // reporters: ['<rootDir>/reporter.js'],
-  updateSnapshot: true
+  //updateSnapshot: true,
+  //testURL: 'http://localhost'
+  // testEnvironment: 'node'
   //transformIgnorePatterns: ['<rootDir>/node_modules/', '/!node_modules\\/bpmn-moddle']
   //transformIgnorePatterns: ['node_modules/(?!(bpmn-moddle)/)'],
 };

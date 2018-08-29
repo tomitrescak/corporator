@@ -1,0 +1,61 @@
+#import Access from './access.graphql'
+#import DataDescriptor from './data_descriptor.graphql'
+#import Resource from './resource.graphql'
+
+#import User from './user.graphql'
+
+enum ProcessStatus {
+  Draft
+  Proposal
+  Published
+}
+
+type BpmnProcess {
+  id: ID! @unique
+  access: Access! @relation(name: "BpmnProcessAccess", onDelete: CASCADE)
+  actionCount: Int!
+  data: [DataDescriptor!]!
+  description: String
+  # XML version of the model
+  model: String!
+  name: String!
+  resources: [Resource!]! @relation(name: "BpmnProcessResources", onDelete: CASCADE)
+  status: ProcessStatus!
+  version: Int!
+  versions: [BpmnProcess!]! @relation(name: "BpmnProcessVersions", onDelete: CASCADE)
+}
+
+enum BpmnProcessInstanceStatus {
+  Running
+  Finished
+  Aborted
+  Paused
+}
+
+type BpmnProcessInstance {
+  id: ID! @unique
+  comments: [Comment!]!
+  dateFinished: DateTime
+  dateStarted: DateTime
+  description: String
+  duration: Int
+  name: String!
+  ownerId: ID
+  process: BpmnProcess
+  resources: Json
+  status: BpmnProcessInstanceStatus
+  tasks: [BpmnTaskInstance!]! @relation(name: "BpmnProcessTasks", onDelete: CASCADE)
+}
+
+type BpmnTaskInstance {
+  id: ID! @unique
+  dateFinished: DateTime
+  dateStarted: DateTime
+  duration: Int
+  performer: User
+  performerId: String
+  performerRoles: [String!]!
+  processInstance: BpmnProcess
+  snapshot: Json
+  taskId: String
+}

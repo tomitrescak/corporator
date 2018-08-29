@@ -1,23 +1,51 @@
 import * as React from 'react';
 
-import { MainLayout } from '../../../core/main_layout';
-import { ResourceSearchView } from '../resource_search_view';
+import { create as render } from 'react-test-renderer';
+
+import { createData } from '../../../../../tests/test_data';
+createData.mocks();
+
+import { ResourceSearchListView } from '../resource_search_list_view';
 
 describe('Resource', () => {
   storyOf(
     'Search',
     {
-      get component() {
-        // just another notation
+      searchItems: [
+        createData.searchItem({
+          category: 'Travel Request Form',
+          owner: 'Tomas Trescak',
+          title: 'International Travel Request'
+        }),
+        createData.searchItem({
+          category: 'Equipment Request Form',
+          owner: 'Nguyen Vu',
+          title: 'International Travel Request'
+        }),
+        createData.searchItem({
+          category: 'Payment Request Form',
+          owner: 'Tomas Trescak',
+          title: 'International Travel Request'
+        })
+      ],
+      componentWithData(searchItems: any[]) {
         return (
-          <MainLayout>
-            <ResourceSearchView />
-          </MainLayout>
+          <div>
+            <ResourceSearchListView searchItems={searchItems} />
+          </div>
         );
       }
     },
-    () => {
-      it('renders correctly', () => {});
+    data => {
+      it('renders no search items', () => {
+        const root = render(data.componentWithData([]));
+        expect(root).toMatchSnapshot();
+      });
+
+      it('renders some search items', () => {
+        const root = render(data.componentWithData(data.searchItems));
+        expect(root).toMatchSnapshot();
+      });
     }
   );
 });

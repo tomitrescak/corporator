@@ -1,0 +1,24 @@
+projects:
+  app:
+    schemaPath: "src/data/yoga/schema.graphql"
+    includes: ["src/**/*.graphql"]
+    extensions:
+      endpoints:
+        default: "http://localhost:4000"
+      codegen:
+        - generator: graphql-binding
+          language: typescript
+          input:
+            schema: src/data/schema.ts
+          output: 
+            binding: src/data/generated/yoga.ts
+  prisma:
+    schemaPath: "src/data/generated/prisma.graphql"
+    includes: ["src/**/*.graphql"]
+    extensions:
+      prisma: src/data/prisma/prisma.yml
+      codegen:
+        - generator: prisma-binding
+          language: typescript
+          output: 
+            binding: src/data/generated/prisma.ts

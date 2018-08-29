@@ -1,0 +1,9 @@
+query Resume($token: String!) {
+  resume(token: $token) {
+    user {
+      id
+      name
+    }
+    token
+  }
+}

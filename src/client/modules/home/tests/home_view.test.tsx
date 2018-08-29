@@ -1,39 +1,40 @@
 import * as React from 'react';
 
+import { Provider } from 'mobx-react';
+import { create } from 'react-test-renderer';
+
+import { AppStore } from 'client/stores/app_store';
+import { MockedProvider } from 'tests/client';
 import { HomeView } from '../home_view';
-import { MainLayout } from '../../core/main_layout';
 
-storyOf(
-  'Home',
-  {
-    get component() {
-      // just another notation
-      return (
-        <MainLayout>
-          <HomeView />
-        </MainLayout>
-      );
-    }
-  },
-  () => {
-    it('renders correctly', () => {});
+describe('Home', () => {
+  function componentWithData() {
+    const store = AppStore.create({});
+
+    return (
+      <Provider store={store}>
+        <MockedProvider>
+          <HomeView store={store} />
+        </MockedProvider>
+      </Provider>
+    );
   }
-);
 
-// it('renders without crashing', () => {
-//   const div = document.createElement('div');
-//   ReactDOM.render(<HomeView />, div);
-//   ReactDOM.unmountComponentAtNode(div);
-// });
+  describe('Logged Out', () => {
+    it('renders for logged out user', () => {
+      const root = create(componentWithData());
+      expect(root).toMatchSnapshot();
+    });
 
-// it('renders snapshot', () => {
-//   const component = renderer.create(<HomeView />);
-//   const root = component.root;
+    return { componentWithData };
+  });
 
-//   expect(component).toMatchSnapshot();
+  describe('Logged In', () => {
+    it('renders for logged in user', () => {
+      const root = create(componentWithData());
+      expect(root).toMatchSnapshot();
+    });
 
-//   // const button = root.findByType('button');
-//   // button.props.onClick();
-
-//   // expect(component).toMatchSnapshot();
-// });
+    return { component: componentWithData() };
+  });
+});

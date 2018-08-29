@@ -1,0 +1,19 @@
+endpoint: http://localhost:4466
+datamodel:
+  - access.graphql
+  - bpmn.graphql
+  - comments.graphql
+  - data_descriptor.graphql
+  - form.graphql
+  - localisation.graphql
+  - notifications.graphql
+  - organisation.graphql
+  - resource.graphql
+  - role.graphql
+  - users.graphql
+hooks:
+  post-deploy:
+    - graphql get-schema -p prisma
+    #    - graphql get-schema -p prisma --output schema.json
+    - graphql codegen
+    - node save_schema.js

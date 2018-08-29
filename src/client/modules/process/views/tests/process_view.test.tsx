@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { ProcessLayout, ProcessVersionsLayout } from '../../../core/main_layout';
+import { ProcessListView } from '../process_list_view';
 import { ProcessVersions } from '../process_versions_view';
 import { ProcessView } from '../process_view';
 
@@ -53,6 +54,21 @@ describe('Process', () => {
             <ProcessVersions />
           </ProcessVersionsLayout>
         );
+      }
+    },
+    () => {
+      it('renders correctly', () => {
+        /**/
+      });
+    }
+  );
+
+  storyOf(
+    'Process List View',
+    {
+      get component() {
+        // just another notation
+        return <ProcessListView searchItems={null} />
       }
     },
     () => {

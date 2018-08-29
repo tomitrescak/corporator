@@ -1,0 +1,109 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Notifications Item View renders no notifications 1`] = `
+<div
+  className="ui message"
+>
+  You have no new notifications.
+</div>
+`;
+
+exports[`Notifications Item View renders some notifications 1`] = `
+<div
+  className="ui segment"
+>
+  <h5
+    className="ui header"
+  >
+    <i
+      aria-hidden="true"
+      className="bell icon"
+    />
+    <div
+      className="content"
+    >
+      Notifications
+    </div>
+  </h5>
+  <div
+    className="ui divided list sc-bwzfXH flOgBY"
+    role="list"
+  >
+    <div>
+      <div
+        className="item"
+        onClick={[Function]}
+        role="listitem"
+      >
+        <span
+          className="sc-bdVaJa cWCCxy"
+        >
+          in 9 years
+        </span>
+         · 
+        ServiceStarted
+      </div>
+    </div>
+    <div>
+      <div
+        className="item"
+        onClick={[Function]}
+        role="listitem"
+      >
+        <span
+          className="sc-bdVaJa cWCCxy"
+        >
+          in 9 years
+        </span>
+         · 
+        ServiceStarted
+      </div>
+    </div>
+    <div>
+      <div
+        className="item"
+        onClick={[Function]}
+        role="listitem"
+      >
+        <span
+          className="sc-bdVaJa cWCCxy"
+        >
+          in 12 years
+        </span>
+         · 
+        ServiceStarted
+      </div>
+    </div>
+    <div>
+      <div
+        className="item"
+        onClick={[Function]}
+        role="listitem"
+      >
+        <span
+          className="sc-bdVaJa cWCCxy"
+        >
+          in 9 years
+        </span>
+         · 
+        ServiceStarted
+      </div>
+    </div>
+    <div>
+      <div
+        className="item"
+        onClick={[Function]}
+        role="listitem"
+      >
+        <span
+          className="sc-bdVaJa cWCCxy"
+        >
+          in 8 years
+        </span>
+         · 
+        ServiceStarted
+      </div>
+    </div>
+  </div>
+</div>
+`;

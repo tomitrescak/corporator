@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Process List Container renders data 1`] = `
+Array [
+  <div
+    className="ui header"
+  >
+    <i
+      aria-hidden="true"
+      className="find icon"
+    />
+    <div
+      className="content"
+    >
+      Search
+      <div
+        className="sub header"
+      >
+        Find process resources
+      </div>
+    </div>
+  </div>,
+  <div
+    className="ui divided relaxed list sc-bdVaJa bviDoP"
+    role="list"
+  >
+    <div
+      className="item"
+      onClick={[Function]}
+      role="listitem"
+    >
+      <i
+        aria-hidden="true"
+        className="file outline icon middle aligned"
+      />
+      <div
+        className="content"
+      >
+        <a
+          className="header"
+        />
+        <a
+          className="description"
+        >
+          Submitted by 
+           · 
+           · 
+          Thu, 01 Feb 2018 13:00:00 GMT
+        </a>
+      </div>
+    </div>
+    <div
+      className="item"
+      onClick={[Function]}
+      role="listitem"
+    >
+      <i
+        aria-hidden="true"
+        className="file outline icon middle aligned"
+      />
+      <div
+        className="content"
+      >
+        <a
+          className="header"
+        />
+        <a
+          className="description"
+        >
+          Submitted by 
+           · 
+           · 
+          Thu, 01 Feb 2018 13:00:00 GMT
+        </a>
+      </div>
+    </div>
+  </div>,
+]
+`;
+
+exports[`Process List Container renders loading 1`] = `
+<p>
+  Loading...
+</p>
+`;

@@ -1,0 +1,147 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Resource Search renders no search items 1`] = `
+<div>
+  <div
+    className="ui header"
+  >
+    <i
+      aria-hidden="true"
+      className="find icon"
+    />
+    <div
+      className="content"
+    >
+      Search
+      <div
+        className="sub header"
+      >
+        Find process resources
+      </div>
+    </div>
+  </div>
+  <div
+    className="ui message"
+  >
+    There are no search results.
+  </div>
+</div>
+`;
+
+exports[`Resource Search renders some search items 1`] = `
+<div>
+  <div
+    className="ui header"
+  >
+    <i
+      aria-hidden="true"
+      className="find icon"
+    />
+    <div
+      className="content"
+    >
+      Search
+      <div
+        className="sub header"
+      >
+        Find process resources
+      </div>
+    </div>
+  </div>
+  <div
+    className="ui divided relaxed list sc-bdVaJa bviDoP"
+    role="list"
+  >
+    <div
+      className="item"
+      onClick={[Function]}
+      role="listitem"
+    >
+      <i
+        aria-hidden="true"
+        className="file outline icon middle aligned"
+      />
+      <div
+        className="content"
+      >
+        <a
+          className="header"
+        >
+          Travel Request Form
+        </a>
+        <a
+          className="description"
+        >
+          Submitted by 
+          Tomas Trescak
+           · 
+          International Travel Request
+           ·
+           
+          in 21 days
+        </a>
+      </div>
+    </div>
+    <div
+      className="item"
+      onClick={[Function]}
+      role="listitem"
+    >
+      <i
+        aria-hidden="true"
+        className="file outline icon middle aligned"
+      />
+      <div
+        className="content"
+      >
+        <a
+          className="header"
+        >
+          Equipment Request Form
+        </a>
+        <a
+          className="description"
+        >
+          Submitted by 
+          Nguyen Vu
+           · 
+          International Travel Request
+           ·
+           
+          in 21 days
+        </a>
+      </div>
+    </div>
+    <div
+      className="item"
+      onClick={[Function]}
+      role="listitem"
+    >
+      <i
+        aria-hidden="true"
+        className="file outline icon middle aligned"
+      />
+      <div
+        className="content"
+      >
+        <a
+          className="header"
+        >
+          Payment Request Form
+        </a>
+        <a
+          className="description"
+        >
+          Submitted by 
+          Tomas Trescak
+           · 
+          International Travel Request
+           ·
+           
+          in 21 days
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;

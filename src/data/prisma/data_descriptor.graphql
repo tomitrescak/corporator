@@ -1,0 +1,31 @@
+enum DataType {
+  Id
+  Boolean
+  Float
+  Int
+  String
+  Date
+  Object
+}
+
+type DataDescriptor {
+  id: ID! @unique
+  access: Access
+  defaultValue: String
+  description: String
+  descriptors: [DataDescriptor!]!
+  expression: String
+  isArray: Boolean
+  name: String
+  type: DataType
+  validators: Validator
+}
+
+type Data {
+  id: ID! @unique
+  descriptor: DataDescriptor
+  organisationId: String
+  version: Int
+  date: DateTime
+  value: String
+}

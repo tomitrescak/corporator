@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Headers Anonymous renders correctly 1`] = `
+<div
+  className="sc-bwzfXH kRBEAi"
+>
+  <div
+    className="ui borderless sc-htpNat fbDvfI menu"
+  >
+    <div
+      className="item"
+      onClick={[Function]}
+    >
+      <img
+        alt="logo"
+        className="sc-bdVaJa kPmfWy"
+        src="file"
+      />
+    </div>
+    <div
+      className="right menu"
+    />
+  </div>
+</div>
+`;

@@ -1,0 +1,42 @@
+enum FormControl {
+  Input
+  Select
+  Checkbox
+  Radio
+  Textarea
+  Repeater
+  Table
+  DeleteButton
+}
+
+type Validator {
+  id: ID! @unique
+  name: String!
+  params: [String!]!
+}
+
+type FormElement {
+  id: ID! @unique
+  row: Int
+  column: Int
+  width: Int
+  source: DataDescriptor
+  label: String
+  inline: Boolean
+  defaultValue: String
+  list: String
+  filterSource: String
+  filterColumn: String
+  control: FormControl
+  controlProps: Json
+  vertical: Boolean
+  elements: [FormElement!]!
+}
+
+type Form {
+  id: ID! @unique
+  name: String!
+  description: String
+  elements: [FormElement!]!
+  validations: [Validator!]!
+}

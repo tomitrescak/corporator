@@ -1,0 +1,165 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Logout Menu Button logs out 1`] = `
+<style>
+</style>
+
+<div
+  className="ui menu"
+/>
+`;
+
+exports[`Logout Menu Button renders and sets value 1`] = `
+<style>
+</style>
+
+<div
+  className="ui menu"
+>
+  <div
+    aria-expanded={false}
+    className="ui item dropdown"
+    onBlur={[Function]}
+    onChange={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onMouseDown={[Function]}
+    role="listbox"
+    tabIndex={0}
+  >
+    <span>
+      <i
+        aria-hidden="true"
+        className="user icon"
+      />
+      Tomas Trescak
+    </span>
+    <i
+      aria-hidden="true"
+      className="dropdown icon"
+      onClick={[Function]}
+    />
+    <div
+      className="menu transition"
+    >
+      <div
+        className="ui divider"
+      />
+      <div
+        className="item"
+        onClick={[Function]}
+        role="option"
+      >
+        <i
+          aria-hidden="true"
+          className="sign out icon"
+        />
+        <span
+          className="text"
+        >
+          Logout
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Logout Menu Button renders empty if no user present 1`] = `
+<style>
+</style>
+
+<div
+  className="ui menu"
+/>
+`;
+
+exports[`Logout Menu Button renders empty if no user present 2`] = `
+<style>
+</style>
+
+<div
+  className="ui menu"
+/>
+`;
+
+exports[`Logout Menu Button renders empty if no user present and loading 1`] = `
+<style>
+</style>
+
+<div
+  className="ui menu"
+/>
+`;
+
+exports[`Logout Menu Button renders empty if no user present and loading 2`] = `
+<style>
+</style>
+
+<div
+  className="ui menu"
+/>
+`;
+
+exports[`Logout Menu Button renders empty if no user returned  1`] = `
+<style>
+</style>
+
+<div
+  className="ui menu"
+/>
+`;
+
+exports[`Logout Menu Button renders fail and resets store 1`] = `
+<style>
+</style>
+
+<div
+  className="ui menu"
+/>
+`;
+
+exports[`Logout Menu Button renders fail and resets store 2`] = `
+<style>
+</style>
+
+<div
+  className="ui menu"
+/>
+`;
+
+exports[`Logout Menu Button renders loading  1`] = `
+<style>
+</style>
+
+<div
+  className="ui menu"
+>
+  <div
+    className="item"
+    onClick={[Function]}
+  >
+    <div
+      className="ui mini active inline loader"
+    />
+  </div>
+</div>
+`;
+
+exports[`Logout Menu Button renders loading  2`] = `
+<style>
+</style>
+
+<div
+  className="ui menu"
+>
+  <div
+    className="item"
+    onClick={[Function]}
+  >
+    <div
+      className="ui mini active inline loader"
+    />
+  </div>
+</div>
+`;

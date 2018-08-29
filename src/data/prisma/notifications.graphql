@@ -1,0 +1,21 @@
+#import BpmnProcessInstance from './bpmn_process_instances.graphql'
+
+enum NotificationCode {
+  ProcessStarted
+  ProcessFinished
+  ProcessAborted
+  ActionStarted
+  ActionFinished
+  ActionFinished
+  ActionRequired
+}
+
+type Notification {
+  id: ID! @unique
+  date: DateTime
+  processInstance: BpmnProcessInstance
+  code: NotificationCode
+  text: Localisation
+  params: [String!]!
+  visible: Boolean
+}
