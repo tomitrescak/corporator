@@ -13,7 +13,7 @@ exports[`Notifications Item View renders default view 1`] = `
       in 7 months
     </span>
      · 
-    ServiceStarted
+    ProcessStarted
   </div>
 </div>
 `;

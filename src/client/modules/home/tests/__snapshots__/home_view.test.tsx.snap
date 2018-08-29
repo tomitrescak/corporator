@@ -3,10 +3,10 @@
 exports[`Home Logged In renders for logged in user 1`] = `
 Array [
   <div
-    className="sc-gzVnrw bjlcvW"
+    className="sc-bZQynM cLUMGl"
   >
     <div
-      className="ui borderless sc-htoDjs fgSbIx menu"
+      className="ui borderless sc-gzVnrw kbKLjo menu"
     >
       <div
         className="item"
@@ -24,7 +24,7 @@ Array [
     </div>
   </div>,
   <div
-    className="sc-gqjmRU eMGxVF"
+    className="sc-iwsKbI kahTAg"
   >
     <div
       style={
@@ -34,7 +34,7 @@ Array [
       }
     >
       <div
-        className="ui secondary segment sc-VigVT bPSoUG"
+        className="ui secondary segment sc-gZMcBi gQPKdT"
       >
         <div
           className="ui dividing header"
@@ -107,7 +107,7 @@ Array [
             }
           >
             <button
-              className="ui primary button sc-dnqmqq fTxKcw"
+              className="ui primary button sc-htoDjs dhyhDz"
               onClick={[Function]}
               role="button"
             >
@@ -118,7 +118,7 @@ Array [
               Login
             </button>
             <a
-              className="sc-gZMcBi deSGsC"
+              className="sc-dnqmqq bFBsXy"
               href="https://www.westernsydney.edu.au/information_technology_services/its/servicedesk/password_expiry_faq"
               target="_blank"
             >
@@ -135,10 +135,10 @@ Array [
 exports[`Home Logged Out renders for logged out user 1`] = `
 Array [
   <div
-    className="sc-gzVnrw bjlcvW"
+    className="sc-bZQynM cLUMGl"
   >
     <div
-      className="ui borderless sc-htoDjs fgSbIx menu"
+      className="ui borderless sc-gzVnrw kbKLjo menu"
     >
       <div
         className="item"
@@ -156,7 +156,7 @@ Array [
     </div>
   </div>,
   <div
-    className="sc-gqjmRU eMGxVF"
+    className="sc-iwsKbI kahTAg"
   >
     <div
       style={
@@ -166,7 +166,7 @@ Array [
       }
     >
       <div
-        className="ui secondary segment sc-VigVT bPSoUG"
+        className="ui secondary segment sc-gZMcBi gQPKdT"
       >
         <div
           className="ui dividing header"
@@ -239,7 +239,7 @@ Array [
             }
           >
             <button
-              className="ui primary button sc-dnqmqq fTxKcw"
+              className="ui primary button sc-htoDjs dhyhDz"
               onClick={[Function]}
               role="button"
             >
@@ -250,7 +250,7 @@ Array [
               Login
             </button>
             <a
-              className="sc-gZMcBi deSGsC"
+              className="sc-dnqmqq bFBsXy"
               href="https://www.westernsydney.edu.au/information_technology_services/its/servicedesk/password_expiry_faq"
               target="_blank"
             >

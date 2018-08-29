@@ -1,4 +1,4 @@
-const { process } = require('ts-jest/preprocessor');
+const { process } = require('ts-jest');
 const { loader } = require('jsx-controls-loader');
 
 class T {

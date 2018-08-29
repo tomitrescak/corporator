@@ -41,7 +41,7 @@ exports[`Notifications Item View renders some notifications 1`] = `
           in 9 years
         </span>
          · 
-        ServiceStarted
+        ActionStarted
       </div>
     </div>
     <div>
@@ -56,7 +56,7 @@ exports[`Notifications Item View renders some notifications 1`] = `
           in 9 years
         </span>
          · 
-        ServiceStarted
+        ActionStarted
       </div>
     </div>
     <div>
@@ -71,7 +71,7 @@ exports[`Notifications Item View renders some notifications 1`] = `
           in 12 years
         </span>
          · 
-        ServiceStarted
+        ActionStarted
       </div>
     </div>
     <div>
@@ -86,7 +86,7 @@ exports[`Notifications Item View renders some notifications 1`] = `
           in 9 years
         </span>
          · 
-        ServiceStarted
+        ActionStarted
       </div>
     </div>
     <div>
@@ -101,7 +101,7 @@ exports[`Notifications Item View renders some notifications 1`] = `
           in 8 years
         </span>
          · 
-        ServiceStarted
+        ActionStarted
       </div>
     </div>
   </div>

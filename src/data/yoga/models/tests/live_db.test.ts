@@ -1,3 +1,6 @@
+it('runs', () => {
+  /**/
+});
 // import { ServerContext } from '../context';
 // import { create } from '../../../shared/test_data';
 // import { InstanceStatus } from '../bpmn_process_instance_model';
@@ -6,12 +9,12 @@
 
 // // connect context to database
 // beforeAll(async () => {
-//   context = await ServerContext.connect();  
+//   context = await ServerContext.connect();
 // });
 
 // // disconnect context from database
 // afterAll(async () => {
-//   await ServerContext.disconnect(context);  
+//   await ServerContext.disconnect(context);
 // });
 
 // it('should aggregate docs from collection', async () => {
@@ -38,4 +41,4 @@
 //   ]);
 // });
 
-it('hello', () => undefined)
+it('hello', () => undefined);

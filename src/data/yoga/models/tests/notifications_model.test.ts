@@ -1,3 +1,6 @@
+it('runs', () => {
+  /**/
+});
 // import { mutation } from '../notifications_model';
 // import { create, its } from './test_utils';
 
