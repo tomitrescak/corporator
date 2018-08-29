@@ -1,12 +1,12 @@
+import { Yoga } from 'tests/client';
 import { BpmnProcessInstanceCreateInput, User, UserCreateInput } from '../../../generated/prisma';
 import { Context } from '../../utils';
 
-const defaultBpmnProcessInstance: BpmnProcessInstanceCreateInput = {
-  name: 'What?'
-}
+const defaultBpmnProcessInstance: Partial<BpmnProcessInstanceCreateInput> = {};
 
 const defaultUser: UserCreateInput = {
   name: 'Tomas Trescak',
+  uid: '1000',
   password: '',
   roles: {
     set: []
@@ -23,9 +23,10 @@ function merge<T>(a: any, b: T): T {
 }
 
 export const create = {
-  user(ctx: Context, data: Partial<User> = {}) {
+  user(ctx: Context, data: Partial<User> = {}): Promise<Yoga.User> {
     const input: UserCreateInput = {
       name: data.name,
+      uid: data.uid,
       password: '',
       roles: {
         set: data.roles

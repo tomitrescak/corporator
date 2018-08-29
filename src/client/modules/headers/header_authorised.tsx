@@ -1,7 +1,7 @@
 import * as React from 'react';
 import logo = require('./logo.png');
 
-import { Divider, Icon, Image, Input, InputProps, Menu, MenuProps } from 'semantic-ui-react';
+import { Icon, Input, InputProps, Menu, MenuProps } from 'semantic-ui-react';
 import styled, { StyledComponentClass } from 'styled-components';
 
 import { LocalStorage } from '../../config/local_storage';

@@ -1,5 +1,5 @@
 import * as dayjs from 'dayjs';
-import * as relativeTime from 'dayjs/plugin/relativeTime';
+// import * as relativeTime from 'dayjs/plugin/relativeTime';
 
 import { Yoga } from 'data/yoga';
 

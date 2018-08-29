@@ -16,20 +16,25 @@ export const query: Query = {
 
 export const mutation: Mutation = {
   async notify(_parent, { input }, ctx, info) {
+    const notification = await ctx.db.mutation.createNotification({
+      data: {
+        code: input.code,
+        params: { set: input.params },
+        processInstance: {
+          connect: {
+            id: input.processInstanceId
+          }
+        },
+        visible: true
+      }
+    });
     await ctx.db.mutation.updateUser(
       {
         where: { id: input.userId },
         data: {
           notifications: {
-            create: {
-              code: input.code,
-              params: { set: input.params },
-              processInstance: {
-                connect: {
-                  id: input.processInstanceId
-                }
-              },
-              visible: true
+            connect: {
+              id: notification.id
             }
           }
         }
@@ -56,26 +61,42 @@ export const resolver: Resolver<Notification> = {
 };
 
 export async function fixtures(ctx: ServerContext, fixtureContext: FixtureContext) {
+  console.log('Fixtures notifications');
   const { userId } = fixtureContext;
   const notifications: Yoga.NotifyInput[] = [
-    { userId, processInstanceId: null, code: 'ProcessStarted', params: ['Process Name'] },
-    { userId, processInstanceId: null, code: 'ProcessFinished', params: ['Process Name'] },
-    { userId, processInstanceId: null, code: 'ProcessAborted', params: ['Process Name'] },
     {
       userId,
-      processInstanceId: null,
+      processInstanceId: fixtureContext.processInstances[0].id,
+      code: 'ProcessStarted',
+      params: ['Process Name']
+    },
+    {
+      userId,
+      processInstanceId: fixtureContext.processInstances[0].id,
+      code: 'ProcessFinished',
+      params: ['Process Name']
+    },
+    {
+      userId,
+      processInstanceId: fixtureContext.processInstances[0].id,
+      code: 'ProcessAborted',
+      params: ['Process Name']
+    },
+    {
+      userId,
+      processInstanceId: fixtureContext.processInstances[0].id,
       code: 'ActionStarted',
       params: ['Process Name', 'Action Name']
     },
     {
       userId,
-      processInstanceId: null,
+      processInstanceId: fixtureContext.processInstances[0].id,
       code: 'ActionFinished',
       params: ['Process Name', 'Action Name', 'Action Result']
     },
     {
       userId,
-      processInstanceId: null,
+      processInstanceId: fixtureContext.processInstances[0].id,
       code: 'ActionRequired',
       params: ['Process Name', 'Action Name']
     }

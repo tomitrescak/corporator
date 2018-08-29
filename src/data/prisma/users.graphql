@@ -6,5 +6,6 @@ type User {
   description: String
   password: String!
   notifications: [Notification!]! @relation(name: "UserNotifications", onDelete: CASCADE)
+  processes: [BpmnProcessInstance!]! @relation(name: "UserProcesses")
   data: [Data!]! @relation(name: "UserData", onDelete: CASCADE)
 }

@@ -5,7 +5,7 @@ import { Query } from 'react-apollo';
 
 import { ApolloError } from 'apollo-client';
 import { Yoga } from 'data/yoga';
-import { Icon, Loader } from 'semantic-ui-react';
+import { Loader } from 'semantic-ui-react';
 
 type Props = {
   store: App.Store;
@@ -47,16 +47,17 @@ export const QueryResult: React.SFC<QueryResultProps> = ({ result }) => {
   return null;
 };
 
-export const NotificationAlert = observer(({ store }: Props) => (
-  <NotificationsQuery>
-    {result => {
-      <QueryResult result={result} /> || (
-        <>
-          <Icon name="bell" /> {result.data.notifications.length}
-        </>
-      );
-    }}
-  </NotificationsQuery>
+export const NotificationAlert = observer((_props: Props) => (
+  // <NotificationsQuery>
+  //   {result => {
+  //     <QueryResult result={result} /> || (
+  //       <>
+  //         <Icon name="bell" /> {result.data.notifications.length}
+  //       </>
+  //     );
+  //   }}
+  // </NotificationsQuery>
+  <div>Tomi</div>
 ));
 
 export const NotificationAlertContainer = inject('store')(NotificationAlert);

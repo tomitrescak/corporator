@@ -13,6 +13,7 @@ type Mutation {
   testMutation: Boolean
   notify(input: NotifyInput): Notification!
   createProcess(input: CreateProcessInput!): BpmnProcess
+  createProcessInstance(input: CreateProcessInstanceInput!): BpmnProcessInstance
   login(input: AuthInput!): AuthPayload!
   signup(input: AuthInput!): AuthPayload!
 }
@@ -46,7 +47,6 @@ type BpmnProcess implements Node {
 input BpmnProcessesInput {
   status: ProcessStatus
   name: String
-  descritpion: String
   skip: Int
   first: Int
 }
@@ -56,9 +56,7 @@ type BpmnProcessInstance implements Node {
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
   dateFinished: DateTime
   dateStarted: DateTime
-  description: String
   duration: Int
-  name: String!
   ownerId: ID
   process(where: BpmnProcessWhereInput): BpmnProcess
   resources: Json
@@ -102,6 +100,7 @@ type User implements Node {
   description: String
   password: String!
   notifications(where: NotificationWhereInput, orderBy: NotificationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Notification!]
+  processes(where: BpmnProcessInstanceWhereInput, orderBy: BpmnProcessInstanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BpmnProcessInstance!]
   data(where: DataWhereInput, orderBy: DataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Data!]
 }
 
@@ -132,6 +131,10 @@ input CreateProcessInput {
   description: String
   model: String
   status: ProcessStatus
+}
+
+input CreateProcessInstanceInput {
+  processId: String!
 }
 
 input AuthInput {
@@ -275,59 +278,6 @@ input BpmnProcessInstanceWhereInput {
   All values greater than or equal the given value.
   """
   dateStarted_gte: DateTime
-  description: String
-  """
-  All values that are not equal to given value.
-  """
-  description_not: String
-  """
-  All values that are contained in given list.
-  """
-  description_in: [String!]
-  """
-  All values that are not contained in given list.
-  """
-  description_not_in: [String!]
-  """
-  All values less than the given value.
-  """
-  description_lt: String
-  """
-  All values less than or equal the given value.
-  """
-  description_lte: String
-  """
-  All values greater than the given value.
-  """
-  description_gt: String
-  """
-  All values greater than or equal the given value.
-  """
-  description_gte: String
-  """
-  All values containing the given string.
-  """
-  description_contains: String
-  """
-  All values not containing the given string.
-  """
-  description_not_contains: String
-  """
-  All values starting with the given string.
-  """
-  description_starts_with: String
-  """
-  All values not starting with the given string.
-  """
-  description_not_starts_with: String
-  """
-  All values ending with the given string.
-  """
-  description_ends_with: String
-  """
-  All values not ending with the given string.
-  """
-  description_not_ends_with: String
   duration: Int
   """
   All values that are not equal to given value.
@@ -357,59 +307,6 @@ input BpmnProcessInstanceWhereInput {
   All values greater than or equal the given value.
   """
   duration_gte: Int
-  name: String
-  """
-  All values that are not equal to given value.
-  """
-  name_not: String
-  """
-  All values that are contained in given list.
-  """
-  name_in: [String!]
-  """
-  All values that are not contained in given list.
-  """
-  name_not_in: [String!]
-  """
-  All values less than the given value.
-  """
-  name_lt: String
-  """
-  All values less than or equal the given value.
-  """
-  name_lte: String
-  """
-  All values greater than the given value.
-  """
-  name_gt: String
-  """
-  All values greater than or equal the given value.
-  """
-  name_gte: String
-  """
-  All values containing the given string.
-  """
-  name_contains: String
-  """
-  All values not containing the given string.
-  """
-  name_not_contains: String
-  """
-  All values starting with the given string.
-  """
-  name_starts_with: String
-  """
-  All values not starting with the given string.
-  """
-  name_not_starts_with: String
-  """
-  All values ending with the given string.
-  """
-  name_ends_with: String
-  """
-  All values not ending with the given string.
-  """
-  name_not_ends_with: String
   ownerId: ID
   """
   All values that are not equal to given value.
@@ -486,6 +383,9 @@ input BpmnProcessInstanceWhereInput {
   _MagicalBackRelation_BpmnProcessInstanceToNotification_every: NotificationWhereInput
   _MagicalBackRelation_BpmnProcessInstanceToNotification_some: NotificationWhereInput
   _MagicalBackRelation_BpmnProcessInstanceToNotification_none: NotificationWhereInput
+  _MagicalBackRelation_UserProcesses_every: UserWhereInput
+  _MagicalBackRelation_UserProcesses_some: UserWhereInput
+  _MagicalBackRelation_UserProcesses_none: UserWhereInput
 }
 
 enum NotificationCode {
@@ -2615,6 +2515,9 @@ input UserWhereInput {
   notifications_every: NotificationWhereInput
   notifications_some: NotificationWhereInput
   notifications_none: NotificationWhereInput
+  processes_every: BpmnProcessInstanceWhereInput
+  processes_some: BpmnProcessInstanceWhereInput
+  processes_none: BpmnProcessInstanceWhereInput
   data_every: DataWhereInput
   data_some: DataWhereInput
   data_none: DataWhereInput
@@ -2755,6 +2658,27 @@ enum NotificationOrderByInput {
   code_DESC
   visible_ASC
   visible_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+enum BpmnProcessInstanceOrderByInput {
+  id_ASC
+  id_DESC
+  dateFinished_ASC
+  dateFinished_DESC
+  dateStarted_ASC
+  dateStarted_DESC
+  duration_ASC
+  duration_DESC
+  ownerId_ASC
+  ownerId_DESC
+  resources_ASC
+  resources_DESC
+  status_ASC
+  status_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC

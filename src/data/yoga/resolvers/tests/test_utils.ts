@@ -33,8 +33,9 @@ export async function its(
     context = {
       db,
       request: {},
+      user: null,
+      userId: null,
       session: {
-        user: null,
         language: options.language
       }
     };
@@ -62,9 +63,10 @@ export async function its(
           db.mutation.deleteUser({ where: { id: user.id } });
         }
       }
-      context.session.user = await create.user(context, options.user);
+      context.user = await create.user(context, options.user);
+      context.userId = context.user.id;
     }
 
-    return impl(context, context.session.user);
+    return impl(context, context.user);
   });
 }

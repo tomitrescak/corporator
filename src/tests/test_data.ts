@@ -8,6 +8,7 @@ datejs.extend(relativeTime);
 
 const defaultUser: Prisma.User = {
   id: 'u',
+  uid: '1000',
   name: 'User',
   description: 'User Description',
   roles: null,
@@ -16,6 +17,7 @@ const defaultUser: Prisma.User = {
 
 const otherUser: Prisma.User = {
   id: 'o',
+  uid: '1000',
   name: 'Other',
   description: 'Other User Description',
   roles: null,
@@ -60,8 +62,6 @@ const defaultAccessCondition: Prisma.AccessCondition = {
 
 const defaultActivity: Prisma.BpmnProcessInstance = {
   id: 'aid',
-  name: 'Activity',
-  description: 'Activity description',
   resources: null,
   ownerId: 'oid',
   status: 'Finished',
@@ -75,7 +75,6 @@ const defaultBpmnProcess: Prisma.BpmnProcess = {
   name: 'Bpmn',
   description: 'Default process',
   access: defaultAccess,
-  definition: null,
   // generatedDescription: null,
   model: null,
   version: 0,
@@ -116,7 +115,7 @@ const defaultDescriptor: Yoga.DataDescriptor = {
 const defaultNotification: Yoga.Notification = {
   id: '1',
   processInstance: null,
-  code: 'ServiceStarted',
+  code: 'ActionStarted',
   params: [],
   date: createdDate,
   visible: true

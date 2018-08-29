@@ -3,12 +3,12 @@ import * as relativeTime from 'dayjs/plugin/relativeTime';
 
 import { Prisma } from '../data/prisma';
 import { Yoga } from '../data/yoga';
-import { InstanceStatus, ProcessStatus } from '../server/models/bpmn_enums';
 
 datejs.extend(relativeTime);
 
 const defaultUser: Prisma.User = {
   id: 'u',
+  uid: '1000',
   name: 'User',
   description: 'User Description',
   roles: null,
@@ -17,6 +17,7 @@ const defaultUser: Prisma.User = {
 
 const otherUser: Prisma.User = {
   id: 'o',
+  uid: '1000',
   name: 'Other',
   description: 'Other User Description',
   roles: null,
@@ -61,12 +62,10 @@ const defaultAccessCondition: Prisma.AccessCondition = {
 
 const defaultActivity: Prisma.BpmnProcessInstance = {
   id: 'aid',
-  name: 'Activity',
-  description: 'Activity description',
-  processId: 'pid',
+  process: null,
   resources: null,
   ownerId: 'oid',
-  status: InstanceStatus.Finished,
+  status: 'Running',
   dateStarted: createdDate,
   dateFinished: finishedDate,
   duration: 0
@@ -77,11 +76,10 @@ const defaultBpmnProcess: Prisma.BpmnProcess = {
   name: 'Bpmn',
   description: 'Default process',
   access: defaultAccess,
-  definition: null,
   // generatedDescription: null,
   model: null,
   version: 0,
-  status: ProcessStatus.Published,
+  status: 'Draft',
   // roles: ['default'],
   actionCount: 0
 };
@@ -98,30 +96,29 @@ const defaultData: Prisma.Data = {
   id: '1',
   descriptor: null,
   organisationId: 'oId',
-  ownerId: 'uId',
   version: 0,
   date: modifiedDate,
   value: null
 };
 
-const defaultDescriptorDao: Prisma.DataDescriptor = {
-  id: '1',
-  name: null,
-  description: 'Description',
-  expression: null,
-  type: 'string',
-  isArray: false,
-  defaultValue: null,
-  validators: null,
-  access: null
-};
+// const defaultDescriptorDao: Prisma.DataDescriptor = {
+//   id: '1',
+//   name: null,
+//   description: 'Description',
+//   expression: null,
+//   type: 'String',
+//   isArray: false,
+//   defaultValue: null,
+//   validators: null,
+//   access: null
+// };
 
 const defaultDescriptor: Yoga.DataDescriptor = {
   id: '1',
   name: null,
   description: 'Description',
   expression: null,
-  type: 'string',
+  type: 'String',
   isArray: false,
   defaultValue: null,
   validators: null,
@@ -129,30 +126,20 @@ const defaultDescriptor: Yoga.DataDescriptor = {
 };
 
 const defaultNotification: Yoga.Notification = {
-  _id: '1',
-  processInstance: {},
-  owner: {},
-  code: '',
+  id: '1',
+  processInstance: null,
+  code: 'ProcessStarted',
   params: [],
   date: createdDate,
-  visible: true,
-  comment: 'Notification'
-};
-
-const defaultSearchItem: Yoga.Search = {
-  _id: '1',
-  owner: {},
-  date: createdDate,
-  category: null,
-  title: null
+  visible: true
 };
 
 export const createData = {
   mocks() {
     // tslint:disable-next-line:no-shadowed-variable
     const dayjs: any = () => ({
-      from(date: any) {
-        return datejs('2018/02/23').from(date);
+      from(_date: any) {
+        // return datejs('2018/02/23').from(date);
       }
     });
     dayjs.extend = () => {
@@ -194,8 +181,8 @@ export const createData = {
   },
   notification(from: Partial<Yoga.Notification> = {}): Yoga.Notification {
     return { ...defaultNotification, ...from };
-  },
-  searchItem(from: Partial<Yoga.Search> = {}): Yoga.Search {
-    return { ...defaultSearchItem, ...from };
   }
+  // searchItem(from: Partial<Yoga.Search> = {}): Yoga.Search {
+  //   return { ...defaultSearchItem, ...from };
+  // }
 };

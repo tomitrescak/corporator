@@ -15,11 +15,11 @@ const CentredButton: StyledComponentClass<ButtonProps, {}> = styled(Button)`
   margin: 'auto';
 `;
 
-const ForgotLink = styled.a`
-  position: absolute !important;
-  right: 20px;
-  margin-top: 6px;
-`;
+// const ForgotLink = styled.a`
+//   position: absolute !important;
+//   right: 20px;
+//   margin-top: 6px;
+// `;
 
 class LoginMutation extends Mutation<{ login: Yoga.AuthPayload }, { input: Yoga.AuthInput }> {}
 

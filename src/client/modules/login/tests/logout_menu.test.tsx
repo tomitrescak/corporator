@@ -6,7 +6,7 @@ import { AppStore } from 'client/stores/app_store';
 import { create, mock, MockedProvider } from 'tests/client';
 
 import RESUME_MUTATION = require('data/client/resume_query.graphql');
-import { Dropdown, Menu } from 'semantic-ui-react';
+import { Menu } from 'semantic-ui-react';
 import { LogoutMenu, ResumeQuery } from '../logout_menu';
 
 describe('Logout', function() {

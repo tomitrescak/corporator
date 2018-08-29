@@ -37,9 +37,7 @@ type BpmnProcessInstance {
   comments: [Comment!]!
   dateFinished: DateTime
   dateStarted: DateTime
-  description: String
   duration: Int
-  name: String!
   ownerId: ID
   process: BpmnProcess
   resources: Json

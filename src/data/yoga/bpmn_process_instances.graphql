@@ -18,3 +18,15 @@ input BpmnProcessInstancesInput {
 type Query {
   bpmnProcessInstances(input: BpmnProcessInstancesInput!): [BpmnProcessInstance]!
 }
+
+# ========================================================= #
+#  MUTATIONS
+# ========================================================= # */
+
+input CreateProcessInstanceInput {
+  processId: String!
+}
+
+type Mutation {
+  createProcessInstance(input: CreateProcessInstanceInput!): BpmnProcessInstance
+}

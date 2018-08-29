@@ -7,7 +7,7 @@ import { ApolloProvider } from 'react-apollo';
 import { render } from 'react-dom';
 
 import { client } from 'client/config/apollo';
-import { HomeContainer, HomeLayout, HomeView } from 'client/modules/home/home_view';
+import { HomeContainer } from 'client/modules/home/home_view';
 import { appStore } from 'client/stores/app_store';
 
 import './style.css';

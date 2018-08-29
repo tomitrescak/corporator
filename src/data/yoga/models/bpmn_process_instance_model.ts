@@ -2,8 +2,6 @@ import { Prisma } from 'data/prisma';
 import { BpmnProcessModel } from './bpmn_process_model';
 import { BpmnTaskInstanceModel } from './bpmn_task_instance_model';
 
-
-
 export class BpmnProcessInstance {
   id: string;
   name: string;
@@ -17,11 +15,11 @@ export class BpmnProcessInstance {
   dateFinished: Date;
   duration: number;
 
-
-  constructor(instanceModelDao: Partial<Prisma.BpmnProcessInstance>, processModel: BpmnProcessModel) {
+  constructor(
+    instanceModelDao: Partial<Prisma.BpmnProcessInstance>,
+    processModel: BpmnProcessModel
+  ) {
     this.id = instanceModelDao.id;
-    this.name = instanceModelDao.name;
-    this.description = instanceModelDao.description;
     // this.processId = instanceModelDao.processId;
     this.processModel = processModel;
     this.resources = JSON.parse(instanceModelDao.resources);
@@ -40,7 +38,6 @@ export class BpmnProcessInstance {
   pause() {
     /* set status to paused */
   }
-
 
   abort() {
     /* set status to aborted */

@@ -63,7 +63,6 @@ export function getUserId(ctx: Context): string {
   if (ctx.userId) {
     return ctx.userId;
   }
-
   throw new AuthError();
 }
 

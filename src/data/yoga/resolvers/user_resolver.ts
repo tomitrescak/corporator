@@ -7,7 +7,7 @@ if (!process.env.JWT_SECRET) {
   process.env.JWT_SECRET = 'QWERTY%$#@!12345';
 }
 
-export async function fixtures(context: Context): string {
+export async function fixtures(context: Context): Promise<string> {
   const hasUsers = await context.db.exists.User();
   if (!hasUsers) {
     // tslint:disable-next-line:no-console

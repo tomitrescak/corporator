@@ -1,4 +1,4 @@
-import * as session from 'express-session';
+// import * as session from 'express-session';
 
 import { importSchema } from 'graphql-import';
 import { GraphQLServer } from 'graphql-yoga';

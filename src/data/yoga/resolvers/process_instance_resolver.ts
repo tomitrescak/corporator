@@ -1,34 +1,45 @@
-import { Mutation, Notification, Query, Resolver, Yoga } from '../utils';
+import { getUserId, Mutation, purge, Query, Yoga } from '../utils';
+import { FixtureContext } from './common';
 
 export const query: Query = {
-  notifications(_parent, { input: { skip = 0, first = 100, visible } }, ctx, info) {
-    // return ctx.db.query.notifications(
-    //   { where: { owner: { id: getUserId(ctx) } }, skip: start, last: end },
-    //   info
-    // );
-    return ctx.db.query.notifications(
-      { where: visible == null ? {} : { visible }, skip, first },
+  bpmnProcessInstances(_parent, { input }, ctx, info) {
+    throw new Error('Not Implemented');
+    return ctx.db.query.bpmnProcesses(
+      {
+        where: purge<Yoga.BpmnProcessWhereInput>({ name_contains: 'we', status: input.status }),
+        skip: input.skip,
+        first: input.first
+      },
       info
     );
   }
 };
 
 export const mutation: Mutation = {
-  async notify(_parent, { input }, ctx, info) {
+  async createProcessInstance(_parent, { input: { processId } }, ctx, info) {
+    const userId = getUserId(ctx);
+
+    const processInstance = await ctx.db.mutation.createBpmnProcessInstance({
+      data: {
+        dateStarted: new Date(),
+        duration: 0,
+        ownerId: userId,
+        process: {
+          connect: {
+            id: processId
+          }
+        },
+        status: 'Running'
+      }
+    });
+
     await ctx.db.mutation.updateUser(
       {
-        where: { id: input.userId },
+        where: { id: userId },
         data: {
-          notifications: {
-            create: {
-              code: input.code,
-              params: { set: input.params },
-              processInstance: {
-                connect: {
-                  id: input.processInstanceId
-                }
-              },
-              visible: true
+          processes: {
+            connect: {
+              id: processInstance.id
             }
           }
         }
@@ -36,50 +47,28 @@ export const mutation: Mutation = {
       info
     );
 
-    // return user.notifications[0];
-    // const notification = await ctx.db.query.notifications({ where: {     }); // .user()
-
-    return true;
+    return processInstance;
   }
 };
 
-export const resolver: Resolver<Notification> = {
-  Notification: {
-    text: async (parent, _args, ctx, _info) => {
-      const results = await ctx.db.query.localisations({
-        where: { code: parent.code, language: ctx.session.language }
-      });
-      return results[0];
-    }
-  }
-};
+export async function fixtures(
+  ctx: ServerContext,
+  fixtureContext: FixtureContext
+): Promise<Yoga.BpmnProcessInstance[]> {
+  // tslint:disable-next-line:no-console
+  console.log('Fixtures process instances');
 
-export async function fixtures(ctx: ServerContext, userId: string) {
-  const notifications: Yoga.NotifyInput[] = [
-    { userId, processInstanceId: null, code: 'ProcessStarted', params: ['Process Name'] },
-    { userId, processInstanceId: null, code: 'ProcessFinished', params: ['Process Name'] },
-    { userId, processInstanceId: null, code: 'ProcessAborted', params: ['Process Name'] },
-    {
-      userId,
-      processInstanceId: null,
-      code: 'ActionStarted',
-      params: ['Process Name', 'Action Name']
-    },
-    {
-      userId,
-      processInstanceId: null,
-      code: 'ActionFinished',
-      params: ['Process Name', 'Action Name', 'Action Result']
-    },
-    {
-      userId,
-      processInstanceId: null,
-      code: 'ActionRequired',
-      params: ['Process Name', 'Action Name']
-    }
+  const processes: Yoga.CreateProcessInstanceInput[] = [
+    { processId: fixtureContext.processes[0].id },
+    { processId: fixtureContext.processes[0].id }
+    // { processId: fixtureContext.processes[1].id }
   ];
 
-  for (let input of notifications) {
-    await mutation.notify(null, { input }, ctx);
+  let inserted: Yoga.BpmnProcessInstance[] = [];
+  for (let input of processes) {
+    const process = await mutation.createProcessInstance(null, { input }, ctx);
+    inserted.push(process);
   }
+  fixtureContext.processInstances = inserted;
+  return inserted;
 }

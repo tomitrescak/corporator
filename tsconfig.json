@@ -18,7 +18,8 @@
     "baseUrl": "./src",
     "rootDirs": ["src"],
     "experimentalDecorators": true,
-    "typeRoots": ["src/typings", "node_modules/@types"]
+    "typeRoots": ["src/typings", "node_modules/@types"],
+    "sourceMap": true
   },
   "include": ["src/**/*"],
   "exclude": ["src/data/generated/*", "node_modules", "**/node_modules/**"]

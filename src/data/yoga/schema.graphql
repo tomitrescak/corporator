@@ -1,6 +1,6 @@
 #import Query.*, Mutation.* from './notifications.graphql'
 #import Query.*, Mutation.* from './bpmn.graphql'
-#import Query.* from './bpmn_process_instances.graphql'
+#import Query.*, Mutation.* from './bpmn_process_instances.graphql'
 #import Query.* from './bpmn_task_instances.graphql'
 #import Query.*, Mutation.* from './users.graphql'
 

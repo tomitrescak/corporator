@@ -180,10 +180,10 @@ export class FormModel {
       .views(viewDefinition)
       .actions(self => ({
         addRow(key: string) {
-          self[key].push({});
+          (self[key] as any[]).push({});
         },
         removeRow(key: string, index: number) {
-          self[key].splice(index);
+          (self[key] as any[]).splice(index);
         },
         removeRowData<T>(key: string, data: T) {
           (self[key] as IObservableArray<T>).remove(data);
@@ -204,6 +204,11 @@ export class FormModel {
               self[key] = value;
           }
         },
+        setError(key: string, error: string) {
+          (self as any)[key + '_error'] = error;
+        }
+      }))
+      .actions(self => ({
         setStringValue(key: string, value: any) {
           self[key + '_str'] = value;
 
@@ -222,9 +227,6 @@ export class FormModel {
             self.parseValue(key, value);
           }
           self.setError(key, error);
-        },
-        setError(key: string, error: string) {
-          self[key + '_error'] = error;
         }
       }));
 

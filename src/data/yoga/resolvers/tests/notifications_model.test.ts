@@ -12,10 +12,12 @@ its(
     await mutation.notify(
       null,
       {
-        userId: user.id,
-        code: 'ServiceStarted',
-        params: ['a', 'b', 'c'],
-        processInstanceId: bpmn.id
+        input: {
+          userId: user.id,
+          code: 'ProcessStarted',
+          params: ['a', 'b', 'c'],
+          processInstanceId: bpmn.id
+        }
       },
       ctx
     );

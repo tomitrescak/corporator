@@ -9,7 +9,7 @@ export const LoginStore = FormStore.named('LoginStore')
     password: '',
     error: ''
   })
-  .volatile(self => ({
+  .volatile(_self => ({
     validators: {
       user: [requiredValidator],
       password: [requiredValidator]

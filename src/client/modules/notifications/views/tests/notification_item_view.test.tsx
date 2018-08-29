@@ -16,7 +16,7 @@ describe('Notifications', () => {
     data => {
       it('renders default view', () => {
         const root = render(
-          data.componentWithData(createData.notification({ code: 'ServiceStarted' }))
+          data.componentWithData(createData.notification({ code: 'ProcessStarted' }))
         );
         expect(root).toMatchSnapshot();
       });

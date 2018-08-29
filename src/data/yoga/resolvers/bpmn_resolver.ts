@@ -1,8 +1,8 @@
-import { Mutation, Notification, purge, Query, Resolver, Yoga } from '../utils';
+import { getUserId, Mutation, purge, Query, Yoga } from '../utils';
 import { FixtureContext } from './common';
 
 export const query: Query = {
-  bpmnProcesses(_parent, { input: { status, name, skip = 0, first = 10 } }, ctx, info) {
+  bpmnProcesses(_parent, { input: { status, skip = 0, first = 10 } }, ctx, info) {
     // return ctx.db.query.notifications(
     //   { where: { owner: { id: getUserId(ctx) } }, skip: start, last: end },
     //   info
@@ -20,6 +20,7 @@ export const query: Query = {
 
 export const mutation: Mutation = {
   async createProcess(_parent, { input: { description, status, name, model } }, ctx, info) {
+    const userId = getUserId(ctx);
     const process = await ctx.db.mutation.createBpmnProcess(
       {
         data: {
@@ -30,7 +31,21 @@ export const mutation: Mutation = {
           name,
           status,
           version: 0,
-          access: null
+          access: {
+            create: {
+              createdOn: new Date(),
+              createdById: userId,
+              read: {
+                create: {}
+              },
+              write: {
+                create: {}
+              },
+              execute: {
+                create: {}
+              }
+            }
+          }
         }
       },
       info
@@ -39,7 +54,13 @@ export const mutation: Mutation = {
   }
 };
 
-export async function fixtures(ctx: ServerContext, fixtureContext: FixtureContext) {
+export async function fixtures(
+  ctx: ServerContext,
+  fixtureContext: FixtureContext
+): Promise<Yoga.BpmnProcess[]> {
+  // tslint:disable-next-line:no-console
+  console.log('Fixtures process');
+
   const processes: Yoga.CreateProcessInput[] = [
     { name: 'Process 1', description: 'Process 1 description', model: '', status: 'Published' },
     { name: 'Process 4', description: 'Process 4 description', model: '', status: 'Published' },
@@ -52,4 +73,7 @@ export async function fixtures(ctx: ServerContext, fixtureContext: FixtureContex
     const process = await mutation.createProcess(null, { input }, ctx);
     inserted.push(process);
   }
+
+  fixtureContext.processes = inserted;
+  return inserted;
 }

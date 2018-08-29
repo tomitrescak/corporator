@@ -1,17 +1,15 @@
 import * as React from 'react';
-import * as jenny from './jenny.jpg';
-import * as logo from './logo.png';
 
-import styled, { StyledComponentClass } from 'styled-components';
+import styled from 'styled-components';
 
 // import { Icon, Image, Input, InputProps, Menu, MenuProps } from 'semantic-ui-react';
 import { HeaderAuthorised } from '../headers/header_authorised';
 
-const Logo = styled.img`
-  &&&&& {
-    width: 120px;
-  }
-`;
+// const Logo = styled.img`
+//   &&&&& {
+//     width: 120px;
+//   }
+// `;
 
 const Content = styled.div`
   padding: 12px;
