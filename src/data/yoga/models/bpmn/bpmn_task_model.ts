@@ -24,11 +24,11 @@ export abstract class Task extends FlowNode {
   constructor(task: Bpmn.Task, lane?: Lane, attachedEvents?: BoundaryEvent[]) {
     super(task, lane);
     this.marker = task.marker ? task.marker : TaskMarkers.None;
-    
+
     this.attachedEventIds = [];
-    if(task.attachedEvents) {
-      task.attachedEvents.forEach((ev) => {
-        if(ev.interrupting) {
+    if (task.attachedEvents) {
+      task.attachedEvents.forEach(ev => {
+        if (ev.interrupting) {
           // add event to single interrupt var
           this.interruptEventId = ev.id;
         } else {
@@ -37,12 +37,12 @@ export abstract class Task extends FlowNode {
         }
       });
     }
-    
-    if(attachedEvents) {
+
+    if (attachedEvents) {
       // add boundary events to list and interrupting event if found
       this.attachedEvents = [];
       attachedEvents.forEach(ev => {
-        if(ev.interrupting) {
+        if (ev.interrupting) {
           // event in interrupting
           this.interruptEvent = ev;
         } else {
@@ -52,8 +52,8 @@ export abstract class Task extends FlowNode {
       });
     } else {
       this.attachedEvents = null;
-    }  
+    }
   }
-  
-  abstract execute(_state: BpmnProcessInstance, context: Corpix.Server.Context): void;
+
+  abstract execute(_state: BpmnProcessInstance, context: ServerContext): void;
 }

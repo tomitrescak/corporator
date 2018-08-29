@@ -9,12 +9,12 @@ export class ScriptTask extends Task {
 
   constructor(task: Bpmn.ScriptTask, lane?: Lane, attachedEvents?: BoundaryEvent[]) {
     super(task, lane, attachedEvents);
-  
+
     this.script = task.script;
     this.url = task.url;
   }
 
-  execute(_state: BpmnProcessInstance, context: Corpix.Server.Context): void {
+  execute(_state: BpmnProcessInstance, _context: ServerContext): void {
     return;
   }
 }

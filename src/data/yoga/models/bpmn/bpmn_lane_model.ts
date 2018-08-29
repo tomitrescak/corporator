@@ -15,8 +15,8 @@ export class Lane extends BaseElement {
     this.nodeIds = [];
 
     // store incoming/outgoing ids for linkiing references by BpmnProcess
-    if(lane.nodes) {
-      lane.nodes.forEach((node) => {
+    if (lane.nodes) {
+      lane.nodes.forEach(node => {
         this.nodeIds.push(node.id);
       });
     }
@@ -25,8 +25,7 @@ export class Lane extends BaseElement {
     this.roles = this.name.split(' |,');
   }
 
-  execute(_state: BpmnProcessInstance, context: Corpix.Server.Context): void {
+  execute(_state: BpmnProcessInstance, _context: ServerContext) {
     return;
   }
-
-} 
+}

@@ -4,12 +4,11 @@ import { Lane } from './bpmn_lane_model';
 import { Task } from './bpmn_task_model';
 
 export class ReceiveTask extends Task {
-
   constructor(task: Bpmn.ReceiveTask, lane?: Lane, attachedEvents?: BoundaryEvent[]) {
     super(task, lane, attachedEvents);
   }
 
-  execute(_state: BpmnProcessInstance, context: Corpix.Server.Context): void {
+  execute(_state: BpmnProcessInstance, _context: ServerContext): void {
     return;
   }
 }

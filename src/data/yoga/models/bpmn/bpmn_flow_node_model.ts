@@ -4,27 +4,31 @@ import { Lane } from './bpmn_lane_model';
 import { SequenceFlow } from './bpmn_sequence_flow_model';
 
 export abstract class FlowNode extends LaneElement {
-  
   incoming: SequenceFlow[];
   outgoing: SequenceFlow[];
 
   incomingIds: string[];
   outgoingIds: string[];
 
-  constructor(flowNode: Bpmn.FlowNode, lane?: Lane, incoming?: SequenceFlow[], outgoing?: SequenceFlow[]) {
+  constructor(
+    flowNode: Bpmn.FlowNode,
+    lane?: Lane,
+    incoming?: SequenceFlow[],
+    outgoing?: SequenceFlow[]
+  ) {
     super(flowNode, lane);
 
     this.incomingIds = [];
     this.outgoingIds = [];
 
     // store incoming/outgoing ids for linkiing references by BpmnProcess
-    if(flowNode.incoming) {
-      flowNode.incoming.forEach((seq) => {
+    if (flowNode.incoming) {
+      flowNode.incoming.forEach(seq => {
         this.incomingIds.push(seq.id);
       });
     }
-    if(flowNode.outgoing) {
-      flowNode.outgoing.forEach((seq) => {
+    if (flowNode.outgoing) {
+      flowNode.outgoing.forEach(seq => {
         this.outgoingIds.push(seq.id);
       });
     }
@@ -34,5 +38,5 @@ export abstract class FlowNode extends LaneElement {
     this.outgoing = outgoing ? outgoing : null;
   }
 
-  abstract execute(_state: BpmnProcessInstance, context: Corpix.Server.Context): void;
+  abstract execute(_state: BpmnProcessInstance, context: ServerContext): void;
 }

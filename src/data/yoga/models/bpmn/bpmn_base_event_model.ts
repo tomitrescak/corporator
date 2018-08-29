@@ -7,6 +7,5 @@ export abstract class BaseEvent extends FlowNode {
     super(baseEvent, lane);
   }
 
-  abstract execute(_state: BpmnProcessInstance, context: Corpix.Server.Context): void;
-
+  abstract execute(_state: BpmnProcessInstance, context: ServerContext): void;
 }

@@ -7,19 +7,15 @@ export class InclusiveGateway extends Gateway {
     super(inclusiveGateway, lane);
   }
 
-  async execute(_state: BpmnProcessInstance, context: Corpix.Server.Context): void {// state: BPMNModelInstance) {
-  
-    
+  async execute(_state: BpmnProcessInstance, _context: ServerContext) {
+    // state: BPMNModelInstance) {
 
-    
-    
     return;
     // if need to pass the flow further down
     // if () {
     //   return this.outgoing[0].execute(state)
-    // } 
+    // }
     // return null;
-
 
     // async function foo() {
     //   return boo();
@@ -40,6 +36,4 @@ export class InclusiveGateway extends Gateway {
 
     // console.log(await foo());
   }
-
-
 }

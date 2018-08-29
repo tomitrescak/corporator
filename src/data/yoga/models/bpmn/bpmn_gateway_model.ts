@@ -24,6 +24,5 @@ export abstract class Gateway extends FlowNode {
     this.defaultId = gateway.default ? gateway.default.id : null;
   }
 
-  abstract execute(_state: BpmnProcessInstance, context: Corpix.Server.Context): void;
-
+  abstract execute(_state: BpmnProcessInstance, context: ServerContext): void;
 }

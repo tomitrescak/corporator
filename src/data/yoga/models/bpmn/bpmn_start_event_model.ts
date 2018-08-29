@@ -7,13 +7,13 @@ export class StartEvent extends BaseEvent {
     super(startEvent, lane);
   }
 
-  async execute(_state: BpmnProcessInstance, context: Corpix.Server.Context) : void {
+  async execute(_state: BpmnProcessInstance, _context: ServerContext) {
     // execute outgoing nodes
-    const ret = [] as Array<Promise<Bpmn.ITrigger[]>>;
-    // execute each outgoing node
-    this.outgoing.forEach(node => {
-      // place returned arrays into a list
-      node.execute(_state, context);
-    });
+    // const ret = [] as Array<Promise<Bpmn.ITrigger[]>>;
+    // // execute each outgoing node
+    // this.outgoing.forEach(node => {
+    //   // place returned arrays into a list
+    //   node.execute(_state, context);
+    // });
   }
-} 
+}

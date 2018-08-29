@@ -4,10 +4,10 @@ import { Lane } from './bpmn_lane_model';
 
 export class EndEvent extends BaseEvent {
   constructor(endEvent: Bpmn.EndEvent, lane?: Lane) {
-    super(endEvent, lane);    
+    super(endEvent, lane);
   }
 
-  execute(_state: BpmnProcessInstance, context: Corpix.Server.Context) {
+  execute(_state: BpmnProcessInstance, _context: ServerContext) {
     return;
   }
-} 
+}

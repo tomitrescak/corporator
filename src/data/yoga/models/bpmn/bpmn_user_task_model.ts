@@ -8,7 +8,7 @@ export class UserTask extends Task {
     super(task, lane, attachedEvents);
   }
 
-  execute(_state: BpmnProcessInstance, context: Corpix.Server.Context): void {
+  execute(_state: BpmnProcessInstance, _context: ServerContext): void {
     // new BpmnTaskInstance (formerly action)
     // Corpix.Server.TaskInstances.createTaskInstance();
     // return new Promise<BpmnTaskInstanceModel[]>((resolve, reject) => {
