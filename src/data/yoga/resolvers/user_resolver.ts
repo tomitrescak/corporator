@@ -1,10 +1,7 @@
-import { Context, Mutation, Query, Yoga } from '../utils';
+import { Context, Mutation, Query } from '../utils';
 
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
-import { Loader } from './loader';
-
-const userLoader = new Loader<string, Yoga.User>('user', 'users');
 
 if (!process.env.JWT_SECRET) {
   process.env.JWT_SECRET = 'QWERTY%$#@!12345';
@@ -64,7 +61,7 @@ export const query: Query = {
     } catch (ex) {
       throw new Error('Invalid token');
     }
-    const user = await userLoader.findById(ctx.db, userId);
+    const user = await ctx.cache.user.findById(userId);
     if (!user) {
       throw new Error('User does not exist');
     }
@@ -81,7 +78,7 @@ export const query: Query = {
    ======================================================== */
 
 export async function fixtures(context: Context): Promise<string> {
-  const hasUsers = await userLoader.exists(context.db);
+  const hasUsers = await context.cache.user.exists();
   if (!hasUsers) {
     // tslint:disable-next-line:no-console
     console.log('Fixtures users');

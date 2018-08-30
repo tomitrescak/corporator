@@ -15,7 +15,7 @@ type Notification {
   date: DateTime
   processInstance: BpmnProcessInstance
   code: NotificationCode
-  text: Localisation
+  text: String
   params: [String!]!
   visible: Boolean
 }

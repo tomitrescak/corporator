@@ -1,6 +1,6 @@
 export const typeDefs = `type Query {
   testQuery: Boolean
-  notifications(input: NotificationsInput): [NotificationsPayload]!
+  notifications(input: NotificationsInput): [Notification]!
   bpmnProcesses(input: BpmnProcessesInput!): [BpmnProcess]!
   bpmnProcessInstances(input: BpmnProcessInstancesInput!): [BpmnProcessInstance]!
   bpmnTasks(input: BpmnTasksInput!): [BpmnTaskInstance]!
@@ -18,10 +18,14 @@ type Mutation {
   signup(input: AuthInput!): AuthPayload!
 }
 
-type NotificationsPayload {
-  id: ID
+type Notification implements Node {
+  id: ID!
   date: DateTime
+  processInstance(where: BpmnProcessInstanceWhereInput): BpmnProcessInstance
+  code: NotificationCode
   text: String
+  params: [String!]!
+  visible: Boolean
 }
 
 input NotificationsInput {
@@ -107,16 +111,6 @@ type User implements Node {
 type AuthPayload {
   user: User!
   token: String!
-}
-
-type Notification implements Node {
-  id: ID!
-  date: DateTime
-  processInstance(where: BpmnProcessInstanceWhereInput): BpmnProcessInstance
-  code: NotificationCode
-  text(where: LocalisationWhereInput): Localisation
-  params: [String!]!
-  visible: Boolean
 }
 
 input NotifyInput {
@@ -395,203 +389,6 @@ enum NotificationCode {
   ActionStarted
   ActionFinished
   ActionRequired
-}
-
-type Localisation implements Node {
-  id: ID!
-  code: String!
-  text: String!
-  language: LanguageCode!
-}
-
-input LocalisationWhereInput {
-  """
-  Logical AND on all given filters.
-  """
-  AND: [LocalisationWhereInput!]
-  """
-  Logical OR on all given filters.
-  """
-  OR: [LocalisationWhereInput!]
-  """
-  Logical NOT on all given filters combined by AND.
-  """
-  NOT: [LocalisationWhereInput!]
-  id: ID
-  """
-  All values that are not equal to given value.
-  """
-  id_not: ID
-  """
-  All values that are contained in given list.
-  """
-  id_in: [ID!]
-  """
-  All values that are not contained in given list.
-  """
-  id_not_in: [ID!]
-  """
-  All values less than the given value.
-  """
-  id_lt: ID
-  """
-  All values less than or equal the given value.
-  """
-  id_lte: ID
-  """
-  All values greater than the given value.
-  """
-  id_gt: ID
-  """
-  All values greater than or equal the given value.
-  """
-  id_gte: ID
-  """
-  All values containing the given string.
-  """
-  id_contains: ID
-  """
-  All values not containing the given string.
-  """
-  id_not_contains: ID
-  """
-  All values starting with the given string.
-  """
-  id_starts_with: ID
-  """
-  All values not starting with the given string.
-  """
-  id_not_starts_with: ID
-  """
-  All values ending with the given string.
-  """
-  id_ends_with: ID
-  """
-  All values not ending with the given string.
-  """
-  id_not_ends_with: ID
-  code: String
-  """
-  All values that are not equal to given value.
-  """
-  code_not: String
-  """
-  All values that are contained in given list.
-  """
-  code_in: [String!]
-  """
-  All values that are not contained in given list.
-  """
-  code_not_in: [String!]
-  """
-  All values less than the given value.
-  """
-  code_lt: String
-  """
-  All values less than or equal the given value.
-  """
-  code_lte: String
-  """
-  All values greater than the given value.
-  """
-  code_gt: String
-  """
-  All values greater than or equal the given value.
-  """
-  code_gte: String
-  """
-  All values containing the given string.
-  """
-  code_contains: String
-  """
-  All values not containing the given string.
-  """
-  code_not_contains: String
-  """
-  All values starting with the given string.
-  """
-  code_starts_with: String
-  """
-  All values not starting with the given string.
-  """
-  code_not_starts_with: String
-  """
-  All values ending with the given string.
-  """
-  code_ends_with: String
-  """
-  All values not ending with the given string.
-  """
-  code_not_ends_with: String
-  text: String
-  """
-  All values that are not equal to given value.
-  """
-  text_not: String
-  """
-  All values that are contained in given list.
-  """
-  text_in: [String!]
-  """
-  All values that are not contained in given list.
-  """
-  text_not_in: [String!]
-  """
-  All values less than the given value.
-  """
-  text_lt: String
-  """
-  All values less than or equal the given value.
-  """
-  text_lte: String
-  """
-  All values greater than the given value.
-  """
-  text_gt: String
-  """
-  All values greater than or equal the given value.
-  """
-  text_gte: String
-  """
-  All values containing the given string.
-  """
-  text_contains: String
-  """
-  All values not containing the given string.
-  """
-  text_not_contains: String
-  """
-  All values starting with the given string.
-  """
-  text_starts_with: String
-  """
-  All values not starting with the given string.
-  """
-  text_not_starts_with: String
-  """
-  All values ending with the given string.
-  """
-  text_ends_with: String
-  """
-  All values not ending with the given string.
-  """
-  text_not_ends_with: String
-  language: LanguageCode
-  """
-  All values that are not equal to given value.
-  """
-  language_not: LanguageCode
-  """
-  All values that are contained in given list.
-  """
-  language_in: [LanguageCode!]
-  """
-  All values that are not contained in given list.
-  """
-  language_not_in: [LanguageCode!]
-  _MagicalBackRelation_LocalisationToNotification_every: NotificationWhereInput
-  _MagicalBackRelation_LocalisationToNotification_some: NotificationWhereInput
-  _MagicalBackRelation_LocalisationToNotification_none: NotificationWhereInput
 }
 
 type Access implements Node {
@@ -2637,13 +2434,65 @@ input NotificationWhereInput {
   All values that are not contained in given list.
   """
   code_not_in: [NotificationCode!]
+  text: String
+  """
+  All values that are not equal to given value.
+  """
+  text_not: String
+  """
+  All values that are contained in given list.
+  """
+  text_in: [String!]
+  """
+  All values that are not contained in given list.
+  """
+  text_not_in: [String!]
+  """
+  All values less than the given value.
+  """
+  text_lt: String
+  """
+  All values less than or equal the given value.
+  """
+  text_lte: String
+  """
+  All values greater than the given value.
+  """
+  text_gt: String
+  """
+  All values greater than or equal the given value.
+  """
+  text_gte: String
+  """
+  All values containing the given string.
+  """
+  text_contains: String
+  """
+  All values not containing the given string.
+  """
+  text_not_contains: String
+  """
+  All values starting with the given string.
+  """
+  text_starts_with: String
+  """
+  All values not starting with the given string.
+  """
+  text_not_starts_with: String
+  """
+  All values ending with the given string.
+  """
+  text_ends_with: String
+  """
+  All values not ending with the given string.
+  """
+  text_not_ends_with: String
   visible: Boolean
   """
   All values that are not equal to given value.
   """
   visible_not: Boolean
   processInstance: BpmnProcessInstanceWhereInput
-  text: LocalisationWhereInput
   _MagicalBackRelation_UserNotifications_every: UserWhereInput
   _MagicalBackRelation_UserNotifications_some: UserWhereInput
   _MagicalBackRelation_UserNotifications_none: UserWhereInput
@@ -2656,6 +2505,8 @@ enum NotificationOrderByInput {
   date_DESC
   code_ASC
   code_DESC
+  text_ASC
+  text_DESC
   visible_ASC
   visible_DESC
   updatedAt_ASC
@@ -2973,6 +2824,13 @@ type FormElement implements Node {
   elements(where: FormElementWhereInput, orderBy: FormElementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FormElement!]
 }
 
+type Localisation implements Node {
+  id: ID!
+  code: String!
+  text: String!
+  language: LanguageCode!
+}
+
 type Organisation implements Node {
   id: ID!
   name: String!
@@ -2989,10 +2847,6 @@ type Validator implements Node {
   id: ID!
   name: String!
   params: [String!]!
-}
-
-enum LanguageCode {
-  EN
 }
 
 type AccessCondition {
@@ -3173,15 +3027,15 @@ input AccessConditionWhereInput {
   All values not ending with the given string.
   """
   userId_not_ends_with: ID
-  _MagicalBackRelation_CanExecute_every: AccessWhereInput
-  _MagicalBackRelation_CanExecute_some: AccessWhereInput
-  _MagicalBackRelation_CanExecute_none: AccessWhereInput
-  _MagicalBackRelation_CanWrite_every: AccessWhereInput
-  _MagicalBackRelation_CanWrite_some: AccessWhereInput
-  _MagicalBackRelation_CanWrite_none: AccessWhereInput
   _MagicalBackRelation_CanRead_every: AccessWhereInput
   _MagicalBackRelation_CanRead_some: AccessWhereInput
   _MagicalBackRelation_CanRead_none: AccessWhereInput
+  _MagicalBackRelation_CanWrite_every: AccessWhereInput
+  _MagicalBackRelation_CanWrite_some: AccessWhereInput
+  _MagicalBackRelation_CanWrite_none: AccessWhereInput
+  _MagicalBackRelation_CanExecute_every: AccessWhereInput
+  _MagicalBackRelation_CanExecute_some: AccessWhereInput
+  _MagicalBackRelation_CanExecute_none: AccessWhereInput
 }
 
 enum AccessConditionOrderByInput {
@@ -4032,5 +3886,9 @@ enum FormControl {
   Repeater
   Table
   DeleteButton
+}
+
+enum LanguageCode {
+  EN
 }
 `

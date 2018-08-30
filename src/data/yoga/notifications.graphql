@@ -4,12 +4,6 @@
 #  QUERIES
 # ========================================================= # */
 
-type NotificationsPayload {
-  id: ID
-  date: DateTime
-  text: String
-}
-
 input NotificationsInput {
   visible: Boolean
   skip: Int
@@ -17,7 +11,7 @@ input NotificationsInput {
 }
 
 type Query {
-  notifications(input: NotificationsInput): [NotificationsPayload]!
+  notifications(input: NotificationsInput): [Notification]!
 }
 
 # ========================================================= #

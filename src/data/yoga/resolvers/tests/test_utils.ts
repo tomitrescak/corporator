@@ -1,6 +1,5 @@
 import { LanguageCode, Prisma, User } from '../../../generated/prisma';
 import { Context } from '../../utils';
-import { create } from './create';
 
 export { create } from './create';
 
@@ -33,11 +32,10 @@ export async function its(
     context = {
       db,
       request: {},
-      user: null,
       userId: null,
-      session: {
-        language: options.language
-      }
+      user: null,
+      i18n: null,
+      cache: null
     };
   }
 

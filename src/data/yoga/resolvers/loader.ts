@@ -3,39 +3,55 @@ import * as DataLoader from 'dataloader';
 import { Prisma } from '../../prisma';
 import { LruCacheWrapper } from './lru_cache';
 
-export class Loader<K, V> {
+export class Loader<V, S = any, K = string> {
+  public db: () => Prisma.Prisma;
+
   private singleLoader: DataLoader<K, V>;
   private multiLoader: DataLoader<K, V[]>;
   private existLoader: any;
-  private db: Prisma.Prisma;
 
   constructor(
-    querySingle: keyof Prisma.Query,
-    queryMultiple: keyof Prisma.Query,
-    singleSelector: (key: K) => Object = id => ({ id }),
-    multiSelector: (key: K) => Object = () => ({})
+    db: () => Prisma.Prisma,
+    querySingle: keyof Prisma.Query = null,
+    queryMultiple: keyof Prisma.Query = null,
+    multiSelector: (key: K) => S = () => ({} as any)
   ) {
-    this.singleLoader = this.createLoader(
-      id => (this.db.query as any)[querySingle]({ where: singleSelector(id) }) as Promise<V>
-    );
-    this.multiLoader = this.createLoader(
-      id => (this.db.query as any)[queryMultiple]({ where: multiSelector(id) }) as Promise<V[]>
-    );
-    this.existLoader = async () => !!(await (this.db.query as any)[queryMultiple]({ first: 1 }));
+    this.db = db;
+
+    if (querySingle) {
+      this.singleLoader = this.createLoader(
+        id => (this.db().query as any)[querySingle]({ where: { id } }) as Promise<V>
+      );
+    }
+    if (queryMultiple) {
+      this.multiLoader = this.createLoader(
+        id => (this.db().query as any)[queryMultiple]({ where: multiSelector(id) }) as Promise<V[]>
+      );
+      this.existLoader = async () => {
+        const records = await (this.db().query as any)[queryMultiple]({ first: 1 });
+        return records.length > 0;
+      };
+    }
   }
 
-  findById(db: Prisma.Prisma, id: K) {
-    this.db = db;
+  findById(id: K) {
+    if (!this.singleLoader) {
+      throw new Error('You need to have a single loader! Init it in constructor');
+    }
     return this.singleLoader.load(id);
   }
 
-  findAll(db: Prisma.Prisma, key: K = '' as any) {
-    this.db = db;
+  findAll(key: K = '' as any) {
+    if (!this.multiLoader) {
+      throw new Error('You need to have a multi loader! Init it in constructor');
+    }
     return this.multiLoader.load(key);
   }
 
-  exists(db: Prisma.Prisma) {
-    this.db = db;
+  exists() {
+    if (!this.multiLoader) {
+      throw new Error('You need to have a multi loader! Init it in constructor');
+    }
     return this.existLoader();
   }
 

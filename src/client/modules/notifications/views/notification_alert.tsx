@@ -16,7 +16,7 @@ type Props = {
    ======================================================== */
 
 interface Data {
-  notifications: Yoga.NotificationsPayload;
+  notifications: Yoga.Notification;
 }
 
 export class NotificationsQuery extends Query<Data> {

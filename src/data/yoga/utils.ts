@@ -7,7 +7,9 @@ export { Yoga } from '../yoga';
 
 import { GraphQLResolveInfo } from 'graphql';
 
-import { LanguageCode, Prisma, User } from '../generated/prisma';
+import { Localisation } from 'server/i18n';
+import { cache } from 'server/index';
+import { Prisma, User } from '../generated/prisma';
 import { Mutation as PrismaMutation, Query as PrismaQuery } from '../generated/yoga';
 
 // import { Prisma, User } from '../../generated/prisma';
@@ -38,10 +40,9 @@ export interface Context {
   db: Prisma;
   request: any;
   userId: string;
+  cache: typeof cache;
+  i18n: Localisation;
   user: User;
-  session: {
-    language: LanguageCode;
-  };
 }
 
 export type Resolver<T> = {

@@ -1,5 +1,5 @@
 # source: http://localhost:4466
-# timestamp: Wed Aug 29 2018 12:55:53 GMT+1000 (Australian Eastern Standard Time)
+# timestamp: Thu Aug 30 2018 12:31:45 GMT+1000 (Australian Eastern Standard Time)
 
 type Access implements Node {
   id: ID!
@@ -246,15 +246,15 @@ input AccessConditionWhereInput {
 
   """All values not ending with the given string."""
   userId_not_ends_with: ID
-  _MagicalBackRelation_CanExecute_every: AccessWhereInput
-  _MagicalBackRelation_CanExecute_some: AccessWhereInput
-  _MagicalBackRelation_CanExecute_none: AccessWhereInput
-  _MagicalBackRelation_CanWrite_every: AccessWhereInput
-  _MagicalBackRelation_CanWrite_some: AccessWhereInput
-  _MagicalBackRelation_CanWrite_none: AccessWhereInput
   _MagicalBackRelation_CanRead_every: AccessWhereInput
   _MagicalBackRelation_CanRead_some: AccessWhereInput
   _MagicalBackRelation_CanRead_none: AccessWhereInput
+  _MagicalBackRelation_CanWrite_every: AccessWhereInput
+  _MagicalBackRelation_CanWrite_some: AccessWhereInput
+  _MagicalBackRelation_CanWrite_none: AccessWhereInput
+  _MagicalBackRelation_CanExecute_every: AccessWhereInput
+  _MagicalBackRelation_CanExecute_some: AccessWhereInput
+  _MagicalBackRelation_CanExecute_none: AccessWhereInput
 }
 
 """A connection to a list of items."""
@@ -3689,11 +3689,6 @@ input LocalisationCreateInput {
   language: LanguageCode!
 }
 
-input LocalisationCreateOneInput {
-  create: LocalisationCreateInput
-  connect: LocalisationWhereUniqueInput
-}
-
 """An edge in a connection."""
 type LocalisationEdge {
   """The item at the end of the edge."""
@@ -3764,30 +3759,10 @@ input LocalisationSubscriptionWhereInput {
   node: LocalisationWhereInput
 }
 
-input LocalisationUpdateDataInput {
-  code: String
-  text: String
-  language: LanguageCode
-}
-
 input LocalisationUpdateInput {
   code: String
   text: String
   language: LanguageCode
-}
-
-input LocalisationUpdateOneInput {
-  create: LocalisationCreateInput
-  connect: LocalisationWhereUniqueInput
-  disconnect: Boolean
-  delete: Boolean
-  update: LocalisationUpdateDataInput
-  upsert: LocalisationUpsertNestedInput
-}
-
-input LocalisationUpsertNestedInput {
-  update: LocalisationUpdateDataInput!
-  create: LocalisationCreateInput!
 }
 
 input LocalisationWhereInput {
@@ -3929,9 +3904,6 @@ input LocalisationWhereInput {
 
   """All values that are not contained in given list."""
   language_not_in: [LanguageCode!]
-  _MagicalBackRelation_LocalisationToNotification_every: NotificationWhereInput
-  _MagicalBackRelation_LocalisationToNotification_some: NotificationWhereInput
-  _MagicalBackRelation_LocalisationToNotification_none: NotificationWhereInput
 }
 
 input LocalisationWhereUniqueInput {
@@ -3945,15 +3917,16 @@ Long can represent values between -(2^63) and 2^63 - 1.
 scalar Long
 
 type Mutation {
+  createLocalisation(data: LocalisationCreateInput!): Localisation!
   createOrganisation(data: OrganisationCreateInput!): Organisation!
   createRole(data: RoleCreateInput!): Role!
   createBpmnTaskInstance(data: BpmnTaskInstanceCreateInput!): BpmnTaskInstance!
   createUser(data: UserCreateInput!): User!
-  createLocalisation(data: LocalisationCreateInput!): Localisation!
   createForm(data: FormCreateInput!): Form!
   createValidator(data: ValidatorCreateInput!): Validator!
   createComment(data: CommentCreateInput!): Comment!
   createNotification(data: NotificationCreateInput!): Notification!
+  createAccessCondition(data: AccessConditionCreateInput!): AccessCondition!
   createDataDescriptor(data: DataDescriptorCreateInput!): DataDescriptor!
   createResource(data: ResourceCreateInput!): Resource!
   createAccess(data: AccessCreateInput!): Access!
@@ -3961,12 +3934,11 @@ type Mutation {
   createBpmnProcess(data: BpmnProcessCreateInput!): BpmnProcess!
   createFormElement(data: FormElementCreateInput!): FormElement!
   createBpmnProcessInstance(data: BpmnProcessInstanceCreateInput!): BpmnProcessInstance!
-  createAccessCondition(data: AccessConditionCreateInput!): AccessCondition!
+  updateLocalisation(data: LocalisationUpdateInput!, where: LocalisationWhereUniqueInput!): Localisation
   updateOrganisation(data: OrganisationUpdateInput!, where: OrganisationWhereUniqueInput!): Organisation
   updateRole(data: RoleUpdateInput!, where: RoleWhereUniqueInput!): Role
   updateBpmnTaskInstance(data: BpmnTaskInstanceUpdateInput!, where: BpmnTaskInstanceWhereUniqueInput!): BpmnTaskInstance
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  updateLocalisation(data: LocalisationUpdateInput!, where: LocalisationWhereUniqueInput!): Localisation
   updateForm(data: FormUpdateInput!, where: FormWhereUniqueInput!): Form
   updateValidator(data: ValidatorUpdateInput!, where: ValidatorWhereUniqueInput!): Validator
   updateNotification(data: NotificationUpdateInput!, where: NotificationWhereUniqueInput!): Notification
@@ -3977,11 +3949,11 @@ type Mutation {
   updateBpmnProcess(data: BpmnProcessUpdateInput!, where: BpmnProcessWhereUniqueInput!): BpmnProcess
   updateFormElement(data: FormElementUpdateInput!, where: FormElementWhereUniqueInput!): FormElement
   updateBpmnProcessInstance(data: BpmnProcessInstanceUpdateInput!, where: BpmnProcessInstanceWhereUniqueInput!): BpmnProcessInstance
+  deleteLocalisation(where: LocalisationWhereUniqueInput!): Localisation
   deleteOrganisation(where: OrganisationWhereUniqueInput!): Organisation
   deleteRole(where: RoleWhereUniqueInput!): Role
   deleteBpmnTaskInstance(where: BpmnTaskInstanceWhereUniqueInput!): BpmnTaskInstance
   deleteUser(where: UserWhereUniqueInput!): User
-  deleteLocalisation(where: LocalisationWhereUniqueInput!): Localisation
   deleteForm(where: FormWhereUniqueInput!): Form
   deleteValidator(where: ValidatorWhereUniqueInput!): Validator
   deleteNotification(where: NotificationWhereUniqueInput!): Notification
@@ -3992,11 +3964,11 @@ type Mutation {
   deleteBpmnProcess(where: BpmnProcessWhereUniqueInput!): BpmnProcess
   deleteFormElement(where: FormElementWhereUniqueInput!): FormElement
   deleteBpmnProcessInstance(where: BpmnProcessInstanceWhereUniqueInput!): BpmnProcessInstance
+  upsertLocalisation(where: LocalisationWhereUniqueInput!, create: LocalisationCreateInput!, update: LocalisationUpdateInput!): Localisation!
   upsertOrganisation(where: OrganisationWhereUniqueInput!, create: OrganisationCreateInput!, update: OrganisationUpdateInput!): Organisation!
   upsertRole(where: RoleWhereUniqueInput!, create: RoleCreateInput!, update: RoleUpdateInput!): Role!
   upsertBpmnTaskInstance(where: BpmnTaskInstanceWhereUniqueInput!, create: BpmnTaskInstanceCreateInput!, update: BpmnTaskInstanceUpdateInput!): BpmnTaskInstance!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  upsertLocalisation(where: LocalisationWhereUniqueInput!, create: LocalisationCreateInput!, update: LocalisationUpdateInput!): Localisation!
   upsertForm(where: FormWhereUniqueInput!, create: FormCreateInput!, update: FormUpdateInput!): Form!
   upsertValidator(where: ValidatorWhereUniqueInput!, create: ValidatorCreateInput!, update: ValidatorUpdateInput!): Validator!
   upsertNotification(where: NotificationWhereUniqueInput!, create: NotificationCreateInput!, update: NotificationUpdateInput!): Notification!
@@ -4007,15 +3979,16 @@ type Mutation {
   upsertBpmnProcess(where: BpmnProcessWhereUniqueInput!, create: BpmnProcessCreateInput!, update: BpmnProcessUpdateInput!): BpmnProcess!
   upsertFormElement(where: FormElementWhereUniqueInput!, create: FormElementCreateInput!, update: FormElementUpdateInput!): FormElement!
   upsertBpmnProcessInstance(where: BpmnProcessInstanceWhereUniqueInput!, create: BpmnProcessInstanceCreateInput!, update: BpmnProcessInstanceUpdateInput!): BpmnProcessInstance!
+  updateManyLocalisations(data: LocalisationUpdateInput!, where: LocalisationWhereInput): BatchPayload!
   updateManyOrganisations(data: OrganisationUpdateInput!, where: OrganisationWhereInput): BatchPayload!
   updateManyRoles(data: RoleUpdateInput!, where: RoleWhereInput): BatchPayload!
   updateManyBpmnTaskInstances(data: BpmnTaskInstanceUpdateInput!, where: BpmnTaskInstanceWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
-  updateManyLocalisations(data: LocalisationUpdateInput!, where: LocalisationWhereInput): BatchPayload!
   updateManyForms(data: FormUpdateInput!, where: FormWhereInput): BatchPayload!
   updateManyValidators(data: ValidatorUpdateInput!, where: ValidatorWhereInput): BatchPayload!
   updateManyComments(data: CommentUpdateInput!, where: CommentWhereInput): BatchPayload!
   updateManyNotifications(data: NotificationUpdateInput!, where: NotificationWhereInput): BatchPayload!
+  updateManyAccessConditions(data: AccessConditionUpdateInput!, where: AccessConditionWhereInput): BatchPayload!
   updateManyDataDescriptors(data: DataDescriptorUpdateInput!, where: DataDescriptorWhereInput): BatchPayload!
   updateManyResources(data: ResourceUpdateInput!, where: ResourceWhereInput): BatchPayload!
   updateManyAccesses(data: AccessUpdateInput!, where: AccessWhereInput): BatchPayload!
@@ -4023,16 +3996,16 @@ type Mutation {
   updateManyBpmnProcesses(data: BpmnProcessUpdateInput!, where: BpmnProcessWhereInput): BatchPayload!
   updateManyFormElements(data: FormElementUpdateInput!, where: FormElementWhereInput): BatchPayload!
   updateManyBpmnProcessInstances(data: BpmnProcessInstanceUpdateInput!, where: BpmnProcessInstanceWhereInput): BatchPayload!
-  updateManyAccessConditions(data: AccessConditionUpdateInput!, where: AccessConditionWhereInput): BatchPayload!
+  deleteManyLocalisations(where: LocalisationWhereInput): BatchPayload!
   deleteManyOrganisations(where: OrganisationWhereInput): BatchPayload!
   deleteManyRoles(where: RoleWhereInput): BatchPayload!
   deleteManyBpmnTaskInstances(where: BpmnTaskInstanceWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
-  deleteManyLocalisations(where: LocalisationWhereInput): BatchPayload!
   deleteManyForms(where: FormWhereInput): BatchPayload!
   deleteManyValidators(where: ValidatorWhereInput): BatchPayload!
   deleteManyComments(where: CommentWhereInput): BatchPayload!
   deleteManyNotifications(where: NotificationWhereInput): BatchPayload!
+  deleteManyAccessConditions(where: AccessConditionWhereInput): BatchPayload!
   deleteManyDataDescriptors(where: DataDescriptorWhereInput): BatchPayload!
   deleteManyResources(where: ResourceWhereInput): BatchPayload!
   deleteManyAccesses(where: AccessWhereInput): BatchPayload!
@@ -4040,7 +4013,6 @@ type Mutation {
   deleteManyBpmnProcesses(where: BpmnProcessWhereInput): BatchPayload!
   deleteManyFormElements(where: FormElementWhereInput): BatchPayload!
   deleteManyBpmnProcessInstances(where: BpmnProcessInstanceWhereInput): BatchPayload!
-  deleteManyAccessConditions(where: AccessConditionWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -4060,7 +4032,7 @@ type Notification implements Node {
   date: DateTime
   processInstance(where: BpmnProcessInstanceWhereInput): BpmnProcessInstance
   code: NotificationCode
-  text(where: LocalisationWhereInput): Localisation
+  text: String
   params: [String!]!
   visible: Boolean
 }
@@ -4087,10 +4059,10 @@ type NotificationConnection {
 input NotificationCreateInput {
   date: DateTime
   code: NotificationCode
+  text: String
   visible: Boolean
   params: NotificationCreateparamsInput
   processInstance: BpmnProcessInstanceCreateOneInput
-  text: LocalisationCreateOneInput
 }
 
 input NotificationCreateManyInput {
@@ -4118,6 +4090,8 @@ enum NotificationOrderByInput {
   date_DESC
   code_ASC
   code_DESC
+  text_ASC
+  text_DESC
   visible_ASC
   visible_DESC
   updatedAt_ASC
@@ -4130,6 +4104,7 @@ type NotificationPreviousValues {
   id: ID!
   date: DateTime
   code: NotificationCode
+  text: String
   params: [String!]!
   visible: Boolean
 }
@@ -4176,19 +4151,19 @@ input NotificationSubscriptionWhereInput {
 input NotificationUpdateDataInput {
   date: DateTime
   code: NotificationCode
+  text: String
   visible: Boolean
   params: NotificationUpdateparamsInput
   processInstance: BpmnProcessInstanceUpdateOneInput
-  text: LocalisationUpdateOneInput
 }
 
 input NotificationUpdateInput {
   date: DateTime
   code: NotificationCode
+  text: String
   visible: Boolean
   params: NotificationUpdateparamsInput
   processInstance: BpmnProcessInstanceUpdateOneInput
-  text: LocalisationUpdateOneInput
 }
 
 input NotificationUpdateManyInput {
@@ -4296,12 +4271,51 @@ input NotificationWhereInput {
 
   """All values that are not contained in given list."""
   code_not_in: [NotificationCode!]
+  text: String
+
+  """All values that are not equal to given value."""
+  text_not: String
+
+  """All values that are contained in given list."""
+  text_in: [String!]
+
+  """All values that are not contained in given list."""
+  text_not_in: [String!]
+
+  """All values less than the given value."""
+  text_lt: String
+
+  """All values less than or equal the given value."""
+  text_lte: String
+
+  """All values greater than the given value."""
+  text_gt: String
+
+  """All values greater than or equal the given value."""
+  text_gte: String
+
+  """All values containing the given string."""
+  text_contains: String
+
+  """All values not containing the given string."""
+  text_not_contains: String
+
+  """All values starting with the given string."""
+  text_starts_with: String
+
+  """All values not starting with the given string."""
+  text_not_starts_with: String
+
+  """All values ending with the given string."""
+  text_ends_with: String
+
+  """All values not ending with the given string."""
+  text_not_ends_with: String
   visible: Boolean
 
   """All values that are not equal to given value."""
   visible_not: Boolean
   processInstance: BpmnProcessInstanceWhereInput
-  text: LocalisationWhereInput
   _MagicalBackRelation_UserNotifications_every: UserWhereInput
   _MagicalBackRelation_UserNotifications_some: UserWhereInput
   _MagicalBackRelation_UserNotifications_none: UserWhereInput
@@ -4561,15 +4575,16 @@ enum ProcessStatus {
 }
 
 type Query {
+  localisations(where: LocalisationWhereInput, orderBy: LocalisationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Localisation]!
   organisations(where: OrganisationWhereInput, orderBy: OrganisationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Organisation]!
   roles(where: RoleWhereInput, orderBy: RoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Role]!
   bpmnTaskInstances(where: BpmnTaskInstanceWhereInput, orderBy: BpmnTaskInstanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BpmnTaskInstance]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
-  localisations(where: LocalisationWhereInput, orderBy: LocalisationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Localisation]!
   forms(where: FormWhereInput, orderBy: FormOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Form]!
   validators(where: ValidatorWhereInput, orderBy: ValidatorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Validator]!
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment]!
   notifications(where: NotificationWhereInput, orderBy: NotificationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Notification]!
+  accessConditions(where: AccessConditionWhereInput, orderBy: AccessConditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [AccessCondition]!
   dataDescriptors(where: DataDescriptorWhereInput, orderBy: DataDescriptorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [DataDescriptor]!
   resources(where: ResourceWhereInput, orderBy: ResourceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Resource]!
   accesses(where: AccessWhereInput, orderBy: AccessOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Access]!
@@ -4577,12 +4592,11 @@ type Query {
   bpmnProcesses(where: BpmnProcessWhereInput, orderBy: BpmnProcessOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BpmnProcess]!
   formElements(where: FormElementWhereInput, orderBy: FormElementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FormElement]!
   bpmnProcessInstances(where: BpmnProcessInstanceWhereInput, orderBy: BpmnProcessInstanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BpmnProcessInstance]!
-  accessConditions(where: AccessConditionWhereInput, orderBy: AccessConditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [AccessCondition]!
+  localisation(where: LocalisationWhereUniqueInput!): Localisation
   organisation(where: OrganisationWhereUniqueInput!): Organisation
   role(where: RoleWhereUniqueInput!): Role
   bpmnTaskInstance(where: BpmnTaskInstanceWhereUniqueInput!): BpmnTaskInstance
   user(where: UserWhereUniqueInput!): User
-  localisation(where: LocalisationWhereUniqueInput!): Localisation
   form(where: FormWhereUniqueInput!): Form
   validator(where: ValidatorWhereUniqueInput!): Validator
   notification(where: NotificationWhereUniqueInput!): Notification
@@ -4593,15 +4607,16 @@ type Query {
   bpmnProcess(where: BpmnProcessWhereUniqueInput!): BpmnProcess
   formElement(where: FormElementWhereUniqueInput!): FormElement
   bpmnProcessInstance(where: BpmnProcessInstanceWhereUniqueInput!): BpmnProcessInstance
+  localisationsConnection(where: LocalisationWhereInput, orderBy: LocalisationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LocalisationConnection!
   organisationsConnection(where: OrganisationWhereInput, orderBy: OrganisationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): OrganisationConnection!
   rolesConnection(where: RoleWhereInput, orderBy: RoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RoleConnection!
   bpmnTaskInstancesConnection(where: BpmnTaskInstanceWhereInput, orderBy: BpmnTaskInstanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BpmnTaskInstanceConnection!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
-  localisationsConnection(where: LocalisationWhereInput, orderBy: LocalisationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LocalisationConnection!
   formsConnection(where: FormWhereInput, orderBy: FormOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FormConnection!
   validatorsConnection(where: ValidatorWhereInput, orderBy: ValidatorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ValidatorConnection!
   commentsConnection(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CommentConnection!
   notificationsConnection(where: NotificationWhereInput, orderBy: NotificationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): NotificationConnection!
+  accessConditionsConnection(where: AccessConditionWhereInput, orderBy: AccessConditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AccessConditionConnection!
   dataDescriptorsConnection(where: DataDescriptorWhereInput, orderBy: DataDescriptorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DataDescriptorConnection!
   resourcesConnection(where: ResourceWhereInput, orderBy: ResourceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ResourceConnection!
   accessesConnection(where: AccessWhereInput, orderBy: AccessOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AccessConnection!
@@ -4609,7 +4624,6 @@ type Query {
   bpmnProcessesConnection(where: BpmnProcessWhereInput, orderBy: BpmnProcessOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BpmnProcessConnection!
   formElementsConnection(where: FormElementWhereInput, orderBy: FormElementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FormElementConnection!
   bpmnProcessInstancesConnection(where: BpmnProcessInstanceWhereInput, orderBy: BpmnProcessInstanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BpmnProcessInstanceConnection!
-  accessConditionsConnection(where: AccessConditionWhereInput, orderBy: AccessConditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AccessConditionConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -5137,15 +5151,16 @@ input RoleWhereUniqueInput {
 }
 
 type Subscription {
+  localisation(where: LocalisationSubscriptionWhereInput): LocalisationSubscriptionPayload
   organisation(where: OrganisationSubscriptionWhereInput): OrganisationSubscriptionPayload
   role(where: RoleSubscriptionWhereInput): RoleSubscriptionPayload
   bpmnTaskInstance(where: BpmnTaskInstanceSubscriptionWhereInput): BpmnTaskInstanceSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
-  localisation(where: LocalisationSubscriptionWhereInput): LocalisationSubscriptionPayload
   form(where: FormSubscriptionWhereInput): FormSubscriptionPayload
   validator(where: ValidatorSubscriptionWhereInput): ValidatorSubscriptionPayload
   comment(where: CommentSubscriptionWhereInput): CommentSubscriptionPayload
   notification(where: NotificationSubscriptionWhereInput): NotificationSubscriptionPayload
+  accessCondition(where: AccessConditionSubscriptionWhereInput): AccessConditionSubscriptionPayload
   dataDescriptor(where: DataDescriptorSubscriptionWhereInput): DataDescriptorSubscriptionPayload
   resource(where: ResourceSubscriptionWhereInput): ResourceSubscriptionPayload
   access(where: AccessSubscriptionWhereInput): AccessSubscriptionPayload
@@ -5153,7 +5168,6 @@ type Subscription {
   bpmnProcess(where: BpmnProcessSubscriptionWhereInput): BpmnProcessSubscriptionPayload
   formElement(where: FormElementSubscriptionWhereInput): FormElementSubscriptionPayload
   bpmnProcessInstance(where: BpmnProcessInstanceSubscriptionWhereInput): BpmnProcessInstanceSubscriptionPayload
-  accessCondition(where: AccessConditionSubscriptionWhereInput): AccessConditionSubscriptionPayload
 }
 
 type User implements Node {

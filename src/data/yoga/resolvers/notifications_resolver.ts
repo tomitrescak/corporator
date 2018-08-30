@@ -7,23 +7,15 @@ export const query: Query = {
     { input: { skip = 0, first = 100, visible } },
     ctx,
     info
-  ): Promise<Yoga.NotificationsPayload[]> {
+  ): Promise<Yoga.Notification[]> {
     // return ctx.db.query.notifications(
     //   { where: { owner: { id: getUserId(ctx) } }, skip: start, last: end },
     //   info
     // );
-    const list = await ctx.db.query.notifications(
+    return ctx.db.query.notifications(
       { where: visible == null ? {} : { visible }, skip, first },
       info
     );
-
-    const result = list.map(n => ({
-      id: n.id,
-      date: n.date
-      // text: ctx.i18n.format(n.)
-    }));
-
-    return result;
   }
 };
 
@@ -65,15 +57,13 @@ export const mutation: Mutation = {
 export const resolver: Resolver<Notification> = {
   Notification: {
     text: async (parent, _args, ctx, _info) => {
-      const results = await ctx.db.query.localisations({
-        where: { code: parent.code, language: ctx.session.language }
-      });
-      return results[0];
+      return ctx.i18n.format(parent.code, parent.params);
     }
   }
 };
 
 export async function fixtures(ctx: ServerContext, fixtureContext: FixtureContext) {
+  // tslint:disable-next-line:no-console
   console.log('Fixtures notifications');
   const { userId } = fixtureContext;
   const notifications: Yoga.NotifyInput[] = [

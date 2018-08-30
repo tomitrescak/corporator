@@ -2,10 +2,12 @@
 
 import { importSchema } from 'graphql-import';
 import { GraphQLServer } from 'graphql-yoga';
-import { Prisma } from '../data/generated/prisma';
+import { Prisma } from '../data/prisma';
 
 import { fixtures, resolvers } from 'data/yoga/resolvers';
+import { Loader } from 'data/yoga/resolvers/loader';
 import { authenticate } from 'data/yoga/resolvers/user_resolver';
+import { Localisation } from './i18n';
 
 // opts for cors
 // const opts = {
@@ -21,6 +23,50 @@ import { authenticate } from 'data/yoga/resolvers/user_resolver';
 //   req: req.request
 // });
 
+/* =========================================================
+    CACHE
+   ======================================================== */
+
+let db: Prisma.Prisma;
+let dbf = () => db;
+
+export const i18n = {
+  EN: new Localisation(dbf, 'EN')
+};
+
+export const cache = {
+  user: new Loader<Prisma.User>(dbf, 'user', 'users')
+};
+
+/* =========================================================
+    SERVER
+   ======================================================== */
+
+async function initContext(req: any) {
+  db = new Prisma.Prisma({
+    endpoint: 'http://localhost:4466'
+    // debug: true
+    // secret: 'my_secret123', // only needed if specified in `database/prisma.yml`
+  });
+
+  const result: any = {
+    ...req,
+    req: req.request,
+    db,
+    cache,
+    i18n: i18n.EN, // add more languages if needed
+    userId: null
+  };
+
+  // proceed with authentication
+  authenticate(result);
+
+  // load fixtures
+  await fixtures(result);
+
+  return result;
+}
+
 const server = new GraphQLServer({
   typeDefs: importSchema('./src/data/yoga/schema.graphql'),
   resolvers,
@@ -28,33 +74,7 @@ const server = new GraphQLServer({
   //   requireResolversForResolveType: false
   // },
   context: async (req: any) => {
-    const result: any = {
-      ...req,
-      req: req.request,
-      db: new Prisma({
-        endpoint: 'http://localhost:4466'
-        // debug: true
-        // secret: 'my_secret123', // only needed if specified in `database/prisma.yml`
-      }),
-      userId: null,
-      session: {
-        language: 'EN'
-      }
-    };
-
-    // proceed with authentication
-    authenticate(result);
-
-    // load fixtures
-    await fixtures(result);
-
-    // temporarily hard code user and language
-    // req.request.session.user = {
-    //   id: '1'
-    // };
-    // req.request.session.language = 'EN';
-
-    return result;
+    return initContext(req);
   }
 });
 
