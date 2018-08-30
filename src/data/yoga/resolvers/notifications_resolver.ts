@@ -2,15 +2,28 @@ import { Mutation, Notification, Query, Resolver, Yoga } from '../utils';
 import { FixtureContext } from './common';
 
 export const query: Query = {
-  notifications(_parent, { input: { skip = 0, first = 100, visible } }, ctx, info) {
+  async notifications(
+    _parent,
+    { input: { skip = 0, first = 100, visible } },
+    ctx,
+    info
+  ): Promise<Yoga.NotificationsPayload[]> {
     // return ctx.db.query.notifications(
     //   { where: { owner: { id: getUserId(ctx) } }, skip: start, last: end },
     //   info
     // );
-    return ctx.db.query.notifications(
+    const list = await ctx.db.query.notifications(
       { where: visible == null ? {} : { visible }, skip, first },
       info
     );
+
+    const result = list.map(n => ({
+      id: n.id,
+      date: n.date
+      // text: ctx.i18n.format(n.)
+    }));
+
+    return result;
   }
 };
 

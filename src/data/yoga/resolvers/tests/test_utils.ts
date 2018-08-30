@@ -56,16 +56,16 @@ export async function its(
       }
     }
 
-    if (options.user) {
-      const users = await db.query.users({});
-      if (users && users.length) {
-        for (let user of users) {
-          db.mutation.deleteUser({ where: { id: user.id } });
-        }
-      }
-      context.user = await create.user(context, options.user);
-      context.userId = context.user.id;
-    }
+    // if (options.user) {
+    //   const users = await db.query.users({});
+    //   if (users && users.length) {
+    //     for (let user of users) {
+    //       db.mutation.deleteUser({ where: { id: user.id } });
+    //     }
+    //   }
+    //   context.user = await create.user(context, options.user);
+    //   context.userId = context.user.id;
+    // }
 
     return impl(context, context.user);
   });
