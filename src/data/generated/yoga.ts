@@ -64,7 +64,9 @@ export type ResourceOrderByInput =   'id_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export type NotificationOrderByInput =   'id_ASC' |
+export type NotificationOrderByInput =   'type_ASC' |
+  'type_DESC' |
+  'id_ASC' |
   'id_DESC' |
   'date_ASC' |
   'date_DESC' |
@@ -78,6 +80,29 @@ export type NotificationOrderByInput =   'id_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
   'createdAt_DESC'
+
+export type BpmnTaskInstanceOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'dateFinished_ASC' |
+  'dateFinished_DESC' |
+  'dateStarted_ASC' |
+  'dateStarted_DESC' |
+  'duration_ASC' |
+  'duration_DESC' |
+  'performerId_ASC' |
+  'performerId_DESC' |
+  'snapshot_ASC' |
+  'snapshot_DESC' |
+  'taskId_ASC' |
+  'taskId_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC'
+
+export type ProcessStatus =   'Draft' |
+  'Proposal' |
+  'Published'
 
 export type DataOrderByInput =   'id_ASC' |
   'id_DESC' |
@@ -94,21 +119,22 @@ export type DataOrderByInput =   'id_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export type ProcessStatus =   'Draft' |
-  'Proposal' |
-  'Published'
+export type ResourceType =   'Url' |
+  'File' |
+  'Form' |
+  'Report'
 
 export type NotificationCode =   'ProcessStarted' |
   'ProcessFinished' |
   'ProcessAborted' |
   'ActionStarted' |
   'ActionFinished' |
+  'ActionAborted' |
   'ActionRequired'
 
-export type ResourceType =   'Url' |
-  'File' |
-  'Form' |
-  'Report'
+export type NotificationType =   'Info' |
+  'Error' |
+  'Warning'
 
 export type BpmnProcessInstanceOrderByInput =   'id_ASC' |
   'id_DESC' |
@@ -129,41 +155,27 @@ export type BpmnProcessInstanceOrderByInput =   'id_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export type FormElementOrderByInput =   'id_ASC' |
+export type AccessConditionOrderByInput =   'organisationId_ASC' |
+  'organisationId_DESC' |
+  'roleId_ASC' |
+  'roleId_DESC' |
+  'userId_ASC' |
+  'userId_DESC' |
+  'id_ASC' |
   'id_DESC' |
-  'row_ASC' |
-  'row_DESC' |
-  'column_ASC' |
-  'column_DESC' |
-  'width_ASC' |
-  'width_DESC' |
-  'label_ASC' |
-  'label_DESC' |
-  'inline_ASC' |
-  'inline_DESC' |
-  'defaultValue_ASC' |
-  'defaultValue_DESC' |
-  'list_ASC' |
-  'list_DESC' |
-  'filterSource_ASC' |
-  'filterSource_DESC' |
-  'filterColumn_ASC' |
-  'filterColumn_DESC' |
-  'control_ASC' |
-  'control_DESC' |
-  'controlProps_ASC' |
-  'controlProps_DESC' |
-  'vertical_ASC' |
-  'vertical_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export type BpmnProcessInstanceStatus =   'Running' |
-  'Finished' |
-  'Aborted' |
-  'Paused'
+export type ValidatorOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'name_ASC' |
+  'name_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC'
 
 export type LanguageCode =   'EN'
 
@@ -197,23 +209,56 @@ export type CommentOrderByInput =   'text_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export type ValidatorOrderByInput =   'id_ASC' |
+export type BpmnProcessOrderByInput =   'id_ASC' |
   'id_DESC' |
+  'actionCount_ASC' |
+  'actionCount_DESC' |
+  'description_ASC' |
+  'description_DESC' |
+  'model_ASC' |
+  'model_DESC' |
   'name_ASC' |
   'name_DESC' |
+  'status_ASC' |
+  'status_DESC' |
+  'version_ASC' |
+  'version_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export type AccessConditionOrderByInput =   'organisationId_ASC' |
-  'organisationId_DESC' |
-  'roleId_ASC' |
-  'roleId_DESC' |
-  'userId_ASC' |
-  'userId_DESC' |
-  'id_ASC' |
+export type BpmnProcessInstanceStatus =   'Running' |
+  'Finished' |
+  'Aborted' |
+  'Paused'
+
+export type FormElementOrderByInput =   'id_ASC' |
   'id_DESC' |
+  'row_ASC' |
+  'row_DESC' |
+  'column_ASC' |
+  'column_DESC' |
+  'width_ASC' |
+  'width_DESC' |
+  'label_ASC' |
+  'label_DESC' |
+  'inline_ASC' |
+  'inline_DESC' |
+  'defaultValue_ASC' |
+  'defaultValue_DESC' |
+  'list_ASC' |
+  'list_DESC' |
+  'filterSource_ASC' |
+  'filterSource_DESC' |
+  'filterColumn_ASC' |
+  'filterColumn_DESC' |
+  'control_ASC' |
+  'control_DESC' |
+  'controlProps_ASC' |
+  'controlProps_DESC' |
+  'vertical_ASC' |
+  'vertical_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
@@ -233,44 +278,6 @@ export type DataDescriptorOrderByInput =   'id_ASC' |
   'name_DESC' |
   'type_ASC' |
   'type_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
-  'createdAt_ASC' |
-  'createdAt_DESC'
-
-export type BpmnTaskInstanceOrderByInput =   'id_ASC' |
-  'id_DESC' |
-  'dateFinished_ASC' |
-  'dateFinished_DESC' |
-  'dateStarted_ASC' |
-  'dateStarted_DESC' |
-  'duration_ASC' |
-  'duration_DESC' |
-  'performerId_ASC' |
-  'performerId_DESC' |
-  'snapshot_ASC' |
-  'snapshot_DESC' |
-  'taskId_ASC' |
-  'taskId_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
-  'createdAt_ASC' |
-  'createdAt_DESC'
-
-export type BpmnProcessOrderByInput =   'id_ASC' |
-  'id_DESC' |
-  'actionCount_ASC' |
-  'actionCount_DESC' |
-  'description_ASC' |
-  'description_DESC' |
-  'model_ASC' |
-  'model_DESC' |
-  'name_ASC' |
-  'name_DESC' |
-  'status_ASC' |
-  'status_DESC' |
-  'version_ASC' |
-  'version_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
@@ -655,6 +662,10 @@ export interface NotificationWhereInput {
   AND?: NotificationWhereInput[] | NotificationWhereInput
   OR?: NotificationWhereInput[] | NotificationWhereInput
   NOT?: NotificationWhereInput[] | NotificationWhereInput
+  type?: NotificationType
+  type_not?: NotificationType
+  type_in?: NotificationType[] | NotificationType
+  type_not_in?: NotificationType[] | NotificationType
   id?: ID_Input
   id_not?: ID_Input
   id_in?: ID_Input[] | ID_Input
@@ -1440,6 +1451,7 @@ export interface Form extends Node {
 }
 
 export interface Notification extends Node {
+  type?: NotificationType
   id: ID_Output
   date?: DateTime
   processInstance?: BpmnProcessInstance

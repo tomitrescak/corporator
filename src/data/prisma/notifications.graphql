@@ -6,11 +6,18 @@ enum NotificationCode {
   ProcessAborted
   ActionStarted
   ActionFinished
-  ActionFinished
+  ActionAborted
   ActionRequired
 }
 
+enum NotificationType {
+  Info
+  Error
+  Warning
+}
+
 type Notification {
+  type: NotificationType
   id: ID! @unique
   date: DateTime
   processInstance: BpmnProcessInstance

@@ -19,6 +19,7 @@ type Mutation {
 }
 
 type Notification implements Node {
+  type: NotificationType
   id: ID!
   date: DateTime
   processInstance(where: BpmnProcessInstanceWhereInput): BpmnProcessInstance
@@ -144,6 +145,12 @@ interface Node {
   The id of the object.
   """
   id: ID!
+}
+
+enum NotificationType {
+  Info
+  Error
+  Warning
 }
 
 scalar DateTime
@@ -388,6 +395,7 @@ enum NotificationCode {
   ProcessAborted
   ActionStarted
   ActionFinished
+  ActionAborted
   ActionRequired
 }
 
@@ -2339,6 +2347,19 @@ input NotificationWhereInput {
   Logical NOT on all given filters combined by AND.
   """
   NOT: [NotificationWhereInput!]
+  type: NotificationType
+  """
+  All values that are not equal to given value.
+  """
+  type_not: NotificationType
+  """
+  All values that are contained in given list.
+  """
+  type_in: [NotificationType!]
+  """
+  All values that are not contained in given list.
+  """
+  type_not_in: [NotificationType!]
   id: ID
   """
   All values that are not equal to given value.
@@ -2499,6 +2520,8 @@ input NotificationWhereInput {
 }
 
 enum NotificationOrderByInput {
+  type_ASC
+  type_DESC
   id_ASC
   id_DESC
   date_ASC

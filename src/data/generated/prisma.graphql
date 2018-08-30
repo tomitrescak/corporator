@@ -1,5 +1,5 @@
 # source: http://localhost:4466
-# timestamp: Thu Aug 30 2018 12:31:45 GMT+1000 (Australian Eastern Standard Time)
+# timestamp: Thu Aug 30 2018 14:43:11 GMT+1000 (Australian Eastern Standard Time)
 
 type Access implements Node {
   id: ID!
@@ -4028,6 +4028,7 @@ interface Node {
 }
 
 type Notification implements Node {
+  type: NotificationType
   id: ID!
   date: DateTime
   processInstance(where: BpmnProcessInstanceWhereInput): BpmnProcessInstance
@@ -4043,6 +4044,7 @@ enum NotificationCode {
   ProcessAborted
   ActionStarted
   ActionFinished
+  ActionAborted
   ActionRequired
 }
 
@@ -4057,6 +4059,7 @@ type NotificationConnection {
 }
 
 input NotificationCreateInput {
+  type: NotificationType
   date: DateTime
   code: NotificationCode
   text: String
@@ -4084,6 +4087,8 @@ type NotificationEdge {
 }
 
 enum NotificationOrderByInput {
+  type_ASC
+  type_DESC
   id_ASC
   id_DESC
   date_ASC
@@ -4101,6 +4106,7 @@ enum NotificationOrderByInput {
 }
 
 type NotificationPreviousValues {
+  type: NotificationType
   id: ID!
   date: DateTime
   code: NotificationCode
@@ -4148,7 +4154,14 @@ input NotificationSubscriptionWhereInput {
   node: NotificationWhereInput
 }
 
+enum NotificationType {
+  Info
+  Error
+  Warning
+}
+
 input NotificationUpdateDataInput {
+  type: NotificationType
   date: DateTime
   code: NotificationCode
   text: String
@@ -4158,6 +4171,7 @@ input NotificationUpdateDataInput {
 }
 
 input NotificationUpdateInput {
+  type: NotificationType
   date: DateTime
   code: NotificationCode
   text: String
@@ -4199,6 +4213,16 @@ input NotificationWhereInput {
 
   """Logical NOT on all given filters combined by AND."""
   NOT: [NotificationWhereInput!]
+  type: NotificationType
+
+  """All values that are not equal to given value."""
+  type_not: NotificationType
+
+  """All values that are contained in given list."""
+  type_in: [NotificationType!]
+
+  """All values that are not contained in given list."""
+  type_not_in: [NotificationType!]
   id: ID
 
   """All values that are not equal to given value."""

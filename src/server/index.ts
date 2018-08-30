@@ -6,8 +6,8 @@ import { Prisma } from '../data/prisma';
 
 import { fixtures, resolvers } from 'data/yoga/resolvers';
 import { Loader } from 'data/yoga/resolvers/loader';
+import { loadDefaultLocalisations, Localisation } from 'data/yoga/resolvers/localisation_resolver';
 import { authenticate } from 'data/yoga/resolvers/user_resolver';
-import { Localisation } from './i18n';
 
 // opts for cors
 // const opts = {
@@ -49,7 +49,7 @@ async function initContext(req: any) {
     // secret: 'my_secret123', // only needed if specified in `database/prisma.yml`
   });
 
-  const result: any = {
+  const result: ServerContext = {
     ...req,
     req: req.request,
     db,
@@ -63,6 +63,9 @@ async function initContext(req: any) {
 
   // load fixtures
   await fixtures(result);
+
+  // load default localisations
+  await loadDefaultLocalisations(result);
 
   return result;
 }

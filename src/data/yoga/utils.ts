@@ -7,10 +7,10 @@ export { Yoga } from '../yoga';
 
 import { GraphQLResolveInfo } from 'graphql';
 
-import { Localisation } from 'server/i18n';
+import { Prisma } from 'data/generated/prisma';
+import { Mutation as PrismaMutation, Query as PrismaQuery, User } from 'data/generated/yoga';
 import { cache } from 'server/index';
-import { Prisma, User } from '../generated/prisma';
-import { Mutation as PrismaMutation, Query as PrismaQuery } from '../generated/yoga';
+import { Localisation } from './resolvers/localisation_resolver';
 
 // import { Prisma, User } from '../../generated/prisma';
 

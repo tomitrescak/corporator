@@ -4244,6 +4244,7 @@ interface Node {
 }
 
 type Notification implements Node {
+  type: NotificationType
   id: ID!
   date: DateTime
   processInstance(where: BpmnProcessInstanceWhereInput): BpmnProcessInstance
@@ -4259,6 +4260,7 @@ enum NotificationCode {
   ProcessAborted
   ActionStarted
   ActionFinished
+  ActionAborted
   ActionRequired
 }
 
@@ -4273,6 +4275,7 @@ type NotificationConnection {
 }
 
 input NotificationCreateInput {
+  type: NotificationType
   date: DateTime
   code: NotificationCode
   text: String
@@ -4300,6 +4303,8 @@ type NotificationEdge {
 }
 
 enum NotificationOrderByInput {
+  type_ASC
+  type_DESC
   id_ASC
   id_DESC
   date_ASC
@@ -4317,6 +4322,7 @@ enum NotificationOrderByInput {
 }
 
 type NotificationPreviousValues {
+  type: NotificationType
   id: ID!
   date: DateTime
   code: NotificationCode
@@ -4364,7 +4370,14 @@ input NotificationSubscriptionWhereInput {
   node: NotificationWhereInput
 }
 
+enum NotificationType {
+  Info
+  Error
+  Warning
+}
+
 input NotificationUpdateDataInput {
+  type: NotificationType
   date: DateTime
   code: NotificationCode
   text: String
@@ -4374,6 +4387,7 @@ input NotificationUpdateDataInput {
 }
 
 input NotificationUpdateInput {
+  type: NotificationType
   date: DateTime
   code: NotificationCode
   text: String
@@ -4415,6 +4429,16 @@ input NotificationWhereInput {
 
   """Logical NOT on all given filters combined by AND."""
   NOT: [NotificationWhereInput!]
+  type: NotificationType
+
+  """All values that are not equal to given value."""
+  type_not: NotificationType
+
+  """All values that are contained in given list."""
+  type_in: [NotificationType!]
+
+  """All values that are not contained in given list."""
+  type_not_in: [NotificationType!]
   id: ID
 
   """All values that are not equal to given value."""
@@ -6145,12 +6169,9 @@ export type UserOrderByInput =   'id_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export type NotificationCode =   'ProcessStarted' |
-  'ProcessFinished' |
-  'ProcessAborted' |
-  'ActionStarted' |
-  'ActionFinished' |
-  'ActionRequired'
+export type NotificationType =   'Info' |
+  'Error' |
+  'Warning'
 
 export type OrganisationOrderByInput =   'id_ASC' |
   'id_DESC' |
@@ -6163,18 +6184,13 @@ export type OrganisationOrderByInput =   'id_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export type CommentOrderByInput =   'text_ASC' |
-  'text_DESC' |
-  'date_ASC' |
-  'date_DESC' |
-  'replyTo_ASC' |
-  'replyTo_DESC' |
-  'id_ASC' |
-  'id_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
-  'createdAt_ASC' |
-  'createdAt_DESC'
+export type NotificationCode =   'ProcessStarted' |
+  'ProcessFinished' |
+  'ProcessAborted' |
+  'ActionStarted' |
+  'ActionFinished' |
+  'ActionAborted' |
+  'ActionRequired'
 
 export type BpmnProcessOrderByInput =   'id_ASC' |
   'id_DESC' |
@@ -6195,16 +6211,14 @@ export type BpmnProcessOrderByInput =   'id_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export type NotificationOrderByInput =   'id_ASC' |
-  'id_DESC' |
+export type CommentOrderByInput =   'text_ASC' |
+  'text_DESC' |
   'date_ASC' |
   'date_DESC' |
-  'code_ASC' |
-  'code_DESC' |
-  'text_ASC' |
-  'text_DESC' |
-  'visible_ASC' |
-  'visible_DESC' |
+  'replyTo_ASC' |
+  'replyTo_DESC' |
+  'id_ASC' |
+  'id_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
@@ -6219,10 +6233,22 @@ export type ValidatorOrderByInput =   'id_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export type BpmnProcessInstanceStatus =   'Running' |
-  'Finished' |
-  'Aborted' |
-  'Paused'
+export type NotificationOrderByInput =   'type_ASC' |
+  'type_DESC' |
+  'id_ASC' |
+  'id_DESC' |
+  'date_ASC' |
+  'date_DESC' |
+  'code_ASC' |
+  'code_DESC' |
+  'text_ASC' |
+  'text_DESC' |
+  'visible_ASC' |
+  'visible_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC'
 
 export type LocalisationOrderByInput =   'id_ASC' |
   'id_DESC' |
@@ -6232,6 +6258,26 @@ export type LocalisationOrderByInput =   'id_ASC' |
   'text_DESC' |
   'language_ASC' |
   'language_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC'
+
+export type BpmnProcessInstanceStatus =   'Running' |
+  'Finished' |
+  'Aborted' |
+  'Paused'
+
+export type DataOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'organisationId_ASC' |
+  'organisationId_DESC' |
+  'version_ASC' |
+  'version_DESC' |
+  'date_ASC' |
+  'date_DESC' |
+  'value_ASC' |
+  'value_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
@@ -6274,6 +6320,25 @@ export type BpmnTaskInstanceOrderByInput =   'id_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
+export type BpmnProcessInstanceOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'dateFinished_ASC' |
+  'dateFinished_DESC' |
+  'dateStarted_ASC' |
+  'dateStarted_DESC' |
+  'duration_ASC' |
+  'duration_DESC' |
+  'ownerId_ASC' |
+  'ownerId_DESC' |
+  'resources_ASC' |
+  'resources_DESC' |
+  'status_ASC' |
+  'status_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC'
+
 export type FormOrderByInput =   'id_ASC' |
   'id_DESC' |
   'name_ASC' |
@@ -6295,40 +6360,6 @@ export type RoleOrderByInput =   'id_ASC' |
   'name_DESC' |
   'description_ASC' |
   'description_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
-  'createdAt_ASC' |
-  'createdAt_DESC'
-
-export type BpmnProcessInstanceOrderByInput =   'id_ASC' |
-  'id_DESC' |
-  'dateFinished_ASC' |
-  'dateFinished_DESC' |
-  'dateStarted_ASC' |
-  'dateStarted_DESC' |
-  'duration_ASC' |
-  'duration_DESC' |
-  'ownerId_ASC' |
-  'ownerId_DESC' |
-  'resources_ASC' |
-  'resources_DESC' |
-  'status_ASC' |
-  'status_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
-  'createdAt_ASC' |
-  'createdAt_DESC'
-
-export type DataOrderByInput =   'id_ASC' |
-  'id_DESC' |
-  'organisationId_ASC' |
-  'organisationId_DESC' |
-  'version_ASC' |
-  'version_DESC' |
-  'date_ASC' |
-  'date_DESC' |
-  'value_ASC' |
-  'value_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
@@ -6913,6 +6944,10 @@ export interface NotificationWhereInput {
   AND?: NotificationWhereInput[] | NotificationWhereInput
   OR?: NotificationWhereInput[] | NotificationWhereInput
   NOT?: NotificationWhereInput[] | NotificationWhereInput
+  type?: NotificationType
+  type_not?: NotificationType
+  type_in?: NotificationType[] | NotificationType
+  type_not_in?: NotificationType[] | NotificationType
   id?: ID_Input
   id_not?: ID_Input
   id_in?: ID_Input[] | ID_Input
@@ -7497,6 +7532,7 @@ export interface UserUpdateInput {
 }
 
 export interface NotificationCreateInput {
+  type?: NotificationType
   date?: DateTime
   code?: NotificationCode
   text?: String
@@ -7951,6 +7987,7 @@ export interface AccessConditionWhereInput {
 }
 
 export interface NotificationUpdateInput {
+  type?: NotificationType
   date?: DateTime
   code?: NotificationCode
   text?: String
@@ -8446,6 +8483,7 @@ export interface ValidatorUpdateManyInput {
 }
 
 export interface NotificationUpdateDataInput {
+  type?: NotificationType
   date?: DateTime
   code?: NotificationCode
   text?: String
@@ -8723,6 +8761,7 @@ export interface AggregateData {
 }
 
 export interface Notification extends Node {
+  type?: NotificationType
   id: ID_Output
   date?: DateTime
   processInstance?: BpmnProcessInstance
@@ -9131,6 +9170,7 @@ export interface AccessConditionEdge {
 }
 
 export interface NotificationPreviousValues {
+  type?: NotificationType
   id: ID_Output
   date?: DateTime
   code?: NotificationCode
