@@ -9,23 +9,24 @@ const serverFuse = FuseBox.init({
     server: '~/server/',
     shared: '~/shared/'
   },
-  sourceMaps: { project: false, vendor: false }
+  sourceMaps: { inline: false, vendor: false }
   // tsConfig: startServer ? 'tsconfig.json' : 'tsconfig.server.json'
 });
 
-let server = serverFuse
+serverFuse
   .bundle('server')
-  .sourceMaps(true)
-  .instructions(' > [server/index.ts]');
-// Execute process right after bundling is completed
-// launch and restart express
-
-server
+  .target('server@es2017')
+  .instructions(' > [server/index.ts]')
   .watch('(server|data)/**') // watch only server related code.. bugs up atm
   .cache(true)
+  // .completed(proc => {
+  //   console.log('STARTING SERVER ...');
+  //   proc.start();
+  // });
   .completed(proc => {
-    console.log('STARTING SERVER ...');
-    proc.start();
+    proc.require({
+      close: ({ FuseBox }) => FuseBox.import(FuseBox.mainFile).shutdown()
+    });
   });
 
 serverFuse.run();

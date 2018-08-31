@@ -1,7 +1,14 @@
-query Notifications {
-  notifications {
+query Notifications($input: NotificationsInput) {
+  notifications(input: $input) {
     id
-    date
+    createdAt
     text
+    type
+    processInstance {
+      id
+      process {
+        name
+      }
+    }
   }
 }

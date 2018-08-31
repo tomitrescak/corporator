@@ -12,6 +12,8 @@ import { Mutation as PrismaMutation, Query as PrismaQuery, User } from 'data/gen
 import { cache } from 'server/index';
 import { Localisation } from './resolvers/localisation_resolver';
 
+export { default as gql } from 'graphql-tag';
+
 // import { Prisma, User } from '../../generated/prisma';
 
 export type FirstArgument<T> = T extends (arg1: infer U, ...args: any[]) => any ? U : any;
@@ -45,12 +47,23 @@ export interface Context {
   user: User;
 }
 
-export type Resolver<T> = {
+type ResolverFunction<T> = (parent: T, args: any, ctx: Context, info: GraphQLResolveInfo) => any;
+type DirectResolver<T> = {
   [index: string]: {
     //  [U in keyof Partial<typeof Types>]: {
-    [P in keyof Partial<T>]: (parent: T, args: any, ctx: Context, info: GraphQLResolveInfo) => any
+    [P in keyof Partial<T>]: ResolverFunction<T>
   };
 };
+type FragmentedResolver<T> = {
+  [index: string]: {
+    //  [U in keyof Partial<typeof Types>]: {
+    [P in keyof Partial<T>]: {
+      fragment: string;
+      resolve: ResolverFunction<T>;
+    }
+  };
+};
+export type Resolver<T> = DirectResolver<T> | FragmentedResolver<T>;
 
 export function getUserId(ctx: Context): string {
   // const Authorization = ctx.request.get('Authorization');
@@ -112,7 +125,7 @@ export function addResolver(parent: ParentResolver, resolver: EntityResolver) {
     parent.Mutation = { ...parent.Mutation, ...resolver.mutation };
   }
   if (resolver.resolver) {
-    parent = { ...parent, ...resolver.resolver };
+    Object.assign(parent, resolver.resolver);
   }
 }
 

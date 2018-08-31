@@ -1094,7 +1094,6 @@ input BpmnProcessInstanceUpdateManyInput {
 input BpmnProcessInstanceUpdateOneInput {
   create: BpmnProcessInstanceCreateInput
   connect: BpmnProcessInstanceWhereUniqueInput
-  disconnect: Boolean
   delete: Boolean
   update: BpmnProcessInstanceUpdateDataInput
   upsert: BpmnProcessInstanceUpsertNestedInput
@@ -4244,14 +4243,15 @@ interface Node {
 }
 
 type Notification implements Node {
-  type: NotificationType
+  type: NotificationType!
   id: ID!
-  date: DateTime
-  processInstance(where: BpmnProcessInstanceWhereInput): BpmnProcessInstance
-  code: NotificationCode
+  userId: ID!
+  createdAt: DateTime!
+  code: NotificationCode!
   text: String
+  processInstance(where: BpmnProcessInstanceWhereInput): BpmnProcessInstance!
   params: [String!]!
-  visible: Boolean
+  visible: Boolean!
 }
 
 enum NotificationCode {
@@ -4275,13 +4275,13 @@ type NotificationConnection {
 }
 
 input NotificationCreateInput {
-  type: NotificationType
-  date: DateTime
-  code: NotificationCode
+  type: NotificationType!
+  userId: ID!
+  code: NotificationCode!
   text: String
-  visible: Boolean
+  visible: Boolean!
   params: NotificationCreateparamsInput
-  processInstance: BpmnProcessInstanceCreateOneInput
+  processInstance: BpmnProcessInstanceCreateOneInput!
 }
 
 input NotificationCreateManyInput {
@@ -4307,8 +4307,10 @@ enum NotificationOrderByInput {
   type_DESC
   id_ASC
   id_DESC
-  date_ASC
-  date_DESC
+  userId_ASC
+  userId_DESC
+  createdAt_ASC
+  createdAt_DESC
   code_ASC
   code_DESC
   text_ASC
@@ -4317,18 +4319,17 @@ enum NotificationOrderByInput {
   visible_DESC
   updatedAt_ASC
   updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
 }
 
 type NotificationPreviousValues {
-  type: NotificationType
+  type: NotificationType!
   id: ID!
-  date: DateTime
-  code: NotificationCode
+  userId: ID!
+  createdAt: DateTime!
+  code: NotificationCode!
   text: String
   params: [String!]!
-  visible: Boolean
+  visible: Boolean!
 }
 
 type NotificationSubscriptionPayload {
@@ -4378,7 +4379,7 @@ enum NotificationType {
 
 input NotificationUpdateDataInput {
   type: NotificationType
-  date: DateTime
+  userId: ID
   code: NotificationCode
   text: String
   visible: Boolean
@@ -4388,7 +4389,7 @@ input NotificationUpdateDataInput {
 
 input NotificationUpdateInput {
   type: NotificationType
-  date: DateTime
+  userId: ID
   code: NotificationCode
   text: String
   visible: Boolean
@@ -4479,28 +4480,68 @@ input NotificationWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
-  date: DateTime
+  userId: ID
 
   """All values that are not equal to given value."""
-  date_not: DateTime
+  userId_not: ID
 
   """All values that are contained in given list."""
-  date_in: [DateTime!]
+  userId_in: [ID!]
 
   """All values that are not contained in given list."""
-  date_not_in: [DateTime!]
+  userId_not_in: [ID!]
 
   """All values less than the given value."""
-  date_lt: DateTime
+  userId_lt: ID
 
   """All values less than or equal the given value."""
-  date_lte: DateTime
+  userId_lte: ID
 
   """All values greater than the given value."""
-  date_gt: DateTime
+  userId_gt: ID
 
   """All values greater than or equal the given value."""
-  date_gte: DateTime
+  userId_gte: ID
+
+  """All values containing the given string."""
+  userId_contains: ID
+
+  """All values not containing the given string."""
+  userId_not_contains: ID
+
+  """All values starting with the given string."""
+  userId_starts_with: ID
+
+  """All values not starting with the given string."""
+  userId_not_starts_with: ID
+
+  """All values ending with the given string."""
+  userId_ends_with: ID
+
+  """All values not ending with the given string."""
+  userId_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
   code: NotificationCode
 
   """All values that are not equal to given value."""
@@ -6237,8 +6278,10 @@ export type NotificationOrderByInput =   'type_ASC' |
   'type_DESC' |
   'id_ASC' |
   'id_DESC' |
-  'date_ASC' |
-  'date_DESC' |
+  'userId_ASC' |
+  'userId_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC' |
   'code_ASC' |
   'code_DESC' |
   'text_ASC' |
@@ -6246,9 +6289,7 @@ export type NotificationOrderByInput =   'type_ASC' |
   'visible_ASC' |
   'visible_DESC' |
   'updatedAt_ASC' |
-  'updatedAt_DESC' |
-  'createdAt_ASC' |
-  'createdAt_DESC'
+  'updatedAt_DESC'
 
 export type LocalisationOrderByInput =   'id_ASC' |
   'id_DESC' |
@@ -6962,14 +7003,28 @@ export interface NotificationWhereInput {
   id_not_starts_with?: ID_Input
   id_ends_with?: ID_Input
   id_not_ends_with?: ID_Input
-  date?: DateTime
-  date_not?: DateTime
-  date_in?: DateTime[] | DateTime
-  date_not_in?: DateTime[] | DateTime
-  date_lt?: DateTime
-  date_lte?: DateTime
-  date_gt?: DateTime
-  date_gte?: DateTime
+  userId?: ID_Input
+  userId_not?: ID_Input
+  userId_in?: ID_Input[] | ID_Input
+  userId_not_in?: ID_Input[] | ID_Input
+  userId_lt?: ID_Input
+  userId_lte?: ID_Input
+  userId_gt?: ID_Input
+  userId_gte?: ID_Input
+  userId_contains?: ID_Input
+  userId_not_contains?: ID_Input
+  userId_starts_with?: ID_Input
+  userId_not_starts_with?: ID_Input
+  userId_ends_with?: ID_Input
+  userId_not_ends_with?: ID_Input
+  createdAt?: DateTime
+  createdAt_not?: DateTime
+  createdAt_in?: DateTime[] | DateTime
+  createdAt_not_in?: DateTime[] | DateTime
+  createdAt_lt?: DateTime
+  createdAt_lte?: DateTime
+  createdAt_gt?: DateTime
+  createdAt_gte?: DateTime
   code?: NotificationCode
   code_not?: NotificationCode
   code_in?: NotificationCode[] | NotificationCode
@@ -7532,13 +7587,13 @@ export interface UserUpdateInput {
 }
 
 export interface NotificationCreateInput {
-  type?: NotificationType
-  date?: DateTime
-  code?: NotificationCode
+  type: NotificationType
+  userId: ID_Input
+  code: NotificationCode
   text?: String
-  visible?: Boolean
+  visible: Boolean
   params?: NotificationCreateparamsInput
-  processInstance?: BpmnProcessInstanceCreateOneInput
+  processInstance: BpmnProcessInstanceCreateOneInput
 }
 
 export interface DataUpsertWithWhereUniqueNestedInput {
@@ -7988,7 +8043,7 @@ export interface AccessConditionWhereInput {
 
 export interface NotificationUpdateInput {
   type?: NotificationType
-  date?: DateTime
+  userId?: ID_Input
   code?: NotificationCode
   text?: String
   visible?: Boolean
@@ -8484,7 +8539,7 @@ export interface ValidatorUpdateManyInput {
 
 export interface NotificationUpdateDataInput {
   type?: NotificationType
-  date?: DateTime
+  userId?: ID_Input
   code?: NotificationCode
   text?: String
   visible?: Boolean
@@ -8515,7 +8570,6 @@ export interface UserWhereUniqueInput {
 export interface BpmnProcessInstanceUpdateOneInput {
   create?: BpmnProcessInstanceCreateInput
   connect?: BpmnProcessInstanceWhereUniqueInput
-  disconnect?: Boolean
   delete?: Boolean
   update?: BpmnProcessInstanceUpdateDataInput
   upsert?: BpmnProcessInstanceUpsertNestedInput
@@ -8761,14 +8815,15 @@ export interface AggregateData {
 }
 
 export interface Notification extends Node {
-  type?: NotificationType
+  type: NotificationType
   id: ID_Output
-  date?: DateTime
-  processInstance?: BpmnProcessInstance
-  code?: NotificationCode
+  userId: ID_Output
+  createdAt: DateTime
+  code: NotificationCode
   text?: String
+  processInstance: BpmnProcessInstance
   params: String[]
-  visible?: Boolean
+  visible: Boolean
 }
 
 /*
@@ -9170,13 +9225,14 @@ export interface AccessConditionEdge {
 }
 
 export interface NotificationPreviousValues {
-  type?: NotificationType
+  type: NotificationType
   id: ID_Output
-  date?: DateTime
-  code?: NotificationCode
+  userId: ID_Output
+  createdAt: DateTime
+  code: NotificationCode
   text?: String
   params: String[]
-  visible?: Boolean
+  visible: Boolean
 }
 
 /*

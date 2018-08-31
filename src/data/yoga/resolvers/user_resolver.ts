@@ -2,6 +2,7 @@ import { Context, Mutation, Query } from '../utils';
 
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
+import { FixtureContext } from './common';
 
 if (!process.env.JWT_SECRET) {
   process.env.JWT_SECRET = 'QWERTY%$#@!12345';
@@ -53,6 +54,10 @@ export const mutation: Mutation = {
 };
 
 export const query: Query = {
+  async users(_, _args, ctx) {
+    return ctx.cache.user.findAll();
+  },
+
   async resume(_, args, ctx) {
     let userId = '';
     try {
@@ -77,8 +82,13 @@ export const query: Query = {
     FIXTURES
    ======================================================== */
 
-export async function fixtures(context: Context): Promise<string> {
+export async function fixtures(context: Context, _fixtureContext: FixtureContext) {
+  if (context.userId) {
+    return true;
+  }
+
   const hasUsers = await context.cache.user.exists();
+
   if (!hasUsers) {
     // tslint:disable-next-line:no-console
     console.log('Fixtures users');
@@ -96,8 +106,10 @@ export async function fixtures(context: Context): Promise<string> {
       }
     });
 
-    return user.id;
+    context.userId = user.id;
+
+    return false;
   }
 
-  return null;
+  return true;
 }

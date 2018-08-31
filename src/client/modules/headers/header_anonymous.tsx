@@ -14,7 +14,6 @@ const TopPanel = styled.div`
 
 const TopMenu: StyledComponentClass<MenuProps, {}> = styled(Menu)`
   &&&&& {
-    position: fixed;
     width: 100%;
     border: 0px;
     border-radius: 0px;

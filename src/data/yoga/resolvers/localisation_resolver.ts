@@ -35,18 +35,26 @@ export class Localisation extends Loader<Prisma.Localisation, Prisma.Localisatio
     DEFAULT Localisations
    ======================================================== */
 
+let initialised = false;
+
 export async function loadDefaultLocalisations(context: ServerContext) {
-  // tslint:disable-next-line:no-console
-  console.log('Loading default localisations ...');
+  if (initialised) {
+    return;
+  }
+  initialised = true;
+
   if (!(await context.i18n.exists())) {
+    // tslint:disable-next-line:no-console
+    console.log('Loading default localisations ...');
+
     await context.db.mutation.createLocalisation({
-      data: { code: 'ProcessStarted', language: 'EN', text: 'Process "{0} started"' }
+      data: { code: 'ProcessStarted', language: 'EN', text: 'Process "{0}" started' }
     });
     await context.db.mutation.createLocalisation({
-      data: { code: 'ProcessFinished', language: 'EN', text: 'Process "{0} finished"' }
+      data: { code: 'ProcessFinished', language: 'EN', text: 'Process "{0}" finished' }
     });
     await context.db.mutation.createLocalisation({
-      data: { code: 'ProcessAborted', language: 'EN', text: 'Process "{0} aborted"' }
+      data: { code: 'ProcessAborted', language: 'EN', text: 'Process "{0}" aborted' }
     });
     await context.db.mutation.createLocalisation({
       data: { code: 'ActionStarted', language: 'EN', text: 'Action "{0}" started in "{2}"' }
@@ -62,7 +70,7 @@ export async function loadDefaultLocalisations(context: ServerContext) {
       }
     });
     await context.db.mutation.createLocalisation({
-      data: { code: 'ActionRequired', language: 'EN', text: 'Please "{0}" in "{1}" for "{2}"' }
+      data: { code: 'ActionRequired', language: 'EN', text: 'Please "{0}" in "{1}" because "{2}"' }
     });
   }
 }

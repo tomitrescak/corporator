@@ -1,10 +1,5 @@
-import * as datejs from 'dayjs';
-import * as relativeTime from 'dayjs/plugin/relativeTime';
-
 import { Prisma } from '../data/prisma';
 import { Yoga } from '../data/yoga';
-
-datejs.extend(relativeTime);
 
 const defaultUser: Prisma.User = {
   id: 'u',
@@ -130,7 +125,9 @@ const defaultNotification: Yoga.Notification = {
   processInstance: null,
   code: 'ProcessStarted',
   params: [],
-  date: createdDate,
+  createdAt: new Date(),
+  type: 'Error',
+  userId: '1',
   visible: true
 };
 

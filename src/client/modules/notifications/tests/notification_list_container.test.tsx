@@ -1,9 +1,9 @@
 // dog.test.js
+import * as QUERY from 'data/client/notifications_query.graphql';
 import * as React from 'react';
-import { create, mock, MockedProvider, Yoga } from 'tests/client';
-import { NotificationsContainer, QUERY } from '../notification_list_container';
 
-// import wait from 'waait';
+import { create, mock, MockedProvider, Yoga } from 'tests/client';
+import { NotificationsContainer } from '../notifications_view';
 
 describe('Notifications', () => {
   storyOf(

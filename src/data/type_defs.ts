@@ -19,14 +19,15 @@ type Mutation {
 }
 
 type Notification implements Node {
-  type: NotificationType
+  type: NotificationType!
   id: ID!
-  date: DateTime
-  processInstance(where: BpmnProcessInstanceWhereInput): BpmnProcessInstance
-  code: NotificationCode
+  userId: ID!
+  createdAt: DateTime!
+  code: NotificationCode!
   text: String
+  processInstance(where: BpmnProcessInstanceWhereInput): BpmnProcessInstance!
   params: [String!]!
-  visible: Boolean
+  visible: Boolean!
 }
 
 input NotificationsInput {
@@ -119,6 +120,7 @@ input NotifyInput {
   processInstanceId: ID
   code: NotificationCode
   params: [String!]!
+  type: NotificationType!
 }
 
 input CreateProcessInput {
@@ -154,6 +156,16 @@ enum NotificationType {
 }
 
 scalar DateTime
+
+enum NotificationCode {
+  ProcessStarted
+  ProcessFinished
+  ProcessAborted
+  ActionStarted
+  ActionFinished
+  ActionAborted
+  ActionRequired
+}
 
 input BpmnProcessInstanceWhereInput {
   """
@@ -387,16 +399,6 @@ input BpmnProcessInstanceWhereInput {
   _MagicalBackRelation_UserProcesses_every: UserWhereInput
   _MagicalBackRelation_UserProcesses_some: UserWhereInput
   _MagicalBackRelation_UserProcesses_none: UserWhereInput
-}
-
-enum NotificationCode {
-  ProcessStarted
-  ProcessFinished
-  ProcessAborted
-  ActionStarted
-  ActionFinished
-  ActionAborted
-  ActionRequired
 }
 
 type Access implements Node {
@@ -2413,35 +2415,88 @@ input NotificationWhereInput {
   All values not ending with the given string.
   """
   id_not_ends_with: ID
-  date: DateTime
+  userId: ID
   """
   All values that are not equal to given value.
   """
-  date_not: DateTime
+  userId_not: ID
   """
   All values that are contained in given list.
   """
-  date_in: [DateTime!]
+  userId_in: [ID!]
   """
   All values that are not contained in given list.
   """
-  date_not_in: [DateTime!]
+  userId_not_in: [ID!]
   """
   All values less than the given value.
   """
-  date_lt: DateTime
+  userId_lt: ID
   """
   All values less than or equal the given value.
   """
-  date_lte: DateTime
+  userId_lte: ID
   """
   All values greater than the given value.
   """
-  date_gt: DateTime
+  userId_gt: ID
   """
   All values greater than or equal the given value.
   """
-  date_gte: DateTime
+  userId_gte: ID
+  """
+  All values containing the given string.
+  """
+  userId_contains: ID
+  """
+  All values not containing the given string.
+  """
+  userId_not_contains: ID
+  """
+  All values starting with the given string.
+  """
+  userId_starts_with: ID
+  """
+  All values not starting with the given string.
+  """
+  userId_not_starts_with: ID
+  """
+  All values ending with the given string.
+  """
+  userId_ends_with: ID
+  """
+  All values not ending with the given string.
+  """
+  userId_not_ends_with: ID
+  createdAt: DateTime
+  """
+  All values that are not equal to given value.
+  """
+  createdAt_not: DateTime
+  """
+  All values that are contained in given list.
+  """
+  createdAt_in: [DateTime!]
+  """
+  All values that are not contained in given list.
+  """
+  createdAt_not_in: [DateTime!]
+  """
+  All values less than the given value.
+  """
+  createdAt_lt: DateTime
+  """
+  All values less than or equal the given value.
+  """
+  createdAt_lte: DateTime
+  """
+  All values greater than the given value.
+  """
+  createdAt_gt: DateTime
+  """
+  All values greater than or equal the given value.
+  """
+  createdAt_gte: DateTime
   code: NotificationCode
   """
   All values that are not equal to given value.
@@ -2524,8 +2579,10 @@ enum NotificationOrderByInput {
   type_DESC
   id_ASC
   id_DESC
-  date_ASC
-  date_DESC
+  userId_ASC
+  userId_DESC
+  createdAt_ASC
+  createdAt_DESC
   code_ASC
   code_DESC
   text_ASC
@@ -2534,8 +2591,6 @@ enum NotificationOrderByInput {
   visible_DESC
   updatedAt_ASC
   updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
 }
 
 enum BpmnProcessInstanceOrderByInput {

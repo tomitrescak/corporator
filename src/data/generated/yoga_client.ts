@@ -65,8 +65,10 @@ export type NotificationOrderByInput =   'type_ASC' |
   'type_DESC' |
   'id_ASC' |
   'id_DESC' |
-  'date_ASC' |
-  'date_DESC' |
+  'userId_ASC' |
+  'userId_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC' |
   'code_ASC' |
   'code_DESC' |
   'text_ASC' |
@@ -74,9 +76,30 @@ export type NotificationOrderByInput =   'type_ASC' |
   'visible_ASC' |
   'visible_DESC' |
   'updatedAt_ASC' |
+  'updatedAt_DESC'
+
+export type BpmnProcessOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'actionCount_ASC' |
+  'actionCount_DESC' |
+  'description_ASC' |
+  'description_DESC' |
+  'model_ASC' |
+  'model_DESC' |
+  'name_ASC' |
+  'name_DESC' |
+  'status_ASC' |
+  'status_DESC' |
+  'version_ASC' |
+  'version_DESC' |
+  'updatedAt_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
   'createdAt_DESC'
+
+export type ProcessStatus =   'Draft' |
+  'Proposal' |
+  'Published'
 
 export type BpmnTaskInstanceOrderByInput =   'id_ASC' |
   'id_DESC' |
@@ -97,9 +120,10 @@ export type BpmnTaskInstanceOrderByInput =   'id_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export type ProcessStatus =   'Draft' |
-  'Proposal' |
-  'Published'
+export type ResourceType =   'Url' |
+  'File' |
+  'Form' |
+  'Report'
 
 export type DataOrderByInput =   'id_ASC' |
   'id_DESC' |
@@ -115,19 +139,6 @@ export type DataOrderByInput =   'id_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
   'createdAt_DESC'
-
-export type ResourceType =   'Url' |
-  'File' |
-  'Form' |
-  'Report'
-
-export type NotificationCode =   'ProcessStarted' |
-  'ProcessFinished' |
-  'ProcessAborted' |
-  'ActionStarted' |
-  'ActionFinished' |
-  'ActionAborted' |
-  'ActionRequired'
 
 export type NotificationType =   'Info' |
   'Error' |
@@ -152,18 +163,13 @@ export type BpmnProcessInstanceOrderByInput =   'id_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export type AccessConditionOrderByInput =   'organisationId_ASC' |
-  'organisationId_DESC' |
-  'roleId_ASC' |
-  'roleId_DESC' |
-  'userId_ASC' |
-  'userId_DESC' |
-  'id_ASC' |
-  'id_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
-  'createdAt_ASC' |
-  'createdAt_DESC'
+export type NotificationCode =   'ProcessStarted' |
+  'ProcessFinished' |
+  'ProcessAborted' |
+  'ActionStarted' |
+  'ActionFinished' |
+  'ActionAborted' |
+  'ActionRequired'
 
 export type ValidatorOrderByInput =   'id_ASC' |
   'id_DESC' |
@@ -206,29 +212,23 @@ export type CommentOrderByInput =   'text_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export type BpmnProcessOrderByInput =   'id_ASC' |
-  'id_DESC' |
-  'actionCount_ASC' |
-  'actionCount_DESC' |
-  'description_ASC' |
-  'description_DESC' |
-  'model_ASC' |
-  'model_DESC' |
-  'name_ASC' |
-  'name_DESC' |
-  'status_ASC' |
-  'status_DESC' |
-  'version_ASC' |
-  'version_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
-  'createdAt_ASC' |
-  'createdAt_DESC'
-
 export type BpmnProcessInstanceStatus =   'Running' |
   'Finished' |
   'Aborted' |
   'Paused'
+
+export type AccessConditionOrderByInput =   'organisationId_ASC' |
+  'organisationId_DESC' |
+  'roleId_ASC' |
+  'roleId_DESC' |
+  'userId_ASC' |
+  'userId_DESC' |
+  'id_ASC' |
+  'id_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC'
 
 export type FormElementOrderByInput =   'id_ASC' |
   'id_DESC' |
@@ -677,14 +677,28 @@ export interface NotificationWhereInput {
   id_not_starts_with?: ID_Input
   id_ends_with?: ID_Input
   id_not_ends_with?: ID_Input
-  date?: DateTime
-  date_not?: DateTime
-  date_in?: DateTime[] | DateTime
-  date_not_in?: DateTime[] | DateTime
-  date_lt?: DateTime
-  date_lte?: DateTime
-  date_gt?: DateTime
-  date_gte?: DateTime
+  userId?: ID_Input
+  userId_not?: ID_Input
+  userId_in?: ID_Input[] | ID_Input
+  userId_not_in?: ID_Input[] | ID_Input
+  userId_lt?: ID_Input
+  userId_lte?: ID_Input
+  userId_gt?: ID_Input
+  userId_gte?: ID_Input
+  userId_contains?: ID_Input
+  userId_not_contains?: ID_Input
+  userId_starts_with?: ID_Input
+  userId_not_starts_with?: ID_Input
+  userId_ends_with?: ID_Input
+  userId_not_ends_with?: ID_Input
+  createdAt?: DateTime
+  createdAt_not?: DateTime
+  createdAt_in?: DateTime[] | DateTime
+  createdAt_not_in?: DateTime[] | DateTime
+  createdAt_lt?: DateTime
+  createdAt_lte?: DateTime
+  createdAt_gt?: DateTime
+  createdAt_gte?: DateTime
   code?: NotificationCode
   code_not?: NotificationCode
   code_in?: NotificationCode[] | NotificationCode
@@ -846,11 +860,50 @@ export interface BpmnTasksInput {
   processInstanceId: String
 }
 
-export interface NotifyInput {
-  userId?: ID_Input
-  processInstanceId?: ID_Input
-  code?: NotificationCode
-  params: String[] | String
+export interface CommentWhereInput {
+  AND?: CommentWhereInput[] | CommentWhereInput
+  OR?: CommentWhereInput[] | CommentWhereInput
+  NOT?: CommentWhereInput[] | CommentWhereInput
+  text?: String
+  text_not?: String
+  text_in?: String[] | String
+  text_not_in?: String[] | String
+  text_lt?: String
+  text_lte?: String
+  text_gt?: String
+  text_gte?: String
+  text_contains?: String
+  text_not_contains?: String
+  text_starts_with?: String
+  text_not_starts_with?: String
+  text_ends_with?: String
+  text_not_ends_with?: String
+  date?: DateTime
+  date_not?: DateTime
+  date_in?: DateTime[] | DateTime
+  date_not_in?: DateTime[] | DateTime
+  date_lt?: DateTime
+  date_lte?: DateTime
+  date_gt?: DateTime
+  date_gte?: DateTime
+  replyTo?: String
+  replyTo_not?: String
+  replyTo_in?: String[] | String
+  replyTo_not_in?: String[] | String
+  replyTo_lt?: String
+  replyTo_lte?: String
+  replyTo_gt?: String
+  replyTo_gte?: String
+  replyTo_contains?: String
+  replyTo_not_contains?: String
+  replyTo_starts_with?: String
+  replyTo_not_starts_with?: String
+  replyTo_ends_with?: String
+  replyTo_not_ends_with?: String
+  user?: UserWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceToComment_every?: BpmnProcessInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceToComment_some?: BpmnProcessInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceToComment_none?: BpmnProcessInstanceWhereInput
 }
 
 export interface BpmnProcessInstancesInput {
@@ -873,6 +926,14 @@ export interface CreateProcessInput {
   description?: String
   model?: String
   status?: ProcessStatus
+}
+
+export interface NotifyInput {
+  userId?: ID_Input
+  processInstanceId?: ID_Input
+  code?: NotificationCode
+  params: String[] | String
+  type: NotificationType
 }
 
 export interface BpmnProcessInstanceWhereInput {
@@ -948,52 +1009,6 @@ export interface BpmnProcessInstanceWhereInput {
   _MagicalBackRelation_UserProcesses_every?: UserWhereInput
   _MagicalBackRelation_UserProcesses_some?: UserWhereInput
   _MagicalBackRelation_UserProcesses_none?: UserWhereInput
-}
-
-export interface CommentWhereInput {
-  AND?: CommentWhereInput[] | CommentWhereInput
-  OR?: CommentWhereInput[] | CommentWhereInput
-  NOT?: CommentWhereInput[] | CommentWhereInput
-  text?: String
-  text_not?: String
-  text_in?: String[] | String
-  text_not_in?: String[] | String
-  text_lt?: String
-  text_lte?: String
-  text_gt?: String
-  text_gte?: String
-  text_contains?: String
-  text_not_contains?: String
-  text_starts_with?: String
-  text_not_starts_with?: String
-  text_ends_with?: String
-  text_not_ends_with?: String
-  date?: DateTime
-  date_not?: DateTime
-  date_in?: DateTime[] | DateTime
-  date_not_in?: DateTime[] | DateTime
-  date_lt?: DateTime
-  date_lte?: DateTime
-  date_gt?: DateTime
-  date_gte?: DateTime
-  replyTo?: String
-  replyTo_not?: String
-  replyTo_in?: String[] | String
-  replyTo_not_in?: String[] | String
-  replyTo_lt?: String
-  replyTo_lte?: String
-  replyTo_gt?: String
-  replyTo_gte?: String
-  replyTo_contains?: String
-  replyTo_not_contains?: String
-  replyTo_starts_with?: String
-  replyTo_not_starts_with?: String
-  replyTo_ends_with?: String
-  replyTo_not_ends_with?: String
-  user?: UserWhereInput
-  _MagicalBackRelation_BpmnProcessInstanceToComment_every?: BpmnProcessInstanceWhereInput
-  _MagicalBackRelation_BpmnProcessInstanceToComment_some?: BpmnProcessInstanceWhereInput
-  _MagicalBackRelation_BpmnProcessInstanceToComment_none?: BpmnProcessInstanceWhereInput
 }
 
 export interface AccessConditionWhereInput {
@@ -1448,14 +1463,15 @@ export interface Form extends Node {
 }
 
 export interface Notification extends Node {
-  type?: NotificationType
+  type: NotificationType
   id: ID_Output
-  date?: DateTime
-  processInstance?: BpmnProcessInstance
-  code?: NotificationCode
+  userId: ID_Output
+  createdAt: DateTime
+  code: NotificationCode
   text?: String
+  processInstance: BpmnProcessInstance
   params: String[]
-  visible?: Boolean
+  visible: Boolean
 }
 
 export interface AuthPayload {

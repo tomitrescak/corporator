@@ -23,6 +23,7 @@ input NotifyInput {
   processInstanceId: ID
   code: NotificationCode
   params: [String!]!
+  type: NotificationType!
 }
 
 type Mutation {

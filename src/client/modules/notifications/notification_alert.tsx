@@ -1,27 +1,15 @@
 import * as React from 'react';
 
-import { inject, observer } from 'mobx-react';
-import { Query } from 'react-apollo';
-
+import { Link } from '@reach/router';
 import { ApolloError } from 'apollo-client';
-import { Yoga } from 'data/yoga';
-import { Loader } from 'semantic-ui-react';
+import { inject, observer } from 'mobx-react';
+import { Icon, Loader } from 'semantic-ui-react';
+
+import { NotificationsQuery } from './notifications_queries';
 
 type Props = {
-  store: App.Store;
+  store?: App.Store;
 };
-
-/* =========================================================
-    QUERY
-   ======================================================== */
-
-interface Data {
-  notifications: Yoga.Notification;
-}
-
-export class NotificationsQuery extends Query<Data> {
-  static displayName = 'ResumeQuery';
-}
 
 /* =========================================================
     COMPONENT
@@ -48,16 +36,19 @@ export const QueryResult: React.SFC<QueryResultProps> = ({ result }) => {
 };
 
 export const NotificationAlert = observer((_props: Props) => (
-  // <NotificationsQuery>
-  //   {result => {
-  //     <QueryResult result={result} /> || (
-  //       <>
-  //         <Icon name="bell" /> {result.data.notifications.length}
-  //       </>
-  //     );
-  //   }}
-  // </NotificationsQuery>
-  <div>Tomi</div>
+  <NotificationsQuery>
+    {result => {
+      /* == LOADING == */
+      if (result.error || result.loading || !result.data) {
+        return <span />;
+      }
+      return (
+        <Link to="/notifications">
+          <Icon name="bell" /> {result.data.notifications.length || 0}
+        </Link>
+      );
+    }}
+  </NotificationsQuery>
 ));
 
 export const NotificationAlertContainer = inject('store')(NotificationAlert);

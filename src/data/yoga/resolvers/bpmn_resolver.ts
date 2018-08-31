@@ -54,10 +54,12 @@ export const mutation: Mutation = {
   }
 };
 
-export async function fixtures(
-  ctx: ServerContext,
-  fixtureContext: FixtureContext
-): Promise<Yoga.BpmnProcess[]> {
+export async function fixtures(ctx: ServerContext, fixtureContext: FixtureContext) {
+  const hasProcesses = await ctx.db.exists.BpmnProcess();
+  if (hasProcesses) {
+    return;
+  }
+
   // tslint:disable-next-line:no-console
   console.log('Fixtures process');
 
@@ -75,5 +77,4 @@ export async function fixtures(
   }
 
   fixtureContext.processes = inserted;
-  return inserted;
 }

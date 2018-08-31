@@ -17,12 +17,13 @@ enum NotificationType {
 }
 
 type Notification {
-  type: NotificationType
+  type: NotificationType!
   id: ID! @unique
-  date: DateTime
-  processInstance: BpmnProcessInstance
-  code: NotificationCode
+  userId: ID!
+  createdAt: DateTime!
+  code: NotificationCode!
   text: String
+  processInstance: BpmnProcessInstance!
   params: [String!]!
-  visible: Boolean
+  visible: Boolean!
 }

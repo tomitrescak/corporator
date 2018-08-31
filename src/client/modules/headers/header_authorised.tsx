@@ -1,11 +1,12 @@
 import * as React from 'react';
 import logo = require('./logo.png');
 
-import { Icon, Input, InputProps, Menu, MenuProps } from 'semantic-ui-react';
+import { Input, InputProps, Menu, MenuProps } from 'semantic-ui-react';
 import styled, { StyledComponentClass } from 'styled-components';
 
 import { LocalStorage } from '../../config/local_storage';
 import { LogoutMenu } from '../login/logout_menu';
+import { NotificationAlertContainer } from '../notifications/notification_alert';
 import { Logo } from './header_logo';
 
 const TopPanel = styled.div`
@@ -39,7 +40,7 @@ const BottomMenu: StyledComponentClass<MenuProps, {}> = styled(Menu)`
 
 export const HeaderAuthorised = () => (
   <TopPanel>
-    <TopMenu borderless>
+    <TopMenu>
       <Menu.Item>
         <Logo src={logo} alt="logo" />
       </Menu.Item>
@@ -48,7 +49,7 @@ export const HeaderAuthorised = () => (
       </Menu.Item>
       <Menu.Menu position="right">
         <Menu.Item>
-          <Icon name="bell" /> 3
+          <NotificationAlertContainer />
         </Menu.Item>
         <LogoutMenu token={LocalStorage.token}>
           <Menu.Item icon="user" content="Profile" />

@@ -2,12 +2,13 @@
 
 import { importSchema } from 'graphql-import';
 import { GraphQLServer } from 'graphql-yoga';
-import { Prisma } from '../data/prisma';
+import { Server as HttpServer } from 'http';
 
-import { fixtures, resolvers } from 'data/yoga/resolvers';
+import { fixtures, fragmentReplacements, resolvers } from 'data/yoga/resolvers';
 import { Loader } from 'data/yoga/resolvers/loader';
 import { loadDefaultLocalisations, Localisation } from 'data/yoga/resolvers/localisation_resolver';
 import { authenticate } from 'data/yoga/resolvers/user_resolver';
+import { Prisma } from '../data/prisma';
 
 // opts for cors
 // const opts = {
@@ -44,6 +45,7 @@ export const cache = {
 
 async function initContext(req: any) {
   db = new Prisma.Prisma({
+    fragmentReplacements,
     endpoint: 'http://localhost:4466'
     // debug: true
     // secret: 'my_secret123', // only needed if specified in `database/prisma.yml`
@@ -61,11 +63,11 @@ async function initContext(req: any) {
   // proceed with authentication
   authenticate(result);
 
-  // load fixtures
-  await fixtures(result);
-
   // load default localisations
   await loadDefaultLocalisations(result);
+
+  // load fixtures
+  await fixtures(result);
 
   return result;
 }
@@ -96,4 +98,44 @@ const server = new GraphQLServer({
 // );
 
 // tslint:disable-next-line:no-console
-server.start(() => console.log('Server is running on http://localhost:4000'));
+
+let appServer: HttpServer;
+
+async function start() {
+  appServer = (await server.start()) as HttpServer;
+  // tslint:disable-next-line:no-console
+  console.log('Server is running on http://localhost:4000');
+}
+
+start();
+
+/* =========================================================
+    FUSEBOX
+   ======================================================== */
+
+function wait(time = 5) {
+  return new Promise(resolve => {
+    setTimeout(resolve, time);
+  });
+}
+
+export async function shutdown() {
+  // Fuse box is quite quick so sometimes shutdown will be called before the server finished initializing
+  // spinWait hopefully stops this race condition
+  const spinWait = async () => {
+    for (let i = 0; i < 5; i++) {
+      if (server != null && appServer.listening) {
+        return;
+      }
+      await wait();
+    }
+    throw new Error(`Wait timed out.`);
+  };
+  await spinWait();
+  await new Promise(resolve => {
+    if (server != null) {
+      appServer.close(resolve);
+    }
+  });
+  appServer = undefined;
+}

@@ -1,10 +1,5 @@
-import * as datejs from 'dayjs';
-import * as relativeTime from 'dayjs/plugin/relativeTime';
-
 import { Prisma } from '../data/prisma';
 import { Yoga } from '../data/yoga';
-
-datejs.extend(relativeTime);
 
 const defaultUser: Prisma.User = {
   id: 'u',
@@ -117,7 +112,9 @@ const defaultNotification: Yoga.Notification = {
   processInstance: null,
   code: 'ActionStarted',
   params: [],
-  date: createdDate,
+  userId: '1',
+  createdAt: new Date(),
+  type: 'Error',
   visible: true
 };
 
@@ -133,8 +130,8 @@ export const createData = {
   mocks() {
     // tslint:disable-next-line:no-shadowed-variable
     const dayjs: any = () => ({
-      from(date: any) {
-        return (datejs('2018/02/23') as any).from(date);
+      from(_date: any) {
+        return 'Fill me!';
       }
     });
     dayjs.extend = () => {

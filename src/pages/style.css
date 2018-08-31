@@ -1,5 +1,7 @@
-#root,
-#root > div {
+#root {
   height: 100%;
-  width: 100%;
+}
+
+#pageContent {
+  padding: 12px;
 }

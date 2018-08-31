@@ -5,7 +5,6 @@ import { Header, Segment } from 'semantic-ui-react';
 import styled from 'styled-components';
 
 import { MainLayout } from '../core/main_layout';
-import { HeaderAnonymous } from '../headers/header_anonymous';
 import { LoginContainer } from '../login/login_container';
 
 const Centered = styled.div`
@@ -38,7 +37,7 @@ const LoginSegment = styled(Segment)`
   margin: auto;
 `;
 
-export const HomeViewAuth = () => <div />;
+export const HomeViewAuth = () => <div>Authorised!</div>;
 
 export const HomeViewAnonymous = () => (
   <Centered>
@@ -56,14 +55,11 @@ export const HomeView: React.SFC<Props> = ({ store }) => (
     <Choose>
       <When condition={!store.userId}>
         <>
-          <HeaderAnonymous />
           <HomeViewAnonymous />
         </>
       </When>
       <Otherwise>
-        <MainLayout>
-          <div>Home</div>
-        </MainLayout>
+        <HomeViewAuth />
       </Otherwise>
     </Choose>
   </>

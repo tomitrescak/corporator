@@ -1,0 +1,8 @@
+fragment notificationFragment on Notification {
+  id
+  createdAt
+  params
+  code
+  text
+  type
+}
