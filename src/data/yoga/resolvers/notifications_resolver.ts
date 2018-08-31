@@ -1,4 +1,4 @@
-import { getUserId, Mutation, Notification, purge, Query, Resolver, Yoga } from '../utils';
+import { getUserId, Mutation, Notification, purge, Query, Resolver, wait, Yoga } from '../utils';
 import { FixtureContext } from './common';
 
 const graphql = (e: TemplateStringsArray) => e[0];
@@ -76,6 +76,16 @@ export const mutation: Mutation = {
     // const notification = await ctx.db.query.notifications({ where: {     }); // .user()
 
     return true;
+  },
+  async removeNotification(_parent, { id }, ctx, info) {
+    const userId = getUserId(ctx);
+    await ctx.db.mutation.deleteManyNotifications({ where: { id, userId } });
+    return id;
+  },
+  async clearNotifications(_parent, _args, ctx, info) {
+    const userId = getUserId(ctx);
+    await ctx.db.mutation.deleteManyNotifications({ where: { userId } });
+    return true;
   }
 };
 
@@ -94,6 +104,10 @@ export const resolver: Resolver<Notification> = {
     }
   }
 };
+
+/* =========================================================
+    FIXTURES
+   ======================================================== */
 
 export async function fixtures(ctx: ServerContext, fixtureContext: FixtureContext) {
   const hasNotification = await ctx.db.exists.Notification();

@@ -33,8 +33,18 @@ export async function fixtures(context: Context) {
 
   const hasData = await users.fixtures(context, fixtureContext);
   if (!hasData) {
-    await bpmnProcesses.fixtures(context, fixtureContext);
-    await bpmnProcessInstances.fixtures(context, fixtureContext);
-    await notifications.fixtures(context, fixtureContext);
+    await reset(context);
   }
+}
+
+export async function reset(context: Context) {
+  const fixtureContext = {};
+
+  await context.db.mutation.deleteManyNotifications({});
+  await context.db.mutation.deleteManyBpmnProcessInstances({});
+  await context.db.mutation.deleteManyBpmnProcesses({});
+
+  await bpmnProcesses.fixtures(context, fixtureContext);
+  await bpmnProcessInstances.fixtures(context, fixtureContext);
+  await notifications.fixtures(context, fixtureContext);
 }

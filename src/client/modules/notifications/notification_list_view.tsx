@@ -5,6 +5,9 @@ import { Button, Header, List, Message } from 'semantic-ui-react';
 import { Yoga } from 'data/yoga';
 import { NotificationView } from './notification_item_view';
 
+import { CSSTransitionGroup } from 'react-transition-group';
+import { RemoveNotificationsMutation } from './notifications_queries';
+
 type Props = {
   notifications: Yoga.Notification[];
   store?: App.Store;
@@ -19,11 +22,32 @@ export const NotificationsListView: React.SFC<Props> = ({ notifications, store }
         <>
           <Header content="Notifications" icon="bell" as="h5" dividing />
           <List relaxed divided>
-            <For each="notification" of={notifications}>
-              <NotificationView key={notification.id} notification={notification} />
-            </For>
+            <CSSTransitionGroup
+              component={React.Fragment}
+              transitionName="example"
+              transitionAppear={true}
+              transitionAppearTimeout={500}
+              transitionEnter={false}
+              transitionEnterTimeout={500}
+              transitionLeave={true}
+              transitionLeaveTimeout={500}
+            >
+              <For each="notification" of={notifications}>
+                <NotificationView key={notification.id} notification={notification} />
+              </For>
+            </CSSTransitionGroup>
           </List>
-          <Button color="red" icon="trash" labelPosition="left" content={store.i18n`Clear All`} />
+          <RemoveNotificationsMutation>
+            {clearNotifications => (
+              <Button
+                onClick={() => clearNotifications()}
+                color="red"
+                icon="trash"
+                labelPosition="left"
+                content={store.i18n`Clear All`}
+              />
+            )}
+          </RemoveNotificationsMutation>
         </>
       </When>
       <Otherwise>

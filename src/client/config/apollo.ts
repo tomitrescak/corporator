@@ -23,6 +23,7 @@ import { HttpLink } from 'apollo-link-http';
 import { LocalStorage } from './local_storage';
 
 export const client = new ApolloClient({
+  connectToDevTools: true,
   link: ApolloLink.from([
     onError(({ graphQLErrors, networkError }) => {
       if (graphQLErrors) {

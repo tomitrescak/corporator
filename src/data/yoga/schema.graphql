@@ -10,4 +10,5 @@ type Query {
 
 type Mutation {
   testMutation: Boolean
+  reset: Boolean
 }

@@ -4,6 +4,7 @@ import logo = require('./logo.png');
 import { Input, InputProps, Menu, MenuProps } from 'semantic-ui-react';
 import styled, { StyledComponentClass } from 'styled-components';
 
+import { Link } from '@reach/router';
 import { LocalStorage } from '../../config/local_storage';
 import { LogoutMenu } from '../login/logout_menu';
 import { NotificationAlertContainer } from '../notifications/notification_alert';
@@ -42,7 +43,9 @@ export const HeaderAuthorised = () => (
   <TopPanel>
     <TopMenu>
       <Menu.Item>
-        <Logo src={logo} alt="logo" />
+        <Link to="/">
+          <Logo src={logo} alt="logo" />
+        </Link>
       </Menu.Item>
       <Menu.Item>
         <Search icon="search" placeholder="Find Process..." />

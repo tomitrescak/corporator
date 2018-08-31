@@ -4,6 +4,7 @@ import logo = require('./logo.png');
 import { Menu, MenuProps } from 'semantic-ui-react';
 import styled, { StyledComponentClass } from 'styled-components';
 
+import { Link } from '@reach/router';
 import { LocalStorage } from '../../config/local_storage';
 import { LogoutMenu } from '../login/logout_menu';
 import { Logo } from './header_logo';
@@ -27,7 +28,9 @@ export const HeaderAnonymous = () => (
   <TopPanel>
     <TopMenu borderless>
       <Menu.Item>
-        <Logo src={logo} alt="logo" />
+        <Link to="/">
+          <Logo src={logo} alt="logo" />
+        </Link>
       </Menu.Item>
       <Menu.Menu position="right">
         <LogoutMenu token={LocalStorage.token} />

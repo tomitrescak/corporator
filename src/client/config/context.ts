@@ -3,6 +3,8 @@ import { Yoga } from 'data/yoga';
 import * as TimeAgo from 'javascript-time-ago';
 import * as en from 'javascript-time-ago/locale/en';
 
+import i18n from 'es2015-i18n-tag';
+
 // Add locale-specific relative date/time formatting rules.
 TimeAgo.locale(en);
 const timeAgo = new TimeAgo('en-US');
@@ -15,7 +17,8 @@ const Ui = {
 };
 
 export const context = {
-  Ui
+  Ui,
+  i18n
 };
 
 declare global {

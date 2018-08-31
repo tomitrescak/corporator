@@ -4,6 +4,8 @@ import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 import { FixtureContext } from './common';
 
+import { fixtures as globalFixtures, reset } from './index';
+
 if (!process.env.JWT_SECRET) {
   process.env.JWT_SECRET = 'QWERTY%$#@!12345';
 }
@@ -34,6 +36,11 @@ export const mutation: Mutation = {
   //     user
   //   };
   // },
+
+  async reset(_, _args, ctx) {
+    reset(ctx);
+    return true;
+  },
 
   async login(_, { input: { user, password } }, ctx) {
     const userDb = await ctx.db.query.user({ where: { uid: user } });

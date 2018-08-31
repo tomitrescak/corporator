@@ -143,3 +143,7 @@ export function purge<T>(params: T): T {
   }
   return params;
 }
+
+export function wait(time = 500) {
+  return new Promise(resolve => setTimeout(resolve, time));
+}

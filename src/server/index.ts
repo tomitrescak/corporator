@@ -67,7 +67,7 @@ async function initContext(req: any) {
   await loadDefaultLocalisations(result);
 
   // load fixtures
-  await fixtures(result);
+  // await fixtures(result);
 
   return result;
 }

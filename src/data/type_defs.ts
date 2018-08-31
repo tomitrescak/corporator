@@ -11,7 +11,10 @@ export const typeDefs = `type Query {
 
 type Mutation {
   testMutation: Boolean
+  reset: Boolean
   notify(input: NotifyInput): Notification!
+  removeNotification(id: String): String
+  clearNotifications: Boolean
   createProcess(input: CreateProcessInput!): BpmnProcess
   createProcessInstance(input: CreateProcessInstanceInput!): BpmnProcessInstance
   login(input: AuthInput!): AuthPayload!
