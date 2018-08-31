@@ -4,21 +4,21 @@ import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 import { FixtureContext } from './common';
 
-import { fixtures as globalFixtures, reset } from './index';
+import { reset } from './index';
 
 if (!process.env.JWT_SECRET) {
   process.env.JWT_SECRET = 'QWERTY%$#@!12345';
 }
 
-export function authenticate(context: ServerContext) {
-  const authHeader = context.request.headers.authorization;
+export function authenticate(request: any) {
+  const authHeader = request.headers.authorization;
   if (!authHeader || !authHeader.match(/Bearer /)) {
-    return;
+    return null;
   }
   const token = authHeader.split(' ')[1];
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET) as any;
-    context.userId = decoded.userId;
+    return decoded.userId;
   } catch (ex) {
     throw new Error('Invalid token');
   }

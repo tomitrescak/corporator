@@ -42,9 +42,9 @@ export interface Context {
   db: Prisma;
   request: any;
   userId: string;
-  cache: typeof cache;
+  cache?: typeof cache;
   i18n: Localisation;
-  user: User;
+  user: () => Promise<User>;
 }
 
 type ResolverFunction<T> = (parent: T, args: any, ctx: Context, info: GraphQLResolveInfo) => any;
@@ -65,7 +65,7 @@ type FragmentedResolver<T> = {
 };
 export type Resolver<T> = DirectResolver<T> | FragmentedResolver<T>;
 
-export function getUserId(ctx: Context): string {
+export function getUserId(userId: string): string {
   // const Authorization = ctx.request.get('Authorization');
   // if (Authorization) {
   //   const token = Authorization.replace('Bearer ', '');
@@ -74,8 +74,8 @@ export function getUserId(ctx: Context): string {
   // }
 
   // try session
-  if (ctx.userId) {
-    return ctx.userId;
+  if (userId) {
+    return userId;
   }
   throw new AuthError();
 }
@@ -88,21 +88,14 @@ export async function getUser(ctx: Context): Promise<User> {
   //   return userId;
   // }
 
-  if (ctx.user) {
-    return ctx.user;
+  const user = await ctx.db.query.user({ where: { id: ctx.userId } });
+
+  if (user) {
+    // try session
+    return user;
   }
 
-  if (ctx.userId) {
-    const user = await ctx.db.query.user({ where: { id: ctx.userId } });
-
-    if (user) {
-      // try session
-      ctx.user = user;
-      return user;
-    }
-  }
-
-  throw new AuthError();
+  throw new Error('Not Authorized!');
 }
 
 type ParentResolver = {

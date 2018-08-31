@@ -1,4 +1,4 @@
-import { getUserId, Mutation, purge, Query, Yoga } from '../utils';
+import { Mutation, purge, Query, Yoga } from '../utils';
 import { FixtureContext } from './common';
 
 export const query: Query = {
@@ -20,7 +20,7 @@ export const query: Query = {
 
 export const mutation: Mutation = {
   async createProcess(_parent, { input: { description, status, name, model } }, ctx, info) {
-    const userId = getUserId(ctx);
+    const userId = ctx.userId;
     const process = await ctx.db.mutation.createBpmnProcess(
       {
         data: {

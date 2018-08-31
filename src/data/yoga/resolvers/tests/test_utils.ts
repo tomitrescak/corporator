@@ -65,6 +65,6 @@ export async function its(
     //   context.userId = context.user.id;
     // }
 
-    return impl(context, context.user);
+    return impl(context);
   });
 }

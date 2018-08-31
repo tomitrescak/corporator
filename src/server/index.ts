@@ -4,10 +4,11 @@ import { importSchema } from 'graphql-import';
 import { GraphQLServer } from 'graphql-yoga';
 import { Server as HttpServer } from 'http';
 
-import { fixtures, fragmentReplacements, resolvers } from 'data/yoga/resolvers';
+import { fragmentReplacements, resolvers } from 'data/yoga/resolvers';
 import { Loader } from 'data/yoga/resolvers/loader';
 import { loadDefaultLocalisations, Localisation } from 'data/yoga/resolvers/localisation_resolver';
 import { authenticate } from 'data/yoga/resolvers/user_resolver';
+import { getUser, getUserId, Yoga } from 'data/yoga/utils';
 import { Prisma } from '../data/prisma';
 
 // opts for cors
@@ -51,17 +52,24 @@ async function initContext(req: any) {
     // secret: 'my_secret123', // only needed if specified in `database/prisma.yml`
   });
 
+  const userId = authenticate(req.request);
+  let user: Yoga.User;
+
   const result: ServerContext = {
     ...req,
     req: req.request,
     db,
     cache,
     i18n: i18n.EN, // add more languages if needed
-    userId: null
+    get userId() {
+      return userId || getUserId(userId);
+    },
+    async user() {
+      return user || (user = await getUser(result));
+    }
   };
 
   // proceed with authentication
-  authenticate(result);
 
   // load default localisations
   await loadDefaultLocalisations(result);

@@ -2,13 +2,13 @@ import * as REMOVE_NOTIFICATION_MUTATION from 'data/client/notification_remove_m
 import * as CLEAR_NOTIFICATIONS_MUTATION from 'data/client/notifications_clear_mutation.graphql';
 import * as NOTIFICATIONS_QUERY from 'data/client/notifications_query.graphql';
 
-import { Mutation, MutationProps, Query } from 'react-apollo';
+import { Mutation, MutationProps, Query, QueryProps } from 'react-apollo';
 
-import { StaticMutationProps, StaticQueryProps, Yoga } from 'data/yoga';
+import { Yoga } from 'data/yoga';
 
 type Data = { notifications: Yoga.Notification[] };
 type Variables = { input: Yoga.NotificationsInput };
-type Props = StaticQueryProps<Variables>;
+type Props = Partial<QueryProps<Data, Variables>>;
 
 export class NotificationsQuery extends Query<Data, Variables> {
   static displayName = 'ResumeQuery';

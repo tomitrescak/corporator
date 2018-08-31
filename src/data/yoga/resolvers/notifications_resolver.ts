@@ -1,4 +1,4 @@
-import { getUserId, Mutation, Notification, purge, Query, Resolver, wait, Yoga } from '../utils';
+import { Mutation, Notification, purge, Query, Resolver, Yoga } from '../utils';
 import { FixtureContext } from './common';
 
 const graphql = (e: TemplateStringsArray) => e[0];
@@ -10,7 +10,7 @@ export const query: Query = {
     ctx,
     info
   ): Promise<Yoga.Notification[]> {
-    const userId = getUserId(ctx);
+    const userId = ctx.userId;
 
     // return ctx.db.query.notifications(
     //   { where: { owner: { id: getUserId(ctx) } }, skip: start, last: end },
@@ -78,13 +78,13 @@ export const mutation: Mutation = {
     return true;
   },
   async removeNotification(_parent, { id }, ctx, info) {
-    const userId = getUserId(ctx);
-    await ctx.db.mutation.deleteManyNotifications({ where: { id, userId } });
+    const userId = ctx.userId;
+    await ctx.db.mutation.deleteManyNotifications({ where: { id, userId } }, info);
     return id;
   },
   async clearNotifications(_parent, _args, ctx, info) {
-    const userId = getUserId(ctx);
-    await ctx.db.mutation.deleteManyNotifications({ where: { userId } });
+    const userId = ctx.userId;
+    await ctx.db.mutation.deleteManyNotifications({ where: { userId } }, info);
     return true;
   }
 };

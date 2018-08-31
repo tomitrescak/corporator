@@ -1,8 +1,6 @@
 import * as React from 'react';
 
-import * as ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-
-import { Icon, List, Loader } from 'semantic-ui-react';
+import { Icon, List } from 'semantic-ui-react';
 import styled from 'styled-components';
 
 import { Link } from '@reach/router';

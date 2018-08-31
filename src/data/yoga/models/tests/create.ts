@@ -1,5 +1,4 @@
 import { BpmnProcessInstance, User, UserCreateInput } from '../../../generated/prisma';
-import { Context } from '../utils';
 
 // const defaultBpmnProcessInstance: Partial<BpmnProcessInstance> = {};
 const defaultUser: UserCreateInput = {
@@ -21,7 +20,7 @@ function merge<T>(a: any, b: T): T {
 }
 
 export const create = {
-  user(ctx: Context, data: Partial<User> = {}) {
+  user(ctx: ServerContext, data: Partial<User> = {}) {
     const input: UserCreateInput = {
       name: data.name,
       uid: data.uid,
@@ -34,7 +33,7 @@ export const create = {
       data: merge(defaultUser, input)
     });
   },
-  bpmnProcessInstance(_ctx: Context, _data: Partial<BpmnProcessInstance> = {}) {
+  bpmnProcessInstance(_ctx: ServerContext, _data: Partial<BpmnProcessInstance> = {}) {
     // return ctx.db.mutation.createBpmnProcessInstance({
     //   data: { ...defaultBpmnProcessInstance, ...data }
     // });
