@@ -1,4 +1,4 @@
-import { purge } from 'data/yoga/utils';
+import { purge } from 'data/utils';
 
 describe('Future', () => {
   describe('purge', () => {

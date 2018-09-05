@@ -4,7 +4,7 @@ import { Mutation } from 'react-apollo';
 import { Button, ButtonProps } from 'semantic-ui-react';
 import styled, { StyledComponentClass } from 'styled-components';
 
-import LOGIN_MUTATION = require('data/client/login_mutation.graphql');
+import LOGIN_MUTATION = require('data/users/client/login_mutation.graphql');
 import { Yoga } from 'data/yoga';
 
 interface Props {

@@ -1,6 +1,6 @@
-import * as REMOVE_NOTIFICATION_MUTATION from 'data/client/notification_remove_mutation.graphql';
-import * as CLEAR_NOTIFICATIONS_MUTATION from 'data/client/notifications_clear_mutation.graphql';
-import * as NOTIFICATIONS_QUERY from 'data/client/notifications_query.graphql';
+import * as REMOVE_NOTIFICATION_MUTATION from 'data/notifications/client/notification_remove_mutation.graphql';
+import * as CLEAR_NOTIFICATIONS_MUTATION from 'data/notifications/client/notifications_clear_mutation.graphql';
+import * as NOTIFICATIONS_QUERY from 'data/notifications/client/notifications_query.graphql';
 
 import { Mutation, MutationProps, Query, QueryProps } from 'react-apollo';
 

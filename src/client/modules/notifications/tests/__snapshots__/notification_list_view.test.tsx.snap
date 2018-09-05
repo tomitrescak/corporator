@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Notifications Item View renders no notifications 1`] = `
+<div
+  className="ui message"
+>
+  You have no new notifications.
+</div>
+`;

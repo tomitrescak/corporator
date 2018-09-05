@@ -1,0 +1,13 @@
+#import BpmnTaskInstance from '../../generated/prisma.graphql'
+
+# ========================================================= #
+#  Queries
+# ========================================================= # */
+
+input BpmnTasksInput {
+  processInstanceId: String!
+}
+
+type Query {
+  bpmnTasks(input: BpmnTasksInput!): [BpmnTaskInstance]!
+}

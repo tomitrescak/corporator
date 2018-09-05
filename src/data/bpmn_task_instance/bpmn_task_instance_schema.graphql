@@ -1,0 +1,18 @@
+##import Access from './access.graphql'
+##import DataDescriptor from './data_descriptor.graphql'
+##import Resource from './resource.graphql'
+
+##import User from './user.graphql'
+
+type BpmnTaskInstance {
+  id: ID! @unique
+  dateFinished: DateTime
+  dateStarted: DateTime
+  duration: Int
+  performer: User
+  performerId: String
+  performerRoles: [String!]!
+  processInstance: BpmnProcess
+  snapshot: Json
+  taskId: String
+}

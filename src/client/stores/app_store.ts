@@ -33,7 +33,7 @@ export const AppStore = types
       logout() {
         self.userId = undefined;
         self.user = undefined;
-        self.client.resetStore();
+        self.client().resetStore();
         self.localStorage.token = null;
         self.localStorage.userId = null;
       }

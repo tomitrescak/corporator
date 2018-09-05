@@ -4,7 +4,7 @@ import { inject, observer } from 'mobx-react';
 import { Query } from 'react-apollo';
 import { Divider, Dropdown, Icon, Loader, Menu } from 'semantic-ui-react';
 
-import RESUME = require('data/client/resume_query.graphql');
+import RESUME = require('data/users/client/resume_query.graphql');
 import { Yoga } from 'data/yoga';
 
 /* ========================================================= 

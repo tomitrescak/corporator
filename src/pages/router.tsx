@@ -16,7 +16,7 @@ import { appStore } from 'client/stores/app_store';
 import './style.css';
 
 render(
-  <ApolloProvider client={client}>
+  <ApolloProvider client={client()}>
     <Provider store={appStore} context={context}>
       <>
         <Router>

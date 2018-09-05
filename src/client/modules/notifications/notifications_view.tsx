@@ -1,4 +1,4 @@
-import * as NOTIFICATIONS_QUERY from 'data/client/notifications_query.graphql';
+import * as NOTIFICATIONS_QUERY from 'data/notifications/client/notifications_query.graphql';
 import * as React from 'react';
 
 import { NotificationsListContainer } from './notification_list_view';

@@ -1,5 +1,5 @@
 // dog.test.js
-import * as QUERY from 'data/client/notifications_query.graphql';
+import * as QUERY from 'data/notifications/client/notifications_query.graphql';
 import * as React from 'react';
 
 import { create, mock, MockedProvider, Yoga } from 'tests/client';

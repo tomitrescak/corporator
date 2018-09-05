@@ -1,5 +1,5 @@
 const { importSchema } = require('graphql-import');
-const typeDefs = importSchema('./src/data/yoga/schema.graphql');
+const typeDefs = importSchema('./src/data/yoga.graphql');
 const fs = require('fs');
 const path = require('path');
 

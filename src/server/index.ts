@@ -4,12 +4,14 @@ import { importSchema } from 'graphql-import';
 import { GraphQLServer } from 'graphql-yoga';
 import { Server as HttpServer } from 'http';
 
-import { fragmentReplacements, resolvers } from 'data/yoga/resolvers';
-import { Loader } from 'data/yoga/resolvers/loader';
-import { loadDefaultLocalisations, Localisation } from 'data/yoga/resolvers/localisation_resolver';
-import { authenticate } from 'data/yoga/resolvers/user_resolver';
-import { getUser, getUserId, Yoga } from 'data/yoga/utils';
-import { Prisma } from '../data/prisma';
+import {
+  loadDefaultLocalisations,
+  Localisation
+} from 'data/localisations/server/localisation_resolver';
+import { Prisma } from 'data/prisma';
+import { fragmentReplacements, resolvers } from 'data/resolvers';
+import { authenticate } from 'data/users/server/user_resolver';
+import { getUser, getUserId, Loader, Yoga } from 'data/utils';
 
 // opts for cors
 // const opts = {
@@ -81,7 +83,7 @@ async function initContext(req: any) {
 }
 
 const server = new GraphQLServer({
-  typeDefs: importSchema('./src/data/yoga/schema.graphql'),
+  typeDefs: importSchema('./src/data/yoga.graphql'),
   resolvers,
   // resolverValidationOptions: {
   //   requireResolversForResolveType: false

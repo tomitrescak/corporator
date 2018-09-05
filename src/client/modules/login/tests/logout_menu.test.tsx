@@ -5,7 +5,7 @@ import 'jest-styled-components';
 import { AppStore } from 'client/stores/app_store';
 import { create, mock, MockedProvider } from 'tests/client';
 
-import RESUME_MUTATION = require('data/client/resume_query.graphql');
+import RESUME_MUTATION = require('data/users/client/resume_query.graphql');
 import { Menu } from 'semantic-ui-react';
 import { LogoutMenu, ResumeQuery } from '../logout_menu';
 

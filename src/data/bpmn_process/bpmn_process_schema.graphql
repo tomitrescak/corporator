@@ -1,0 +1,20 @@
+enum ProcessStatus {
+  Draft
+  Proposal
+  Published
+}
+
+type BpmnProcess {
+  id: ID! @unique
+  access: Access! @relation(name: "BpmnProcessAccess", onDelete: CASCADE)
+  actionCount: Int!
+  data: [DataDescriptor!]!
+  description: String
+  # XML version of the model
+  model: String!
+  name: String!
+  resources: [Resource!]! @relation(name: "BpmnProcessResources", onDelete: CASCADE)
+  status: ProcessStatus!
+  version: Int!
+  versions: [BpmnProcess!]! @relation(name: "BpmnProcessVersions", onDelete: CASCADE)
+}

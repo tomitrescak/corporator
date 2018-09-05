@@ -1,0 +1,19 @@
+enum BpmnProcessInstanceStatus {
+  Running
+  Finished
+  Aborted
+  Paused
+}
+
+type BpmnProcessInstance {
+  id: ID! @unique
+  comments: [Comment!]!
+  dateFinished: DateTime
+  dateStarted: DateTime
+  duration: Int
+  ownerId: ID
+  process: BpmnProcess
+  resources: Json
+  status: BpmnProcessInstanceStatus
+  tasks: [BpmnTaskInstance!]! @relation(name: "BpmnProcessTasks", onDelete: CASCADE)
+}
