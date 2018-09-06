@@ -14,4 +14,5 @@ declare module '@reach/router' {
   export const Link: any;
   export const Router: any;
   export const Route: any;
+  export const Location: any;
 }

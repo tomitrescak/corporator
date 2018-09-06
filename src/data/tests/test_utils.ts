@@ -20,7 +20,7 @@ export async function its(
   // init db
   if (!db) {
     db = new Prisma.Prisma({
-      endpoint: 'http://localhost:4466',
+      endpoint: 'http://localhost:4466/test',
       debug: true
       // secret: 'my_secret123', // only needed if specified in `database/prisma.yml`
     });
@@ -32,7 +32,6 @@ export async function its(
       db,
       request: {},
       userId: null,
-      user: null,
       i18n: null,
       cache: null
     };
@@ -44,7 +43,9 @@ export async function its(
       for (let key of options.clear) {
         const keyName = key[0].toLowerCase() + key.substring(1);
 
-        const records = await (db.query as any)[keyName + 's']({});
+        const records = await (db.query as any)[
+          keyName + (keyName[keyName.length - 1] === 's' ? 'es' : 's')
+        ]({});
         if (records && records.length) {
           for (let record of records) {
             await (db.mutation as any)['delete' + key]({ where: { id: record.id } });

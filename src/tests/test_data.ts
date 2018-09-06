@@ -41,7 +41,7 @@ const modifiedDate = new Date(2018, 1, 10);
 const finishedDate = new Date(2018, 2, 15);
 // const dateDuration = (finishedDate - createdDate);
 
-const defaultAccess: Prisma.Access = {
+export const defaultAccess: Prisma.Access = {
   id: 'a',
   createdById: defaultUser.id,
   createdOn: createdDate,
@@ -52,19 +52,19 @@ const defaultAccess: Prisma.Access = {
   execute: null
 };
 
-const defaultRole: Prisma.Role = {
+export const defaultRole: Prisma.Role = {
   id: 'default',
   name: 'Role',
   description: 'Role description'
 };
 
-const defaultOrganisation: Prisma.Organisation = {
+export const defaultOrganisation: Prisma.Organisation = {
   id: 'default',
   name: 'Organisation',
   description: 'Organisation description'
 };
 
-const defaultAccessCondition: Prisma.AccessCondition = {
+export const defaultAccessCondition: Prisma.AccessCondition = {
   organisationId: defaultOrganisation.id,
   roleId: defaultRole.id,
   userId: defaultUser.id
@@ -72,20 +72,20 @@ const defaultAccessCondition: Prisma.AccessCondition = {
   // postcondition: null
 };
 
-const defaultProcess: Prisma.BpmnProcess = {
+export const defaultProcess: Prisma.BpmnProcess = {
   id: 'bpmn',
   name: 'Bpmn',
   description: 'Default process',
   access: defaultAccess,
   // generatedDescription: null,
-  model: null,
+  model: '<xml />',
   version: 0,
   status: 'Draft',
   // roles: ['default'],
   actionCount: 0
 };
 
-const defaultProcessInstance: Yoga.BpmnProcessInstance = {
+export const defaultProcessInstance: Yoga.BpmnProcessInstance = {
   id: 'aid',
   process: defaultProcess,
   resources: null,
@@ -96,7 +96,7 @@ const defaultProcessInstance: Yoga.BpmnProcessInstance = {
   duration: 0
 };
 
-const defaultForm: Yoga.Form = {
+export const defaultForm: Yoga.Form = {
   id: 'form',
   name: 'Form',
   description: 'Test Form',

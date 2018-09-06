@@ -3,12 +3,13 @@ import * as React from 'react';
 import { Link } from '@reach/router';
 import { ApolloError } from 'apollo-client';
 import { inject, observer } from 'mobx-react';
-import { Icon, Loader } from 'semantic-ui-react';
+import { Loader, Menu } from 'semantic-ui-react';
 
 import { NotificationsQuery } from './notifications_queries';
 
 type Props = {
   store?: App.Store;
+  active?: boolean;
 };
 
 /* =========================================================
@@ -35,17 +36,21 @@ export const QueryResult: React.SFC<QueryResultProps> = ({ result }) => {
   return null;
 };
 
-export const NotificationAlert = observer((_props: Props) => (
+export const NotificationAlert = observer(({ active }: Props) => (
   <NotificationsQuery>
     {result => {
       /* == LOADING == */
       if (result.error || result.loading || !result.data) {
-        return <span />;
+        return <Menu.Item icon="bell" content="No Notifications" />;
       }
       return (
-        <Link to="/notifications">
-          <Icon name="bell" /> {result.data.notifications.length || 0}
-        </Link>
+        <Menu.Item
+          as={Link}
+          to="/notifications"
+          icon="bell"
+          active={active}
+          content={result.data.notifications.length || 0}
+        />
       );
     }}
   </NotificationsQuery>

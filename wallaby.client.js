@@ -13,6 +13,7 @@ module.exports = function(wallaby) {
 
     tests: [
       //'src/client/modules/form/**/checkbox_view.test.+(ts|tsx)',
+      'src/data/**/*.test.+(ts|tsx)',
       'src/client/**/*.test.+(ts|tsx)',
       'src/shared/**/*.test.+(ts|tsx)'
     ],

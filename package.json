@@ -46,7 +46,7 @@
     "luis": "luis src luis.ts",
     "clear": "jest --clearCache",
     "next": "next src",
-    "prisma": "prisma deploy",
+    "prisma": "prisma deploy --env-file .env.dev && prisma deploy --env-file .env.test",
     "reset": "prisma reset",
     "playground": "prisma playground --port 3001",
     "yoga": "graphql codegen",
@@ -97,8 +97,7 @@
   "alias": {
     "client": "./src/client",
     "data": "./src/data",
-    "server": "./src/client",
-    "shared": "./src/shared",
+    "server": "./src/server",
     "tests": "./src/tests"
   }
 }

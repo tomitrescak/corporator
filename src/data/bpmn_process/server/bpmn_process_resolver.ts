@@ -1,14 +1,26 @@
 import { FixtureContext, Mutation, purge, Query, Yoga } from '../../utils';
 
 export const query: Query = {
-  bpmnProcesses(_parent, { input: { status, skip = 0, first = 10 } }, ctx, info) {
-    // return ctx.db.query.notifications(
-    //   { where: { owner: { id: getUserId(ctx) } }, skip: start, last: end },
-    //   info
-    // );
+  async processes(
+    _parent,
+    { input: { status = 'Published', name, skip = 0, first = 20 } },
+    ctx,
+    info
+  ) {
+    const user = await ctx.getUser();
+    const where = purge<Yoga.BpmnProcessWhereInput>({
+      name_contains: name,
+      status,
+      access: {
+        read_some: {
+          roleId_in: user.roles
+        }
+      }
+    });
+
     return ctx.db.query.bpmnProcesses(
       {
-        where: purge<Yoga.BpmnProcessWhereInput>({ name_contains: 'we', status }),
+        where,
         skip,
         first
       },

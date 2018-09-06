@@ -2,11 +2,10 @@ import * as React from 'react';
 
 import { Form, SemanticWIDTHSNUMBER } from 'semantic-ui-react';
 
+import { groupByArray } from 'data/helpers';
 import { Yoga } from 'data/yoga';
-import { groupByArray } from 'shared/helpers';
 import { renderControl } from '../models/form_control_factory';
 import { DataSet } from '../models/form_model';
-
 
 interface IFieldOwner {
   elements?: Yoga.FormElement[];

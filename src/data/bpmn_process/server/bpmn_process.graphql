@@ -12,7 +12,7 @@ input BpmnProcessesInput {
 }
 
 type Query {
-  bpmnProcesses(input: BpmnProcessesInput!): [BpmnProcess]!
+  processes(input: BpmnProcessesInput!): [BpmnProcess]!
 }
 
 # ========================================================= #

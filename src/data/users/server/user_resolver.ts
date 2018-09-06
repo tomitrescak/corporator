@@ -64,9 +64,6 @@ export const query: Query = {
   },
 
   async resume(_, args, ctx) {
-    console.log('Resuming !!!!!!!!!!');
-    console.log('Resuming ...');
-
     let userId = '';
     try {
       const decoded = jwt.verify(args.token, process.env.JWT_SECRET) as any;

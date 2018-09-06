@@ -47,7 +47,8 @@ export interface Context {
   userId: string;
   cache?: typeof cache;
   i18n: Localisation;
-  user: () => Promise<User>;
+  getUser?(): Promise<User>;
+  getUserId?(): string;
 }
 
 type ResolverFunction<T> = (parent: T, args: any, ctx: Context, info: GraphQLResolveInfo) => any;

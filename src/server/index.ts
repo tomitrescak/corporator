@@ -11,7 +11,7 @@ import {
 import { Prisma } from 'data/prisma';
 import { fragmentReplacements, resolvers } from 'data/resolvers';
 import { authenticate } from 'data/users/server/user_resolver';
-import { getUser, getUserId, Loader, Yoga } from 'data/utils';
+import { getUser, getUserId, Loader } from 'data/utils';
 
 // opts for cors
 // const opts = {
@@ -55,7 +55,6 @@ async function initContext(req: any) {
   });
 
   const userId = authenticate(req.request);
-  let user: Yoga.User;
 
   const result: ServerContext = {
     ...req,
@@ -63,12 +62,9 @@ async function initContext(req: any) {
     db,
     cache,
     i18n: i18n.EN, // add more languages if needed
-    get userId() {
-      return userId || getUserId(userId);
-    },
-    async user() {
-      return user || (user = await getUser(result));
-    }
+    userId,
+    getUserId: () => getUserId(userId),
+    getUser: () => getUser(result)
   };
 
   // proceed with authentication

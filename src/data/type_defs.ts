@@ -1,7 +1,7 @@
 export const typeDefs = `type Query {
   testQuery: Boolean
   notifications(input: NotificationsInput): [Notification]!
-  bpmnProcesses(input: BpmnProcessesInput!): [BpmnProcess]!
+  processes(input: BpmnProcessesInput!): [BpmnProcess]!
   bpmnProcessInstances(input: BpmnProcessInstancesInput!): [BpmnProcessInstance]!
   bpmnTasks(input: BpmnTasksInput!): [BpmnTaskInstance]!
   user(id: ID!): User
