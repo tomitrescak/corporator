@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Notifications Item View renders default view 1`] = `
+<div
+  className="item"
+  onClick={[Function]}
+  role="listitem"
+>
+  <i
+    aria-hidden="true"
+    className="icon"
+  >
+    <i
+      aria-hidden="true"
+      className="grey eye icon sc-bwzfXH kZUMPF"
+      onClick={[Function]}
+      title="Mark as viewed"
+    />
+  </i>
+  <div
+    className="content"
+  >
+    <div>
+      <span
+        className="sc-bdVaJa cWCCxy"
+      >
+        just now
+      </span>
+       ·
+       
+      <a
+        href="/process/Bpmn"
+        onClick={[Function]}
+      />
+    </div>
+  </div>
+</div>
+`;

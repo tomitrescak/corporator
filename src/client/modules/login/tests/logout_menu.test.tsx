@@ -1,17 +1,17 @@
 import * as React from 'react';
 
 import 'jest-styled-components';
-
-import { AppStore } from 'client/stores/app_store';
-import { create, mock, MockedProvider } from 'tests/client';
+import { unprotect } from 'mobx-state-tree';
+import { Menu } from 'semantic-ui-react';
 
 import RESUME_MUTATION = require('data/users/client/resume_query.graphql');
-import { Menu } from 'semantic-ui-react';
+import { create, createData, mock, MockedProvider } from 'tests/client';
+
 import { LogoutMenu, ResumeQuery } from '../logout_menu';
 
 describe('Logout', function() {
   describe('Menu Button', () => {
-    const CreateLogoutMenu = (token: string, store = AppStore.create()) =>
+    const CreateLogoutMenu = (token: string, store = createData.store()) =>
       create(
         <MockedProvider>
           <Menu>
@@ -45,7 +45,7 @@ describe('Logout', function() {
     it('renders loading ', () => {
       mock.expect(RESUME_MUTATION).loading();
 
-      const store = AppStore.create({ userId: '1' });
+      const store = createData.store({ userId: '1' });
       const component = CreateLogoutMenu('1234', store);
       expect(component).toMatchSnapshot();
 
@@ -55,7 +55,7 @@ describe('Logout', function() {
     it('renders empty if no user returned ', () => {
       mock.expect(RESUME_MUTATION).reply({ resume: {} });
 
-      const store = AppStore.create({ userId: '1' });
+      const store = createData.store({ userId: '1' });
       const component = CreateLogoutMenu('1234', store);
       expect(component).toMatchSnapshot();
 
@@ -65,7 +65,8 @@ describe('Logout', function() {
     it('renders fail and resets store', () => {
       mock.expect(RESUME_MUTATION).fail('Token Fail');
 
-      const store = AppStore.create({ userId: '1' });
+      const store = createData.store({ userId: '1' }, true);
+
       const component = CreateLogoutMenu('1234', store);
       expect(component).toMatchSnapshot();
 
@@ -87,7 +88,7 @@ describe('Logout', function() {
       // const spy = jest.fn();
       // d.wrappedInstance.onError = spy;
 
-      const store = AppStore.create({ userId: '1' });
+      const store = createData.store({ userId: '1' });
       const component = CreateLogoutMenu('1234', store);
       expect(component).toMatchSnapshot();
 
@@ -107,7 +108,7 @@ describe('Logout', function() {
         .expect(RESUME_MUTATION)
         .reply({ resume: { user: { id: '2', name: 'Tomas Trescak' }, token: 'ABCD' } });
 
-      const store = AppStore.create({ userId: '1', user: { id: '1', name: 'Tomas' } });
+      const store = createData.store({ userId: '1', user: { id: '1', name: 'Tomas' } }, true);
       const component = CreateLogoutMenu('1234', store);
 
       component.root.findByProps({ icon: 'sign out' }).props.onClick();

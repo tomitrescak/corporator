@@ -1,26 +1,29 @@
 import * as React from 'react';
 
-import GraphQLMock from 'graphql-mock';
-import { makeExecutableSchema } from 'graphql-tools';
+import { Provider } from 'mobx-react';
 import { ApolloProvider } from 'react-apollo';
 
-import { typeDefs } from 'data/type_defs';
+import { createData, mock } from './test_data';
 
 export { create, ReactTestRenderer, ReactTestInstance } from 'react-test-renderer';
 
 export { Yoga } from 'data/yoga';
 
-export { createData } from './test_data';
+export { createData, mock } from './test_data';
 
-const schema = makeExecutableSchema({
-  typeDefs,
-  resolverValidationOptions: {
-    requireResolversForResolveType: false
-  }
-});
+type Props = {
+  context?: App.Context;
+  store?: App.Store;
+};
 
-export const mock = new GraphQLMock(schema);
-
-export const MockedProvider: React.SFC = ({ children }) => (
-  <ApolloProvider client={mock.client}>{children}</ApolloProvider>
-);
+export const MockedProvider: React.SFC<Props> = ({
+  context = createData.context(),
+  store = createData.store(),
+  children
+}) => {
+  return (
+    <Provider context={context} store={store}>
+      <ApolloProvider client={mock.client}>{children}</ApolloProvider>
+    </Provider>
+  );
+};

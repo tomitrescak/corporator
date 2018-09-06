@@ -1,5 +1,22 @@
+import { client } from 'client/config/apollo';
+import { context } from 'client/config/context';
+import { AppStore } from 'client/stores/app_store';
+import GraphQLMock from 'graphql-mock';
+import { makeExecutableSchema } from 'graphql-tools';
+import { protect, unprotect } from 'mobx-state-tree';
+
+import { typeDefs } from 'data/type_defs';
 import { Prisma } from '../data/prisma';
 import { Yoga } from '../data/yoga';
+
+const schema = makeExecutableSchema({
+  typeDefs,
+  resolverValidationOptions: {
+    requireResolversForResolveType: false
+  }
+});
+
+export const mock = new GraphQLMock(schema);
 
 const defaultUser: Prisma.User = {
   id: 'u',
@@ -55,17 +72,7 @@ const defaultAccessCondition: Prisma.AccessCondition = {
   // postcondition: null
 };
 
-const defaultActivity: Prisma.BpmnProcessInstance = {
-  id: 'aid',
-  resources: null,
-  ownerId: 'oid',
-  status: 'Finished',
-  dateStarted: createdDate,
-  dateFinished: finishedDate,
-  duration: 0
-};
-
-const defaultBpmnProcess: Prisma.BpmnProcess = {
+const defaultProcess: Prisma.BpmnProcess = {
   id: 'bpmn',
   name: 'Bpmn',
   description: 'Default process',
@@ -73,12 +80,23 @@ const defaultBpmnProcess: Prisma.BpmnProcess = {
   // generatedDescription: null,
   model: null,
   version: 0,
-  status: 'Published',
+  status: 'Draft',
   // roles: ['default'],
   actionCount: 0
 };
 
-const defaultForm: Prisma.Form = {
+const defaultProcessInstance: Yoga.BpmnProcessInstance = {
+  id: 'aid',
+  process: defaultProcess,
+  resources: null,
+  ownerId: 'oid',
+  status: 'Running',
+  dateStarted: createdDate,
+  dateFinished: finishedDate,
+  duration: 0
+};
+
+const defaultForm: Yoga.Form = {
   id: 'form',
   name: 'Form',
   description: 'Test Form',
@@ -86,7 +104,7 @@ const defaultForm: Prisma.Form = {
   validations: []
 };
 
-const defaultData: Prisma.Data = {
+const defaultData: Yoga.Data = {
   id: '1',
   descriptor: null,
   organisationId: 'oId',
@@ -109,29 +127,36 @@ const defaultDescriptor: Yoga.DataDescriptor = {
 
 const defaultNotification: Yoga.Notification = {
   id: '1',
-  processInstance: null,
-  code: 'ActionStarted',
+  processInstance: defaultProcessInstance,
+  code: 'ProcessStarted',
   params: [],
-  userId: '1',
   createdAt: new Date(),
   type: 'Error',
+  userId: '1',
   visible: true
 };
 
-const defaultSearchItem: any = {
-  _id: '1',
-  owner: {},
-  date: createdDate,
-  category: null,
-  title: null
-};
-
 export const createData = {
+  context() {
+    return context;
+  },
+  client() {
+    return client();
+  },
+  store(data: Partial<typeof AppStore.Type> = {}, mockStore = false) {
+    const store = AppStore.create(data as any);
+    if (mockStore) {
+      unprotect(store);
+      store.client = () => mock.client;
+      protect(store);
+    }
+    return store;
+  },
   mocks() {
     // tslint:disable-next-line:no-shadowed-variable
     const dayjs: any = () => ({
       from(_date: any) {
-        return 'Fill me!';
+        // return datejs('2018/02/23').from(date);
       }
     });
     dayjs.extend = () => {
@@ -149,7 +174,7 @@ export const createData = {
     return { ...defaultAccessCondition, ...from };
   },
   activityDao(from: Partial<Prisma.BpmnProcessInstance> = {}): Prisma.BpmnProcessInstance {
-    return { ...defaultActivity, ...from };
+    return { ...defaultProcessInstance, ...from };
   },
   formDao(form: Partial<Prisma.Form> = {}): Prisma.Form {
     return { ...defaultForm, ...form };
@@ -163,18 +188,26 @@ export const createData = {
   descriptor(data: Partial<Yoga.DataDescriptor> = {}): Yoga.DataDescriptor {
     return { ...defaultDescriptor, ...data };
   },
-  bpmnProcessDao(
+  processDao(
     from: Partial<Prisma.BpmnProcess> = {},
     access: Partial<Prisma.Access> = {}
   ): Prisma.BpmnProcess {
-    const result = { ...defaultBpmnProcess, ...from };
+    const result = { ...defaultProcess, ...from };
     result.access = { ...defaultAccess, ...access };
+    return result;
+  },
+  processInstanceDao(
+    from: Partial<Prisma.BpmnProcessInstance> = {},
+    process: Partial<Prisma.BpmnProcess> = {}
+  ): Prisma.BpmnProcessInstance {
+    const result = { ...defaultProcessInstance, ...from };
+    result.process = { ...defaultProcess, ...process };
     return result;
   },
   notification(from: Partial<Yoga.Notification> = {}): Yoga.Notification {
     return { ...defaultNotification, ...from };
-  },
-  searchItem(from: Partial<any> = {}): any {
-    return { ...defaultSearchItem, ...from };
   }
+  // searchItem(from: Partial<Yoga.Search> = {}): Yoga.Search {
+  //   return { ...defaultSearchItem, ...from };
+  // }
 };

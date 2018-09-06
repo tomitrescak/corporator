@@ -40,6 +40,10 @@ it = function(name, impl) {
 const React = require('react');
 const Mui = ({ children, ...rest }) => React.createElement('div', { ...rest }, children);
 
+jest.mock('react-transition-group', () => ({
+  CSSTransitionGroup: ({ children }) => React.createElement(React.Fragment, {}, children)
+}));
+
 // jest.mock('semantic-ui-react', () => ({
 //   Checkbox: Mui,
 //   Radio: Mui,

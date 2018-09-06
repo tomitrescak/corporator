@@ -5,17 +5,23 @@ exports[`Headers Anonymous renders correctly 1`] = `
   className="sc-bwzfXH kRBEAi"
 >
   <div
-    className="ui borderless sc-htpNat fbDvfI menu"
+    className="ui borderless sc-htpNat iMbilj menu"
   >
     <div
       className="item"
       onClick={[Function]}
     >
-      <img
-        alt="logo"
-        className="sc-bdVaJa kPmfWy"
-        src="file"
-      />
+      <a
+        aria-current="page"
+        href="/"
+        onClick={[Function]}
+      >
+        <img
+          alt="logo"
+          className="sc-bdVaJa kPmfWy"
+          src="file"
+        />
+      </a>
     </div>
     <div
       className="right menu"

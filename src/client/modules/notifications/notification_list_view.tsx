@@ -10,12 +10,12 @@ import { RemoveNotificationsMutation } from './notifications_queries';
 
 type Props = {
   notifications: Yoga.Notification[];
-  store?: App.Store;
+  context?: App.Context;
 };
 
 let notification: Yoga.Notification;
 
-export const NotificationsListView: React.SFC<Props> = ({ notifications, store }) => (
+export const NotificationsListView: React.SFC<Props> = ({ notifications, context }) => (
   <>
     <Choose>
       <When condition={notifications && notifications.length > 0}>
@@ -44,7 +44,7 @@ export const NotificationsListView: React.SFC<Props> = ({ notifications, store }
                 color="red"
                 icon="trash"
                 labelPosition="left"
-                content={store.i18n`Clear All`}
+                content={context.i18n`Clear All`}
               />
             )}
           </RemoveNotificationsMutation>
@@ -57,4 +57,6 @@ export const NotificationsListView: React.SFC<Props> = ({ notifications, store }
   </>
 );
 
-export const NotificationsListContainer = inject('store')(observer(NotificationsListView));
+NotificationsListView.displayName = 'NotificationsListView';
+
+export const NotificationsListContainer = inject('context')(observer(NotificationsListView));

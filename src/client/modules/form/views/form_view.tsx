@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Form, SemanticWIDTHSNUMBER } from 'semantic-ui-react';
 
-import { groupByArray } from '../../../../shared/helpers';
+import { groupByArray } from 'data/helpers';
 
 import { Yoga } from 'data/yoga';
 import { renderControl } from '../models/form_control_factory';
@@ -56,7 +56,9 @@ export class FormView extends React.Component<Props> {
         {formControl.label &&
           formControl.control !== 'Checkbox' &&
           formControl.label !== 'Radio' && (
-            <label htmlFor={formControl.source && formControl.source.name}>{formControl.label}</label>
+            <label htmlFor={formControl.source && formControl.source.name}>
+              {formControl.label}
+            </label>
           )}
         {renderControl(control, this.props.data, this.props.handlers)}
       </Form.Field>
