@@ -1,5 +1,5 @@
-query Processes {
-  processes {
+query Processes($input: BpmnProcessesInput!) {
+  processes(input: $input) {
     id
     name
   }

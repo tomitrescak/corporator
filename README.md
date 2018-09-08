@@ -19,6 +19,5 @@ apollo-codegen generate \*_/_.schema.graphql --schema schema.json --target types
 
 or
 
-apollo schema:download schema.json
---endpoint=http://localhost:4000
-apollo codegen:generate types --outputFlat --queries="src/\*_/_.schema.graphql" --schema schema.json --target typescript
+apollo schema:download schema.json --endpoint=http://localhost:4000
+apollo codegen:generate types --outputFlat --queries="src/data/\*_/client/_.graphql" --schema schema.json --target typescript

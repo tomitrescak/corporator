@@ -41,5 +41,10 @@
     "typescript",
     "typescriptreact",
     "yml"
-  ]
+  ],
+  "path-autocomplete.pathMappings": {
+    "data": "${folder}/src/data",
+    "client": "${folder}/src/client",
+    "server": "${folder}/src/server"
+  }
 }

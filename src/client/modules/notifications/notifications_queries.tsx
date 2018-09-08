@@ -4,14 +4,16 @@ import * as NOTIFICATIONS_QUERY from 'data/notifications/client/notifications_qu
 
 import { Mutation, MutationProps, Query, QueryProps } from 'react-apollo';
 
-import { Yoga } from 'data/yoga';
+import * as Types from 'data/types';
 
-type Data = { notifications: Yoga.Notification[] };
-type Variables = { input: Yoga.NotificationsInput };
-type Props = Partial<QueryProps<Data, Variables>>;
+/* =========================================================
+    Notifications
+   ======================================================== */
 
-export class NotificationsQuery extends Query<Data, Variables> {
-  static displayName = 'ResumeQuery';
+type Props = Partial<QueryProps<Types.Notifications, Types.NotificationsVariables>>;
+
+export class NotificationsQuery extends Query<Types.Notifications, Types.NotificationsVariables> {
+  static displayName = 'NotificationsQuery';
   static defaultProps: Props = {
     query: NOTIFICATIONS_QUERY,
     variables: {
@@ -26,26 +28,24 @@ export class NotificationsQuery extends Query<Data, Variables> {
     RemoveNotificationMutation
    ======================================================== */
 
-type RemoveNotificationMutationData = { removeNotification: string };
-type RemoveNotificationMutationVariables = { id: string };
 type RemoveNotificationMutationProps = Partial<
-  MutationProps<RemoveNotificationMutationData, RemoveNotificationMutationVariables>
+  MutationProps<Types.RemoveNotification, Types.RemoveNotificationVariables>
 >;
 
 export class RemoveNotificationMutation extends Mutation<
-  RemoveNotificationMutationData,
-  RemoveNotificationMutationVariables
+  Types.RemoveNotification,
+  Types.RemoveNotificationVariables
 > {
   static displayName = 'RemoveNotificationMutation';
   static defaultProps: RemoveNotificationMutationProps = {
     mutation: REMOVE_NOTIFICATION_MUTATION,
     update: (cache, props) => {
-      const { notifications } = cache.readQuery<Data, Variables>({
+      const { notifications } = cache.readQuery<Types.Notifications, Types.NotificationsVariables>({
         query: NOTIFICATIONS_QUERY,
         variables: { input: { first: 50 } }
       });
       const id = props.data.removeNotification;
-      const index = notifications.findIndex((n: Yoga.Notification) => n.id === id);
+      const index = notifications.findIndex((n: Types.Notifications_notifications) => n.id === id);
       notifications.splice(index, 1);
       cache.writeQuery({
         query: NOTIFICATIONS_QUERY,
@@ -60,18 +60,12 @@ export class RemoveNotificationMutation extends Mutation<
     RemoveNotificationsMutation
    ======================================================== */
 
-type RemoveNotificationsMutationData = { removeNotification: boolean };
-type RemoveNotificationsMutationVariables = {};
-type RemoveNotificationsMutationProps = Partial<
-  MutationProps<RemoveNotificationsMutationData, RemoveNotificationsMutationVariables>
->;
+type ClearNotificationsData = { removeNotification: boolean };
+type ClearNotificationsMutationProps = Partial<MutationProps<ClearNotificationsData, {}>>;
 
-export class RemoveNotificationsMutation extends Mutation<
-  RemoveNotificationMutationData,
-  RemoveNotificationMutationVariables
-> {
+export class RemoveNotificationsMutation extends Mutation<ClearNotificationsData, {}> {
   static displayName = 'RemoveNotificationsMutation';
-  static defaultProps: RemoveNotificationsMutationProps = {
+  static defaultProps: ClearNotificationsMutationProps = {
     mutation: CLEAR_NOTIFICATIONS_MUTATION,
     update: cache => {
       cache.writeQuery({

@@ -41,7 +41,7 @@ export const NotificationAlert = observer(({ active }: Props) => (
     {result => {
       /* == LOADING == */
       if (result.error || result.loading || !result.data) {
-        return <Menu.Item icon="bell" content="No Notifications" />;
+        return <Menu.Item icon="bell" content="0 Notifications" />;
       }
       return (
         <Menu.Item

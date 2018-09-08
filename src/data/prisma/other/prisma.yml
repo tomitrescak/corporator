@@ -1,4 +1,5 @@
-endpoint: http://localhost:4466
+endpoint: http://localhost:4466/test
+cluster: default@default
 datamodel:
   - ../access/access_schema.graphql
   - ../bpmn_process/bpmn_process_schema.graphql
@@ -15,9 +16,7 @@ datamodel:
   - ../users/users_schema.graphql
 hooks:
   post-deploy:
-    - graphql get-schema -p prisma
+    - ${env:GET_SCHEMA}
     #   - graphql get-schema -p prisma --output schema.json
-    - graphql codegen
-    - node save_schema.js
-    - npm run downloadSchema
-    - npm run generateQueries
+    - ${env:GEN}
+    - ${env:SAVE_SCHEMA}

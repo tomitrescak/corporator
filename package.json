@@ -46,11 +46,15 @@
     "luis": "luis src luis.ts",
     "clear": "jest --clearCache",
     "next": "next src",
-    "prisma": "prisma deploy --env-file .env.dev && prisma deploy --env-file .env.test",
+    "prisma1": "prisma deploy --env-file .env.dev && prisma deploy --env-file .env.test",
+    "prisma": "prisma deploy",
     "reset": "prisma reset",
     "playground": "prisma playground --port 3001",
     "yoga": "graphql codegen",
-    "dev": "npm run start | npm run server | npm run luis"
+    "dev": "npm run start | npm run server | npm run luis",
+    "downloadSchema": "apollo schema:download schema.json --endpoint=http://localhost:4000",
+    "generateQueries": "apollo codegen:generate src/data/types.ts --outputFlat --queries=\"src/data/**/client/*.graphql\" --schema schema.json --target typescript",
+    "queryWatch": "apollo codegen:generate src/data/types.ts --outputFlat --queries=\"src/data/**/client/*.graphql\" --schema schema.json --watch --target typescript"
   },
   "devDependencies": {
     "@playlyfe/gql": "^2.6.0",
