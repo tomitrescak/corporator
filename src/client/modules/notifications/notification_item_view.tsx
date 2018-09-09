@@ -1,11 +1,12 @@
 import * as React from 'react';
 
+import * as QueryTypes from 'data/types';
+
+import { Link } from '@reach/router';
+import { inject } from 'mobx-react';
 import { Icon, List } from 'semantic-ui-react';
 import styled from 'styled-components';
 
-import { Link } from '@reach/router';
-import { Yoga } from 'data/yoga';
-import { inject } from 'mobx-react';
 import { RemoveNotificationMutation } from './notifications_queries';
 
 // dayjs.extend(relativeTime);
@@ -19,7 +20,7 @@ const ClickableIcon = styled(Icon)`
 `;
 
 type Props = {
-  notification: Yoga.Notification;
+  notification: QueryTypes.NotificationsNotifications;
   context?: App.Context;
 };
 

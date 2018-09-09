@@ -9,6 +9,8 @@ import { typeDefs } from 'data/type_defs';
 import { Prisma } from '../data/prisma';
 import { Yoga } from '../data/yoga';
 
+import { QueryTypes } from 'tests/client';
+
 const schema = makeExecutableSchema({
   typeDefs,
   resolverValidationOptions: {
@@ -131,7 +133,7 @@ const defaultNotification: Yoga.Notification = {
   code: 'ProcessStarted',
   params: [],
   createdAt: new Date(),
-  type: 'Error',
+  type: QueryTypes.NotificationType.Error,
   userId: '1',
   visible: true
 };
@@ -164,6 +166,7 @@ export const createData = {
     };
     // jest.mock('dayjs', () => dayjs);
   },
+  createdDate,
   userDao(from: Partial<Prisma.User> = {}): Prisma.User {
     return { ...defaultUser, ...from };
   },

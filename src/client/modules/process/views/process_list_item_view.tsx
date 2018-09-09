@@ -1,12 +1,14 @@
 import * as React from 'react';
 
+import * as GraphQlTypes from 'data/types';
+
 import { List } from 'semantic-ui-react';
 
 type Props = {
-  searchItem: any;
+  process: GraphQlTypes.ProcessesProcesses;
 };
 
-export const ProcessListItemView: React.SFC<Props> = ({ searchItem }) => (
+export const ProcessListItemView: React.SFC<Props> = ({ process }) => (
   <List.Item>
     <List.Icon name="file outline" verticalAlign="middle" />
     <List.Content>
@@ -18,3 +20,5 @@ export const ProcessListItemView: React.SFC<Props> = ({ searchItem }) => (
     </List.Content>
   </List.Item>
 );
+
+ProcessListItemView.displayName = 'ProcessListItemView';

@@ -62,8 +62,6 @@ export const HeaderAuthorised = () => (
 
         <BottomMenu secondary borderless pointing color="grey">
           <Menu.Item
-            as={Link}
-            to="/"
             icon="plus"
             name="home"
             content="Create"
@@ -71,32 +69,22 @@ export const HeaderAuthorised = () => (
             active={location.pathname === '/'}
           />
           <Menu.Item
-            as={Link}
-            to="/running"
             name="running"
             content="Running"
             active={location.pathname.match(/\/running/)}
           />
           <Menu.Item
-            as={Link}
-            to="/finished"
             name="finished"
             content="Finished"
             active={location.pathname.match(/\/finished/)}
           />
-          <Menu.Item
-            as={Link}
-            to="/all"
-            name="all"
-            content="All"
-            active={location.pathname.match(/\/all/)}
-          />
+          <Menu.Item name="all" content="All" active={location.pathname.match(/\/all/)} />
 
           {/* <Menu.Item name="statistics" content="Statistics" /> */}
 
           <Menu.Menu position="right">
             <NotificationAlertContainer active={location.pathname.match(/\/notifications/)} />
-            <Menu.Item as="a" name="favourites" content="Favourites" icon="star" />
+            <Menu.Item name="favourites" content="Favourites" icon="star" />
           </Menu.Menu>
         </BottomMenu>
       </TopPanel>

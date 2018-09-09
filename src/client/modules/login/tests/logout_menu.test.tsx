@@ -5,13 +5,13 @@ import 'jest-styled-components';
 import { Menu } from 'semantic-ui-react';
 
 import RESUME_MUTATION = require('data/users/client/resume_query.graphql');
-import { create, createData, mock, MockedProvider } from 'tests/client';
+import { createData, mock, MockedProvider, render } from 'tests/client';
 import { LogoutMenu, ResumeQuery } from '../logout_menu';
 
 describe('Logout', function() {
   describe('Menu Button', () => {
     const CreateLogoutMenu = (token: string, store = createData.store()) =>
-      create(
+      render(
         <MockedProvider>
           <Menu>
             <LogoutMenu store={store} token={token} />

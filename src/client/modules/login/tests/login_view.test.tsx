@@ -3,7 +3,7 @@ import * as React from 'react';
 import 'jest-styled-components';
 
 import { AppStore } from 'client/stores/app_store';
-import { create, MockedProvider } from 'tests/client';
+import { MockedProvider, render } from 'tests/client';
 import { LoginView } from '../login_view';
 
 describe('Login', function() {
@@ -17,12 +17,12 @@ describe('Login', function() {
     );
 
     it('renders', function() {
-      const component = create(Login);
+      const component = render(Login);
       expect(component).toMatchSnapshot();
     });
 
     it('validates', () => {
-      const component = create(Login);
+      const component = render(Login);
       component.root
         .findAllByProps({ name: 'user' })[1]
         .props.onChange({ currentTarget: { value: '' } });

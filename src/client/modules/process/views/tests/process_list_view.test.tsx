@@ -13,7 +13,7 @@ describe('Process', () => {
         componentWithData(searchItems: any[]) {
           return (
             <div>
-              <ProcessListView searchItems={searchItems} />
+              <ProcessListView processes={searchItems} />
             </div>
           );
         }

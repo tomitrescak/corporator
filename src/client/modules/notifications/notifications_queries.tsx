@@ -4,15 +4,18 @@ import * as NOTIFICATIONS_QUERY from 'data/notifications/client/notifications_qu
 
 import { Mutation, MutationProps, Query, QueryProps } from 'react-apollo';
 
-import * as Types from 'data/types';
+import * as QueryTypes from 'data/types';
 
 /* =========================================================
     Notifications
    ======================================================== */
 
-type Props = Partial<QueryProps<Types.Notifications, Types.NotificationsVariables>>;
+type Props = Partial<QueryProps<QueryTypes.Notifications, QueryTypes.NotificationsVariables>>;
 
-export class NotificationsQuery extends Query<Types.Notifications, Types.NotificationsVariables> {
+export class NotificationsQuery extends Query<
+  QueryTypes.Notifications,
+  QueryTypes.NotificationsVariables
+> {
   static displayName = 'NotificationsQuery';
   static defaultProps: Props = {
     query: NOTIFICATIONS_QUERY,
@@ -29,23 +32,28 @@ export class NotificationsQuery extends Query<Types.Notifications, Types.Notific
    ======================================================== */
 
 type RemoveNotificationMutationProps = Partial<
-  MutationProps<Types.RemoveNotification, Types.RemoveNotificationVariables>
+  MutationProps<QueryTypes.RemoveNotification, QueryTypes.RemoveNotificationVariables>
 >;
 
 export class RemoveNotificationMutation extends Mutation<
-  Types.RemoveNotification,
-  Types.RemoveNotificationVariables
+  QueryTypes.RemoveNotification,
+  QueryTypes.RemoveNotificationVariables
 > {
   static displayName = 'RemoveNotificationMutation';
   static defaultProps: RemoveNotificationMutationProps = {
     mutation: REMOVE_NOTIFICATION_MUTATION,
     update: (cache, props) => {
-      const { notifications } = cache.readQuery<Types.Notifications, Types.NotificationsVariables>({
+      const { notifications } = cache.readQuery<
+        QueryTypes.Notifications,
+        QueryTypes.NotificationsVariables
+      >({
         query: NOTIFICATIONS_QUERY,
         variables: { input: { first: 50 } }
       });
       const id = props.data.removeNotification;
-      const index = notifications.findIndex((n: Types.Notifications_notifications) => n.id === id);
+      const index = notifications.findIndex(
+        (n: QueryTypes.NotificationsNotifications) => n.id === id
+      );
       notifications.splice(index, 1);
       cache.writeQuery({
         query: NOTIFICATIONS_QUERY,

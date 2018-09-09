@@ -21,3 +21,14 @@ or
 
 apollo schema:download schema.json --endpoint=http://localhost:4000
 apollo codegen:generate types --outputFlat --queries="src/data/\*_/client/_.graphql" --schema schema.json --target typescript
+
+# Apollo Modifications
+
+I have the snake casing in types
+As a result we will have to manually modify the type in 'apollo-codegen-typescript/lib/language.js'
+
+```
+nameFromScopeStack(scope) {
+    return scope.map(s => s[0].toUpperCase() + s.substring(1)).join('');
+  }
+```

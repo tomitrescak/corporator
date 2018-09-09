@@ -3,7 +3,7 @@ import * as React from 'react';
 import 'jest-styled-components';
 
 import { AppStore } from 'client/stores/app_store';
-import { create, mock, MockedProvider, ReactTestRenderer } from 'tests/client';
+import { mock, MockedProvider, ReactTestRenderer, render } from 'tests/client';
 import { LoginButton } from '../login_button_view';
 
 import LOGIN_MUTATION = require('data/users/client/login_mutation.graphql');
@@ -24,7 +24,7 @@ describe('Login', function() {
 
     beforeEach(() => {
       mock.reset();
-      cmp = create(Login);
+      cmp = render(Login);
     });
 
     afterEach(() => {

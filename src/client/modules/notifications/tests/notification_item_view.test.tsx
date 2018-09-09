@@ -1,15 +1,14 @@
 import * as React from 'react';
 
-import { create as render } from 'react-test-renderer';
-
-import { createData, MockedProvider, Yoga } from 'tests/client';
+import { createData, MockedProvider, QueryTypes, render, Yoga } from 'tests/client';
 import { NotificationView } from '../notification_item_view';
+import { createNotification } from './notifications_query_data';
 
 describe('Notifications', () => {
   storyOf(
     'Item View',
     {
-      componentWithData(notification: Yoga.Notification) {
+      componentWithData(notification: QueryTypes.NotificationsNotifications) {
         return (
           <MockedProvider>
             <NotificationView notification={notification} context={createData.context()} />
@@ -19,9 +18,7 @@ describe('Notifications', () => {
     },
     data => {
       it('renders default view', () => {
-        const root = render(
-          data.componentWithData(createData.notification({ code: 'ProcessStarted' }))
-        );
+        const root = render(data.componentWithData(createNotification({ code: 'ProcessStarted' })));
         expect(root).toMatchSnapshot();
       });
     }

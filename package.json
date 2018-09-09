@@ -66,6 +66,7 @@
     "@types/react-dom": "^16.0.7",
     "@types/react-test-renderer": "^16.0.2",
     "@types/shortid": "^0.0.29",
+    "apollo": "^1.9.1",
     "babel-plugin-jsx-control-statements": "^3.2.8",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-react": "^6.24.1",

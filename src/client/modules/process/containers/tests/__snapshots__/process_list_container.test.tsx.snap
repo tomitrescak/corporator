@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Process List Container renders data 1`] = `
+<h1>
+  Something went fatally wrong.
+</h1>
+`;
+
+exports[`Process List Container renders error 1`] = `
+<p>
+  <div
+    className="ui error message"
+  >
+    <div
+      className="content"
+    >
+      <div
+        className="header"
+      >
+        GraphQL Errors
+      </div>
+      <div
+        className="ui list"
+        role="list"
+      >
+        <div
+          className="item"
+          onClick={[Function]}
+          role="listitem"
+        >
+          This is some error
+        </div>
+      </div>
+    </div>
+  </div>
+</p>
+`;
+
+exports[`Process List Container renders loading 1`] = `
+<div>
+  <div
+    className="ui tiny active inline loader"
+  />
+   
+   Loading ...
+</div>
+`;
+
+exports[`Process List Container renders loading 2`] = `
+<div>
+  <div
+    className="ui tiny active inline loader"
+  />
+   
+   Loading ...
+</div>
+`;

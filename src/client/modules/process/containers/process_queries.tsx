@@ -4,6 +4,8 @@ import { Query, QueryProps } from 'react-apollo';
 
 import { Yoga } from 'data/yoga';
 
+export { PROCESSES_QUERY };
+
 /* =========================================================
     Notifications
    ======================================================== */

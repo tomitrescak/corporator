@@ -2,20 +2,21 @@
 import * as QUERY from 'data/notifications/client/notifications_query.graphql';
 import * as React from 'react';
 
-import { create, createData, mock, MockedProvider, Yoga } from 'tests/client';
+import { mock, MockedProvider, QueryTypes, render } from 'tests/client';
 import { NotificationsContainer } from '../notifications_view';
+import { createNotification } from './notifications_query_data';
 
 export const notificationData = [
-  createData.notification({ id: '1', createdAt: new Date(2010, 1, 2, 12, 50) }),
-  createData.notification({ id: '2', createdAt: new Date(2010, 1, 2, 3, 50) }),
-  createData.notification({ id: '3', createdAt: new Date(2007, 1, 2, 10, 50) }),
-  createData.notification({ id: '4', createdAt: new Date(2010, 1, 2, 11, 50) }),
-  createData.notification({ id: '5', createdAt: new Date(2011, 1, 2, 12, 50) })
+  createNotification({ id: '1', createdAt: new Date(2010, 1, 2, 12, 50) }),
+  createNotification({ id: '2', createdAt: new Date(2010, 1, 2, 3, 50) }),
+  createNotification({ id: '3', createdAt: new Date(2007, 1, 2, 10, 50) }),
+  createNotification({ id: '4', createdAt: new Date(2010, 1, 2, 11, 50) }),
+  createNotification({ id: '5', createdAt: new Date(2011, 1, 2, 12, 50) })
 ];
 
 describe('Notifications', () => {
   describe('Container', () => {
-    function componentWithData(notifications: Yoga.Notification[] = null) {
+    function componentWithData(notifications: QueryTypes.NotificationsNotifications[] = null) {
       if (!notifications) {
         mock.expect(QUERY).reply({
           notifications: [{ id: '1', name: 'one' }, { id: '2', name: 'two' }]
@@ -33,7 +34,7 @@ describe('Notifications', () => {
 
     it('renders loading', () => {
       mock.expect(QUERY).loading();
-      const container = create(componentWithData());
+      const container = render(componentWithData());
 
       expect(container).toMatchSnapshot();
       mock.reset();
@@ -44,7 +45,7 @@ describe('Notifications', () => {
         notifications: notificationData
       });
 
-      const container = create(componentWithData());
+      const container = render(componentWithData());
       expect(container).toMatchSnapshot();
     });
   });

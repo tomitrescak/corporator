@@ -1,22 +1,16 @@
 import * as React from 'react';
-import { Query } from 'react-apollo';
 
-import * as ProcessesQuery from 'data/client/bpmn_process.schema.graphql';
+import { renderResult } from 'client/modules/common';
 import { ProcessListView } from '../views/process_list_view';
+import { ProcessListQuery } from './process_queries';
 
-export const QUERY = ProcessesQuery;
-
-export const ProcessListContainer = () => (
-  <Query query={ProcessesQuery}>
-    {({ loading, error, data }) => {
-      if (loading) {
-        return <p>Loading...</p>;
-      }
-      if (error) {
-        return <p>Error :(</p>;
-      }
-
-      return <ProcessListView searchItems={data.notifications} />;
+export const ProcessListContainer: React.SFC<{}> = () => (
+  <ProcessListQuery>
+    {result => {
+      // console.log(result.data.processes)
+      return renderResult(result, () => <ProcessListView processes={result.data.processes} />);
     }}
-  </Query>
+  </ProcessListQuery>
 );
+
+ProcessListContainer.displayName = 'ProcessListContainer';

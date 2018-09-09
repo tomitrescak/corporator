@@ -5,13 +5,13 @@
 // GraphQL query operation: Processes
 // ====================================================
 
-export interface Processes_processes {
+export interface ProcessesProcesses {
   id: string;
   name: string;
 }
 
 export interface Processes {
-  processes: (Processes_processes | null)[];
+  processes: (ProcessesProcesses | null)[];
 }
 
 export interface ProcessesVariables {
@@ -51,25 +51,25 @@ export interface ClearNotifications {
 // GraphQL query operation: Notifications
 // ====================================================
 
-export interface Notifications_notifications_processInstance_process {
+export interface NotificationsNotificationsProcessInstanceProcess {
   name: string;
 }
 
-export interface Notifications_notifications_processInstance {
+export interface NotificationsNotificationsProcessInstance {
   id: string;
-  process: Notifications_notifications_processInstance_process | null;
+  process: NotificationsNotificationsProcessInstanceProcess | null;
 }
 
-export interface Notifications_notifications {
+export interface NotificationsNotifications {
   id: string;
   createdAt: any;
   text: string | null;
   type: NotificationType;
-  processInstance: Notifications_notifications_processInstance;
+  processInstance: NotificationsNotificationsProcessInstance;
 }
 
 export interface Notifications {
-  notifications: (Notifications_notifications | null)[];
+  notifications: (NotificationsNotifications | null)[];
 }
 
 export interface NotificationsVariables {
@@ -83,18 +83,18 @@ export interface NotificationsVariables {
 // GraphQL mutation operation: Login
 // ====================================================
 
-export interface Login_login_user {
+export interface LoginLoginUser {
   id: string;
   name: string;
 }
 
-export interface Login_login {
-  user: Login_login_user;
+export interface LoginLogin {
+  user: LoginLoginUser;
   token: string;
 }
 
 export interface Login {
-  login: Login_login;
+  login: LoginLogin;
 }
 
 export interface LoginVariables {
@@ -108,18 +108,18 @@ export interface LoginVariables {
 // GraphQL query operation: Resume
 // ====================================================
 
-export interface Resume_resume_user {
+export interface ResumeResumeUser {
   id: string;
   name: string;
 }
 
-export interface Resume_resume {
-  user: Resume_resume_user;
+export interface ResumeResume {
+  user: ResumeResumeUser;
   token: string;
 }
 
 export interface Resume {
-  resume: Resume_resume;
+  resume: ResumeResume;
 }
 
 export interface ResumeVariables {

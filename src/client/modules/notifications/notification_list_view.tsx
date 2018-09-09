@@ -1,19 +1,21 @@
-import { inject, observer } from 'mobx-react';
 import * as React from 'react';
+
+import * as QueryTypes from 'data/types';
+
+import { inject, observer } from 'mobx-react';
 import { Button, Header, List, Message } from 'semantic-ui-react';
 
-import { Yoga } from 'data/yoga';
 import { NotificationView } from './notification_item_view';
 
 import { CSSTransitionGroup } from 'react-transition-group';
 import { RemoveNotificationsMutation } from './notifications_queries';
 
 type Props = {
-  notifications: Yoga.Notification[];
+  notifications: QueryTypes.NotificationsNotifications[];
   context?: App.Context;
 };
 
-let notification: Yoga.Notification;
+let notification: QueryTypes.NotificationsNotifications;
 
 export const NotificationsListView: React.SFC<Props> = ({ notifications, context }) => (
   <>
