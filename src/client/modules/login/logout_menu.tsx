@@ -1,25 +1,18 @@
 import * as React from 'react';
 
+import { QueryTypes } from 'data/client';
+
 import { inject, observer } from 'mobx-react';
 import { Query } from 'react-apollo';
 import { Divider, Dropdown, Icon, Loader, Menu } from 'semantic-ui-react';
 
 import RESUME = require('data/users/client/resume_query.graphql');
-import { Yoga } from 'data/yoga';
 
 /* ========================================================= 
     QUERY
    ======================================================== */
 
-interface Data {
-  resume: Yoga.AuthPayload;
-}
-
-interface Variables {
-  token: string;
-}
-
-export class ResumeQuery extends Query<Data, Variables> {
+export class ResumeQuery extends Query<QueryTypes.Resume, QueryTypes.ResumeVariables> {
   static displayName = 'ResumeQuery';
 }
 
@@ -39,8 +32,8 @@ export class LogoutMenu extends React.Component<Props> {
     this.props.store.logout();
   };
 
-  onCompleted = (data: Yoga.AuthPayload | {}) => {
-    this.props.store.setUser((data as Data).resume.user);
+  onCompleted = (data: QueryTypes.Resume | {}) => {
+    this.props.store.setUser((data as QueryTypes.Resume).resume.user);
   };
 
   onError = () => {

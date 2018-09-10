@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { create as render } from 'react-test-renderer';
 
-import { createData, MockedProvider, QueryTypes } from 'tests/client';
+import { create, MockedProvider, QueryTypes } from 'client/tests';
 import { NotificationsListContainer } from '../notification_list_view';
 import { createNotification } from './notifications_query_data';
 
@@ -20,10 +20,7 @@ describe('Notifications', () => {
       return (
         <MockedProvider>
           <div>
-            <NotificationsListContainer
-              notifications={notifications}
-              context={createData.context()}
-            />
+            <NotificationsListContainer notifications={notifications} context={create.context()} />
           </div>
         </MockedProvider>
       );

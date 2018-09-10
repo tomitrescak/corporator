@@ -2,11 +2,10 @@ import * as React from 'react';
 
 import { observer } from 'mobx-react';
 
-import { Yoga } from 'data/yoga';
-import { DataSet } from '../models/form_model';
+import { DataSet, FormElement } from '../models/form_model';
 
 type FormControlProps = {
-  formControl: Yoga.FormElement;
+  formControl: FormElement;
   owner: DataSet;
 };
 

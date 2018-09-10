@@ -1,11 +1,11 @@
 import * as React from 'react';
 
-import * as GraphQlTypes from 'data/types';
+import { QueryTypes } from 'data/client';
 
 import { List } from 'semantic-ui-react';
 
 type Props = {
-  process: GraphQlTypes.ProcessesProcesses;
+  process: QueryTypes.ProcessesProcesses;
 };
 
 export const ProcessListItemView: React.SFC<Props> = ({ process }) => (

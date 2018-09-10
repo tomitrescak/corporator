@@ -1,13 +1,11 @@
 import * as React from 'react';
 
-import * as QueryTypes from 'data/types';
-
 import { inject, observer } from 'mobx-react';
+import { CSSTransitionGroup } from 'react-transition-group';
 import { Button, Header, List, Message } from 'semantic-ui-react';
 
+import { QueryTypes } from 'data/client';
 import { NotificationView } from './notification_item_view';
-
-import { CSSTransitionGroup } from 'react-transition-group';
 import { RemoveNotificationsMutation } from './notifications_queries';
 
 type Props = {

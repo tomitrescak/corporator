@@ -1,0 +1,72 @@
+fragment Validator on Validator {
+  id
+  name
+  params
+}
+
+fragment DataDescriptor on DataDescriptor {
+  defaultValue
+  description
+  expression
+  id
+  isArray
+  name
+  type
+  parentDescriptor
+  validators {
+    ...Validator
+  }
+}
+
+fragment FormElement on FormElement {
+  id
+  column
+  control
+  controlProps
+  defaultValue
+  filterColumn
+  filterSource
+  inline
+  label
+  list
+  row
+  source {
+    ...DataDescriptor
+  }
+  vertical
+  width
+  parentElement
+}
+
+fragment Resource on Resource {
+  content
+  form {
+    ...Form
+  }
+  name
+  type
+}
+
+fragment Form on Form {
+  id
+  name
+  description
+  elements {
+    ...FormElement
+  }
+  validations {
+    ...Validator
+  }
+}
+
+query FormQuery($formId: ID!, $processId: ID!) {
+  form(id: $formId) {
+    ...Form
+  }
+
+  process(id: $processId) {
+    data {
+      ...DataDescriptor
+    }
+  }
+}

@@ -2,11 +2,13 @@ export const typeDefs = `type Query {
   testQuery: Boolean
   notifications(input: NotificationsInput): [Notification]!
   processes(input: BpmnProcessesInput!): [BpmnProcess]!
+  process(id: ID!): BpmnProcess!
   bpmnProcessInstances(input: BpmnProcessInstancesInput!): [BpmnProcessInstance]!
   bpmnTasks(input: BpmnTasksInput!): [BpmnTaskInstance]!
   user(id: ID!): User
   users: [User]!
   resume(token: String!): AuthPayload!
+  form(id: ID): Form
 }
 
 type Mutation {
@@ -116,6 +118,14 @@ type User implements Node {
 type AuthPayload {
   user: User!
   token: String!
+}
+
+type Form implements Node {
+  id: ID!
+  name: String!
+  description: String
+  elements(where: FormElementWhereInput, orderBy: FormElementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FormElement!]
+  validations(where: ValidatorWhereInput, orderBy: ValidatorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Validator!]
 }
 
 input NotifyInput {
@@ -667,12 +677,12 @@ type DataDescriptor implements Node {
   access(where: AccessWhereInput): Access
   defaultValue: String
   description: String
-  descriptors(where: DataDescriptorWhereInput, orderBy: DataDescriptorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [DataDescriptor!]
   expression: String
   isArray: Boolean
   name: String
   type: DataType
   validators(where: ValidatorWhereInput): Validator
+  parentDescriptor: ID
 }
 
 input DataDescriptorWhereInput {
@@ -971,10 +981,60 @@ input DataDescriptorWhereInput {
   All values that are not contained in given list.
   """
   type_not_in: [DataType!]
+  parentDescriptor: ID
+  """
+  All values that are not equal to given value.
+  """
+  parentDescriptor_not: ID
+  """
+  All values that are contained in given list.
+  """
+  parentDescriptor_in: [ID!]
+  """
+  All values that are not contained in given list.
+  """
+  parentDescriptor_not_in: [ID!]
+  """
+  All values less than the given value.
+  """
+  parentDescriptor_lt: ID
+  """
+  All values less than or equal the given value.
+  """
+  parentDescriptor_lte: ID
+  """
+  All values greater than the given value.
+  """
+  parentDescriptor_gt: ID
+  """
+  All values greater than or equal the given value.
+  """
+  parentDescriptor_gte: ID
+  """
+  All values containing the given string.
+  """
+  parentDescriptor_contains: ID
+  """
+  All values not containing the given string.
+  """
+  parentDescriptor_not_contains: ID
+  """
+  All values starting with the given string.
+  """
+  parentDescriptor_starts_with: ID
+  """
+  All values not starting with the given string.
+  """
+  parentDescriptor_not_starts_with: ID
+  """
+  All values ending with the given string.
+  """
+  parentDescriptor_ends_with: ID
+  """
+  All values not ending with the given string.
+  """
+  parentDescriptor_not_ends_with: ID
   access: AccessWhereInput
-  descriptors_every: DataDescriptorWhereInput
-  descriptors_some: DataDescriptorWhereInput
-  descriptors_none: DataDescriptorWhereInput
   validators: ValidatorWhereInput
   _MagicalBackRelation_DataToDataDescriptor_every: DataWhereInput
   _MagicalBackRelation_DataToDataDescriptor_some: DataWhereInput
@@ -982,9 +1042,6 @@ input DataDescriptorWhereInput {
   _MagicalBackRelation_DataDescriptorToFormElement_every: FormElementWhereInput
   _MagicalBackRelation_DataDescriptorToFormElement_some: FormElementWhereInput
   _MagicalBackRelation_DataDescriptorToFormElement_none: FormElementWhereInput
-  _MagicalBackRelation_DataDescriptorToDataDescriptor_every: DataDescriptorWhereInput
-  _MagicalBackRelation_DataDescriptorToDataDescriptor_some: DataDescriptorWhereInput
-  _MagicalBackRelation_DataDescriptorToDataDescriptor_none: DataDescriptorWhereInput
   _MagicalBackRelation_BpmnProcessToDataDescriptor_every: BpmnProcessWhereInput
   _MagicalBackRelation_BpmnProcessToDataDescriptor_some: BpmnProcessWhereInput
   _MagicalBackRelation_BpmnProcessToDataDescriptor_none: BpmnProcessWhereInput
@@ -1005,6 +1062,8 @@ enum DataDescriptorOrderByInput {
   name_DESC
   type_ASC
   type_DESC
+  parentDescriptor_ASC
+  parentDescriptor_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -2879,14 +2938,6 @@ enum DataOrderByInput {
   createdAt_DESC
 }
 
-type Form implements Node {
-  id: ID!
-  name: String!
-  description: String
-  elements(where: FormElementWhereInput, orderBy: FormElementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FormElement!]
-  validations(where: ValidatorWhereInput, orderBy: ValidatorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Validator!]
-}
-
 type FormElement implements Node {
   id: ID!
   row: Int
@@ -2902,373 +2953,7 @@ type FormElement implements Node {
   control: FormControl
   controlProps: Json
   vertical: Boolean
-  elements(where: FormElementWhereInput, orderBy: FormElementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FormElement!]
-}
-
-type Localisation implements Node {
-  id: ID!
-  code: String!
-  text: String!
-  language: LanguageCode!
-}
-
-type Organisation implements Node {
-  id: ID!
-  name: String!
-  description: String
-}
-
-type Role implements Node {
-  id: ID!
-  name: String!
-  description: String
-}
-
-type Validator implements Node {
-  id: ID!
-  name: String!
-  params: [String!]!
-}
-
-type AccessCondition {
-  organisationId: ID
-  roleId: ID
-  userId: ID
-}
-
-input AccessConditionWhereInput {
-  """
-  Logical AND on all given filters.
-  """
-  AND: [AccessConditionWhereInput!]
-  """
-  Logical OR on all given filters.
-  """
-  OR: [AccessConditionWhereInput!]
-  """
-  Logical NOT on all given filters combined by AND.
-  """
-  NOT: [AccessConditionWhereInput!]
-  organisationId: ID
-  """
-  All values that are not equal to given value.
-  """
-  organisationId_not: ID
-  """
-  All values that are contained in given list.
-  """
-  organisationId_in: [ID!]
-  """
-  All values that are not contained in given list.
-  """
-  organisationId_not_in: [ID!]
-  """
-  All values less than the given value.
-  """
-  organisationId_lt: ID
-  """
-  All values less than or equal the given value.
-  """
-  organisationId_lte: ID
-  """
-  All values greater than the given value.
-  """
-  organisationId_gt: ID
-  """
-  All values greater than or equal the given value.
-  """
-  organisationId_gte: ID
-  """
-  All values containing the given string.
-  """
-  organisationId_contains: ID
-  """
-  All values not containing the given string.
-  """
-  organisationId_not_contains: ID
-  """
-  All values starting with the given string.
-  """
-  organisationId_starts_with: ID
-  """
-  All values not starting with the given string.
-  """
-  organisationId_not_starts_with: ID
-  """
-  All values ending with the given string.
-  """
-  organisationId_ends_with: ID
-  """
-  All values not ending with the given string.
-  """
-  organisationId_not_ends_with: ID
-  roleId: ID
-  """
-  All values that are not equal to given value.
-  """
-  roleId_not: ID
-  """
-  All values that are contained in given list.
-  """
-  roleId_in: [ID!]
-  """
-  All values that are not contained in given list.
-  """
-  roleId_not_in: [ID!]
-  """
-  All values less than the given value.
-  """
-  roleId_lt: ID
-  """
-  All values less than or equal the given value.
-  """
-  roleId_lte: ID
-  """
-  All values greater than the given value.
-  """
-  roleId_gt: ID
-  """
-  All values greater than or equal the given value.
-  """
-  roleId_gte: ID
-  """
-  All values containing the given string.
-  """
-  roleId_contains: ID
-  """
-  All values not containing the given string.
-  """
-  roleId_not_contains: ID
-  """
-  All values starting with the given string.
-  """
-  roleId_starts_with: ID
-  """
-  All values not starting with the given string.
-  """
-  roleId_not_starts_with: ID
-  """
-  All values ending with the given string.
-  """
-  roleId_ends_with: ID
-  """
-  All values not ending with the given string.
-  """
-  roleId_not_ends_with: ID
-  userId: ID
-  """
-  All values that are not equal to given value.
-  """
-  userId_not: ID
-  """
-  All values that are contained in given list.
-  """
-  userId_in: [ID!]
-  """
-  All values that are not contained in given list.
-  """
-  userId_not_in: [ID!]
-  """
-  All values less than the given value.
-  """
-  userId_lt: ID
-  """
-  All values less than or equal the given value.
-  """
-  userId_lte: ID
-  """
-  All values greater than the given value.
-  """
-  userId_gt: ID
-  """
-  All values greater than or equal the given value.
-  """
-  userId_gte: ID
-  """
-  All values containing the given string.
-  """
-  userId_contains: ID
-  """
-  All values not containing the given string.
-  """
-  userId_not_contains: ID
-  """
-  All values starting with the given string.
-  """
-  userId_starts_with: ID
-  """
-  All values not starting with the given string.
-  """
-  userId_not_starts_with: ID
-  """
-  All values ending with the given string.
-  """
-  userId_ends_with: ID
-  """
-  All values not ending with the given string.
-  """
-  userId_not_ends_with: ID
-  _MagicalBackRelation_CanRead_every: AccessWhereInput
-  _MagicalBackRelation_CanRead_some: AccessWhereInput
-  _MagicalBackRelation_CanRead_none: AccessWhereInput
-  _MagicalBackRelation_CanWrite_every: AccessWhereInput
-  _MagicalBackRelation_CanWrite_some: AccessWhereInput
-  _MagicalBackRelation_CanWrite_none: AccessWhereInput
-  _MagicalBackRelation_CanExecute_every: AccessWhereInput
-  _MagicalBackRelation_CanExecute_some: AccessWhereInput
-  _MagicalBackRelation_CanExecute_none: AccessWhereInput
-}
-
-enum AccessConditionOrderByInput {
-  organisationId_ASC
-  organisationId_DESC
-  roleId_ASC
-  roleId_DESC
-  userId_ASC
-  userId_DESC
-  id_ASC
-  id_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
-}
-
-enum DataType {
-  Id
-  Boolean
-  Float
-  Int
-  String
-  Date
-  Object
-}
-
-input ValidatorWhereInput {
-  """
-  Logical AND on all given filters.
-  """
-  AND: [ValidatorWhereInput!]
-  """
-  Logical OR on all given filters.
-  """
-  OR: [ValidatorWhereInput!]
-  """
-  Logical NOT on all given filters combined by AND.
-  """
-  NOT: [ValidatorWhereInput!]
-  id: ID
-  """
-  All values that are not equal to given value.
-  """
-  id_not: ID
-  """
-  All values that are contained in given list.
-  """
-  id_in: [ID!]
-  """
-  All values that are not contained in given list.
-  """
-  id_not_in: [ID!]
-  """
-  All values less than the given value.
-  """
-  id_lt: ID
-  """
-  All values less than or equal the given value.
-  """
-  id_lte: ID
-  """
-  All values greater than the given value.
-  """
-  id_gt: ID
-  """
-  All values greater than or equal the given value.
-  """
-  id_gte: ID
-  """
-  All values containing the given string.
-  """
-  id_contains: ID
-  """
-  All values not containing the given string.
-  """
-  id_not_contains: ID
-  """
-  All values starting with the given string.
-  """
-  id_starts_with: ID
-  """
-  All values not starting with the given string.
-  """
-  id_not_starts_with: ID
-  """
-  All values ending with the given string.
-  """
-  id_ends_with: ID
-  """
-  All values not ending with the given string.
-  """
-  id_not_ends_with: ID
-  name: String
-  """
-  All values that are not equal to given value.
-  """
-  name_not: String
-  """
-  All values that are contained in given list.
-  """
-  name_in: [String!]
-  """
-  All values that are not contained in given list.
-  """
-  name_not_in: [String!]
-  """
-  All values less than the given value.
-  """
-  name_lt: String
-  """
-  All values less than or equal the given value.
-  """
-  name_lte: String
-  """
-  All values greater than the given value.
-  """
-  name_gt: String
-  """
-  All values greater than or equal the given value.
-  """
-  name_gte: String
-  """
-  All values containing the given string.
-  """
-  name_contains: String
-  """
-  All values not containing the given string.
-  """
-  name_not_contains: String
-  """
-  All values starting with the given string.
-  """
-  name_starts_with: String
-  """
-  All values not starting with the given string.
-  """
-  name_not_starts_with: String
-  """
-  All values ending with the given string.
-  """
-  name_ends_with: String
-  """
-  All values not ending with the given string.
-  """
-  name_not_ends_with: String
-  _MagicalBackRelation_FormToValidator_every: FormWhereInput
-  _MagicalBackRelation_FormToValidator_some: FormWhereInput
-  _MagicalBackRelation_FormToValidator_none: FormWhereInput
-  _MagicalBackRelation_DataDescriptorToValidator_every: DataDescriptorWhereInput
-  _MagicalBackRelation_DataDescriptorToValidator_some: DataDescriptorWhereInput
-  _MagicalBackRelation_DataDescriptorToValidator_none: DataDescriptorWhereInput
+  parentElement: ID
 }
 
 input FormElementWhereInput {
@@ -3712,16 +3397,475 @@ input FormElementWhereInput {
   All values that are not equal to given value.
   """
   vertical_not: Boolean
+  parentElement: ID
+  """
+  All values that are not equal to given value.
+  """
+  parentElement_not: ID
+  """
+  All values that are contained in given list.
+  """
+  parentElement_in: [ID!]
+  """
+  All values that are not contained in given list.
+  """
+  parentElement_not_in: [ID!]
+  """
+  All values less than the given value.
+  """
+  parentElement_lt: ID
+  """
+  All values less than or equal the given value.
+  """
+  parentElement_lte: ID
+  """
+  All values greater than the given value.
+  """
+  parentElement_gt: ID
+  """
+  All values greater than or equal the given value.
+  """
+  parentElement_gte: ID
+  """
+  All values containing the given string.
+  """
+  parentElement_contains: ID
+  """
+  All values not containing the given string.
+  """
+  parentElement_not_contains: ID
+  """
+  All values starting with the given string.
+  """
+  parentElement_starts_with: ID
+  """
+  All values not starting with the given string.
+  """
+  parentElement_not_starts_with: ID
+  """
+  All values ending with the given string.
+  """
+  parentElement_ends_with: ID
+  """
+  All values not ending with the given string.
+  """
+  parentElement_not_ends_with: ID
   source: DataDescriptorWhereInput
-  elements_every: FormElementWhereInput
-  elements_some: FormElementWhereInput
-  elements_none: FormElementWhereInput
   _MagicalBackRelation_FormToFormElement_every: FormWhereInput
   _MagicalBackRelation_FormToFormElement_some: FormWhereInput
   _MagicalBackRelation_FormToFormElement_none: FormWhereInput
-  _MagicalBackRelation_FormElementToFormElement_every: FormElementWhereInput
-  _MagicalBackRelation_FormElementToFormElement_some: FormElementWhereInput
-  _MagicalBackRelation_FormElementToFormElement_none: FormElementWhereInput
+}
+
+enum FormElementOrderByInput {
+  id_ASC
+  id_DESC
+  row_ASC
+  row_DESC
+  column_ASC
+  column_DESC
+  width_ASC
+  width_DESC
+  label_ASC
+  label_DESC
+  inline_ASC
+  inline_DESC
+  defaultValue_ASC
+  defaultValue_DESC
+  list_ASC
+  list_DESC
+  filterSource_ASC
+  filterSource_DESC
+  filterColumn_ASC
+  filterColumn_DESC
+  control_ASC
+  control_DESC
+  controlProps_ASC
+  controlProps_DESC
+  vertical_ASC
+  vertical_DESC
+  parentElement_ASC
+  parentElement_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type Validator implements Node {
+  id: ID!
+  name: String!
+  params: [String!]!
+}
+
+input ValidatorWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [ValidatorWhereInput!]
+  """
+  Logical OR on all given filters.
+  """
+  OR: [ValidatorWhereInput!]
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [ValidatorWhereInput!]
+  id: ID
+  """
+  All values that are not equal to given value.
+  """
+  id_not: ID
+  """
+  All values that are contained in given list.
+  """
+  id_in: [ID!]
+  """
+  All values that are not contained in given list.
+  """
+  id_not_in: [ID!]
+  """
+  All values less than the given value.
+  """
+  id_lt: ID
+  """
+  All values less than or equal the given value.
+  """
+  id_lte: ID
+  """
+  All values greater than the given value.
+  """
+  id_gt: ID
+  """
+  All values greater than or equal the given value.
+  """
+  id_gte: ID
+  """
+  All values containing the given string.
+  """
+  id_contains: ID
+  """
+  All values not containing the given string.
+  """
+  id_not_contains: ID
+  """
+  All values starting with the given string.
+  """
+  id_starts_with: ID
+  """
+  All values not starting with the given string.
+  """
+  id_not_starts_with: ID
+  """
+  All values ending with the given string.
+  """
+  id_ends_with: ID
+  """
+  All values not ending with the given string.
+  """
+  id_not_ends_with: ID
+  name: String
+  """
+  All values that are not equal to given value.
+  """
+  name_not: String
+  """
+  All values that are contained in given list.
+  """
+  name_in: [String!]
+  """
+  All values that are not contained in given list.
+  """
+  name_not_in: [String!]
+  """
+  All values less than the given value.
+  """
+  name_lt: String
+  """
+  All values less than or equal the given value.
+  """
+  name_lte: String
+  """
+  All values greater than the given value.
+  """
+  name_gt: String
+  """
+  All values greater than or equal the given value.
+  """
+  name_gte: String
+  """
+  All values containing the given string.
+  """
+  name_contains: String
+  """
+  All values not containing the given string.
+  """
+  name_not_contains: String
+  """
+  All values starting with the given string.
+  """
+  name_starts_with: String
+  """
+  All values not starting with the given string.
+  """
+  name_not_starts_with: String
+  """
+  All values ending with the given string.
+  """
+  name_ends_with: String
+  """
+  All values not ending with the given string.
+  """
+  name_not_ends_with: String
+  _MagicalBackRelation_FormToValidator_every: FormWhereInput
+  _MagicalBackRelation_FormToValidator_some: FormWhereInput
+  _MagicalBackRelation_FormToValidator_none: FormWhereInput
+  _MagicalBackRelation_DataDescriptorToValidator_every: DataDescriptorWhereInput
+  _MagicalBackRelation_DataDescriptorToValidator_some: DataDescriptorWhereInput
+  _MagicalBackRelation_DataDescriptorToValidator_none: DataDescriptorWhereInput
+}
+
+enum ValidatorOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type Localisation implements Node {
+  id: ID!
+  code: String!
+  text: String!
+  language: LanguageCode!
+}
+
+type Organisation implements Node {
+  id: ID!
+  name: String!
+  description: String
+}
+
+type Role implements Node {
+  id: ID!
+  name: String!
+  description: String
+}
+
+type AccessCondition {
+  organisationId: ID
+  roleId: ID
+  userId: ID
+}
+
+input AccessConditionWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [AccessConditionWhereInput!]
+  """
+  Logical OR on all given filters.
+  """
+  OR: [AccessConditionWhereInput!]
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [AccessConditionWhereInput!]
+  organisationId: ID
+  """
+  All values that are not equal to given value.
+  """
+  organisationId_not: ID
+  """
+  All values that are contained in given list.
+  """
+  organisationId_in: [ID!]
+  """
+  All values that are not contained in given list.
+  """
+  organisationId_not_in: [ID!]
+  """
+  All values less than the given value.
+  """
+  organisationId_lt: ID
+  """
+  All values less than or equal the given value.
+  """
+  organisationId_lte: ID
+  """
+  All values greater than the given value.
+  """
+  organisationId_gt: ID
+  """
+  All values greater than or equal the given value.
+  """
+  organisationId_gte: ID
+  """
+  All values containing the given string.
+  """
+  organisationId_contains: ID
+  """
+  All values not containing the given string.
+  """
+  organisationId_not_contains: ID
+  """
+  All values starting with the given string.
+  """
+  organisationId_starts_with: ID
+  """
+  All values not starting with the given string.
+  """
+  organisationId_not_starts_with: ID
+  """
+  All values ending with the given string.
+  """
+  organisationId_ends_with: ID
+  """
+  All values not ending with the given string.
+  """
+  organisationId_not_ends_with: ID
+  roleId: ID
+  """
+  All values that are not equal to given value.
+  """
+  roleId_not: ID
+  """
+  All values that are contained in given list.
+  """
+  roleId_in: [ID!]
+  """
+  All values that are not contained in given list.
+  """
+  roleId_not_in: [ID!]
+  """
+  All values less than the given value.
+  """
+  roleId_lt: ID
+  """
+  All values less than or equal the given value.
+  """
+  roleId_lte: ID
+  """
+  All values greater than the given value.
+  """
+  roleId_gt: ID
+  """
+  All values greater than or equal the given value.
+  """
+  roleId_gte: ID
+  """
+  All values containing the given string.
+  """
+  roleId_contains: ID
+  """
+  All values not containing the given string.
+  """
+  roleId_not_contains: ID
+  """
+  All values starting with the given string.
+  """
+  roleId_starts_with: ID
+  """
+  All values not starting with the given string.
+  """
+  roleId_not_starts_with: ID
+  """
+  All values ending with the given string.
+  """
+  roleId_ends_with: ID
+  """
+  All values not ending with the given string.
+  """
+  roleId_not_ends_with: ID
+  userId: ID
+  """
+  All values that are not equal to given value.
+  """
+  userId_not: ID
+  """
+  All values that are contained in given list.
+  """
+  userId_in: [ID!]
+  """
+  All values that are not contained in given list.
+  """
+  userId_not_in: [ID!]
+  """
+  All values less than the given value.
+  """
+  userId_lt: ID
+  """
+  All values less than or equal the given value.
+  """
+  userId_lte: ID
+  """
+  All values greater than the given value.
+  """
+  userId_gt: ID
+  """
+  All values greater than or equal the given value.
+  """
+  userId_gte: ID
+  """
+  All values containing the given string.
+  """
+  userId_contains: ID
+  """
+  All values not containing the given string.
+  """
+  userId_not_contains: ID
+  """
+  All values starting with the given string.
+  """
+  userId_starts_with: ID
+  """
+  All values not starting with the given string.
+  """
+  userId_not_starts_with: ID
+  """
+  All values ending with the given string.
+  """
+  userId_ends_with: ID
+  """
+  All values not ending with the given string.
+  """
+  userId_not_ends_with: ID
+  _MagicalBackRelation_CanRead_every: AccessWhereInput
+  _MagicalBackRelation_CanRead_some: AccessWhereInput
+  _MagicalBackRelation_CanRead_none: AccessWhereInput
+  _MagicalBackRelation_CanWrite_every: AccessWhereInput
+  _MagicalBackRelation_CanWrite_some: AccessWhereInput
+  _MagicalBackRelation_CanWrite_none: AccessWhereInput
+  _MagicalBackRelation_CanExecute_every: AccessWhereInput
+  _MagicalBackRelation_CanExecute_some: AccessWhereInput
+  _MagicalBackRelation_CanExecute_none: AccessWhereInput
+}
+
+enum AccessConditionOrderByInput {
+  organisationId_ASC
+  organisationId_DESC
+  roleId_ASC
+  roleId_DESC
+  userId_ASC
+  userId_DESC
+  id_ASC
+  id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+enum DataType {
+  Id
+  Boolean
+  Float
+  Int
+  String
+  Date
+  Object
 }
 
 enum ResourceType {
@@ -3912,50 +4056,6 @@ input FormWhereInput {
   _MagicalBackRelation_FormToResource_every: ResourceWhereInput
   _MagicalBackRelation_FormToResource_some: ResourceWhereInput
   _MagicalBackRelation_FormToResource_none: ResourceWhereInput
-}
-
-enum FormElementOrderByInput {
-  id_ASC
-  id_DESC
-  row_ASC
-  row_DESC
-  column_ASC
-  column_DESC
-  width_ASC
-  width_DESC
-  label_ASC
-  label_DESC
-  inline_ASC
-  inline_DESC
-  defaultValue_ASC
-  defaultValue_DESC
-  list_ASC
-  list_DESC
-  filterSource_ASC
-  filterSource_DESC
-  filterColumn_ASC
-  filterColumn_DESC
-  control_ASC
-  control_DESC
-  controlProps_ASC
-  controlProps_DESC
-  vertical_ASC
-  vertical_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
-}
-
-enum ValidatorOrderByInput {
-  id_ASC
-  id_DESC
-  name_ASC
-  name_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
 }
 
 enum FormControl {

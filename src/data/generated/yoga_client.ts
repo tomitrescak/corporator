@@ -6,11 +6,13 @@ export interface Query {
     testQuery: <T = Boolean | null>(args?: {}, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     notifications: <T = Notification[]>(args: { input?: NotificationsInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     processes: <T = BpmnProcess[]>(args: { input: BpmnProcessesInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    process: <T = BpmnProcess>(args: { id: ID_Output }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     bpmnProcessInstances: <T = BpmnProcessInstance[]>(args: { input: BpmnProcessInstancesInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     bpmnTasks: <T = BpmnTaskInstance[]>(args: { input: BpmnTasksInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     user: <T = User | null>(args: { id: ID_Output }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     users: <T = User[]>(args?: {}, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    resume: <T = AuthPayload>(args: { token: String }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
+    resume: <T = AuthPayload>(args: { token: String }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    form: <T = Form | null>(args: { id?: ID_Output }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
   }
 
 export interface Mutation {
@@ -51,14 +53,22 @@ export interface BindingConstructor<T> {
  * Types
 */
 
-export type ResourceOrderByInput =   'id_ASC' |
+export type DataDescriptorOrderByInput =   'id_ASC' |
   'id_DESC' |
-  'type_ASC' |
-  'type_DESC' |
+  'defaultValue_ASC' |
+  'defaultValue_DESC' |
+  'description_ASC' |
+  'description_DESC' |
+  'expression_ASC' |
+  'expression_DESC' |
+  'isArray_ASC' |
+  'isArray_DESC' |
   'name_ASC' |
   'name_DESC' |
-  'content_ASC' |
-  'content_DESC' |
+  'type_ASC' |
+  'type_DESC' |
+  'parentDescriptor_ASC' |
+  'parentDescriptor_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
@@ -259,25 +269,21 @@ export type FormElementOrderByInput =   'id_ASC' |
   'controlProps_DESC' |
   'vertical_ASC' |
   'vertical_DESC' |
+  'parentElement_ASC' |
+  'parentElement_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export type DataDescriptorOrderByInput =   'id_ASC' |
+export type ResourceOrderByInput =   'id_ASC' |
   'id_DESC' |
-  'defaultValue_ASC' |
-  'defaultValue_DESC' |
-  'description_ASC' |
-  'description_DESC' |
-  'expression_ASC' |
-  'expression_DESC' |
-  'isArray_ASC' |
-  'isArray_DESC' |
-  'name_ASC' |
-  'name_DESC' |
   'type_ASC' |
   'type_DESC' |
+  'name_ASC' |
+  'name_DESC' |
+  'content_ASC' |
+  'content_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
@@ -646,16 +652,24 @@ export interface FormElementWhereInput {
   control_not_in?: FormControl[] | FormControl
   vertical?: Boolean
   vertical_not?: Boolean
+  parentElement?: ID_Input
+  parentElement_not?: ID_Input
+  parentElement_in?: ID_Input[] | ID_Input
+  parentElement_not_in?: ID_Input[] | ID_Input
+  parentElement_lt?: ID_Input
+  parentElement_lte?: ID_Input
+  parentElement_gt?: ID_Input
+  parentElement_gte?: ID_Input
+  parentElement_contains?: ID_Input
+  parentElement_not_contains?: ID_Input
+  parentElement_starts_with?: ID_Input
+  parentElement_not_starts_with?: ID_Input
+  parentElement_ends_with?: ID_Input
+  parentElement_not_ends_with?: ID_Input
   source?: DataDescriptorWhereInput
-  elements_every?: FormElementWhereInput
-  elements_some?: FormElementWhereInput
-  elements_none?: FormElementWhereInput
   _MagicalBackRelation_FormToFormElement_every?: FormWhereInput
   _MagicalBackRelation_FormToFormElement_some?: FormWhereInput
   _MagicalBackRelation_FormToFormElement_none?: FormWhereInput
-  _MagicalBackRelation_FormElementToFormElement_every?: FormElementWhereInput
-  _MagicalBackRelation_FormElementToFormElement_some?: FormElementWhereInput
-  _MagicalBackRelation_FormElementToFormElement_none?: FormElementWhereInput
 }
 
 export interface NotificationWhereInput {
@@ -1151,10 +1165,21 @@ export interface DataDescriptorWhereInput {
   type_not?: DataType
   type_in?: DataType[] | DataType
   type_not_in?: DataType[] | DataType
+  parentDescriptor?: ID_Input
+  parentDescriptor_not?: ID_Input
+  parentDescriptor_in?: ID_Input[] | ID_Input
+  parentDescriptor_not_in?: ID_Input[] | ID_Input
+  parentDescriptor_lt?: ID_Input
+  parentDescriptor_lte?: ID_Input
+  parentDescriptor_gt?: ID_Input
+  parentDescriptor_gte?: ID_Input
+  parentDescriptor_contains?: ID_Input
+  parentDescriptor_not_contains?: ID_Input
+  parentDescriptor_starts_with?: ID_Input
+  parentDescriptor_not_starts_with?: ID_Input
+  parentDescriptor_ends_with?: ID_Input
+  parentDescriptor_not_ends_with?: ID_Input
   access?: AccessWhereInput
-  descriptors_every?: DataDescriptorWhereInput
-  descriptors_some?: DataDescriptorWhereInput
-  descriptors_none?: DataDescriptorWhereInput
   validators?: ValidatorWhereInput
   _MagicalBackRelation_DataToDataDescriptor_every?: DataWhereInput
   _MagicalBackRelation_DataToDataDescriptor_some?: DataWhereInput
@@ -1162,9 +1187,6 @@ export interface DataDescriptorWhereInput {
   _MagicalBackRelation_DataDescriptorToFormElement_every?: FormElementWhereInput
   _MagicalBackRelation_DataDescriptorToFormElement_some?: FormElementWhereInput
   _MagicalBackRelation_DataDescriptorToFormElement_none?: FormElementWhereInput
-  _MagicalBackRelation_DataDescriptorToDataDescriptor_every?: DataDescriptorWhereInput
-  _MagicalBackRelation_DataDescriptorToDataDescriptor_some?: DataDescriptorWhereInput
-  _MagicalBackRelation_DataDescriptorToDataDescriptor_none?: DataDescriptorWhereInput
   _MagicalBackRelation_BpmnProcessToDataDescriptor_every?: BpmnProcessWhereInput
   _MagicalBackRelation_BpmnProcessToDataDescriptor_some?: BpmnProcessWhereInput
   _MagicalBackRelation_BpmnProcessToDataDescriptor_none?: BpmnProcessWhereInput
@@ -1521,7 +1543,7 @@ export interface FormElement extends Node {
   control?: FormControl
   controlProps?: Json
   vertical?: Boolean
-  elements?: FormElement[]
+  parentElement?: ID_Output
 }
 
 export interface DataDescriptor extends Node {
@@ -1529,12 +1551,12 @@ export interface DataDescriptor extends Node {
   access?: Access
   defaultValue?: String
   description?: String
-  descriptors?: DataDescriptor[]
   expression?: String
   isArray?: Boolean
   name?: String
   type?: DataType
   validators?: Validator
+  parentDescriptor?: ID_Output
 }
 
 export interface Validator extends Node {

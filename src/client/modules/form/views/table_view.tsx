@@ -3,12 +3,11 @@ import * as React from 'react';
 import { Form, SemanticWIDTHSNUMBER } from 'semantic-ui-react';
 
 import { groupByArray } from 'data/helpers';
-import { Yoga } from 'data/yoga';
 import { renderControl } from '../models/form_control_factory';
-import { DataSet } from '../models/form_model';
+import { DataSet, FormElement } from '../models/form_model';
 
 interface IFieldOwner {
-  elements?: Yoga.FormElement[];
+  elements?: FormElement[];
 }
 
 interface Props {
@@ -21,7 +20,7 @@ export class TableView extends React.Component<Props> {
   lastRow = -1;
   lastColumn = -1;
 
-  renderColumn(control: Yoga.FormElement) {
+  renderColumn(control: FormElement) {
     if (control.row !== this.lastRow) {
       this.lastRow = control.row;
       this.lastColumn = 0;
@@ -69,7 +68,7 @@ export class TableView extends React.Component<Props> {
     this.lastColumn = 0;
     this.lastRow = 0;
 
-    let row: { key: number; values: Yoga.FormElement[] };
+    let row: { key: number; values: FormElement[] };
     const rows = groupByArray(this.props.form.elements, 'row');
 
     return (

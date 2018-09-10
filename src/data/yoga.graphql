@@ -3,6 +3,7 @@
 #import Query.*, Mutation.* from './bpmn_process_instance/server/bpmn_process_instances.graphql'
 #import Query.* from './bpmn_task_instance/server/bpmn_task_instances.graphql'
 #import Query.*, Mutation.* from './users/server/users.graphql'
+#import Query.* from './form/server/forms.graphql'
 
 type Query {
   testQuery: Boolean

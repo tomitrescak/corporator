@@ -1,6 +1,7 @@
 import { autorun } from 'mobx';
 
-import { createData } from 'tests/test_data';
+import { create } from 'client/modules/form/views/tests/form_query_data';
+import { QueryTypes } from 'data/client';
 import { FormModel } from '../form_model';
 
 it('creates a new model', () => {
@@ -21,14 +22,14 @@ it('creates a new model', () => {
 
 it('sorts form fields when form is created', () => {
   let model = new FormModel(
-    createData.formDao({
+    create.form({
       elements: [
-        { id: '6', row: 3, column: 2, width: 6 },
-        { id: '5', row: 3, column: 2, width: 6 },
-        { id: '2', row: 0, column: 8, width: 6 },
-        { id: '3', row: 2, column: 2, width: 6 },
-        { id: '4', row: 2, column: 8, width: 6 },
-        { id: '1', row: 0, column: 0, width: 6 }
+        create.formElement({ id: '6', row: 3, column: 2, width: 6 }),
+        create.formElement({ id: '5', row: 3, column: 2, width: 6 }),
+        create.formElement({ id: '2', row: 0, column: 8, width: 6 }),
+        create.formElement({ id: '3', row: 2, column: 2, width: 6 }),
+        create.formElement({ id: '4', row: 2, column: 8, width: 6 }),
+        create.formElement({ id: '1', row: 0, column: 0, width: 6 })
       ]
     })
   );
@@ -41,14 +42,14 @@ it('sorts form fields when form is created', () => {
 
 it('builds MST', () => {
   const descriptors = [
-    createData.descriptor({ name: 'age', type: 'Int' }),
-    createData.descriptor({ name: 'height', type: 'Int', defaultValue: '5' }),
-    createData.descriptor({
+    create.descriptor({ name: 'age', type: QueryTypes.DataType.Int }),
+    create.descriptor({ name: 'height', type: QueryTypes.DataType.Int, defaultValue: '5' }),
+    create.descriptor({
       name: 'taller',
-      type: 'Int',
+      type: QueryTypes.DataType.Int,
       expression: `this['height'] + 10`
     })
-  ]; 
+  ];
   const instance = FormModel.buildMstModel(descriptors, [{ name: 'height', value: 6 }]);
 
   expect(instance.getValue('height')).toEqual(6);

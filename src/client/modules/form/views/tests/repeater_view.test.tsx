@@ -3,20 +3,21 @@ import * as renderer from 'react-test-renderer';
 
 import { Segment } from 'semantic-ui-react';
 
-import { createData } from 'tests/test_data';
+import { QueryTypes } from 'data/client';
 import { FormModel } from '../../models/form_model';
 import { FormView } from '../form_view';
+import { create } from './form_query_data';
 
 describe('Form', () => {
   const descriptors = [
-    createData.descriptor({
+    create.descriptor({
       name: 'countries',
-      type: 'Object',
+      type: QueryTypes.DataType.Object,
       isArray: true,
       descriptors: [
-        createData.descriptor({ name: 'id', type: 'Id' }),
-        createData.descriptor({ name: 'name', type: 'String' }),
-        createData.descriptor({ name: 'capital', type: 'String' })
+        create.descriptor({ name: 'id', type: QueryTypes.DataType.Id }),
+        create.descriptor({ name: 'name', type: QueryTypes.DataType.String }),
+        create.descriptor({ name: 'capital', type: QueryTypes.DataType.String })
       ]
     })
   ];
@@ -37,53 +38,53 @@ describe('Form', () => {
     {
       get component() {
         const form = new FormModel(
-          createData.formDao({
+          create.form({
             elements: [
-              {
+              create.formElement({
                 id: '1',
                 row: 0,
                 column: 0,
                 width: 16,
-                control: 'Repeater',
-                source: {
+                control: QueryTypes.FormControl.Repeater,
+                source: create.descriptor({
                   id: '',
                   name: 'countries'
-                },
+                }),
                 elements: [
-                  {
+                  create.formElement({
                     id: '2',
                     row: 0,
                     column: 0,
                     width: 8,
-                    control: 'Input',
+                    control: QueryTypes.FormControl.Input,
                     label: 'Name',
-                    source: {
+                    source: create.descriptor({
                       id: '',
                       name: 'name'
-                    }
-                  },
-                  {
+                    })
+                  }),
+                  create.formElement({
                     id: '3',
                     row: 0,
                     column: 8,
                     width: 8,
-                    control: 'Input',
+                    control: QueryTypes.FormControl.Input,
                     label: 'Capital',
-                    source: {
+                    source: create.descriptor({
                       id: '',
                       name: 'capital'
-                    }
-                  },
-                  {
+                    })
+                  }),
+                  create.formElement({
                     id: '4',
                     row: 0,
                     column: 15,
                     width: 1,
-                    control: 'DeleteButton',
+                    control: QueryTypes.FormControl.DeleteButton,
                     label: '\xa0'
-                  }
+                  })
                 ]
-              }
+              })
             ]
           })
         );
@@ -107,7 +108,6 @@ describe('Form', () => {
         // const root = component.root;
         // const agree = root.findByProps({ name: 'agree' });
         // agree.props.onChange(null, { value: false });
-
         // const disagree = root.findByProps({ name: 'disagree' });
         // disagree.props.onChange(null, { value: true });
         // expect(component).toMatchSnapshot();

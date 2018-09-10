@@ -1,0 +1,14 @@
+query ProcessQuery($id: ID!) {
+  process(id: $id) {
+    actionCount
+    description
+    id
+    model
+    resources {
+      name
+      type
+    }
+    status
+    version
+  }
+}

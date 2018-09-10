@@ -13,6 +13,7 @@ input BpmnProcessesInput {
 
 type Query {
   processes(input: BpmnProcessesInput!): [BpmnProcess]!
+  process(id: ID!): BpmnProcess!
 }
 
 # ========================================================= #

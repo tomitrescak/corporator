@@ -11,6 +11,7 @@ export interface Query {
     users: <T = User[]>(args: { where?: UserWhereInput, orderBy?: UserOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     forms: <T = Form[]>(args: { where?: FormWhereInput, orderBy?: FormOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     validators: <T = Validator[]>(args: { where?: ValidatorWhereInput, orderBy?: ValidatorOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    formElements: <T = FormElement[]>(args: { where?: FormElementWhereInput, orderBy?: FormElementOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     comments: <T = Comment[]>(args: { where?: CommentWhereInput, orderBy?: CommentOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     notifications: <T = Notification[]>(args: { where?: NotificationWhereInput, orderBy?: NotificationOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     accessConditions: <T = AccessCondition[]>(args: { where?: AccessConditionWhereInput, orderBy?: AccessConditionOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -19,7 +20,6 @@ export interface Query {
     accesses: <T = Access[]>(args: { where?: AccessWhereInput, orderBy?: AccessOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     datas: <T = Data[]>(args: { where?: DataWhereInput, orderBy?: DataOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     bpmnProcesses: <T = BpmnProcess[]>(args: { where?: BpmnProcessWhereInput, orderBy?: BpmnProcessOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    formElements: <T = FormElement[]>(args: { where?: FormElementWhereInput, orderBy?: FormElementOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     bpmnProcessInstances: <T = BpmnProcessInstance[]>(args: { where?: BpmnProcessInstanceWhereInput, orderBy?: BpmnProcessInstanceOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     localisation: <T = Localisation | null>(args: { where: LocalisationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     organisation: <T = Organisation | null>(args: { where: OrganisationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -28,13 +28,13 @@ export interface Query {
     user: <T = User | null>(args: { where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     form: <T = Form | null>(args: { where: FormWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     validator: <T = Validator | null>(args: { where: ValidatorWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    formElement: <T = FormElement | null>(args: { where: FormElementWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     notification: <T = Notification | null>(args: { where: NotificationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     dataDescriptor: <T = DataDescriptor | null>(args: { where: DataDescriptorWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     resource: <T = Resource | null>(args: { where: ResourceWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     access: <T = Access | null>(args: { where: AccessWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     data: <T = Data | null>(args: { where: DataWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     bpmnProcess: <T = BpmnProcess | null>(args: { where: BpmnProcessWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    formElement: <T = FormElement | null>(args: { where: FormElementWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     bpmnProcessInstance: <T = BpmnProcessInstance | null>(args: { where: BpmnProcessInstanceWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     localisationsConnection: <T = LocalisationConnection>(args: { where?: LocalisationWhereInput, orderBy?: LocalisationOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     organisationsConnection: <T = OrganisationConnection>(args: { where?: OrganisationWhereInput, orderBy?: OrganisationOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -43,6 +43,7 @@ export interface Query {
     usersConnection: <T = UserConnection>(args: { where?: UserWhereInput, orderBy?: UserOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     formsConnection: <T = FormConnection>(args: { where?: FormWhereInput, orderBy?: FormOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     validatorsConnection: <T = ValidatorConnection>(args: { where?: ValidatorWhereInput, orderBy?: ValidatorOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    formElementsConnection: <T = FormElementConnection>(args: { where?: FormElementWhereInput, orderBy?: FormElementOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     commentsConnection: <T = CommentConnection>(args: { where?: CommentWhereInput, orderBy?: CommentOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     notificationsConnection: <T = NotificationConnection>(args: { where?: NotificationWhereInput, orderBy?: NotificationOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     accessConditionsConnection: <T = AccessConditionConnection>(args: { where?: AccessConditionWhereInput, orderBy?: AccessConditionOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -51,7 +52,6 @@ export interface Query {
     accessesConnection: <T = AccessConnection>(args: { where?: AccessWhereInput, orderBy?: AccessOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     datasConnection: <T = DataConnection>(args: { where?: DataWhereInput, orderBy?: DataOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     bpmnProcessesConnection: <T = BpmnProcessConnection>(args: { where?: BpmnProcessWhereInput, orderBy?: BpmnProcessOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    formElementsConnection: <T = FormElementConnection>(args: { where?: FormElementWhereInput, orderBy?: FormElementOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     bpmnProcessInstancesConnection: <T = BpmnProcessInstanceConnection>(args: { where?: BpmnProcessInstanceWhereInput, orderBy?: BpmnProcessInstanceOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     node: <T = Node | null>(args: { id: ID_Output }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
   }
@@ -64,6 +64,7 @@ export interface Mutation {
     createUser: <T = User>(args: { data: UserCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createForm: <T = Form>(args: { data: FormCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createValidator: <T = Validator>(args: { data: ValidatorCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    createFormElement: <T = FormElement>(args: { data: FormElementCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createComment: <T = Comment>(args: { data: CommentCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createNotification: <T = Notification>(args: { data: NotificationCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createAccessCondition: <T = AccessCondition>(args: { data: AccessConditionCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -72,7 +73,6 @@ export interface Mutation {
     createAccess: <T = Access>(args: { data: AccessCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createData: <T = Data>(args: { data: DataCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createBpmnProcess: <T = BpmnProcess>(args: { data: BpmnProcessCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    createFormElement: <T = FormElement>(args: { data: FormElementCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createBpmnProcessInstance: <T = BpmnProcessInstance>(args: { data: BpmnProcessInstanceCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateLocalisation: <T = Localisation | null>(args: { data: LocalisationUpdateInput, where: LocalisationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateOrganisation: <T = Organisation | null>(args: { data: OrganisationUpdateInput, where: OrganisationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -81,13 +81,13 @@ export interface Mutation {
     updateUser: <T = User | null>(args: { data: UserUpdateInput, where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateForm: <T = Form | null>(args: { data: FormUpdateInput, where: FormWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateValidator: <T = Validator | null>(args: { data: ValidatorUpdateInput, where: ValidatorWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateFormElement: <T = FormElement | null>(args: { data: FormElementUpdateInput, where: FormElementWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateNotification: <T = Notification | null>(args: { data: NotificationUpdateInput, where: NotificationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateDataDescriptor: <T = DataDescriptor | null>(args: { data: DataDescriptorUpdateInput, where: DataDescriptorWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateResource: <T = Resource | null>(args: { data: ResourceUpdateInput, where: ResourceWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateAccess: <T = Access | null>(args: { data: AccessUpdateInput, where: AccessWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateData: <T = Data | null>(args: { data: DataUpdateInput, where: DataWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateBpmnProcess: <T = BpmnProcess | null>(args: { data: BpmnProcessUpdateInput, where: BpmnProcessWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateFormElement: <T = FormElement | null>(args: { data: FormElementUpdateInput, where: FormElementWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateBpmnProcessInstance: <T = BpmnProcessInstance | null>(args: { data: BpmnProcessInstanceUpdateInput, where: BpmnProcessInstanceWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteLocalisation: <T = Localisation | null>(args: { where: LocalisationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteOrganisation: <T = Organisation | null>(args: { where: OrganisationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -96,13 +96,13 @@ export interface Mutation {
     deleteUser: <T = User | null>(args: { where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteForm: <T = Form | null>(args: { where: FormWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteValidator: <T = Validator | null>(args: { where: ValidatorWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteFormElement: <T = FormElement | null>(args: { where: FormElementWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteNotification: <T = Notification | null>(args: { where: NotificationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteDataDescriptor: <T = DataDescriptor | null>(args: { where: DataDescriptorWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteResource: <T = Resource | null>(args: { where: ResourceWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteAccess: <T = Access | null>(args: { where: AccessWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteData: <T = Data | null>(args: { where: DataWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteBpmnProcess: <T = BpmnProcess | null>(args: { where: BpmnProcessWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    deleteFormElement: <T = FormElement | null>(args: { where: FormElementWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteBpmnProcessInstance: <T = BpmnProcessInstance | null>(args: { where: BpmnProcessInstanceWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertLocalisation: <T = Localisation>(args: { where: LocalisationWhereUniqueInput, create: LocalisationCreateInput, update: LocalisationUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertOrganisation: <T = Organisation>(args: { where: OrganisationWhereUniqueInput, create: OrganisationCreateInput, update: OrganisationUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -111,13 +111,13 @@ export interface Mutation {
     upsertUser: <T = User>(args: { where: UserWhereUniqueInput, create: UserCreateInput, update: UserUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertForm: <T = Form>(args: { where: FormWhereUniqueInput, create: FormCreateInput, update: FormUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertValidator: <T = Validator>(args: { where: ValidatorWhereUniqueInput, create: ValidatorCreateInput, update: ValidatorUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    upsertFormElement: <T = FormElement>(args: { where: FormElementWhereUniqueInput, create: FormElementCreateInput, update: FormElementUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertNotification: <T = Notification>(args: { where: NotificationWhereUniqueInput, create: NotificationCreateInput, update: NotificationUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertDataDescriptor: <T = DataDescriptor>(args: { where: DataDescriptorWhereUniqueInput, create: DataDescriptorCreateInput, update: DataDescriptorUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertResource: <T = Resource>(args: { where: ResourceWhereUniqueInput, create: ResourceCreateInput, update: ResourceUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertAccess: <T = Access>(args: { where: AccessWhereUniqueInput, create: AccessCreateInput, update: AccessUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertData: <T = Data>(args: { where: DataWhereUniqueInput, create: DataCreateInput, update: DataUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertBpmnProcess: <T = BpmnProcess>(args: { where: BpmnProcessWhereUniqueInput, create: BpmnProcessCreateInput, update: BpmnProcessUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    upsertFormElement: <T = FormElement>(args: { where: FormElementWhereUniqueInput, create: FormElementCreateInput, update: FormElementUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertBpmnProcessInstance: <T = BpmnProcessInstance>(args: { where: BpmnProcessInstanceWhereUniqueInput, create: BpmnProcessInstanceCreateInput, update: BpmnProcessInstanceUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyLocalisations: <T = BatchPayload>(args: { data: LocalisationUpdateInput, where?: LocalisationWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyOrganisations: <T = BatchPayload>(args: { data: OrganisationUpdateInput, where?: OrganisationWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -126,6 +126,7 @@ export interface Mutation {
     updateManyUsers: <T = BatchPayload>(args: { data: UserUpdateInput, where?: UserWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyForms: <T = BatchPayload>(args: { data: FormUpdateInput, where?: FormWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyValidators: <T = BatchPayload>(args: { data: ValidatorUpdateInput, where?: ValidatorWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyFormElements: <T = BatchPayload>(args: { data: FormElementUpdateInput, where?: FormElementWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyComments: <T = BatchPayload>(args: { data: CommentUpdateInput, where?: CommentWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyNotifications: <T = BatchPayload>(args: { data: NotificationUpdateInput, where?: NotificationWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyAccessConditions: <T = BatchPayload>(args: { data: AccessConditionUpdateInput, where?: AccessConditionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -134,7 +135,6 @@ export interface Mutation {
     updateManyAccesses: <T = BatchPayload>(args: { data: AccessUpdateInput, where?: AccessWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyDatas: <T = BatchPayload>(args: { data: DataUpdateInput, where?: DataWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyBpmnProcesses: <T = BatchPayload>(args: { data: BpmnProcessUpdateInput, where?: BpmnProcessWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateManyFormElements: <T = BatchPayload>(args: { data: FormElementUpdateInput, where?: FormElementWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyBpmnProcessInstances: <T = BatchPayload>(args: { data: BpmnProcessInstanceUpdateInput, where?: BpmnProcessInstanceWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyLocalisations: <T = BatchPayload>(args: { where?: LocalisationWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyOrganisations: <T = BatchPayload>(args: { where?: OrganisationWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -143,6 +143,7 @@ export interface Mutation {
     deleteManyUsers: <T = BatchPayload>(args: { where?: UserWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyForms: <T = BatchPayload>(args: { where?: FormWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyValidators: <T = BatchPayload>(args: { where?: ValidatorWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteManyFormElements: <T = BatchPayload>(args: { where?: FormElementWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyComments: <T = BatchPayload>(args: { where?: CommentWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyNotifications: <T = BatchPayload>(args: { where?: NotificationWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyAccessConditions: <T = BatchPayload>(args: { where?: AccessConditionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -151,7 +152,6 @@ export interface Mutation {
     deleteManyAccesses: <T = BatchPayload>(args: { where?: AccessWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyDatas: <T = BatchPayload>(args: { where?: DataWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyBpmnProcesses: <T = BatchPayload>(args: { where?: BpmnProcessWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    deleteManyFormElements: <T = BatchPayload>(args: { where?: FormElementWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyBpmnProcessInstances: <T = BatchPayload>(args: { where?: BpmnProcessInstanceWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
   }
 
@@ -163,6 +163,7 @@ export interface Subscription {
     user: <T = UserSubscriptionPayload | null>(args: { where?: UserSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     form: <T = FormSubscriptionPayload | null>(args: { where?: FormSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     validator: <T = ValidatorSubscriptionPayload | null>(args: { where?: ValidatorSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
+    formElement: <T = FormElementSubscriptionPayload | null>(args: { where?: FormElementSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     comment: <T = CommentSubscriptionPayload | null>(args: { where?: CommentSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     notification: <T = NotificationSubscriptionPayload | null>(args: { where?: NotificationSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     accessCondition: <T = AccessConditionSubscriptionPayload | null>(args: { where?: AccessConditionSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
@@ -171,7 +172,6 @@ export interface Subscription {
     access: <T = AccessSubscriptionPayload | null>(args: { where?: AccessSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     data: <T = DataSubscriptionPayload | null>(args: { where?: DataSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     bpmnProcess: <T = BpmnProcessSubscriptionPayload | null>(args: { where?: BpmnProcessSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
-    formElement: <T = FormElementSubscriptionPayload | null>(args: { where?: FormElementSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     bpmnProcessInstance: <T = BpmnProcessInstanceSubscriptionPayload | null>(args: { where?: BpmnProcessInstanceSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> 
   }
 
@@ -183,6 +183,7 @@ export interface Exists {
   User: (where?: UserWhereInput) => Promise<boolean>
   Form: (where?: FormWhereInput) => Promise<boolean>
   Validator: (where?: ValidatorWhereInput) => Promise<boolean>
+  FormElement: (where?: FormElementWhereInput) => Promise<boolean>
   Comment: (where?: CommentWhereInput) => Promise<boolean>
   Notification: (where?: NotificationWhereInput) => Promise<boolean>
   AccessCondition: (where?: AccessConditionWhereInput) => Promise<boolean>
@@ -191,7 +192,6 @@ export interface Exists {
   Access: (where?: AccessWhereInput) => Promise<boolean>
   Data: (where?: DataWhereInput) => Promise<boolean>
   BpmnProcess: (where?: BpmnProcessWhereInput) => Promise<boolean>
-  FormElement: (where?: FormElementWhereInput) => Promise<boolean>
   BpmnProcessInstance: (where?: BpmnProcessInstanceWhereInput) => Promise<boolean>
 }
 
@@ -2317,12 +2317,12 @@ type DataDescriptor implements Node {
   access(where: AccessWhereInput): Access
   defaultValue: String
   description: String
-  descriptors(where: DataDescriptorWhereInput, orderBy: DataDescriptorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [DataDescriptor!]
   expression: String
   isArray: Boolean
   name: String
   type: DataType
   validators(where: ValidatorWhereInput): Validator
+  parentDescriptor: ID
 }
 
 """A connection to a list of items."""
@@ -2342,8 +2342,8 @@ input DataDescriptorCreateInput {
   isArray: Boolean
   name: String
   type: DataType
+  parentDescriptor: ID
   access: AccessCreateOneInput
-  descriptors: DataDescriptorCreateManyInput
   validators: ValidatorCreateOneInput
 }
 
@@ -2381,6 +2381,8 @@ enum DataDescriptorOrderByInput {
   name_DESC
   type_ASC
   type_DESC
+  parentDescriptor_ASC
+  parentDescriptor_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -2395,6 +2397,7 @@ type DataDescriptorPreviousValues {
   isArray: Boolean
   name: String
   type: DataType
+  parentDescriptor: ID
 }
 
 type DataDescriptorSubscriptionPayload {
@@ -2443,8 +2446,8 @@ input DataDescriptorUpdateDataInput {
   isArray: Boolean
   name: String
   type: DataType
+  parentDescriptor: ID
   access: AccessUpdateOneInput
-  descriptors: DataDescriptorUpdateManyInput
   validators: ValidatorUpdateOneInput
 }
 
@@ -2455,8 +2458,8 @@ input DataDescriptorUpdateInput {
   isArray: Boolean
   name: String
   type: DataType
+  parentDescriptor: ID
   access: AccessUpdateOneInput
-  descriptors: DataDescriptorUpdateManyInput
   validators: ValidatorUpdateOneInput
 }
 
@@ -2717,10 +2720,47 @@ input DataDescriptorWhereInput {
 
   """All values that are not contained in given list."""
   type_not_in: [DataType!]
+  parentDescriptor: ID
+
+  """All values that are not equal to given value."""
+  parentDescriptor_not: ID
+
+  """All values that are contained in given list."""
+  parentDescriptor_in: [ID!]
+
+  """All values that are not contained in given list."""
+  parentDescriptor_not_in: [ID!]
+
+  """All values less than the given value."""
+  parentDescriptor_lt: ID
+
+  """All values less than or equal the given value."""
+  parentDescriptor_lte: ID
+
+  """All values greater than the given value."""
+  parentDescriptor_gt: ID
+
+  """All values greater than or equal the given value."""
+  parentDescriptor_gte: ID
+
+  """All values containing the given string."""
+  parentDescriptor_contains: ID
+
+  """All values not containing the given string."""
+  parentDescriptor_not_contains: ID
+
+  """All values starting with the given string."""
+  parentDescriptor_starts_with: ID
+
+  """All values not starting with the given string."""
+  parentDescriptor_not_starts_with: ID
+
+  """All values ending with the given string."""
+  parentDescriptor_ends_with: ID
+
+  """All values not ending with the given string."""
+  parentDescriptor_not_ends_with: ID
   access: AccessWhereInput
-  descriptors_every: DataDescriptorWhereInput
-  descriptors_some: DataDescriptorWhereInput
-  descriptors_none: DataDescriptorWhereInput
   validators: ValidatorWhereInput
   _MagicalBackRelation_DataToDataDescriptor_every: DataWhereInput
   _MagicalBackRelation_DataToDataDescriptor_some: DataWhereInput
@@ -2728,9 +2768,6 @@ input DataDescriptorWhereInput {
   _MagicalBackRelation_DataDescriptorToFormElement_every: FormElementWhereInput
   _MagicalBackRelation_DataDescriptorToFormElement_some: FormElementWhereInput
   _MagicalBackRelation_DataDescriptorToFormElement_none: FormElementWhereInput
-  _MagicalBackRelation_DataDescriptorToDataDescriptor_every: DataDescriptorWhereInput
-  _MagicalBackRelation_DataDescriptorToDataDescriptor_some: DataDescriptorWhereInput
-  _MagicalBackRelation_DataDescriptorToDataDescriptor_none: DataDescriptorWhereInput
   _MagicalBackRelation_BpmnProcessToDataDescriptor_every: BpmnProcessWhereInput
   _MagicalBackRelation_BpmnProcessToDataDescriptor_some: BpmnProcessWhereInput
   _MagicalBackRelation_BpmnProcessToDataDescriptor_none: BpmnProcessWhereInput
@@ -3109,7 +3146,7 @@ type FormElement implements Node {
   control: FormControl
   controlProps: Json
   vertical: Boolean
-  elements(where: FormElementWhereInput, orderBy: FormElementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FormElement!]
+  parentElement: ID
 }
 
 """A connection to a list of items."""
@@ -3135,8 +3172,8 @@ input FormElementCreateInput {
   control: FormControl
   controlProps: Json
   vertical: Boolean
+  parentElement: ID
   source: DataDescriptorCreateOneInput
-  elements: FormElementCreateManyInput
 }
 
 input FormElementCreateManyInput {
@@ -3180,6 +3217,8 @@ enum FormElementOrderByInput {
   controlProps_DESC
   vertical_ASC
   vertical_DESC
+  parentElement_ASC
+  parentElement_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -3200,6 +3239,7 @@ type FormElementPreviousValues {
   control: FormControl
   controlProps: Json
   vertical: Boolean
+  parentElement: ID
 }
 
 type FormElementSubscriptionPayload {
@@ -3254,8 +3294,8 @@ input FormElementUpdateDataInput {
   control: FormControl
   controlProps: Json
   vertical: Boolean
+  parentElement: ID
   source: DataDescriptorUpdateOneInput
-  elements: FormElementUpdateManyInput
 }
 
 input FormElementUpdateInput {
@@ -3271,8 +3311,8 @@ input FormElementUpdateInput {
   control: FormControl
   controlProps: Json
   vertical: Boolean
+  parentElement: ID
   source: DataDescriptorUpdateOneInput
-  elements: FormElementUpdateManyInput
 }
 
 input FormElementUpdateManyInput {
@@ -3628,16 +3668,50 @@ input FormElementWhereInput {
 
   """All values that are not equal to given value."""
   vertical_not: Boolean
+  parentElement: ID
+
+  """All values that are not equal to given value."""
+  parentElement_not: ID
+
+  """All values that are contained in given list."""
+  parentElement_in: [ID!]
+
+  """All values that are not contained in given list."""
+  parentElement_not_in: [ID!]
+
+  """All values less than the given value."""
+  parentElement_lt: ID
+
+  """All values less than or equal the given value."""
+  parentElement_lte: ID
+
+  """All values greater than the given value."""
+  parentElement_gt: ID
+
+  """All values greater than or equal the given value."""
+  parentElement_gte: ID
+
+  """All values containing the given string."""
+  parentElement_contains: ID
+
+  """All values not containing the given string."""
+  parentElement_not_contains: ID
+
+  """All values starting with the given string."""
+  parentElement_starts_with: ID
+
+  """All values not starting with the given string."""
+  parentElement_not_starts_with: ID
+
+  """All values ending with the given string."""
+  parentElement_ends_with: ID
+
+  """All values not ending with the given string."""
+  parentElement_not_ends_with: ID
   source: DataDescriptorWhereInput
-  elements_every: FormElementWhereInput
-  elements_some: FormElementWhereInput
-  elements_none: FormElementWhereInput
   _MagicalBackRelation_FormToFormElement_every: FormWhereInput
   _MagicalBackRelation_FormToFormElement_some: FormWhereInput
   _MagicalBackRelation_FormToFormElement_none: FormWhereInput
-  _MagicalBackRelation_FormElementToFormElement_every: FormElementWhereInput
-  _MagicalBackRelation_FormElementToFormElement_some: FormElementWhereInput
-  _MagicalBackRelation_FormElementToFormElement_none: FormElementWhereInput
 }
 
 input FormElementWhereUniqueInput {
@@ -4139,6 +4213,7 @@ type Mutation {
   createUser(data: UserCreateInput!): User!
   createForm(data: FormCreateInput!): Form!
   createValidator(data: ValidatorCreateInput!): Validator!
+  createFormElement(data: FormElementCreateInput!): FormElement!
   createComment(data: CommentCreateInput!): Comment!
   createNotification(data: NotificationCreateInput!): Notification!
   createAccessCondition(data: AccessConditionCreateInput!): AccessCondition!
@@ -4147,7 +4222,6 @@ type Mutation {
   createAccess(data: AccessCreateInput!): Access!
   createData(data: DataCreateInput!): Data!
   createBpmnProcess(data: BpmnProcessCreateInput!): BpmnProcess!
-  createFormElement(data: FormElementCreateInput!): FormElement!
   createBpmnProcessInstance(data: BpmnProcessInstanceCreateInput!): BpmnProcessInstance!
   updateLocalisation(data: LocalisationUpdateInput!, where: LocalisationWhereUniqueInput!): Localisation
   updateOrganisation(data: OrganisationUpdateInput!, where: OrganisationWhereUniqueInput!): Organisation
@@ -4156,13 +4230,13 @@ type Mutation {
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateForm(data: FormUpdateInput!, where: FormWhereUniqueInput!): Form
   updateValidator(data: ValidatorUpdateInput!, where: ValidatorWhereUniqueInput!): Validator
+  updateFormElement(data: FormElementUpdateInput!, where: FormElementWhereUniqueInput!): FormElement
   updateNotification(data: NotificationUpdateInput!, where: NotificationWhereUniqueInput!): Notification
   updateDataDescriptor(data: DataDescriptorUpdateInput!, where: DataDescriptorWhereUniqueInput!): DataDescriptor
   updateResource(data: ResourceUpdateInput!, where: ResourceWhereUniqueInput!): Resource
   updateAccess(data: AccessUpdateInput!, where: AccessWhereUniqueInput!): Access
   updateData(data: DataUpdateInput!, where: DataWhereUniqueInput!): Data
   updateBpmnProcess(data: BpmnProcessUpdateInput!, where: BpmnProcessWhereUniqueInput!): BpmnProcess
-  updateFormElement(data: FormElementUpdateInput!, where: FormElementWhereUniqueInput!): FormElement
   updateBpmnProcessInstance(data: BpmnProcessInstanceUpdateInput!, where: BpmnProcessInstanceWhereUniqueInput!): BpmnProcessInstance
   deleteLocalisation(where: LocalisationWhereUniqueInput!): Localisation
   deleteOrganisation(where: OrganisationWhereUniqueInput!): Organisation
@@ -4171,13 +4245,13 @@ type Mutation {
   deleteUser(where: UserWhereUniqueInput!): User
   deleteForm(where: FormWhereUniqueInput!): Form
   deleteValidator(where: ValidatorWhereUniqueInput!): Validator
+  deleteFormElement(where: FormElementWhereUniqueInput!): FormElement
   deleteNotification(where: NotificationWhereUniqueInput!): Notification
   deleteDataDescriptor(where: DataDescriptorWhereUniqueInput!): DataDescriptor
   deleteResource(where: ResourceWhereUniqueInput!): Resource
   deleteAccess(where: AccessWhereUniqueInput!): Access
   deleteData(where: DataWhereUniqueInput!): Data
   deleteBpmnProcess(where: BpmnProcessWhereUniqueInput!): BpmnProcess
-  deleteFormElement(where: FormElementWhereUniqueInput!): FormElement
   deleteBpmnProcessInstance(where: BpmnProcessInstanceWhereUniqueInput!): BpmnProcessInstance
   upsertLocalisation(where: LocalisationWhereUniqueInput!, create: LocalisationCreateInput!, update: LocalisationUpdateInput!): Localisation!
   upsertOrganisation(where: OrganisationWhereUniqueInput!, create: OrganisationCreateInput!, update: OrganisationUpdateInput!): Organisation!
@@ -4186,13 +4260,13 @@ type Mutation {
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertForm(where: FormWhereUniqueInput!, create: FormCreateInput!, update: FormUpdateInput!): Form!
   upsertValidator(where: ValidatorWhereUniqueInput!, create: ValidatorCreateInput!, update: ValidatorUpdateInput!): Validator!
+  upsertFormElement(where: FormElementWhereUniqueInput!, create: FormElementCreateInput!, update: FormElementUpdateInput!): FormElement!
   upsertNotification(where: NotificationWhereUniqueInput!, create: NotificationCreateInput!, update: NotificationUpdateInput!): Notification!
   upsertDataDescriptor(where: DataDescriptorWhereUniqueInput!, create: DataDescriptorCreateInput!, update: DataDescriptorUpdateInput!): DataDescriptor!
   upsertResource(where: ResourceWhereUniqueInput!, create: ResourceCreateInput!, update: ResourceUpdateInput!): Resource!
   upsertAccess(where: AccessWhereUniqueInput!, create: AccessCreateInput!, update: AccessUpdateInput!): Access!
   upsertData(where: DataWhereUniqueInput!, create: DataCreateInput!, update: DataUpdateInput!): Data!
   upsertBpmnProcess(where: BpmnProcessWhereUniqueInput!, create: BpmnProcessCreateInput!, update: BpmnProcessUpdateInput!): BpmnProcess!
-  upsertFormElement(where: FormElementWhereUniqueInput!, create: FormElementCreateInput!, update: FormElementUpdateInput!): FormElement!
   upsertBpmnProcessInstance(where: BpmnProcessInstanceWhereUniqueInput!, create: BpmnProcessInstanceCreateInput!, update: BpmnProcessInstanceUpdateInput!): BpmnProcessInstance!
   updateManyLocalisations(data: LocalisationUpdateInput!, where: LocalisationWhereInput): BatchPayload!
   updateManyOrganisations(data: OrganisationUpdateInput!, where: OrganisationWhereInput): BatchPayload!
@@ -4201,6 +4275,7 @@ type Mutation {
   updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
   updateManyForms(data: FormUpdateInput!, where: FormWhereInput): BatchPayload!
   updateManyValidators(data: ValidatorUpdateInput!, where: ValidatorWhereInput): BatchPayload!
+  updateManyFormElements(data: FormElementUpdateInput!, where: FormElementWhereInput): BatchPayload!
   updateManyComments(data: CommentUpdateInput!, where: CommentWhereInput): BatchPayload!
   updateManyNotifications(data: NotificationUpdateInput!, where: NotificationWhereInput): BatchPayload!
   updateManyAccessConditions(data: AccessConditionUpdateInput!, where: AccessConditionWhereInput): BatchPayload!
@@ -4209,7 +4284,6 @@ type Mutation {
   updateManyAccesses(data: AccessUpdateInput!, where: AccessWhereInput): BatchPayload!
   updateManyDatas(data: DataUpdateInput!, where: DataWhereInput): BatchPayload!
   updateManyBpmnProcesses(data: BpmnProcessUpdateInput!, where: BpmnProcessWhereInput): BatchPayload!
-  updateManyFormElements(data: FormElementUpdateInput!, where: FormElementWhereInput): BatchPayload!
   updateManyBpmnProcessInstances(data: BpmnProcessInstanceUpdateInput!, where: BpmnProcessInstanceWhereInput): BatchPayload!
   deleteManyLocalisations(where: LocalisationWhereInput): BatchPayload!
   deleteManyOrganisations(where: OrganisationWhereInput): BatchPayload!
@@ -4218,6 +4292,7 @@ type Mutation {
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyForms(where: FormWhereInput): BatchPayload!
   deleteManyValidators(where: ValidatorWhereInput): BatchPayload!
+  deleteManyFormElements(where: FormElementWhereInput): BatchPayload!
   deleteManyComments(where: CommentWhereInput): BatchPayload!
   deleteManyNotifications(where: NotificationWhereInput): BatchPayload!
   deleteManyAccessConditions(where: AccessConditionWhereInput): BatchPayload!
@@ -4226,7 +4301,6 @@ type Mutation {
   deleteManyAccesses(where: AccessWhereInput): BatchPayload!
   deleteManyDatas(where: DataWhereInput): BatchPayload!
   deleteManyBpmnProcesses(where: BpmnProcessWhereInput): BatchPayload!
-  deleteManyFormElements(where: FormElementWhereInput): BatchPayload!
   deleteManyBpmnProcessInstances(where: BpmnProcessInstanceWhereInput): BatchPayload!
 }
 
@@ -4863,6 +4937,7 @@ type Query {
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   forms(where: FormWhereInput, orderBy: FormOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Form]!
   validators(where: ValidatorWhereInput, orderBy: ValidatorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Validator]!
+  formElements(where: FormElementWhereInput, orderBy: FormElementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FormElement]!
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment]!
   notifications(where: NotificationWhereInput, orderBy: NotificationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Notification]!
   accessConditions(where: AccessConditionWhereInput, orderBy: AccessConditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [AccessCondition]!
@@ -4871,7 +4946,6 @@ type Query {
   accesses(where: AccessWhereInput, orderBy: AccessOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Access]!
   datas(where: DataWhereInput, orderBy: DataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Data]!
   bpmnProcesses(where: BpmnProcessWhereInput, orderBy: BpmnProcessOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BpmnProcess]!
-  formElements(where: FormElementWhereInput, orderBy: FormElementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FormElement]!
   bpmnProcessInstances(where: BpmnProcessInstanceWhereInput, orderBy: BpmnProcessInstanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BpmnProcessInstance]!
   localisation(where: LocalisationWhereUniqueInput!): Localisation
   organisation(where: OrganisationWhereUniqueInput!): Organisation
@@ -4880,13 +4954,13 @@ type Query {
   user(where: UserWhereUniqueInput!): User
   form(where: FormWhereUniqueInput!): Form
   validator(where: ValidatorWhereUniqueInput!): Validator
+  formElement(where: FormElementWhereUniqueInput!): FormElement
   notification(where: NotificationWhereUniqueInput!): Notification
   dataDescriptor(where: DataDescriptorWhereUniqueInput!): DataDescriptor
   resource(where: ResourceWhereUniqueInput!): Resource
   access(where: AccessWhereUniqueInput!): Access
   data(where: DataWhereUniqueInput!): Data
   bpmnProcess(where: BpmnProcessWhereUniqueInput!): BpmnProcess
-  formElement(where: FormElementWhereUniqueInput!): FormElement
   bpmnProcessInstance(where: BpmnProcessInstanceWhereUniqueInput!): BpmnProcessInstance
   localisationsConnection(where: LocalisationWhereInput, orderBy: LocalisationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LocalisationConnection!
   organisationsConnection(where: OrganisationWhereInput, orderBy: OrganisationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): OrganisationConnection!
@@ -4895,6 +4969,7 @@ type Query {
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   formsConnection(where: FormWhereInput, orderBy: FormOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FormConnection!
   validatorsConnection(where: ValidatorWhereInput, orderBy: ValidatorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ValidatorConnection!
+  formElementsConnection(where: FormElementWhereInput, orderBy: FormElementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FormElementConnection!
   commentsConnection(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CommentConnection!
   notificationsConnection(where: NotificationWhereInput, orderBy: NotificationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): NotificationConnection!
   accessConditionsConnection(where: AccessConditionWhereInput, orderBy: AccessConditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AccessConditionConnection!
@@ -4903,7 +4978,6 @@ type Query {
   accessesConnection(where: AccessWhereInput, orderBy: AccessOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AccessConnection!
   datasConnection(where: DataWhereInput, orderBy: DataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DataConnection!
   bpmnProcessesConnection(where: BpmnProcessWhereInput, orderBy: BpmnProcessOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BpmnProcessConnection!
-  formElementsConnection(where: FormElementWhereInput, orderBy: FormElementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FormElementConnection!
   bpmnProcessInstancesConnection(where: BpmnProcessInstanceWhereInput, orderBy: BpmnProcessInstanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BpmnProcessInstanceConnection!
 
   """Fetches an object given its ID"""
@@ -5439,6 +5513,7 @@ type Subscription {
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   form(where: FormSubscriptionWhereInput): FormSubscriptionPayload
   validator(where: ValidatorSubscriptionWhereInput): ValidatorSubscriptionPayload
+  formElement(where: FormElementSubscriptionWhereInput): FormElementSubscriptionPayload
   comment(where: CommentSubscriptionWhereInput): CommentSubscriptionPayload
   notification(where: NotificationSubscriptionWhereInput): NotificationSubscriptionPayload
   accessCondition(where: AccessConditionSubscriptionWhereInput): AccessConditionSubscriptionPayload
@@ -5447,7 +5522,6 @@ type Subscription {
   access(where: AccessSubscriptionWhereInput): AccessSubscriptionPayload
   data(where: DataSubscriptionWhereInput): DataSubscriptionPayload
   bpmnProcess(where: BpmnProcessSubscriptionWhereInput): BpmnProcessSubscriptionPayload
-  formElement(where: FormElementSubscriptionWhereInput): FormElementSubscriptionPayload
   bpmnProcessInstance(where: BpmnProcessInstanceSubscriptionWhereInput): BpmnProcessInstanceSubscriptionPayload
 }
 
@@ -6120,6 +6194,8 @@ export type FormElementOrderByInput =   'id_ASC' |
   'controlProps_DESC' |
   'vertical_ASC' |
   'vertical_DESC' |
+  'parentElement_ASC' |
+  'parentElement_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
@@ -6162,6 +6238,8 @@ export type DataDescriptorOrderByInput =   'id_ASC' |
   'name_DESC' |
   'type_ASC' |
   'type_DESC' |
+  'parentDescriptor_ASC' |
+  'parentDescriptor_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
@@ -6553,10 +6631,21 @@ export interface DataDescriptorWhereInput {
   type_not?: DataType
   type_in?: DataType[] | DataType
   type_not_in?: DataType[] | DataType
+  parentDescriptor?: ID_Input
+  parentDescriptor_not?: ID_Input
+  parentDescriptor_in?: ID_Input[] | ID_Input
+  parentDescriptor_not_in?: ID_Input[] | ID_Input
+  parentDescriptor_lt?: ID_Input
+  parentDescriptor_lte?: ID_Input
+  parentDescriptor_gt?: ID_Input
+  parentDescriptor_gte?: ID_Input
+  parentDescriptor_contains?: ID_Input
+  parentDescriptor_not_contains?: ID_Input
+  parentDescriptor_starts_with?: ID_Input
+  parentDescriptor_not_starts_with?: ID_Input
+  parentDescriptor_ends_with?: ID_Input
+  parentDescriptor_not_ends_with?: ID_Input
   access?: AccessWhereInput
-  descriptors_every?: DataDescriptorWhereInput
-  descriptors_some?: DataDescriptorWhereInput
-  descriptors_none?: DataDescriptorWhereInput
   validators?: ValidatorWhereInput
   _MagicalBackRelation_DataToDataDescriptor_every?: DataWhereInput
   _MagicalBackRelation_DataToDataDescriptor_some?: DataWhereInput
@@ -6564,9 +6653,6 @@ export interface DataDescriptorWhereInput {
   _MagicalBackRelation_DataDescriptorToFormElement_every?: FormElementWhereInput
   _MagicalBackRelation_DataDescriptorToFormElement_some?: FormElementWhereInput
   _MagicalBackRelation_DataDescriptorToFormElement_none?: FormElementWhereInput
-  _MagicalBackRelation_DataDescriptorToDataDescriptor_every?: DataDescriptorWhereInput
-  _MagicalBackRelation_DataDescriptorToDataDescriptor_some?: DataDescriptorWhereInput
-  _MagicalBackRelation_DataDescriptorToDataDescriptor_none?: DataDescriptorWhereInput
   _MagicalBackRelation_BpmnProcessToDataDescriptor_every?: BpmnProcessWhereInput
   _MagicalBackRelation_BpmnProcessToDataDescriptor_some?: BpmnProcessWhereInput
   _MagicalBackRelation_BpmnProcessToDataDescriptor_none?: BpmnProcessWhereInput
@@ -6742,16 +6828,24 @@ export interface FormElementWhereInput {
   control_not_in?: FormControl[] | FormControl
   vertical?: Boolean
   vertical_not?: Boolean
+  parentElement?: ID_Input
+  parentElement_not?: ID_Input
+  parentElement_in?: ID_Input[] | ID_Input
+  parentElement_not_in?: ID_Input[] | ID_Input
+  parentElement_lt?: ID_Input
+  parentElement_lte?: ID_Input
+  parentElement_gt?: ID_Input
+  parentElement_gte?: ID_Input
+  parentElement_contains?: ID_Input
+  parentElement_not_contains?: ID_Input
+  parentElement_starts_with?: ID_Input
+  parentElement_not_starts_with?: ID_Input
+  parentElement_ends_with?: ID_Input
+  parentElement_not_ends_with?: ID_Input
   source?: DataDescriptorWhereInput
-  elements_every?: FormElementWhereInput
-  elements_some?: FormElementWhereInput
-  elements_none?: FormElementWhereInput
   _MagicalBackRelation_FormToFormElement_every?: FormWhereInput
   _MagicalBackRelation_FormToFormElement_some?: FormWhereInput
   _MagicalBackRelation_FormToFormElement_none?: FormWhereInput
-  _MagicalBackRelation_FormElementToFormElement_every?: FormElementWhereInput
-  _MagicalBackRelation_FormElementToFormElement_some?: FormElementWhereInput
-  _MagicalBackRelation_FormElementToFormElement_none?: FormElementWhereInput
 }
 
 export interface BpmnTaskInstanceCreateManyInput {
@@ -6941,19 +7035,19 @@ export interface FormElementUpdateDataInput {
   control?: FormControl
   controlProps?: Json
   vertical?: Boolean
+  parentElement?: ID_Input
   source?: DataDescriptorUpdateOneInput
-  elements?: FormElementUpdateManyInput
 }
 
-export interface BpmnProcessSubscriptionWhereInput {
-  AND?: BpmnProcessSubscriptionWhereInput[] | BpmnProcessSubscriptionWhereInput
-  OR?: BpmnProcessSubscriptionWhereInput[] | BpmnProcessSubscriptionWhereInput
-  NOT?: BpmnProcessSubscriptionWhereInput[] | BpmnProcessSubscriptionWhereInput
+export interface DataSubscriptionWhereInput {
+  AND?: DataSubscriptionWhereInput[] | DataSubscriptionWhereInput
+  OR?: DataSubscriptionWhereInput[] | DataSubscriptionWhereInput
+  NOT?: DataSubscriptionWhereInput[] | DataSubscriptionWhereInput
   mutation_in?: MutationType[] | MutationType
   updatedFields_contains?: String
   updatedFields_contains_every?: String[] | String
   updatedFields_contains_some?: String[] | String
-  node?: BpmnProcessWhereInput
+  node?: DataWhereInput
 }
 
 export interface FormElementUpdateWithWhereUniqueNestedInput {
@@ -6961,15 +7055,15 @@ export interface FormElementUpdateWithWhereUniqueNestedInput {
   data: FormElementUpdateDataInput
 }
 
-export interface AccessSubscriptionWhereInput {
-  AND?: AccessSubscriptionWhereInput[] | AccessSubscriptionWhereInput
-  OR?: AccessSubscriptionWhereInput[] | AccessSubscriptionWhereInput
-  NOT?: AccessSubscriptionWhereInput[] | AccessSubscriptionWhereInput
+export interface ResourceSubscriptionWhereInput {
+  AND?: ResourceSubscriptionWhereInput[] | ResourceSubscriptionWhereInput
+  OR?: ResourceSubscriptionWhereInput[] | ResourceSubscriptionWhereInput
+  NOT?: ResourceSubscriptionWhereInput[] | ResourceSubscriptionWhereInput
   mutation_in?: MutationType[] | MutationType
   updatedFields_contains?: String
   updatedFields_contains_every?: String[] | String
   updatedFields_contains_some?: String[] | String
-  node?: AccessWhereInput
+  node?: ResourceWhereInput
 }
 
 export interface FormElementUpdateManyInput {
@@ -7158,15 +7252,15 @@ export interface FormUpdateOneInput {
   upsert?: FormUpsertNestedInput
 }
 
-export interface NotificationSubscriptionWhereInput {
-  AND?: NotificationSubscriptionWhereInput[] | NotificationSubscriptionWhereInput
-  OR?: NotificationSubscriptionWhereInput[] | NotificationSubscriptionWhereInput
-  NOT?: NotificationSubscriptionWhereInput[] | NotificationSubscriptionWhereInput
+export interface CommentSubscriptionWhereInput {
+  AND?: CommentSubscriptionWhereInput[] | CommentSubscriptionWhereInput
+  OR?: CommentSubscriptionWhereInput[] | CommentSubscriptionWhereInput
+  NOT?: CommentSubscriptionWhereInput[] | CommentSubscriptionWhereInput
   mutation_in?: MutationType[] | MutationType
   updatedFields_contains?: String
   updatedFields_contains_every?: String[] | String
   updatedFields_contains_some?: String[] | String
-  node?: NotificationWhereInput
+  node?: CommentWhereInput
 }
 
 export interface ResourceUpdateDataInput {
@@ -7436,8 +7530,8 @@ export interface DataDescriptorUpdateDataInput {
   isArray?: Boolean
   name?: String
   type?: DataType
+  parentDescriptor?: ID_Input
   access?: AccessUpdateOneInput
-  descriptors?: DataDescriptorUpdateManyInput
   validators?: ValidatorUpdateOneInput
 }
 
@@ -7450,7 +7544,7 @@ export interface DataDescriptorUpdateWithWhereUniqueNestedInput {
   data: DataDescriptorUpdateDataInput
 }
 
-export interface NotificationWhereUniqueInput {
+export interface FormElementWhereUniqueInput {
   id?: ID_Input
 }
 
@@ -7460,7 +7554,7 @@ export interface LocalisationCreateInput {
   language: LanguageCode
 }
 
-export interface ResourceWhereUniqueInput {
+export interface DataDescriptorWhereUniqueInput {
   id?: ID_Input
 }
 
@@ -7469,7 +7563,7 @@ export interface OrganisationCreateInput {
   description?: String
 }
 
-export interface DataWhereUniqueInput {
+export interface AccessWhereUniqueInput {
   id?: ID_Input
 }
 
@@ -7478,7 +7572,7 @@ export interface RoleCreateInput {
   description?: String
 }
 
-export interface FormElementWhereUniqueInput {
+export interface BpmnProcessWhereUniqueInput {
   id?: ID_Input
 }
 
@@ -7510,17 +7604,12 @@ export interface BpmnTaskInstanceCreateperformerRolesInput {
   set?: String[] | String
 }
 
-export interface BpmnProcessUpdateInput {
-  actionCount?: Int
-  description?: String
-  model?: String
-  name?: String
-  status?: ProcessStatus
+export interface DataUpdateInput {
+  organisationId?: String
   version?: Int
-  access?: AccessUpdateOneInput
-  data?: DataDescriptorUpdateManyInput
-  resources?: ResourceUpdateManyInput
-  versions?: BpmnProcessUpdateManyInput
+  date?: DateTime
+  value?: String
+  descriptor?: DataDescriptorUpdateOneInput
 }
 
 export interface UserCreateOneInput {
@@ -7528,14 +7617,11 @@ export interface UserCreateOneInput {
   connect?: UserWhereUniqueInput
 }
 
-export interface AccessUpdateInput {
-  createdById?: ID_Input
-  createdOn?: DateTime
-  modifiedById?: ID_Input
-  modifiedOn?: DateTime
-  read?: AccessConditionUpdateManyInput
-  write?: AccessConditionUpdateManyInput
-  execute?: AccessConditionUpdateManyInput
+export interface ResourceUpdateInput {
+  type?: ResourceType
+  name?: String
+  content?: String
+  form?: FormUpdateOneInput
 }
 
 export interface UserCreateInput {
@@ -7549,16 +7635,14 @@ export interface UserCreateInput {
   data?: DataCreateManyInput
 }
 
-export interface DataDescriptorUpdateInput {
-  defaultValue?: String
-  description?: String
-  expression?: String
-  isArray?: Boolean
-  name?: String
-  type?: DataType
-  access?: AccessUpdateOneInput
-  descriptors?: DataDescriptorUpdateManyInput
-  validators?: ValidatorUpdateOneInput
+export interface NotificationUpdateInput {
+  type?: NotificationType
+  userId?: ID_Input
+  code?: NotificationCode
+  text?: String
+  visible?: Boolean
+  params?: NotificationUpdateparamsInput
+  processInstance?: BpmnProcessInstanceUpdateOneInput
 }
 
 export interface UserCreaterolesInput {
@@ -7827,15 +7911,15 @@ export interface DataDescriptorCreateManyInput {
   connect?: DataDescriptorWhereUniqueInput[] | DataDescriptorWhereUniqueInput
 }
 
-export interface DataSubscriptionWhereInput {
-  AND?: DataSubscriptionWhereInput[] | DataSubscriptionWhereInput
-  OR?: DataSubscriptionWhereInput[] | DataSubscriptionWhereInput
-  NOT?: DataSubscriptionWhereInput[] | DataSubscriptionWhereInput
+export interface AccessSubscriptionWhereInput {
+  AND?: AccessSubscriptionWhereInput[] | AccessSubscriptionWhereInput
+  OR?: AccessSubscriptionWhereInput[] | AccessSubscriptionWhereInput
+  NOT?: AccessSubscriptionWhereInput[] | AccessSubscriptionWhereInput
   mutation_in?: MutationType[] | MutationType
   updatedFields_contains?: String
   updatedFields_contains_every?: String[] | String
   updatedFields_contains_some?: String[] | String
-  node?: DataWhereInput
+  node?: AccessWhereInput
 }
 
 export interface DataDescriptorCreateInput {
@@ -7845,20 +7929,20 @@ export interface DataDescriptorCreateInput {
   isArray?: Boolean
   name?: String
   type?: DataType
+  parentDescriptor?: ID_Input
   access?: AccessCreateOneInput
-  descriptors?: DataDescriptorCreateManyInput
   validators?: ValidatorCreateOneInput
 }
 
-export interface DataDescriptorSubscriptionWhereInput {
-  AND?: DataDescriptorSubscriptionWhereInput[] | DataDescriptorSubscriptionWhereInput
-  OR?: DataDescriptorSubscriptionWhereInput[] | DataDescriptorSubscriptionWhereInput
-  NOT?: DataDescriptorSubscriptionWhereInput[] | DataDescriptorSubscriptionWhereInput
+export interface AccessConditionSubscriptionWhereInput {
+  AND?: AccessConditionSubscriptionWhereInput[] | AccessConditionSubscriptionWhereInput
+  OR?: AccessConditionSubscriptionWhereInput[] | AccessConditionSubscriptionWhereInput
+  NOT?: AccessConditionSubscriptionWhereInput[] | AccessConditionSubscriptionWhereInput
   mutation_in?: MutationType[] | MutationType
   updatedFields_contains?: String
   updatedFields_contains_every?: String[] | String
   updatedFields_contains_some?: String[] | String
-  node?: DataDescriptorWhereInput
+  node?: AccessConditionWhereInput
 }
 
 export interface ValidatorCreateOneInput {
@@ -7866,15 +7950,15 @@ export interface ValidatorCreateOneInput {
   connect?: ValidatorWhereUniqueInput
 }
 
-export interface CommentSubscriptionWhereInput {
-  AND?: CommentSubscriptionWhereInput[] | CommentSubscriptionWhereInput
-  OR?: CommentSubscriptionWhereInput[] | CommentSubscriptionWhereInput
-  NOT?: CommentSubscriptionWhereInput[] | CommentSubscriptionWhereInput
+export interface FormElementSubscriptionWhereInput {
+  AND?: FormElementSubscriptionWhereInput[] | FormElementSubscriptionWhereInput
+  OR?: FormElementSubscriptionWhereInput[] | FormElementSubscriptionWhereInput
+  NOT?: FormElementSubscriptionWhereInput[] | FormElementSubscriptionWhereInput
   mutation_in?: MutationType[] | MutationType
   updatedFields_contains?: String
   updatedFields_contains_every?: String[] | String
   updatedFields_contains_some?: String[] | String
-  node?: CommentWhereInput
+  node?: FormElementWhereInput
 }
 
 export interface ValidatorCreateInput {
@@ -7946,7 +8030,7 @@ export interface FormCreateInput {
   validations?: ValidatorCreateManyInput
 }
 
-export interface AccessWhereUniqueInput {
+export interface ResourceWhereUniqueInput {
   id?: ID_Input
 }
 
@@ -7972,16 +8056,18 @@ export interface FormElementCreateInput {
   control?: FormControl
   controlProps?: Json
   vertical?: Boolean
+  parentElement?: ID_Input
   source?: DataDescriptorCreateOneInput
-  elements?: FormElementCreateManyInput
 }
 
-export interface DataUpdateInput {
-  organisationId?: String
-  version?: Int
-  date?: DateTime
-  value?: String
-  descriptor?: DataDescriptorUpdateOneInput
+export interface AccessUpdateInput {
+  createdById?: ID_Input
+  createdOn?: DateTime
+  modifiedById?: ID_Input
+  modifiedOn?: DateTime
+  read?: AccessConditionUpdateManyInput
+  write?: AccessConditionUpdateManyInput
+  execute?: AccessConditionUpdateManyInput
 }
 
 export interface AccessConditionWhereInput {
@@ -8041,14 +8127,21 @@ export interface AccessConditionWhereInput {
   _MagicalBackRelation_CanExecute_none?: AccessWhereInput
 }
 
-export interface NotificationUpdateInput {
-  type?: NotificationType
-  userId?: ID_Input
-  code?: NotificationCode
-  text?: String
-  visible?: Boolean
-  params?: NotificationUpdateparamsInput
-  processInstance?: BpmnProcessInstanceUpdateOneInput
+export interface FormElementUpdateInput {
+  row?: Int
+  column?: Int
+  width?: Int
+  label?: String
+  inline?: Boolean
+  defaultValue?: String
+  list?: String
+  filterSource?: String
+  filterColumn?: String
+  control?: FormControl
+  controlProps?: Json
+  vertical?: Boolean
+  parentElement?: ID_Input
+  source?: DataDescriptorUpdateOneInput
 }
 
 export interface FormWhereInput {
@@ -8389,15 +8482,15 @@ export interface LocalisationUpdateInput {
   language?: LanguageCode
 }
 
-export interface FormElementSubscriptionWhereInput {
-  AND?: FormElementSubscriptionWhereInput[] | FormElementSubscriptionWhereInput
-  OR?: FormElementSubscriptionWhereInput[] | FormElementSubscriptionWhereInput
-  NOT?: FormElementSubscriptionWhereInput[] | FormElementSubscriptionWhereInput
+export interface BpmnProcessSubscriptionWhereInput {
+  AND?: BpmnProcessSubscriptionWhereInput[] | BpmnProcessSubscriptionWhereInput
+  OR?: BpmnProcessSubscriptionWhereInput[] | BpmnProcessSubscriptionWhereInput
+  NOT?: BpmnProcessSubscriptionWhereInput[] | BpmnProcessSubscriptionWhereInput
   mutation_in?: MutationType[] | MutationType
   updatedFields_contains?: String
   updatedFields_contains_every?: String[] | String
   updatedFields_contains_some?: String[] | String
-  node?: FormElementWhereInput
+  node?: BpmnProcessWhereInput
 }
 
 export interface OrganisationUpdateInput {
@@ -8405,15 +8498,15 @@ export interface OrganisationUpdateInput {
   description?: String
 }
 
-export interface AccessConditionSubscriptionWhereInput {
-  AND?: AccessConditionSubscriptionWhereInput[] | AccessConditionSubscriptionWhereInput
-  OR?: AccessConditionSubscriptionWhereInput[] | AccessConditionSubscriptionWhereInput
-  NOT?: AccessConditionSubscriptionWhereInput[] | AccessConditionSubscriptionWhereInput
+export interface NotificationSubscriptionWhereInput {
+  AND?: NotificationSubscriptionWhereInput[] | NotificationSubscriptionWhereInput
+  OR?: NotificationSubscriptionWhereInput[] | NotificationSubscriptionWhereInput
+  NOT?: NotificationSubscriptionWhereInput[] | NotificationSubscriptionWhereInput
   mutation_in?: MutationType[] | MutationType
   updatedFields_contains?: String
   updatedFields_contains_every?: String[] | String
   updatedFields_contains_some?: String[] | String
-  node?: AccessConditionWhereInput
+  node?: NotificationWhereInput
 }
 
 export interface RoleUpdateInput {
@@ -8452,7 +8545,7 @@ export interface BpmnTaskInstanceUpdateperformerRolesInput {
   set?: String[] | String
 }
 
-export interface DataDescriptorWhereUniqueInput {
+export interface NotificationWhereUniqueInput {
   id?: ID_Input
 }
 
@@ -8465,21 +8558,17 @@ export interface UserUpdateOneInput {
   upsert?: UserUpsertNestedInput
 }
 
-export interface FormElementUpdateInput {
-  row?: Int
-  column?: Int
-  width?: Int
-  label?: String
-  inline?: Boolean
-  defaultValue?: String
-  list?: String
-  filterSource?: String
-  filterColumn?: String
-  control?: FormControl
-  controlProps?: Json
-  vertical?: Boolean
-  source?: DataDescriptorUpdateOneInput
-  elements?: FormElementUpdateManyInput
+export interface BpmnProcessUpdateInput {
+  actionCount?: Int
+  description?: String
+  model?: String
+  name?: String
+  status?: ProcessStatus
+  version?: Int
+  access?: AccessUpdateOneInput
+  data?: DataDescriptorUpdateManyInput
+  resources?: ResourceUpdateManyInput
+  versions?: BpmnProcessUpdateManyInput
 }
 
 export interface UserUpdateDataInput {
@@ -8575,11 +8664,16 @@ export interface BpmnProcessInstanceUpdateOneInput {
   upsert?: BpmnProcessInstanceUpsertNestedInput
 }
 
-export interface ResourceUpdateInput {
-  type?: ResourceType
+export interface DataDescriptorUpdateInput {
+  defaultValue?: String
+  description?: String
+  expression?: String
+  isArray?: Boolean
   name?: String
-  content?: String
-  form?: FormUpdateOneInput
+  type?: DataType
+  parentDescriptor?: ID_Input
+  access?: AccessUpdateOneInput
+  validators?: ValidatorUpdateOneInput
 }
 
 export interface BpmnProcessInstanceUpdateDataInput {
@@ -8604,15 +8698,15 @@ export interface CommentUpdateManyInput {
   create?: CommentCreateInput[] | CommentCreateInput
 }
 
-export interface ResourceSubscriptionWhereInput {
-  AND?: ResourceSubscriptionWhereInput[] | ResourceSubscriptionWhereInput
-  OR?: ResourceSubscriptionWhereInput[] | ResourceSubscriptionWhereInput
-  NOT?: ResourceSubscriptionWhereInput[] | ResourceSubscriptionWhereInput
+export interface DataDescriptorSubscriptionWhereInput {
+  AND?: DataDescriptorSubscriptionWhereInput[] | DataDescriptorSubscriptionWhereInput
+  OR?: DataDescriptorSubscriptionWhereInput[] | DataDescriptorSubscriptionWhereInput
+  NOT?: DataDescriptorSubscriptionWhereInput[] | DataDescriptorSubscriptionWhereInput
   mutation_in?: MutationType[] | MutationType
   updatedFields_contains?: String
   updatedFields_contains_every?: String[] | String
   updatedFields_contains_some?: String[] | String
-  node?: ResourceWhereInput
+  node?: DataDescriptorWhereInput
 }
 
 export interface AccessUpdateDataInput {
@@ -8680,7 +8774,7 @@ export interface DataUpdateDataInput {
   descriptor?: DataDescriptorUpdateOneInput
 }
 
-export interface BpmnProcessWhereUniqueInput {
+export interface DataWhereUniqueInput {
   id?: ID_Input
 }
 
@@ -8737,14 +8831,12 @@ export interface LocalisationConnection {
   aggregate: AggregateLocalisation
 }
 
-export interface BpmnProcessPreviousValues {
+export interface DataPreviousValues {
   id: ID_Output
-  actionCount: Int
-  description?: String
-  model: String
-  name: String
-  status: ProcessStatus
-  version: Int
+  organisationId?: String
+  version?: Int
+  date?: DateTime
+  value?: String
 }
 
 export interface BatchPayload {
@@ -8762,7 +8854,7 @@ export interface BpmnProcessInstanceSubscriptionPayload {
   previousValues?: BpmnProcessInstancePreviousValues
 }
 
-export interface AggregateFormElement {
+export interface AggregateBpmnProcess {
   count: Int
 }
 
@@ -8779,10 +8871,10 @@ export interface BpmnProcessInstanceEdge {
  * A connection to a list of items.
 
  */
-export interface FormElementConnection {
+export interface BpmnProcessConnection {
   pageInfo: PageInfo
-  edges: FormElementEdge[]
-  aggregate: AggregateFormElement
+  edges: BpmnProcessEdge[]
+  aggregate: AggregateBpmnProcess
 }
 
 export interface Localisation extends Node {
@@ -8796,8 +8888,8 @@ export interface Localisation extends Node {
  * An edge in a connection.
 
  */
-export interface BpmnProcessEdge {
-  node: BpmnProcess
+export interface DataEdge {
+  node: Data
   cursor: String
 }
 
@@ -8810,7 +8902,7 @@ export interface Data extends Node {
   value?: String
 }
 
-export interface AggregateData {
+export interface AggregateAccess {
   count: Int
 }
 
@@ -8830,10 +8922,10 @@ export interface Notification extends Node {
  * A connection to a list of items.
 
  */
-export interface DataConnection {
+export interface AccessConnection {
   pageInfo: PageInfo
-  edges: DataEdge[]
-  aggregate: AggregateData
+  edges: AccessEdge[]
+  aggregate: AggregateAccess
 }
 
 export interface LocalisationSubscriptionPayload {
@@ -8847,8 +8939,8 @@ export interface LocalisationSubscriptionPayload {
  * An edge in a connection.
 
  */
-export interface AccessEdge {
-  node: Access
+export interface ResourceEdge {
+  node: Resource
   cursor: String
 }
 
@@ -8859,7 +8951,7 @@ export interface LocalisationPreviousValues {
   language: LanguageCode
 }
 
-export interface AggregateResource {
+export interface AggregateDataDescriptor {
   count: Int
 }
 
@@ -8873,10 +8965,10 @@ export interface Organisation extends Node {
  * A connection to a list of items.
 
  */
-export interface ResourceConnection {
+export interface DataDescriptorConnection {
   pageInfo: PageInfo
-  edges: ResourceEdge[]
-  aggregate: AggregateResource
+  edges: DataDescriptorEdge[]
+  aggregate: AggregateDataDescriptor
 }
 
 export interface OrganisationSubscriptionPayload {
@@ -8890,8 +8982,8 @@ export interface OrganisationSubscriptionPayload {
  * An edge in a connection.
 
  */
-export interface DataDescriptorEdge {
-  node: DataDescriptor
+export interface AccessConditionEdge {
+  node: AccessCondition
   cursor: String
 }
 
@@ -8901,7 +8993,7 @@ export interface OrganisationPreviousValues {
   description?: String
 }
 
-export interface AggregateAccessCondition {
+export interface AggregateNotification {
   count: Int
 }
 
@@ -8915,10 +9007,10 @@ export interface Role extends Node {
  * A connection to a list of items.
 
  */
-export interface AccessConditionConnection {
+export interface NotificationConnection {
   pageInfo: PageInfo
-  edges: AccessConditionEdge[]
-  aggregate: AggregateAccessCondition
+  edges: NotificationEdge[]
+  aggregate: AggregateNotification
 }
 
 export interface RoleSubscriptionPayload {
@@ -8932,8 +9024,8 @@ export interface RoleSubscriptionPayload {
  * An edge in a connection.
 
  */
-export interface NotificationEdge {
-  node: Notification
+export interface CommentEdge {
+  node: Comment
   cursor: String
 }
 
@@ -8943,34 +9035,28 @@ export interface RolePreviousValues {
   description?: String
 }
 
-export interface AggregateComment {
+export interface AggregateFormElement {
   count: Int
 }
 
-export interface FormElementPreviousValues {
+export interface BpmnProcessPreviousValues {
   id: ID_Output
-  row?: Int
-  column?: Int
-  width?: Int
-  label?: String
-  inline?: Boolean
-  defaultValue?: String
-  list?: String
-  filterSource?: String
-  filterColumn?: String
-  control?: FormControl
-  controlProps?: Json
-  vertical?: Boolean
+  actionCount: Int
+  description?: String
+  model: String
+  name: String
+  status: ProcessStatus
+  version: Int
 }
 
 /*
  * A connection to a list of items.
 
  */
-export interface CommentConnection {
+export interface FormElementConnection {
   pageInfo: PageInfo
-  edges: CommentEdge[]
-  aggregate: AggregateComment
+  edges: FormElementEdge[]
+  aggregate: AggregateFormElement
 }
 
 export interface BpmnTaskInstanceSubscriptionPayload {
@@ -9019,7 +9105,7 @@ export interface FormElement extends Node {
   control?: FormControl
   controlProps?: Json
   vertical?: Boolean
-  elements?: FormElement[]
+  parentElement?: ID_Output
 }
 
 /*
@@ -9155,6 +9241,17 @@ export interface BpmnProcessInstanceConnection {
   aggregate: AggregateBpmnProcessInstance
 }
 
+export interface BpmnProcessSubscriptionPayload {
+  mutation: MutationType
+  node?: BpmnProcess
+  updatedFields?: String[]
+  previousValues?: BpmnProcessPreviousValues
+}
+
+export interface AggregateData {
+  count: Int
+}
+
 export interface FormElementSubscriptionPayload {
   mutation: MutationType
   node?: FormElement
@@ -9162,7 +9259,49 @@ export interface FormElementSubscriptionPayload {
   previousValues?: FormElementPreviousValues
 }
 
-export interface AggregateBpmnProcess {
+/*
+ * An edge in a connection.
+
+ */
+export interface AccessEdge {
+  node: Access
+  cursor: String
+}
+
+export interface FormElementPreviousValues {
+  id: ID_Output
+  row?: Int
+  column?: Int
+  width?: Int
+  label?: String
+  inline?: Boolean
+  defaultValue?: String
+  list?: String
+  filterSource?: String
+  filterColumn?: String
+  control?: FormControl
+  controlProps?: Json
+  vertical?: Boolean
+  parentElement?: ID_Output
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface ResourceConnection {
+  pageInfo: PageInfo
+  edges: ResourceEdge[]
+  aggregate: AggregateResource
+}
+
+export interface Validator extends Node {
+  id: ID_Output
+  name: String
+  params: String[]
+}
+
+export interface AggregateAccessCondition {
   count: Int
 }
 
@@ -9177,8 +9316,8 @@ export interface CommentSubscriptionPayload {
  * An edge in a connection.
 
  */
-export interface DataEdge {
-  node: Data
+export interface NotificationEdge {
+  node: Notification
   cursor: String
 }
 
@@ -9192,19 +9331,26 @@ export interface CommentPreviousValues {
  * A connection to a list of items.
 
  */
-export interface AccessConnection {
+export interface CommentConnection {
   pageInfo: PageInfo
-  edges: AccessEdge[]
-  aggregate: AggregateAccess
+  edges: CommentEdge[]
+  aggregate: AggregateComment
 }
 
-export interface Validator extends Node {
+export interface DataDescriptor extends Node {
   id: ID_Output
-  name: String
-  params: String[]
+  access?: Access
+  defaultValue?: String
+  description?: String
+  expression?: String
+  isArray?: Boolean
+  name?: String
+  type?: DataType
+  validators?: Validator
+  parentDescriptor?: ID_Output
 }
 
-export interface AggregateDataDescriptor {
+export interface AggregateValidator {
   count: Int
 }
 
@@ -9219,8 +9365,8 @@ export interface NotificationSubscriptionPayload {
  * An edge in a connection.
 
  */
-export interface AccessConditionEdge {
-  node: AccessCondition
+export interface FormEdge {
+  node: Form
   cursor: String
 }
 
@@ -9233,55 +9379,6 @@ export interface NotificationPreviousValues {
   text?: String
   params: String[]
   visible: Boolean
-}
-
-/*
- * A connection to a list of items.
-
- */
-export interface NotificationConnection {
-  pageInfo: PageInfo
-  edges: NotificationEdge[]
-  aggregate: AggregateNotification
-}
-
-export interface DataDescriptor extends Node {
-  id: ID_Output
-  access?: Access
-  defaultValue?: String
-  description?: String
-  descriptors?: DataDescriptor[]
-  expression?: String
-  isArray?: Boolean
-  name?: String
-  type?: DataType
-  validators?: Validator
-}
-
-export interface AggregateValidator {
-  count: Int
-}
-
-export interface AccessConditionSubscriptionPayload {
-  mutation: MutationType
-  node?: AccessCondition
-  updatedFields?: String[]
-  previousValues?: AccessConditionPreviousValues
-}
-
-/*
- * An edge in a connection.
-
- */
-export interface FormEdge {
-  node: Form
-  cursor: String
-}
-
-export interface AccessConditionPreviousValues {
-  organisationId?: ID_Output
-  roleId?: ID_Output
-  userId?: ID_Output
 }
 
 /*
@@ -9304,11 +9401,11 @@ export interface AggregateRole {
   count: Int
 }
 
-export interface DataDescriptorSubscriptionPayload {
+export interface AccessConditionSubscriptionPayload {
   mutation: MutationType
-  node?: DataDescriptor
+  node?: AccessCondition
   updatedFields?: String[]
-  previousValues?: DataDescriptorPreviousValues
+  previousValues?: AccessConditionPreviousValues
 }
 
 /*
@@ -9320,14 +9417,10 @@ export interface OrganisationEdge {
   cursor: String
 }
 
-export interface DataDescriptorPreviousValues {
-  id: ID_Output
-  defaultValue?: String
-  description?: String
-  expression?: String
-  isArray?: Boolean
-  name?: String
-  type?: DataType
+export interface AccessConditionPreviousValues {
+  organisationId?: ID_Output
+  roleId?: ID_Output
+  userId?: ID_Output
 }
 
 /*
@@ -9356,36 +9449,40 @@ export interface Access extends Node {
  * A connection to a list of items.
 
  */
-export interface BpmnProcessConnection {
+export interface DataConnection {
   pageInfo: PageInfo
-  edges: BpmnProcessEdge[]
-  aggregate: AggregateBpmnProcess
+  edges: DataEdge[]
+  aggregate: AggregateData
 }
 
-export interface ResourceSubscriptionPayload {
+export interface DataDescriptorSubscriptionPayload {
   mutation: MutationType
-  node?: Resource
+  node?: DataDescriptor
   updatedFields?: String[]
-  previousValues?: ResourcePreviousValues
+  previousValues?: DataDescriptorPreviousValues
 }
 
 /*
  * An edge in a connection.
 
  */
-export interface ResourceEdge {
-  node: Resource
+export interface DataDescriptorEdge {
+  node: DataDescriptor
   cursor: String
 }
 
-export interface ResourcePreviousValues {
+export interface DataDescriptorPreviousValues {
   id: ID_Output
-  type: ResourceType
-  name: String
-  content: String
+  defaultValue?: String
+  description?: String
+  expression?: String
+  isArray?: Boolean
+  name?: String
+  type?: DataType
+  parentDescriptor?: ID_Output
 }
 
-export interface AggregateNotification {
+export interface AggregateComment {
   count: Int
 }
 
@@ -9413,11 +9510,11 @@ export interface ValidatorConnection {
   aggregate: AggregateValidator
 }
 
-export interface AccessSubscriptionPayload {
+export interface ResourceSubscriptionPayload {
   mutation: MutationType
-  node?: Access
+  node?: Resource
   updatedFields?: String[]
-  previousValues?: AccessPreviousValues
+  previousValues?: ResourcePreviousValues
 }
 
 /*
@@ -9429,12 +9526,11 @@ export interface BpmnTaskInstanceEdge {
   cursor: String
 }
 
-export interface AccessPreviousValues {
+export interface ResourcePreviousValues {
   id: ID_Output
-  createdById: ID_Output
-  createdOn?: DateTime
-  modifiedById?: ID_Output
-  modifiedOn?: DateTime
+  type: ResourceType
+  name: String
+  content: String
 }
 
 export interface AggregateLocalisation {
@@ -9448,7 +9544,7 @@ export interface Comment {
   replyTo?: String
 }
 
-export interface AggregateAccess {
+export interface AggregateResource {
   count: Int
 }
 
@@ -9456,16 +9552,16 @@ export interface AggregateAccess {
  * An edge in a connection.
 
  */
-export interface CommentEdge {
-  node: Comment
+export interface FormElementEdge {
+  node: FormElement
   cursor: String
 }
 
-export interface BpmnProcessSubscriptionPayload {
+export interface DataSubscriptionPayload {
   mutation: MutationType
-  node?: BpmnProcess
+  node?: Data
   updatedFields?: String[]
-  previousValues?: BpmnProcessPreviousValues
+  previousValues?: DataPreviousValues
 }
 
 export interface BpmnProcessInstance extends Node {
@@ -9481,19 +9577,19 @@ export interface BpmnProcessInstance extends Node {
   tasks?: BpmnTaskInstance[]
 }
 
-export interface DataPreviousValues {
+export interface AccessPreviousValues {
   id: ID_Output
-  organisationId?: String
-  version?: Int
-  date?: DateTime
-  value?: String
+  createdById: ID_Output
+  createdOn?: DateTime
+  modifiedById?: ID_Output
+  modifiedOn?: DateTime
 }
 
-export interface DataSubscriptionPayload {
+export interface AccessSubscriptionPayload {
   mutation: MutationType
-  node?: Data
+  node?: Access
   updatedFields?: String[]
-  previousValues?: DataPreviousValues
+  previousValues?: AccessPreviousValues
 }
 
 export interface AggregateUser {
@@ -9504,18 +9600,18 @@ export interface AggregateUser {
  * A connection to a list of items.
 
  */
-export interface DataDescriptorConnection {
+export interface AccessConditionConnection {
   pageInfo: PageInfo
-  edges: DataDescriptorEdge[]
-  aggregate: AggregateDataDescriptor
+  edges: AccessConditionEdge[]
+  aggregate: AggregateAccessCondition
 }
 
 /*
  * An edge in a connection.
 
  */
-export interface FormElementEdge {
-  node: FormElement
+export interface BpmnProcessEdge {
+  node: BpmnProcess
   cursor: String
 }
 

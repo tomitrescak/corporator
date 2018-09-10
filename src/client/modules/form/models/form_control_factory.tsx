@@ -2,23 +2,22 @@ import * as React from 'react';
 
 import { Button } from 'semantic-ui-react';
 
-import { Yoga } from 'data/yoga';
 import { CheckboxView } from '../views/checkbox_view';
 import { FormulaView } from '../views/formula_view';
 import { InputView } from '../views/input_view';
 import { RadioView } from '../views/radio_view';
 import { RepeaterView } from '../views/repeater_view';
 import { SelectView } from '../views/select_view';
-import { DataSet } from './form_model';
+import { DataSet, FormElement } from './form_model';
 
 export function renderControl(
-  control: Yoga.FormElement,
+  control: FormElement,
   dataSet: DataSet,
   handlers: { [index: string]: () => void }
 ) {
-  const formElement = control as Yoga.FormElement;
+  const formElement = control as FormElement;
 
-  if (formElement.source && dataSet.isExpression(formElement.source.name)) { 
+  if (formElement.source && dataSet.isExpression(formElement.source.name)) {
     return <FormulaView owner={dataSet} formControl={formElement} />;
   }
 

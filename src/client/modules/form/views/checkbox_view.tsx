@@ -3,12 +3,11 @@ import * as React from 'react';
 import { observer } from 'mobx-react';
 import { Checkbox, Form } from 'semantic-ui-react';
 
-import { Yoga } from 'data/yoga';
-import { DataSet } from '../models/form_model';
+import { DataSet, FormElement } from '../models/form_model';
 import { ErrorView } from './error_view';
 
 type Props = {
-  formControl: Yoga.FormElement;
+  formControl: FormElement;
   owner: DataSet;
 };
 

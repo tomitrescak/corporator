@@ -9,7 +9,7 @@ yoga = yoga.replace(
   `import { makeBindingClass, Options } from 'graphql-binding'`,
   `import { Options } from 'graphql-binding'`
 );
-yoga = yoga.replace(`import * as schema from  '../schema'\n`, '');
+yoga = yoga.replace(`import * as schema from  '../prisma/schema'\n`, '');
 yoga = yoga.replace(
   'export const Binding = makeBindingClass<BindingConstructor<Binding>>({ schema })\n',
   ''
@@ -30,7 +30,7 @@ fs.writeFileSync(path.resolve('./src/data/generated/yoga.ts'), yoga, { encoding:
 
 // export typedefs
 fs.writeFileSync(
-  path.resolve('./src/data/type_defs.ts'),
+  path.resolve('./src/data/generated/type_defs.ts'),
   `export const typeDefs = \`${typeDefs}\``,
   { encoding: 'utf-8' }
 );

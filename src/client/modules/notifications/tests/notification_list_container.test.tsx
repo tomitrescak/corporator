@@ -2,7 +2,7 @@
 import * as QUERY from 'data/notifications/client/notifications_query.graphql';
 import * as React from 'react';
 
-import { mock, MockedProvider, QueryTypes, render } from 'tests/client';
+import { mock, MockedProvider, QueryTypes, render } from 'client/tests';
 import { NotificationsContainer } from '../notifications_view';
 import { createNotification } from './notifications_query_data';
 

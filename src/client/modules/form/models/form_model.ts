@@ -4,9 +4,13 @@ import * as validations from './validation';
 import { IObservableArray } from 'mobx';
 import { ISimpleType, types } from 'mobx-state-tree';
 
-import { Yoga } from 'data/yoga';
-import { ListValue } from './form_model';
+import { QueryTypes } from 'data/client';
+import { DataDescriptor, Form, FormElement, ListValue } from './form_model';
 import { FormValidation } from './form_validation_model';
+
+export type FormElement = QueryTypes.FormElement & { elements: FormElement[] };
+export type DataDescriptor = QueryTypes.DataDescriptor & { descriptors: DataDescriptor[] };
+export type Form = QueryTypes.Form & { elements: FormElement[] };
 
 export interface DataSet {
   id?: string;
@@ -23,11 +27,11 @@ export interface DataSet {
 }
 
 export type FormControlProps = {
-  formControl: Yoga.FormElement;
+  formControl: FormElement;
   owner: DataSet;
 };
 
-function formItemSort(a: Yoga.FormElement, b: Yoga.FormElement) {
+function formItemSort(a: FormElement, b: FormElement) {
   return a.row < b.row
     ? -1
     : a.row > b.row
@@ -40,7 +44,7 @@ function formItemSort(a: Yoga.FormElement, b: Yoga.FormElement) {
 }
 
 function mstTypeFactory(
-  desc: Yoga.DataDescriptor,
+  desc: DataDescriptor,
   lists: Array<{ name: string; items: any[] }>
 ): ISimpleType<any> {
   switch (desc.type) {
@@ -71,7 +75,7 @@ let time = Date.now();
 let i = 0;
 
 export class FormModel {
-  static parseDefault(descriptor: Yoga.DataDescriptor) {
+  static parseDefault(descriptor: DataDescriptor) {
     switch (descriptor.type) {
       case 'Int':
         return parseInt(descriptor.defaultValue || '0', 10) as any;
@@ -85,12 +89,9 @@ export class FormModel {
     return descriptor.defaultValue;
   }
 
-  static buildMst(
-    descriptors: Yoga.DataDescriptor[],
-    lists?: Array<{ name: string; items: any[] }>
-  ) {
+  static buildMst(descriptors: DataDescriptor[], lists?: Array<{ name: string; items: any[] }>) {
     const descriptorMap: {
-      [index: string]: Yoga.DataDescriptor;
+      [index: string]: DataDescriptor;
     } = {};
     for (let d of descriptors) {
       descriptorMap[d.name] = d;
@@ -252,7 +253,7 @@ export class FormModel {
   }
 
   static buildMstModel(
-    descriptors: Yoga.DataDescriptor[],
+    descriptors: DataDescriptor[],
     dataArray: Array<{ name: string; value: any }>,
     lists?: Array<{ name: string; items: any[] }>
   ): DataSet {
@@ -267,10 +268,10 @@ export class FormModel {
   id: string;
   name: string;
   description: string;
-  elements: Yoga.FormElement[];
+  elements: FormElement[];
   validations: FormValidation[];
 
-  constructor(form: Yoga.Form) {
+  constructor(form: Form) {
     this.id = form.id;
     this.name = form.name;
     this.description = form.description;

@@ -1,5 +1,3 @@
-import { Yoga } from 'data/yoga';
-
 import * as TimeAgo from 'javascript-time-ago';
 import * as en from 'javascript-time-ago/locale/en';
 
@@ -10,7 +8,7 @@ TimeAgo.locale(en);
 const timeAgo = new TimeAgo('en-US');
 
 const Ui = {
-  relativeDate(date: Date | string | Yoga.DateTime) {
+  relativeDate(date: Date | string | any) {
     // @ts-ignore
     return timeAgo.format(new Date(date));
   }

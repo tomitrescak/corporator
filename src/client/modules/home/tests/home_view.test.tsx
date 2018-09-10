@@ -4,7 +4,7 @@ import { Provider } from 'mobx-react';
 import { create } from 'react-test-renderer';
 
 import { AppStore } from 'client/stores/app_store';
-import { MockedProvider } from 'tests/client';
+import { MockedProvider } from 'client/tests';
 import { HomeView } from '../home_view';
 
 describe('Home', () => {

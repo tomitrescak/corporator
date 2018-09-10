@@ -30,7 +30,7 @@ type FormElement {
   control: FormControl
   controlProps: Json
   vertical: Boolean
-  elements: [FormElement!]!
+  parentElement: ID
 }
 
 type Form {

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { createData, mock, MockedProvider, render } from 'tests/client';
+import { mock, MockedProvider, render } from 'client/tests';
 
 import { ProcessListContainer } from '../process_list_container';
 import { PROCESSES_QUERY } from '../process_queries';
@@ -19,7 +19,7 @@ describe('Process', () => {
 
     function luisComponent() {
       mock.expect(PROCESSES_QUERY).reply({
-        notifications: [createData.notification(), createData.notification()]
+        // notifications: [create.notificationDao(), create.notificationDao()]
       });
 
       return componentWithData();
@@ -39,7 +39,7 @@ describe('Process', () => {
 
     it('renders data', async () => {
       mock.expect(PROCESSES_QUERY).reply({
-        processes: [createData.processDao(), createData.processDao()]
+        // processes: [createDao.processDao(), createDao.processDao()]
       });
 
       const root = render(componentWithData());

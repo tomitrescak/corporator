@@ -1,9 +1,10 @@
 import * as React from 'react';
 import * as renderer from 'react-test-renderer';
 
-import { createData } from 'tests/client';
+import { QueryTypes } from 'client/tests';
 import { FormModel } from '../../models/form_model';
 import { FormView } from '../form_view';
+import { create } from './form_query_data';
 
 import 'jest-styled-components';
 
@@ -11,8 +12,8 @@ import { Segment } from 'semantic-ui-react';
 
 describe('Form', () => {
   const descriptors = [
-    createData.descriptor({ name: 'agree', type: 'Boolean' }),
-    createData.descriptor({ name: 'disagree', type: 'Boolean' })
+    create.descriptor({ name: 'agree', type: QueryTypes.DataType.Boolean }),
+    create.descriptor({ name: 'disagree', type: QueryTypes.DataType.Boolean })
   ];
 
   const controlData = [{ name: 'agree', value: true }, { name: 'disagree', value: false }];
@@ -22,36 +23,36 @@ describe('Form', () => {
     'Checkbox',
     {
       get component() {
-        const form = new FormModel( 
-          createData.formDao({
+        const form = new FormModel(
+          create.form({
             elements: [
-              {
+              create.formElement({
                 id: '1',
                 row: 0,
                 column: 0,
                 width: 8,
-                control: 'Checkbox',
+                control: QueryTypes.FormControl.Checkbox,
                 label: 'Agree With Terms and Conditions',
-                source: {
+                source: create.descriptor({
                   id: '',
                   name: 'agree'
-                }
-              },
-              {
+                })
+              }),
+              create.formElement({
                 id: '2',
                 row: 1,
                 column: 0,
                 width: 8,
-                control: 'Checkbox',
+                control: QueryTypes.FormControl.Checkbox,
                 controlProps: {
                   toggle: true
                 },
                 label: 'Disagree With Terms and Conditions',
-                source: {
+                source: create.descriptor({
                   id: '',
                   name: 'disagree'
-                }
-              }
+                })
+              })
             ]
           })
         );

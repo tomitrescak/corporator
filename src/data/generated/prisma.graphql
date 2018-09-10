@@ -1,5 +1,5 @@
 # source: http://localhost:4466
-# timestamp: Fri Aug 31 2018 13:42:51 GMT+1000 (Australian Eastern Standard Time)
+# timestamp: Mon Sep 10 2018 19:22:46 GMT+1000 (Australian Eastern Standard Time)
 
 type Access implements Node {
   id: ID!
@@ -2101,12 +2101,12 @@ type DataDescriptor implements Node {
   access(where: AccessWhereInput): Access
   defaultValue: String
   description: String
-  descriptors(where: DataDescriptorWhereInput, orderBy: DataDescriptorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [DataDescriptor!]
   expression: String
   isArray: Boolean
   name: String
   type: DataType
   validators(where: ValidatorWhereInput): Validator
+  parentDescriptor: ID
 }
 
 """A connection to a list of items."""
@@ -2126,8 +2126,8 @@ input DataDescriptorCreateInput {
   isArray: Boolean
   name: String
   type: DataType
+  parentDescriptor: ID
   access: AccessCreateOneInput
-  descriptors: DataDescriptorCreateManyInput
   validators: ValidatorCreateOneInput
 }
 
@@ -2165,6 +2165,8 @@ enum DataDescriptorOrderByInput {
   name_DESC
   type_ASC
   type_DESC
+  parentDescriptor_ASC
+  parentDescriptor_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -2179,6 +2181,7 @@ type DataDescriptorPreviousValues {
   isArray: Boolean
   name: String
   type: DataType
+  parentDescriptor: ID
 }
 
 type DataDescriptorSubscriptionPayload {
@@ -2227,8 +2230,8 @@ input DataDescriptorUpdateDataInput {
   isArray: Boolean
   name: String
   type: DataType
+  parentDescriptor: ID
   access: AccessUpdateOneInput
-  descriptors: DataDescriptorUpdateManyInput
   validators: ValidatorUpdateOneInput
 }
 
@@ -2239,8 +2242,8 @@ input DataDescriptorUpdateInput {
   isArray: Boolean
   name: String
   type: DataType
+  parentDescriptor: ID
   access: AccessUpdateOneInput
-  descriptors: DataDescriptorUpdateManyInput
   validators: ValidatorUpdateOneInput
 }
 
@@ -2501,10 +2504,47 @@ input DataDescriptorWhereInput {
 
   """All values that are not contained in given list."""
   type_not_in: [DataType!]
+  parentDescriptor: ID
+
+  """All values that are not equal to given value."""
+  parentDescriptor_not: ID
+
+  """All values that are contained in given list."""
+  parentDescriptor_in: [ID!]
+
+  """All values that are not contained in given list."""
+  parentDescriptor_not_in: [ID!]
+
+  """All values less than the given value."""
+  parentDescriptor_lt: ID
+
+  """All values less than or equal the given value."""
+  parentDescriptor_lte: ID
+
+  """All values greater than the given value."""
+  parentDescriptor_gt: ID
+
+  """All values greater than or equal the given value."""
+  parentDescriptor_gte: ID
+
+  """All values containing the given string."""
+  parentDescriptor_contains: ID
+
+  """All values not containing the given string."""
+  parentDescriptor_not_contains: ID
+
+  """All values starting with the given string."""
+  parentDescriptor_starts_with: ID
+
+  """All values not starting with the given string."""
+  parentDescriptor_not_starts_with: ID
+
+  """All values ending with the given string."""
+  parentDescriptor_ends_with: ID
+
+  """All values not ending with the given string."""
+  parentDescriptor_not_ends_with: ID
   access: AccessWhereInput
-  descriptors_every: DataDescriptorWhereInput
-  descriptors_some: DataDescriptorWhereInput
-  descriptors_none: DataDescriptorWhereInput
   validators: ValidatorWhereInput
   _MagicalBackRelation_DataToDataDescriptor_every: DataWhereInput
   _MagicalBackRelation_DataToDataDescriptor_some: DataWhereInput
@@ -2512,9 +2552,6 @@ input DataDescriptorWhereInput {
   _MagicalBackRelation_DataDescriptorToFormElement_every: FormElementWhereInput
   _MagicalBackRelation_DataDescriptorToFormElement_some: FormElementWhereInput
   _MagicalBackRelation_DataDescriptorToFormElement_none: FormElementWhereInput
-  _MagicalBackRelation_DataDescriptorToDataDescriptor_every: DataDescriptorWhereInput
-  _MagicalBackRelation_DataDescriptorToDataDescriptor_some: DataDescriptorWhereInput
-  _MagicalBackRelation_DataDescriptorToDataDescriptor_none: DataDescriptorWhereInput
   _MagicalBackRelation_BpmnProcessToDataDescriptor_every: BpmnProcessWhereInput
   _MagicalBackRelation_BpmnProcessToDataDescriptor_some: BpmnProcessWhereInput
   _MagicalBackRelation_BpmnProcessToDataDescriptor_none: BpmnProcessWhereInput
@@ -2893,7 +2930,7 @@ type FormElement implements Node {
   control: FormControl
   controlProps: Json
   vertical: Boolean
-  elements(where: FormElementWhereInput, orderBy: FormElementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FormElement!]
+  parentElement: ID
 }
 
 """A connection to a list of items."""
@@ -2919,8 +2956,8 @@ input FormElementCreateInput {
   control: FormControl
   controlProps: Json
   vertical: Boolean
+  parentElement: ID
   source: DataDescriptorCreateOneInput
-  elements: FormElementCreateManyInput
 }
 
 input FormElementCreateManyInput {
@@ -2964,6 +3001,8 @@ enum FormElementOrderByInput {
   controlProps_DESC
   vertical_ASC
   vertical_DESC
+  parentElement_ASC
+  parentElement_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -2984,6 +3023,7 @@ type FormElementPreviousValues {
   control: FormControl
   controlProps: Json
   vertical: Boolean
+  parentElement: ID
 }
 
 type FormElementSubscriptionPayload {
@@ -3038,8 +3078,8 @@ input FormElementUpdateDataInput {
   control: FormControl
   controlProps: Json
   vertical: Boolean
+  parentElement: ID
   source: DataDescriptorUpdateOneInput
-  elements: FormElementUpdateManyInput
 }
 
 input FormElementUpdateInput {
@@ -3055,8 +3095,8 @@ input FormElementUpdateInput {
   control: FormControl
   controlProps: Json
   vertical: Boolean
+  parentElement: ID
   source: DataDescriptorUpdateOneInput
-  elements: FormElementUpdateManyInput
 }
 
 input FormElementUpdateManyInput {
@@ -3412,16 +3452,50 @@ input FormElementWhereInput {
 
   """All values that are not equal to given value."""
   vertical_not: Boolean
+  parentElement: ID
+
+  """All values that are not equal to given value."""
+  parentElement_not: ID
+
+  """All values that are contained in given list."""
+  parentElement_in: [ID!]
+
+  """All values that are not contained in given list."""
+  parentElement_not_in: [ID!]
+
+  """All values less than the given value."""
+  parentElement_lt: ID
+
+  """All values less than or equal the given value."""
+  parentElement_lte: ID
+
+  """All values greater than the given value."""
+  parentElement_gt: ID
+
+  """All values greater than or equal the given value."""
+  parentElement_gte: ID
+
+  """All values containing the given string."""
+  parentElement_contains: ID
+
+  """All values not containing the given string."""
+  parentElement_not_contains: ID
+
+  """All values starting with the given string."""
+  parentElement_starts_with: ID
+
+  """All values not starting with the given string."""
+  parentElement_not_starts_with: ID
+
+  """All values ending with the given string."""
+  parentElement_ends_with: ID
+
+  """All values not ending with the given string."""
+  parentElement_not_ends_with: ID
   source: DataDescriptorWhereInput
-  elements_every: FormElementWhereInput
-  elements_some: FormElementWhereInput
-  elements_none: FormElementWhereInput
   _MagicalBackRelation_FormToFormElement_every: FormWhereInput
   _MagicalBackRelation_FormToFormElement_some: FormWhereInput
   _MagicalBackRelation_FormToFormElement_none: FormWhereInput
-  _MagicalBackRelation_FormElementToFormElement_every: FormElementWhereInput
-  _MagicalBackRelation_FormElementToFormElement_some: FormElementWhereInput
-  _MagicalBackRelation_FormElementToFormElement_none: FormElementWhereInput
 }
 
 input FormElementWhereUniqueInput {
@@ -3923,6 +3997,7 @@ type Mutation {
   createUser(data: UserCreateInput!): User!
   createForm(data: FormCreateInput!): Form!
   createValidator(data: ValidatorCreateInput!): Validator!
+  createFormElement(data: FormElementCreateInput!): FormElement!
   createComment(data: CommentCreateInput!): Comment!
   createNotification(data: NotificationCreateInput!): Notification!
   createAccessCondition(data: AccessConditionCreateInput!): AccessCondition!
@@ -3931,7 +4006,6 @@ type Mutation {
   createAccess(data: AccessCreateInput!): Access!
   createData(data: DataCreateInput!): Data!
   createBpmnProcess(data: BpmnProcessCreateInput!): BpmnProcess!
-  createFormElement(data: FormElementCreateInput!): FormElement!
   createBpmnProcessInstance(data: BpmnProcessInstanceCreateInput!): BpmnProcessInstance!
   updateLocalisation(data: LocalisationUpdateInput!, where: LocalisationWhereUniqueInput!): Localisation
   updateOrganisation(data: OrganisationUpdateInput!, where: OrganisationWhereUniqueInput!): Organisation
@@ -3940,13 +4014,13 @@ type Mutation {
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateForm(data: FormUpdateInput!, where: FormWhereUniqueInput!): Form
   updateValidator(data: ValidatorUpdateInput!, where: ValidatorWhereUniqueInput!): Validator
+  updateFormElement(data: FormElementUpdateInput!, where: FormElementWhereUniqueInput!): FormElement
   updateNotification(data: NotificationUpdateInput!, where: NotificationWhereUniqueInput!): Notification
   updateDataDescriptor(data: DataDescriptorUpdateInput!, where: DataDescriptorWhereUniqueInput!): DataDescriptor
   updateResource(data: ResourceUpdateInput!, where: ResourceWhereUniqueInput!): Resource
   updateAccess(data: AccessUpdateInput!, where: AccessWhereUniqueInput!): Access
   updateData(data: DataUpdateInput!, where: DataWhereUniqueInput!): Data
   updateBpmnProcess(data: BpmnProcessUpdateInput!, where: BpmnProcessWhereUniqueInput!): BpmnProcess
-  updateFormElement(data: FormElementUpdateInput!, where: FormElementWhereUniqueInput!): FormElement
   updateBpmnProcessInstance(data: BpmnProcessInstanceUpdateInput!, where: BpmnProcessInstanceWhereUniqueInput!): BpmnProcessInstance
   deleteLocalisation(where: LocalisationWhereUniqueInput!): Localisation
   deleteOrganisation(where: OrganisationWhereUniqueInput!): Organisation
@@ -3955,13 +4029,13 @@ type Mutation {
   deleteUser(where: UserWhereUniqueInput!): User
   deleteForm(where: FormWhereUniqueInput!): Form
   deleteValidator(where: ValidatorWhereUniqueInput!): Validator
+  deleteFormElement(where: FormElementWhereUniqueInput!): FormElement
   deleteNotification(where: NotificationWhereUniqueInput!): Notification
   deleteDataDescriptor(where: DataDescriptorWhereUniqueInput!): DataDescriptor
   deleteResource(where: ResourceWhereUniqueInput!): Resource
   deleteAccess(where: AccessWhereUniqueInput!): Access
   deleteData(where: DataWhereUniqueInput!): Data
   deleteBpmnProcess(where: BpmnProcessWhereUniqueInput!): BpmnProcess
-  deleteFormElement(where: FormElementWhereUniqueInput!): FormElement
   deleteBpmnProcessInstance(where: BpmnProcessInstanceWhereUniqueInput!): BpmnProcessInstance
   upsertLocalisation(where: LocalisationWhereUniqueInput!, create: LocalisationCreateInput!, update: LocalisationUpdateInput!): Localisation!
   upsertOrganisation(where: OrganisationWhereUniqueInput!, create: OrganisationCreateInput!, update: OrganisationUpdateInput!): Organisation!
@@ -3970,13 +4044,13 @@ type Mutation {
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertForm(where: FormWhereUniqueInput!, create: FormCreateInput!, update: FormUpdateInput!): Form!
   upsertValidator(where: ValidatorWhereUniqueInput!, create: ValidatorCreateInput!, update: ValidatorUpdateInput!): Validator!
+  upsertFormElement(where: FormElementWhereUniqueInput!, create: FormElementCreateInput!, update: FormElementUpdateInput!): FormElement!
   upsertNotification(where: NotificationWhereUniqueInput!, create: NotificationCreateInput!, update: NotificationUpdateInput!): Notification!
   upsertDataDescriptor(where: DataDescriptorWhereUniqueInput!, create: DataDescriptorCreateInput!, update: DataDescriptorUpdateInput!): DataDescriptor!
   upsertResource(where: ResourceWhereUniqueInput!, create: ResourceCreateInput!, update: ResourceUpdateInput!): Resource!
   upsertAccess(where: AccessWhereUniqueInput!, create: AccessCreateInput!, update: AccessUpdateInput!): Access!
   upsertData(where: DataWhereUniqueInput!, create: DataCreateInput!, update: DataUpdateInput!): Data!
   upsertBpmnProcess(where: BpmnProcessWhereUniqueInput!, create: BpmnProcessCreateInput!, update: BpmnProcessUpdateInput!): BpmnProcess!
-  upsertFormElement(where: FormElementWhereUniqueInput!, create: FormElementCreateInput!, update: FormElementUpdateInput!): FormElement!
   upsertBpmnProcessInstance(where: BpmnProcessInstanceWhereUniqueInput!, create: BpmnProcessInstanceCreateInput!, update: BpmnProcessInstanceUpdateInput!): BpmnProcessInstance!
   updateManyLocalisations(data: LocalisationUpdateInput!, where: LocalisationWhereInput): BatchPayload!
   updateManyOrganisations(data: OrganisationUpdateInput!, where: OrganisationWhereInput): BatchPayload!
@@ -3985,6 +4059,7 @@ type Mutation {
   updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
   updateManyForms(data: FormUpdateInput!, where: FormWhereInput): BatchPayload!
   updateManyValidators(data: ValidatorUpdateInput!, where: ValidatorWhereInput): BatchPayload!
+  updateManyFormElements(data: FormElementUpdateInput!, where: FormElementWhereInput): BatchPayload!
   updateManyComments(data: CommentUpdateInput!, where: CommentWhereInput): BatchPayload!
   updateManyNotifications(data: NotificationUpdateInput!, where: NotificationWhereInput): BatchPayload!
   updateManyAccessConditions(data: AccessConditionUpdateInput!, where: AccessConditionWhereInput): BatchPayload!
@@ -3993,7 +4068,6 @@ type Mutation {
   updateManyAccesses(data: AccessUpdateInput!, where: AccessWhereInput): BatchPayload!
   updateManyDatas(data: DataUpdateInput!, where: DataWhereInput): BatchPayload!
   updateManyBpmnProcesses(data: BpmnProcessUpdateInput!, where: BpmnProcessWhereInput): BatchPayload!
-  updateManyFormElements(data: FormElementUpdateInput!, where: FormElementWhereInput): BatchPayload!
   updateManyBpmnProcessInstances(data: BpmnProcessInstanceUpdateInput!, where: BpmnProcessInstanceWhereInput): BatchPayload!
   deleteManyLocalisations(where: LocalisationWhereInput): BatchPayload!
   deleteManyOrganisations(where: OrganisationWhereInput): BatchPayload!
@@ -4002,6 +4076,7 @@ type Mutation {
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyForms(where: FormWhereInput): BatchPayload!
   deleteManyValidators(where: ValidatorWhereInput): BatchPayload!
+  deleteManyFormElements(where: FormElementWhereInput): BatchPayload!
   deleteManyComments(where: CommentWhereInput): BatchPayload!
   deleteManyNotifications(where: NotificationWhereInput): BatchPayload!
   deleteManyAccessConditions(where: AccessConditionWhereInput): BatchPayload!
@@ -4010,7 +4085,6 @@ type Mutation {
   deleteManyAccesses(where: AccessWhereInput): BatchPayload!
   deleteManyDatas(where: DataWhereInput): BatchPayload!
   deleteManyBpmnProcesses(where: BpmnProcessWhereInput): BatchPayload!
-  deleteManyFormElements(where: FormElementWhereInput): BatchPayload!
   deleteManyBpmnProcessInstances(where: BpmnProcessInstanceWhereInput): BatchPayload!
 }
 
@@ -4647,6 +4721,7 @@ type Query {
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   forms(where: FormWhereInput, orderBy: FormOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Form]!
   validators(where: ValidatorWhereInput, orderBy: ValidatorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Validator]!
+  formElements(where: FormElementWhereInput, orderBy: FormElementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FormElement]!
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment]!
   notifications(where: NotificationWhereInput, orderBy: NotificationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Notification]!
   accessConditions(where: AccessConditionWhereInput, orderBy: AccessConditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [AccessCondition]!
@@ -4655,7 +4730,6 @@ type Query {
   accesses(where: AccessWhereInput, orderBy: AccessOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Access]!
   datas(where: DataWhereInput, orderBy: DataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Data]!
   bpmnProcesses(where: BpmnProcessWhereInput, orderBy: BpmnProcessOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BpmnProcess]!
-  formElements(where: FormElementWhereInput, orderBy: FormElementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FormElement]!
   bpmnProcessInstances(where: BpmnProcessInstanceWhereInput, orderBy: BpmnProcessInstanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BpmnProcessInstance]!
   localisation(where: LocalisationWhereUniqueInput!): Localisation
   organisation(where: OrganisationWhereUniqueInput!): Organisation
@@ -4664,13 +4738,13 @@ type Query {
   user(where: UserWhereUniqueInput!): User
   form(where: FormWhereUniqueInput!): Form
   validator(where: ValidatorWhereUniqueInput!): Validator
+  formElement(where: FormElementWhereUniqueInput!): FormElement
   notification(where: NotificationWhereUniqueInput!): Notification
   dataDescriptor(where: DataDescriptorWhereUniqueInput!): DataDescriptor
   resource(where: ResourceWhereUniqueInput!): Resource
   access(where: AccessWhereUniqueInput!): Access
   data(where: DataWhereUniqueInput!): Data
   bpmnProcess(where: BpmnProcessWhereUniqueInput!): BpmnProcess
-  formElement(where: FormElementWhereUniqueInput!): FormElement
   bpmnProcessInstance(where: BpmnProcessInstanceWhereUniqueInput!): BpmnProcessInstance
   localisationsConnection(where: LocalisationWhereInput, orderBy: LocalisationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LocalisationConnection!
   organisationsConnection(where: OrganisationWhereInput, orderBy: OrganisationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): OrganisationConnection!
@@ -4679,6 +4753,7 @@ type Query {
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   formsConnection(where: FormWhereInput, orderBy: FormOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FormConnection!
   validatorsConnection(where: ValidatorWhereInput, orderBy: ValidatorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ValidatorConnection!
+  formElementsConnection(where: FormElementWhereInput, orderBy: FormElementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FormElementConnection!
   commentsConnection(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CommentConnection!
   notificationsConnection(where: NotificationWhereInput, orderBy: NotificationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): NotificationConnection!
   accessConditionsConnection(where: AccessConditionWhereInput, orderBy: AccessConditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AccessConditionConnection!
@@ -4687,7 +4762,6 @@ type Query {
   accessesConnection(where: AccessWhereInput, orderBy: AccessOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AccessConnection!
   datasConnection(where: DataWhereInput, orderBy: DataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DataConnection!
   bpmnProcessesConnection(where: BpmnProcessWhereInput, orderBy: BpmnProcessOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BpmnProcessConnection!
-  formElementsConnection(where: FormElementWhereInput, orderBy: FormElementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FormElementConnection!
   bpmnProcessInstancesConnection(where: BpmnProcessInstanceWhereInput, orderBy: BpmnProcessInstanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BpmnProcessInstanceConnection!
 
   """Fetches an object given its ID"""
@@ -5223,6 +5297,7 @@ type Subscription {
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   form(where: FormSubscriptionWhereInput): FormSubscriptionPayload
   validator(where: ValidatorSubscriptionWhereInput): ValidatorSubscriptionPayload
+  formElement(where: FormElementSubscriptionWhereInput): FormElementSubscriptionPayload
   comment(where: CommentSubscriptionWhereInput): CommentSubscriptionPayload
   notification(where: NotificationSubscriptionWhereInput): NotificationSubscriptionPayload
   accessCondition(where: AccessConditionSubscriptionWhereInput): AccessConditionSubscriptionPayload
@@ -5231,7 +5306,6 @@ type Subscription {
   access(where: AccessSubscriptionWhereInput): AccessSubscriptionPayload
   data(where: DataSubscriptionWhereInput): DataSubscriptionPayload
   bpmnProcess(where: BpmnProcessSubscriptionWhereInput): BpmnProcessSubscriptionPayload
-  formElement(where: FormElementSubscriptionWhereInput): FormElementSubscriptionPayload
   bpmnProcessInstance(where: BpmnProcessInstanceSubscriptionWhereInput): BpmnProcessInstanceSubscriptionPayload
 }
 

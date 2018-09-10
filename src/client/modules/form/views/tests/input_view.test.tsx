@@ -3,22 +3,23 @@ import * as renderer from 'react-test-renderer';
 
 import { Segment } from 'semantic-ui-react';
 
-import { createData } from '../../../../../tests/test_data';
+import { QueryTypes } from 'data/client';
 import { FormModel } from '../../models/form_model';
 import { FormView } from '../form_view';
+import { create } from './form_query_data';
 
 describe('Form', () => {
   const descriptors = [
-    createData.descriptor({ name: 'owner.personal.name' }),
-    createData.descriptor({ name: 'owner.personal.age', type: 'Float' }),
-    createData.descriptor({
+    create.descriptor({ name: 'owner.personal.name' }),
+    create.descriptor({ name: 'owner.personal.age', type: QueryTypes.DataType.Float }),
+    create.descriptor({
       name: 'younger',
-      type: 'Int',
+      type: QueryTypes.DataType.Int,
       expression: `this['owner.personal.age'] - 10`
     }),
-    createData.descriptor({
+    create.descriptor({
       name: 'older',
-      type: 'Int',
+      type: QueryTypes.DataType.Int,
       expression: `this['owner.personal.age'] + 10`
     })
   ];
@@ -36,60 +37,60 @@ describe('Form', () => {
   describe('Viewer', () => {
     function componentWithData() {
       const form = new FormModel(
-        createData.formDao({
+        create.form({
           elements: [
-            {
+            create.formElement({
               id: '1',
               row: 0,
               column: 0,
               width: 16,
-              control: 'Input',
+              control: QueryTypes.FormControl.Input,
               controlProps: {
                 label: 'Name'
               },
               label: 'Mimo',
-              source: {
+              source: create.descriptor({
                 id: '',
                 name: 'owner.personal.name'
-              }
-            },
-            {
+              })
+            }),
+            create.formElement({
               id: '2',
               row: 1,
               column: 1,
               width: 7,
-              control: 'Input',
-              source: {
+              control: QueryTypes.FormControl.Input,
+              source: create.descriptor({
                 id: '',
                 name: 'owner.personal.age'
-              },
+              }),
               label: 'Age: ',
               inline: true
-            },
-            {
+            }),
+            create.formElement({
               id: '3',
               row: 1,
               column: 10,
               width: 2,
-              control: 'Input',
-              source: {
+              control: QueryTypes.FormControl.Input,
+              source: create.descriptor({
                 id: '',
                 name: 'younger'
-              },
+              }),
               label: 'Younger'
-            },
-            {
+            }),
+            create.formElement({
               id: '4',
               row: 1,
               column: 13,
               width: 2,
-              control: 'Input',
-              source: {
+              control: QueryTypes.FormControl.Input,
+              source: create.descriptor({
                 id: '',
                 name: 'older'
-              },
+              }),
               label: 'Older'
-            }
+            })
           ]
         })
       );

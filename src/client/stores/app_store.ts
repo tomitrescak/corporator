@@ -2,7 +2,7 @@ import i18n from 'es2015-i18n-tag';
 import { types } from 'mobx-state-tree';
 
 import { client } from 'client/config/apollo';
-import { Yoga } from 'data/yoga';
+import { QueryTypes } from 'data/client';
 import { LocalStorage } from '../config/local_storage';
 import { LoginStore } from '../modules/login/login_store';
 import { UserStore } from '../modules/user/user_store';
@@ -24,7 +24,7 @@ export const AppStore = types
   }))
   .actions(self => {
     return {
-      setUser(user: Yoga.User) {
+      setUser(user: QueryTypes.User) {
         self.login.password = '';
         self.userId = user.id;
         self.user = user;

@@ -1,6 +1,6 @@
 import { Context, Prisma } from 'data/utils';
 
-export { create } from './create';
+export { create } from './data';
 
 let db: Prisma.Prisma;
 let context: Context;

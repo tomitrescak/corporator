@@ -2,7 +2,7 @@ import * as PROCESSES_QUERY from 'data/bpmn_process/client/processes_query.graph
 
 import { Query, QueryProps } from 'react-apollo';
 
-import { Yoga } from 'data/yoga';
+import { QueryTypes } from 'data/client';
 
 export { PROCESSES_QUERY };
 
@@ -10,9 +10,9 @@ export { PROCESSES_QUERY };
     Notifications
    ======================================================== */
 
-type Data = { processes: Yoga.BpmnProcess[] };
-type Variables = { input: Yoga.BpmnProcessesInput };
-type Props = Partial<QueryProps<Data, Variables>>;
+type Data = QueryTypes.Processes;
+type Variables = QueryTypes.ProcessesVariables;
+type Props = Partial<QueryProps<QueryTypes.Processes, QueryTypes.ProcessesVariables>>;
 
 export class ProcessListQuery extends Query<Data, Variables> {
   static displayName = 'ProcessesQuery';

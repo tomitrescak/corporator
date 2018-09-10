@@ -1,4 +1,4 @@
-import { create, its } from 'data/tests/test_utils';
+import { create, its } from 'data/tests';
 
 import { query } from '../bpmn_process_resolver';
 

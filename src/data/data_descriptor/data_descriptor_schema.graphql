@@ -13,12 +13,12 @@ type DataDescriptor {
   access: Access
   defaultValue: String
   description: String
-  descriptors: [DataDescriptor!]!
   expression: String
   isArray: Boolean
   name: String
   type: DataType
   validators: Validator
+  parentDescriptor: ID
 }
 
 type Data {

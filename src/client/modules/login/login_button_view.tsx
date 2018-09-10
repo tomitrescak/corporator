@@ -4,8 +4,8 @@ import { Mutation } from 'react-apollo';
 import { Button, ButtonProps } from 'semantic-ui-react';
 import styled, { StyledComponentClass } from 'styled-components';
 
+import { QueryTypes } from 'data/client';
 import LOGIN_MUTATION = require('data/users/client/login_mutation.graphql');
-import { Yoga } from 'data/yoga';
 
 interface Props {
   store?: App.Store;
@@ -21,7 +21,7 @@ const CentredButton: StyledComponentClass<ButtonProps, {}> = styled(Button)`
 //   margin-top: 6px;
 // `;
 
-class LoginMutation extends Mutation<{ login: Yoga.AuthPayload }, { input: Yoga.AuthInput }> {}
+class LoginMutation extends Mutation<QueryTypes.Login, QueryTypes.LoginVariables> {}
 
 export const LoginButton = ({ store }: Props) => {
   return (

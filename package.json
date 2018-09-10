@@ -53,8 +53,8 @@
     "yoga": "graphql codegen",
     "dev": "npm run start | npm run server | npm run luis",
     "downloadSchema": "apollo schema:download schema.json --endpoint=http://localhost:4000",
-    "generateQueries": "apollo codegen:generate src/data/types.ts --outputFlat --queries=\"src/data/**/client/*.graphql\" --schema schema.json --target typescript",
-    "queryWatch": "apollo codegen:generate src/data/types.ts --outputFlat --queries=\"src/data/**/client/*.graphql\" --schema schema.json --watch --target typescript"
+    "generateQueries": "apollo codegen:generate src/data/generated/types.ts --outputFlat --queries=\"src/data/**/client/*.graphql\" --schema schema.json --target typescript",
+    "queryWatch": "apollo codegen:generate src/data/generated/types.ts --outputFlat --queries=\"src/data/**/client/*.graphql\" --schema schema.json --watch --target typescript"
   },
   "devDependencies": {
     "@playlyfe/gql": "^2.6.0",

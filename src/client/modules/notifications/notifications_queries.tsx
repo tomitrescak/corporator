@@ -4,7 +4,7 @@ import * as NOTIFICATIONS_QUERY from 'data/notifications/client/notifications_qu
 
 import { Mutation, MutationProps, Query, QueryProps } from 'react-apollo';
 
-import * as QueryTypes from 'data/types';
+import { QueryTypes } from 'data/client';
 
 /* =========================================================
     Notifications

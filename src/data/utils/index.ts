@@ -4,14 +4,15 @@ import { GraphQLResolveInfo } from 'graphql';
 
 import { Prisma } from 'data/generated/prisma';
 import { Mutation as PrismaMutation, Query as PrismaQuery, User } from 'data/generated/yoga';
+import { Yoga } from 'data/yoga';
 import { cache } from 'server/index';
 import { Localisation } from '../localisations/server/localisation_resolver';
-import { Yoga } from '../yoga';
 
 export { Prisma } from 'data/prisma';
+export { Yoga } from 'data/yoga';
+
 export { default as gql } from 'graphql-tag';
 export { Loader } from './loader';
-export { Yoga } from '../yoga';
 
 export type FixtureContext = {
   processes?: Yoga.BpmnProcess[];

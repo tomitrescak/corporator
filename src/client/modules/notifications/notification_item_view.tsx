@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import * as QueryTypes from 'data/types';
+import { QueryTypes } from 'data/client';
 
 import { Link } from '@reach/router';
 import { inject } from 'mobx-react';

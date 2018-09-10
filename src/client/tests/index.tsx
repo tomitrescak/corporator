@@ -1,19 +1,21 @@
 import * as React from 'react';
 
-import * as QueryTypes from 'data/types';
+import * as QueryTypes from 'data/generated/types';
 
 import { Provider } from 'mobx-react';
 import { ApolloProvider } from 'react-apollo';
 import { Message } from 'semantic-ui-react';
-import { createData, mock } from './test_data';
+import { create, mock } from './data';
 
 export { create as render, ReactTestRenderer, ReactTestInstance } from 'react-test-renderer';
 
-export { Yoga } from 'data/yoga';
-
-export { createData, mock } from './test_data';
+export { create, mock } from './data';
 
 export { QueryTypes };
+
+/* =========================================================
+    ERROR BOUNDARY
+   ======================================================== */
 
 type Props = {
   context?: App.Context;
@@ -64,8 +66,8 @@ class ErrorBoundary extends React.Component<
 }
 
 export const MockedProvider: React.SFC<Props> = ({
-  context = createData.context(),
-  store = createData.store(),
+  context = create.context(),
+  store = create.store(),
   children
 }) => {
   return (

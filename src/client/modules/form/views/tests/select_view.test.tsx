@@ -3,15 +3,13 @@ import * as renderer from 'react-test-renderer';
 
 import { Segment } from 'semantic-ui-react';
 
-import { createData } from 'tests/test_data';
+import { QueryTypes } from 'data/client';
 import { FormModel } from '../../models/form_model';
 import { FormView } from '../form_view';
+import { create } from './form_query_data';
 
 describe('Form', function() {
-  const descriptors = [
-    createData.descriptor({ name: 'country' }),
-    createData.descriptor({ name: 'city' })
-  ];
+  const descriptors = [create.descriptor({ name: 'country' }), create.descriptor({ name: 'city' })];
 
   const controlData = [{ name: 'country', value: 'SK' }, { name: 'city', value: 'KE' }];
 
@@ -36,40 +34,40 @@ describe('Form', function() {
   describe('Select', function() {
     function componentWithData() {
       const form = new FormModel(
-        createData.formDao({
+        create.form({
           elements: [
-            {
+            create.formElement({
               id: '1',
               row: 0,
               column: 0,
               width: 8,
               list: 'countries',
-              control: 'Select',
+              control: QueryTypes.FormControl.Select,
               label: 'Country',
-              source: {
+              source: create.descriptor({
                 id: '',
                 name: 'country'
-              },
+              }),
               inline: true
-            },
-            {
+            }),
+            create.formElement({
               id: '2',
               row: 0,
               column: 8,
               width: 8,
-              control: 'Select',
+              control: QueryTypes.FormControl.Select,
               list: 'cities',
               filterSource: 'country',
               filterColumn: 'country',
               controlProps: {
                 search: true
               },
-              source: {
+              source: create.descriptor({
                 id: '',
                 name: 'city'
-              },
+              }),
               label: 'City'
-            }
+            })
           ]
         })
       );

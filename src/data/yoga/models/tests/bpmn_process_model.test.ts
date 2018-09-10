@@ -23,7 +23,7 @@ jest.mock('bpmn-moddle', () => {
   };
 });
 
-import { createData } from 'tests/test_data';
+import { create } from 'data/tests'; // TODO: Move
 import {
   EndEvent,
   FlowNode,
@@ -54,7 +54,7 @@ describe('bpmn process model', () => {
     /**/
   });
   xit('creates a new instance from database', async () => {
-    const model = new BpmnProcessModel(createData.processDao());
+    const model = new BpmnProcessModel(create.processDao());
 
     // test all properties
     expect(model.status).toEqual('Published');
@@ -72,7 +72,7 @@ describe('bpmn process model', () => {
   });
 
   xit('instantiates objects from definition', async () => {
-    const model = new BpmnProcessModel(createData.processDao());
+    const model = new BpmnProcessModel(create.processDao());
 
     await model.loadDefinition(bpmn);
     // number of types in dictionary
@@ -98,7 +98,7 @@ describe('bpmn process model', () => {
   });
 
   xit('links references for all StartEvent objects', async () => {
-    const model = new BpmnProcessModel(createData.processDao());
+    const model = new BpmnProcessModel(create.processDao());
 
     await model.loadDefinition(bpmn);
     const startDict = model.elementsDict.getValue(BpmnTypes.Start);
@@ -120,7 +120,7 @@ describe('bpmn process model', () => {
   });
 
   xit('links references for all EndEvent objects', async () => {
-    const model = new BpmnProcessModel(createData.processDao());
+    const model = new BpmnProcessModel(create.processDao());
 
     await model.loadDefinition(bpmn);
     const endDict = model.elementsDict.getValue(BpmnTypes.End);
@@ -150,7 +150,7 @@ describe('bpmn process model', () => {
   });
 
   xit('links references for all Task objects', async () => {
-    const model = new BpmnProcessModel(createData.processDao());
+    const model = new BpmnProcessModel(create.processDao());
 
     await model.loadDefinition(bpmn);
     const taskDict = model.elementsDict.getValue(BpmnTypes.Task);
@@ -261,7 +261,7 @@ describe('bpmn process model', () => {
   });
 
   xit('links references for all Parallel Gateway objects', async () => {
-    const model = new BpmnProcessModel(createData.processDao());
+    const model = new BpmnProcessModel(create.processDao());
 
     await model.loadDefinition(bpmn);
     const gatewayDict = model.elementsDict.getValue(BpmnTypes.ParallelGateway);
@@ -305,7 +305,7 @@ describe('bpmn process model', () => {
   });
 
   xit('links references for all Exclusive Gateway objects', async () => {
-    const model = new BpmnProcessModel(createData.processDao());
+    const model = new BpmnProcessModel(create.processDao());
 
     await model.loadDefinition(bpmn);
     const gatewayDict = model.elementsDict.getValue(BpmnTypes.ExclusiveGateway);
@@ -336,7 +336,7 @@ describe('bpmn process model', () => {
   });
 
   xit('links references for all Inclusive Gateway objects', async () => {
-    const model = new BpmnProcessModel(createData.processDao());
+    const model = new BpmnProcessModel(create.processDao());
 
     await model.loadDefinition(bpmn);
     const gatewayDict = model.elementsDict.getValue(BpmnTypes.InclusiveGateway);
@@ -367,7 +367,7 @@ describe('bpmn process model', () => {
   });
 
   xit('links references for all Sequence Flow objects', async () => {
-    const model = new BpmnProcessModel(createData.processDao());
+    const model = new BpmnProcessModel(create.processDao());
 
     await model.loadDefinition(bpmn);
     const seqDict = model.elementsDict.getValue(BpmnTypes.SequenceFlow);
@@ -543,7 +543,7 @@ describe('bpmn process model', () => {
   });
 
   xit('handles source flow error', async () => {
-    const model = new BpmnProcessModel(createData.processDao());
+    const model = new BpmnProcessModel(create.processDao());
     let error = null;
 
     try {
@@ -556,7 +556,7 @@ describe('bpmn process model', () => {
   });
 
   xit('handles target flow error', async () => {
-    const model = new BpmnProcessModel(createData.processDao());
+    const model = new BpmnProcessModel(create.processDao());
     let error = null;
 
     try {
@@ -569,7 +569,7 @@ describe('bpmn process model', () => {
   });
 
   xit('handles source node error', async () => {
-    const model = new BpmnProcessModel(createData.processDao());
+    const model = new BpmnProcessModel(create.processDao());
     let error = null;
 
     try {
@@ -582,7 +582,7 @@ describe('bpmn process model', () => {
   });
 
   xit('handles target node error', async () => {
-    const model = new BpmnProcessModel(createData.processDao());
+    const model = new BpmnProcessModel(create.processDao());
     let error = null;
 
     try {
@@ -595,7 +595,7 @@ describe('bpmn process model', () => {
   });
 
   xit('handles default node error', async () => {
-    const model = new BpmnProcessModel(createData.processDao());
+    const model = new BpmnProcessModel(create.processDao());
     let error = null;
 
     try {
@@ -608,7 +608,7 @@ describe('bpmn process model', () => {
   });
 
   xit('handles non existing sequence flow', async () => {
-    const model = new BpmnProcessModel(createData.processDao());
+    const model = new BpmnProcessModel(create.processDao());
     let error = null;
 
     try {

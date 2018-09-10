@@ -3,14 +3,15 @@ import * as renderer from 'react-test-renderer';
 
 import { Segment } from 'semantic-ui-react';
 
-import { createData } from '../../../../../tests/test_data';
+import { QueryTypes } from 'data/client';
 import { FormModel } from '../../models/form_model';
 import { FormView } from '../form_view';
+import { create } from './form_query_data';
 
 describe('Form', () => {
   const descriptors = [
-    createData.descriptor({ name: 'religion', type: 'String' }),
-    createData.descriptor({ name: 'lined_religion', type: 'String' })
+    create.descriptor({ name: 'religion', type: QueryTypes.DataType.String }),
+    create.descriptor({ name: 'lined_religion', type: QueryTypes.DataType.String })
   ];
 
   const lists = [
@@ -32,36 +33,36 @@ describe('Form', () => {
     {
       get component() {
         const form = new FormModel(
-          createData.formDao({
+          create.form({
             elements: [
-              {
+              create.formElement({
                 id: '1',
                 row: 0,
                 column: 0,
                 width: 16,
                 list: 'religions',
-                control: 'Radio',
+                control: QueryTypes.FormControl.Radio,
                 label: 'Religions',
-                source: {
+                source: create.descriptor({
                   id: '',
                   name: 'religion'
-                },
+                }),
                 inline: true
-              },
-              {
+              }),
+              create.formElement({
                 id: '2',
                 row: 1,
                 column: 0,
                 width: 16,
                 list: 'religions',
-                control: 'Radio',
+                control: QueryTypes.FormControl.Radio,
                 label: 'Religions',
-                source: {
+                source: create.descriptor({
                   id: '',
                   name: 'lined_religion'
-                },
+                }),
                 vertical: true
-              }
+              })
             ]
           })
         );

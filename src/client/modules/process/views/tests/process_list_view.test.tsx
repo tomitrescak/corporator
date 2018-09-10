@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import { create as render } from 'react-test-renderer';
 
-// import { createData } from 'tests/test_data';
 import { ProcessListView } from '../process_list_view';
 
 describe('Process', () => {

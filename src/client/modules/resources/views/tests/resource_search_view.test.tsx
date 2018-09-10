@@ -2,8 +2,8 @@
 
 // import { create as render } from 'react-test-renderer';
 
-import { createData } from '../../../../../tests/test_data';
-createData.mocks();
+import { create } from 'client/tests';
+create.mocks();
 
 // import { ResourceSearchListView } from '../resource_search_list_view';
 

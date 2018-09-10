@@ -1,0 +1,6 @@
+query BpmnProcessInstances($input: BpmnProcessInstancesInput!) {
+  bpmnProcessInstances(input: $input) {
+    id
+    dateStarted
+  }
+}

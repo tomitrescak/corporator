@@ -6,18 +6,16 @@ import i18n from 'es2015-i18n-tag';
 import { IObservableArray } from 'mobx';
 import { Button, Message } from 'semantic-ui-react';
 
-import { Yoga } from 'data/yoga';
-import { DataSet } from '../models/form_model';
+import { DataSet, FormElement } from '../models/form_model';
 import { FormView } from './form_view';
 
-
 type Props = {
-  formControl: Yoga.FormElement;
+  formControl: FormElement;
   owner: DataSet;
 };
 
 type RowProps = {
-  formControl: Yoga.FormElement;
+  formControl: FormElement;
   owner: DataSet;
   data: DataSet;
 };

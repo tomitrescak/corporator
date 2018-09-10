@@ -37,23 +37,27 @@ export class Access {
   }
 
   canRead(user: Prisma.User) {
-    if(!this.read) { return true; } // ?
-    
+    if (!this.read) {
+      return true;
+    } // ?
+
     let allowed = false;
-    this.read.forEach((condition) => {
-      if( user.roles.includes(condition.roleId) ) {
-        allowed = true;    
+    this.read.forEach(condition => {
+      if (user.roles.includes(condition.roleId)) {
+        allowed = true;
       }
     });
     return allowed;
   }
 
   canWrite(user: Prisma.User) {
-    if(!this.write) { return true; } // ?
-    
+    if (!this.write) {
+      return true;
+    } // ?
+
     let allowed = false;
-    this.write.forEach((condition) => {
-      if( user.roles.includes(condition.roleId) ) {
+    this.write.forEach(condition => {
+      if (user.roles.includes(condition.roleId)) {
         allowed = true;
       }
     });
@@ -61,11 +65,13 @@ export class Access {
   }
 
   canExecute(user: Prisma.User) {
-    if(!this.execute) { return true; } // ?
-    
+    if (!this.execute) {
+      return true;
+    } // ?
+
     let allowed = false;
-    this.execute.forEach((condition) => {
-      if( user.roles.includes(condition.roleId) ) {
+    this.execute.forEach(condition => {
+      if (user.roles.includes(condition.roleId)) {
         allowed = true;
       }
     });

@@ -3,7 +3,7 @@ import * as React from 'react';
 import 'jest-styled-components';
 
 import { AppStore } from 'client/stores/app_store';
-import { MockedProvider, render } from 'tests/client';
+import { MockedProvider, render } from 'client/tests';
 import { LoginView } from '../login_view';
 
 describe('Login', function() {

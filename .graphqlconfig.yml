@@ -9,7 +9,7 @@ projects:
         - generator: graphql-binding
           language: typescript
           input:
-            schema: src/data/schema.ts
+            schema: src/data/prisma/schema.ts
           output:
             binding: src/data/generated/yoga.ts
   prisma:
