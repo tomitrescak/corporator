@@ -4,7 +4,7 @@ import { create as render } from 'react-test-renderer';
 
 import { create, MockedProvider, QueryTypes } from 'client/tests';
 import { NotificationsListContainer } from '../notification_list_view';
-import { createNotification } from './notifications_query_data';
+import { createNotification } from './notifications_test_data';
 
 export const notificationData = [
   createNotification({ id: '1', createdAt: new Date(2010, 1, 2, 12, 50) }),
@@ -15,7 +15,7 @@ export const notificationData = [
 ];
 
 describe('Notifications', () => {
-  describe('Item View', () => {
+  describe('List', () => {
     function componentWithData(notifications: QueryTypes.NotificationsNotifications[]) {
       return (
         <MockedProvider>
@@ -26,18 +26,26 @@ describe('Notifications', () => {
       );
     }
 
-    it('renders no notifications', () => {
-      const root = render(componentWithData([]));
-      expect(root).toMatchSnapshot();
+    describe('Empty', () => {
+      it('renders no notifications', () => {
+        const root = render(componentWithData([]));
+        expect(root).toMatchSnapshot();
+      });
+
+      return {
+        componentWithData
+      };
     });
 
-    it('renders some notifications', () => {
-      const root = render(componentWithData(notificationData));
-      expect(root).toMatchSnapshot();
-    });
+    describe('Data', () => {
+      it('renders some notifications', () => {
+        const root = render(componentWithData(notificationData));
+        expect(root).toMatchSnapshot();
+      });
 
-    return {
-      component: componentWithData(notificationData)
-    };
+      return {
+        component: componentWithData(notificationData)
+      };
+    });
   });
 });

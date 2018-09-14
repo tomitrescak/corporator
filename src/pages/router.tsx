@@ -11,6 +11,8 @@ import { context } from 'client/config/context';
 import { HeaderContainer } from 'client/modules/headers/header_view';
 import { HomeContainer } from 'client/modules/home/home_view';
 import { NotificationsContainer } from 'client/modules/notifications/notifications_view';
+import { ProcessListContainer } from 'client/modules/process/containers/process_list_container';
+
 import { appStore } from 'client/stores/app_store';
 
 import './style.css';
@@ -22,10 +24,13 @@ render(
         <Router>
           <HeaderContainer path="/*" />
         </Router>
-        <Router id="pageContent">
-          <HomeContainer path="/" />
-          <NotificationsContainer path="/notifications" />
-        </Router>
+        <div style={{ paddingLeft: '150px' }}>
+          <Router id="pageContent">
+            <HomeContainer path="/" />
+            <NotificationsContainer path="/notifications" />
+            <ProcessListContainer path="/process/create" />
+          </Router>
+        </div>
       </>
     </Provider>
   </ApolloProvider>,

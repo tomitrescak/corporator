@@ -42,14 +42,16 @@ exports[`Notifications Container renders final 1`] = `
           <span
             className="sc-bdVaJa cWCCxy"
           >
-            9 years ago
+            2 months ago
           </span>
            ·
            
           <a
-            href="/process/Bpmn"
+            href="/process/process-name"
             onClick={[Function]}
-          />
+          >
+            Notification Text
+          </a>
         </div>
       </div>
     </div>
@@ -76,14 +78,16 @@ exports[`Notifications Container renders final 1`] = `
           <span
             className="sc-bdVaJa cWCCxy"
           >
-            9 years ago
+            2 months ago
           </span>
            ·
            
           <a
-            href="/process/Bpmn"
+            href="/process/process-name"
             onClick={[Function]}
-          />
+          >
+            Notification Text
+          </a>
         </div>
       </div>
     </div>
@@ -110,14 +114,16 @@ exports[`Notifications Container renders final 1`] = `
           <span
             className="sc-bdVaJa cWCCxy"
           >
-            12 years ago
+            2 months ago
           </span>
            ·
            
           <a
-            href="/process/Bpmn"
+            href="/process/process-name"
             onClick={[Function]}
-          />
+          >
+            Notification Text
+          </a>
         </div>
       </div>
     </div>
@@ -144,14 +150,16 @@ exports[`Notifications Container renders final 1`] = `
           <span
             className="sc-bdVaJa cWCCxy"
           >
-            9 years ago
+            2 months ago
           </span>
            ·
            
           <a
-            href="/process/Bpmn"
+            href="/process/process-name"
             onClick={[Function]}
-          />
+          >
+            Notification Text
+          </a>
         </div>
       </div>
     </div>
@@ -178,14 +186,16 @@ exports[`Notifications Container renders final 1`] = `
           <span
             className="sc-bdVaJa cWCCxy"
           >
-            8 years ago
+            2 months ago
           </span>
            ·
            
           <a
-            href="/process/Bpmn"
+            href="/process/process-name"
             onClick={[Function]}
-          />
+          >
+            Notification Text
+          </a>
         </div>
       </div>
     </div>

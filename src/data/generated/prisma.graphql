@@ -1,5 +1,5 @@
 # source: http://localhost:4466
-# timestamp: Mon Sep 10 2018 19:22:46 GMT+1000 (Australian Eastern Standard Time)
+# timestamp: Sun Sep 16 2018 12:58:09 GMT+1000 (Australian Eastern Standard Time)
 
 type Access implements Node {
   id: ID!
@@ -663,6 +663,7 @@ type BpmnProcess implements Node {
   description: String
   model: String!
   name: String!
+  type: ProcessType!
   resources(where: ResourceWhereInput, orderBy: ResourceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Resource!]
   status: ProcessStatus!
   version: Int!
@@ -684,6 +685,7 @@ input BpmnProcessCreateInput {
   description: String
   model: String!
   name: String!
+  type: ProcessType!
   status: ProcessStatus!
   version: Int!
   access: AccessCreateOneInput!
@@ -1094,6 +1096,8 @@ enum BpmnProcessOrderByInput {
   model_DESC
   name_ASC
   name_DESC
+  type_ASC
+  type_DESC
   status_ASC
   status_DESC
   version_ASC
@@ -1110,6 +1114,7 @@ type BpmnProcessPreviousValues {
   description: String
   model: String!
   name: String!
+  type: ProcessType!
   status: ProcessStatus!
   version: Int!
 }
@@ -1158,6 +1163,7 @@ input BpmnProcessUpdateDataInput {
   description: String
   model: String
   name: String
+  type: ProcessType
   status: ProcessStatus
   version: Int
   access: AccessUpdateOneInput
@@ -1171,6 +1177,7 @@ input BpmnProcessUpdateInput {
   description: String
   model: String
   name: String
+  type: ProcessType
   status: ProcessStatus
   version: Int
   access: AccessUpdateOneInput
@@ -1404,6 +1411,16 @@ input BpmnProcessWhereInput {
 
   """All values not ending with the given string."""
   name_not_ends_with: String
+  type: ProcessType
+
+  """All values that are not equal to given value."""
+  type_not: ProcessType
+
+  """All values that are contained in given list."""
+  type_in: [ProcessType!]
+
+  """All values that are not contained in given list."""
+  type_not_in: [ProcessType!]
   status: ProcessStatus
 
   """All values that are not equal to given value."""
@@ -4711,6 +4728,13 @@ enum ProcessStatus {
   Draft
   Proposal
   Published
+}
+
+enum ProcessType {
+  HumanResources
+  Purchases
+  Sales
+  Travel
 }
 
 type Query {

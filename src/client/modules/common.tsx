@@ -23,7 +23,7 @@ export function renderResult(
           result.error.graphQLErrors.length && (
             <Message
               error={true}
-              header="GraphQL Errors"
+              header="👾 Unexpected Error. We apologise for any inconvenience. Please contact your admins with the message below."
               content={
                 <List>
                   {result.error.graphQLErrors.map((e, i) => (

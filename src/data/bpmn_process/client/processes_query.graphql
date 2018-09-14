@@ -1,6 +1,9 @@
 query Processes($input: BpmnProcessesInput!) {
   processes(input: $input) {
+    actionCount
+    description
     id
     name
+    type
   }
 }

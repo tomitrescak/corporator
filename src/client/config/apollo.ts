@@ -57,7 +57,7 @@ export const client = () => {
           };
         }),
         new BatchHttpLink({
-          uri: 'http://localhost:4000',
+          uri: 'http://localhost:3000/graphql',
           credentials: 'same-origin'
         })
         // new HttpLink({

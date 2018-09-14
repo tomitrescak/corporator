@@ -65,6 +65,7 @@ export const defaultProcess: Yoga.BpmnProcess = {
   model: '<xml />',
   version: 0,
   status: 'Draft',
+  type: 'Travel',
   // roles: ['default'],
   actionCount: 0
 };
@@ -143,7 +144,8 @@ const createProcess: Prisma.BpmnProcessCreateInput = {
   model: defaultProcess.model,
   name: defaultProcess.name,
   status: defaultProcess.status,
-  version: defaultProcess.version
+  version: defaultProcess.version,
+  type: defaultProcess.type
 };
 
 function merge<T>(a: any, b: T): T {

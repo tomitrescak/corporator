@@ -56,8 +56,11 @@ export interface ProcessQueryVariables {
 // ====================================================
 
 export interface ProcessesProcesses {
+  actionCount: number;
+  description: string | null;
   id: string;
   name: string;
+  type: ProcessType;
 }
 
 export interface Processes {
@@ -517,6 +520,13 @@ export enum ProcessStatus {
   Draft = "Draft",
   Proposal = "Proposal",
   Published = "Published",
+}
+
+export enum ProcessType {
+  HumanResources = "HumanResources",
+  Purchases = "Purchases",
+  Sales = "Sales",
+  Travel = "Travel",
 }
 
 export enum ResourceType {

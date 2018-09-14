@@ -1,29 +1,46 @@
 import * as React from 'react';
 
-import { create as render } from 'react-test-renderer';
+import { create, render } from 'client/tests';
+import { QueryTypes } from 'data/client';
 
-import { ProcessListView } from '../process_list_view';
+import { createProcesses } from '../../containers/tests/process_test_data';
+import { ProcessListView } from '../process_items_view';
+
+import 'jest-styled-components';
 
 describe('Process', () => {
   describe('List', () => {
-    storyOf(
-      'Empty',
-      {
-        componentWithData(searchItems: any[]) {
-          return (
-            <div>
-              <ProcessListView processes={searchItems} />
-            </div>
-          );
-        }
-      },
-      data => {
-        it('renders no processes', () => {
-          const root = render(data.componentWithData([]));
-          expect(root).toMatchSnapshot();
-        });
+    describe('Empty', () => {
+      const component = (
+        <div>
+          <ProcessListView processes={[]} context={create.context()} />
+        </div>
+      );
+
+      it('renders empty', () => {
+        const root = render(component);
+        expect(root).toMatchSnapshot();
+      });
+
+      return { component };
+    });
+
+    describe('Records', () => {
+      function componentWithData(processes: QueryTypes.ProcessesProcesses[] = createProcesses()) {
+        return (
+          <div>
+            <ProcessListView processes={processes} context={create.context()} />
+          </div>
+        );
       }
-    );
+
+      it('renders with data', () => {
+        const root = render(componentWithData());
+        expect(root).toMatchSnapshot();
+      });
+
+      return { componentWithData };
+    });
 
     // storyOf(
     //   'With Data',

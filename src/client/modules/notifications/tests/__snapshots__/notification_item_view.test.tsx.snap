@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Notifications Item View renders default view 1`] = `
+exports[`Notifications Item renders default view 1`] = `
 <div
   className="item"
   onClick={[Function]}
@@ -24,14 +24,16 @@ exports[`Notifications Item View renders default view 1`] = `
       <span
         className="sc-bdVaJa cWCCxy"
       >
-        just now
+        2 months ago
       </span>
        ·
        
       <a
-        href="/process/Bpmn"
+        href="/process/process-name"
         onClick={[Function]}
-      />
+      >
+        Notification Text
+      </a>
     </div>
   </div>
 </div>

@@ -3,23 +3,35 @@ import * as React from 'react';
 import { Header, List, ListProps, Message } from 'semantic-ui-react';
 import styled, { StyledComponentClass } from 'styled-components';
 
-import { ProcessListItemView } from './process_list_item_view';
+import { ProcessListItemView } from './process_item_view';
 
 const ProcessList: StyledComponentClass<ListProps, {}> = styled(List)`
+  max-width: 800px !important;
+
   &&&&& .description {
     font-size: smaller;
   }
 `;
 
+const ResultInfo = styled.div`
+  color: #999;
+`;
+
 type Props = {
   processes: any[];
+  context: App.Context;
 };
 
 let process: any;
 let index: number;
-export const ProcessListView: React.SFC<Props> = ({ processes }) => (
+export const ProcessListView: React.SFC<Props> = ({ processes, context }) => (
   <React.Fragment>
-    <Header icon="find" content="Search" subheader="Find process resources" />
+    <ResultInfo>
+      {processes.length === 1
+        ? context.i18n`1 process available`
+        : context.i18n`${processes.length.toString()} processes available`}
+    </ResultInfo>
+    <Header icon="tasks" content="Processes" subheader="Find and execute a new company process" />
     <Choose>
       <When condition={processes && processes.length > 0}>
         <ProcessList divided relaxed>
@@ -29,7 +41,7 @@ export const ProcessListView: React.SFC<Props> = ({ processes }) => (
         </ProcessList>
       </When>
       <Otherwise>
-        <Message>There are no search results.</Message>
+        <Message>No results</Message>
       </Otherwise>
     </Choose>
   </React.Fragment>

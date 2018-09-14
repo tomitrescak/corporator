@@ -4,6 +4,13 @@ enum ProcessStatus {
   Published
 }
 
+enum ProcessType {
+  HumanResources
+  Purchases
+  Sales
+  Travel
+}
+
 type BpmnProcess {
   id: ID! @unique
   access: Access! @relation(name: "BpmnProcessAccess", onDelete: CASCADE)
@@ -13,6 +20,7 @@ type BpmnProcess {
   # XML version of the model
   model: String!
   name: String!
+  type: ProcessType!
   resources: [Resource!]! @relation(name: "BpmnProcessResources", onDelete: CASCADE)
   status: ProcessStatus!
   version: Int!

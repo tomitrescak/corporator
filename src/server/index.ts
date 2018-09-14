@@ -9,9 +9,12 @@ import {
   Localisation
 } from 'data/localisations/server/localisation_resolver';
 import { Prisma } from 'data/prisma';
-import { fragmentReplacements, resolvers } from 'data/resolvers';
+import { fragmentReplacements, resolvers, fixtures } from 'data/resolvers';
 import { authenticate } from 'data/users/server/user_resolver';
 import { getUser, getUserId, Loader } from 'data/utils';
+
+const express = require('express');
+const historyAPIFallback = require('connect-history-api-fallback');
 
 // opts for cors
 // const opts = {
@@ -73,7 +76,7 @@ async function initContext(req: any) {
   await loadDefaultLocalisations(result);
 
   // load fixtures
-  // await fixtures(result);
+  await fixtures(result);
 
   return result;
 }
@@ -81,6 +84,7 @@ async function initContext(req: any) {
 const server = new GraphQLServer({
   typeDefs: importSchema('./src/data/yoga.graphql'),
   resolvers,
+
   // resolverValidationOptions: {
   //   requireResolversForResolveType: false
   // },
@@ -88,6 +92,9 @@ const server = new GraphQLServer({
     return initContext(req);
   }
 });
+
+server.express.use(historyAPIFallback());
+server.express.use('/', express.static('dist'));
 
 // use session to maintain logged in state
 // server.express.use(
@@ -106,11 +113,15 @@ const server = new GraphQLServer({
 // tslint:disable-next-line:no-console
 
 let appServer: HttpServer;
-
+let port = 3000;
 async function start() {
-  appServer = (await server.start()) as HttpServer;
+  appServer = (await server.start({
+    port,
+    endpoint: '/graphql',
+    playground: '/graphiql'
+  })) as HttpServer;
   // tslint:disable-next-line:no-console
-  console.log('Server is running on http://localhost:4000');
+  console.log(`Server is running on http://localhost:${port}`);
 }
 
 start();

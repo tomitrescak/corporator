@@ -1,16 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Notifications Item View renders no notifications 1`] = `
-<div>
-  <div
-    className="ui message"
-  >
-    You have no new notifications.
-  </div>
-</div>
-`;
-
-exports[`Notifications Item View renders some notifications 1`] = `
+exports[`Notifications List Data renders some notifications 1`] = `
 <div>
   <h5
     className="ui dividing header"
@@ -52,14 +42,16 @@ exports[`Notifications Item View renders some notifications 1`] = `
           <span
             className="sc-bdVaJa cWCCxy"
           >
-            9 years ago
+            2 months ago
           </span>
            ·
            
           <a
-            href="/process/Bpmn"
+            href="/process/process-name"
             onClick={[Function]}
-          />
+          >
+            Notification Text
+          </a>
         </div>
       </div>
     </div>
@@ -86,14 +78,16 @@ exports[`Notifications Item View renders some notifications 1`] = `
           <span
             className="sc-bdVaJa cWCCxy"
           >
-            9 years ago
+            2 months ago
           </span>
            ·
            
           <a
-            href="/process/Bpmn"
+            href="/process/process-name"
             onClick={[Function]}
-          />
+          >
+            Notification Text
+          </a>
         </div>
       </div>
     </div>
@@ -120,14 +114,16 @@ exports[`Notifications Item View renders some notifications 1`] = `
           <span
             className="sc-bdVaJa cWCCxy"
           >
-            12 years ago
+            2 months ago
           </span>
            ·
            
           <a
-            href="/process/Bpmn"
+            href="/process/process-name"
             onClick={[Function]}
-          />
+          >
+            Notification Text
+          </a>
         </div>
       </div>
     </div>
@@ -154,14 +150,16 @@ exports[`Notifications Item View renders some notifications 1`] = `
           <span
             className="sc-bdVaJa cWCCxy"
           >
-            9 years ago
+            2 months ago
           </span>
            ·
            
           <a
-            href="/process/Bpmn"
+            href="/process/process-name"
             onClick={[Function]}
-          />
+          >
+            Notification Text
+          </a>
         </div>
       </div>
     </div>
@@ -188,14 +186,16 @@ exports[`Notifications Item View renders some notifications 1`] = `
           <span
             className="sc-bdVaJa cWCCxy"
           >
-            8 years ago
+            2 months ago
           </span>
            ·
            
           <a
-            href="/process/Bpmn"
+            href="/process/process-name"
             onClick={[Function]}
-          />
+          >
+            Notification Text
+          </a>
         </div>
       </div>
     </div>
@@ -211,5 +211,15 @@ exports[`Notifications Item View renders some notifications 1`] = `
     />
     Clear All
   </button>
+</div>
+`;
+
+exports[`Notifications List Empty renders no notifications 1`] = `
+<div>
+  <div
+    className="ui message"
+  >
+    You have no new notifications.
+  </div>
 </div>
 `;

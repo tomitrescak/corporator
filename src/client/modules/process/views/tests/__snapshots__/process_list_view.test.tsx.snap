@@ -1,55 +1,87 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Process List Empty renders no processes 1`] = `
+exports[`Process List Empty renders empty 1`] = `
+<style>
+.c0 {
+  color: #999;
+}</style>
+
 <div>
+  <div
+    className="c0"
+  >
+    0 processes available
+  </div>
   <div
     className="ui header"
   >
     <i
       aria-hidden="true"
-      className="find icon"
+      className="tasks icon"
     />
     <div
       className="content"
     >
-      Search
+      Processes
       <div
         className="sub header"
       >
-        Find process resources
+        Find and execute a new company process
       </div>
     </div>
   </div>
   <div
     className="ui message"
   >
-    There are no search results.
+    No results
   </div>
 </div>
 `;
 
-exports[`Process List With Data renders searched processes 1`] = `
+exports[`Process List Records renders with data 1`] = `
+<style>
+.c2.c2.c2.c2.c2 {
+  vertical-align: top !important;
+}
+
+.c1 {
+  max-width: 800px !important;
+}
+
+.c1.c1.c1.c1.c1 .description {
+  font-size: smaller;
+}
+
+.c0 {
+  color: #999;
+}</style>
+
 <div>
+  <div
+    className="c0"
+  >
+    4 processes available
+  </div>
   <div
     className="ui header"
   >
     <i
       aria-hidden="true"
-      className="find icon"
+      className="tasks icon"
     />
     <div
       className="content"
     >
-      Search
+      Processes
       <div
         className="sub header"
       >
-        Find process resources
+        Find and execute a new company process
       </div>
     </div>
   </div>
   <div
-    className="ui divided relaxed list sc-bdVaJa bviDoP"
+    className="ui divided relaxed list c1"
     role="list"
   >
     <div
@@ -57,27 +89,40 @@ exports[`Process List With Data renders searched processes 1`] = `
       onClick={[Function]}
       role="listitem"
     >
+      <div
+        className="right floated content"
+      >
+        <button
+          className="ui primary button"
+          onClick={[Function]}
+          role="button"
+        >
+          <i
+            aria-hidden="true"
+            className="rocket icon"
+          />
+          Launch
+        </button>
+      </div>
       <i
         aria-hidden="true"
-        className="file outline icon middle aligned"
+        className="briefcase icon middle aligned c2"
       />
       <div
-        className="content"
+        className="top aligned content"
       >
         <a
           className="header"
+          href="/nowhere"
+          onClick={[Function]}
         >
-          Travel Request Form
+          Travel Process
         </a>
-        <a
+        <div
           className="description"
         >
-          Submitted by 
-          Tomas Trescak
-           · 
-           · 
-          Thu, 01 Feb 2018 13:00:00 GMT
-        </a>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </div>
       </div>
     </div>
     <div
@@ -85,27 +130,40 @@ exports[`Process List With Data renders searched processes 1`] = `
       onClick={[Function]}
       role="listitem"
     >
+      <div
+        className="right floated content"
+      >
+        <button
+          className="ui primary button"
+          onClick={[Function]}
+          role="button"
+        >
+          <i
+            aria-hidden="true"
+            className="rocket icon"
+          />
+          Launch
+        </button>
+      </div>
       <i
         aria-hidden="true"
-        className="file outline icon middle aligned"
+        className="money icon middle aligned c2"
       />
       <div
-        className="content"
+        className="top aligned content"
       >
         <a
           className="header"
+          href="/nowhere"
+          onClick={[Function]}
         >
-          Equipment Request Form
+          Purchase Process
         </a>
-        <a
+        <div
           className="description"
         >
-          Submitted by 
-          Nguyen Vu
-           · 
-           · 
-          Thu, 01 Feb 2018 13:00:00 GMT
-        </a>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </div>
       </div>
     </div>
     <div
@@ -113,27 +171,81 @@ exports[`Process List With Data renders searched processes 1`] = `
       onClick={[Function]}
       role="listitem"
     >
+      <div
+        className="right floated content"
+      >
+        <button
+          className="ui primary button"
+          onClick={[Function]}
+          role="button"
+        >
+          <i
+            aria-hidden="true"
+            className="rocket icon"
+          />
+          Launch
+        </button>
+      </div>
       <i
         aria-hidden="true"
-        className="file outline icon middle aligned"
+        className="money bill alternate outline icon middle aligned c2"
       />
       <div
-        className="content"
+        className="top aligned content"
       >
         <a
           className="header"
+          href="/nowhere"
+          onClick={[Function]}
         >
-          Payment Request Form
+          Sales Process
         </a>
-        <a
+        <div
           className="description"
         >
-          Submitted by 
-          Tomas Trescak
-           · 
-           · 
-          Thu, 01 Feb 2018 13:00:00 GMT
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </div>
+      </div>
+    </div>
+    <div
+      className="item"
+      onClick={[Function]}
+      role="listitem"
+    >
+      <div
+        className="right floated content"
+      >
+        <button
+          className="ui primary button"
+          onClick={[Function]}
+          role="button"
+        >
+          <i
+            aria-hidden="true"
+            className="rocket icon"
+          />
+          Launch
+        </button>
+      </div>
+      <i
+        aria-hidden="true"
+        className="user circle icon middle aligned c2"
+      />
+      <div
+        className="top aligned content"
+      >
+        <a
+          className="header"
+          href="/nowhere"
+          onClick={[Function]}
+        >
+          Human Resource Process
         </a>
+        <div
+          className="description"
+        >
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </div>
       </div>
     </div>
   </div>

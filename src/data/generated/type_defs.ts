@@ -49,6 +49,7 @@ type BpmnProcess implements Node {
   description: String
   model: String!
   name: String!
+  type: ProcessType!
   resources(where: ResourceWhereInput, orderBy: ResourceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Resource!]
   status: ProcessStatus!
   version: Int!
@@ -1070,6 +1071,13 @@ enum DataDescriptorOrderByInput {
   createdAt_DESC
 }
 
+enum ProcessType {
+  HumanResources
+  Purchases
+  Sales
+  Travel
+}
+
 type Resource implements Node {
   id: ID!
   type: ResourceType!
@@ -1544,6 +1552,19 @@ input BpmnProcessWhereInput {
   All values not ending with the given string.
   """
   name_not_ends_with: String
+  type: ProcessType
+  """
+  All values that are not equal to given value.
+  """
+  type_not: ProcessType
+  """
+  All values that are contained in given list.
+  """
+  type_in: [ProcessType!]
+  """
+  All values that are not contained in given list.
+  """
+  type_not_in: [ProcessType!]
   status: ProcessStatus
   """
   All values that are not equal to given value.
@@ -1618,6 +1639,8 @@ enum BpmnProcessOrderByInput {
   model_DESC
   name_ASC
   name_DESC
+  type_ASC
+  type_DESC
   status_ASC
   status_DESC
   version_ASC
