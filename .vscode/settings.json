@@ -78,7 +78,6 @@
     ".graphqlconfig.yml": true,
     "dist": true,
     "fuse.dev.js": true,
-    "fuse.server.js": true,
-    "node_modules": true
+    "fuse.server.js": true
   }
 }

@@ -1,2 +1,2 @@
-import './process_list_view.test';
-import './process_view.test';
+import './process_instances_view.test';
+import './process_items_view.test';

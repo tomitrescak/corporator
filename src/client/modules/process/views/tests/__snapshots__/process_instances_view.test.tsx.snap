@@ -1,32 +1,64 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Process List Container renders data 1`] = `
+exports[`Process Instances Empty renders empty 1`] = `
+<style>
+.c0 {
+  color: #999;
+}</style>
+
 <div>
   <div
-    className="sc-htpNat ceTwLL"
+    className="c0"
+  >
+    0 processes available
+  </div>
+  <div
+    className="ui header"
+  >
+    Running
+    <div
+      className="sub header"
+    >
+      Your running processes
+    </div>
+  </div>
+  <div
+    className="ui message"
+  >
+    No results
+  </div>
+</div>
+`;
+
+exports[`Process Instances Records renders with data 1`] = `
+<style>
+.c2.c2.c2.c2.c2 {
+  vertical-align: top !important;
+}
+
+.c1 {
+  max-width: 800px !important;
+}
+
+.c1.c1.c1.c1.c1 .description {
+  font-size: smaller;
+}
+
+.c0 {
+  color: #999;
+}</style>
+
+<div>
+  <div
+    className="c0"
   >
     4 processes available
   </div>
   <div
     className="ui header"
-  >
-    <i
-      aria-hidden="true"
-      className="tasks icon"
-    />
-    <div
-      className="content"
-    >
-      Company Processes
-      <div
-        className="sub header"
-      >
-        Find and execute a new company process
-      </div>
-    </div>
-  </div>
+  />
   <div
-    className="ui divided relaxed list sc-bwzfXH hJwquv"
+    className="ui divided relaxed list c1"
     role="list"
   >
     <div
@@ -51,7 +83,7 @@ exports[`Process List Container renders data 1`] = `
       </div>
       <i
         aria-hidden="true"
-        className="briefcase icon middle aligned sc-bdVaJa jLAMJN"
+        className="briefcase icon middle aligned c2"
       />
       <div
         className="top aligned content"
@@ -92,7 +124,7 @@ exports[`Process List Container renders data 1`] = `
       </div>
       <i
         aria-hidden="true"
-        className="money icon middle aligned sc-bdVaJa jLAMJN"
+        className="money icon middle aligned c2"
       />
       <div
         className="top aligned content"
@@ -133,7 +165,7 @@ exports[`Process List Container renders data 1`] = `
       </div>
       <i
         aria-hidden="true"
-        className="money bill alternate outline icon middle aligned sc-bdVaJa jLAMJN"
+        className="money bill alternate outline icon middle aligned c2"
       />
       <div
         className="top aligned content"
@@ -174,7 +206,7 @@ exports[`Process List Container renders data 1`] = `
       </div>
       <i
         aria-hidden="true"
-        className="user circle icon middle aligned sc-bdVaJa jLAMJN"
+        className="user circle icon middle aligned c2"
       />
       <div
         className="top aligned content"
@@ -193,50 +225,6 @@ exports[`Process List Container renders data 1`] = `
         </div>
       </div>
     </div>
-  </div>
-</div>
-`;
-
-exports[`Process List Container renders error 1`] = `
-<div>
-  <p>
-    <div
-      className="ui error message"
-    >
-      <div
-        className="content"
-      >
-        <div
-          className="header"
-        >
-          👾 Unexpected Error. We apologise for any inconvenience. Please contact your admins with the message below.
-        </div>
-        <div
-          className="ui list"
-          role="list"
-        >
-          <div
-            className="item"
-            onClick={[Function]}
-            role="listitem"
-          >
-            This is some error
-          </div>
-        </div>
-      </div>
-    </div>
-  </p>
-</div>
-`;
-
-exports[`Process List Container renders loading 1`] = `
-<div>
-  <div>
-    <div
-      className="ui tiny active inline loader"
-    />
-     
-     Loading ...
   </div>
 </div>
 `;

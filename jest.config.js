@@ -13,7 +13,7 @@ module.exports = {
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
   // "setupTestFrameworkScriptFile": "<rootDir>/jest.run.js",
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-  //testResultsProcessor: './node_modules/luis/dist/bridges/jest/reporter',
+  testResultsProcessor: './node_modules/luis/dist/bridges/jest/reporter',
   watchPathIgnorePatterns: ['<rootDir>/src/summary.json', '<rootDir>/src/snapshots.js'],
   setupTestFrameworkScriptFile: '<rootDir>/jest.setup.js',
   moduleDirectories: ['node_modules', 'src'],

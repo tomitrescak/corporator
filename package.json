@@ -42,7 +42,7 @@
     "server": "node --inspect=9031 fuse.server",
     "test": "jest --runInBand",
     "us": "jest --updateSnapshot",
-    "test-watch": "jest --watch",
+    "test-watch": "jest --watch --runInBand",
     "luis": "luis src luis.ts",
     "clear": "jest --clearCache",
     "next": "next src",
