@@ -1,28 +1,26 @@
 import * as React from 'react';
 
-import { QueryTypes } from 'data/client';
-
 import { Link } from '@reach/router';
 import { Button, List } from 'semantic-ui-react';
+
+import { QueryTypes } from 'data/client';
 import { ProcessIcon } from './process_icon';
 
 type Props = {
-  process: QueryTypes.ProcessesProcesses;
+  processInstance: QueryTypes.BpmnProcessInstancesBpmnProcessInstances;
 };
 
-export const ProcessListItemView: React.SFC<Props> = ({ process }) => (
+export const ProcessInstanceListItem: React.SFC<Props> = ({ processInstance }) => (
   <List.Item>
     <List.Content floated="right">
       <Button primary icon="rocket" content="Launch" />
     </List.Content>
-    <ProcessIcon type={process.type} />
+    <ProcessIcon type={processInstance.process.type} />
     <List.Content verticalAlign="top">
       <List.Header as={Link} to="nowhere">
-        {process.name}
+        {processInstance.process.name}
       </List.Header>
-      <List.Description>{process.description}</List.Description>
+      <List.Description>{processInstance.process.description}</List.Description>
     </List.Content>
   </List.Item>
 );
-
-ProcessListItemView.displayName = 'ProcessListItemView';

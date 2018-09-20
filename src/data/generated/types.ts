@@ -5,8 +5,16 @@
 // GraphQL query operation: BpmnProcessInstances
 // ====================================================
 
+export interface BpmnProcessInstancesBpmnProcessInstancesProcess {
+  name: string;
+  description: string | null;
+  type: ProcessType;
+}
+
 export interface BpmnProcessInstancesBpmnProcessInstances {
   id: string;
+  status: BpmnProcessInstanceStatus | null;
+  process: BpmnProcessInstancesBpmnProcessInstancesProcess | null;
   dateStarted: any | null;
 }
 
@@ -488,6 +496,13 @@ export interface User {
 //==============================================================
 // START Enums and Input Objects
 //==============================================================
+
+export enum BpmnProcessInstanceStatus {
+  Aborted = "Aborted",
+  Finished = "Finished",
+  Paused = "Paused",
+  Running = "Running",
+}
 
 export enum DataType {
   Boolean = "Boolean",

@@ -45,9 +45,19 @@ export interface Binding {
 
 export interface BindingConstructor<T> {
   // @ts-ignore
+  // @ts-ignore
+  // @ts-ignore
+  // @ts-ignore
+  // @ts-ignore
+  // @ts-ignore
   new(...args): T
 }
 
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
 
 /**
  * Types

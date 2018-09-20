@@ -46,9 +46,19 @@ export interface Binding {
 
 export interface BindingConstructor<T> {
   // @ts-ignore
+  // @ts-ignore
+  // @ts-ignore
+  // @ts-ignore
+  // @ts-ignore
+  // @ts-ignore
   new(...args): T
 }
 
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
 // @ts-ignore
 export const Binding = makeBindingClass<BindingConstructor<Binding>>({ schema })
 
