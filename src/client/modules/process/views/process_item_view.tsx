@@ -7,7 +7,7 @@ import { Button, List } from 'semantic-ui-react';
 import { ProcessIcon } from './process_icon';
 
 type Props = {
-  process: QueryTypes.ProcessesProcesses;
+  process: QueryTypes.ProcessesQuery_Processes;
 };
 
 export const ProcessListItemView: React.SFC<Props> = ({ process }) => (

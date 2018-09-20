@@ -1,4 +1,4 @@
-query BpmnProcessInstances($input: BpmnProcessInstancesInput!) {
+query BpmnProcessInstancesQuery($input: BpmnProcessInstancesInput!) {
   bpmnProcessInstances(input: $input) {
     id
     status

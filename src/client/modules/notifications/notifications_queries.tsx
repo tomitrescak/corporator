@@ -10,11 +10,13 @@ import { QueryTypes } from 'data/client';
     Notifications
    ======================================================== */
 
-type Props = Partial<QueryProps<QueryTypes.Notifications, QueryTypes.NotificationsVariables>>;
+type Props = Partial<
+  QueryProps<QueryTypes.NotificationsQuery, QueryTypes.NotificationsQueryVariables>
+>;
 
 export class NotificationsQuery extends Query<
-  QueryTypes.Notifications,
-  QueryTypes.NotificationsVariables
+  QueryTypes.NotificationsQuery,
+  QueryTypes.NotificationsQueryVariables
 > {
   static displayName = 'NotificationsQuery';
   static defaultProps: Props = {
@@ -32,27 +34,30 @@ export class NotificationsQuery extends Query<
    ======================================================== */
 
 type RemoveNotificationMutationProps = Partial<
-  MutationProps<QueryTypes.RemoveNotification, QueryTypes.RemoveNotificationVariables>
+  MutationProps<
+    QueryTypes.RemoveNotificationMutation,
+    QueryTypes.RemoveNotificationMutationVariables
+  >
 >;
 
 export class RemoveNotificationMutation extends Mutation<
-  QueryTypes.RemoveNotification,
-  QueryTypes.RemoveNotificationVariables
+  QueryTypes.RemoveNotificationMutation,
+  QueryTypes.RemoveNotificationMutationVariables
 > {
   static displayName = 'RemoveNotificationMutation';
   static defaultProps: RemoveNotificationMutationProps = {
     mutation: REMOVE_NOTIFICATION_MUTATION,
     update: (cache, props) => {
       const { notifications } = cache.readQuery<
-        QueryTypes.Notifications,
-        QueryTypes.NotificationsVariables
+        QueryTypes.NotificationsQuery,
+        QueryTypes.NotificationsQueryVariables
       >({
         query: NOTIFICATIONS_QUERY,
         variables: { input: { first: 50 } }
       });
       const id = props.data.removeNotification;
       const index = notifications.findIndex(
-        (n: QueryTypes.NotificationsNotifications) => n.id === id
+        (n: QueryTypes.NotificationsQuery_Notifications) => n.id === id
       );
       notifications.splice(index, 1);
       cache.writeQuery({

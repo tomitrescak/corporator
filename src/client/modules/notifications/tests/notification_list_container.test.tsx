@@ -16,7 +16,9 @@ export const notificationData = [
 
 describe('Notifications', () => {
   describe('Container', () => {
-    function componentWithData(notifications: QueryTypes.NotificationsNotifications[] = null) {
+    function componentWithData(
+      notifications: QueryTypes.NotificationsQuery_Notifications[] = null
+    ) {
       if (!notifications) {
         mock.expect(QUERY).reply({
           notifications: [{ id: '1', name: 'one' }, { id: '2', name: 'two' }]

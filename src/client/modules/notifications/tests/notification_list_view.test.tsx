@@ -16,7 +16,7 @@ export const notificationData = [
 
 describe('Notifications', () => {
   describe('List', () => {
-    function componentWithData(notifications: QueryTypes.NotificationsNotifications[]) {
+    function componentWithData(notifications: QueryTypes.NotificationsQuery_Notifications[]) {
       return (
         <MockedProvider>
           <div>

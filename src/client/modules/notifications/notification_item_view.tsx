@@ -20,7 +20,7 @@ const ClickableIcon = styled(Icon)`
 `;
 
 type Props = {
-  notification: QueryTypes.NotificationsNotifications;
+  notification: QueryTypes.NotificationsQuery_Notifications;
   context?: App.Context;
 };
 

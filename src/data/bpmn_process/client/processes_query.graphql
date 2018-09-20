@@ -1,4 +1,4 @@
-query Processes($input: BpmnProcessesInput!) {
+query ProcessesQuery($input: BpmnProcessesInput!) {
   processes(input: $input) {
     actionCount
     description

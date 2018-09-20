@@ -70,7 +70,6 @@
     ".babelrc": true,
     "test": true,
     "graphql.config.json": true,
-    "save_schema.js": true,
     "schema.json": true,
     ".graphqlconfig.yml": true,
     "dist": true,

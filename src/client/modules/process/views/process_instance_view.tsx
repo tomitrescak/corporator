@@ -13,7 +13,7 @@ const ProcessIcon = styled(List.Icon)`
 `;
 
 type Props = {
-  process: QueryTypes.ProcessesProcesses;
+  process: QueryTypes.ProcessesQuery_Processes;
 };
 
 export function processTypeToIcon(type: QueryTypes.ProcessType): SemanticICONS {

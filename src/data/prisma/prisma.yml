@@ -21,3 +21,6 @@ hooks:
     - node save_schema.js
     - npm run downloadSchema
     - npm run generateQueries
+generate:
+  - generator: typescript-client
+    output: ./prisma-client/

@@ -26,7 +26,9 @@ describe('Process', () => {
     });
 
     describe('Records', () => {
-      function componentWithData(processes: QueryTypes.ProcessesProcesses[] = createProcesses()) {
+      function componentWithData(
+        processes: QueryTypes.ProcessesQuery_Processes[] = createProcesses()
+      ) {
         return (
           <div>
             <ProcessListView processes={processes} context={create.context()} />

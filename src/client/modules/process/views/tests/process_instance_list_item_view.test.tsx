@@ -8,12 +8,12 @@ describe('Process', () => {
   describe('Instances', () => {
     describe('Item', () => {
       it('renders correctly', () => {
-        const processInstance: QueryTypes.BpmnProcessInstancesBpmnProcessInstances = {
+        const processInstance: QueryTypes.BpmnProcessInstancesQuery_BpmnProcessInstances = {
           id: '1',
           dateStarted: new Date(),
           process: {
-            description: 'eqweqwe',
-            name: 'eewrw',
+            description: 'eqweqwe werwer',
+            name: 'eewrw werewr',
             type: QueryTypes.ProcessType.Purchases
           },
           status: QueryTypes.BpmnProcessInstanceStatus.Finished

@@ -2,27 +2,27 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: BpmnProcessInstances
+// GraphQL query operation: BpmnProcessInstancesQuery
 // ====================================================
 
-export interface BpmnProcessInstancesBpmnProcessInstancesProcess {
+export interface BpmnProcessInstancesQuery_BpmnProcessInstances_Process {
   name: string;
   description: string | null;
   type: ProcessType;
 }
 
-export interface BpmnProcessInstancesBpmnProcessInstances {
+export interface BpmnProcessInstancesQuery_BpmnProcessInstances {
   id: string;
   status: BpmnProcessInstanceStatus | null;
-  process: BpmnProcessInstancesBpmnProcessInstancesProcess | null;
+  process: BpmnProcessInstancesQuery_BpmnProcessInstances_Process | null;
   dateStarted: any | null;
 }
 
-export interface BpmnProcessInstances {
-  bpmnProcessInstances: (BpmnProcessInstancesBpmnProcessInstances | null)[];
+export interface BpmnProcessInstancesQuery {
+  bpmnProcessInstances: (BpmnProcessInstancesQuery_BpmnProcessInstances | null)[];
 }
 
-export interface BpmnProcessInstancesVariables {
+export interface BpmnProcessInstancesQueryVariables {
   input: BpmnProcessInstancesInput;
 }
 
@@ -33,23 +33,23 @@ export interface BpmnProcessInstancesVariables {
 // GraphQL query operation: ProcessQuery
 // ====================================================
 
-export interface ProcessQueryProcessResources {
+export interface ProcessQuery_Process_Resources {
   name: string;
   type: ResourceType;
 }
 
-export interface ProcessQueryProcess {
+export interface ProcessQuery_Process {
   actionCount: number;
   description: string | null;
   id: string;
   model: string;
-  resources: ProcessQueryProcessResources[] | null;
+  resources: ProcessQuery_Process_Resources[] | null;
   status: ProcessStatus;
   version: number;
 }
 
 export interface ProcessQuery {
-  process: ProcessQueryProcess;
+  process: ProcessQuery_Process;
 }
 
 export interface ProcessQueryVariables {
@@ -60,10 +60,10 @@ export interface ProcessQueryVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: Processes
+// GraphQL query operation: ProcessesQuery
 // ====================================================
 
-export interface ProcessesProcesses {
+export interface ProcessesQuery_Processes {
   actionCount: number;
   description: string | null;
   id: string;
@@ -71,11 +71,11 @@ export interface ProcessesProcesses {
   type: ProcessType;
 }
 
-export interface Processes {
-  processes: (ProcessesProcesses | null)[];
+export interface ProcessesQuery {
+  processes: (ProcessesQuery_Processes | null)[];
 }
 
-export interface ProcessesVariables {
+export interface ProcessesQueryVariables {
   input: BpmnProcessesInput;
 }
 
@@ -86,13 +86,13 @@ export interface ProcessesVariables {
 // GraphQL query operation: FormQuery
 // ====================================================
 
-export interface FormQueryFormElementsSourceValidators {
+export interface FormQuery_Form_Elements_Source_Validators {
   id: string;
   name: string;
   params: string[];
 }
 
-export interface FormQueryFormElementsSource {
+export interface FormQuery_Form_Elements_Source {
   defaultValue: string | null;
   description: string | null;
   expression: string | null;
@@ -101,10 +101,10 @@ export interface FormQueryFormElementsSource {
   name: string | null;
   type: DataType | null;
   parentDescriptor: string | null;
-  validators: FormQueryFormElementsSourceValidators | null;
+  validators: FormQuery_Form_Elements_Source_Validators | null;
 }
 
-export interface FormQueryFormElements {
+export interface FormQuery_Form_Elements {
   id: string;
   column: number | null;
   control: FormControl | null;
@@ -116,33 +116,33 @@ export interface FormQueryFormElements {
   label: string | null;
   list: string | null;
   row: number | null;
-  source: FormQueryFormElementsSource | null;
+  source: FormQuery_Form_Elements_Source | null;
   vertical: boolean | null;
   width: number | null;
   parentElement: string | null;
 }
 
-export interface FormQueryFormValidations {
+export interface FormQuery_Form_Validations {
   id: string;
   name: string;
   params: string[];
 }
 
-export interface FormQueryForm {
+export interface FormQuery_Form {
   id: string;
   name: string;
   description: string | null;
-  elements: FormQueryFormElements[] | null;
-  validations: FormQueryFormValidations[] | null;
+  elements: FormQuery_Form_Elements[] | null;
+  validations: FormQuery_Form_Validations[] | null;
 }
 
-export interface FormQueryProcessDataValidators {
+export interface FormQuery_Process_Data_Validators {
   id: string;
   name: string;
   params: string[];
 }
 
-export interface FormQueryProcessData {
+export interface FormQuery_Process_Data {
   defaultValue: string | null;
   description: string | null;
   expression: string | null;
@@ -151,16 +151,16 @@ export interface FormQueryProcessData {
   name: string | null;
   type: DataType | null;
   parentDescriptor: string | null;
-  validators: FormQueryProcessDataValidators | null;
+  validators: FormQuery_Process_Data_Validators | null;
 }
 
-export interface FormQueryProcess {
-  data: FormQueryProcessData[] | null;
+export interface FormQuery_Process {
+  data: FormQuery_Process_Data[] | null;
 }
 
 export interface FormQuery {
-  form: FormQueryForm | null;
-  process: FormQueryProcess;
+  form: FormQuery_Form | null;
+  process: FormQuery_Process;
 }
 
 export interface FormQueryVariables {
@@ -172,14 +172,14 @@ export interface FormQueryVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: RemoveNotification
+// GraphQL mutation operation: RemoveNotificationMutation
 // ====================================================
 
-export interface RemoveNotification {
+export interface RemoveNotificationMutation {
   removeNotification: string | null;
 }
 
-export interface RemoveNotificationVariables {
+export interface RemoveNotificationMutationVariables {
   id?: string | null;
 }
 
@@ -187,10 +187,10 @@ export interface RemoveNotificationVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: ClearNotifications
+// GraphQL mutation operation: ClearNotificationsMutation
 // ====================================================
 
-export interface ClearNotifications {
+export interface ClearNotificationsMutation {
   clearNotifications: boolean | null;
 }
 
@@ -198,31 +198,31 @@ export interface ClearNotifications {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: Notifications
+// GraphQL query operation: NotificationsQuery
 // ====================================================
 
-export interface NotificationsNotificationsProcessInstanceProcess {
+export interface NotificationsQuery_Notifications_ProcessInstance_Process {
   name: string;
 }
 
-export interface NotificationsNotificationsProcessInstance {
+export interface NotificationsQuery_Notifications_ProcessInstance {
   id: string;
-  process: NotificationsNotificationsProcessInstanceProcess | null;
+  process: NotificationsQuery_Notifications_ProcessInstance_Process | null;
 }
 
-export interface NotificationsNotifications {
+export interface NotificationsQuery_Notifications {
   id: string;
   createdAt: any;
   text: string | null;
   type: NotificationType;
-  processInstance: NotificationsNotificationsProcessInstance;
+  processInstance: NotificationsQuery_Notifications_ProcessInstance;
 }
 
-export interface Notifications {
-  notifications: (NotificationsNotifications | null)[];
+export interface NotificationsQuery {
+  notifications: (NotificationsQuery_Notifications | null)[];
 }
 
-export interface NotificationsVariables {
+export interface NotificationsQueryVariables {
   input?: NotificationsInput | null;
 }
 
@@ -233,18 +233,18 @@ export interface NotificationsVariables {
 // GraphQL mutation operation: Login
 // ====================================================
 
-export interface LoginLoginUser {
+export interface Login_Login_User {
   id: string;
   name: string;
 }
 
-export interface LoginLogin {
-  user: LoginLoginUser;
+export interface Login_Login {
+  user: Login_Login_User;
   token: string;
 }
 
 export interface Login {
-  login: LoginLogin;
+  login: Login_Login;
 }
 
 export interface LoginVariables {
@@ -258,18 +258,18 @@ export interface LoginVariables {
 // GraphQL query operation: Resume
 // ====================================================
 
-export interface ResumeResumeUser {
+export interface Resume_Resume_User {
   id: string;
   name: string;
 }
 
-export interface ResumeResume {
-  user: ResumeResumeUser;
+export interface Resume_Resume {
+  user: Resume_Resume_User;
   token: string;
 }
 
 export interface Resume {
-  resume: ResumeResume;
+  resume: Resume_Resume;
 }
 
 export interface ResumeVariables {
@@ -296,7 +296,7 @@ export interface Validator {
 // GraphQL fragment: DataDescriptor
 // ====================================================
 
-export interface DataDescriptorValidators {
+export interface DataDescriptor_Validators {
   id: string;
   name: string;
   params: string[];
@@ -311,7 +311,7 @@ export interface DataDescriptor {
   name: string | null;
   type: DataType | null;
   parentDescriptor: string | null;
-  validators: DataDescriptorValidators | null;
+  validators: DataDescriptor_Validators | null;
 }
 
 /* tslint:disable */
@@ -321,13 +321,13 @@ export interface DataDescriptor {
 // GraphQL fragment: FormElement
 // ====================================================
 
-export interface FormElementSourceValidators {
+export interface FormElement_Source_Validators {
   id: string;
   name: string;
   params: string[];
 }
 
-export interface FormElementSource {
+export interface FormElement_Source {
   defaultValue: string | null;
   description: string | null;
   expression: string | null;
@@ -336,7 +336,7 @@ export interface FormElementSource {
   name: string | null;
   type: DataType | null;
   parentDescriptor: string | null;
-  validators: FormElementSourceValidators | null;
+  validators: FormElement_Source_Validators | null;
 }
 
 export interface FormElement {
@@ -351,7 +351,7 @@ export interface FormElement {
   label: string | null;
   list: string | null;
   row: number | null;
-  source: FormElementSource | null;
+  source: FormElement_Source | null;
   vertical: boolean | null;
   width: number | null;
   parentElement: string | null;
@@ -364,13 +364,13 @@ export interface FormElement {
 // GraphQL fragment: Resource
 // ====================================================
 
-export interface ResourceFormElementsSourceValidators {
+export interface Resource_Form_Elements_Source_Validators {
   id: string;
   name: string;
   params: string[];
 }
 
-export interface ResourceFormElementsSource {
+export interface Resource_Form_Elements_Source {
   defaultValue: string | null;
   description: string | null;
   expression: string | null;
@@ -379,10 +379,10 @@ export interface ResourceFormElementsSource {
   name: string | null;
   type: DataType | null;
   parentDescriptor: string | null;
-  validators: ResourceFormElementsSourceValidators | null;
+  validators: Resource_Form_Elements_Source_Validators | null;
 }
 
-export interface ResourceFormElements {
+export interface Resource_Form_Elements {
   id: string;
   column: number | null;
   control: FormControl | null;
@@ -394,29 +394,29 @@ export interface ResourceFormElements {
   label: string | null;
   list: string | null;
   row: number | null;
-  source: ResourceFormElementsSource | null;
+  source: Resource_Form_Elements_Source | null;
   vertical: boolean | null;
   width: number | null;
   parentElement: string | null;
 }
 
-export interface ResourceFormValidations {
+export interface Resource_Form_Validations {
   id: string;
   name: string;
   params: string[];
 }
 
-export interface ResourceForm {
+export interface Resource_Form {
   id: string;
   name: string;
   description: string | null;
-  elements: ResourceFormElements[] | null;
-  validations: ResourceFormValidations[] | null;
+  elements: Resource_Form_Elements[] | null;
+  validations: Resource_Form_Validations[] | null;
 }
 
 export interface Resource {
   content: string;
-  form: ResourceForm | null;
+  form: Resource_Form | null;
   name: string;
   type: ResourceType;
 }
@@ -428,13 +428,13 @@ export interface Resource {
 // GraphQL fragment: Form
 // ====================================================
 
-export interface FormElementsSourceValidators {
+export interface Form_Elements_Source_Validators {
   id: string;
   name: string;
   params: string[];
 }
 
-export interface FormElementsSource {
+export interface Form_Elements_Source {
   defaultValue: string | null;
   description: string | null;
   expression: string | null;
@@ -443,10 +443,10 @@ export interface FormElementsSource {
   name: string | null;
   type: DataType | null;
   parentDescriptor: string | null;
-  validators: FormElementsSourceValidators | null;
+  validators: Form_Elements_Source_Validators | null;
 }
 
-export interface FormElements {
+export interface Form_Elements {
   id: string;
   column: number | null;
   control: FormControl | null;
@@ -458,13 +458,13 @@ export interface FormElements {
   label: string | null;
   list: string | null;
   row: number | null;
-  source: FormElementsSource | null;
+  source: Form_Elements_Source | null;
   vertical: boolean | null;
   width: number | null;
   parentElement: string | null;
 }
 
-export interface FormValidations {
+export interface Form_Validations {
   id: string;
   name: string;
   params: string[];
@@ -474,8 +474,8 @@ export interface Form {
   id: string;
   name: string;
   description: string | null;
-  elements: FormElements[] | null;
-  validations: FormValidations[] | null;
+  elements: Form_Elements[] | null;
+  validations: Form_Validations[] | null;
 }
 
 /* tslint:disable */
