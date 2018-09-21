@@ -158,13 +158,13 @@ const defaultProcessInstance: QueryTypes.BpmnProcessInstanceQuery_BpmnProcessIns
       {
         id: '3',
         type: QueryTypes.ResourceType.File,
-        name: 'Guide',
+        name: 'Excel File',
         content: '/uploads/file.doc'
       },
       {
         id: '4',
         type: QueryTypes.ResourceType.Url,
-        name: 'Approval Form',
+        name: 'External Resource',
         content: 'http://google.com'
       },
       {

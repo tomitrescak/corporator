@@ -6008,9 +6008,9 @@ lsmod@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/lsmod/-/lsmod-1.0.0.tgz#9a00f76dca36eb23fa05350afe1b585d4299e64b"
 
-luis@^2.5.11:
-  version "2.5.11"
-  resolved "https://registry.yarnpkg.com/luis/-/luis-2.5.11.tgz#732db2c7edc4568ac7044e63eee00e7a93e7d1a7"
+luis@^2.5.12:
+  version "2.5.12"
+  resolved "https://registry.yarnpkg.com/luis/-/luis-2.5.12.tgz#cb69d30c483abbc6eede91122c73b595745030a7"
   dependencies:
     body-parser "^1.18.2"
     circular-json-es6 "^2.0.2"

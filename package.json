@@ -23,7 +23,7 @@
     "javascript-time-ago": "^1.0.31",
     "jsx-controls-loader": "^0.1.1",
     "ldapjs": "^1.0.2",
-    "luis": "^2.5.11",
+    "luis": "^2.5.12",
     "mobx": "^5.1.1",
     "mobx-react": "^5.2.8",
     "mobx-state-tree": "^3.3.0",
