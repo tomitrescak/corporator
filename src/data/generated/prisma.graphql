@@ -1,5 +1,5 @@
 # source: http://localhost:4466/test
-# timestamp: Fri Sep 21 2018 10:11:31 GMT+1000 (Australian Eastern Standard Time)
+# timestamp: Fri Sep 21 2018 16:03:25 GMT+1000 (Australian Eastern Standard Time)
 
 type Access implements Node {
   id: ID!
@@ -1881,7 +1881,8 @@ input BpmnTaskInstanceWhereUniqueInput {
   id: ID
 }
 
-type Comment {
+type Comment implements Node {
+  id: ID!
   text: String!
   user(where: UserWhereInput): User!
   date: DateTime!
@@ -1907,6 +1908,7 @@ input CommentCreateInput {
 
 input CommentCreateManyInput {
   create: [CommentCreateInput!]
+  connect: [CommentWhereUniqueInput!]
 }
 
 """An edge in a connection."""
@@ -1919,14 +1921,14 @@ type CommentEdge {
 }
 
 enum CommentOrderByInput {
+  id_ASC
+  id_DESC
   text_ASC
   text_DESC
   date_ASC
   date_DESC
   replyTo_ASC
   replyTo_DESC
-  id_ASC
-  id_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -1934,6 +1936,7 @@ enum CommentOrderByInput {
 }
 
 type CommentPreviousValues {
+  id: ID!
   text: String!
   date: DateTime!
   replyTo: String
@@ -1978,6 +1981,13 @@ input CommentSubscriptionWhereInput {
   node: CommentWhereInput
 }
 
+input CommentUpdateDataInput {
+  text: String
+  date: DateTime
+  replyTo: String
+  user: UserUpdateOneInput
+}
+
 input CommentUpdateInput {
   text: String
   date: DateTime
@@ -1987,6 +1997,22 @@ input CommentUpdateInput {
 
 input CommentUpdateManyInput {
   create: [CommentCreateInput!]
+  connect: [CommentWhereUniqueInput!]
+  disconnect: [CommentWhereUniqueInput!]
+  delete: [CommentWhereUniqueInput!]
+  update: [CommentUpdateWithWhereUniqueNestedInput!]
+  upsert: [CommentUpsertWithWhereUniqueNestedInput!]
+}
+
+input CommentUpdateWithWhereUniqueNestedInput {
+  where: CommentWhereUniqueInput!
+  data: CommentUpdateDataInput!
+}
+
+input CommentUpsertWithWhereUniqueNestedInput {
+  where: CommentWhereUniqueInput!
+  update: CommentUpdateDataInput!
+  create: CommentCreateInput!
 }
 
 input CommentWhereInput {
@@ -1998,6 +2024,46 @@ input CommentWhereInput {
 
   """Logical NOT on all given filters combined by AND."""
   NOT: [CommentWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
   text: String
 
   """All values that are not equal to given value."""
@@ -2104,6 +2170,10 @@ input CommentWhereInput {
   _MagicalBackRelation_BpmnProcessInstanceToComment_every: BpmnProcessInstanceWhereInput
   _MagicalBackRelation_BpmnProcessInstanceToComment_some: BpmnProcessInstanceWhereInput
   _MagicalBackRelation_BpmnProcessInstanceToComment_none: BpmnProcessInstanceWhereInput
+}
+
+input CommentWhereUniqueInput {
+  id: ID
 }
 
 type Data implements Node {
@@ -4058,6 +4128,7 @@ type Mutation {
   updateValidator(data: ValidatorUpdateInput!, where: ValidatorWhereUniqueInput!): Validator
   updateBpmnProcessInstance(data: BpmnProcessInstanceUpdateInput!, where: BpmnProcessInstanceWhereUniqueInput!): BpmnProcessInstance
   updateFormElement(data: FormElementUpdateInput!, where: FormElementWhereUniqueInput!): FormElement
+  updateComment(data: CommentUpdateInput!, where: CommentWhereUniqueInput!): Comment
   updateNotification(data: NotificationUpdateInput!, where: NotificationWhereUniqueInput!): Notification
   updateDataDescriptor(data: DataDescriptorUpdateInput!, where: DataDescriptorWhereUniqueInput!): DataDescriptor
   updateResource(data: ResourceUpdateInput!, where: ResourceWhereUniqueInput!): Resource
@@ -4073,6 +4144,7 @@ type Mutation {
   deleteValidator(where: ValidatorWhereUniqueInput!): Validator
   deleteBpmnProcessInstance(where: BpmnProcessInstanceWhereUniqueInput!): BpmnProcessInstance
   deleteFormElement(where: FormElementWhereUniqueInput!): FormElement
+  deleteComment(where: CommentWhereUniqueInput!): Comment
   deleteNotification(where: NotificationWhereUniqueInput!): Notification
   deleteDataDescriptor(where: DataDescriptorWhereUniqueInput!): DataDescriptor
   deleteResource(where: ResourceWhereUniqueInput!): Resource
@@ -4088,6 +4160,7 @@ type Mutation {
   upsertValidator(where: ValidatorWhereUniqueInput!, create: ValidatorCreateInput!, update: ValidatorUpdateInput!): Validator!
   upsertBpmnProcessInstance(where: BpmnProcessInstanceWhereUniqueInput!, create: BpmnProcessInstanceCreateInput!, update: BpmnProcessInstanceUpdateInput!): BpmnProcessInstance!
   upsertFormElement(where: FormElementWhereUniqueInput!, create: FormElementCreateInput!, update: FormElementUpdateInput!): FormElement!
+  upsertComment(where: CommentWhereUniqueInput!, create: CommentCreateInput!, update: CommentUpdateInput!): Comment!
   upsertNotification(where: NotificationWhereUniqueInput!, create: NotificationCreateInput!, update: NotificationUpdateInput!): Notification!
   upsertDataDescriptor(where: DataDescriptorWhereUniqueInput!, create: DataDescriptorCreateInput!, update: DataDescriptorUpdateInput!): DataDescriptor!
   upsertResource(where: ResourceWhereUniqueInput!, create: ResourceCreateInput!, update: ResourceUpdateInput!): Resource!
@@ -4789,6 +4862,7 @@ type Query {
   validator(where: ValidatorWhereUniqueInput!): Validator
   bpmnProcessInstance(where: BpmnProcessInstanceWhereUniqueInput!): BpmnProcessInstance
   formElement(where: FormElementWhereUniqueInput!): FormElement
+  comment(where: CommentWhereUniqueInput!): Comment
   notification(where: NotificationWhereUniqueInput!): Notification
   dataDescriptor(where: DataDescriptorWhereUniqueInput!): DataDescriptor
   resource(where: ResourceWhereUniqueInput!): Resource
@@ -4925,6 +4999,7 @@ enum ResourceType {
   File
   Form
   Report
+  Document
 }
 
 input ResourceUpdateDataInput {

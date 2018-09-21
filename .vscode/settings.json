@@ -73,7 +73,9 @@
     "schema.json": true,
     ".graphqlconfig.yml": true,
     "dist": true,
-    "fuse.dev.js": true,
-    "fuse.server.js": true
+    "fuse.server.js": true,
+    "save_schema.js": true,
+    "jest.setup.js": true,
+    "jest.config.js": true
   }
 }

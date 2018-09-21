@@ -7,52 +7,54 @@ import { PROCESS_LIST_QUERY } from '../process_queries';
 import { createProcesses } from './process_test_data';
 
 describe('Process', () => {
-  describe('List', () => {
-    describe('Container', () => {
-      beforeEach(() => mock.reset());
+  describe('Definitions', () => {
+    describe('List', () => {
+      describe('Container', () => {
+        beforeEach(() => mock.reset());
 
-      function componentWithData() {
-        return (
-          <MockedProvider>
-            <div>
-              <ProcessListContainer />
-            </div>
-          </MockedProvider>
-        );
-      }
+        function componentWithData() {
+          return (
+            <MockedProvider>
+              <div>
+                <ProcessListContainer />
+              </div>
+            </MockedProvider>
+          );
+        }
 
-      function luisComponent() {
-        mock.expect(PROCESS_LIST_QUERY).reply({
-          processes: createProcesses()
+        function luisComponent() {
+          mock.expect(PROCESS_LIST_QUERY).reply({
+            processes: createProcesses()
+          });
+
+          return componentWithData();
+        }
+
+        it('renders loading', () => {
+          mock.expect(PROCESS_LIST_QUERY).loading();
+          const root = render(componentWithData());
+          expect(root).toMatchSnapshot();
         });
 
-        return componentWithData();
-      }
-
-      it('renders loading', () => {
-        mock.expect(PROCESS_LIST_QUERY).loading();
-        const root = render(componentWithData());
-        expect(root).toMatchSnapshot();
-      });
-
-      it('renders error', () => {
-        mock.expect(PROCESS_LIST_QUERY).fail('This is some error');
-        const root = render(componentWithData());
-        expect(root).toMatchSnapshot();
-      });
-
-      it('renders data', async () => {
-        mock.expect(PROCESS_LIST_QUERY).reply({
-          processes: createProcesses()
+        it('renders error', () => {
+          mock.expect(PROCESS_LIST_QUERY).fail('This is some error');
+          const root = render(componentWithData());
+          expect(root).toMatchSnapshot();
         });
 
-        const root = render(componentWithData());
-        expect(root).toMatchSnapshot();
-      });
+        it('renders data', async () => {
+          mock.expect(PROCESS_LIST_QUERY).reply({
+            processes: createProcesses()
+          });
 
-      return {
-        component: luisComponent()
-      };
+          const root = render(componentWithData());
+          expect(root).toMatchSnapshot();
+        });
+
+        return {
+          component: luisComponent()
+        };
+      });
     });
   });
 });

@@ -9,6 +9,7 @@ export interface Query {
     processes: <T = BpmnProcess[]>(args: { input: BpmnProcessesInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     process: <T = BpmnProcess>(args: { id: ID_Output }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     bpmnProcessInstances: <T = BpmnProcessInstance[]>(args: { input: BpmnProcessInstancesInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    bpmnProcessInstance: <T = BpmnProcessInstance | null>(args: { id: String }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     bpmnTasks: <T = BpmnTaskInstance[]>(args: { input: BpmnTasksInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     user: <T = User | null>(args: { id: ID_Output }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     users: <T = User[]>(args?: {}, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -164,14 +165,14 @@ export type FormElementOrderByInput =   'id_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export type CommentOrderByInput =   'text_ASC' |
+export type CommentOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'text_ASC' |
   'text_DESC' |
   'date_ASC' |
   'date_DESC' |
   'replyTo_ASC' |
   'replyTo_DESC' |
-  'id_ASC' |
-  'id_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
@@ -228,7 +229,8 @@ export type LanguageCode =   'EN'
 export type ResourceType =   'Url' |
   'File' |
   'Form' |
-  'Report'
+  'Report' |
+  'Document'
 
 export type DataType =   'Id' |
   'Boolean' |
@@ -850,6 +852,20 @@ export interface CommentWhereInput {
   AND?: CommentWhereInput[] | CommentWhereInput
   OR?: CommentWhereInput[] | CommentWhereInput
   NOT?: CommentWhereInput[] | CommentWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
   text?: String
   text_not?: String
   text_in?: String[] | String
@@ -1443,7 +1459,8 @@ export interface Role extends Node {
   description?: String
 }
 
-export interface Comment {
+export interface Comment extends Node {
+  id: ID_Output
   text: String
   user: User
   date: DateTime

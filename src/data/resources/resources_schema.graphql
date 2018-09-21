@@ -3,6 +3,7 @@ enum ResourceType {
   File
   Form
   Report
+  Document
 }
 
 type Resource {

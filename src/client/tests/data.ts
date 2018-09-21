@@ -36,6 +36,9 @@ export const create = {
   client() {
     return client();
   },
+  date(addDays: number = 0) {
+    return new Date(2018, 1 + addDays, 2);
+  },
   store(data: Partial<typeof AppStore.Type> = {}, mockStore = false) {
     const store = AppStore.create(data as any);
     if (mockStore) {

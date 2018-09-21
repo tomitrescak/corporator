@@ -4,6 +4,7 @@ export const typeDefs = `type Query {
   processes(input: BpmnProcessesInput!): [BpmnProcess]!
   process(id: ID!): BpmnProcess!
   bpmnProcessInstances(input: BpmnProcessInstancesInput!): [BpmnProcessInstance]!
+  bpmnProcessInstance(id: String!): BpmnProcessInstance
   bpmnTasks(input: BpmnTasksInput!): [BpmnTaskInstance]!
   user(id: ID!): User
   users: [User]!
@@ -1597,7 +1598,8 @@ enum BpmnProcessOrderByInput {
   createdAt_DESC
 }
 
-type Comment {
+type Comment implements Node {
+  id: ID!
   text: String!
   user(where: UserWhereInput): User!
   date: DateTime!
@@ -1617,6 +1619,59 @@ input CommentWhereInput {
   Logical NOT on all given filters combined by AND.
   """
   NOT: [CommentWhereInput!]
+  id: ID
+  """
+  All values that are not equal to given value.
+  """
+  id_not: ID
+  """
+  All values that are contained in given list.
+  """
+  id_in: [ID!]
+  """
+  All values that are not contained in given list.
+  """
+  id_not_in: [ID!]
+  """
+  All values less than the given value.
+  """
+  id_lt: ID
+  """
+  All values less than or equal the given value.
+  """
+  id_lte: ID
+  """
+  All values greater than the given value.
+  """
+  id_gt: ID
+  """
+  All values greater than or equal the given value.
+  """
+  id_gte: ID
+  """
+  All values containing the given string.
+  """
+  id_contains: ID
+  """
+  All values not containing the given string.
+  """
+  id_not_contains: ID
+  """
+  All values starting with the given string.
+  """
+  id_starts_with: ID
+  """
+  All values not starting with the given string.
+  """
+  id_not_starts_with: ID
+  """
+  All values ending with the given string.
+  """
+  id_ends_with: ID
+  """
+  All values not ending with the given string.
+  """
+  id_not_ends_with: ID
   text: String
   """
   All values that are not equal to given value.
@@ -1759,14 +1814,14 @@ input CommentWhereInput {
 }
 
 enum CommentOrderByInput {
+  id_ASC
+  id_DESC
   text_ASC
   text_DESC
   date_ASC
   date_DESC
   replyTo_ASC
   replyTo_DESC
-  id_ASC
-  id_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -3895,6 +3950,7 @@ enum ResourceType {
   File
   Form
   Report
+  Document
 }
 
 input FormWhereInput {
