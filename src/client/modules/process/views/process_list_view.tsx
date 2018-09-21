@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Header, List, ListProps, Message } from 'semantic-ui-react';
 import styled, { StyledComponentClass } from 'styled-components';
 
-import { ProcessListItemView } from './process_item_view';
+import { ProcessItemView } from './process_item_view';
 
 const ProcessList: StyledComponentClass<ListProps, {}> = styled(List)`
   max-width: 800px !important;
@@ -40,7 +40,7 @@ export const ProcessListView: React.SFC<Props> = ({ processes, context }) => (
       <When condition={processes && processes.length > 0}>
         <ProcessList divided relaxed>
           <For each="process" of={processes} index="index">
-            <ProcessListItemView key={index} process={process} />
+            <ProcessItemView key={index} process={process} />
           </For>
         </ProcessList>
       </When>

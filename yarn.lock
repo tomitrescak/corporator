@@ -5353,9 +5353,9 @@ jest-snapshot@^23.6.0:
     pretty-format "^23.6.0"
     semver "^5.5.0"
 
-jest-spy-serialiser@^1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/jest-spy-serialiser/-/jest-spy-serialiser-1.0.5.tgz#1e3f83ae55543357de6f92b0c27eb32d55a6b552"
+jest-spy-serialiser@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/jest-spy-serialiser/-/jest-spy-serialiser-1.0.6.tgz#0e62be7a07be7e11ae5cd1cd446b9809ece65f05"
   dependencies:
     json-socket "^0.3.0"
 

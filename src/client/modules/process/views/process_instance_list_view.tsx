@@ -3,7 +3,8 @@ import * as React from 'react';
 import { Header, List, ListProps, Message, SemanticICONS } from 'semantic-ui-react';
 import styled, { StyledComponentClass } from 'styled-components';
 
-import { ProcessListItemView } from './process_item_view';
+import { QueryTypes } from 'data/client';
+import { ProcessInstanceItem } from './process_instance_item_view';
 
 const ProcessList: StyledComponentClass<ListProps, {}> = styled(List)`
   max-width: 800px !important;
@@ -21,13 +22,11 @@ type Props = {
   header: string;
   description: string;
   icon: SemanticICONS;
-  processes: any[];
+  processes: QueryTypes.BpmnProcessInstancesQuery_BpmnProcessInstances[];
   context: App.Context;
 };
 
-let process: any;
-let index: number;
-export const ProcessInstancesView: React.SFC<Props> = ({
+export const ProcessInstanceList: React.SFC<Props> = ({
   processes,
   context,
   icon,
@@ -44,9 +43,9 @@ export const ProcessInstancesView: React.SFC<Props> = ({
     <Choose>
       <When condition={processes && processes.length > 0}>
         <ProcessList divided relaxed>
-          <For each="process" of={processes} index="index">
-            <ProcessListItemView key={index} process={process} />
-          </For>
+          {processes.map(p => (
+            <ProcessInstanceItem key={p.id} processInstance={p} context={context} />
+          ))}
         </ProcessList>
       </When>
       <Otherwise>
@@ -56,4 +55,4 @@ export const ProcessInstancesView: React.SFC<Props> = ({
   </React.Fragment>
 );
 
-ProcessInstancesView.displayName = 'ProcessListView';
+ProcessInstanceList.displayName = 'ProcessInstanceList';

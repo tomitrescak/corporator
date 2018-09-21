@@ -10,7 +10,7 @@ type Props = {
   process: QueryTypes.ProcessesQuery_Processes;
 };
 
-export const ProcessListItemView: React.SFC<Props> = ({ process }) => (
+export const ProcessItemView: React.SFC<Props> = ({ process }) => (
   <List.Item>
     <List.Content floated="right">
       <Button primary icon="rocket" content="Launch" />
@@ -25,4 +25,4 @@ export const ProcessListItemView: React.SFC<Props> = ({ process }) => (
   </List.Item>
 );
 
-ProcessListItemView.displayName = 'ProcessListItemView';
+ProcessItemView.displayName = 'ProcessListItemView';

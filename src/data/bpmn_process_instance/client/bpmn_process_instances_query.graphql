@@ -7,6 +7,19 @@ query BpmnProcessInstancesQuery($input: BpmnProcessInstancesInput!) {
       description
       type
     }
+    owner {
+      name
+    }
+    tasks {
+      name
+      dateStarted
+      dateFinished
+      performer {
+        name
+      }
+      performerRoles
+    }
     dateStarted
+    dateFinished
   }
 }

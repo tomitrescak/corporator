@@ -11,11 +11,30 @@ export interface BpmnProcessInstancesQuery_BpmnProcessInstances_Process {
   type: ProcessType;
 }
 
+export interface BpmnProcessInstancesQuery_BpmnProcessInstances_Owner {
+  name: string;
+}
+
+export interface BpmnProcessInstancesQuery_BpmnProcessInstances_Tasks_Performer {
+  name: string;
+}
+
+export interface BpmnProcessInstancesQuery_BpmnProcessInstances_Tasks {
+  name: string;
+  dateStarted: any;
+  dateFinished: any | null;
+  performer: BpmnProcessInstancesQuery_BpmnProcessInstances_Tasks_Performer | null;
+  performerRoles: string[];
+}
+
 export interface BpmnProcessInstancesQuery_BpmnProcessInstances {
   id: string;
   status: BpmnProcessInstanceStatus | null;
   process: BpmnProcessInstancesQuery_BpmnProcessInstances_Process | null;
+  owner: BpmnProcessInstancesQuery_BpmnProcessInstances_Owner | null;
+  tasks: BpmnProcessInstancesQuery_BpmnProcessInstances_Tasks[] | null;
   dateStarted: any | null;
+  dateFinished: any | null;
 }
 
 export interface BpmnProcessInstancesQuery {

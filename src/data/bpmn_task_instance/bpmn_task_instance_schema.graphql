@@ -6,13 +6,14 @@
 
 type BpmnTaskInstance {
   id: ID! @unique
+  name: String!
   dateFinished: DateTime
-  dateStarted: DateTime
+  dateStarted: DateTime!
   duration: Int
   performer: User
   performerId: String
   performerRoles: [String!]!
-  processInstance: BpmnProcess
+  processInstance: BpmnProcess!
   snapshot: Json
   taskId: String
 }

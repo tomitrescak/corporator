@@ -11,7 +11,7 @@ type BpmnProcessInstance {
   dateFinished: DateTime
   dateStarted: DateTime
   duration: Int
-  ownerId: ID
+  owner: User @relation(name: "UserProcesses")
   process: BpmnProcess
   resources: Json
   status: BpmnProcessInstanceStatus

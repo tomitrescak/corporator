@@ -18,7 +18,7 @@ export function renderResult(
   }
   if (result.error) {
     return (
-      <p>
+      <div>
         {result.error.graphQLErrors &&
           result.error.graphQLErrors.length && (
             <Message
@@ -40,7 +40,7 @@ export function renderResult(
             content={JSON.stringify(result.error.networkError)}
           />
         )}
-      </p>
+      </div>
     );
   }
   return Component();

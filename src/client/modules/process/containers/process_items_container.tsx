@@ -3,7 +3,7 @@ import * as React from 'react';
 import { inject } from 'mobx-react';
 
 import { renderResult } from 'client/modules/common';
-import { ProcessListView } from '../views/process_items_view';
+import { ProcessListView } from '../views/process_list_view';
 import { ProcessListQuery } from './process_queries';
 
 type Props = {

@@ -74,7 +74,7 @@ export const defaultProcessInstance: Yoga.BpmnProcessInstance = {
   id: 'aid',
   process: defaultProcess,
   resources: null,
-  ownerId: 'oid',
+  owner: defaultUser,
   status: 'Running',
   dateStarted: createdDate,
   dateFinished: finishedDate,

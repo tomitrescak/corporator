@@ -4,7 +4,7 @@ import { create, render } from 'client/tests';
 import { QueryTypes } from 'data/client';
 
 import { createProcesses } from '../../containers/tests/process_test_data';
-import { ProcessListView } from '../process_items_view';
+import { ProcessListView } from '../process_list_view';
 
 import 'jest-styled-components';
 

@@ -80,7 +80,7 @@
     "graphql-import": "^0.7.1",
     "graphql-mock": "^1.0.3",
     "jest-cli": "^23.6.0",
-    "jest-spy-serialiser": "^1.0.5",
+    "jest-spy-serialiser": "^1.0.6",
     "jest-styled-components": "^5.0.1",
     "jest-transform-graphql": "^2.1.0",
     "jsonwebtoken": "^8.3.0",

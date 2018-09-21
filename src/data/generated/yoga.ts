@@ -84,8 +84,6 @@ export type BpmnProcessInstanceOrderByInput =   'id_ASC' |
   'dateStarted_DESC' |
   'duration_ASC' |
   'duration_DESC' |
-  'ownerId_ASC' |
-  'ownerId_DESC' |
   'resources_ASC' |
   'resources_DESC' |
   'status_ASC' |
@@ -202,6 +200,8 @@ export type NotificationCode =   'ProcessStarted' |
 
 export type BpmnTaskInstanceOrderByInput =   'id_ASC' |
   'id_DESC' |
+  'name_ASC' |
+  'name_DESC' |
   'dateFinished_ASC' |
   'dateFinished_DESC' |
   'dateStarted_ASC' |
@@ -985,20 +985,6 @@ export interface BpmnProcessInstanceWhereInput {
   duration_lte?: Int
   duration_gt?: Int
   duration_gte?: Int
-  ownerId?: ID_Input
-  ownerId_not?: ID_Input
-  ownerId_in?: ID_Input[] | ID_Input
-  ownerId_not_in?: ID_Input[] | ID_Input
-  ownerId_lt?: ID_Input
-  ownerId_lte?: ID_Input
-  ownerId_gt?: ID_Input
-  ownerId_gte?: ID_Input
-  ownerId_contains?: ID_Input
-  ownerId_not_contains?: ID_Input
-  ownerId_starts_with?: ID_Input
-  ownerId_not_starts_with?: ID_Input
-  ownerId_ends_with?: ID_Input
-  ownerId_not_ends_with?: ID_Input
   status?: BpmnProcessInstanceStatus
   status_not?: BpmnProcessInstanceStatus
   status_in?: BpmnProcessInstanceStatus[] | BpmnProcessInstanceStatus
@@ -1006,6 +992,7 @@ export interface BpmnProcessInstanceWhereInput {
   comments_every?: CommentWhereInput
   comments_some?: CommentWhereInput
   comments_none?: CommentWhereInput
+  owner?: UserWhereInput
   process?: BpmnProcessWhereInput
   tasks_every?: BpmnTaskInstanceWhereInput
   tasks_some?: BpmnTaskInstanceWhereInput
@@ -1013,9 +1000,6 @@ export interface BpmnProcessInstanceWhereInput {
   _MagicalBackRelation_BpmnProcessInstanceToNotification_every?: NotificationWhereInput
   _MagicalBackRelation_BpmnProcessInstanceToNotification_some?: NotificationWhereInput
   _MagicalBackRelation_BpmnProcessInstanceToNotification_none?: NotificationWhereInput
-  _MagicalBackRelation_UserProcesses_every?: UserWhereInput
-  _MagicalBackRelation_UserProcesses_some?: UserWhereInput
-  _MagicalBackRelation_UserProcesses_none?: UserWhereInput
 }
 
 export interface BpmnProcessInstancesInput {
@@ -1360,6 +1344,20 @@ export interface BpmnTaskInstanceWhereInput {
   id_not_starts_with?: ID_Input
   id_ends_with?: ID_Input
   id_not_ends_with?: ID_Input
+  name?: String
+  name_not?: String
+  name_in?: String[] | String
+  name_not_in?: String[] | String
+  name_lt?: String
+  name_lte?: String
+  name_gt?: String
+  name_gte?: String
+  name_contains?: String
+  name_not_contains?: String
+  name_starts_with?: String
+  name_not_starts_with?: String
+  name_ends_with?: String
+  name_not_ends_with?: String
   dateFinished?: DateTime
   dateFinished_not?: DateTime
   dateFinished_in?: DateTime[] | DateTime
@@ -1473,7 +1471,7 @@ export interface BpmnProcessInstance extends Node {
   dateFinished?: DateTime
   dateStarted?: DateTime
   duration?: Int
-  ownerId?: ID_Output
+  owner?: User
   process?: BpmnProcess
   resources?: Json
   status?: BpmnProcessInstanceStatus
@@ -1572,13 +1570,14 @@ export interface Data extends Node {
 
 export interface BpmnTaskInstance extends Node {
   id: ID_Output
+  name: String
   dateFinished?: DateTime
-  dateStarted?: DateTime
+  dateStarted: DateTime
   duration?: Int
   performer?: User
   performerId?: String
   performerRoles: String[]
-  processInstance?: BpmnProcess
+  processInstance: BpmnProcess
   snapshot?: Json
   taskId?: String
 }
