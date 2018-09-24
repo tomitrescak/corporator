@@ -1,6 +1,6 @@
 import { create, its } from 'data/tests';
 
-import { query } from '../bpmn_process_resolver';
+import { query } from '../bpmn_process_resolver'; 
 
 describe('Bpmn Process Resolver', () => {
   its('fails', { clear: ['BpmnProcess'] }, async context => {

@@ -8,8 +8,7 @@ export class InclusiveGateway extends Gateway {
   }
 
   async execute(_state: BpmnProcessInstance, _context: ServerContext) {
-    // state: BPMNModelInstance) {
-
+    
     return;
     // if need to pass the flow further down
     // if () {

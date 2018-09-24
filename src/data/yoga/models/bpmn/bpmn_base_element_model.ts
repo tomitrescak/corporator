@@ -1,3 +1,4 @@
+import { BpmnProcessInstance } from 'data/yoga/models/bpmn_process_instance_model';
 
 export abstract class BaseElement {
   id: string;
@@ -14,4 +15,6 @@ export abstract class BaseElement {
     this.description = baseElement.description;
 
   }
+
+  abstract execute(state: BpmnProcessInstance, context: ServerContext): void;
 }

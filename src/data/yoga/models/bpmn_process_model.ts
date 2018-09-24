@@ -20,10 +20,10 @@ import {
 } from 'data/yoga/models/bpmn';
 import { Access } from './access_model';
 
-
 import BpmnModdle from 'bpmn-moddle';
 
 import { Prisma } from 'data/prisma';
+import { BpmnProcessInstance } from 'data/yoga/models/bpmn_process_instance_model';
 import { Dictionary } from 'typescript-collections';
 
 const moddle = new BpmnModdle();
@@ -51,6 +51,7 @@ export enum BpmnTypes {
 }
 
 export class BpmnProcessModel {
+
   id: string;
   name: string;
   description: string;
@@ -67,6 +68,8 @@ export class BpmnProcessModel {
 
   // list of started elements
   activeElements: BaseElement[];
+
+  
 
   constructor(processModelDao: Prisma.BpmnProcess) {
     this.id = processModelDao.id;
@@ -95,6 +98,12 @@ export class BpmnProcessModel {
         resolve(this.definition);
       });
     });
+  }
+
+  
+
+  getElementList(key: string): BaseElement[] {
+    return this.elementsDict.getValue(key).values();
   }
 
   private loadModels() {

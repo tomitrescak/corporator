@@ -1,5 +1,4 @@
 import { BpmnProcessInstance } from 'data/yoga/models/bpmn_process_instance_model';
-import { BpmnTaskInstanceModel } from 'data/yoga/models/bpmn_task_instance_model';
 import { Gateway } from './bpmn_gateway_model';
 
 export class ExclusiveGateway extends Gateway {
@@ -7,8 +6,8 @@ export class ExclusiveGateway extends Gateway {
     super(exclusiveGateway);
   }
 
-  execute(_state: BpmnProcessInstance): Promise<BpmnTaskInstanceModel[]> {
-    return null;
+  execute(_state: BpmnProcessInstance, _context: ServerContext): void {
+    return;
   }
 
 }

@@ -10,7 +10,7 @@ export class ParallelGateway extends Gateway {
     this.nodesToWaitFor = this.incomingIds ? this.incomingIds.length : 0;
   }
 
-  execute(_state: BpmnProcessInstance, context: ServerContext): void {
+  execute(state: BpmnProcessInstance, context: ServerContext): void {
     // another incoimng node has arrived
     this.nodesToWaitFor--;
 
@@ -20,7 +20,7 @@ export class ParallelGateway extends Gateway {
       // execute each outgoing node
       this.outgoing.forEach(node => {
         // place returned arrays into a list
-        node.execute(_state, context);
+        node.execute(state, context);
       });
     }
 

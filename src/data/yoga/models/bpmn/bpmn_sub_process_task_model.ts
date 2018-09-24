@@ -1,4 +1,5 @@
 import { BpmnProcessInstance } from '../bpmn_process_instance_model';
+import { BpmnProcessModel } from '../bpmn_process_model';
 import { BoundaryEvent } from './bpmn_boundary_event_model';
 import { Lane } from './bpmn_lane_model';
 import { Task } from './bpmn_task_model';
@@ -11,8 +12,26 @@ export class SubProcessTask extends Task {
     this.processRef = task.processRef;
   }
 
-  execute(_state: BpmnProcessInstance, _context: ServerContext): void {
-    // create new process instance using context and start instance
-    return null;
+  async execute(state: BpmnProcessInstance, context: ServerContext) {
+    
+    const processModelDAO = await context.db.query.bpmnProcess({
+      where: {
+        id: this.processRef
+      }
+    });
+    if (!processModelDAO) {
+      throw new Error('Process Model Not Found');
+    }
+    
+    
+    
+    // const processModel = new BpmnProcessModel(processDAO);
+    const processModel = new BpmnProcessModel(processModelDAO);
+
+    const subprocess = await BpmnProcessInstance.createInstance(this.processRef, processModel, context);
+    
+    subprocess.start(context);
+    
+    return;
   }
 }

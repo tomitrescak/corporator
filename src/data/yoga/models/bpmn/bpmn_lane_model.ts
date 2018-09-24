@@ -26,6 +26,7 @@ export class Lane extends BaseElement {
   }
 
   execute(_state: BpmnProcessInstance, _context: ServerContext) {
+    // execute the entry point
     return;
   }
 }

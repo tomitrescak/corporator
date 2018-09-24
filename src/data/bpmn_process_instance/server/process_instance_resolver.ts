@@ -1,16 +1,17 @@
-import { FixtureContext, Mutation, purge, Query, Yoga } from 'data/utils';
+import { FixtureContext, Mutation, Prisma, purge, Query, Yoga } from 'data/utils';
 
 export const query: Query = {
   bpmnProcessInstances(_parent, { input }, ctx, info) {
     throw new Error('Not Implemented');
-    return ctx.db.query.bpmnProcesses(
-      {
-        where: purge<Yoga.BpmnProcessWhereInput>({ name_contains: 'we', status: input.status }),
-        skip: input.skip,
-        first: input.first
-      },
-      info
-    );
+
+    // return ctx.db.query.bpmnProcesses(
+    //   {
+    //     where: purge<Yoga.BpmnProcessWhereInput>({ name_contains: 'we', status: input.status }),
+    //     skip: input.skip,
+    //     first: input.first
+    //   },
+    //   info
+    // );
   }
 };
 
@@ -47,6 +48,57 @@ export const mutation: Mutation = {
     );
 
     return processInstance;
+  },
+  async updateProcessInstanceStatus(_parent, { input: { processId, status } }, ctx, info) {
+    const process = await ctx.db.mutation.updateBpmnProcessInstance({
+      where: {
+        id: processId
+      },
+      data: {
+        status
+      }
+    });
+
+    // update all taskInstances of this process
+    const taskInstances = await ctx.db.query.bpmnTaskInstances({
+      where: {
+        processInstance: {
+          id: processId
+        }
+      }
+    });
+
+    if (taskInstances) {
+      let newTaskInstanceStatus: Prisma.BpmnTaskInstanceStatus;
+
+      switch (status) {
+        case 'Running':
+          newTaskInstanceStatus = 'Waiting';
+          break;
+        case 'Paused':
+          newTaskInstanceStatus = 'Paused';
+          break;
+        case 'Aborted':
+          newTaskInstanceStatus = 'Aborted';
+          break;
+        case 'Finished':
+          newTaskInstanceStatus = 'Finished';
+          break;
+      }
+
+      taskInstances.forEach(async taskInstance => {
+        await ctx.db.mutation.updateBpmnTaskInstance({
+          where: {
+            id: taskInstance.id
+          },
+          data: {
+            status: newTaskInstanceStatus
+          }
+        });
+      });
+    }
+
+    return process;
   }
 };
 

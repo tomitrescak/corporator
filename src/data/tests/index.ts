@@ -1,9 +1,11 @@
-import { Context, Prisma } from 'data/utils';
+import { Prisma } from 'data/utils';
+
+import { create } from './data';
 
 export { create } from './data';
 
 let db: Prisma.Prisma;
-let context: Context;
+let context: ServerContext;
 
 interface Options {
   user?: Partial<Prisma.User>;
@@ -15,7 +17,7 @@ interface Options {
 export async function its(
   name: string,
   options: Options = { language: 'EN' },
-  impl: (context: Context, user?: Prisma.User) => void
+  impl: (context: ServerContext, user?: Prisma.User) => void
 ) {
   // init db
   if (!db) {
@@ -54,16 +56,19 @@ export async function its(
       }
     }
 
-    // if (options.user) {
-    //   const users = await db.query.users({});
-    //   if (users && users.length) {
-    //     for (let user of users) {
-    //       db.mutation.deleteUser({ where: { id: user.id } });
-    //     }
-    //   }
-    //   context.user = await create.user(context, options.user);
-    //   context.userId = context.user.id;
-    // }
+    if (options.user) {
+      const users = await db.query.users({});
+      if (users && users.length) {
+        for (let user of users) {
+          db.mutation.deleteUser({ where: { id: user.id } });
+        }
+      }
+
+      const user = await create.user(context, options.user);
+
+      context.getUser = async () => user;
+      context.userId = user.id;
+    }
 
     return impl(context);
   });

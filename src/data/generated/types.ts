@@ -5,13 +5,13 @@
 // GraphQL query operation: BpmnProcessInstances
 // ====================================================
 
-export interface BpmnProcessInstancesBpmnProcessInstances {
+export interface BpmnProcessInstances_bpmnProcessInstances {
   id: string;
   dateStarted: any | null;
 }
 
 export interface BpmnProcessInstances {
-  bpmnProcessInstances: (BpmnProcessInstancesBpmnProcessInstances | null)[];
+  bpmnProcessInstances: (BpmnProcessInstances_bpmnProcessInstances | null)[];
 }
 
 export interface BpmnProcessInstancesVariables {
@@ -25,23 +25,23 @@ export interface BpmnProcessInstancesVariables {
 // GraphQL query operation: ProcessQuery
 // ====================================================
 
-export interface ProcessQueryProcessResources {
+export interface ProcessQuery_process_resources {
   name: string;
   type: ResourceType;
 }
 
-export interface ProcessQueryProcess {
+export interface ProcessQuery_process {
   actionCount: number;
   description: string | null;
   id: string;
   model: string;
-  resources: ProcessQueryProcessResources[] | null;
+  resources: ProcessQuery_process_resources[] | null;
   status: ProcessStatus;
   version: number;
 }
 
 export interface ProcessQuery {
-  process: ProcessQueryProcess;
+  process: ProcessQuery_process;
 }
 
 export interface ProcessQueryVariables {
@@ -55,13 +55,13 @@ export interface ProcessQueryVariables {
 // GraphQL query operation: Processes
 // ====================================================
 
-export interface ProcessesProcesses {
+export interface Processes_processes {
   id: string;
   name: string;
 }
 
 export interface Processes {
-  processes: (ProcessesProcesses | null)[];
+  processes: (Processes_processes | null)[];
 }
 
 export interface ProcessesVariables {
@@ -75,13 +75,13 @@ export interface ProcessesVariables {
 // GraphQL query operation: FormQuery
 // ====================================================
 
-export interface FormQueryFormElementsSourceValidators {
+export interface FormQuery_form_elements_source_validators {
   id: string;
   name: string;
   params: string[];
 }
 
-export interface FormQueryFormElementsSource {
+export interface FormQuery_form_elements_source {
   defaultValue: string | null;
   description: string | null;
   expression: string | null;
@@ -90,10 +90,10 @@ export interface FormQueryFormElementsSource {
   name: string | null;
   type: DataType | null;
   parentDescriptor: string | null;
-  validators: FormQueryFormElementsSourceValidators | null;
+  validators: FormQuery_form_elements_source_validators | null;
 }
 
-export interface FormQueryFormElements {
+export interface FormQuery_form_elements {
   id: string;
   column: number | null;
   control: FormControl | null;
@@ -105,33 +105,33 @@ export interface FormQueryFormElements {
   label: string | null;
   list: string | null;
   row: number | null;
-  source: FormQueryFormElementsSource | null;
+  source: FormQuery_form_elements_source | null;
   vertical: boolean | null;
   width: number | null;
   parentElement: string | null;
 }
 
-export interface FormQueryFormValidations {
+export interface FormQuery_form_validations {
   id: string;
   name: string;
   params: string[];
 }
 
-export interface FormQueryForm {
+export interface FormQuery_form {
   id: string;
   name: string;
   description: string | null;
-  elements: FormQueryFormElements[] | null;
-  validations: FormQueryFormValidations[] | null;
+  elements: FormQuery_form_elements[] | null;
+  validations: FormQuery_form_validations[] | null;
 }
 
-export interface FormQueryProcessDataValidators {
+export interface FormQuery_process_data_validators {
   id: string;
   name: string;
   params: string[];
 }
 
-export interface FormQueryProcessData {
+export interface FormQuery_process_data {
   defaultValue: string | null;
   description: string | null;
   expression: string | null;
@@ -140,16 +140,16 @@ export interface FormQueryProcessData {
   name: string | null;
   type: DataType | null;
   parentDescriptor: string | null;
-  validators: FormQueryProcessDataValidators | null;
+  validators: FormQuery_process_data_validators | null;
 }
 
-export interface FormQueryProcess {
-  data: FormQueryProcessData[] | null;
+export interface FormQuery_process {
+  data: FormQuery_process_data[] | null;
 }
 
 export interface FormQuery {
-  form: FormQueryForm | null;
-  process: FormQueryProcess;
+  form: FormQuery_form | null;
+  process: FormQuery_process;
 }
 
 export interface FormQueryVariables {
@@ -190,25 +190,25 @@ export interface ClearNotifications {
 // GraphQL query operation: Notifications
 // ====================================================
 
-export interface NotificationsNotificationsProcessInstanceProcess {
+export interface Notifications_notifications_processInstance_process {
   name: string;
 }
 
-export interface NotificationsNotificationsProcessInstance {
+export interface Notifications_notifications_processInstance {
   id: string;
-  process: NotificationsNotificationsProcessInstanceProcess | null;
+  process: Notifications_notifications_processInstance_process | null;
 }
 
-export interface NotificationsNotifications {
+export interface Notifications_notifications {
   id: string;
   createdAt: any;
   text: string | null;
   type: NotificationType;
-  processInstance: NotificationsNotificationsProcessInstance;
+  processInstance: Notifications_notifications_processInstance;
 }
 
 export interface Notifications {
-  notifications: (NotificationsNotifications | null)[];
+  notifications: (Notifications_notifications | null)[];
 }
 
 export interface NotificationsVariables {
@@ -222,18 +222,18 @@ export interface NotificationsVariables {
 // GraphQL mutation operation: Login
 // ====================================================
 
-export interface LoginLoginUser {
+export interface Login_login_user {
   id: string;
   name: string;
 }
 
-export interface LoginLogin {
-  user: LoginLoginUser;
+export interface Login_login {
+  user: Login_login_user;
   token: string;
 }
 
 export interface Login {
-  login: LoginLogin;
+  login: Login_login;
 }
 
 export interface LoginVariables {
@@ -247,18 +247,18 @@ export interface LoginVariables {
 // GraphQL query operation: Resume
 // ====================================================
 
-export interface ResumeResumeUser {
+export interface Resume_resume_user {
   id: string;
   name: string;
 }
 
-export interface ResumeResume {
-  user: ResumeResumeUser;
+export interface Resume_resume {
+  user: Resume_resume_user;
   token: string;
 }
 
 export interface Resume {
-  resume: ResumeResume;
+  resume: Resume_resume;
 }
 
 export interface ResumeVariables {
@@ -285,7 +285,7 @@ export interface Validator {
 // GraphQL fragment: DataDescriptor
 // ====================================================
 
-export interface DataDescriptorValidators {
+export interface DataDescriptor_validators {
   id: string;
   name: string;
   params: string[];
@@ -300,7 +300,7 @@ export interface DataDescriptor {
   name: string | null;
   type: DataType | null;
   parentDescriptor: string | null;
-  validators: DataDescriptorValidators | null;
+  validators: DataDescriptor_validators | null;
 }
 
 /* tslint:disable */
@@ -310,13 +310,13 @@ export interface DataDescriptor {
 // GraphQL fragment: FormElement
 // ====================================================
 
-export interface FormElementSourceValidators {
+export interface FormElement_source_validators {
   id: string;
   name: string;
   params: string[];
 }
 
-export interface FormElementSource {
+export interface FormElement_source {
   defaultValue: string | null;
   description: string | null;
   expression: string | null;
@@ -325,7 +325,7 @@ export interface FormElementSource {
   name: string | null;
   type: DataType | null;
   parentDescriptor: string | null;
-  validators: FormElementSourceValidators | null;
+  validators: FormElement_source_validators | null;
 }
 
 export interface FormElement {
@@ -340,7 +340,7 @@ export interface FormElement {
   label: string | null;
   list: string | null;
   row: number | null;
-  source: FormElementSource | null;
+  source: FormElement_source | null;
   vertical: boolean | null;
   width: number | null;
   parentElement: string | null;
@@ -353,13 +353,13 @@ export interface FormElement {
 // GraphQL fragment: Resource
 // ====================================================
 
-export interface ResourceFormElementsSourceValidators {
+export interface Resource_form_elements_source_validators {
   id: string;
   name: string;
   params: string[];
 }
 
-export interface ResourceFormElementsSource {
+export interface Resource_form_elements_source {
   defaultValue: string | null;
   description: string | null;
   expression: string | null;
@@ -368,10 +368,10 @@ export interface ResourceFormElementsSource {
   name: string | null;
   type: DataType | null;
   parentDescriptor: string | null;
-  validators: ResourceFormElementsSourceValidators | null;
+  validators: Resource_form_elements_source_validators | null;
 }
 
-export interface ResourceFormElements {
+export interface Resource_form_elements {
   id: string;
   column: number | null;
   control: FormControl | null;
@@ -383,29 +383,29 @@ export interface ResourceFormElements {
   label: string | null;
   list: string | null;
   row: number | null;
-  source: ResourceFormElementsSource | null;
+  source: Resource_form_elements_source | null;
   vertical: boolean | null;
   width: number | null;
   parentElement: string | null;
 }
 
-export interface ResourceFormValidations {
+export interface Resource_form_validations {
   id: string;
   name: string;
   params: string[];
 }
 
-export interface ResourceForm {
+export interface Resource_form {
   id: string;
   name: string;
   description: string | null;
-  elements: ResourceFormElements[] | null;
-  validations: ResourceFormValidations[] | null;
+  elements: Resource_form_elements[] | null;
+  validations: Resource_form_validations[] | null;
 }
 
 export interface Resource {
   content: string;
-  form: ResourceForm | null;
+  form: Resource_form | null;
   name: string;
   type: ResourceType;
 }
@@ -417,13 +417,13 @@ export interface Resource {
 // GraphQL fragment: Form
 // ====================================================
 
-export interface FormElementsSourceValidators {
+export interface Form_elements_source_validators {
   id: string;
   name: string;
   params: string[];
 }
 
-export interface FormElementsSource {
+export interface Form_elements_source {
   defaultValue: string | null;
   description: string | null;
   expression: string | null;
@@ -432,10 +432,10 @@ export interface FormElementsSource {
   name: string | null;
   type: DataType | null;
   parentDescriptor: string | null;
-  validators: FormElementsSourceValidators | null;
+  validators: Form_elements_source_validators | null;
 }
 
-export interface FormElements {
+export interface Form_elements {
   id: string;
   column: number | null;
   control: FormControl | null;
@@ -447,13 +447,13 @@ export interface FormElements {
   label: string | null;
   list: string | null;
   row: number | null;
-  source: FormElementsSource | null;
+  source: Form_elements_source | null;
   vertical: boolean | null;
   width: number | null;
   parentElement: string | null;
 }
 
-export interface FormValidations {
+export interface Form_validations {
   id: string;
   name: string;
   params: string[];
@@ -463,8 +463,8 @@ export interface Form {
   id: string;
   name: string;
   description: string | null;
-  elements: FormElements[] | null;
-  validations: FormValidations[] | null;
+  elements: Form_elements[] | null;
+  validations: Form_validations[] | null;
 }
 
 /* tslint:disable */

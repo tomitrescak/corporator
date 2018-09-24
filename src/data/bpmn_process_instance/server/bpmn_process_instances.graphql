@@ -5,7 +5,7 @@
 # ========================================================= # */
 
 input BpmnProcessInstancesInput {
-  status: ProcessStatus
+  status: BpmnProcessInstanceStatus
   name: String
   dateStarted: DateTime
   dateFinished: DateTime
@@ -27,6 +27,12 @@ input CreateProcessInstanceInput {
   processId: String!
 }
 
+input UpdateProcessInstanceStatusInput {
+  processId: String!
+  status: BpmnProcessInstanceStatus!
+}
+
 type Mutation {
   createProcessInstance(input: CreateProcessInstanceInput!): BpmnProcessInstance
+  updateProcessInstanceStatus(input: UpdateProcessInstanceStatusInput!): BpmnProcessInstance
 }

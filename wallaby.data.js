@@ -1,6 +1,7 @@
 module.exports = function(wallaby) {
   return {
     files: [
+      'transformer.js',
       'tsconfig.json',
       'src/data/**/*.ts*',
       'jest.config.js',

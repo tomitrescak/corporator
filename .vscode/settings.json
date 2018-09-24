@@ -63,7 +63,6 @@
     "luis.fuse.js": true,
     "jest.setup.js": true,
     "wallaby.js": true,
-    "wallaby.data.js": true,
     "wallaby.client.js": true,
     "tslint.json": true,
     "tsconfig.json": true,
@@ -77,11 +76,11 @@
     ".env.dev": true,
     ".env.test": true,
     ".babelrc": true,
-    "test": true,
     "node_modules": true,
     "graphql.config.json": true,
     "save_schema.js": true,
     "schema.json": true,
-    ".graphqlconfig.yml": true
+    ".graphqlconfig.yml": true,
+    "test": true
   }
 }

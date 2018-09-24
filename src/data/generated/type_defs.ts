@@ -4,7 +4,7 @@ export const typeDefs = `type Query {
   processes(input: BpmnProcessesInput!): [BpmnProcess]!
   process(id: ID!): BpmnProcess!
   bpmnProcessInstances(input: BpmnProcessInstancesInput!): [BpmnProcessInstance]!
-  bpmnTasks(input: BpmnTasksInput!): [BpmnTaskInstance]!
+  bpmnTaskInstances(input: BpmnTaskInstancesInput!): [BpmnTaskInstance]!
   user(id: ID!): User
   users: [User]!
   resume(token: String!): AuthPayload!
@@ -19,6 +19,10 @@ type Mutation {
   clearNotifications: Boolean
   createProcess(input: CreateProcessInput!): BpmnProcess
   createProcessInstance(input: CreateProcessInstanceInput!): BpmnProcessInstance
+  updateProcessInstanceStatus(input: UpdateProcessInstanceStatusInput!): BpmnProcessInstance
+  createTaskInstance(input: CreateTaskInstanceInput!): BpmnTaskInstance
+  updateTaskInstanceStatus(input: UpdateTaskInstanceStatusInput!): BpmnTaskInstance
+  submitForm(input: SubmitFormInput!): BpmnTaskInstance
   login(input: AuthInput!): AuthPayload!
   signup(input: AuthInput!): AuthPayload!
 }
@@ -76,7 +80,7 @@ type BpmnProcessInstance implements Node {
 }
 
 input BpmnProcessInstancesInput {
-  status: ProcessStatus
+  status: BpmnProcessInstanceStatus
   name: String
   dateStarted: DateTime
   dateFinished: DateTime
@@ -94,12 +98,13 @@ type BpmnTaskInstance implements Node {
   performer(where: UserWhereInput): User
   performerId: String
   performerRoles: [String!]!
-  processInstance(where: BpmnProcessWhereInput): BpmnProcess
+  processInstance(where: BpmnProcessInstanceWhereInput): BpmnProcessInstance!
   snapshot: Json
+  status: BpmnTaskInstanceStatus
   taskId: String
 }
 
-input BpmnTasksInput {
+input BpmnTaskInstancesInput {
   processInstanceId: String!
 }
 
@@ -145,6 +150,27 @@ input CreateProcessInput {
 
 input CreateProcessInstanceInput {
   processId: String!
+}
+
+input UpdateProcessInstanceStatusInput {
+  processId: String!
+  status: BpmnProcessInstanceStatus!
+}
+
+input CreateTaskInstanceInput {
+  processInstanceId: String!
+  taskId: String!
+  performerRoles: [String!]
+}
+
+input UpdateTaskInstanceStatusInput {
+  taskId: String!
+  status: BpmnTaskInstanceStatus!
+}
+
+input SubmitFormInput {
+  taskId: String!
+  form: [String!]!
 }
 
 input AuthInput {
@@ -1596,9 +1622,6 @@ input BpmnProcessWhereInput {
   versions_every: BpmnProcessWhereInput
   versions_some: BpmnProcessWhereInput
   versions_none: BpmnProcessWhereInput
-  _MagicalBackRelation_BpmnProcessToBpmnTaskInstance_every: BpmnTaskInstanceWhereInput
-  _MagicalBackRelation_BpmnProcessToBpmnTaskInstance_some: BpmnTaskInstanceWhereInput
-  _MagicalBackRelation_BpmnProcessToBpmnTaskInstance_none: BpmnTaskInstanceWhereInput
   _MagicalBackRelation_BpmnProcessVersions_every: BpmnProcessWhereInput
   _MagicalBackRelation_BpmnProcessVersions_some: BpmnProcessWhereInput
   _MagicalBackRelation_BpmnProcessVersions_none: BpmnProcessWhereInput
@@ -2022,6 +2045,19 @@ input BpmnTaskInstanceWhereInput {
   All values not ending with the given string.
   """
   performerId_not_ends_with: String
+  status: BpmnTaskInstanceStatus
+  """
+  All values that are not equal to given value.
+  """
+  status_not: BpmnTaskInstanceStatus
+  """
+  All values that are contained in given list.
+  """
+  status_in: [BpmnTaskInstanceStatus!]
+  """
+  All values that are not contained in given list.
+  """
+  status_not_in: [BpmnTaskInstanceStatus!]
   taskId: String
   """
   All values that are not equal to given value.
@@ -2076,10 +2112,7 @@ input BpmnTaskInstanceWhereInput {
   """
   taskId_not_ends_with: String
   performer: UserWhereInput
-  processInstance: BpmnProcessWhereInput
-  _MagicalBackRelation_BpmnProcessTasks_every: BpmnProcessInstanceWhereInput
-  _MagicalBackRelation_BpmnProcessTasks_some: BpmnProcessInstanceWhereInput
-  _MagicalBackRelation_BpmnProcessTasks_none: BpmnProcessInstanceWhereInput
+  processInstance: BpmnProcessInstanceWhereInput
 }
 
 enum BpmnTaskInstanceOrderByInput {
@@ -2095,6 +2128,8 @@ enum BpmnTaskInstanceOrderByInput {
   performerId_DESC
   snapshot_ASC
   snapshot_DESC
+  status_ASC
+  status_DESC
   taskId_ASC
   taskId_DESC
   updatedAt_ASC
@@ -2396,6 +2431,13 @@ input UserWhereInput {
   _MagicalBackRelation_CommentToUser_every: CommentWhereInput
   _MagicalBackRelation_CommentToUser_some: CommentWhereInput
   _MagicalBackRelation_CommentToUser_none: CommentWhereInput
+}
+
+enum BpmnTaskInstanceStatus {
+  Waiting
+  Paused
+  Aborted
+  Finished
 }
 
 input NotificationWhereInput {

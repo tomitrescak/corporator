@@ -24,7 +24,7 @@ export class BpmnTaskInstanceModel {
     this.snapshot = taskInstanceModelDao.snapshot;
   }
 
-  execute() {
+  async execute(context: ServerContext, _form: any) {
     /*
       finish task
       update DAO
@@ -33,6 +33,19 @@ export class BpmnTaskInstanceModel {
         duration
         snapshot
     */
+
+   const taskInstance = await context.db.mutation.updateBpmnTaskInstance({
+      where: {
+        id: this.id
+      },
+      data: {
+        status: 'Finished'
+      }
+    });
+
+    // deep clone of snapshot using form
+    // 
+    // pass back into state.resources
   }
 
   validation() {

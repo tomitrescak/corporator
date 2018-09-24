@@ -4,6 +4,13 @@
 
 ##import User from './user.graphql'
 
+enum BpmnTaskInstanceStatus {
+  Waiting
+  Paused
+  Aborted
+  Finished
+}
+
 type BpmnTaskInstance {
   id: ID! @unique
   dateFinished: DateTime
@@ -12,7 +19,8 @@ type BpmnTaskInstance {
   performer: User
   performerId: String
   performerRoles: [String!]!
-  processInstance: BpmnProcess
+  processInstance: BpmnProcessInstance! @relation(name: "BpmnProcessTasks")
   snapshot: Json
+  status: BpmnTaskInstanceStatus
   taskId: String
 }

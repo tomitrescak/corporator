@@ -8,21 +8,33 @@ export class UserTask extends Task {
     super(task, lane, attachedEvents);
   }
 
-  execute(_state: BpmnProcessInstance, _context: ServerContext): void {
-    // new BpmnTaskInstance (formerly action)
-    // Corpix.Server.TaskInstances.createTaskInstance();
-    // return new Promise<BpmnTaskInstanceModel[]>((resolve, reject) => {
-    //   const taskInstance = new BpmnTaskInstanceModel({
-    //     id: null, // where does the id come from?
-    //     processInstanceId: state.id,
-    //     performerId: null,
-    //     performerRoles: this.lane.roles,
-    //     dateStarted: new Date(),
-    //     dateFinished: null,
-    //     duration: null,
-    //     snapshot: null // JSON.stringify(state)? the snapshot is the state right?
-    //   }, this);
-    //   resolve([taskInstance]);
-    // });
+  async execute(state: BpmnProcessInstance, context: ServerContext) {
+    if (context.getUser()) {
+      /*const taskInstance = */ await context.db.mutation.createBpmnTaskInstance({
+        data: {
+          // dateFinished: null,
+          dateStarted: new Date(),
+          // duration: null,
+          // performerId: null,
+          snapshot: JSON.parse(JSON.stringify(state.resources)), // clone of properties (not of functions)
+          taskId: this.id,
+          // performerRoles: BpmnTaskInstanceCreateperformerRolesInput,
+          performerRoles: {
+            set: this.lane.roles
+          },
+          performer: {
+            connect: {
+              id: context.userId
+            }
+          },
+          processInstance: {
+            connect: {
+              id: state.id
+            }
+          }
+        }
+      });
+      
+    }
   }
 }

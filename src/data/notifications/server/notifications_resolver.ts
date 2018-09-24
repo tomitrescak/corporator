@@ -1,4 +1,4 @@
-import { FixtureContext, Mutation, purge, Query, Resolver, Yoga } from 'data/utils';
+import { FixtureContext, getUserId, Mutation, purge, Query, Resolver, Yoga } from 'data/utils';
 
 const graphql = (e: TemplateStringsArray) => e[0];
 
@@ -9,7 +9,7 @@ export const query: Query = {
     ctx,
     info
   ): Promise<Yoga.Notification[]> {
-    const userId = ctx.userId;
+    const userId = getUserId(ctx.userId);
 
     // return ctx.db.query.notifications(
     //   { where: { owner: { id: getUserId(ctx) } }, skip: start, last: end },

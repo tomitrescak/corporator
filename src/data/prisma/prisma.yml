@@ -1,4 +1,4 @@
-endpoint: http://localhost:4466
+endpoint: http://localhost:4466/test
 datamodel:
   - ../access/access_schema.graphql
   - ../bpmn_process/bpmn_process_schema.graphql
@@ -19,5 +19,5 @@ hooks:
     #   - graphql get-schema -p prisma --output schema.json
     - graphql codegen
     - node save_schema.js
-    - npm run downloadSchema
-    - npm run generateQueries
+    #- npm run downloadSchema
+    #- npm run generateQueries

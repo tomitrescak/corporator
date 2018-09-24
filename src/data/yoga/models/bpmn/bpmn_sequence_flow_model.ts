@@ -13,7 +13,7 @@ export class SequenceFlow extends Flow {
     super(sequenceFlow, lane, sourceRef, targetRef);
   }
 
-  execute(_state: BpmnProcessInstance, context: ServerContext): void {
-    this.targetRef.execute(_state, context);
+  execute(state: BpmnProcessInstance, context: ServerContext): void {
+    this.targetRef.execute(state, context);
   }
 }

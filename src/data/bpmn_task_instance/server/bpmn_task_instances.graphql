@@ -4,10 +4,36 @@
 #  Queries
 # ========================================================= # */
 
-input BpmnTasksInput {
+input BpmnTaskInstancesInput {
   processInstanceId: String!
 }
 
 type Query {
-  bpmnTasks(input: BpmnTasksInput!): [BpmnTaskInstance]!
+  bpmnTaskInstances(input: BpmnTaskInstancesInput!): [BpmnTaskInstance]!
+}
+
+# ========================================================= #
+#  MUTATIONS
+# ========================================================= # */
+
+input CreateTaskInstanceInput {
+  processInstanceId: String!
+  taskId: String!
+  performerRoles: [String!]
+}
+
+input UpdateTaskInstanceStatusInput {
+  taskId: String!
+  status: BpmnTaskInstanceStatus!
+}
+
+input SubmitFormInput {
+  taskId: String!
+  form: [String!]!
+}
+
+type Mutation {
+  createTaskInstance(input: CreateTaskInstanceInput!): BpmnTaskInstance
+  updateTaskInstanceStatus(input: UpdateTaskInstanceStatusInput!): BpmnTaskInstance
+  submitForm(input: SubmitFormInput!): BpmnTaskInstance
 }

@@ -7,7 +7,9 @@ export class EndEvent extends BaseEvent {
     super(endEvent, lane);
   }
 
-  execute(_state: BpmnProcessInstance, _context: ServerContext) {
+  execute(state: BpmnProcessInstance, context: ServerContext): void {
+    // finish the process
+    state.finish(context);
     return;
   }
 }

@@ -1,3 +1,4 @@
+import { BpmnProcessInstance } from 'data/yoga/models/bpmn_process_instance_model';
 import { BaseEvent } from './bpmn_base_event_model';
 import { Lane } from './bpmn_lane_model';
 
@@ -10,6 +11,15 @@ export abstract class BoundaryEvent extends BaseEvent {
     this.interrupting = boundaryEvent.interrupting;
   }
 
-  // abstract async trigger(): Promise<Bpmn.ITrigger>;
+  execute(state: BpmnProcessInstance, context: ServerContext): void {
+    // execute each outgoing flow node
+    if(this.outgoing) {
+      this.outgoing.forEach(out => {
+        out.execute(state, context);
+      });
+    }
+    return;
+  }
+  
 
 }
