@@ -22,12 +22,22 @@ const modifiedDate = new Date(2018, 1, 10);
 const finishedDate = new Date(2018, 2, 15);
 // const dateDuration = (finishedDate - createdDate);
 
+// mock context
+const mockedContext = {
+  Ui: { ...context.Ui },
+  i18n: context.i18n
+};
+mockedContext.Ui.relativeDate = () => '2 months ago';
+
 export const create = {
-  context() {
-    return context;
+  context(): App.Context {
+    return mockedContext;
   },
   client() {
     return client();
+  },
+  date(addDays: number = 0) {
+    return new Date(2018, 1 + addDays, 2);
   },
   store(data: Partial<typeof AppStore.Type> = {}, mockStore = false) {
     const store = AppStore.create(data as any);

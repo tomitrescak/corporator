@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Process Icon renders correctly 1`] = `
+<ul>
+  <li>
+    <i
+      aria-hidden="true"
+      className="user circle icon middle aligned sc-bdVaJa jLAMJN"
+    />
+     Human Resources
+  </li>
+  <li>
+    <i
+      aria-hidden="true"
+      className="money icon middle aligned sc-bdVaJa jLAMJN"
+    />
+     Purchases
+  </li>
+  <li>
+    <i
+      aria-hidden="true"
+      className="money bill alternate outline icon middle aligned sc-bdVaJa jLAMJN"
+    />
+     Sales
+  </li>
+  <li>
+    <i
+      aria-hidden="true"
+      className="briefcase icon middle aligned sc-bdVaJa jLAMJN"
+    />
+     Travel
+  </li>
+</ul>
+`;

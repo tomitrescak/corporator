@@ -55,7 +55,7 @@ export class FormView extends React.Component<Props> {
         {formControl.label &&
           formControl.control !== 'Checkbox' &&
           formControl.label !== 'Radio' && (
-            <label htmlFor={formControl.source && formControl.source.name}>
+            <label htmlFor={(formControl.source && formControl.source.name) || undefined}>
               {formControl.label}
             </label>
           )}

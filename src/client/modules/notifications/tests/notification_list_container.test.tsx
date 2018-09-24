@@ -4,7 +4,7 @@ import * as React from 'react';
 
 import { mock, MockedProvider, QueryTypes, render } from 'client/tests';
 import { NotificationsContainer } from '../notifications_view';
-import { createNotification } from './notifications_query_data';
+import { createNotification } from './notifications_test_data';
 
 export const notificationData = [
   createNotification({ id: '1', createdAt: new Date(2010, 1, 2, 12, 50) }),
@@ -16,7 +16,9 @@ export const notificationData = [
 
 describe('Notifications', () => {
   describe('Container', () => {
-    function componentWithData(notifications: QueryTypes.NotificationsNotifications[] = null) {
+    function componentWithData(
+      notifications: QueryTypes.NotificationsQuery_Notifications[] = null
+    ) {
       if (!notifications) {
         mock.expect(QUERY).reply({
           notifications: [{ id: '1', name: 'one' }, { id: '2', name: 'two' }]

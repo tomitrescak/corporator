@@ -1,5 +1,6 @@
 # A comment ...
 type Comment {
+  id: ID! @unique
   text: String!
   user: User!
   date: DateTime!

@@ -41,6 +41,7 @@ export const mutation: Mutation = {
           model,
           name,
           status,
+          type: 'Sales',
           version: 0,
           access: {
             create: {

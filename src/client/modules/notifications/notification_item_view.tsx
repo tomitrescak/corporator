@@ -20,7 +20,7 @@ const ClickableIcon = styled(Icon)`
 `;
 
 type Props = {
-  notification: QueryTypes.NotificationsNotifications;
+  notification: QueryTypes.NotificationsQuery_Notifications;
   context?: App.Context;
 };
 
@@ -49,7 +49,7 @@ export const NotificationView = inject('context')(({ notification, context }: Pr
     <List.Content>
       <div key="1">
         <Time>{context.Ui.relativeDate(notification.createdAt)}</Time> &middot;{' '}
-        <Link to={`/process/${notification.processInstance.process.name}`}>
+        <Link to={`/process/${context.Ui.urlName(notification.processInstance.process.name)}`}>
           {notification.text}
         </Link>
       </div>

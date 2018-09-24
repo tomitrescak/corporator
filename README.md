@@ -1,5 +1,17 @@
 # Corporator
 
+# Development
+
+1. run `npm run server` in corporator directory to launch application at port 3000
+2. run `npm run luis` in corporator directory to start component catalogue at port 9001
+3. in your `snapshot-spy-monitor` directory run `npm start`
+
+## Front End
+
+https://react.semantic-ui.com
+
+# Introduction
+
 BPMN marvel
 
 - BPMN 2.0

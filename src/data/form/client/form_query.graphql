@@ -38,7 +38,7 @@ fragment FormElement on FormElement {
   parentElement
 }
 
-fragment Resource on Resource {
+fragment FormResource on Resource {
   content
   form {
     ...Form

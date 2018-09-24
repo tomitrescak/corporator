@@ -65,7 +65,7 @@ export class BpmnProcessInstance {
     // this.processId = instanceModelDao.processId;
     this.processModel = processModel;
     this.resources = JSON.parse(instanceModelDao.resources);
-    this.ownerId = instanceModelDao.ownerId;
+    this.ownerId = instanceModelDao.owner.id;
     this.status = instanceModelDao.status;
     this.dateStarted = new Date(instanceModelDao.dateStarted);
     this.dateFinished = new Date(instanceModelDao.dateFinished);

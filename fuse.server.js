@@ -1,5 +1,8 @@
 const { FuseBox } = require('fuse-box');
 
+// build dev
+require('./fuse.dev');
+
 const serverFuse = FuseBox.init({
   homeDir: 'src',
   output: 'dist/$name.js',

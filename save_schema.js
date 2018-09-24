@@ -34,3 +34,15 @@ fs.writeFileSync(
   `export const typeDefs = \`${typeDefs}\``,
   { encoding: 'utf-8' }
 );
+
+// patch the file with generation
+let tfile = fs.readFileSync('./node_modules/apollo-codegen-typescript/lib/language.js', {
+  encoding: 'utf-8'
+});
+tfile = tfile.replace(
+  'return scope.join("_");',
+  "return scope.map(s => s[0].toUpperCase() + s.substring(1)).join('_');"
+);
+fs.writeFileSync('./node_modules/apollo-codegen-typescript/lib/language.js', tfile, {
+  encoding: 'utf-8'
+});

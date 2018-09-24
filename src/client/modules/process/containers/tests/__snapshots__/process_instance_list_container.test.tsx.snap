@@ -1,0 +1,639 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Process Instances Container renders data 1`] = `
+<div>
+  <div
+    className="sc-ifAKCX fUQyyW"
+  >
+    5 processes available
+  </div>
+  <div
+    className="ui header"
+  >
+    <i
+      aria-hidden="true"
+      className="tasks icon"
+    />
+    <div
+      className="content"
+    >
+      Process List
+      <div
+        className="sub header"
+      >
+        Process list description
+      </div>
+    </div>
+  </div>
+  <div
+    className="ui divided relaxed list sc-bxivhb fuOSAw"
+    role="list"
+  >
+    <div
+      className="item"
+      onClick={[Function]}
+      role="listitem"
+    >
+      <i
+        aria-hidden="true"
+        className="money icon middle aligned sc-bdVaJa jLAMJN"
+      />
+      <div
+        className="top aligned content"
+      >
+        <a
+          className="header"
+          href="/nowhere"
+          onClick={[Function]}
+        >
+          Process 1
+        </a>
+        <div
+          className="description"
+        >
+          <div
+            className="sc-bwzfXH gzggMh"
+          >
+            <div
+              className="ui green tiny label"
+              onClick={[Function]}
+            >
+              Running
+            </div>
+             
+             · 
+            Started 2 months ago by Buddy Holly
+          </div>
+          <div
+            className="sc-htpNat eaijOI"
+          >
+            <b>
+              Last activity: 
+            </b>
+            Tomas Trescak performed "Do not display!" 2 months ago
+          </div>
+          <div
+            className="sc-htpNat eaijOI"
+          >
+            <b>
+              Waiting for: 
+            </b>
+             
+            Purchasing to Complete Purchase since 2 months ago and IT Support or IT Delivery to Deliver Technology since 2 months ago
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="item"
+      onClick={[Function]}
+      role="listitem"
+    >
+      <i
+        aria-hidden="true"
+        className="money icon middle aligned sc-bdVaJa jLAMJN"
+      />
+      <div
+        className="top aligned content"
+      >
+        <a
+          className="header"
+          href="/nowhere"
+          onClick={[Function]}
+        >
+          Process 1
+        </a>
+        <div
+          className="description"
+        >
+          <div
+            className="sc-bwzfXH gzggMh"
+          >
+            <div
+              className="ui green tiny label"
+              onClick={[Function]}
+            >
+              Running
+            </div>
+             
+             · 
+            Started 2 months ago by Buddy Holly
+          </div>
+          <div
+            className="sc-htpNat eaijOI"
+          >
+            <b>
+              Waiting for: 
+            </b>
+             
+            Approver to First Task since 2 months ago
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="item"
+      onClick={[Function]}
+      role="listitem"
+    >
+      <i
+        aria-hidden="true"
+        className="money icon middle aligned sc-bdVaJa jLAMJN"
+      />
+      <div
+        className="top aligned content"
+      >
+        <a
+          className="header"
+          href="/nowhere"
+          onClick={[Function]}
+        >
+          Process 1
+        </a>
+        <div
+          className="description"
+        >
+          <div
+            className="sc-bwzfXH gzggMh"
+          >
+            <div
+              className="ui red tiny label"
+              onClick={[Function]}
+            >
+              Aborted
+            </div>
+             
+             · 
+            Started 2 months ago by Buddy Holly
+          </div>
+          <div
+            className="sc-htpNat eaijOI"
+          >
+            <b>
+              Last activity: 
+            </b>
+            Tomas Trescak performed "Do not display!" 2 months ago
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="item"
+      onClick={[Function]}
+      role="listitem"
+    >
+      <i
+        aria-hidden="true"
+        className="money icon middle aligned sc-bdVaJa jLAMJN"
+      />
+      <div
+        className="top aligned content"
+      >
+        <a
+          className="header"
+          href="/nowhere"
+          onClick={[Function]}
+        >
+          Process 1
+        </a>
+        <div
+          className="description"
+        >
+          <div
+            className="sc-bwzfXH gzggMh"
+          >
+            <div
+              className="ui yellow tiny label"
+              onClick={[Function]}
+            >
+              Paused
+            </div>
+             
+             · 
+            Started 2 months ago by Buddy Holly
+          </div>
+          <div
+            className="sc-htpNat eaijOI"
+          >
+            <b>
+              Last activity: 
+            </b>
+            Tomas Trescak performed "Do not display!" 2 months ago
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="item"
+      onClick={[Function]}
+      role="listitem"
+    >
+      <i
+        aria-hidden="true"
+        className="money icon middle aligned sc-bdVaJa jLAMJN"
+      />
+      <div
+        className="top aligned content"
+      >
+        <a
+          className="header"
+          href="/nowhere"
+          onClick={[Function]}
+        >
+          Process 1
+        </a>
+        <div
+          className="description"
+        >
+          <div
+            className="sc-bwzfXH gzggMh"
+          >
+            <div
+              className="ui grey tiny label"
+              onClick={[Function]}
+            >
+              Finished
+            </div>
+             
+             · 
+            Started 2 months ago by Buddy Holly
+             · 
+            Finished 2 months ago
+          </div>
+          <div
+            className="sc-htpNat eaijOI"
+          >
+            <b>
+              Last activity: 
+            </b>
+            Tomas Trescak performed "Last Task" 2 months ago
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Process Instances Container renders error 1`] = `
+<div>
+  <div>
+    <div
+      className="ui error message"
+    >
+      <div
+        className="content"
+      >
+        <div
+          className="header"
+        >
+          👾 Unexpected Error. We apologise for any inconvenience. Please contact your admins with the message below.
+        </div>
+        <div
+          className="ui list"
+          role="list"
+        >
+          <div
+            className="item"
+            onClick={[Function]}
+            role="listitem"
+          >
+            This is some error
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Process Instances Container renders loading 1`] = `
+<div>
+  <div>
+    <div
+      className="ui tiny active inline loader"
+    />
+     
+     Loading ...
+  </div>
+</div>
+`;
+
+exports[`Process Instances List Container renders data 1`] = `
+<div>
+  <div
+    className="sc-ifAKCX fUQyyW"
+  >
+    5 processes available
+  </div>
+  <div
+    className="ui header"
+  >
+    <i
+      aria-hidden="true"
+      className="tasks icon"
+    />
+    <div
+      className="content"
+    >
+      Process List
+      <div
+        className="sub header"
+      >
+        Process list description
+      </div>
+    </div>
+  </div>
+  <div
+    className="ui divided relaxed list sc-bxivhb fuOSAw"
+    role="list"
+  >
+    <div
+      className="item"
+      onClick={[Function]}
+      role="listitem"
+    >
+      <i
+        aria-hidden="true"
+        className="money icon middle aligned sc-bdVaJa jLAMJN"
+      />
+      <div
+        className="top aligned content"
+      >
+        <a
+          className="header"
+          href="/nowhere"
+          onClick={[Function]}
+        >
+          Process 1
+        </a>
+        <div
+          className="description"
+        >
+          <div
+            className="sc-bwzfXH gzggMh"
+          >
+            <div
+              className="ui green tiny label"
+              onClick={[Function]}
+            >
+              Running
+            </div>
+             
+             · 
+            Started 2 months ago by Buddy Holly
+          </div>
+          <div
+            className="sc-htpNat eaijOI"
+          >
+            <b>
+              Last activity: 
+            </b>
+            Tomas Trescak performed "Do not display!" 2 months ago
+          </div>
+          <div
+            className="sc-htpNat eaijOI"
+          >
+            <b>
+              Waiting for: 
+            </b>
+             
+            Purchasing to Complete Purchase since 2 months ago and IT Support or IT Delivery to Deliver Technology since 2 months ago
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="item"
+      onClick={[Function]}
+      role="listitem"
+    >
+      <i
+        aria-hidden="true"
+        className="money icon middle aligned sc-bdVaJa jLAMJN"
+      />
+      <div
+        className="top aligned content"
+      >
+        <a
+          className="header"
+          href="/nowhere"
+          onClick={[Function]}
+        >
+          Process 1
+        </a>
+        <div
+          className="description"
+        >
+          <div
+            className="sc-bwzfXH gzggMh"
+          >
+            <div
+              className="ui green tiny label"
+              onClick={[Function]}
+            >
+              Running
+            </div>
+             
+             · 
+            Started 2 months ago by Buddy Holly
+          </div>
+          <div
+            className="sc-htpNat eaijOI"
+          >
+            <b>
+              Waiting for: 
+            </b>
+             
+            Approver to First Task since 2 months ago
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="item"
+      onClick={[Function]}
+      role="listitem"
+    >
+      <i
+        aria-hidden="true"
+        className="money icon middle aligned sc-bdVaJa jLAMJN"
+      />
+      <div
+        className="top aligned content"
+      >
+        <a
+          className="header"
+          href="/nowhere"
+          onClick={[Function]}
+        >
+          Process 1
+        </a>
+        <div
+          className="description"
+        >
+          <div
+            className="sc-bwzfXH gzggMh"
+          >
+            <div
+              className="ui red tiny label"
+              onClick={[Function]}
+            >
+              Aborted
+            </div>
+             
+             · 
+            Started 2 months ago by Buddy Holly
+          </div>
+          <div
+            className="sc-htpNat eaijOI"
+          >
+            <b>
+              Last activity: 
+            </b>
+            Tomas Trescak performed "Do not display!" 2 months ago
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="item"
+      onClick={[Function]}
+      role="listitem"
+    >
+      <i
+        aria-hidden="true"
+        className="money icon middle aligned sc-bdVaJa jLAMJN"
+      />
+      <div
+        className="top aligned content"
+      >
+        <a
+          className="header"
+          href="/nowhere"
+          onClick={[Function]}
+        >
+          Process 1
+        </a>
+        <div
+          className="description"
+        >
+          <div
+            className="sc-bwzfXH gzggMh"
+          >
+            <div
+              className="ui yellow tiny label"
+              onClick={[Function]}
+            >
+              Paused
+            </div>
+             
+             · 
+            Started 2 months ago by Buddy Holly
+          </div>
+          <div
+            className="sc-htpNat eaijOI"
+          >
+            <b>
+              Last activity: 
+            </b>
+            Tomas Trescak performed "Do not display!" 2 months ago
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="item"
+      onClick={[Function]}
+      role="listitem"
+    >
+      <i
+        aria-hidden="true"
+        className="money icon middle aligned sc-bdVaJa jLAMJN"
+      />
+      <div
+        className="top aligned content"
+      >
+        <a
+          className="header"
+          href="/nowhere"
+          onClick={[Function]}
+        >
+          Process 1
+        </a>
+        <div
+          className="description"
+        >
+          <div
+            className="sc-bwzfXH gzggMh"
+          >
+            <div
+              className="ui grey tiny label"
+              onClick={[Function]}
+            >
+              Finished
+            </div>
+             
+             · 
+            Started 2 months ago by Buddy Holly
+             · 
+            Finished 2 months ago
+          </div>
+          <div
+            className="sc-htpNat eaijOI"
+          >
+            <b>
+              Last activity: 
+            </b>
+            Tomas Trescak performed "Last Task" 2 months ago
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Process Instances List Container renders error 1`] = `
+<div>
+  <div>
+    <div
+      className="ui error message"
+    >
+      <div
+        className="content"
+      >
+        <div
+          className="header"
+        >
+          👾 Unexpected Error. We apologise for any inconvenience. Please contact your admins with the message below.
+        </div>
+        <div
+          className="ui list"
+          role="list"
+        >
+          <div
+            className="item"
+            onClick={[Function]}
+            role="listitem"
+          >
+            This is some error
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Process Instances List Container renders loading 1`] = `
+<div>
+  <div>
+    <div
+      className="ui tiny active inline loader"
+    />
+     
+     Loading ...
+  </div>
+</div>
+`;

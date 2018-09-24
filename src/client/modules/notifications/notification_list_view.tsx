@@ -9,11 +9,11 @@ import { NotificationView } from './notification_item_view';
 import { RemoveNotificationsMutation } from './notifications_queries';
 
 type Props = {
-  notifications: QueryTypes.NotificationsNotifications[];
+  notifications: QueryTypes.NotificationsQuery_Notifications[];
   context?: App.Context;
 };
 
-let notification: QueryTypes.NotificationsNotifications;
+let notification: QueryTypes.NotificationsQuery_Notifications;
 
 export const NotificationsListView: React.SFC<Props> = ({ notifications, context }) => (
   <>

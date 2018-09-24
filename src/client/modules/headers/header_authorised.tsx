@@ -33,11 +33,17 @@ const TopMenu: StyledComponentClass<MenuProps, {}> = styled(Menu)`
 const BottomMenu: StyledComponentClass<MenuProps, {}> = styled(Menu)`
   &&&&& {
     margin-top: 0px;
+    margin-left: 150px;
   }
 
   &&&&& .item {
     color: #777;
   }
+`;
+
+const SearchMenuItem = styled(Menu.Item)`
+  padding-left: 0px !important;
+  margin-left: 0px !important;
 `;
 
 export const HeaderAuthorised = () => (
@@ -50,9 +56,9 @@ export const HeaderAuthorised = () => (
               <Logo src={logo} alt="logo" />
             </Link>
           </Menu.Item>
-          <Menu.Item>
+          <SearchMenuItem>
             <Search icon="search" placeholder="Find Process..." />
-          </Menu.Item>
+          </SearchMenuItem>
           <Menu.Menu position="right">
             <LogoutMenu token={LocalStorage.token}>
               <Menu.Item icon="user" content="Profile" />
@@ -60,13 +66,14 @@ export const HeaderAuthorised = () => (
           </Menu.Menu>
         </TopMenu>
 
-        <BottomMenu secondary borderless pointing color="grey">
+        <BottomMenu secondary borderless pointing color="blue">
           <Menu.Item
-            icon="plus"
+            as={Link}
+            to="/process/create"
             name="home"
             content="Create"
             color="blue"
-            active={location.pathname === '/'}
+            active={location.pathname === '/process/create'}
           />
           <Menu.Item
             name="running"
@@ -83,7 +90,7 @@ export const HeaderAuthorised = () => (
           {/* <Menu.Item name="statistics" content="Statistics" /> */}
 
           <Menu.Menu position="right">
-            <NotificationAlertContainer active={location.pathname.match(/\/notifications/)} />
+            <NotificationAlertContainer active={!!location.pathname.match(/\/notifications/)} />
             <Menu.Item name="favourites" content="Favourites" icon="star" />
           </Menu.Menu>
         </BottomMenu>

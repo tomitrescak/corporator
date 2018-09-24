@@ -23,7 +23,11 @@ export const mutation: Mutation = {
       data: {
         dateStarted: new Date(),
         duration: 0,
-        ownerId: userId,
+        owner: {
+          connect: {
+            id: userId
+          }
+        },
         process: {
           connect: {
             id: processId

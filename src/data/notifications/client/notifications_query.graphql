@@ -1,4 +1,4 @@
-query Notifications($input: NotificationsInput) {
+query NotificationsQuery($input: NotificationsInput) {
   notifications(input: $input) {
     id
     createdAt

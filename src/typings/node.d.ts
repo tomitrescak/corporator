@@ -5,5 +5,6 @@ declare namespace NodeJS {
     __MONGOD__: any;
     expect: any;
     jest: any;
+    I18: any;
   }
 }

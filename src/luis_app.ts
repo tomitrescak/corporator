@@ -18,8 +18,6 @@ if (!global.jest) {
   };
 }
 
-import 'semantic-ui-css/semantic.min.css';
-
 import { renderLuis, setupTestBridge } from 'luis';
 
 const summary = require('./summary.json');
@@ -32,7 +30,11 @@ import './client/modules/form/views/tests/index';
 import './client/modules/headers/tests';
 import './client/modules/home/tests/index';
 import './client/modules/login/tests';
-import './client/modules/notifications/containers/tests/index';
+import './client/modules/notifications/tests/index';
+
+import './client/modules/process/containers/tests';
+import './client/modules/process/views/tests';
+
 // import './client/modules/process/containers/tests/index';
 // import './client/modules/process/views/tests/index';
 // import './client/modules/resources/views/tests/index';

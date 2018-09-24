@@ -1,23 +1,49 @@
-import * as PROCESSES_QUERY from 'data/bpmn_process/client/processes_query.graphql';
+import * as PROCESS_LIST_QUERY from 'data/bpmn_process/client/processes_query.graphql';
+import * as PROCESS_INSTANCE_LIST_QUERY from 'data/bpmn_process_instance/client/bpmn_process_instances_query.graphql';
 
 import { Query, QueryProps } from 'react-apollo';
 
 import { QueryTypes } from 'data/client';
 
-export { PROCESSES_QUERY };
+export { PROCESS_LIST_QUERY, PROCESS_INSTANCE_LIST_QUERY };
 
 /* =========================================================
-    Notifications
+    Process List
    ======================================================== */
 
-type Data = QueryTypes.Processes;
-type Variables = QueryTypes.ProcessesVariables;
-type Props = Partial<QueryProps<QueryTypes.Processes, QueryTypes.ProcessesVariables>>;
+type Data = QueryTypes.ProcessesQuery;
+type Variables = QueryTypes.ProcessesQueryVariables;
+type Props = Partial<QueryProps<QueryTypes.ProcessesQuery, QueryTypes.ProcessesQueryVariables>>;
 
 export class ProcessListQuery extends Query<Data, Variables> {
   static displayName = 'ProcessesQuery';
   static defaultProps: Props = {
-    query: PROCESSES_QUERY,
+    query: PROCESS_LIST_QUERY,
+    variables: {
+      input: {
+        first: 50
+      }
+    }
+  };
+}
+
+/* =========================================================
+    Process Instance List
+   ======================================================== */
+
+type ProcessInstanceListData = QueryTypes.BpmnProcessInstancesQuery;
+type ProcessInstanceListVariables = QueryTypes.BpmnProcessInstancesQueryVariables;
+type ProcessInstanceListProps = Partial<
+  QueryProps<ProcessInstanceListData, ProcessInstanceListVariables>
+>;
+
+export class ProcessInstanceListQuery extends Query<
+  ProcessInstanceListData,
+  ProcessInstanceListVariables
+> {
+  static displayName = 'ProcessInstanceListQuery';
+  static defaultProps: ProcessInstanceListProps = {
+    query: PROCESS_INSTANCE_LIST_QUERY,
     variables: {
       input: {
         first: 50

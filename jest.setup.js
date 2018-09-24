@@ -5,6 +5,7 @@ global.storyOf = function(name, props, impl) {
 // mock
 jest.mock('apollo-link-http');
 
+// NOTE: DISABLE THIS IF GETTING: ECONNREFUSED 127.0.0.1:9838
 require('jest-spy-serialiser').registerSpy();
 
 const css = require('css');

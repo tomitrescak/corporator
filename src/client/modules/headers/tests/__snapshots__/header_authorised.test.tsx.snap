@@ -1,0 +1,98 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Headers Authorised renders correctly 1`] = `
+<div
+  className="sc-bwzfXH kRBEAi"
+>
+  <div
+    className="ui secondary sc-bxivhb ftwuBk menu"
+  >
+    <div
+      className="item"
+      onClick={[Function]}
+    >
+      <a
+        aria-current="page"
+        href="/"
+        onClick={[Function]}
+      >
+        <img
+          alt="logo"
+          className="sc-bdVaJa kPmfWy"
+          src="file"
+        />
+      </a>
+    </div>
+    <div
+      className="item sc-EHOje cmurTc"
+      onClick={[Function]}
+    >
+      <div
+        className="ui icon input sc-htpNat cIYGEn"
+      >
+        <input
+          onChange={[Function]}
+          placeholder="Find Process..."
+          type="text"
+        />
+        <i
+          aria-hidden="true"
+          className="search icon"
+        />
+      </div>
+    </div>
+    <div
+      className="right menu"
+    />
+  </div>
+  <div
+    className="ui blue borderless pointing secondary sc-ifAKCX cEuSRI menu"
+  >
+    <a
+      className="blue item"
+      href="/process/create"
+      onClick={[Function]}
+    >
+      Create
+    </a>
+    <div
+      className="item"
+      onClick={[Function]}
+    >
+      Running
+    </div>
+    <div
+      className="item"
+      onClick={[Function]}
+    >
+      Finished
+    </div>
+    <div
+      className="item"
+      onClick={[Function]}
+    >
+      All
+    </div>
+    <div
+      className="right menu"
+    >
+      <div
+        className="item"
+        onClick={[Function]}
+      >
+        0
+      </div>
+      <div
+        className="item"
+        onClick={[Function]}
+      >
+        <i
+          aria-hidden="true"
+          className="star icon"
+        />
+        Favourites
+      </div>
+    </div>
+  </div>
+</div>
+`;

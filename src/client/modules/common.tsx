@@ -18,12 +18,12 @@ export function renderResult(
   }
   if (result.error) {
     return (
-      <p>
+      <div>
         {result.error.graphQLErrors &&
           result.error.graphQLErrors.length && (
             <Message
               error={true}
-              header="GraphQL Errors"
+              header="👾 Unexpected Error. We apologise for any inconvenience. Please contact your admins with the message below."
               content={
                 <List>
                   {result.error.graphQLErrors.map((e, i) => (
@@ -40,7 +40,7 @@ export function renderResult(
             content={JSON.stringify(result.error.networkError)}
           />
         )}
-      </p>
+      </div>
     );
   }
   return Component();
