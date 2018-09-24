@@ -58,7 +58,6 @@
     "wallaby.data.js": true,
     "wallaby.client.js": true,
     "tslint.json": true,
-    "tsconfig.json": true,
     "transformer.js": true,
     "package-lock.json": true,
     ".next.babelrc": true,
@@ -67,11 +66,8 @@
     ".env.test": true,
     ".babelrc": true,
     "test": true,
-    "graphql.config.json": true,
     "schema.json": true,
-    ".graphqlconfig.yml": true,
     "fuse.server.js": true,
-    "save_schema.js": true,
     "jest.setup.js": true,
     "jest.config.js": true
   }

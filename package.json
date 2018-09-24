@@ -60,6 +60,7 @@
   "devDependencies": {
     "@playlyfe/gql": "^2.6.0",
     "@types/bcryptjs": "^2.4.1",
+    "@types/bpmn-moddle": "^5.1.0",
     "@types/jest": "^23.3.2",
     "@types/jsonwebtoken": "^7.2.8",
     "@types/mongodb": "^3.1.7",
