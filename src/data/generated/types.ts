@@ -50,13 +50,13 @@ export interface BpmnProcessInstanceQuery_BpmnProcessInstance_Comments {
 
 export interface BpmnProcessInstanceQuery_BpmnProcessInstance {
   id: string;
-  status: BpmnProcessInstanceStatus | null;
-  process: BpmnProcessInstanceQuery_BpmnProcessInstance_Process | null;
-  owner: BpmnProcessInstanceQuery_BpmnProcessInstance_Owner | null;
+  status: BpmnProcessInstanceStatus;
+  process: BpmnProcessInstanceQuery_BpmnProcessInstance_Process;
+  owner: BpmnProcessInstanceQuery_BpmnProcessInstance_Owner;
   tasks: BpmnProcessInstanceQuery_BpmnProcessInstance_Tasks[] | null;
   comments: BpmnProcessInstanceQuery_BpmnProcessInstance_Comments[] | null;
-  resources: any | null;
-  dateStarted: any | null;
+  resources: any;
+  dateStarted: any;
   dateFinished: any | null;
 }
 
@@ -99,11 +99,11 @@ export interface BpmnProcessInstancesQuery_BpmnProcessInstances_Tasks {
 
 export interface BpmnProcessInstancesQuery_BpmnProcessInstances {
   id: string;
-  status: BpmnProcessInstanceStatus | null;
-  process: BpmnProcessInstancesQuery_BpmnProcessInstances_Process | null;
-  owner: BpmnProcessInstancesQuery_BpmnProcessInstances_Owner | null;
+  status: BpmnProcessInstanceStatus;
+  process: BpmnProcessInstancesQuery_BpmnProcessInstances_Process;
+  owner: BpmnProcessInstancesQuery_BpmnProcessInstances_Owner;
   tasks: BpmnProcessInstancesQuery_BpmnProcessInstances_Tasks[] | null;
-  dateStarted: any | null;
+  dateStarted: any;
   dateFinished: any | null;
 }
 
@@ -296,7 +296,7 @@ export interface NotificationsQuery_Notifications_ProcessInstance_Process {
 
 export interface NotificationsQuery_Notifications_ProcessInstance {
   id: string;
-  process: NotificationsQuery_Notifications_ProcessInstance_Process | null;
+  process: NotificationsQuery_Notifications_ProcessInstance_Process;
 }
 
 export interface NotificationsQuery_Notifications {
@@ -721,7 +721,7 @@ export interface AuthInput {
 }
 
 export interface BpmnProcessInstancesInput {
-  status?: ProcessStatus | null;
+  status?: BpmnProcessInstanceStatus | null;
   name?: string | null;
   dateStarted?: any | null;
   dateFinished?: any | null;

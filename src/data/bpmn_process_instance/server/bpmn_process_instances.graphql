@@ -24,7 +24,7 @@ type Query {
 #  MUTATIONS
 # ========================================================= # */
 
-input CreateProcessInstanceInput {
+input LaunchProcessInstanceInput {
   processId: String!
 }
 
@@ -34,6 +34,6 @@ input UpdateProcessInstanceStatusInput {
 }
 
 type Mutation {
-  createProcessInstance(input: CreateProcessInstanceInput!): BpmnProcessInstance
+  laucnhProcessInstance(input: LaunchProcessInstanceInput!): BpmnProcessInstance
   updateProcessInstanceStatus(input: UpdateProcessInstanceStatusInput!): BpmnProcessInstance
 }

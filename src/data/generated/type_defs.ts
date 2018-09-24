@@ -5,7 +5,7 @@ export const typeDefs = `type Query {
   process(id: ID!): BpmnProcess!
   bpmnProcessInstances(input: BpmnProcessInstancesInput!): [BpmnProcessInstance]!
   bpmnProcessInstance(id: String!): BpmnProcessInstance
-  bpmnTasks(input: BpmnTasksInput!): [BpmnTaskInstance]!
+  bpmnTaskInstances(input: BpmnTaskInstancesInput!): [BpmnTaskInstance]!
   user(id: ID!): User
   users: [User]!
   resume(token: String!): AuthPayload!
@@ -72,12 +72,13 @@ type BpmnProcessInstance implements Node {
   id: ID!
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
   dateFinished: DateTime
-  dateStarted: DateTime
+  dateStarted: DateTime!
   duration: Int
-  owner(where: UserWhereInput): User
-  process(where: BpmnProcessWhereInput): BpmnProcess
-  resources: Json
-  status: BpmnProcessInstanceStatus
+  owner(where: UserWhereInput): User!
+  process(where: BpmnProcessWhereInput): BpmnProcess!
+  resources: Json!
+  log(where: LogWhereInput, orderBy: LogOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Log!]
+  status: BpmnProcessInstanceStatus!
   tasks(where: BpmnTaskInstanceWhereInput, orderBy: BpmnTaskInstanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BpmnTaskInstance!]
 }
 
@@ -101,7 +102,7 @@ type BpmnTaskInstance implements Node {
   performer(where: UserWhereInput): User
   performerId: String
   performerRoles: [String!]!
-  processInstance(where: BpmnProcessWhereInput): BpmnProcess!
+  processInstance(where: BpmnProcessInstanceWhereInput): BpmnProcessInstance!
   snapshot: Json
   status: BpmnTaskInstanceStatus
   taskId: String
@@ -380,12 +381,18 @@ input BpmnProcessInstanceWhereInput {
   comments_none: CommentWhereInput
   owner: UserWhereInput
   process: BpmnProcessWhereInput
+  log_every: LogWhereInput
+  log_some: LogWhereInput
+  log_none: LogWhereInput
   tasks_every: BpmnTaskInstanceWhereInput
   tasks_some: BpmnTaskInstanceWhereInput
   tasks_none: BpmnTaskInstanceWhereInput
   _MagicalBackRelation_BpmnProcessInstanceToNotification_every: NotificationWhereInput
   _MagicalBackRelation_BpmnProcessInstanceToNotification_some: NotificationWhereInput
   _MagicalBackRelation_BpmnProcessInstanceToNotification_none: NotificationWhereInput
+  _MagicalBackRelation_BpmnProcessTasks_every: BpmnTaskInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessTasks_some: BpmnTaskInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessTasks_none: BpmnTaskInstanceWhereInput
 }
 
 type Access implements Node {
@@ -2151,6 +2158,181 @@ Raw JSON value
 """
 scalar Json
 
+type Log {
+  processInstance(where: BpmnProcessInstanceWhereInput): BpmnProcessInstance!
+  elementId: String!
+  elementName: String!
+  date: DateTime!
+  taskInstance(where: BpmnTaskInstanceWhereInput): BpmnTaskInstance
+}
+
+input LogWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [LogWhereInput!]
+  """
+  Logical OR on all given filters.
+  """
+  OR: [LogWhereInput!]
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [LogWhereInput!]
+  elementId: String
+  """
+  All values that are not equal to given value.
+  """
+  elementId_not: String
+  """
+  All values that are contained in given list.
+  """
+  elementId_in: [String!]
+  """
+  All values that are not contained in given list.
+  """
+  elementId_not_in: [String!]
+  """
+  All values less than the given value.
+  """
+  elementId_lt: String
+  """
+  All values less than or equal the given value.
+  """
+  elementId_lte: String
+  """
+  All values greater than the given value.
+  """
+  elementId_gt: String
+  """
+  All values greater than or equal the given value.
+  """
+  elementId_gte: String
+  """
+  All values containing the given string.
+  """
+  elementId_contains: String
+  """
+  All values not containing the given string.
+  """
+  elementId_not_contains: String
+  """
+  All values starting with the given string.
+  """
+  elementId_starts_with: String
+  """
+  All values not starting with the given string.
+  """
+  elementId_not_starts_with: String
+  """
+  All values ending with the given string.
+  """
+  elementId_ends_with: String
+  """
+  All values not ending with the given string.
+  """
+  elementId_not_ends_with: String
+  elementName: String
+  """
+  All values that are not equal to given value.
+  """
+  elementName_not: String
+  """
+  All values that are contained in given list.
+  """
+  elementName_in: [String!]
+  """
+  All values that are not contained in given list.
+  """
+  elementName_not_in: [String!]
+  """
+  All values less than the given value.
+  """
+  elementName_lt: String
+  """
+  All values less than or equal the given value.
+  """
+  elementName_lte: String
+  """
+  All values greater than the given value.
+  """
+  elementName_gt: String
+  """
+  All values greater than or equal the given value.
+  """
+  elementName_gte: String
+  """
+  All values containing the given string.
+  """
+  elementName_contains: String
+  """
+  All values not containing the given string.
+  """
+  elementName_not_contains: String
+  """
+  All values starting with the given string.
+  """
+  elementName_starts_with: String
+  """
+  All values not starting with the given string.
+  """
+  elementName_not_starts_with: String
+  """
+  All values ending with the given string.
+  """
+  elementName_ends_with: String
+  """
+  All values not ending with the given string.
+  """
+  elementName_not_ends_with: String
+  date: DateTime
+  """
+  All values that are not equal to given value.
+  """
+  date_not: DateTime
+  """
+  All values that are contained in given list.
+  """
+  date_in: [DateTime!]
+  """
+  All values that are not contained in given list.
+  """
+  date_not_in: [DateTime!]
+  """
+  All values less than the given value.
+  """
+  date_lt: DateTime
+  """
+  All values less than or equal the given value.
+  """
+  date_lte: DateTime
+  """
+  All values greater than the given value.
+  """
+  date_gt: DateTime
+  """
+  All values greater than or equal the given value.
+  """
+  date_gte: DateTime
+  processInstance: BpmnProcessInstanceWhereInput
+  taskInstance: BpmnTaskInstanceWhereInput
+}
+
+enum LogOrderByInput {
+  elementId_ASC
+  elementId_DESC
+  elementName_ASC
+  elementName_DESC
+  date_ASC
+  date_DESC
+  id_ASC
+  id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
 enum BpmnProcessInstanceStatus {
   Running
   Finished
@@ -2417,6 +2599,19 @@ input BpmnTaskInstanceWhereInput {
   All values not ending with the given string.
   """
   performerId_not_ends_with: String
+  status: BpmnTaskInstanceStatus
+  """
+  All values that are not equal to given value.
+  """
+  status_not: BpmnTaskInstanceStatus
+  """
+  All values that are contained in given list.
+  """
+  status_in: [BpmnTaskInstanceStatus!]
+  """
+  All values that are not contained in given list.
+  """
+  status_not_in: [BpmnTaskInstanceStatus!]
   taskId: String
   """
   All values that are not equal to given value.
@@ -2471,10 +2666,13 @@ input BpmnTaskInstanceWhereInput {
   """
   taskId_not_ends_with: String
   performer: UserWhereInput
-  processInstance: BpmnProcessWhereInput
-  _MagicalBackRelation_BpmnProcessTasks_every: BpmnProcessInstanceWhereInput
-  _MagicalBackRelation_BpmnProcessTasks_some: BpmnProcessInstanceWhereInput
-  _MagicalBackRelation_BpmnProcessTasks_none: BpmnProcessInstanceWhereInput
+  processInstance: BpmnProcessInstanceWhereInput
+  _MagicalBackRelation_LoggedBpmnTaskInstance_every: LogWhereInput
+  _MagicalBackRelation_LoggedBpmnTaskInstance_some: LogWhereInput
+  _MagicalBackRelation_LoggedBpmnTaskInstance_none: LogWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceTasks_every: BpmnProcessInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceTasks_some: BpmnProcessInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceTasks_none: BpmnProcessInstanceWhereInput
 }
 
 enum BpmnTaskInstanceOrderByInput {
@@ -2492,6 +2690,8 @@ enum BpmnTaskInstanceOrderByInput {
   performerId_DESC
   snapshot_ASC
   snapshot_DESC
+  status_ASC
+  status_DESC
   taskId_ASC
   taskId_DESC
   updatedAt_ASC

@@ -5,15 +5,24 @@ enum BpmnProcessInstanceStatus {
   Paused
 }
 
+type Log {
+  processInstance: BpmnProcessInstance! @relation(name: "BpmnProcessInstanceLog")
+  elementId: String!
+  elementName: String!
+  date: DateTime!
+  taskInstance: BpmnTaskInstance @relation(name: "LoggedBpmnTaskInstance")
+}
+
 type BpmnProcessInstance {
   id: ID! @unique
   comments: [Comment!]!
   dateFinished: DateTime
-  dateStarted: DateTime
+  dateStarted: DateTime!
   duration: Int
-  owner: User @relation(name: "UserProcesses")
-  process: BpmnProcess
-  resources: Json
-  status: BpmnProcessInstanceStatus
-  tasks: [BpmnTaskInstance!]! @relation(name: "BpmnProcessTasks", onDelete: CASCADE)
+  owner: User! @relation(name: "UserProcesses")
+  process: BpmnProcess!
+  resources: Json!
+  log: [Log!]! @relation(name: "BpmnProcessInstanceLog", onDelete: CASCADE)
+  status: BpmnProcessInstanceStatus!
+  tasks: [BpmnTaskInstance!]! @relation(name: "BpmnProcessInstanceTasks", onDelete: CASCADE)
 }
