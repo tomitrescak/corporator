@@ -19,8 +19,8 @@ export interface Query {
     resources: <T = Resource[]>(args: { where?: ResourceWhereInput, orderBy?: ResourceOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     accesses: <T = Access[]>(args: { where?: AccessWhereInput, orderBy?: AccessOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     datas: <T = Data[]>(args: { where?: DataWhereInput, orderBy?: DataOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    bpmnProcesses: <T = BpmnProcess[]>(args: { where?: BpmnProcessWhereInput, orderBy?: BpmnProcessOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     bpmnTaskInstances: <T = BpmnTaskInstance[]>(args: { where?: BpmnTaskInstanceWhereInput, orderBy?: BpmnTaskInstanceOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    bpmnProcesses: <T = BpmnProcess[]>(args: { where?: BpmnProcessWhereInput, orderBy?: BpmnProcessOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     bpmnProcessInstances: <T = BpmnProcessInstance[]>(args: { where?: BpmnProcessInstanceWhereInput, orderBy?: BpmnProcessInstanceOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     localisation: <T = Localisation | null>(args: { where: LocalisationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     organisation: <T = Organisation | null>(args: { where: OrganisationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -35,8 +35,8 @@ export interface Query {
     resource: <T = Resource | null>(args: { where: ResourceWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     access: <T = Access | null>(args: { where: AccessWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     data: <T = Data | null>(args: { where: DataWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    bpmnProcess: <T = BpmnProcess | null>(args: { where: BpmnProcessWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     bpmnTaskInstance: <T = BpmnTaskInstance | null>(args: { where: BpmnTaskInstanceWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    bpmnProcess: <T = BpmnProcess | null>(args: { where: BpmnProcessWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     bpmnProcessInstance: <T = BpmnProcessInstance | null>(args: { where: BpmnProcessInstanceWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     logsConnection: <T = LogConnection>(args: { where?: LogWhereInput, orderBy?: LogOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     localisationsConnection: <T = LocalisationConnection>(args: { where?: LocalisationWhereInput, orderBy?: LocalisationOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -53,8 +53,8 @@ export interface Query {
     resourcesConnection: <T = ResourceConnection>(args: { where?: ResourceWhereInput, orderBy?: ResourceOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     accessesConnection: <T = AccessConnection>(args: { where?: AccessWhereInput, orderBy?: AccessOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     datasConnection: <T = DataConnection>(args: { where?: DataWhereInput, orderBy?: DataOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    bpmnProcessesConnection: <T = BpmnProcessConnection>(args: { where?: BpmnProcessWhereInput, orderBy?: BpmnProcessOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     bpmnTaskInstancesConnection: <T = BpmnTaskInstanceConnection>(args: { where?: BpmnTaskInstanceWhereInput, orderBy?: BpmnTaskInstanceOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    bpmnProcessesConnection: <T = BpmnProcessConnection>(args: { where?: BpmnProcessWhereInput, orderBy?: BpmnProcessOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     bpmnProcessInstancesConnection: <T = BpmnProcessInstanceConnection>(args: { where?: BpmnProcessInstanceWhereInput, orderBy?: BpmnProcessInstanceOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     node: <T = Node | null>(args: { id: ID_Output }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
   }
@@ -75,8 +75,8 @@ export interface Mutation {
     createResource: <T = Resource>(args: { data: ResourceCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createAccess: <T = Access>(args: { data: AccessCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createData: <T = Data>(args: { data: DataCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    createBpmnProcess: <T = BpmnProcess>(args: { data: BpmnProcessCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createBpmnTaskInstance: <T = BpmnTaskInstance>(args: { data: BpmnTaskInstanceCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    createBpmnProcess: <T = BpmnProcess>(args: { data: BpmnProcessCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createBpmnProcessInstance: <T = BpmnProcessInstance>(args: { data: BpmnProcessInstanceCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateLocalisation: <T = Localisation | null>(args: { data: LocalisationUpdateInput, where: LocalisationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateOrganisation: <T = Organisation | null>(args: { data: OrganisationUpdateInput, where: OrganisationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -91,8 +91,8 @@ export interface Mutation {
     updateResource: <T = Resource | null>(args: { data: ResourceUpdateInput, where: ResourceWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateAccess: <T = Access | null>(args: { data: AccessUpdateInput, where: AccessWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateData: <T = Data | null>(args: { data: DataUpdateInput, where: DataWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateBpmnProcess: <T = BpmnProcess | null>(args: { data: BpmnProcessUpdateInput, where: BpmnProcessWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateBpmnTaskInstance: <T = BpmnTaskInstance | null>(args: { data: BpmnTaskInstanceUpdateInput, where: BpmnTaskInstanceWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateBpmnProcess: <T = BpmnProcess | null>(args: { data: BpmnProcessUpdateInput, where: BpmnProcessWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateBpmnProcessInstance: <T = BpmnProcessInstance | null>(args: { data: BpmnProcessInstanceUpdateInput, where: BpmnProcessInstanceWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteLocalisation: <T = Localisation | null>(args: { where: LocalisationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteOrganisation: <T = Organisation | null>(args: { where: OrganisationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -107,8 +107,8 @@ export interface Mutation {
     deleteResource: <T = Resource | null>(args: { where: ResourceWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteAccess: <T = Access | null>(args: { where: AccessWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteData: <T = Data | null>(args: { where: DataWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    deleteBpmnProcess: <T = BpmnProcess | null>(args: { where: BpmnProcessWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteBpmnTaskInstance: <T = BpmnTaskInstance | null>(args: { where: BpmnTaskInstanceWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteBpmnProcess: <T = BpmnProcess | null>(args: { where: BpmnProcessWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteBpmnProcessInstance: <T = BpmnProcessInstance | null>(args: { where: BpmnProcessInstanceWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertLocalisation: <T = Localisation>(args: { where: LocalisationWhereUniqueInput, create: LocalisationCreateInput, update: LocalisationUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertOrganisation: <T = Organisation>(args: { where: OrganisationWhereUniqueInput, create: OrganisationCreateInput, update: OrganisationUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -123,8 +123,8 @@ export interface Mutation {
     upsertResource: <T = Resource>(args: { where: ResourceWhereUniqueInput, create: ResourceCreateInput, update: ResourceUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertAccess: <T = Access>(args: { where: AccessWhereUniqueInput, create: AccessCreateInput, update: AccessUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertData: <T = Data>(args: { where: DataWhereUniqueInput, create: DataCreateInput, update: DataUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    upsertBpmnProcess: <T = BpmnProcess>(args: { where: BpmnProcessWhereUniqueInput, create: BpmnProcessCreateInput, update: BpmnProcessUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertBpmnTaskInstance: <T = BpmnTaskInstance>(args: { where: BpmnTaskInstanceWhereUniqueInput, create: BpmnTaskInstanceCreateInput, update: BpmnTaskInstanceUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    upsertBpmnProcess: <T = BpmnProcess>(args: { where: BpmnProcessWhereUniqueInput, create: BpmnProcessCreateInput, update: BpmnProcessUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertBpmnProcessInstance: <T = BpmnProcessInstance>(args: { where: BpmnProcessInstanceWhereUniqueInput, create: BpmnProcessInstanceCreateInput, update: BpmnProcessInstanceUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyLogs: <T = BatchPayload>(args: { data: LogUpdateInput, where?: LogWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyLocalisations: <T = BatchPayload>(args: { data: LocalisationUpdateInput, where?: LocalisationWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -141,8 +141,8 @@ export interface Mutation {
     updateManyResources: <T = BatchPayload>(args: { data: ResourceUpdateInput, where?: ResourceWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyAccesses: <T = BatchPayload>(args: { data: AccessUpdateInput, where?: AccessWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyDatas: <T = BatchPayload>(args: { data: DataUpdateInput, where?: DataWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateManyBpmnProcesses: <T = BatchPayload>(args: { data: BpmnProcessUpdateInput, where?: BpmnProcessWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyBpmnTaskInstances: <T = BatchPayload>(args: { data: BpmnTaskInstanceUpdateInput, where?: BpmnTaskInstanceWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyBpmnProcesses: <T = BatchPayload>(args: { data: BpmnProcessUpdateInput, where?: BpmnProcessWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyBpmnProcessInstances: <T = BatchPayload>(args: { data: BpmnProcessInstanceUpdateInput, where?: BpmnProcessInstanceWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyLogs: <T = BatchPayload>(args: { where?: LogWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyLocalisations: <T = BatchPayload>(args: { where?: LocalisationWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -159,8 +159,8 @@ export interface Mutation {
     deleteManyResources: <T = BatchPayload>(args: { where?: ResourceWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyAccesses: <T = BatchPayload>(args: { where?: AccessWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyDatas: <T = BatchPayload>(args: { where?: DataWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    deleteManyBpmnProcesses: <T = BatchPayload>(args: { where?: BpmnProcessWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyBpmnTaskInstances: <T = BatchPayload>(args: { where?: BpmnTaskInstanceWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteManyBpmnProcesses: <T = BatchPayload>(args: { where?: BpmnProcessWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyBpmnProcessInstances: <T = BatchPayload>(args: { where?: BpmnProcessInstanceWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
   }
 
@@ -180,8 +180,8 @@ export interface Subscription {
     resource: <T = ResourceSubscriptionPayload | null>(args: { where?: ResourceSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     access: <T = AccessSubscriptionPayload | null>(args: { where?: AccessSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     data: <T = DataSubscriptionPayload | null>(args: { where?: DataSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
-    bpmnProcess: <T = BpmnProcessSubscriptionPayload | null>(args: { where?: BpmnProcessSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     bpmnTaskInstance: <T = BpmnTaskInstanceSubscriptionPayload | null>(args: { where?: BpmnTaskInstanceSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
+    bpmnProcess: <T = BpmnProcessSubscriptionPayload | null>(args: { where?: BpmnProcessSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     bpmnProcessInstance: <T = BpmnProcessInstanceSubscriptionPayload | null>(args: { where?: BpmnProcessInstanceSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> 
   }
 
@@ -201,8 +201,8 @@ export interface Exists {
   Resource: (where?: ResourceWhereInput) => Promise<boolean>
   Access: (where?: AccessWhereInput) => Promise<boolean>
   Data: (where?: DataWhereInput) => Promise<boolean>
-  BpmnProcess: (where?: BpmnProcessWhereInput) => Promise<boolean>
   BpmnTaskInstance: (where?: BpmnTaskInstanceWhereInput) => Promise<boolean>
+  BpmnProcess: (where?: BpmnProcessWhereInput) => Promise<boolean>
   BpmnProcessInstance: (where?: BpmnProcessInstanceWhereInput) => Promise<boolean>
 }
 
@@ -890,7 +890,7 @@ type BpmnProcess implements Node {
   id: ID!
   access(where: AccessWhereInput): Access!
   actionCount: Int!
-  data(where: DataDescriptorWhereInput, orderBy: DataDescriptorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [DataDescriptor!]
+  dataDescriptors(where: DataDescriptorWhereInput, orderBy: DataDescriptorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [DataDescriptor!]
   description: String
   model: String!
   name: String!
@@ -920,7 +920,7 @@ input BpmnProcessCreateInput {
   status: ProcessStatus!
   version: Int!
   access: AccessCreateOneInput!
-  data: DataDescriptorCreateManyInput
+  dataDescriptors: DataDescriptorCreateManyInput
   resources: ResourceCreateManyInput
   versions: BpmnProcessCreateManyInput
 }
@@ -952,7 +952,7 @@ type BpmnProcessInstance implements Node {
   duration: Int
   owner(where: UserWhereInput): User!
   process(where: BpmnProcessWhereInput): BpmnProcess!
-  resources: Json!
+  data: Json!
   log(where: LogWhereInput, orderBy: LogOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Log!]
   status: BpmnProcessInstanceStatus!
   tasks(where: BpmnTaskInstanceWhereInput, orderBy: BpmnTaskInstanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BpmnTaskInstance!]
@@ -972,7 +972,7 @@ input BpmnProcessInstanceCreateInput {
   dateFinished: DateTime
   dateStarted: DateTime!
   duration: Int
-  resources: Json!
+  data: Json!
   status: BpmnProcessInstanceStatus!
   comments: CommentCreateManyInput
   owner: UserCreateOneWithoutProcessesInput!
@@ -1000,7 +1000,7 @@ input BpmnProcessInstanceCreateWithoutLogInput {
   dateFinished: DateTime
   dateStarted: DateTime!
   duration: Int
-  resources: Json!
+  data: Json!
   status: BpmnProcessInstanceStatus!
   comments: CommentCreateManyInput
   owner: UserCreateOneWithoutProcessesInput!
@@ -1012,7 +1012,7 @@ input BpmnProcessInstanceCreateWithoutOwnerInput {
   dateFinished: DateTime
   dateStarted: DateTime!
   duration: Int
-  resources: Json!
+  data: Json!
   status: BpmnProcessInstanceStatus!
   comments: CommentCreateManyInput
   process: BpmnProcessCreateOneInput!
@@ -1038,8 +1038,8 @@ enum BpmnProcessInstanceOrderByInput {
   dateStarted_DESC
   duration_ASC
   duration_DESC
-  resources_ASC
-  resources_DESC
+  data_ASC
+  data_DESC
   status_ASC
   status_DESC
   updatedAt_ASC
@@ -1053,7 +1053,7 @@ type BpmnProcessInstancePreviousValues {
   dateFinished: DateTime
   dateStarted: DateTime!
   duration: Int
-  resources: Json!
+  data: Json!
   status: BpmnProcessInstanceStatus!
 }
 
@@ -1107,7 +1107,7 @@ input BpmnProcessInstanceUpdateDataInput {
   dateFinished: DateTime
   dateStarted: DateTime
   duration: Int
-  resources: Json
+  data: Json
   status: BpmnProcessInstanceStatus
   comments: CommentUpdateManyInput
   owner: UserUpdateOneWithoutProcessesInput
@@ -1120,7 +1120,7 @@ input BpmnProcessInstanceUpdateInput {
   dateFinished: DateTime
   dateStarted: DateTime
   duration: Int
-  resources: Json
+  data: Json
   status: BpmnProcessInstanceStatus
   comments: CommentUpdateManyInput
   owner: UserUpdateOneWithoutProcessesInput
@@ -1158,7 +1158,7 @@ input BpmnProcessInstanceUpdateWithoutLogDataInput {
   dateFinished: DateTime
   dateStarted: DateTime
   duration: Int
-  resources: Json
+  data: Json
   status: BpmnProcessInstanceStatus
   comments: CommentUpdateManyInput
   owner: UserUpdateOneWithoutProcessesInput
@@ -1170,7 +1170,7 @@ input BpmnProcessInstanceUpdateWithoutOwnerDataInput {
   dateFinished: DateTime
   dateStarted: DateTime
   duration: Int
-  resources: Json
+  data: Json
   status: BpmnProcessInstanceStatus
   comments: CommentUpdateManyInput
   process: BpmnProcessUpdateOneInput
@@ -1429,7 +1429,7 @@ input BpmnProcessUpdateDataInput {
   status: ProcessStatus
   version: Int
   access: AccessUpdateOneInput
-  data: DataDescriptorUpdateManyInput
+  dataDescriptors: DataDescriptorUpdateManyInput
   resources: ResourceUpdateManyInput
   versions: BpmnProcessUpdateManyInput
 }
@@ -1443,7 +1443,7 @@ input BpmnProcessUpdateInput {
   status: ProcessStatus
   version: Int
   access: AccessUpdateOneInput
-  data: DataDescriptorUpdateManyInput
+  dataDescriptors: DataDescriptorUpdateManyInput
   resources: ResourceUpdateManyInput
   versions: BpmnProcessUpdateManyInput
 }
@@ -1715,9 +1715,9 @@ input BpmnProcessWhereInput {
   """All values greater than or equal the given value."""
   version_gte: Int
   access: AccessWhereInput
-  data_every: DataDescriptorWhereInput
-  data_some: DataDescriptorWhereInput
-  data_none: DataDescriptorWhereInput
+  dataDescriptors_every: DataDescriptorWhereInput
+  dataDescriptors_some: DataDescriptorWhereInput
+  dataDescriptors_none: DataDescriptorWhereInput
   resources_every: ResourceWhereInput
   resources_some: ResourceWhereInput
   resources_none: ResourceWhereInput
@@ -1727,9 +1727,9 @@ input BpmnProcessWhereInput {
   _MagicalBackRelation_BpmnProcessVersions_every: BpmnProcessWhereInput
   _MagicalBackRelation_BpmnProcessVersions_some: BpmnProcessWhereInput
   _MagicalBackRelation_BpmnProcessVersions_none: BpmnProcessWhereInput
-  _MagicalBackRelation_BpmnProcessToBpmnProcessInstance_every: BpmnProcessInstanceWhereInput
-  _MagicalBackRelation_BpmnProcessToBpmnProcessInstance_some: BpmnProcessInstanceWhereInput
-  _MagicalBackRelation_BpmnProcessToBpmnProcessInstance_none: BpmnProcessInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceProcess_every: BpmnProcessInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceProcess_some: BpmnProcessInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceProcess_none: BpmnProcessInstanceWhereInput
 }
 
 input BpmnProcessWhereUniqueInput {
@@ -1738,7 +1738,6 @@ input BpmnProcessWhereUniqueInput {
 
 type BpmnTaskInstance implements Node {
   id: ID!
-  name: String!
   dateFinished: DateTime
   dateStarted: DateTime!
   duration: Int
@@ -1747,7 +1746,7 @@ type BpmnTaskInstance implements Node {
   performerRoles: [String!]!
   processInstance(where: BpmnProcessInstanceWhereInput): BpmnProcessInstance!
   snapshot: Json
-  status: BpmnTaskInstanceStatus
+  status: BpmnTaskInstanceStatus!
   taskId: String
 }
 
@@ -1762,13 +1761,12 @@ type BpmnTaskInstanceConnection {
 }
 
 input BpmnTaskInstanceCreateInput {
-  name: String!
   dateFinished: DateTime
   dateStarted: DateTime!
   duration: Int
   performerId: String
   snapshot: Json
-  status: BpmnTaskInstanceStatus
+  status: BpmnTaskInstanceStatus!
   taskId: String
   performerRoles: BpmnTaskInstanceCreateperformerRolesInput
   performer: UserCreateOneInput
@@ -1801,8 +1799,6 @@ type BpmnTaskInstanceEdge {
 enum BpmnTaskInstanceOrderByInput {
   id_ASC
   id_DESC
-  name_ASC
-  name_DESC
   dateFinished_ASC
   dateFinished_DESC
   dateStarted_ASC
@@ -1825,14 +1821,13 @@ enum BpmnTaskInstanceOrderByInput {
 
 type BpmnTaskInstancePreviousValues {
   id: ID!
-  name: String!
   dateFinished: DateTime
   dateStarted: DateTime!
   duration: Int
   performerId: String
   performerRoles: [String!]!
   snapshot: Json
-  status: BpmnTaskInstanceStatus
+  status: BpmnTaskInstanceStatus!
   taskId: String
 }
 
@@ -1883,7 +1878,6 @@ input BpmnTaskInstanceSubscriptionWhereInput {
 }
 
 input BpmnTaskInstanceUpdateDataInput {
-  name: String
   dateFinished: DateTime
   dateStarted: DateTime
   duration: Int
@@ -1897,7 +1891,6 @@ input BpmnTaskInstanceUpdateDataInput {
 }
 
 input BpmnTaskInstanceUpdateInput {
-  name: String
   dateFinished: DateTime
   dateStarted: DateTime
   duration: Int
@@ -1997,46 +1990,6 @@ input BpmnTaskInstanceWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
-  name: String
-
-  """All values that are not equal to given value."""
-  name_not: String
-
-  """All values that are contained in given list."""
-  name_in: [String!]
-
-  """All values that are not contained in given list."""
-  name_not_in: [String!]
-
-  """All values less than the given value."""
-  name_lt: String
-
-  """All values less than or equal the given value."""
-  name_lte: String
-
-  """All values greater than the given value."""
-  name_gt: String
-
-  """All values greater than or equal the given value."""
-  name_gte: String
-
-  """All values containing the given string."""
-  name_contains: String
-
-  """All values not containing the given string."""
-  name_not_contains: String
-
-  """All values starting with the given string."""
-  name_starts_with: String
-
-  """All values not starting with the given string."""
-  name_not_starts_with: String
-
-  """All values ending with the given string."""
-  name_ends_with: String
-
-  """All values not ending with the given string."""
-  name_not_ends_with: String
   dateFinished: DateTime
 
   """All values that are not equal to given value."""
@@ -4676,8 +4629,8 @@ type Mutation {
   createResource(data: ResourceCreateInput!): Resource!
   createAccess(data: AccessCreateInput!): Access!
   createData(data: DataCreateInput!): Data!
-  createBpmnProcess(data: BpmnProcessCreateInput!): BpmnProcess!
   createBpmnTaskInstance(data: BpmnTaskInstanceCreateInput!): BpmnTaskInstance!
+  createBpmnProcess(data: BpmnProcessCreateInput!): BpmnProcess!
   createBpmnProcessInstance(data: BpmnProcessInstanceCreateInput!): BpmnProcessInstance!
   updateLocalisation(data: LocalisationUpdateInput!, where: LocalisationWhereUniqueInput!): Localisation
   updateOrganisation(data: OrganisationUpdateInput!, where: OrganisationWhereUniqueInput!): Organisation
@@ -4692,8 +4645,8 @@ type Mutation {
   updateResource(data: ResourceUpdateInput!, where: ResourceWhereUniqueInput!): Resource
   updateAccess(data: AccessUpdateInput!, where: AccessWhereUniqueInput!): Access
   updateData(data: DataUpdateInput!, where: DataWhereUniqueInput!): Data
-  updateBpmnProcess(data: BpmnProcessUpdateInput!, where: BpmnProcessWhereUniqueInput!): BpmnProcess
   updateBpmnTaskInstance(data: BpmnTaskInstanceUpdateInput!, where: BpmnTaskInstanceWhereUniqueInput!): BpmnTaskInstance
+  updateBpmnProcess(data: BpmnProcessUpdateInput!, where: BpmnProcessWhereUniqueInput!): BpmnProcess
   updateBpmnProcessInstance(data: BpmnProcessInstanceUpdateInput!, where: BpmnProcessInstanceWhereUniqueInput!): BpmnProcessInstance
   deleteLocalisation(where: LocalisationWhereUniqueInput!): Localisation
   deleteOrganisation(where: OrganisationWhereUniqueInput!): Organisation
@@ -4708,8 +4661,8 @@ type Mutation {
   deleteResource(where: ResourceWhereUniqueInput!): Resource
   deleteAccess(where: AccessWhereUniqueInput!): Access
   deleteData(where: DataWhereUniqueInput!): Data
-  deleteBpmnProcess(where: BpmnProcessWhereUniqueInput!): BpmnProcess
   deleteBpmnTaskInstance(where: BpmnTaskInstanceWhereUniqueInput!): BpmnTaskInstance
+  deleteBpmnProcess(where: BpmnProcessWhereUniqueInput!): BpmnProcess
   deleteBpmnProcessInstance(where: BpmnProcessInstanceWhereUniqueInput!): BpmnProcessInstance
   upsertLocalisation(where: LocalisationWhereUniqueInput!, create: LocalisationCreateInput!, update: LocalisationUpdateInput!): Localisation!
   upsertOrganisation(where: OrganisationWhereUniqueInput!, create: OrganisationCreateInput!, update: OrganisationUpdateInput!): Organisation!
@@ -4724,8 +4677,8 @@ type Mutation {
   upsertResource(where: ResourceWhereUniqueInput!, create: ResourceCreateInput!, update: ResourceUpdateInput!): Resource!
   upsertAccess(where: AccessWhereUniqueInput!, create: AccessCreateInput!, update: AccessUpdateInput!): Access!
   upsertData(where: DataWhereUniqueInput!, create: DataCreateInput!, update: DataUpdateInput!): Data!
-  upsertBpmnProcess(where: BpmnProcessWhereUniqueInput!, create: BpmnProcessCreateInput!, update: BpmnProcessUpdateInput!): BpmnProcess!
   upsertBpmnTaskInstance(where: BpmnTaskInstanceWhereUniqueInput!, create: BpmnTaskInstanceCreateInput!, update: BpmnTaskInstanceUpdateInput!): BpmnTaskInstance!
+  upsertBpmnProcess(where: BpmnProcessWhereUniqueInput!, create: BpmnProcessCreateInput!, update: BpmnProcessUpdateInput!): BpmnProcess!
   upsertBpmnProcessInstance(where: BpmnProcessInstanceWhereUniqueInput!, create: BpmnProcessInstanceCreateInput!, update: BpmnProcessInstanceUpdateInput!): BpmnProcessInstance!
   updateManyLogs(data: LogUpdateInput!, where: LogWhereInput): BatchPayload!
   updateManyLocalisations(data: LocalisationUpdateInput!, where: LocalisationWhereInput): BatchPayload!
@@ -4742,8 +4695,8 @@ type Mutation {
   updateManyResources(data: ResourceUpdateInput!, where: ResourceWhereInput): BatchPayload!
   updateManyAccesses(data: AccessUpdateInput!, where: AccessWhereInput): BatchPayload!
   updateManyDatas(data: DataUpdateInput!, where: DataWhereInput): BatchPayload!
-  updateManyBpmnProcesses(data: BpmnProcessUpdateInput!, where: BpmnProcessWhereInput): BatchPayload!
   updateManyBpmnTaskInstances(data: BpmnTaskInstanceUpdateInput!, where: BpmnTaskInstanceWhereInput): BatchPayload!
+  updateManyBpmnProcesses(data: BpmnProcessUpdateInput!, where: BpmnProcessWhereInput): BatchPayload!
   updateManyBpmnProcessInstances(data: BpmnProcessInstanceUpdateInput!, where: BpmnProcessInstanceWhereInput): BatchPayload!
   deleteManyLogs(where: LogWhereInput): BatchPayload!
   deleteManyLocalisations(where: LocalisationWhereInput): BatchPayload!
@@ -4760,8 +4713,8 @@ type Mutation {
   deleteManyResources(where: ResourceWhereInput): BatchPayload!
   deleteManyAccesses(where: AccessWhereInput): BatchPayload!
   deleteManyDatas(where: DataWhereInput): BatchPayload!
-  deleteManyBpmnProcesses(where: BpmnProcessWhereInput): BatchPayload!
   deleteManyBpmnTaskInstances(where: BpmnTaskInstanceWhereInput): BatchPayload!
+  deleteManyBpmnProcesses(where: BpmnProcessWhereInput): BatchPayload!
   deleteManyBpmnProcessInstances(where: BpmnProcessInstanceWhereInput): BatchPayload!
 }
 
@@ -5413,8 +5366,8 @@ type Query {
   resources(where: ResourceWhereInput, orderBy: ResourceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Resource]!
   accesses(where: AccessWhereInput, orderBy: AccessOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Access]!
   datas(where: DataWhereInput, orderBy: DataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Data]!
-  bpmnProcesses(where: BpmnProcessWhereInput, orderBy: BpmnProcessOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BpmnProcess]!
   bpmnTaskInstances(where: BpmnTaskInstanceWhereInput, orderBy: BpmnTaskInstanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BpmnTaskInstance]!
+  bpmnProcesses(where: BpmnProcessWhereInput, orderBy: BpmnProcessOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BpmnProcess]!
   bpmnProcessInstances(where: BpmnProcessInstanceWhereInput, orderBy: BpmnProcessInstanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BpmnProcessInstance]!
   localisation(where: LocalisationWhereUniqueInput!): Localisation
   organisation(where: OrganisationWhereUniqueInput!): Organisation
@@ -5429,8 +5382,8 @@ type Query {
   resource(where: ResourceWhereUniqueInput!): Resource
   access(where: AccessWhereUniqueInput!): Access
   data(where: DataWhereUniqueInput!): Data
-  bpmnProcess(where: BpmnProcessWhereUniqueInput!): BpmnProcess
   bpmnTaskInstance(where: BpmnTaskInstanceWhereUniqueInput!): BpmnTaskInstance
+  bpmnProcess(where: BpmnProcessWhereUniqueInput!): BpmnProcess
   bpmnProcessInstance(where: BpmnProcessInstanceWhereUniqueInput!): BpmnProcessInstance
   logsConnection(where: LogWhereInput, orderBy: LogOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LogConnection!
   localisationsConnection(where: LocalisationWhereInput, orderBy: LocalisationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LocalisationConnection!
@@ -5447,8 +5400,8 @@ type Query {
   resourcesConnection(where: ResourceWhereInput, orderBy: ResourceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ResourceConnection!
   accessesConnection(where: AccessWhereInput, orderBy: AccessOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AccessConnection!
   datasConnection(where: DataWhereInput, orderBy: DataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DataConnection!
-  bpmnProcessesConnection(where: BpmnProcessWhereInput, orderBy: BpmnProcessOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BpmnProcessConnection!
   bpmnTaskInstancesConnection(where: BpmnTaskInstanceWhereInput, orderBy: BpmnTaskInstanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BpmnTaskInstanceConnection!
+  bpmnProcessesConnection(where: BpmnProcessWhereInput, orderBy: BpmnProcessOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BpmnProcessConnection!
   bpmnProcessInstancesConnection(where: BpmnProcessInstanceWhereInput, orderBy: BpmnProcessInstanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BpmnProcessInstanceConnection!
 
   """Fetches an object given its ID"""
@@ -5993,8 +5946,8 @@ type Subscription {
   resource(where: ResourceSubscriptionWhereInput): ResourceSubscriptionPayload
   access(where: AccessSubscriptionWhereInput): AccessSubscriptionPayload
   data(where: DataSubscriptionWhereInput): DataSubscriptionPayload
-  bpmnProcess(where: BpmnProcessSubscriptionWhereInput): BpmnProcessSubscriptionPayload
   bpmnTaskInstance(where: BpmnTaskInstanceSubscriptionWhereInput): BpmnTaskInstanceSubscriptionPayload
+  bpmnProcess(where: BpmnProcessSubscriptionWhereInput): BpmnProcessSubscriptionPayload
   bpmnProcessInstance(where: BpmnProcessInstanceSubscriptionWhereInput): BpmnProcessInstanceSubscriptionPayload
 }
 
@@ -6846,8 +6799,6 @@ export type ResourceType =   'Url' |
 
 export type BpmnTaskInstanceOrderByInput =   'id_ASC' |
   'id_DESC' |
-  'name_ASC' |
-  'name_DESC' |
   'dateFinished_ASC' |
   'dateFinished_DESC' |
   'dateStarted_ASC' |
@@ -6977,8 +6928,8 @@ export type BpmnProcessInstanceOrderByInput =   'id_ASC' |
   'dateStarted_DESC' |
   'duration_ASC' |
   'duration_DESC' |
-  'resources_ASC' |
-  'resources_DESC' |
+  'data_ASC' |
+  'data_DESC' |
   'status_ASC' |
   'status_DESC' |
   'updatedAt_ASC' |
@@ -7096,15 +7047,15 @@ export interface ValidatorUpdateWithWhereUniqueNestedInput {
   data: ValidatorUpdateDataInput
 }
 
-export interface BpmnTaskInstanceSubscriptionWhereInput {
-  AND?: BpmnTaskInstanceSubscriptionWhereInput[] | BpmnTaskInstanceSubscriptionWhereInput
-  OR?: BpmnTaskInstanceSubscriptionWhereInput[] | BpmnTaskInstanceSubscriptionWhereInput
-  NOT?: BpmnTaskInstanceSubscriptionWhereInput[] | BpmnTaskInstanceSubscriptionWhereInput
+export interface BpmnProcessSubscriptionWhereInput {
+  AND?: BpmnProcessSubscriptionWhereInput[] | BpmnProcessSubscriptionWhereInput
+  OR?: BpmnProcessSubscriptionWhereInput[] | BpmnProcessSubscriptionWhereInput
+  NOT?: BpmnProcessSubscriptionWhereInput[] | BpmnProcessSubscriptionWhereInput
   mutation_in?: MutationType[] | MutationType
   updatedFields_contains?: String
   updatedFields_contains_every?: String[] | String
   updatedFields_contains_some?: String[] | String
-  node?: BpmnTaskInstanceWhereInput
+  node?: BpmnProcessWhereInput
 }
 
 export interface ValidatorUpdateManyInput {
@@ -7134,20 +7085,6 @@ export interface BpmnTaskInstanceWhereInput {
   id_not_starts_with?: ID_Input
   id_ends_with?: ID_Input
   id_not_ends_with?: ID_Input
-  name?: String
-  name_not?: String
-  name_in?: String[] | String
-  name_not_in?: String[] | String
-  name_lt?: String
-  name_lte?: String
-  name_gt?: String
-  name_gte?: String
-  name_contains?: String
-  name_not_contains?: String
-  name_starts_with?: String
-  name_not_starts_with?: String
-  name_ends_with?: String
-  name_not_ends_with?: String
   dateFinished?: DateTime
   dateFinished_not?: DateTime
   dateFinished_in?: DateTime[] | DateTime
@@ -7434,9 +7371,9 @@ export interface BpmnProcessWhereInput {
   version_gt?: Int
   version_gte?: Int
   access?: AccessWhereInput
-  data_every?: DataDescriptorWhereInput
-  data_some?: DataDescriptorWhereInput
-  data_none?: DataDescriptorWhereInput
+  dataDescriptors_every?: DataDescriptorWhereInput
+  dataDescriptors_some?: DataDescriptorWhereInput
+  dataDescriptors_none?: DataDescriptorWhereInput
   resources_every?: ResourceWhereInput
   resources_some?: ResourceWhereInput
   resources_none?: ResourceWhereInput
@@ -7446,9 +7383,9 @@ export interface BpmnProcessWhereInput {
   _MagicalBackRelation_BpmnProcessVersions_every?: BpmnProcessWhereInput
   _MagicalBackRelation_BpmnProcessVersions_some?: BpmnProcessWhereInput
   _MagicalBackRelation_BpmnProcessVersions_none?: BpmnProcessWhereInput
-  _MagicalBackRelation_BpmnProcessToBpmnProcessInstance_every?: BpmnProcessInstanceWhereInput
-  _MagicalBackRelation_BpmnProcessToBpmnProcessInstance_some?: BpmnProcessInstanceWhereInput
-  _MagicalBackRelation_BpmnProcessToBpmnProcessInstance_none?: BpmnProcessInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceProcess_every?: BpmnProcessInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceProcess_some?: BpmnProcessInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceProcess_none?: BpmnProcessInstanceWhereInput
 }
 
 export interface FormUpdateDataInput {
@@ -7861,7 +7798,7 @@ export interface BpmnProcessInstanceCreateWithoutLogInput {
   dateFinished?: DateTime
   dateStarted: DateTime
   duration?: Int
-  resources: Json
+  data: Json
   status: BpmnProcessInstanceStatus
   comments?: CommentCreateManyInput
   owner: UserCreateOneWithoutProcessesInput
@@ -8080,7 +8017,7 @@ export interface BpmnProcessInstanceCreateOneInput {
   connect?: BpmnProcessInstanceWhereUniqueInput
 }
 
-export interface BpmnProcessWhereUniqueInput {
+export interface BpmnTaskInstanceWhereUniqueInput {
   id?: ID_Input
 }
 
@@ -8088,7 +8025,7 @@ export interface BpmnProcessInstanceCreateInput {
   dateFinished?: DateTime
   dateStarted: DateTime
   duration?: Int
-  resources: Json
+  data: Json
   status: BpmnProcessInstanceStatus
   comments?: CommentCreateManyInput
   owner: UserCreateOneWithoutProcessesInput
@@ -8110,7 +8047,7 @@ export interface BpmnProcessInstanceUpdateWithoutLogDataInput {
   dateFinished?: DateTime
   dateStarted?: DateTime
   duration?: Int
-  resources?: Json
+  data?: Json
   status?: BpmnProcessInstanceStatus
   comments?: CommentUpdateManyInput
   owner?: UserUpdateOneWithoutProcessesInput
@@ -8141,18 +8078,18 @@ export interface DataCreateManyInput {
   connect?: DataWhereUniqueInput[] | DataWhereUniqueInput
 }
 
-export interface BpmnTaskInstanceUpdateInput {
+export interface BpmnProcessUpdateInput {
+  actionCount?: Int
+  description?: String
+  model?: String
   name?: String
-  dateFinished?: DateTime
-  dateStarted?: DateTime
-  duration?: Int
-  performerId?: String
-  snapshot?: Json
-  status?: BpmnTaskInstanceStatus
-  taskId?: String
-  performerRoles?: BpmnTaskInstanceUpdateperformerRolesInput
-  performer?: UserUpdateOneInput
-  processInstance?: BpmnProcessInstanceUpdateOneInput
+  type?: ProcessType
+  status?: ProcessStatus
+  version?: Int
+  access?: AccessUpdateOneInput
+  dataDescriptors?: DataDescriptorUpdateManyInput
+  resources?: ResourceUpdateManyInput
+  versions?: BpmnProcessUpdateManyInput
 }
 
 export interface DataCreateInput {
@@ -8320,7 +8257,7 @@ export interface BpmnProcessCreateInput {
   status: ProcessStatus
   version: Int
   access: AccessCreateOneInput
-  data?: DataDescriptorCreateManyInput
+  dataDescriptors?: DataDescriptorCreateManyInput
   resources?: ResourceCreateManyInput
   versions?: BpmnProcessCreateManyInput
 }
@@ -8519,13 +8456,12 @@ export interface LocalisationSubscriptionWhereInput {
 }
 
 export interface BpmnTaskInstanceCreateInput {
-  name: String
   dateFinished?: DateTime
   dateStarted: DateTime
   duration?: Int
   performerId?: String
   snapshot?: Json
-  status?: BpmnTaskInstanceStatus
+  status: BpmnTaskInstanceStatus
   taskId?: String
   performerRoles?: BpmnTaskInstanceCreateperformerRolesInput
   performer?: UserCreateOneInput
@@ -8614,7 +8550,7 @@ export interface BpmnProcessInstanceCreateWithoutOwnerInput {
   dateFinished?: DateTime
   dateStarted: DateTime
   duration?: Int
-  resources: Json
+  data: Json
   status: BpmnProcessInstanceStatus
   comments?: CommentCreateManyInput
   process: BpmnProcessCreateOneInput
@@ -8622,7 +8558,7 @@ export interface BpmnProcessInstanceCreateWithoutOwnerInput {
   tasks?: BpmnTaskInstanceCreateManyInput
 }
 
-export interface BpmnTaskInstanceWhereUniqueInput {
+export interface BpmnProcessWhereUniqueInput {
   id?: ID_Input
 }
 
@@ -8645,18 +8581,17 @@ export interface OrganisationCreateInput {
   description?: String
 }
 
-export interface BpmnProcessUpdateInput {
-  actionCount?: Int
-  description?: String
-  model?: String
-  name?: String
-  type?: ProcessType
-  status?: ProcessStatus
-  version?: Int
-  access?: AccessUpdateOneInput
-  data?: DataDescriptorUpdateManyInput
-  resources?: ResourceUpdateManyInput
-  versions?: BpmnProcessUpdateManyInput
+export interface BpmnTaskInstanceUpdateInput {
+  dateFinished?: DateTime
+  dateStarted?: DateTime
+  duration?: Int
+  performerId?: String
+  snapshot?: Json
+  status?: BpmnTaskInstanceStatus
+  taskId?: String
+  performerRoles?: BpmnTaskInstanceUpdateperformerRolesInput
+  performer?: UserUpdateOneInput
+  processInstance?: BpmnProcessInstanceUpdateOneInput
 }
 
 export interface RoleCreateInput {
@@ -8732,7 +8667,6 @@ export interface UserUpdaterolesInput {
 }
 
 export interface BpmnTaskInstanceUpdateDataInput {
-  name?: String
   dateFinished?: DateTime
   dateStarted?: DateTime
   duration?: Int
@@ -9099,7 +9033,7 @@ export interface BpmnProcessInstanceUpdateDataInput {
   dateFinished?: DateTime
   dateStarted?: DateTime
   duration?: Int
-  resources?: Json
+  data?: Json
   status?: BpmnProcessInstanceStatus
   comments?: CommentUpdateManyInput
   owner?: UserUpdateOneWithoutProcessesInput
@@ -9303,7 +9237,7 @@ export interface BpmnProcessInstanceUpdateWithoutOwnerDataInput {
   dateFinished?: DateTime
   dateStarted?: DateTime
   duration?: Int
-  resources?: Json
+  data?: Json
   status?: BpmnProcessInstanceStatus
   comments?: CommentUpdateManyInput
   process?: BpmnProcessUpdateOneInput
@@ -9311,15 +9245,15 @@ export interface BpmnProcessInstanceUpdateWithoutOwnerDataInput {
   tasks?: BpmnTaskInstanceUpdateManyInput
 }
 
-export interface BpmnProcessSubscriptionWhereInput {
-  AND?: BpmnProcessSubscriptionWhereInput[] | BpmnProcessSubscriptionWhereInput
-  OR?: BpmnProcessSubscriptionWhereInput[] | BpmnProcessSubscriptionWhereInput
-  NOT?: BpmnProcessSubscriptionWhereInput[] | BpmnProcessSubscriptionWhereInput
+export interface BpmnTaskInstanceSubscriptionWhereInput {
+  AND?: BpmnTaskInstanceSubscriptionWhereInput[] | BpmnTaskInstanceSubscriptionWhereInput
+  OR?: BpmnTaskInstanceSubscriptionWhereInput[] | BpmnTaskInstanceSubscriptionWhereInput
+  NOT?: BpmnTaskInstanceSubscriptionWhereInput[] | BpmnTaskInstanceSubscriptionWhereInput
   mutation_in?: MutationType[] | MutationType
   updatedFields_contains?: String
   updatedFields_contains_every?: String[] | String
   updatedFields_contains_some?: String[] | String
-  node?: BpmnProcessWhereInput
+  node?: BpmnTaskInstanceWhereInput
 }
 
 export interface BpmnProcessUpdateOneInput {
@@ -9396,7 +9330,7 @@ export interface BpmnProcessUpdateDataInput {
   status?: ProcessStatus
   version?: Int
   access?: AccessUpdateOneInput
-  data?: DataDescriptorUpdateManyInput
+  dataDescriptors?: DataDescriptorUpdateManyInput
   resources?: ResourceUpdateManyInput
   versions?: BpmnProcessUpdateManyInput
 }
@@ -9556,7 +9490,7 @@ export interface BpmnProcessInstanceUpdateInput {
   dateFinished?: DateTime
   dateStarted?: DateTime
   duration?: Int
-  resources?: Json
+  data?: Json
   status?: BpmnProcessInstanceStatus
   comments?: CommentUpdateManyInput
   owner?: UserUpdateOneWithoutProcessesInput
@@ -9602,7 +9536,7 @@ export interface BpmnProcessInstancePreviousValues {
   dateFinished?: DateTime
   dateStarted: DateTime
   duration?: Int
-  resources: Json
+  data: Json
   status: BpmnProcessInstanceStatus
 }
 
@@ -9618,7 +9552,7 @@ export interface BpmnProcessInstance extends Node {
   duration?: Int
   owner: User
   process: BpmnProcess
-  resources: Json
+  data: Json
   log?: Log[]
   status: BpmnProcessInstanceStatus
   tasks?: BpmnTaskInstance[]
@@ -9631,15 +9565,16 @@ export interface BpmnProcessInstanceSubscriptionPayload {
   previousValues?: BpmnProcessInstancePreviousValues
 }
 
-export interface BpmnProcessPreviousValues {
+export interface BpmnTaskInstancePreviousValues {
   id: ID_Output
-  actionCount: Int
-  description?: String
-  model: String
-  name: String
-  type: ProcessType
-  status: ProcessStatus
-  version: Int
+  dateFinished?: DateTime
+  dateStarted: DateTime
+  duration?: Int
+  performerId?: String
+  performerRoles: String[]
+  snapshot?: Json
+  status: BpmnTaskInstanceStatus
+  taskId?: String
 }
 
 export interface Log {
@@ -9667,8 +9602,8 @@ export interface AggregateBpmnProcessInstance {
  * An edge in a connection.
 
  */
-export interface BpmnTaskInstanceEdge {
-  node: BpmnTaskInstance
+export interface BpmnProcessEdge {
+  node: BpmnProcess
   cursor: String
 }
 
@@ -9682,7 +9617,7 @@ export interface BpmnProcessInstanceConnection {
   aggregate: AggregateBpmnProcessInstance
 }
 
-export interface AggregateBpmnProcess {
+export interface AggregateBpmnTaskInstance {
   count: Int
 }
 
@@ -9696,10 +9631,10 @@ export interface Role extends Node {
  * A connection to a list of items.
 
  */
-export interface BpmnProcessConnection {
+export interface BpmnTaskInstanceConnection {
   pageInfo: PageInfo
-  edges: BpmnProcessEdge[]
-  aggregate: AggregateBpmnProcess
+  edges: BpmnTaskInstanceEdge[]
+  aggregate: AggregateBpmnTaskInstance
 }
 
 export interface Organisation extends Node {
@@ -9717,17 +9652,15 @@ export interface DataEdge {
   cursor: String
 }
 
-export interface BpmnTaskInstancePreviousValues {
+export interface BpmnProcessPreviousValues {
   id: ID_Output
+  actionCount: Int
+  description?: String
+  model: String
   name: String
-  dateFinished?: DateTime
-  dateStarted: DateTime
-  duration?: Int
-  performerId?: String
-  performerRoles: String[]
-  snapshot?: Json
-  status?: BpmnTaskInstanceStatus
-  taskId?: String
+  type: ProcessType
+  status: ProcessStatus
+  version: Int
 }
 
 export interface AggregateAccess {
@@ -9810,11 +9743,11 @@ export interface AccessConditionEdge {
   cursor: String
 }
 
-export interface BpmnTaskInstanceSubscriptionPayload {
+export interface BpmnProcessSubscriptionPayload {
   mutation: MutationType
-  node?: BpmnTaskInstance
+  node?: BpmnProcess
   updatedFields?: String[]
-  previousValues?: BpmnTaskInstancePreviousValues
+  previousValues?: BpmnProcessPreviousValues
 }
 
 export interface AggregateNotification {
@@ -9855,7 +9788,6 @@ export interface CommentEdge {
 
 export interface BpmnTaskInstance extends Node {
   id: ID_Output
-  name: String
   dateFinished?: DateTime
   dateStarted: DateTime
   duration?: Int
@@ -9864,7 +9796,7 @@ export interface BpmnTaskInstance extends Node {
   performerRoles: String[]
   processInstance: BpmnProcessInstance
   snapshot?: Json
-  status?: BpmnTaskInstanceStatus
+  status: BpmnTaskInstanceStatus
   taskId?: String
 }
 
@@ -10078,10 +10010,10 @@ export interface FormElementSubscriptionPayload {
  * A connection to a list of items.
 
  */
-export interface BpmnTaskInstanceConnection {
+export interface BpmnProcessConnection {
   pageInfo: PageInfo
-  edges: BpmnTaskInstanceEdge[]
-  aggregate: AggregateBpmnTaskInstance
+  edges: BpmnProcessEdge[]
+  aggregate: AggregateBpmnProcess
 }
 
 export interface FormElementPreviousValues {
@@ -10109,7 +10041,7 @@ export interface BpmnProcess extends Node {
   id: ID_Output
   access: Access
   actionCount: Int
-  data?: DataDescriptor[]
+  dataDescriptors?: DataDescriptor[]
   description?: String
   model: String
   name: String
@@ -10299,8 +10231,8 @@ export interface DataDescriptorPreviousValues {
  * An edge in a connection.
 
  */
-export interface BpmnProcessEdge {
-  node: BpmnProcess
+export interface BpmnTaskInstanceEdge {
+  node: BpmnTaskInstance
   cursor: String
 }
 
@@ -10392,7 +10324,7 @@ export interface AccessPreviousValues {
   modifiedOn?: DateTime
 }
 
-export interface AggregateBpmnTaskInstance {
+export interface AggregateBpmnProcess {
   count: Int
 }
 
@@ -10427,11 +10359,11 @@ export interface ValidatorConnection {
   aggregate: AggregateValidator
 }
 
-export interface BpmnProcessSubscriptionPayload {
+export interface BpmnTaskInstanceSubscriptionPayload {
   mutation: MutationType
-  node?: BpmnProcess
+  node?: BpmnTaskInstance
   updatedFields?: String[]
-  previousValues?: BpmnProcessPreviousValues
+  previousValues?: BpmnTaskInstancePreviousValues
 }
 
 export interface User extends Node {

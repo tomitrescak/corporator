@@ -55,7 +55,7 @@ export interface BpmnProcessInstanceQuery_BpmnProcessInstance {
   owner: BpmnProcessInstanceQuery_BpmnProcessInstance_Owner;
   tasks: BpmnProcessInstanceQuery_BpmnProcessInstance_Tasks[] | null;
   comments: BpmnProcessInstanceQuery_BpmnProcessInstance_Comments[] | null;
-  resources: any;
+  data: any;
   dateStarted: any;
   dateFinished: any | null;
 }
@@ -225,13 +225,13 @@ export interface FormQuery_Form {
   validations: FormQuery_Form_Validations[] | null;
 }
 
-export interface FormQuery_Process_Data_Validators {
+export interface FormQuery_Process_DataDescriptors_Validators {
   id: string;
   name: string;
   params: string[];
 }
 
-export interface FormQuery_Process_Data {
+export interface FormQuery_Process_DataDescriptors {
   defaultValue: string | null;
   description: string | null;
   expression: string | null;
@@ -240,11 +240,11 @@ export interface FormQuery_Process_Data {
   name: string | null;
   type: DataType | null;
   parentDescriptor: string | null;
-  validators: FormQuery_Process_Data_Validators | null;
+  validators: FormQuery_Process_DataDescriptors_Validators | null;
 }
 
 export interface FormQuery_Process {
-  data: FormQuery_Process_Data[] | null;
+  dataDescriptors: FormQuery_Process_DataDescriptors[] | null;
 }
 
 export interface FormQuery {

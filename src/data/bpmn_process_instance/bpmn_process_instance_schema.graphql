@@ -20,8 +20,8 @@ type BpmnProcessInstance {
   dateStarted: DateTime!
   duration: Int
   owner: User! @relation(name: "UserProcesses")
-  process: BpmnProcess!
-  resources: Json!
+  process: BpmnProcess! @relation(name: "BpmnProcessInstanceProcess")
+  data: Json!
   log: [Log!]! @relation(name: "BpmnProcessInstanceLog", onDelete: CASCADE)
   status: BpmnProcessInstanceStatus!
   tasks: [BpmnTaskInstance!]! @relation(name: "BpmnProcessInstanceTasks", onDelete: CASCADE)

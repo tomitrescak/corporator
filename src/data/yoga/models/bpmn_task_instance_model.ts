@@ -34,7 +34,7 @@ export class BpmnTaskInstanceModel {
         snapshot
     */
 
-   const taskInstance = await context.db.mutation.updateBpmnTaskInstance({
+    await context.db.mutation.updateBpmnTaskInstance({
       where: {
         id: this.id
       },
@@ -44,7 +44,7 @@ export class BpmnTaskInstanceModel {
     });
 
     // deep clone of snapshot using form
-    // 
+    //
     // pass back into state.resources
   }
 

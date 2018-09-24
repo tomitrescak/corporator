@@ -73,7 +73,7 @@ export const defaultProcess: Yoga.BpmnProcess = {
 export const defaultProcessInstance: Yoga.BpmnProcessInstance = {
   id: 'aid',
   process: defaultProcess,
-  resources: null,
+  data: null,
   owner: defaultUser,
   status: 'Running',
   dateStarted: createdDate,
@@ -117,7 +117,18 @@ const defaultDescriptor: Yoga.DataDescriptor = {
     CREATED
    ======================================================== */
 
-const defaultBpmnProcessInstance: Partial<Prisma.BpmnProcessInstanceCreateInput> = {};
+const defaultBpmnProcessInstance: Prisma.BpmnProcessInstanceCreateInput = {
+  comments: null,
+  data: null,
+  dateFinished: finishedDate,
+  dateStarted: createdDate,
+  duration: 0,
+  log: null,
+  owner: null,
+  process: null,
+  status: 'Running',
+  tasks: null
+};
 
 // const defaultAccessCondition = TestData.defaultAccessCondition;
 const createAccessCondition: Prisma.AccessConditionCreateManyInput = {
@@ -213,8 +224,10 @@ export const create = {
         set: data.roles
       }
     };
+    const merged = merge(defaultUser, input);
+    delete (merged as any).id;
     return ctx.db.mutation.createUser({
-      data: merge(defaultUser, input)
+      data: merged
     });
   },
   process(

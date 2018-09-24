@@ -51,7 +51,7 @@ type BpmnProcess implements Node {
   id: ID!
   access(where: AccessWhereInput): Access!
   actionCount: Int!
-  data(where: DataDescriptorWhereInput, orderBy: DataDescriptorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [DataDescriptor!]
+  dataDescriptors(where: DataDescriptorWhereInput, orderBy: DataDescriptorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [DataDescriptor!]
   description: String
   model: String!
   name: String!
@@ -77,7 +77,7 @@ type BpmnProcessInstance implements Node {
   duration: Int
   owner(where: UserWhereInput): User!
   process(where: BpmnProcessWhereInput): BpmnProcess!
-  resources: Json!
+  data: Json!
   log(where: LogWhereInput, orderBy: LogOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Log!]
   status: BpmnProcessInstanceStatus!
   tasks(where: BpmnTaskInstanceWhereInput, orderBy: BpmnTaskInstanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BpmnTaskInstance!]
@@ -96,7 +96,6 @@ input BpmnProcessInstancesInput {
 
 type BpmnTaskInstance implements Node {
   id: ID!
-  name: String!
   dateFinished: DateTime
   dateStarted: DateTime!
   duration: Int
@@ -105,7 +104,7 @@ type BpmnTaskInstance implements Node {
   performerRoles: [String!]!
   processInstance(where: BpmnProcessInstanceWhereInput): BpmnProcessInstance!
   snapshot: Json
-  status: BpmnTaskInstanceStatus
+  status: BpmnTaskInstanceStatus!
   taskId: String
 }
 
@@ -154,13 +153,14 @@ input CreateProcessInput {
 }
 
 type BpmnProcessInstanceOutput {
-  activeElements: [Element!]!
-  executedElements: [Element!]!
+  activeElements: [String!]!
+  executedElements: [String!]!
   processInstance: BpmnProcessInstance
 }
 
 input LaunchProcessInstanceInput {
   processId: String!
+  role: String!
 }
 
 input DuplicateProcessInstanceInput {
@@ -175,7 +175,7 @@ input SetProcessInstanceStatusInput {
 input CreateTaskInstanceInput {
   processInstanceId: String!
   taskId: String!
-  performerRoles: [String!]
+  performerRoles: [String!]!
 }
 
 input UpdateTaskInstanceStatusInput {
@@ -1599,9 +1599,9 @@ input BpmnProcessWhereInput {
   """
   version_gte: Int
   access: AccessWhereInput
-  data_every: DataDescriptorWhereInput
-  data_some: DataDescriptorWhereInput
-  data_none: DataDescriptorWhereInput
+  dataDescriptors_every: DataDescriptorWhereInput
+  dataDescriptors_some: DataDescriptorWhereInput
+  dataDescriptors_none: DataDescriptorWhereInput
   resources_every: ResourceWhereInput
   resources_some: ResourceWhereInput
   resources_none: ResourceWhereInput
@@ -1611,9 +1611,9 @@ input BpmnProcessWhereInput {
   _MagicalBackRelation_BpmnProcessVersions_every: BpmnProcessWhereInput
   _MagicalBackRelation_BpmnProcessVersions_some: BpmnProcessWhereInput
   _MagicalBackRelation_BpmnProcessVersions_none: BpmnProcessWhereInput
-  _MagicalBackRelation_BpmnProcessToBpmnProcessInstance_every: BpmnProcessInstanceWhereInput
-  _MagicalBackRelation_BpmnProcessToBpmnProcessInstance_some: BpmnProcessInstanceWhereInput
-  _MagicalBackRelation_BpmnProcessToBpmnProcessInstance_none: BpmnProcessInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceProcess_every: BpmnProcessInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceProcess_some: BpmnProcessInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceProcess_none: BpmnProcessInstanceWhereInput
 }
 
 enum BpmnProcessOrderByInput {
@@ -2417,59 +2417,6 @@ input BpmnTaskInstanceWhereInput {
   All values not ending with the given string.
   """
   id_not_ends_with: ID
-  name: String
-  """
-  All values that are not equal to given value.
-  """
-  name_not: String
-  """
-  All values that are contained in given list.
-  """
-  name_in: [String!]
-  """
-  All values that are not contained in given list.
-  """
-  name_not_in: [String!]
-  """
-  All values less than the given value.
-  """
-  name_lt: String
-  """
-  All values less than or equal the given value.
-  """
-  name_lte: String
-  """
-  All values greater than the given value.
-  """
-  name_gt: String
-  """
-  All values greater than or equal the given value.
-  """
-  name_gte: String
-  """
-  All values containing the given string.
-  """
-  name_contains: String
-  """
-  All values not containing the given string.
-  """
-  name_not_contains: String
-  """
-  All values starting with the given string.
-  """
-  name_starts_with: String
-  """
-  All values not starting with the given string.
-  """
-  name_not_starts_with: String
-  """
-  All values ending with the given string.
-  """
-  name_ends_with: String
-  """
-  All values not ending with the given string.
-  """
-  name_not_ends_with: String
   dateFinished: DateTime
   """
   All values that are not equal to given value.
@@ -2689,8 +2636,6 @@ input BpmnTaskInstanceWhereInput {
 enum BpmnTaskInstanceOrderByInput {
   id_ASC
   id_DESC
-  name_ASC
-  name_DESC
   dateFinished_ASC
   dateFinished_DESC
   dateStarted_ASC
@@ -2984,8 +2929,8 @@ enum BpmnProcessInstanceOrderByInput {
   dateStarted_DESC
   duration_ASC
   duration_DESC
-  resources_ASC
-  resources_DESC
+  data_ASC
+  data_DESC
   status_ASC
   status_DESC
   updatedAt_ASC
@@ -3951,11 +3896,6 @@ enum ValidatorOrderByInput {
   updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
-}
-
-type Element {
-  id: String!
-  name: String!
 }
 
 type Localisation implements Node {

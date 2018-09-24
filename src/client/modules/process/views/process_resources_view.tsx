@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-import { Link } from '@reach/router';
 import { Button, Header, List, Modal, Segment } from 'semantic-ui-react';
 
 import { QueryTypes } from 'data/client';

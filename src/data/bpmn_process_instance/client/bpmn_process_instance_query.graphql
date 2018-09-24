@@ -51,7 +51,7 @@ query BpmnProcessInstanceQuery($id: String!) {
     comments {
       ...BpmnProcessComment
     }
-    resources
+    data
     dateStarted
     dateFinished
   }

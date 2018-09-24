@@ -14,6 +14,15 @@ interface Options {
   create?: any;
 }
 
+async function clear(options: Options) {
+  if (options.clear) {
+    for (let key of options.clear) {
+      const pluralKey = 'deleteMany' + (key + (key[key.length - 1] === 's' ? 'es' : 's')); /*?*/
+      await (db.mutation as any)[pluralKey]({});
+    }
+  }
+}
+
 export async function its(
   name: string,
   options: Options = { language: 'EN' },
@@ -41,28 +50,10 @@ export async function its(
 
   // call the original it
   it(name, async () => {
-    if (options.clear) {
-      for (let key of options.clear) {
-        const keyName = key[0].toLowerCase() + key.substring(1);
-
-        const records = await (db.query as any)[
-          keyName + (keyName[keyName.length - 1] === 's' ? 'es' : 's')
-        ]({});
-        if (records && records.length) {
-          for (let record of records) {
-            await (db.mutation as any)['delete' + key]({ where: { id: record.id } });
-          }
-        }
-      }
-    }
+    await clear(options);
 
     if (options.user) {
-      const users = await db.query.users({});
-      if (users && users.length) {
-        for (let user of users) {
-          db.mutation.deleteUser({ where: { id: user.id } });
-        }
-      }
+      await db.mutation.deleteManyUsers({});
 
       const user = await create.user(context, options.user);
 
@@ -70,6 +61,9 @@ export async function its(
       context.userId = user.id;
     }
 
-    return impl(context);
+    const result = await impl(context);
+    await clear(options);
+
+    return result;
   });
 }

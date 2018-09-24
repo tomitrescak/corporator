@@ -15,7 +15,7 @@ type BpmnProcess {
   id: ID! @unique
   access: Access! @relation(name: "BpmnProcessAccess", onDelete: CASCADE)
   actionCount: Int!
-  data: [DataDescriptor!]!
+  dataDescriptors: [DataDescriptor!]!
   description: String
   # XML version of the model
   model: String!

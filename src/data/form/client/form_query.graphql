@@ -65,7 +65,7 @@ query FormQuery($formId: ID!, $processId: ID!) {
   }
 
   process(id: $processId) {
-    data {
+    dataDescriptors {
       ...DataDescriptor
     }
   }

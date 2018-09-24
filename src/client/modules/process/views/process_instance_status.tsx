@@ -19,4 +19,5 @@ export const ProcessInstanceStatus: React.SFC<Props> = ({ status, context }) => 
     case QueryTypes.BpmnProcessInstanceStatus.Running:
       return <Label color="green" size="tiny">{context.i18n`Running`}</Label>;
   }
+  throw new Error('Not implemented: ' + status);
 };

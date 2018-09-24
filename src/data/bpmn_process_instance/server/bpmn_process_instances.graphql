@@ -24,19 +24,15 @@ type Query {
 #  MUTATIONS
 # ========================================================= # */
 
-type Element {
-  id: String!
-  name: String!
-}
-
 type BpmnProcessInstanceOutput {
-  activeElements: [Element!]!
-  executedElements: [Element!]!
+  activeElements: [String!]!
+  executedElements: [String!]!
   processInstance: BpmnProcessInstance
 }
 
 input LaunchProcessInstanceInput {
   processId: String!
+  role: String!
 }
 
 input DuplicateProcessInstanceInput {

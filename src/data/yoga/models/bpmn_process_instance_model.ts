@@ -1,61 +1,72 @@
 import { Prisma } from 'data/prisma';
-import { BaseElement } from '../models/bpmn/';
+import { Lane } from './bpmn/bpmn_lane_model';
 import { BpmnProcessModel, BpmnTypes } from './bpmn_process_model';
 
+export type ProcessActionResult = {
+  /**
+   * List of active task instances (BpmnTaskInstance.task.id)
+   */
+  active: string[];
+  /**
+   * List of ids of executed base elements
+   */
+  executed: string[];
+  processInstance: BpmnProcessInstance;
+};
 
 export class BpmnProcessInstance {
-  static async duplicateInstance(processInstance: BpmnProcessInstance) {
+  static async duplicateInstance(_processInstance: BpmnProcessInstance) {
     throw new Error('not implmented');
   }
 
-  static async createInstance(
-    processId: string,
-    processModel: BpmnProcessModel,
-    context: ServerContext
-  ): Promise<BpmnProcessInstance> {
-    // create new process instance dao using context.db
-    // create object with dao and given process model
-    const processInstanceDAO = await context.db.mutation.createBpmnProcessInstance(
-      {
-        data: {
-          // dateFinished: null,
-          dateStarted: new Date(),
-          // duration: null,
-          owner: context.userId,
-          resources: state.resources, // no resources?
-          status: 'Running',
-          process: {
-            connect: {
-              id: processId
-            }
-          }
-          tasks: [], // no task instances at the start
-        }
-      },
-      `{  
-      id
-      dateStarted
-      ownerId
-      status
-      process {
-        id
-        access
-        actionCount
-        data
-        description
-        model
-        name
-        resources
-        status
-        version
-        versions
-      }
-    } `
-    );
+  // static async createInstance(
+  //   processId: string,
+  //   processModel: BpmnProcessModel,
+  //   context: ServerContext
+  // ): Promise<BpmnProcessInstance> {
+  //   // create new process instance dao using context.db
+  //   // create object with dao and given process model
+  //   const processInstanceDAO = await context.db.mutation.createBpmnProcessInstance(
+  //     {
+  //       data: {
+  //         // dateFinished: null,
+  //         dateStarted: new Date(),
+  //         // duration: null,
+  //         owner: context.userId,
+  //         data: state.resources, // no resources?
+  //         status: 'Running',
+  //         process: {
+  //           connect: {
+  //             id: processId
+  //           }
+  //         }
+  //         tasks: [], // no task instances at the start
+  //       }
+  //     },
+  //     `{
+  //     id
+  //     dateStarted
+  //     ownerId
+  //     status
+  //     process {
+  //       id
+  //       access
+  //       actionCount
+  //       data
+  //       description
+  //       model
+  //       name
+  //       resources
+  //       status
+  //       version
+  //       versions
+  //     }
+  //   } `
+  //   );
 
-    const processInstance = new BpmnProcessInstance(processInstanceDAO, processModel);
-    return processInstance.start(context);
-  }
+  //   const processInstance = new BpmnProcessInstance(processInstanceDAO, processModel);
+  //   return processInstance.start(context);
+  // }
 
   id: string;
   processId: string;
@@ -74,7 +85,7 @@ export class BpmnProcessInstance {
     this.id = instanceModelDao.id;
     // this.processId = instanceModelDao.processId;
     this.processModel = processModel;
-    this.resources = JSON.parse(instanceModelDao.resources);
+    // this.resources = JSON.parse(instanceModelDao.resources);
     this.ownerId = instanceModelDao.owner.id;
     this.status = instanceModelDao.status;
     this.dateStarted = new Date(instanceModelDao.dateStarted);
@@ -84,7 +95,7 @@ export class BpmnProcessInstance {
     processModel ? (this.processModel = processModel) : null;
   }
 
-  async start(context: ServerContext) {
+  async start(context: ServerContext, role: string): Promise<ProcessActionResult> {
     /* 
       set status to running
       execute each lane?
@@ -98,9 +109,16 @@ export class BpmnProcessInstance {
       }
     });
 
-    this.processModel.getElementList(BpmnTypes.LaneSet).forEach(laneSet => {
-      laneSet.execute(this, context);
-    });
+    this.processModel
+      .getElementList<Lane>(BpmnTypes.Lane)
+      .find(l => l.roles.some(r => r === role))
+      .execute(this, context);
+
+    return {
+      active: [],
+      executed: [],
+      processInstance: this
+    };
   }
 
   async pause(context: ServerContext) {

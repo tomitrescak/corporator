@@ -8520,7 +8520,7 @@
             "defaultValue": null
           },
           {
-            "name": "data_every",
+            "name": "dataDescriptors_every",
             "description": "",
             "type": {
               "kind": "INPUT_OBJECT",
@@ -8530,7 +8530,7 @@
             "defaultValue": null
           },
           {
-            "name": "data_some",
+            "name": "dataDescriptors_some",
             "description": "",
             "type": {
               "kind": "INPUT_OBJECT",
@@ -8540,7 +8540,7 @@
             "defaultValue": null
           },
           {
-            "name": "data_none",
+            "name": "dataDescriptors_none",
             "description": "",
             "type": {
               "kind": "INPUT_OBJECT",
@@ -8640,7 +8640,7 @@
             "defaultValue": null
           },
           {
-            "name": "_MagicalBackRelation_BpmnProcessToBpmnProcessInstance_every",
+            "name": "_MagicalBackRelation_BpmnProcessInstanceProcess_every",
             "description": "",
             "type": {
               "kind": "INPUT_OBJECT",
@@ -8650,7 +8650,7 @@
             "defaultValue": null
           },
           {
-            "name": "_MagicalBackRelation_BpmnProcessToBpmnProcessInstance_some",
+            "name": "_MagicalBackRelation_BpmnProcessInstanceProcess_some",
             "description": "",
             "type": {
               "kind": "INPUT_OBJECT",
@@ -8660,7 +8660,7 @@
             "defaultValue": null
           },
           {
-            "name": "_MagicalBackRelation_BpmnProcessToBpmnProcessInstance_none",
+            "name": "_MagicalBackRelation_BpmnProcessInstanceProcess_none",
             "description": "",
             "type": {
               "kind": "INPUT_OBJECT",
@@ -13956,7 +13956,7 @@
             "deprecationReason": null
           },
           {
-            "name": "resources",
+            "name": "data",
             "description": "",
             "args": [],
             "type": {
@@ -14922,13 +14922,13 @@
             "deprecationReason": null
           },
           {
-            "name": "resources_ASC",
+            "name": "data_ASC",
             "description": "",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "resources_DESC",
+            "name": "data_DESC",
             "description": "",
             "isDeprecated": false,
             "deprecationReason": null
@@ -15960,7 +15960,7 @@
             "deprecationReason": null
           },
           {
-            "name": "data",
+            "name": "dataDescriptors",
             "description": "",
             "args": [
               {
@@ -18387,7 +18387,7 @@
             "deprecationReason": null
           },
           {
-            "name": "createProcessInstance",
+            "name": "launchProcessInstance",
             "description": "",
             "args": [
               {
@@ -18398,7 +18398,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "CreateProcessInstanceInput",
+                    "name": "LaunchProcessInstanceInput",
                     "ofType": null
                   }
                 },
@@ -18407,14 +18407,14 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "BpmnProcessInstance",
+              "name": "BpmnProcessInstanceOutput",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "updateProcessInstanceStatus",
+            "name": "duplicateProcessInstance",
             "description": "",
             "args": [
               {
@@ -18425,7 +18425,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "UpdateProcessInstanceStatusInput",
+                    "name": "DuplicateProcessInstanceInput",
                     "ofType": null
                   }
                 },
@@ -18434,7 +18434,34 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "BpmnProcessInstance",
+              "name": "BpmnProcessInstanceOutput",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "setProcessInstanceStatus",
+            "description": "",
+            "args": [
+              {
+                "name": "input",
+                "description": "",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "SetProcessInstanceStatusInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "BpmnProcessInstanceOutput",
               "ofType": null
             },
             "isDeprecated": false,
@@ -18723,7 +18750,117 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "CreateProcessInstanceInput",
+        "name": "LaunchProcessInstanceInput",
+        "description": "",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "processId",
+            "description": "",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "role",
+            "description": "",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "BpmnProcessInstanceOutput",
+        "description": "",
+        "fields": [
+          {
+            "name": "activeElements",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "executedElements",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "processInstance",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "BpmnProcessInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "DuplicateProcessInstanceInput",
         "description": "",
         "fields": null,
         "inputFields": [
@@ -18748,7 +18885,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "UpdateProcessInstanceStatusInput",
+        "name": "SetProcessInstanceStatusInput",
         "description": "",
         "fields": null,
         "inputFields": [
@@ -18823,15 +18960,19 @@
             "name": "performerRoles",
             "description": "",
             "type": {
-              "kind": "LIST",
+              "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "NON_NULL",
+                "kind": "LIST",
                 "name": null,
                 "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
                 }
               }
             },

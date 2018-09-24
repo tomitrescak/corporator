@@ -19,8 +19,8 @@ hooks:
     #   - graphql get-schema -p prisma --output schema.json
     - graphql codegen
     - node save_schema.js
-    - npm run downloadSchema
-    - npm run generateQueries
+    # - npm run downloadSchema
+    # - npm run generateQueries
 generate:
   - generator: typescript-client
     output: ./prisma-client/

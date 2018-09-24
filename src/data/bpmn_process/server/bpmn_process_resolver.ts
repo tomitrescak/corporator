@@ -36,7 +36,8 @@ export const mutation: Mutation = {
       {
         data: {
           actionCount: 0,
-          data: {},
+          dataDescriptors: null,
+          resources: null,
           description,
           model,
           name,

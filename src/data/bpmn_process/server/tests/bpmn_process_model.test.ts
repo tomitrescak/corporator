@@ -6,7 +6,7 @@ describe('BpmnProcessModel', () => {
     {
       clear: ['BpmnProcess']
     },
-    async ctx => {
+    async _ctx => {
       // const m = await ctx.db.query.bpmnProcesses({});
       // expect(m.length).toBe(3)
     }

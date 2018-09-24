@@ -31,10 +31,10 @@ export class UserTask extends Task {
             connect: {
               id: state.id
             }
-          }
+          },
+          status: 'Waiting'
         }
       });
-      
     }
   }
 }

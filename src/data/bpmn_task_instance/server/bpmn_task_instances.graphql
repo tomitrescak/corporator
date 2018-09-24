@@ -19,7 +19,7 @@ type Query {
 input CreateTaskInstanceInput {
   processInstanceId: String!
   taskId: String!
-  performerRoles: [String!]
+  performerRoles: [String!]!
 }
 
 input UpdateTaskInstanceStatusInput {

@@ -187,7 +187,7 @@ const defaultProcessInstance: QueryTypes.BpmnProcessInstanceQuery_BpmnProcessIns
     createComment({ id: '5', text: 'Comment 5', replyTo: '2', date: create.date(3) }),
     createComment({ id: '6', text: 'Comment 1' })
   ],
-  resources: {},
+  data: {},
   dateStarted: create.createdDate,
   dateFinished: null
 };
