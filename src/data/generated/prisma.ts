@@ -1745,7 +1745,7 @@ type BpmnTaskInstance implements Node {
   performerId: String
   performerRoles: [String!]!
   processInstance(where: BpmnProcessInstanceWhereInput): BpmnProcessInstance!
-  snapshot: Json
+  data: Json
   status: BpmnTaskInstanceStatus!
   taskId: String
 }
@@ -1765,7 +1765,7 @@ input BpmnTaskInstanceCreateInput {
   dateStarted: DateTime!
   duration: Int
   performerId: String
-  snapshot: Json
+  data: Json
   status: BpmnTaskInstanceStatus!
   taskId: String
   performerRoles: BpmnTaskInstanceCreateperformerRolesInput
@@ -1807,8 +1807,8 @@ enum BpmnTaskInstanceOrderByInput {
   duration_DESC
   performerId_ASC
   performerId_DESC
-  snapshot_ASC
-  snapshot_DESC
+  data_ASC
+  data_DESC
   status_ASC
   status_DESC
   taskId_ASC
@@ -1826,7 +1826,7 @@ type BpmnTaskInstancePreviousValues {
   duration: Int
   performerId: String
   performerRoles: [String!]!
-  snapshot: Json
+  data: Json
   status: BpmnTaskInstanceStatus!
   taskId: String
 }
@@ -1882,7 +1882,7 @@ input BpmnTaskInstanceUpdateDataInput {
   dateStarted: DateTime
   duration: Int
   performerId: String
-  snapshot: Json
+  data: Json
   status: BpmnTaskInstanceStatus
   taskId: String
   performerRoles: BpmnTaskInstanceUpdateperformerRolesInput
@@ -1895,7 +1895,7 @@ input BpmnTaskInstanceUpdateInput {
   dateStarted: DateTime
   duration: Int
   performerId: String
-  snapshot: Json
+  data: Json
   status: BpmnTaskInstanceStatus
   taskId: String
   performerRoles: BpmnTaskInstanceUpdateperformerRolesInput
@@ -2494,6 +2494,7 @@ type DataDescriptor implements Node {
   description: String
   expression: String
   isArray: Boolean
+  clone: Boolean
   name: String
   type: DataType
   validators(where: ValidatorWhereInput): Validator
@@ -2515,6 +2516,7 @@ input DataDescriptorCreateInput {
   description: String
   expression: String
   isArray: Boolean
+  clone: Boolean
   name: String
   type: DataType
   parentDescriptor: ID
@@ -2552,6 +2554,8 @@ enum DataDescriptorOrderByInput {
   expression_DESC
   isArray_ASC
   isArray_DESC
+  clone_ASC
+  clone_DESC
   name_ASC
   name_DESC
   type_ASC
@@ -2570,6 +2574,7 @@ type DataDescriptorPreviousValues {
   description: String
   expression: String
   isArray: Boolean
+  clone: Boolean
   name: String
   type: DataType
   parentDescriptor: ID
@@ -2619,6 +2624,7 @@ input DataDescriptorUpdateDataInput {
   description: String
   expression: String
   isArray: Boolean
+  clone: Boolean
   name: String
   type: DataType
   parentDescriptor: ID
@@ -2631,6 +2637,7 @@ input DataDescriptorUpdateInput {
   description: String
   expression: String
   isArray: Boolean
+  clone: Boolean
   name: String
   type: DataType
   parentDescriptor: ID
@@ -2845,6 +2852,10 @@ input DataDescriptorWhereInput {
 
   """All values that are not equal to given value."""
   isArray_not: Boolean
+  clone: Boolean
+
+  """All values that are not equal to given value."""
+  clone_not: Boolean
   name: String
 
   """All values that are not equal to given value."""
@@ -6772,6 +6783,8 @@ export type DataDescriptorOrderByInput =   'id_ASC' |
   'expression_DESC' |
   'isArray_ASC' |
   'isArray_DESC' |
+  'clone_ASC' |
+  'clone_DESC' |
   'name_ASC' |
   'name_DESC' |
   'type_ASC' |
@@ -6807,8 +6820,8 @@ export type BpmnTaskInstanceOrderByInput =   'id_ASC' |
   'duration_DESC' |
   'performerId_ASC' |
   'performerId_DESC' |
-  'snapshot_ASC' |
-  'snapshot_DESC' |
+  'data_ASC' |
+  'data_DESC' |
   'status_ASC' |
   'status_DESC' |
   'taskId_ASC' |
@@ -8125,6 +8138,7 @@ export interface DataDescriptorCreateInput {
   description?: String
   expression?: String
   isArray?: Boolean
+  clone?: Boolean
   name?: String
   type?: DataType
   parentDescriptor?: ID_Input
@@ -8460,7 +8474,7 @@ export interface BpmnTaskInstanceCreateInput {
   dateStarted: DateTime
   duration?: Int
   performerId?: String
-  snapshot?: Json
+  data?: Json
   status: BpmnTaskInstanceStatus
   taskId?: String
   performerRoles?: BpmnTaskInstanceCreateperformerRolesInput
@@ -8586,7 +8600,7 @@ export interface BpmnTaskInstanceUpdateInput {
   dateStarted?: DateTime
   duration?: Int
   performerId?: String
-  snapshot?: Json
+  data?: Json
   status?: BpmnTaskInstanceStatus
   taskId?: String
   performerRoles?: BpmnTaskInstanceUpdateperformerRolesInput
@@ -8604,6 +8618,7 @@ export interface DataDescriptorUpdateInput {
   description?: String
   expression?: String
   isArray?: Boolean
+  clone?: Boolean
   name?: String
   type?: DataType
   parentDescriptor?: ID_Input
@@ -8671,7 +8686,7 @@ export interface BpmnTaskInstanceUpdateDataInput {
   dateStarted?: DateTime
   duration?: Int
   performerId?: String
-  snapshot?: Json
+  data?: Json
   status?: BpmnTaskInstanceStatus
   taskId?: String
   performerRoles?: BpmnTaskInstanceUpdateperformerRolesInput
@@ -8984,6 +8999,8 @@ export interface DataDescriptorWhereInput {
   expression_not_ends_with?: String
   isArray?: Boolean
   isArray_not?: Boolean
+  clone?: Boolean
+  clone_not?: Boolean
   name?: String
   name_not?: String
   name_in?: String[] | String
@@ -9474,6 +9491,7 @@ export interface DataDescriptorUpdateDataInput {
   description?: String
   expression?: String
   isArray?: Boolean
+  clone?: Boolean
   name?: String
   type?: DataType
   parentDescriptor?: ID_Input
@@ -9572,7 +9590,7 @@ export interface BpmnTaskInstancePreviousValues {
   duration?: Int
   performerId?: String
   performerRoles: String[]
-  snapshot?: Json
+  data?: Json
   status: BpmnTaskInstanceStatus
   taskId?: String
 }
@@ -9795,7 +9813,7 @@ export interface BpmnTaskInstance extends Node {
   performerId?: String
   performerRoles: String[]
   processInstance: BpmnProcessInstance
-  snapshot?: Json
+  data?: Json
   status: BpmnTaskInstanceStatus
   taskId?: String
 }
@@ -10222,6 +10240,7 @@ export interface DataDescriptorPreviousValues {
   description?: String
   expression?: String
   isArray?: Boolean
+  clone?: Boolean
   name?: String
   type?: DataType
   parentDescriptor?: ID_Output
@@ -10243,6 +10262,7 @@ export interface DataDescriptor extends Node {
   description?: String
   expression?: String
   isArray?: Boolean
+  clone?: Boolean
   name?: String
   type?: DataType
   validators?: Validator

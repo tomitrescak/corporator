@@ -15,6 +15,7 @@ type DataDescriptor {
   description: String
   expression: String
   isArray: Boolean
+  clone: Boolean
   name: String
   type: DataType
   validators: Validator

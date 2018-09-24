@@ -204,6 +204,8 @@ export type DataDescriptorOrderByInput =   'id_ASC' |
   'expression_DESC' |
   'isArray_ASC' |
   'isArray_DESC' |
+  'clone_ASC' |
+  'clone_DESC' |
   'name_ASC' |
   'name_DESC' |
   'type_ASC' |
@@ -241,8 +243,8 @@ export type BpmnTaskInstanceOrderByInput =   'id_ASC' |
   'duration_DESC' |
   'performerId_ASC' |
   'performerId_DESC' |
-  'snapshot_ASC' |
-  'snapshot_DESC' |
+  'data_ASC' |
+  'data_DESC' |
   'status_ASC' |
   'status_DESC' |
   'taskId_ASC' |
@@ -999,6 +1001,8 @@ export interface DataDescriptorWhereInput {
   expression_not_ends_with?: String
   isArray?: Boolean
   isArray_not?: Boolean
+  clone?: Boolean
+  clone_not?: Boolean
   name?: String
   name_not?: String
   name_in?: String[] | String
@@ -1560,6 +1564,7 @@ export interface DataDescriptor extends Node {
   description?: String
   expression?: String
   isArray?: Boolean
+  clone?: Boolean
   name?: String
   type?: DataType
   validators?: Validator
@@ -1622,7 +1627,7 @@ export interface BpmnTaskInstance extends Node {
   performerId?: String
   performerRoles: String[]
   processInstance: BpmnProcessInstance
-  snapshot?: Json
+  data?: Json
   status: BpmnTaskInstanceStatus
   taskId?: String
 }

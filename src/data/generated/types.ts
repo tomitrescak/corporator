@@ -29,7 +29,6 @@ export interface BpmnProcessInstanceQuery_BpmnProcessInstance_Tasks_Performer {
 }
 
 export interface BpmnProcessInstanceQuery_BpmnProcessInstance_Tasks {
-  name: string;
   dateStarted: any;
   dateFinished: any | null;
   performer: BpmnProcessInstanceQuery_BpmnProcessInstance_Tasks_Performer | null;
@@ -90,7 +89,6 @@ export interface BpmnProcessInstancesQuery_BpmnProcessInstances_Tasks_Performer 
 }
 
 export interface BpmnProcessInstancesQuery_BpmnProcessInstances_Tasks {
-  name: string;
   dateStarted: any;
   dateFinished: any | null;
   performer: BpmnProcessInstancesQuery_BpmnProcessInstances_Tasks_Performer | null;
@@ -410,7 +408,6 @@ export interface BpmnProcessTask_Performer {
 }
 
 export interface BpmnProcessTask {
-  name: string;
   dateStarted: any;
   dateFinished: any | null;
   performer: BpmnProcessTask_Performer | null;

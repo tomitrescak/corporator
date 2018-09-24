@@ -5488,6 +5488,26 @@
             "defaultValue": null
           },
           {
+            "name": "clone",
+            "description": "",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "clone_not",
+            "description": "All values that are not equal to given value.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
             "name": "name",
             "description": "",
             "type": {
@@ -12325,162 +12345,6 @@
             "defaultValue": null
           },
           {
-            "name": "name",
-            "description": "",
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "name_not",
-            "description": "All values that are not equal to given value.",
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "name_in",
-            "description": "All values that are contained in given list.",
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              }
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "name_not_in",
-            "description": "All values that are not contained in given list.",
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              }
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "name_lt",
-            "description": "All values less than the given value.",
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "name_lte",
-            "description": "All values less than or equal the given value.",
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "name_gt",
-            "description": "All values greater than the given value.",
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "name_gte",
-            "description": "All values greater than or equal the given value.",
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "name_contains",
-            "description": "All values containing the given string.",
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "name_not_contains",
-            "description": "All values not containing the given string.",
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "name_starts_with",
-            "description": "All values starting with the given string.",
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "name_not_starts_with",
-            "description": "All values not starting with the given string.",
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "name_ends_with",
-            "description": "All values ending with the given string.",
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "name_not_ends_with",
-            "description": "All values not ending with the given string.",
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
             "name": "dateFinished",
             "description": "",
             "type": {
@@ -15264,6 +15128,18 @@
             "deprecationReason": null
           },
           {
+            "name": "clone",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "name",
             "description": "",
             "args": [],
@@ -16400,6 +16276,18 @@
           },
           {
             "name": "isArray_DESC",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "clone_ASC",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "clone_DESC",
             "description": "",
             "isDeprecated": false,
             "deprecationReason": null
@@ -17726,22 +17614,6 @@
             "deprecationReason": null
           },
           {
-            "name": "name",
-            "description": "",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "dateFinished",
             "description": "",
             "args": [],
@@ -17868,7 +17740,7 @@
             "deprecationReason": null
           },
           {
-            "name": "snapshot",
+            "name": "data",
             "description": "",
             "args": [],
             "type": {
@@ -17884,9 +17756,13 @@
             "description": "",
             "args": [],
             "type": {
-              "kind": "ENUM",
-              "name": "BpmnTaskInstanceStatus",
-              "ofType": null
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "BpmnTaskInstanceStatus",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -17931,18 +17807,6 @@
           },
           {
             "name": "id_DESC",
-            "description": "",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "name_ASC",
-            "description": "",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "name_DESC",
             "description": "",
             "isDeprecated": false,
             "deprecationReason": null
@@ -17996,13 +17860,13 @@
             "deprecationReason": null
           },
           {
-            "name": "snapshot_ASC",
+            "name": "data_ASC",
             "description": "",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "snapshot_DESC",
+            "name": "data_DESC",
             "description": "",
             "isDeprecated": false,
             "deprecationReason": null

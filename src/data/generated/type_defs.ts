@@ -103,7 +103,7 @@ type BpmnTaskInstance implements Node {
   performerId: String
   performerRoles: [String!]!
   processInstance(where: BpmnProcessInstanceWhereInput): BpmnProcessInstance!
-  snapshot: Json
+  data: Json
   status: BpmnTaskInstanceStatus!
   taskId: String
 }
@@ -671,6 +671,7 @@ type DataDescriptor implements Node {
   description: String
   expression: String
   isArray: Boolean
+  clone: Boolean
   name: String
   type: DataType
   validators(where: ValidatorWhereInput): Validator
@@ -907,6 +908,11 @@ input DataDescriptorWhereInput {
   All values that are not equal to given value.
   """
   isArray_not: Boolean
+  clone: Boolean
+  """
+  All values that are not equal to given value.
+  """
+  clone_not: Boolean
   name: String
   """
   All values that are not equal to given value.
@@ -1050,6 +1056,8 @@ enum DataDescriptorOrderByInput {
   expression_DESC
   isArray_ASC
   isArray_DESC
+  clone_ASC
+  clone_DESC
   name_ASC
   name_DESC
   type_ASC
@@ -2644,8 +2652,8 @@ enum BpmnTaskInstanceOrderByInput {
   duration_DESC
   performerId_ASC
   performerId_DESC
-  snapshot_ASC
-  snapshot_DESC
+  data_ASC
+  data_DESC
   status_ASC
   status_DESC
   taskId_ASC

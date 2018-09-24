@@ -20,7 +20,7 @@ type BpmnTaskInstance {
   performerId: String
   performerRoles: [String!]!
   processInstance: BpmnProcessInstance! @relation(name: "BpmnProcessTasks")
-  snapshot: Json
+  data: Json
   status: BpmnTaskInstanceStatus!
   taskId: String
 }

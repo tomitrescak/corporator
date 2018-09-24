@@ -16,7 +16,6 @@ fragment BpmnProcessComment on Comment {
 }
 
 fragment BpmnProcessTask on BpmnTaskInstance {
-  name
   dateStarted
   dateFinished
   performer {
