@@ -29,6 +29,34 @@ module.exports = function(wallaby) {
     preprocessors: {
       'src/**/*.tsx': file => require('jsx-controls-loader').loader(file.content)
     },
-    testFramework: 'jest'
+    testFramework: 'jest',
+    setup() {
+      // const fs = require('fs');
+      // const path = require('path');
+      // const dirs = [
+      //   'moddle',
+      //   'moddle/lib',
+      //   'moddle-xml',
+      //   'moddle-xml/lib',
+      //   'bpmn-moddle',
+      //   'bpmn-moddle/lib'
+      // ];
+      // for (let dir of dirs) {
+      //   const workPath = __dirname + '/node_modules/' + dir;
+      //   const files = fs.readdirSync(workPath);
+      //   for (let file of files) {
+      //     if (path.extname(file) === '.js') {
+      //       const filePath = path.join(workPath, file);
+      //       const content = fs.readFileSync(filePath, { encoding: 'utf-8' });
+      //       const result = require('babel-core').transform(content, {
+      //         plugins: ['transform-es2015-modules-commonjs']
+      //       });
+      //       console.log(result.code);
+      //       // const transformed = transform(content);
+      //       fs.writeFileSync(filePath, result.code, { encoding: 'utf-8' });
+      //     }
+      //   }
+      // }
+    }
   };
 };

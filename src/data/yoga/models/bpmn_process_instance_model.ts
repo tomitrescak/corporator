@@ -1,9 +1,18 @@
 import { Prisma } from 'data/prisma';
-import { BpmnProcessModel , BpmnTypes } from './bpmn_process_model';
+import { BaseElement } from '../models/bpmn/';
+import { BpmnProcessModel, BpmnTypes } from './bpmn_process_model';
+
 
 export class BpmnProcessInstance {
+  static async duplicateInstance(processInstance: BpmnProcessInstance) {
+    throw new Error('not implmented');
+  }
 
-  static async createInstance(processId: string, processModel: BpmnProcessModel, context: ServerContext): Promise<BpmnProcessInstance> {
+  static async createInstance(
+    processId: string,
+    processModel: BpmnProcessModel,
+    context: ServerContext
+  ): Promise<BpmnProcessInstance> {
     // create new process instance dao using context.db
     // create object with dao and given process model
     const processInstanceDAO = await context.db.mutation.createBpmnProcessInstance(
@@ -12,15 +21,15 @@ export class BpmnProcessInstance {
           // dateFinished: null,
           dateStarted: new Date(),
           // duration: null,
-          ownerId: context.userId,
-          // resources: state.resources, // no resources?
+          owner: context.userId,
+          resources: state.resources, // no resources?
           status: 'Running',
           process: {
             connect: {
               id: processId
             }
           }
-          // tasks: null, // no task instances at the start
+          tasks: [], // no task instances at the start
         }
       },
       `{  
@@ -44,7 +53,8 @@ export class BpmnProcessInstance {
     } `
     );
 
-    return new BpmnProcessInstance(processInstanceDAO, processModel);
+    const processInstance = new BpmnProcessInstance(processInstanceDAO, processModel);
+    return processInstance.start(context);
   }
 
   id: string;
@@ -71,8 +81,7 @@ export class BpmnProcessInstance {
     this.dateFinished = new Date(instanceModelDao.dateFinished);
     this.duration = instanceModelDao.duration;
 
-    processModel ? this.processModel = processModel: null;
-    
+    processModel ? (this.processModel = processModel) : null;
   }
 
   async start(context: ServerContext) {
@@ -92,8 +101,6 @@ export class BpmnProcessInstance {
     this.processModel.getElementList(BpmnTypes.LaneSet).forEach(laneSet => {
       laneSet.execute(this, context);
     });
-
-
   }
 
   async pause(context: ServerContext) {

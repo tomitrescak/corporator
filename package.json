@@ -70,6 +70,7 @@
     "@types/shortid": "^0.0.29",
     "apollo": "^1.9.2",
     "babel-plugin-jsx-control-statements": "^3.2.8",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-react": "^6.24.1",
     "bcryptjs": "^2.4.3",

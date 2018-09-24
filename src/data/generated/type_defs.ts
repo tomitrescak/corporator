@@ -19,8 +19,9 @@ type Mutation {
   removeNotification(id: String): String
   clearNotifications: Boolean
   createProcess(input: CreateProcessInput!): BpmnProcess
-  createProcessInstance(input: CreateProcessInstanceInput!): BpmnProcessInstance
-  updateProcessInstanceStatus(input: UpdateProcessInstanceStatusInput!): BpmnProcessInstance
+  launchProcessInstance(input: LaunchProcessInstanceInput!): BpmnProcessInstanceOutput
+  duplicateProcessInstance(input: DuplicateProcessInstanceInput!): BpmnProcessInstanceOutput
+  setProcessInstanceStatus(input: SetProcessInstanceStatusInput!): BpmnProcessInstanceOutput
   createTaskInstance(input: CreateTaskInstanceInput!): BpmnTaskInstance
   updateTaskInstanceStatus(input: UpdateTaskInstanceStatusInput!): BpmnTaskInstance
   submitForm(input: SubmitFormInput!): BpmnTaskInstance
@@ -152,11 +153,21 @@ input CreateProcessInput {
   status: ProcessStatus
 }
 
-input CreateProcessInstanceInput {
+type BpmnProcessInstanceOutput {
+  activeElements: [Element!]!
+  executedElements: [Element!]!
+  processInstance: BpmnProcessInstance
+}
+
+input LaunchProcessInstanceInput {
   processId: String!
 }
 
-input UpdateProcessInstanceStatusInput {
+input DuplicateProcessInstanceInput {
+  processId: String!
+}
+
+input SetProcessInstanceStatusInput {
   processId: String!
   status: BpmnProcessInstanceStatus!
 }
@@ -3940,6 +3951,11 @@ enum ValidatorOrderByInput {
   updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
+}
+
+type Element {
+  id: String!
+  name: String!
 }
 
 type Localisation implements Node {

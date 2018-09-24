@@ -1,4 +1,7 @@
+import { ProcessInstanceItem } from 'client/modules/process/views/process_instance_item_view';
 import { FixtureContext, Mutation, Prisma, purge, Query, Yoga } from 'data/utils';
+import { BpmnProcessInstance } from '../../yoga/models/bpmn_process_instance_model';
+import { BpmnProcessModel } from '../../yoga/models/bpmn_process_model';
 
 export const query: Query = {
   bpmnProcessInstances(_parent, { input }, ctx, info) {
@@ -16,13 +19,13 @@ export const query: Query = {
 };
 
 export const mutation: Mutation = {
-  async createProcessInstance(_parent, { input: { processId } }, ctx, info) {
+  async launchProcessInstance(_parent, { input: { processId } }, ctx, info) {
     const userId = ctx.userId;
 
-    const processInstance = await ctx.db.mutation.createBpmnProcessInstance({
+    const processInstanceDAO = await ctx.db.mutation.createBpmnProcessInstance({
       data: {
         dateStarted: new Date(),
-        duration: 0,
+        // duration: 0,
         owner: {
           connect: {
             id: userId
@@ -33,27 +36,41 @@ export const mutation: Mutation = {
             id: processId
           }
         },
+        resources: {},
         status: 'Running'
       }
     });
 
-    await ctx.db.mutation.updateUser(
-      {
-        where: { id: userId },
-        data: {
-          processes: {
-            connect: {
-              id: processInstance.id
-            }
-          }
-        }
-      },
-      info
-    );
+    // await ctx.db.mutation.updateUser(
+    //   {
+    //     where: { id: userId },
+    //     data: {
+    //       processes: {
+    //         connect: {
+    //           id: processInstanceDAO.id
+    //         }
+    //       }
+    //     }
+    //   },
+    //   info
+    // );
 
-    return processInstance;
+    const bpmnProcessModelDao = await ctx.db.query.bpmnProcess({ where: { id: processId } });
+    const bpmnProcessModel = new BpmnProcessModel(bpmnProcessModelDao);
+
+    const processInstance = new BpmnProcessInstance(processInstanceDAO, bpmnProcessModel);
+    return processInstance.Start();
   },
-  async updateProcessInstanceStatus(_parent, { input: { processId, status } }, ctx, info) {
+  async duplicateProcessInstance(_parent, { input: { processId } }, ctx, info) {
+    const processInstanceDAO = ctx.db.query.bpmnProcessInstance({
+      where: {
+        id: processId
+      }
+    });
+
+    const newProcessInstance = BpmnProcessInstance.duplicateInstance();
+  },
+  async setProcessInstanceStatus(_parent, { input: { processId, status } }, ctx, info) {
     const process = await ctx.db.mutation.updateBpmnProcessInstance({
       where: {
         id: processId
@@ -90,7 +107,7 @@ export const mutation: Mutation = {
           break;
       }
 
-      taskInstances.forEach(async taskInstance => {
+      taskInstances.forEach(async (taskInstance: Prisma.BpmnTaskInstance) => {
         await ctx.db.mutation.updateBpmnTaskInstance({
           where: {
             id: taskInstance.id
@@ -115,7 +132,7 @@ export async function fixtures(ctx: ServerContext, fixtureContext: FixtureContex
   // tslint:disable-next-line:no-console
   console.log('Fixtures process instances');
 
-  const processes: Yoga.CreateProcessInstanceInput[] = [
+  const processes: Yoga.LaunchProcessInstanceInput[] = [
     { processId: fixtureContext.processes[0].id },
     { processId: fixtureContext.processes[0].id }
     // { processId: fixtureContext.processes[1].id }
@@ -123,7 +140,7 @@ export async function fixtures(ctx: ServerContext, fixtureContext: FixtureContex
 
   let inserted: Yoga.BpmnProcessInstance[] = [];
   for (let input of processes) {
-    const process = await mutation.createProcessInstance(null, { input }, ctx);
+    const process = await mutation.launchProcessInstance(null, { input }, ctx);
     inserted.push(process);
   }
   fixtureContext.processInstances = inserted;

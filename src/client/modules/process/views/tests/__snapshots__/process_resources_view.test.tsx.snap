@@ -1,0 +1,202 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Process Resources renders correctly 1`] = `
+Array [
+  <h5
+    className="ui dividing inverted top attached header"
+  >
+    <i
+      aria-hidden="true"
+      className="file icon"
+    />
+    <div
+      className="content"
+    >
+      Resources
+    </div>
+  </h5>,
+  <div
+    className="ui attached segment"
+  >
+    <div
+      className="ui list"
+      role="list"
+    >
+      <div
+        className="item"
+        onClick={[Function]}
+        role="listitem"
+      >
+        <i
+          aria-hidden="true"
+          className="folder icon"
+        />
+        <div
+          className="content"
+        >
+          Forms
+          <div
+            className="list"
+          >
+            <a
+              className="item"
+              onClick={[Function]}
+              role="listitem"
+            >
+              <i
+                aria-hidden="true"
+                className="wordpress forms icon"
+              />
+              <div
+                className="content"
+              >
+                Approval Form
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div
+        className="item"
+        onClick={[Function]}
+        role="listitem"
+      >
+        <i
+          aria-hidden="true"
+          className="folder icon"
+        />
+        <div
+          className="content"
+        >
+          Reports
+          <div
+            className="list"
+          >
+            <a
+              className="item"
+              onClick={[Function]}
+              role="listitem"
+            >
+              <i
+                aria-hidden="true"
+                className="newspaper icon"
+              />
+              <div
+                className="content"
+              >
+                Approval Report
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div
+        className="item"
+        onClick={[Function]}
+        role="listitem"
+      >
+        <i
+          aria-hidden="true"
+          className="folder icon"
+        />
+        <div
+          className="content"
+        >
+          Documents
+          <div
+            className="list"
+          >
+            <a
+              className="item"
+              onClick={[Function]}
+              role="listitem"
+            >
+              <i
+                aria-hidden="true"
+                className="file icon"
+              />
+              <div
+                className="content"
+              >
+                Guidelines
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div
+        className="item"
+        onClick={[Function]}
+        role="listitem"
+      >
+        <i
+          aria-hidden="true"
+          className="folder icon"
+        />
+        <div
+          className="content"
+        >
+          Files
+          <div
+            className="list"
+          >
+            <a
+              className="item"
+              onClick={[Function]}
+              role="listitem"
+              target="_blank"
+              to="/files/excel-file/3"
+            >
+              <i
+                aria-hidden="true"
+                className="file alternate icon"
+              />
+              <div
+                className="content"
+              >
+                Excel File
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div
+        className="item"
+        onClick={[Function]}
+        role="listitem"
+      >
+        <i
+          aria-hidden="true"
+          className="folder icon"
+        />
+        <div
+          className="content"
+        >
+          Links
+          <div
+            className="list"
+          >
+            <a
+              className="item"
+              href="http://google.com"
+              onClick={[Function]}
+              role="listitem"
+              target="_blank"
+            >
+              <i
+                aria-hidden="true"
+                className="linkify icon"
+              />
+              <div
+                className="content"
+              >
+                External Resource
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+]
+`;

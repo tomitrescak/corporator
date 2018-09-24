@@ -55,7 +55,6 @@
     "wallaby.server.js": true,
     "next.config.js": true,
     "wallaby.js": true,
-    "wallaby.client.js": true,
     "tslint.json": true,
     "transformer.js": true,
     "package-lock.json": true,

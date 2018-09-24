@@ -24,16 +24,32 @@ type Query {
 #  MUTATIONS
 # ========================================================= # */
 
+type Element {
+  id: String!
+  name: String!
+}
+
+type BpmnProcessInstanceOutput {
+  activeElements: [Element!]!
+  executedElements: [Element!]!
+  processInstance: BpmnProcessInstance
+}
+
 input LaunchProcessInstanceInput {
   processId: String!
 }
 
-input UpdateProcessInstanceStatusInput {
+input DuplicateProcessInstanceInput {
+  processId: String!
+}
+
+input SetProcessInstanceStatusInput {
   processId: String!
   status: BpmnProcessInstanceStatus!
 }
 
 type Mutation {
-  laucnhProcessInstance(input: LaunchProcessInstanceInput!): BpmnProcessInstance
-  updateProcessInstanceStatus(input: UpdateProcessInstanceStatusInput!): BpmnProcessInstance
+  launchProcessInstance(input: LaunchProcessInstanceInput!): BpmnProcessInstanceOutput
+  duplicateProcessInstance(input: DuplicateProcessInstanceInput!): BpmnProcessInstanceOutput
+  setProcessInstanceStatus(input: SetProcessInstanceStatusInput!): BpmnProcessInstanceOutput
 }
