@@ -5,7 +5,7 @@ import { Button, ButtonProps } from 'semantic-ui-react';
 import styled, { StyledComponentClass } from 'styled-components';
 
 import { QueryTypes } from 'data/client';
-import LOGIN_MUTATION = require('data/users/client/login_mutation.graphql');
+import LOGIN_MUTATION = require('./queries/login_mutation.graphql');
 
 interface Props {
   store?: App.Store;
@@ -29,8 +29,8 @@ export const LoginButton = ({ store }: Props) => {
       mutation={LOGIN_MUTATION}
       onError={() => store.login.setError(store.i18n`User or password is incorrect`)}
       onCompleted={data => {
-        store.localStorage.token = data.login.token;
         store.localStorage.userId = data.login.user.id;
+        store.localStorage.token = data.login.token;
         store.setUser(data.login.user);
       }}
     >

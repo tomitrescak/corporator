@@ -1,0 +1,6 @@
+#import * from '../../generated/prisma.graphql'
+
+type Query {
+  resourceQuery(id: ID!): Resource
+  documentQuery(id: ID!): Document
+}

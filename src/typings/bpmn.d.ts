@@ -1,6 +1,8 @@
-declare module 'bpmn-js' {
-  export type Definitions = any;
-}
+declare module 'bpmn-js';
+
+// declare module 'bpmn-js' {
+//   export type Definitions = any;
+// }
 
 // declare module 'bpmn-moddle' {
 //   import { Definitions } from 'bpmn-js';

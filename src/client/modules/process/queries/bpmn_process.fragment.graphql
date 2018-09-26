@@ -1,0 +1,23 @@
+fragment BpmnProcessResource on Resource {
+  name
+  type
+  id
+  link
+  form {
+    id
+  }
+  document {
+    id
+  }
+}
+
+fragment BpmnProcessDefinition on BpmnProcess {
+  id
+  name
+  description
+  type
+  model
+  resources {
+    ...BpmnProcessResource
+  }
+}

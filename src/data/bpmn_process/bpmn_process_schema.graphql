@@ -25,4 +25,5 @@ type BpmnProcess {
   status: ProcessStatus!
   version: Int!
   versions: [BpmnProcess!]! @relation(name: "BpmnProcessVersions", onDelete: CASCADE)
+  tasks: [BpmnTask!]! @relation(name: "BomnProcessTasks", onDelete: CASCADE)
 }

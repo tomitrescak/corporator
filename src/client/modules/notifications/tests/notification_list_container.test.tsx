@@ -1,6 +1,6 @@
 // dog.test.js
-import * as QUERY from 'data/notifications/client/notifications_query.graphql';
 import * as React from 'react';
+import * as QUERY from '../queries/notifications_query.graphql';
 
 import { mock, MockedProvider, QueryTypes, render } from 'client/tests';
 import { NotificationsContainer } from '../notifications_view';
@@ -16,12 +16,10 @@ export const notificationData = [
 
 describe('Notifications', () => {
   describe('Container', () => {
-    function componentWithData(
-      notifications: QueryTypes.NotificationsQuery_Notifications[] = null
-    ) {
+    function componentWithData(notifications: QueryTypes.Notifications[] = null) {
       if (!notifications) {
         mock.expect(QUERY).reply({
-          notifications: [{ id: '1', name: 'one' }, { id: '2', name: 'two' }]
+          notificationsQuery: [{ id: '1', name: 'one' }, { id: '2', name: 'two' }]
         });
       }
 
@@ -44,7 +42,7 @@ describe('Notifications', () => {
 
     it('renders final', async () => {
       mock.expect(QUERY).reply({
-        notifications: notificationData
+        notificationsQuery: notificationData
       });
 
       const container = render(componentWithData());

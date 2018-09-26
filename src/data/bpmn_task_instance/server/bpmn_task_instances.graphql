@@ -9,7 +9,7 @@ input BpmnTaskInstancesInput {
 }
 
 type Query {
-  bpmnTaskInstances(input: BpmnTaskInstancesInput!): [BpmnTaskInstance]!
+  bpmnTaskInstancesQuery(input: BpmnTaskInstancesInput!): [BpmnTaskInstance]!
 }
 
 # ========================================================= #

@@ -1,13 +1,13 @@
 import * as React from 'react';
 
 import 'jest-styled-components';
+import { Button } from 'semantic-ui-react';
 
 import { AppStore } from 'client/stores/app_store';
 import { mock, MockedProvider, ReactTestRenderer, render } from 'client/tests';
 import { LoginButton } from '../login_button_view';
 
-import LOGIN_MUTATION = require('data/users/client/login_mutation.graphql');
-import { Button } from 'semantic-ui-react';
+import LOGIN_MUTATION = require('../queries/login_mutation.graphql');
 
 describe('Login', function() {
   describe('LoginButton', () => {

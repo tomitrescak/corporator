@@ -17,7 +17,10 @@ export const ProcessItemView: React.SFC<Props> = ({ process }) => (
     </List.Content>
     <ProcessIcon type={process.type} />
     <List.Content verticalAlign="top">
-      <List.Header as={Link} to="nowhere">
+      <List.Header
+        as={Link}
+        to={`/process/${process.name.url()}/preview/information/${process.id}`}
+      >
         {process.name}
       </List.Header>
       <List.Description>{process.description}</List.Description>

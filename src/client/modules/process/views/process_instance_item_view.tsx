@@ -9,7 +9,7 @@ import { ProcessIcon } from './process_icon';
 import { ProcessInstanceStatus } from './process_instance_status';
 
 type Props = {
-  processInstance: QueryTypes.BpmnProcessInstancesQuery_BpmnProcessInstances;
+  processInstance: QueryTypes.BpmnProcessInstanceItem;
   context: App.Context;
 };
 
@@ -27,19 +27,27 @@ export const ProcessInstanceItem: React.SFC<Props> = ({ processInstance, context
   const waitingText = waitingTasks
     .map(
       t =>
-        context.i18n`${t.performerRoles.join(' or ')} to ${t.name} since ${context.Ui.relativeDate(
-          t.dateStarted
-        )}`
+        context.i18n`${t.performerRoles.join(' or ')} to ${
+          t.task.name
+        } since ${context.Ui.relativeDate(t.dateStarted)}`
     )
     .join(' and ');
   const completedTasks = processInstance.tasks.filter(t => !!t.dateFinished);
-  const lastTask = completedTasks.length > 0 ? completedTasks.sort()[0] : null;
+  const lastTask =
+    completedTasks.length > 0
+      ? completedTasks.sort((a, b) => a.dateFinished - b.dateFinished)[0]
+      : null;
 
   return (
     <List.Item>
       <ProcessIcon type={processInstance.process.type} />
       <List.Content verticalAlign="top">
-        <List.Header as={Link} to="nowhere">
+        <List.Header
+          as={Link}
+          to={`/process/${processInstance.process.name.url()}/view/information/${
+            processInstance.id
+          }`}
+        >
           {processInstance.process.name}
         </List.Header>
         <List.Description>
@@ -61,7 +69,7 @@ export const ProcessInstanceItem: React.SFC<Props> = ({ processInstance, context
             <Info>
               <b>{context.i18n`Last activity: `}</b>
               {context.i18n`${lastTask.performer.name} performed "${
-                lastTask.name
+                lastTask.task.name
               }" ${context.Ui.relativeDate(lastTask.dateFinished)}`}
             </Info>
           </If>

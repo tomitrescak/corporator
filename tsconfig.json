@@ -20,7 +20,12 @@
     "rootDirs": ["src"],
     "experimentalDecorators": true,
     "typeRoots": ["src/typings", "node_modules/@types"],
-    "sourceMap": true
+    "sourceMap": true,
+    "plugins": [
+      {
+        "name": "@divyenduz/ts-graphql-plugin"
+      }
+    ]
   },
   "include": ["src/**/*"],
   "exclude": ["src/data/generated/*", "node_modules", "**/node_modules/**"]

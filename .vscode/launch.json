@@ -15,6 +15,16 @@
       }
     },
     {
+      "name": "Launch Chrome",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceRoot}",
+      "sourceMapPathOverrides": {
+        "/*": "${webRoot}/*"
+      }
+    },
+    {
       "name": "Launch Server",
       "type": "node",
       "request": "launch",
@@ -44,6 +54,12 @@
       "sourceMaps": true,
       "cwd": "${workspaceRoot}",
       "protocol": "inspector"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Next: Full",
+      "configurations": ["Attach Server", "Launch Chrome"]
     }
   ]
 }

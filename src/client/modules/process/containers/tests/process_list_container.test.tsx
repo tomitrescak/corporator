@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { mock, MockedProvider, render } from 'client/tests';
 
-import { ProcessListContainer } from '../process_items_container';
+import { ProcessListContainer } from '../process_list_container';
 import { PROCESS_LIST_QUERY } from '../process_queries';
 import { createProcesses } from './process_test_data';
 

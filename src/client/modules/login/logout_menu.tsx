@@ -6,7 +6,8 @@ import { inject, observer } from 'mobx-react';
 import { Query } from 'react-apollo';
 import { Divider, Dropdown, Icon, Loader, Menu } from 'semantic-ui-react';
 
-import RESUME = require('data/users/client/resume_query.graphql');
+import { LocalStorage } from '../../config/local_storage';
+import RESUME = require('./queries/resume_query.graphql');
 
 /* ========================================================= 
     QUERY
@@ -22,7 +23,6 @@ export class ResumeQuery extends Query<QueryTypes.Resume, QueryTypes.ResumeVaria
 
 type Props = {
   store?: App.Store;
-  token: string;
 };
 
 @inject('store')
@@ -49,13 +49,15 @@ export class LogoutMenu extends React.Component<Props> {
     return (
       <ResumeQuery
         query={RESUME}
-        variables={{ token: this.props.token }}
+        variables={{ token: LocalStorage.token }}
         onCompleted={this.onCompleted}
         onError={this.onError}
       >
         {({ loading, error, data }) => {
           /* == ERROR == */
           if (error) {
+            LocalStorage.userId = null;
+            LocalStorage.token = null;
             return null;
           }
           /* == LOADING == */
@@ -68,6 +70,8 @@ export class LogoutMenu extends React.Component<Props> {
           }
 
           if (!data.resume.token) {
+            LocalStorage.userId = null;
+            LocalStorage.token = null;
             return null;
           }
 

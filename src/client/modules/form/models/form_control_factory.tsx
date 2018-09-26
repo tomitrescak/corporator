@@ -34,6 +34,8 @@ export function renderControl(
       return <RepeaterView owner={dataSet} formControl={formElement} />;
     case 'DeleteButton':
       return <Button icon="trash" color="red" onClick={handlers.delete} />;
+    case 'Text':
+      return <span className="formText">{dataSet.getStringValue(formElement.source.name)}</span>;
   }
 
   throw new Error('Not implemented: ' + formElement.control);

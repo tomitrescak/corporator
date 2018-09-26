@@ -1,0 +1,6 @@
+type BpmnTask {
+  id: ID! @unique
+  taskId: ID! @unique
+  resources: [Resource!]!
+  name: String!
+}

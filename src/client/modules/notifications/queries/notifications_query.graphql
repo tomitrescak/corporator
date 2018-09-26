@@ -1,0 +1,18 @@
+fragment Notifications on Notification {
+  id
+  createdAt
+  text
+  type
+  processInstance {
+    id
+    process {
+      name
+    }
+  }
+}
+
+query NotificationsQuery($input: NotificationsInput) {
+  notificationsQuery(input: $input) {
+    ...Notifications
+  }
+}

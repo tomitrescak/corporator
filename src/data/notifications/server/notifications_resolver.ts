@@ -1,9 +1,9 @@
-import { FixtureContext, getUserId, Mutation, purge, Query, Resolver, Yoga } from 'data/utils';
+import { getUserId, Mutation, purge, Query, Resolver, Yoga } from 'data/utils';
 
 const graphql = (e: TemplateStringsArray) => e[0];
 
 export const query: Query = {
-  async notifications(
+  async notificationsQuery(
     _parent,
     { input: { skip = 0, first = 100, visible } },
     ctx,
@@ -103,73 +103,3 @@ export const resolver: Resolver<Yoga.Notification> = {
     }
   }
 };
-
-/* =========================================================
-    FIXTURES
-   ======================================================== */
-
-export async function fixtures(ctx: ServerContext, fixtureContext: FixtureContext) {
-  const hasNotification = await ctx.db.exists.Notification();
-  if (hasNotification) {
-    return;
-  }
-
-  // tslint:disable-next-line:no-console
-  console.log('Fixtures notifications');
-  const { userId } = ctx;
-  const notifications: Yoga.NotifyInput[] = [
-    {
-      userId,
-      processInstanceId: fixtureContext.processInstances[0].id,
-      code: 'ProcessStarted',
-      params: ['Process Name'],
-      type: 'Info'
-    },
-    {
-      userId,
-      processInstanceId: fixtureContext.processInstances[0].id,
-      code: 'ProcessFinished',
-      params: ['Process Name'],
-      type: 'Info'
-    },
-    {
-      userId,
-      processInstanceId: fixtureContext.processInstances[0].id,
-      code: 'ProcessAborted',
-      params: ['Process Name'],
-      type: 'Error'
-    },
-    {
-      userId,
-      processInstanceId: fixtureContext.processInstances[0].id,
-      code: 'ActionStarted',
-      params: ['Action Name', 'Process Name'],
-      type: 'Info'
-    },
-    {
-      userId,
-      processInstanceId: fixtureContext.processInstances[0].id,
-      code: 'ActionFinished',
-      params: ['Tomas Trescak', 'Action Name', 'Process Name'],
-      type: 'Info'
-    },
-    {
-      userId,
-      processInstanceId: fixtureContext.processInstances[0].id,
-      code: 'ActionRequired',
-      params: ['Action Name', 'Process Name', 'Tomas Trescak'],
-      type: 'Info'
-    },
-    {
-      userId,
-      processInstanceId: fixtureContext.processInstances[0].id,
-      code: 'ActionAborted',
-      params: ['Tomas Trescak', 'Action Name', 'Process Name', 'Reason'],
-      type: 'Warning'
-    }
-  ];
-
-  for (let input of notifications) {
-    await mutation.notify(null, { input }, ctx);
-  }
-}

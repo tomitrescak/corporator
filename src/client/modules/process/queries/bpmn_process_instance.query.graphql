@@ -1,0 +1,44 @@
+fragment BpmnProcessComment on Comment {
+  id
+  date
+  replyTo
+  text
+  user {
+    name
+  }
+}
+
+fragment BpmnProcessTask on BpmnTaskInstance {
+  dateStarted
+  dateFinished
+  performer {
+    name
+  }
+  performerRoles
+}
+
+fragment BpmnProcessInstance on BpmnProcessInstance {
+  id
+  status
+  process {
+    ...BpmnProcessDefinition
+  }
+  owner {
+    name
+  }
+  tasks {
+    ...BpmnProcessTask
+  }
+  comments {
+    ...BpmnProcessComment
+  }
+  data
+  dateStarted
+  dateFinished
+}
+
+query BpmnProcessInstanceQuery($id: String!) {
+  bpmnProcessInstanceQuery(id: $id) {
+    ...BpmnProcessInstance
+  }
+}

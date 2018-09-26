@@ -34,8 +34,8 @@ export const AppStore = types
         self.userId = undefined;
         self.user = undefined;
         self.client().resetStore();
-        self.localStorage.token = null;
         self.localStorage.userId = null;
+        self.localStorage.token = null;
       }
     };
   });

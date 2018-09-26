@@ -1,0 +1,5 @@
+query ProcessQuery($id: ID!) {
+  process(id: $id) {
+    ...BpmnProcessDefinition
+  }
+}

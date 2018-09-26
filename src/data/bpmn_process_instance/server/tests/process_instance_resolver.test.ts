@@ -10,7 +10,7 @@ describe('BpmnProcess', () => {
   its(
     'launch process',
     {
-      clear: ['BpmnProcessInstance', 'BpmnProcess', 'Log'],
+      clear: ['Notification', 'BpmnProcessInstance', 'BpmnProcess', 'Log'],
       user: {
         name: 'Dean'
       }

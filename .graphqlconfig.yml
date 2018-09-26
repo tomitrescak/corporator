@@ -1,7 +1,7 @@
 projects:
   app:
     schemaPath: 'src/data/yoga.graphql'
-    includes: ['src/**/*.graphql']
+    includes: ['src/data/**/server/*.graphql', 'src/client/**/*.graphql']
     extensions:
       endpoints:
         default: 'http://localhost:4000'
@@ -14,7 +14,7 @@ projects:
             binding: src/data/generated/yoga.ts
   prisma:
     schemaPath: 'src/data/generated/prisma.graphql'
-    includes: ['src/**/*.graphql']
+    #    includes: ['src/**/*.graphql']
     extensions:
       prisma: src/data/prisma/prisma.yml
       codegen:

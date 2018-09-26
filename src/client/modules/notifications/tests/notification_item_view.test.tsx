@@ -7,9 +7,7 @@ import { createNotification } from './notifications_test_data';
 
 describe('Notifications', () => {
   describe('Item', () => {
-    function componentWithData(
-      notification: QueryTypes.NotificationsQuery_Notifications = createNotification()
-    ) {
+    function componentWithData(notification: QueryTypes.Notifications = createNotification()) {
       return (
         <MockedProvider>
           <NotificationView notification={notification} context={create.context()} />

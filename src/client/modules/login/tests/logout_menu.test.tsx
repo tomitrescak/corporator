@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import * as RESUME_MUTATION from 'data/users/client/resume_query.graphql';
+import * as RESUME_MUTATION from '../queries/resume_query.graphql';
 
 import 'jest-styled-components';
 
@@ -11,11 +11,11 @@ import { LogoutMenu, ResumeQuery } from '../logout_menu';
 
 describe('Logout', function() {
   describe('Menu Button', () => {
-    const CreateLogoutMenu = (token: string, store = create.store()) =>
+    const CreateLogoutMenu = (store = create.store()) =>
       render(
         <MockedProvider>
           <Menu>
-            <LogoutMenu store={store} token={token} />
+            <LogoutMenu store={store} />
           </Menu>
         </MockedProvider>
       );
@@ -27,7 +27,7 @@ describe('Logout', function() {
     it('renders empty if no user present and loading', () => {
       mock.expect(RESUME_MUTATION).loading();
 
-      const component = CreateLogoutMenu('1234');
+      const component = CreateLogoutMenu();
 
       expect(component).toMatchSnapshot();
       component.unmount();
@@ -36,7 +36,7 @@ describe('Logout', function() {
     it('renders empty if no user present', () => {
       mock.expect(RESUME_MUTATION).reply({});
 
-      const component = CreateLogoutMenu('1234');
+      const component = CreateLogoutMenu();
 
       expect(component).toMatchSnapshot();
       component.unmount();
@@ -46,7 +46,7 @@ describe('Logout', function() {
       mock.expect(RESUME_MUTATION).loading();
 
       const store = create.store({ userId: '1' });
-      const component = CreateLogoutMenu('1234', store);
+      const component = CreateLogoutMenu(store);
       expect(component).toMatchSnapshot();
 
       component.unmount();
@@ -56,7 +56,7 @@ describe('Logout', function() {
       mock.expect(RESUME_MUTATION).reply({ resume: {} });
 
       const store = create.store({ userId: '1' });
-      const component = CreateLogoutMenu('1234', store);
+      const component = CreateLogoutMenu(store);
       expect(component).toMatchSnapshot();
 
       component.unmount();
@@ -67,7 +67,7 @@ describe('Logout', function() {
 
       const store = create.store({ userId: '1' }, true);
 
-      const component = CreateLogoutMenu('1234', store);
+      const component = CreateLogoutMenu(store);
       expect(component).toMatchSnapshot();
 
       // test callback
@@ -89,13 +89,13 @@ describe('Logout', function() {
       // d.wrappedInstance.onError = spy;
 
       const store = create.store({ userId: '1' });
-      const component = CreateLogoutMenu('1234', store);
+      const component = CreateLogoutMenu(store);
       expect(component).toMatchSnapshot();
 
       // test callback
 
       const query = component.root.findByType(ResumeQuery);
-      const user = { id: '2', name: 'Tomi' };
+      const user = { id: '2', name: 'Tomas Trescak' };
       query.props.onCompleted({ resume: { user } });
       expect(store.userId).toBe('2');
       expect(store.user).toEqual(user);
@@ -109,7 +109,7 @@ describe('Logout', function() {
         .reply({ resume: { user: { id: '2', name: 'Tomas Trescak' }, token: 'ABCD' } });
 
       const store = create.store({ userId: '1', user: { id: '1', name: 'Tomas' } }, true);
-      const component = CreateLogoutMenu('1234', store);
+      const component = CreateLogoutMenu(store);
 
       component.root.findByProps({ icon: 'sign out' }).props.onClick();
 
@@ -118,7 +118,7 @@ describe('Logout', function() {
     });
 
     return {
-      component: CreateLogoutMenu('123')
+      component: CreateLogoutMenu()
     };
   });
 });

@@ -42,6 +42,7 @@ exports[`Process Definitions List Records renders with data 1`] = `
 <style>
 .c2.c2.c2.c2.c2 {
   vertical-align: top !important;
+  width: 25px;
 }
 
 .c1 {
@@ -113,7 +114,7 @@ exports[`Process Definitions List Records renders with data 1`] = `
       >
         <a
           className="header"
-          href="/nowhere"
+          href="/process/travel-process/preview/information/1"
           onClick={[Function]}
         >
           Travel Process
@@ -154,7 +155,7 @@ exports[`Process Definitions List Records renders with data 1`] = `
       >
         <a
           className="header"
-          href="/nowhere"
+          href="/process/purchase-process/preview/information/1"
           onClick={[Function]}
         >
           Purchase Process
@@ -195,7 +196,7 @@ exports[`Process Definitions List Records renders with data 1`] = `
       >
         <a
           className="header"
-          href="/nowhere"
+          href="/process/sales-process/preview/information/1"
           onClick={[Function]}
         >
           Sales Process
@@ -236,259 +237,7 @@ exports[`Process Definitions List Records renders with data 1`] = `
       >
         <a
           className="header"
-          href="/nowhere"
-          onClick={[Function]}
-        >
-          Human Resource Process
-        </a>
-        <div
-          className="description"
-        >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Process List Empty renders empty 1`] = `
-<style>
-.c0 {
-  color: #999;
-}</style>
-
-<div>
-  <div
-    className="c0"
-  >
-    0 processes available
-  </div>
-  <div
-    className="ui header"
-  >
-    <i
-      aria-hidden="true"
-      className="tasks icon"
-    />
-    <div
-      className="content"
-    >
-      Company Processes
-      <div
-        className="sub header"
-      >
-        Find and execute a new company process
-      </div>
-    </div>
-  </div>
-  <div
-    className="ui message"
-  >
-    No results
-  </div>
-</div>
-`;
-
-exports[`Process List Records renders with data 1`] = `
-<style>
-.c2.c2.c2.c2.c2 {
-  vertical-align: top !important;
-}
-
-.c1 {
-  max-width: 800px !important;
-}
-
-.c1.c1.c1.c1.c1 .description {
-  font-size: smaller;
-}
-
-.c0 {
-  color: #999;
-}</style>
-
-<div>
-  <div
-    className="c0"
-  >
-    4 processes available
-  </div>
-  <div
-    className="ui header"
-  >
-    <i
-      aria-hidden="true"
-      className="tasks icon"
-    />
-    <div
-      className="content"
-    >
-      Company Processes
-      <div
-        className="sub header"
-      >
-        Find and execute a new company process
-      </div>
-    </div>
-  </div>
-  <div
-    className="ui divided relaxed list c1"
-    role="list"
-  >
-    <div
-      className="item"
-      onClick={[Function]}
-      role="listitem"
-    >
-      <div
-        className="right floated content"
-      >
-        <button
-          className="ui primary button"
-          onClick={[Function]}
-          role="button"
-        >
-          <i
-            aria-hidden="true"
-            className="rocket icon"
-          />
-          Launch
-        </button>
-      </div>
-      <i
-        aria-hidden="true"
-        className="briefcase icon middle aligned c2"
-      />
-      <div
-        className="top aligned content"
-      >
-        <a
-          className="header"
-          href="/nowhere"
-          onClick={[Function]}
-        >
-          Travel Process
-        </a>
-        <div
-          className="description"
-        >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </div>
-      </div>
-    </div>
-    <div
-      className="item"
-      onClick={[Function]}
-      role="listitem"
-    >
-      <div
-        className="right floated content"
-      >
-        <button
-          className="ui primary button"
-          onClick={[Function]}
-          role="button"
-        >
-          <i
-            aria-hidden="true"
-            className="rocket icon"
-          />
-          Launch
-        </button>
-      </div>
-      <i
-        aria-hidden="true"
-        className="money icon middle aligned c2"
-      />
-      <div
-        className="top aligned content"
-      >
-        <a
-          className="header"
-          href="/nowhere"
-          onClick={[Function]}
-        >
-          Purchase Process
-        </a>
-        <div
-          className="description"
-        >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </div>
-      </div>
-    </div>
-    <div
-      className="item"
-      onClick={[Function]}
-      role="listitem"
-    >
-      <div
-        className="right floated content"
-      >
-        <button
-          className="ui primary button"
-          onClick={[Function]}
-          role="button"
-        >
-          <i
-            aria-hidden="true"
-            className="rocket icon"
-          />
-          Launch
-        </button>
-      </div>
-      <i
-        aria-hidden="true"
-        className="money bill alternate outline icon middle aligned c2"
-      />
-      <div
-        className="top aligned content"
-      >
-        <a
-          className="header"
-          href="/nowhere"
-          onClick={[Function]}
-        >
-          Sales Process
-        </a>
-        <div
-          className="description"
-        >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </div>
-      </div>
-    </div>
-    <div
-      className="item"
-      onClick={[Function]}
-      role="listitem"
-    >
-      <div
-        className="right floated content"
-      >
-        <button
-          className="ui primary button"
-          onClick={[Function]}
-          role="button"
-        >
-          <i
-            aria-hidden="true"
-            className="rocket icon"
-          />
-          Launch
-        </button>
-      </div>
-      <i
-        aria-hidden="true"
-        className="user circle icon middle aligned c2"
-      />
-      <div
-        className="top aligned content"
-      >
-        <a
-          className="header"
-          href="/nowhere"
+          href="/process/human-resource-process/preview/information/1"
           onClick={[Function]}
         >
           Human Resource Process

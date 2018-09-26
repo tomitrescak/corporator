@@ -6,6 +6,7 @@ enum FormControl {
   Textarea
   Repeater
   Table
+  Text
   DeleteButton
 }
 

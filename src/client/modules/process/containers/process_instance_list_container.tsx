@@ -3,6 +3,7 @@ import * as React from 'react';
 import { inject } from 'mobx-react';
 
 import { renderResult } from 'client/modules/common';
+import { purge, QueryTypes } from 'data/client';
 import { ProcessInstanceList } from '../views/process_instance_list_view';
 import { ProcessInstanceListQuery } from './process_queries';
 
@@ -12,16 +13,19 @@ type Props = {
   header: string;
   icon: string;
   description: string;
+  status?: QueryTypes.BpmnProcessInstanceStatus;
 };
 
-export const ProcessListContainer: React.SFC<Props> = inject('context')(
-  ({ context, header, icon, description }) => (
-    <ProcessInstanceListQuery>
+export const ProcessInstanceListContainer: React.SFC<Props> = inject('context')(
+  ({ context, header, icon, description, status }) => (
+    <ProcessInstanceListQuery
+      variables={purge<QueryTypes.BpmnProcessInstancesQueryVariables>({ input: { status } })}
+    >
       {result => {
         // console.log(result.data.bpmnProcessInstances)
         return renderResult(result, () => (
           <ProcessInstanceList
-            processes={result.data.bpmnProcessInstances}
+            processes={result.data && result.data.bpmnProcessInstancesQuery}
             header={header}
             icon={icon}
             description={description}
@@ -33,4 +37,4 @@ export const ProcessListContainer: React.SFC<Props> = inject('context')(
   )
 );
 
-ProcessListContainer.displayName = 'ProcessListContainer';
+ProcessInstanceListContainer.displayName = 'ProcessListContainer';

@@ -1,8 +1,9 @@
-endpoint: http://localhost:4466/test
+endpoint: ${env:ENDPOINT}
 datamodel:
   - ../access/access_schema.graphql
   - ../bpmn_process/bpmn_process_schema.graphql
   - ../bpmn_process_instance/bpmn_process_instance_schema.graphql
+  - ../bpmn_task/bpmn_task_schema.graphql
   - ../bpmn_task_instance/bpmn_task_instance_schema.graphql
   - ../comments/comments_schema.graphql
   - ../data_descriptor/data_descriptor_schema.graphql

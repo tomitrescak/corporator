@@ -39,6 +39,8 @@ const LoginSegment = styled(Segment)`
 
 export const HomeViewAuth = () => <div>Authorised!</div>;
 
+HomeViewAuth.displayName = 'HomeViewAuth';
+
 export const HomeViewAnonymous = () => (
   <Centered>
     <div style={{ width: '400px' }}>
@@ -50,13 +52,13 @@ export const HomeViewAnonymous = () => (
   </Centered>
 );
 
+HomeViewAnonymous.displayName = 'HomeViewAnonymous';
+
 export const HomeView: React.SFC<Props> = ({ store }) => (
   <>
     <Choose>
       <When condition={!store.userId}>
-        <>
-          <HomeViewAnonymous />
-        </>
+        <HomeViewAnonymous />
       </When>
       <Otherwise>
         <HomeViewAuth />
@@ -64,5 +66,7 @@ export const HomeView: React.SFC<Props> = ({ store }) => (
     </Choose>
   </>
 );
+
+HomeView.displayName = 'HomeView';
 
 export const HomeContainer = inject('store')(observer(HomeView));

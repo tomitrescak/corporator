@@ -5,6 +5,7 @@ fragment Validator on Validator {
 }
 
 fragment DataDescriptor on DataDescriptor {
+  id
   defaultValue
   description
   expression
@@ -38,14 +39,13 @@ fragment FormElement on FormElement {
   parentElement
 }
 
-fragment FormResource on Resource {
-  content
-  form {
-    ...Form
-  }
-  name
-  type
-}
+# fragment FormResource on Resource {
+#   form {
+#     ...Form
+#   }
+#   name
+#   type
+# }
 
 fragment Form on Form {
   id
@@ -60,11 +60,12 @@ fragment Form on Form {
 }
 
 query FormQuery($formId: ID!, $processId: ID!) {
-  form(id: $formId) {
+  formQuery(id: $formId) {
     ...Form
   }
 
   process(id: $processId) {
+    id
     dataDescriptors {
       ...DataDescriptor
     }

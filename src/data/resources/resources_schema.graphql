@@ -6,10 +6,18 @@ enum ResourceType {
   Document
 }
 
+type Document {
+  id: ID! @unique
+  title: String!
+  content: String
+  version: Int
+}
+
 type Resource {
   id: ID! @unique
   type: ResourceType!
   name: String!
-  content: String!
-  form: Form
+  link: String
+  form: Form @relation(name: "ResourceReport", onDelete: CASCADE)
+  document: Document @relation(name: "ResourceDocument", onDelete: CASCADE)
 }

@@ -1,12 +1,10 @@
-import { FixtureContext, Mutation, Prisma, purge, Query, Yoga } from 'data/utils';
+import { Mutation, Prisma, purge, Query, Yoga } from 'data/utils';
 import { BpmnProcessInstance } from '../../yoga/models/bpmn_process_instance_model';
 import { BpmnProcessModel } from '../../yoga/models/bpmn_process_model';
 
 export const query: Query = {
-  bpmnProcessInstances(_parent, { input }, ctx, info) {
-    throw new Error('Not Implemented');
-
-    return ctx.db.query.bpmnProcessInstances(
+  async bpmnProcessInstancesQuery(_parent, { input }, ctx, info) {
+    const result = await ctx.db.query.bpmnProcessInstances(
       {
         where: purge<Yoga.BpmnProcessInstanceWhereInput>({
           status: input.status
@@ -16,6 +14,15 @@ export const query: Query = {
       },
       info
     );
+
+    // sort by name
+
+    return result.sort((a, b) => {
+      return a.process.name.localeCompare(b.process.name, 'en', { numeric: true });
+    });
+  },
+  bpmnProcessInstanceQuery(_parent, { id }, ctx, info) {
+    return ctx.db.query.bpmnProcessInstance({ where: { id } }, info);
   }
 };
 
@@ -171,26 +178,3 @@ export const mutation: Mutation = {
     return process;
   }
 };
-
-export async function fixtures(ctx: ServerContext, fixtureContext: FixtureContext) {
-  const hasProcesses = await ctx.db.exists.BpmnProcessInstance();
-  if (hasProcesses) {
-    return;
-  }
-
-  // tslint:disable-next-line:no-console
-  console.log('Fixtures process instances');
-
-  const processes: Yoga.LaunchProcessInstanceInput[] = [
-    { processId: fixtureContext.processes[0].id, role: 'User' },
-    { processId: fixtureContext.processes[0].id, role: 'User' }
-    // { processId: fixtureContext.processes[1].id }
-  ];
-
-  let inserted: Yoga.BpmnProcessInstance[] = [];
-  for (let input of processes) {
-    const process = await mutation.launchProcessInstance(null, { input }, ctx);
-    inserted.push(process);
-  }
-  fixtureContext.processInstances = inserted;
-}

@@ -9,8 +9,8 @@ input AuthInput {
 }
 
 type Query {
-  user(id: ID!): User
-  users: [User]!
+  userQuery(id: ID!): User
+  usersQuery: [User]!
   resume(token: String!): AuthPayload!
 }
 

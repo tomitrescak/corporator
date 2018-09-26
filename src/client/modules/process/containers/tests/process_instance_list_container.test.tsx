@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { mock, MockedProvider, render } from 'client/tests';
 
-import { ProcessListContainer } from '../process_instance_list_container';
+import { ProcessInstanceListContainer } from '../process_instance_list_container';
 import { PROCESS_INSTANCE_LIST_QUERY } from '../process_queries';
 import { createProcessInstanceList } from './process_test_data';
 
@@ -16,7 +16,7 @@ describe('Process', () => {
           return (
             <MockedProvider>
               <div>
-                <ProcessListContainer
+                <ProcessInstanceListContainer
                   icon="tasks"
                   header="Process List"
                   description="Process list description"
@@ -29,7 +29,7 @@ describe('Process', () => {
         function luisComponent() {
           mock.reset();
           mock.expect(PROCESS_INSTANCE_LIST_QUERY).reply({
-            bpmnProcessInstances: createProcessInstanceList()
+            bpmnProcessInstancesQuery: createProcessInstanceList()
           });
 
           return componentWithData();
@@ -49,7 +49,7 @@ describe('Process', () => {
 
         it('renders data', async () => {
           mock.expect(PROCESS_INSTANCE_LIST_QUERY).reply({
-            bpmnProcessInstances: createProcessInstanceList()
+            bpmnProcessInstancesQuery: createProcessInstanceList()
           });
 
           const root = render(componentWithData());

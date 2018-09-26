@@ -1,15 +1,15 @@
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 
-import { Context, FixtureContext, Mutation, Query } from 'data/utils';
-import { reset } from '../../resolvers';
+import { Mutation, Query } from 'data/utils';
 
 if (!process.env.JWT_SECRET) {
   process.env.JWT_SECRET = 'QWERTY%$#@!12345';
 }
 
-export function authenticate(request: any) {
-  const authHeader = request.headers.authorization;
+export function authenticate(req: any) {
+  // VERSION WITH TOKENS
+  const authHeader = req.headers.authorization;
   if (!authHeader || !authHeader.match(/Bearer /)) {
     return null;
   }
@@ -20,6 +20,18 @@ export function authenticate(request: any) {
   } catch (ex) {
     throw new Error('Invalid token');
   }
+
+  // const { token } = req.cookies;
+  // if (!token) {
+  //   return null;
+  // }
+  // try {
+  //   const { userId } = jwt.verify(token, process.env.JWT_SECRET) as any;
+  //   req.userId = userId;
+  //   return userId;
+  // } catch (ex) {
+  //   throw new Error('Invalid token');
+  // }
 }
 
 export const mutation: Mutation = {
@@ -34,11 +46,6 @@ export const mutation: Mutation = {
   //     user
   //   };
   // },
-
-  async reset(_, _args, ctx) {
-    reset(ctx);
-    return true;
-  },
 
   async login(_, { input: { user, password } }, ctx) {
     const userDb = await ctx.db.query.user({ where: { uid: user } });
@@ -59,7 +66,7 @@ export const mutation: Mutation = {
 };
 
 export const query: Query = {
-  async users(_, _args, ctx) {
+  async usersQuery(_, _args, ctx) {
     return ctx.cache.user.findAll();
   },
 
@@ -82,39 +89,3 @@ export const query: Query = {
     };
   }
 };
-
-/* =========================================================
-    FIXTURES
-   ======================================================== */
-
-export async function fixtures(context: Context, _fixtureContext: FixtureContext) {
-  if (context.userId) {
-    return true;
-  }
-
-  const hasUsers = await context.cache.user.exists();
-
-  if (!hasUsers) {
-    // tslint:disable-next-line:no-console
-    console.log('Fixtures users');
-
-    const password = await bcrypt.hash('1234567', 10);
-
-    const user = await context.db.mutation.createUser({
-      data: {
-        name: 'Tomas Trescak',
-        uid: '30031005',
-        roles: {
-          set: ['admin']
-        },
-        password
-      }
-    });
-
-    context.userId = user.id;
-
-    return false;
-  }
-
-  return true;
-}

@@ -1,9 +1,11 @@
+#import * from './generated/prisma.graphql'
 #import Query.*, Mutation.* from './notifications/server/notifications.graphql'
 #import Query.*, Mutation.* from './bpmn_process/server/bpmn_process.graphql'
 #import Query.*, Mutation.* from './bpmn_process_instance/server/bpmn_process_instances.graphql'
 #import Query.*, Mutation.* from './bpmn_task_instance/server/bpmn_task_instances.graphql'
 #import Query.*, Mutation.* from './users/server/users.graphql'
 #import Query.* from './form/server/forms.graphql'
+#import Query.* from './resources/server/resources.graphql'
 
 type Query {
   testQuery: Boolean

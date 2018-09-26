@@ -5,28 +5,28 @@ exports[`Process Icon renders correctly 1`] = `
   <li>
     <i
       aria-hidden="true"
-      className="user circle icon middle aligned sc-bdVaJa jLAMJN"
+      className="user circle icon middle aligned sc-bdVaJa jnSeCf"
     />
      Human Resources
   </li>
   <li>
     <i
       aria-hidden="true"
-      className="money icon middle aligned sc-bdVaJa jLAMJN"
+      className="money icon middle aligned sc-bdVaJa jnSeCf"
     />
      Purchases
   </li>
   <li>
     <i
       aria-hidden="true"
-      className="money bill alternate outline icon middle aligned sc-bdVaJa jLAMJN"
+      className="money bill alternate outline icon middle aligned sc-bdVaJa jnSeCf"
     />
      Sales
   </li>
   <li>
     <i
       aria-hidden="true"
-      className="briefcase icon middle aligned sc-bdVaJa jLAMJN"
+      className="briefcase icon middle aligned sc-bdVaJa jnSeCf"
     />
      Travel
   </li>

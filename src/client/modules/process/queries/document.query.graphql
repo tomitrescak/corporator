@@ -1,0 +1,8 @@
+query DocumentQuery($id: ID!) {
+  documentQuery(id: $id) {
+    content
+    id
+    title
+    version
+  }
+}

@@ -2,7 +2,7 @@
 
 exports[`Home Logged In renders for logged in user 1`] = `
 <div
-  className="sc-dnqmqq ktgxuE"
+  className="sc-iwsKbI kahTAg"
 >
   <div
     style={
@@ -12,7 +12,7 @@ exports[`Home Logged In renders for logged in user 1`] = `
     }
   >
     <div
-      className="ui secondary segment sc-iwsKbI fsQXeq"
+      className="ui secondary segment sc-gZMcBi gQPKdT"
     >
       <div
         className="ui dividing header"
@@ -85,7 +85,7 @@ exports[`Home Logged In renders for logged in user 1`] = `
           }
         >
           <button
-            className="ui primary button sc-gzVnrw eYedCD"
+            className="ui primary button sc-htoDjs dhyhDz"
             onClick={[Function]}
             role="button"
           >
@@ -96,7 +96,7 @@ exports[`Home Logged In renders for logged in user 1`] = `
             Login
           </button>
           <a
-            className="sc-htoDjs iPDFxn"
+            className="sc-dnqmqq bFBsXy"
             href="https://www.westernsydney.edu.au/information_technology_services/its/servicedesk/password_expiry_faq"
             target="_blank"
           >
@@ -111,7 +111,7 @@ exports[`Home Logged In renders for logged in user 1`] = `
 
 exports[`Home Logged Out renders for logged out user 1`] = `
 <div
-  className="sc-dnqmqq ktgxuE"
+  className="sc-iwsKbI kahTAg"
 >
   <div
     style={
@@ -121,7 +121,7 @@ exports[`Home Logged Out renders for logged out user 1`] = `
     }
   >
     <div
-      className="ui secondary segment sc-iwsKbI fsQXeq"
+      className="ui secondary segment sc-gZMcBi gQPKdT"
     >
       <div
         className="ui dividing header"
@@ -194,7 +194,7 @@ exports[`Home Logged Out renders for logged out user 1`] = `
           }
         >
           <button
-            className="ui primary button sc-gzVnrw eYedCD"
+            className="ui primary button sc-htoDjs dhyhDz"
             onClick={[Function]}
             role="button"
           >
@@ -205,7 +205,7 @@ exports[`Home Logged Out renders for logged out user 1`] = `
             Login
           </button>
           <a
-            className="sc-htoDjs iPDFxn"
+            className="sc-dnqmqq bFBsXy"
             href="https://www.westernsydney.edu.au/information_technology_services/its/servicedesk/password_expiry_faq"
             target="_blank"
           >

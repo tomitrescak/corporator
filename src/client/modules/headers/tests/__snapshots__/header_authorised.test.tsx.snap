@@ -5,7 +5,7 @@ exports[`Headers Authorised renders correctly 1`] = `
   className="sc-bwzfXH kRBEAi"
 >
   <div
-    className="ui secondary sc-bxivhb ftwuBk menu"
+    className="ui secondary sc-bxivhb iaExqx menu"
   >
     <div
       className="item"
@@ -24,7 +24,7 @@ exports[`Headers Authorised renders correctly 1`] = `
       </a>
     </div>
     <div
-      className="item sc-EHOje cmurTc"
+      className="item sc-bZQynM gDoDjc"
       onClick={[Function]}
     >
       <div
@@ -42,36 +42,40 @@ exports[`Headers Authorised renders correctly 1`] = `
       </div>
     </div>
     <div
-      className="right menu"
-    />
-  </div>
-  <div
-    className="ui blue borderless pointing secondary sc-ifAKCX cEuSRI menu"
-  >
-    <a
-      className="blue item"
-      href="/process/create"
-      onClick={[Function]}
+      className="menu wideMenu"
     >
-      Create
-    </a>
-    <div
-      className="item"
-      onClick={[Function]}
-    >
-      Running
-    </div>
-    <div
-      className="item"
-      onClick={[Function]}
-    >
-      Finished
-    </div>
-    <div
-      className="item"
-      onClick={[Function]}
-    >
-      All
+      <a
+        className="blue item"
+        href="/process/create"
+        onClick={[Function]}
+      >
+        <i
+          aria-hidden="true"
+          className="plus icon"
+        />
+        Create
+      </a>
+      <a
+        className="item"
+        href="/process/running"
+        onClick={[Function]}
+      >
+        Running
+      </a>
+      <a
+        className="item"
+        href="/process/finished"
+        onClick={[Function]}
+      >
+        Finished
+      </a>
+      <a
+        className="item"
+        href="/process/all"
+        onClick={[Function]}
+      >
+        All
+      </a>
     </div>
     <div
       className="right menu"
@@ -82,16 +86,46 @@ exports[`Headers Authorised renders correctly 1`] = `
       >
         0
       </div>
-      <div
-        className="item"
+    </div>
+  </div>
+  <div
+    className="sc-ifAKCX jCdxYb"
+  >
+    <div
+      className="ui blue borderless pointing secondary sc-EHOje jKxpTS menu"
+    >
+      <a
+        className="blue item"
+        href="/process/create"
         onClick={[Function]}
       >
         <i
           aria-hidden="true"
-          className="star icon"
+          className="plus icon"
         />
-        Favourites
-      </div>
+        Create
+      </a>
+      <a
+        className="item"
+        href="/process/running"
+        onClick={[Function]}
+      >
+        Running
+      </a>
+      <a
+        className="item"
+        href="/process/finished"
+        onClick={[Function]}
+      >
+        Finished
+      </a>
+      <a
+        className="item"
+        href="/process/all"
+        onClick={[Function]}
+      >
+        All
+      </a>
     </div>
   </div>
 </div>

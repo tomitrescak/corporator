@@ -11,7 +11,7 @@ input NotificationsInput {
 }
 
 type Query {
-  notifications(input: NotificationsInput): [Notification]!
+  notificationsQuery(input: NotificationsInput): [Notification]!
 }
 
 # ========================================================= #

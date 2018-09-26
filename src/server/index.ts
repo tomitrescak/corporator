@@ -4,17 +4,16 @@ import { importSchema } from 'graphql-import';
 import { GraphQLServer } from 'graphql-yoga';
 import { Server as HttpServer } from 'http';
 
-import {
-  loadDefaultLocalisations,
-  Localisation
-} from 'data/localisations/server/localisation_resolver';
+import { Localisation } from 'data/localisations/server/localisation_resolver';
 import { Prisma } from 'data/prisma';
-import { fragmentReplacements, resolvers, fixtures } from 'data/resolvers';
+import { fragmentReplacements, resolvers } from 'data/resolvers';
 import { authenticate } from 'data/users/server/user_resolver';
 import { getUser, getUserId, Loader } from 'data/utils';
 
 const express = require('express');
 const historyAPIFallback = require('connect-history-api-fallback');
+
+require('dotenv').config({});
 
 // opts for cors
 // const opts = {
@@ -25,16 +24,19 @@ const historyAPIFallback = require('connect-history-api-fallback');
 //   }
 // };
 
-// // manipulate context
-// const context = (req: any) => ({
-//   req: req.request
-// });
-
 /* =========================================================
     CACHE
    ======================================================== */
 
-let db: Prisma.Prisma;
+// tslint:disable-next-line:no-console
+console.log('Connecting to: ' + process.env.ENDPOINT);
+
+let db: Prisma.Prisma = new Prisma.Prisma({
+  fragmentReplacements,
+  endpoint: process.env.ENDPOINT
+  // debug: true
+  // secret: 'my_secret123', // only needed if specified in `database/prisma.yml`
+});
 let dbf = () => db;
 
 export const i18n = {
@@ -50,13 +52,6 @@ export const cache = {
    ======================================================== */
 
 async function initContext(req: any) {
-  db = new Prisma.Prisma({
-    fragmentReplacements,
-    endpoint: 'http://localhost:4466'
-    // debug: true
-    // secret: 'my_secret123', // only needed if specified in `database/prisma.yml`
-  });
-
   const userId = authenticate(req.request);
 
   const result: ServerContext = {
@@ -69,14 +64,6 @@ async function initContext(req: any) {
     getUserId: () => getUserId(userId),
     getUser: () => getUser(result)
   };
-
-  // proceed with authentication
-
-  // load default localisations
-  await loadDefaultLocalisations(result);
-
-  // load fixtures
-  await fixtures(result);
 
   return result;
 }
@@ -92,9 +79,6 @@ const server = new GraphQLServer({
     return initContext(req);
   }
 });
-
-server.express.use(historyAPIFallback());
-server.express.use('/', express.static('dist'));
 
 // use session to maintain logged in state
 // server.express.use(
@@ -120,6 +104,10 @@ async function start() {
     endpoint: '/graphql',
     playground: '/graphiql'
   })) as HttpServer;
+
+  server.express.use(historyAPIFallback());
+  server.express.use('/', express.static('dist'));
+
   // tslint:disable-next-line:no-console
   console.log(`Server is running on http://localhost:${port}`);
 }

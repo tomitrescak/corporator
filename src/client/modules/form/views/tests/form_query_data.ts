@@ -37,8 +37,7 @@ const defaultDescriptor: DataDescriptor = {
   isArray: false,
   defaultValue: null,
   validators: null,
-  parentDescriptor: null,
-  descriptors: null
+  parentDescriptor: null
 };
 
 export const create = {

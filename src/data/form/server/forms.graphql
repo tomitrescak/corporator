@@ -1,17 +1,9 @@
-#import Notification, NotificationCode from '../../generated/prisma.graphql'
+#import * from '../../generated/prisma.graphql'
 
 # ========================================================= #
 #  QUERIES
 # ========================================================= # */
 
 type Query {
-  form(id: ID): Form
+  formQuery(id: ID!): Form
 }
-
-# ========================================================= #
-#  MUTATIONS
-# ========================================================= # */
-
-# type Mutation {
-
-# }

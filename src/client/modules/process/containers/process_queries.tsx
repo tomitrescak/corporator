@@ -1,5 +1,5 @@
-import * as PROCESS_LIST_QUERY from 'data/bpmn_process/client/processes_query.graphql';
-import * as PROCESS_INSTANCE_LIST_QUERY from 'data/bpmn_process_instance/client/bpmn_process_instances_query.graphql';
+import * as PROCESS_INSTANCE_LIST_QUERY from '../queries/bpmn_process_instances_query.graphql';
+import * as PROCESS_LIST_QUERY from '../queries/processes_query.graphql';
 
 import { Query, QueryProps } from 'react-apollo';
 
@@ -51,3 +51,7 @@ export class ProcessInstanceListQuery extends Query<
     }
   };
 }
+
+/* =========================================================
+    Process List
+   ======================================================== */

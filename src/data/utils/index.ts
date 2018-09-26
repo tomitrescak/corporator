@@ -4,7 +4,6 @@ import { GraphQLResolveInfo } from 'graphql';
 
 import { Prisma } from 'data/generated/prisma';
 import { Mutation as PrismaMutation, Query as PrismaQuery, User } from 'data/generated/yoga';
-import { Yoga } from 'data/yoga';
 import { cache } from 'server/index';
 import { Localisation } from '../localisations/server/localisation_resolver';
 
@@ -13,12 +12,6 @@ export { Yoga } from 'data/yoga';
 
 export { default as gql } from 'graphql-tag';
 export { Loader } from './loader';
-
-export type FixtureContext = {
-  processes?: Yoga.BpmnProcess[];
-  processInstances?: Yoga.BpmnProcessInstance[];
-  taskInstances?: Yoga.BpmnTaskInstance[];
-};
 
 export type FirstArgument<T> = T extends (arg1: infer U, ...args: any[]) => any ? U : any;
 // type SecondArgument<T> = T extends (arg1: any, arg2: infer U, ...args: any[]) => any ? U : any;
@@ -45,6 +38,7 @@ declare global {
 export interface Context {
   db: Prisma;
   request: any;
+  response: any;
   userId: string;
   cache?: typeof cache;
   i18n: Localisation;
@@ -103,28 +97,32 @@ export async function getUser(ctx: Context): Promise<User> {
   throw new Error('Not Authorized!');
 }
 
-type ParentResolver = {
-  Query: object;
-  Mutation: object;
-};
-
 type EntityResolver = {
   query?: object;
   mutation?: object;
   resolver?: object;
 };
 
-export function addResolver(parent: ParentResolver, resolver: EntityResolver) {
-  if (resolver.query) {
-    // tslint:disable-next-line:prefer-object-spread
-    parent.Query = { ...parent.Query, ...resolver.query };
+export function addResolvers(resolvers: EntityResolver[]) {
+  const parent = {
+    Query: {},
+    Mutation: {}
+  };
+
+  for (let resolver of resolvers) {
+    if (resolver.query) {
+      // tslint:disable-next-line:prefer-object-spread
+      parent.Query = { ...parent.Query, ...resolver.query };
+    }
+    if (resolver.mutation) {
+      parent.Mutation = { ...parent.Mutation, ...resolver.mutation };
+    }
+    if (resolver.resolver) {
+      Object.assign(parent, resolver.resolver);
+    }
   }
-  if (resolver.mutation) {
-    parent.Mutation = { ...parent.Mutation, ...resolver.mutation };
-  }
-  if (resolver.resolver) {
-    Object.assign(parent, resolver.resolver);
-  }
+
+  return parent;
 }
 
 export class AuthError extends Error {
@@ -133,14 +131,7 @@ export class AuthError extends Error {
   }
 }
 
-export function purge<T>(params: T): T {
-  for (let key of Object.getOwnPropertyNames(params)) {
-    if (!(params as any)[key]) {
-      delete (params as any)[key];
-    }
-  }
-  return params;
-}
+export { purge } from 'data/client';
 
 export function wait(time = 500) {
   return new Promise(resolve => setTimeout(resolve, time));

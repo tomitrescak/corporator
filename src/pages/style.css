@@ -6,6 +6,10 @@
   padding: 12px;
 }
 
+#pageContent .pageFrom {
+  margin: -12px !important;
+}
+
 .example-enter {
   opacity: 0.01;
 }

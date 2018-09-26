@@ -1,202 +1,371 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Process Resources renders correctly 1`] = `
-Array [
-  <h5
-    className="ui dividing inverted top attached header"
+exports[`Resources Process Instance renders correctly 1`] = `
+<div
+  className="ui list"
+  role="list"
+>
+  <div
+    className="item"
+    onClick={[Function]}
+    role="listitem"
   >
     <i
       aria-hidden="true"
-      className="file icon"
+      className="folder icon"
     />
     <div
       className="content"
     >
-      Resources
+      Forms
+      <div
+        className="list"
+      >
+        <a
+          className="item"
+          href="/process/process-1/view/form/approval-form/piid/1"
+          onClick={[Function]}
+          role="listitem"
+        >
+          <i
+            aria-hidden="true"
+            className="wordpress forms icon"
+          />
+          <div
+            className="content"
+          >
+            Approval Form
+          </div>
+        </a>
+      </div>
     </div>
-  </h5>,
+  </div>
   <div
-    className="ui attached segment"
+    className="item"
+    onClick={[Function]}
+    role="listitem"
   >
+    <i
+      aria-hidden="true"
+      className="folder icon"
+    />
     <div
-      className="ui list"
-      role="list"
+      className="content"
     >
+      Reports
       <div
-        className="item"
-        onClick={[Function]}
-        role="listitem"
+        className="list"
       >
-        <i
-          aria-hidden="true"
-          className="folder icon"
-        />
-        <div
-          className="content"
+        <a
+          className="item"
+          href="/process/process-1/view/report/approval-report/piid/1"
+          onClick={[Function]}
+          role="listitem"
         >
-          Forms
+          <i
+            aria-hidden="true"
+            className="newspaper icon"
+          />
           <div
-            className="list"
+            className="content"
           >
-            <a
-              className="item"
-              onClick={[Function]}
-              role="listitem"
-            >
-              <i
-                aria-hidden="true"
-                className="wordpress forms icon"
-              />
-              <div
-                className="content"
-              >
-                Approval Form
-              </div>
-            </a>
+            Approval Report
           </div>
-        </div>
-      </div>
-      <div
-        className="item"
-        onClick={[Function]}
-        role="listitem"
-      >
-        <i
-          aria-hidden="true"
-          className="folder icon"
-        />
-        <div
-          className="content"
-        >
-          Reports
-          <div
-            className="list"
-          >
-            <a
-              className="item"
-              onClick={[Function]}
-              role="listitem"
-            >
-              <i
-                aria-hidden="true"
-                className="newspaper icon"
-              />
-              <div
-                className="content"
-              >
-                Approval Report
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-      <div
-        className="item"
-        onClick={[Function]}
-        role="listitem"
-      >
-        <i
-          aria-hidden="true"
-          className="folder icon"
-        />
-        <div
-          className="content"
-        >
-          Documents
-          <div
-            className="list"
-          >
-            <a
-              className="item"
-              onClick={[Function]}
-              role="listitem"
-            >
-              <i
-                aria-hidden="true"
-                className="file icon"
-              />
-              <div
-                className="content"
-              >
-                Guidelines
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-      <div
-        className="item"
-        onClick={[Function]}
-        role="listitem"
-      >
-        <i
-          aria-hidden="true"
-          className="folder icon"
-        />
-        <div
-          className="content"
-        >
-          Files
-          <div
-            className="list"
-          >
-            <a
-              className="item"
-              onClick={[Function]}
-              role="listitem"
-              target="_blank"
-              to="/files/excel-file/3"
-            >
-              <i
-                aria-hidden="true"
-                className="file alternate icon"
-              />
-              <div
-                className="content"
-              >
-                Excel File
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-      <div
-        className="item"
-        onClick={[Function]}
-        role="listitem"
-      >
-        <i
-          aria-hidden="true"
-          className="folder icon"
-        />
-        <div
-          className="content"
-        >
-          Links
-          <div
-            className="list"
-          >
-            <a
-              className="item"
-              href="http://google.com"
-              onClick={[Function]}
-              role="listitem"
-              target="_blank"
-            >
-              <i
-                aria-hidden="true"
-                className="linkify icon"
-              />
-              <div
-                className="content"
-              >
-                External Resource
-              </div>
-            </a>
-          </div>
-        </div>
+        </a>
       </div>
     </div>
-  </div>,
-]
+  </div>
+  <div
+    className="item"
+    onClick={[Function]}
+    role="listitem"
+  >
+    <i
+      aria-hidden="true"
+      className="folder icon"
+    />
+    <div
+      className="content"
+    >
+      Documents
+      <div
+        className="list"
+      >
+        <a
+          className="item"
+          href="/process/process-1/view/document/guidelines/piid/1"
+          onClick={[Function]}
+          role="listitem"
+        >
+          <i
+            aria-hidden="true"
+            className="file icon"
+          />
+          <div
+            className="content"
+          >
+            Guidelines
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    className="item"
+    onClick={[Function]}
+    role="listitem"
+  >
+    <i
+      aria-hidden="true"
+      className="folder icon"
+    />
+    <div
+      className="content"
+    >
+      Files
+      <div
+        className="list"
+      >
+        <a
+          className="item"
+          href="/files/pid//uploads/file.doc"
+          onClick={[Function]}
+          role="listitem"
+          target="_blank"
+        >
+          <i
+            aria-hidden="true"
+            className="file alternate icon"
+          />
+          <div
+            className="content"
+          >
+            Excel File
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    className="item"
+    onClick={[Function]}
+    role="listitem"
+  >
+    <i
+      aria-hidden="true"
+      className="folder icon"
+    />
+    <div
+      className="content"
+    >
+      Links
+      <div
+        className="list"
+      >
+        <a
+          className="item"
+          href="http://google.com"
+          onClick={[Function]}
+          role="listitem"
+          target="_blank"
+        >
+          <i
+            aria-hidden="true"
+            className="linkify icon"
+          />
+          <div
+            className="content"
+          >
+            External Resource
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Resources Process renders correctly 1`] = `
+<div
+  className="ui list"
+  role="list"
+>
+  <div
+    className="item"
+    onClick={[Function]}
+    role="listitem"
+  >
+    <i
+      aria-hidden="true"
+      className="folder icon"
+    />
+    <div
+      className="content"
+    >
+      Forms
+      <div
+        className="list"
+      >
+        <a
+          className="item"
+          href="/process/process-1/preview/form/approval-form/pid/1"
+          onClick={[Function]}
+          role="listitem"
+        >
+          <i
+            aria-hidden="true"
+            className="wordpress forms icon"
+          />
+          <div
+            className="content"
+          >
+            Approval Form
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    className="item"
+    onClick={[Function]}
+    role="listitem"
+  >
+    <i
+      aria-hidden="true"
+      className="folder icon"
+    />
+    <div
+      className="content"
+    >
+      Reports
+      <div
+        className="list"
+      >
+        <a
+          className="item"
+          href="/process/process-1/preview/report/approval-report/pid/1"
+          onClick={[Function]}
+          role="listitem"
+        >
+          <i
+            aria-hidden="true"
+            className="newspaper icon"
+          />
+          <div
+            className="content"
+          >
+            Approval Report
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    className="item"
+    onClick={[Function]}
+    role="listitem"
+  >
+    <i
+      aria-hidden="true"
+      className="folder icon"
+    />
+    <div
+      className="content"
+    >
+      Documents
+      <div
+        className="list"
+      >
+        <a
+          className="item"
+          href="/process/process-1/preview/document/guidelines/pid/1"
+          onClick={[Function]}
+          role="listitem"
+        >
+          <i
+            aria-hidden="true"
+            className="file icon"
+          />
+          <div
+            className="content"
+          >
+            Guidelines
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    className="item"
+    onClick={[Function]}
+    role="listitem"
+  >
+    <i
+      aria-hidden="true"
+      className="folder icon"
+    />
+    <div
+      className="content"
+    >
+      Files
+      <div
+        className="list"
+      >
+        <a
+          className="item"
+          href="/files/pid//uploads/file.doc"
+          onClick={[Function]}
+          role="listitem"
+          target="_blank"
+        >
+          <i
+            aria-hidden="true"
+            className="file alternate icon"
+          />
+          <div
+            className="content"
+          >
+            Excel File
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    className="item"
+    onClick={[Function]}
+    role="listitem"
+  >
+    <i
+      aria-hidden="true"
+      className="folder icon"
+    />
+    <div
+      className="content"
+    >
+      Links
+      <div
+        className="list"
+      >
+        <a
+          className="item"
+          href="http://google.com"
+          onClick={[Function]}
+          role="listitem"
+          target="_blank"
+        >
+          <i
+            aria-hidden="true"
+            className="linkify icon"
+          />
+          <div
+            className="content"
+          >
+            External Resource
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
 `;

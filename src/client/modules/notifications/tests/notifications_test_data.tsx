@@ -1,6 +1,6 @@
 import { create, QueryTypes } from 'client/tests';
 
-const defaultNotification: QueryTypes.NotificationsQuery_Notifications = {
+const defaultNotification: QueryTypes.Notifications = {
   createdAt: create.createdDate,
   id: 'nid',
   processInstance: {
@@ -14,7 +14,7 @@ const defaultNotification: QueryTypes.NotificationsQuery_Notifications = {
 };
 
 export function createNotification(
-  notification: Partial<QueryTypes.NotificationsQuery_Notifications> = {}
-): QueryTypes.NotificationsQuery_Notifications {
+  notification: Partial<QueryTypes.Notifications> = {}
+): QueryTypes.Notifications {
   return { ...defaultNotification, ...notification };
 }

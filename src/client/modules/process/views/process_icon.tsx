@@ -22,6 +22,7 @@ export function processTypeToIcon(type: QueryTypes.ProcessType): SemanticICONS {
 const IconView = styled(List.Icon)`
   &&&&& {
     vertical-align: top !important;
+    width: 25px;
   }
 `;
 

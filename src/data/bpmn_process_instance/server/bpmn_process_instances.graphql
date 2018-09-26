@@ -16,8 +16,8 @@ input BpmnProcessInstancesInput {
 }
 
 type Query {
-  bpmnProcessInstances(input: BpmnProcessInstancesInput!): [BpmnProcessInstance]!
-  bpmnProcessInstance(id: String!): BpmnProcessInstance
+  bpmnProcessInstancesQuery(input: BpmnProcessInstancesInput!): [BpmnProcessInstance]!
+  bpmnProcessInstanceQuery(id: String!): BpmnProcessInstance
 }
 
 # ========================================================= #

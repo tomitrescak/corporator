@@ -1,6 +1,7 @@
 ##import Access from './access.graphql'
 ##import DataDescriptor from './data_descriptor.graphql'
 ##import Resource from './resource.graphql'
+##import BpmnTask from '../resource.graphql'
 
 ##import User from './user.graphql'
 
@@ -17,10 +18,9 @@ type BpmnTaskInstance {
   dateStarted: DateTime!
   duration: Int
   performer: User
-  performerId: String
   performerRoles: [String!]!
   processInstance: BpmnProcessInstance! @relation(name: "BpmnProcessTasks")
   data: Json
   status: BpmnTaskInstanceStatus!
-  taskId: String
+  task: BpmnTask!
 }

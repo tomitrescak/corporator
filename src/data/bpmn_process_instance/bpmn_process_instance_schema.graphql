@@ -10,7 +10,7 @@ type Log {
   elementId: String!
   elementName: String!
   date: DateTime!
-  taskInstance: BpmnTaskInstance @relation(name: "LoggedBpmnTaskInstance")
+  #  taskInstance: BpmnTaskInstance @relation(name: "LoggedBpmnTaskInstance")
 }
 
 type BpmnProcessInstance {

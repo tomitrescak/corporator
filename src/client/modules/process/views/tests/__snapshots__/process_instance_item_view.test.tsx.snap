@@ -8,14 +8,14 @@ exports[`Process Instances Item renders correctly 1`] = `
 >
   <i
     aria-hidden="true"
-    className="money icon middle aligned sc-bdVaJa jLAMJN"
+    className="money icon middle aligned sc-bdVaJa jnSeCf"
   />
   <div
     className="top aligned content"
   >
     <a
       className="header"
-      href="/nowhere"
+      href="/process/process-1/view/information/1"
       onClick={[Function]}
     >
       Process 1
@@ -42,7 +42,7 @@ exports[`Process Instances Item renders correctly 1`] = `
         <b>
           Last activity: 
         </b>
-        Tomas Trescak performed "Do not display!" 2 months ago
+        Tomas Trescak performed "Final Task" 2 months ago
       </div>
       <div
         className="sc-htpNat eaijOI"

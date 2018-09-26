@@ -16,8 +16,9 @@ export class UserTask extends Task {
           dateStarted: new Date(),
           // duration: null,
           // performerId: null,
-          snapshot: JSON.parse(JSON.stringify(state.resources)), // clone of properties (not of functions)
+          data: JSON.parse(JSON.stringify(state.resources)), // clone of properties (not of functions)
           taskId: this.id,
+          name: this.name,
           // performerRoles: BpmnTaskInstanceCreateperformerRolesInput,
           performerRoles: {
             set: this.lane.roles

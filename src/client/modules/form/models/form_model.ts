@@ -7,10 +7,11 @@ import { ISimpleType, types } from 'mobx-state-tree';
 import { QueryTypes } from 'data/client';
 import { DataDescriptor, Form, FormElement, ListValue } from './form_model';
 import { FormValidation } from './form_validation_model';
+import { random } from './random';
 
 export type FormElement = QueryTypes.FormElement & { elements: FormElement[] };
-export type DataDescriptor = QueryTypes.DataDescriptor & { descriptors: DataDescriptor[] };
-export type Form = QueryTypes.Form & { elements: FormElement[] };
+export type DataDescriptor = QueryTypes.DataDescriptor; // & { descriptors: DataDescriptor[] };
+export type Form = QueryTypes.Form; // & { elements: FormElement[] };
 
 export interface DataSet {
   id?: string;
@@ -45,7 +46,8 @@ function formItemSort(a: FormElement, b: FormElement) {
 
 function mstTypeFactory(
   desc: DataDescriptor,
-  lists: Array<{ name: string; items: any[] }>
+  lists: Array<{ name: string; items: any[] }>,
+  all: DataDescriptor[]
 ): ISimpleType<any> {
   switch (desc.type) {
     case 'String':
@@ -57,7 +59,8 @@ function mstTypeFactory(
     case 'Boolean':
       return types.boolean;
     case 'Object':
-      return FormModel.buildMst(desc.descriptors, lists);
+      const children = all.filter(d => d.parentDescriptor === desc.id);
+      return FormModel.buildMst(children, lists);
     // return For
     case undefined:
       return types.string;
@@ -161,13 +164,13 @@ export class FormModel {
     for (let desc of descriptors) {
       // expressions do not need state tree entry they are evaluated automatically
       if (desc.isArray) {
-        mstDefinition[desc.name] = types.array(mstTypeFactory(desc, lists));
+        mstDefinition[desc.name] = types.array(mstTypeFactory(desc, lists, descriptors));
       } else if (desc.type === 'Id') {
         mstDefinition[desc.name] = types.optional(types.identifier, () => (time + i++).toString()); // shortid.generate());
       } else if (!desc.expression) {
         mstDefinition[desc.name] = desc.defaultValue
           ? FormModel.parseDefault(desc)
-          : types.maybe(mstTypeFactory(desc, lists));
+          : types.maybe(mstTypeFactory(desc, lists, descriptors));
         mstDefinition[desc.name + '_str'] = types.maybe(types.string);
         mstDefinition[desc.name + '_error'] = types.maybe(types.string);
       }
@@ -252,13 +255,36 @@ export class FormModel {
     return data;
   }
 
+  static randomValue(descriptor: DataDescriptor) {
+    switch (descriptor.type) {
+      case QueryTypes.DataType.String:
+        return random.words(2);
+      case QueryTypes.DataType.Boolean:
+        return random.boolean();
+      case QueryTypes.DataType.Id:
+        return '1';
+      case QueryTypes.DataType.Int:
+        return random.int();
+      case QueryTypes.DataType.Float:
+        return random.float();
+    }
+    return undefined;
+  }
+
   static buildMstModel(
     descriptors: DataDescriptor[],
     dataArray: Array<{ name: string; value: any }>,
-    lists?: Array<{ name: string; items: any[] }>
+    lists?: Array<{ name: string; items: any[] }>,
+    initRandomValues = false
   ): DataSet {
     // data initialisation
     const data: any = {};
+    if (initRandomValues) {
+      for (let descriptor of descriptors) {
+        dataArray.push({ name: descriptor.name, value: FormModel.randomValue(descriptor) });
+      }
+    }
+
     FormModel.initStrings(data, dataArray);
 
     const mst = FormModel.buildMst(descriptors, lists);
@@ -277,8 +303,23 @@ export class FormModel {
     this.description = form.description;
     this.validations = form.validations;
 
-    // add and sort elements
-    this.elements = form.elements;
+    // initialise elements
+    this.elements = [];
+    for (let p of form.elements) {
+      if (!p.parentElement) {
+        this.elements.push(p as FormElement);
+        continue;
+      }
+      let parent = form.elements.find(f => f.id === p.parentElement) as FormElement;
+      if (!parent) {
+        throw new Error('Invalid data. Parent does not exist: ' + p.parentElement);
+      }
+      if (!parent.elements) {
+        parent.elements = [];
+      }
+      parent.elements.push(p as FormElement);
+    }
+
     this.elements.sort(formItemSort);
   }
 }

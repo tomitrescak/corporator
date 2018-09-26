@@ -1,6 +1,9 @@
-import { FixtureContext, Mutation, purge, Query, Yoga } from '../../utils';
+import { Mutation, purge, Query, Yoga } from '../../utils';
 
 export const query: Query = {
+  async process(_parent, { id }, ctx, info) {
+    return ctx.db.query.bpmnProcess({ where: { id } }, info);
+  },
   async processes(
     _parent,
     { input: { status = 'Published', name, skip = 0, first = 20 } },
@@ -20,6 +23,7 @@ export const query: Query = {
 
     return ctx.db.query.bpmnProcesses(
       {
+        orderBy: 'name_ASC',
         where,
         skip,
         first
@@ -66,28 +70,3 @@ export const mutation: Mutation = {
     return process;
   }
 };
-
-export async function fixtures(ctx: ServerContext, fixtureContext: FixtureContext) {
-  const hasProcesses = await ctx.db.exists.BpmnProcess();
-  if (hasProcesses) {
-    return;
-  }
-
-  // tslint:disable-next-line:no-console
-  console.log('Fixtures process');
-
-  const processes: Yoga.CreateProcessInput[] = [
-    { name: 'Process 1', description: 'Process 1 description', model: '', status: 'Published' },
-    { name: 'Process 4', description: 'Process 4 description', model: '', status: 'Published' },
-    { name: 'Process 2', description: 'Process 2 description', model: '', status: 'Draft' },
-    { name: 'Process 3', description: 'Process 3 description', model: '', status: 'Proposal' }
-  ];
-
-  let inserted: Yoga.BpmnProcess[] = [];
-  for (let input of processes) {
-    const process = await mutation.createProcess(null, { input }, ctx);
-    inserted.push(process);
-  }
-
-  fixtureContext.processes = inserted;
-}

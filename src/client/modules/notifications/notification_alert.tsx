@@ -49,7 +49,7 @@ export const NotificationAlert = observer(({ active }: Props) => (
           to="/notifications"
           icon="bell"
           active={active}
-          content={result.data.notifications.length || 0}
+          content={result.data.notificationsQuery.length || 0}
         />
       );
     }}

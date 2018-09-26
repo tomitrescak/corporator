@@ -1,5 +1,5 @@
-import * as NOTIFICATIONS_QUERY from 'data/notifications/client/notifications_query.graphql';
 import * as React from 'react';
+import * as NOTIFICATIONS_QUERY from './queries/notifications_query.graphql';
 
 import { NotificationsListContainer } from './notification_list_view';
 import { NotificationsQuery } from './notifications_queries';
@@ -18,7 +18,7 @@ export const NotificationsContainer: React.SFC<Props> = () => (
         return `Error! ${error.message}`;
       }
 
-      return <NotificationsListContainer notifications={data.notifications} />;
+      return <NotificationsListContainer notifications={data.notificationsQuery} />;
     }}
   </NotificationsQuery>
 );

@@ -31,7 +31,7 @@ fs.writeFileSync(path.resolve('./src/data/generated/yoga.ts'), yoga, { encoding:
 // export typedefs
 fs.writeFileSync(
   path.resolve('./src/data/generated/type_defs.ts'),
-  `export const typeDefs = \`${typeDefs}\``,
+  `export const typeDefs = \`${typeDefs.replace(/`/g, '\\`')}\``,
   { encoding: 'utf-8' }
 );
 

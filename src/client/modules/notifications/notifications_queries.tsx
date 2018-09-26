@@ -1,6 +1,6 @@
-import * as REMOVE_NOTIFICATION_MUTATION from 'data/notifications/client/notification_remove_mutation.graphql';
-import * as CLEAR_NOTIFICATIONS_MUTATION from 'data/notifications/client/notifications_clear_mutation.graphql';
-import * as NOTIFICATIONS_QUERY from 'data/notifications/client/notifications_query.graphql';
+import * as REMOVE_NOTIFICATION_MUTATION from './queries/notification_remove_mutation.graphql';
+import * as CLEAR_NOTIFICATIONS_MUTATION from './queries/notifications_clear_mutation.graphql';
+import * as NOTIFICATIONS_QUERY from './queries/notifications_query.graphql';
 
 import { Mutation, MutationProps, Query, QueryProps } from 'react-apollo';
 
@@ -48,7 +48,7 @@ export class RemoveNotificationMutation extends Mutation<
   static defaultProps: RemoveNotificationMutationProps = {
     mutation: REMOVE_NOTIFICATION_MUTATION,
     update: (cache, props) => {
-      const { notifications } = cache.readQuery<
+      const { notificationsQuery } = cache.readQuery<
         QueryTypes.NotificationsQuery,
         QueryTypes.NotificationsQueryVariables
       >({
@@ -56,14 +56,12 @@ export class RemoveNotificationMutation extends Mutation<
         variables: { input: { first: 50 } }
       });
       const id = props.data.removeNotification;
-      const index = notifications.findIndex(
-        (n: QueryTypes.NotificationsQuery_Notifications) => n.id === id
-      );
-      notifications.splice(index, 1);
+      const index = notificationsQuery.findIndex((n: QueryTypes.Notifications) => n.id === id);
+      notificationsQuery.splice(index, 1);
       cache.writeQuery({
         query: NOTIFICATIONS_QUERY,
         variables: { input: { first: 50 } },
-        data: { notifications }
+        data: { notificationsQuery }
       });
     }
   };

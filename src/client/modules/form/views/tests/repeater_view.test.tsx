@@ -11,15 +11,14 @@ import { create } from './form_query_data';
 describe('Form', () => {
   const descriptors = [
     create.descriptor({
+      id: '1',
       name: 'countries',
       type: QueryTypes.DataType.Object,
-      isArray: true,
-      descriptors: [
-        create.descriptor({ name: 'id', type: QueryTypes.DataType.Id }),
-        create.descriptor({ name: 'name', type: QueryTypes.DataType.String }),
-        create.descriptor({ name: 'capital', type: QueryTypes.DataType.String })
-      ]
-    })
+      isArray: true
+    }),
+    create.descriptor({ name: 'id', type: QueryTypes.DataType.Id, parentDescriptor: '1' }),
+    create.descriptor({ name: 'name', type: QueryTypes.DataType.String, parentDescriptor: '1' }),
+    create.descriptor({ name: 'capital', type: QueryTypes.DataType.String, parentDescriptor: '1' })
   ];
 
   const dataSetData = [
@@ -49,41 +48,42 @@ describe('Form', () => {
                 source: create.descriptor({
                   id: '',
                   name: 'countries'
-                }),
-                elements: [
-                  create.formElement({
-                    id: '2',
-                    row: 0,
-                    column: 0,
-                    width: 8,
-                    control: QueryTypes.FormControl.Input,
-                    label: 'Name',
-                    source: create.descriptor({
-                      id: '',
-                      name: 'name'
-                    })
-                  }),
-                  create.formElement({
-                    id: '3',
-                    row: 0,
-                    column: 8,
-                    width: 8,
-                    control: QueryTypes.FormControl.Input,
-                    label: 'Capital',
-                    source: create.descriptor({
-                      id: '',
-                      name: 'capital'
-                    })
-                  }),
-                  create.formElement({
-                    id: '4',
-                    row: 0,
-                    column: 15,
-                    width: 1,
-                    control: QueryTypes.FormControl.DeleteButton,
-                    label: '\xa0'
-                  })
-                ]
+                })
+              }),
+              create.formElement({
+                id: '2',
+                parentElement: '1',
+                row: 0,
+                column: 0,
+                width: 8,
+                control: QueryTypes.FormControl.Input,
+                label: 'Name',
+                source: create.descriptor({
+                  id: '',
+                  name: 'name'
+                })
+              }),
+              create.formElement({
+                id: '3',
+                parentElement: '1',
+                row: 0,
+                column: 8,
+                width: 8,
+                control: QueryTypes.FormControl.Input,
+                label: 'Capital',
+                source: create.descriptor({
+                  id: '',
+                  name: 'capital'
+                })
+              }),
+              create.formElement({
+                id: '4',
+                parentElement: '1',
+                row: 0,
+                column: 15,
+                width: 1,
+                control: QueryTypes.FormControl.DeleteButton,
+                label: '\xa0'
               })
             ]
           })

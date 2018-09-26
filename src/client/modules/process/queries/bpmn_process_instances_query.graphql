@@ -1,0 +1,31 @@
+fragment BpmnProcessInstanceItem on BpmnProcessInstance {
+  id
+  status
+  process {
+    name
+    description
+    type
+  }
+  owner {
+    name
+  }
+  tasks {
+    dateStarted
+    dateFinished
+    task {
+      name
+    }
+    performer {
+      name
+    }
+    performerRoles
+  }
+  dateStarted
+  dateFinished
+}
+
+query BpmnProcessInstancesQuery($input: BpmnProcessInstancesInput!) {
+  bpmnProcessInstancesQuery(input: $input) {
+    ...BpmnProcessInstanceItem
+  }
+}

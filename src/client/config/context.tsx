@@ -4,6 +4,8 @@ import * as React from 'react';
 
 import i18n from 'es2015-i18n-tag';
 
+import './helpers';
+
 // Add locale-specific relative date/time formatting rules.
 TimeAgo.locale(en);
 const timeAgo = new TimeAgo('en-US');

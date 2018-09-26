@@ -1,5 +1,5 @@
-# source: http://localhost:4466/test
-# timestamp: Mon Sep 24 2018 20:13:00 GMT+1000 (Australian Eastern Standard Time)
+# source: http://localhost:4466
+# timestamp: Tue Oct 02 2018 16:13:32 GMT+1000 (Australian Eastern Standard Time)
 
 type Access implements Node {
   id: ID!
@@ -598,6 +598,10 @@ type AggregateBpmnProcessInstance {
   count: Int!
 }
 
+type AggregateBpmnTask {
+  count: Int!
+}
+
 type AggregateBpmnTaskInstance {
   count: Int!
 }
@@ -611,6 +615,10 @@ type AggregateData {
 }
 
 type AggregateDataDescriptor {
+  count: Int!
+}
+
+type AggregateDocument {
   count: Int!
 }
 
@@ -672,6 +680,7 @@ type BpmnProcess implements Node {
   status: ProcessStatus!
   version: Int!
   versions(where: BpmnProcessWhereInput, orderBy: BpmnProcessOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BpmnProcess!]
+  tasks(where: BpmnTaskWhereInput, orderBy: BpmnTaskOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BpmnTask!]
 }
 
 """A connection to a list of items."""
@@ -696,6 +705,7 @@ input BpmnProcessCreateInput {
   dataDescriptors: DataDescriptorCreateManyInput
   resources: ResourceCreateManyInput
   versions: BpmnProcessCreateManyInput
+  tasks: BpmnTaskCreateManyInput
 }
 
 input BpmnProcessCreateManyInput {
@@ -1205,6 +1215,7 @@ input BpmnProcessUpdateDataInput {
   dataDescriptors: DataDescriptorUpdateManyInput
   resources: ResourceUpdateManyInput
   versions: BpmnProcessUpdateManyInput
+  tasks: BpmnTaskUpdateManyInput
 }
 
 input BpmnProcessUpdateInput {
@@ -1219,6 +1230,7 @@ input BpmnProcessUpdateInput {
   dataDescriptors: DataDescriptorUpdateManyInput
   resources: ResourceUpdateManyInput
   versions: BpmnProcessUpdateManyInput
+  tasks: BpmnTaskUpdateManyInput
 }
 
 input BpmnProcessUpdateManyInput {
@@ -1497,6 +1509,9 @@ input BpmnProcessWhereInput {
   versions_every: BpmnProcessWhereInput
   versions_some: BpmnProcessWhereInput
   versions_none: BpmnProcessWhereInput
+  tasks_every: BpmnTaskWhereInput
+  tasks_some: BpmnTaskWhereInput
+  tasks_none: BpmnTaskWhereInput
   _MagicalBackRelation_BpmnProcessVersions_every: BpmnProcessWhereInput
   _MagicalBackRelation_BpmnProcessVersions_some: BpmnProcessWhereInput
   _MagicalBackRelation_BpmnProcessVersions_none: BpmnProcessWhereInput
@@ -1507,6 +1522,48 @@ input BpmnProcessWhereInput {
 
 input BpmnProcessWhereUniqueInput {
   id: ID
+}
+
+type BpmnTask implements Node {
+  id: ID!
+  taskId: ID!
+  resources(where: ResourceWhereInput, orderBy: ResourceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Resource!]
+  name: String!
+}
+
+"""A connection to a list of items."""
+type BpmnTaskConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [BpmnTaskEdge]!
+  aggregate: AggregateBpmnTask!
+}
+
+input BpmnTaskCreateInput {
+  taskId: ID!
+  name: String!
+  resources: ResourceCreateManyInput
+}
+
+input BpmnTaskCreateManyInput {
+  create: [BpmnTaskCreateInput!]
+  connect: [BpmnTaskWhereUniqueInput!]
+}
+
+input BpmnTaskCreateOneInput {
+  create: BpmnTaskCreateInput
+  connect: BpmnTaskWhereUniqueInput
+}
+
+"""An edge in a connection."""
+type BpmnTaskEdge {
+  """The item at the end of the edge."""
+  node: BpmnTask!
+
+  """A cursor for use in pagination."""
+  cursor: String!
 }
 
 type BpmnTaskInstance implements Node {
@@ -1520,7 +1577,7 @@ type BpmnTaskInstance implements Node {
   processInstance(where: BpmnProcessInstanceWhereInput): BpmnProcessInstance!
   data: Json
   status: BpmnTaskInstanceStatus!
-  taskId: String
+  task(where: BpmnTaskWhereInput): BpmnTask!
 }
 
 """A connection to a list of items."""
@@ -1540,20 +1597,15 @@ input BpmnTaskInstanceCreateInput {
   performerId: String
   data: Json
   status: BpmnTaskInstanceStatus!
-  taskId: String
   performerRoles: BpmnTaskInstanceCreateperformerRolesInput
   performer: UserCreateOneInput
   processInstance: BpmnProcessInstanceCreateOneInput!
+  task: BpmnTaskCreateOneInput!
 }
 
 input BpmnTaskInstanceCreateManyInput {
   create: [BpmnTaskInstanceCreateInput!]
   connect: [BpmnTaskInstanceWhereUniqueInput!]
-}
-
-input BpmnTaskInstanceCreateOneInput {
-  create: BpmnTaskInstanceCreateInput
-  connect: BpmnTaskInstanceWhereUniqueInput
 }
 
 input BpmnTaskInstanceCreateperformerRolesInput {
@@ -1584,8 +1636,6 @@ enum BpmnTaskInstanceOrderByInput {
   data_DESC
   status_ASC
   status_DESC
-  taskId_ASC
-  taskId_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -1601,7 +1651,6 @@ type BpmnTaskInstancePreviousValues {
   performerRoles: [String!]!
   data: Json
   status: BpmnTaskInstanceStatus!
-  taskId: String
 }
 
 enum BpmnTaskInstanceStatus {
@@ -1657,10 +1706,10 @@ input BpmnTaskInstanceUpdateDataInput {
   performerId: String
   data: Json
   status: BpmnTaskInstanceStatus
-  taskId: String
   performerRoles: BpmnTaskInstanceUpdateperformerRolesInput
   performer: UserUpdateOneInput
   processInstance: BpmnProcessInstanceUpdateOneInput
+  task: BpmnTaskUpdateOneInput
 }
 
 input BpmnTaskInstanceUpdateInput {
@@ -1670,10 +1719,10 @@ input BpmnTaskInstanceUpdateInput {
   performerId: String
   data: Json
   status: BpmnTaskInstanceStatus
-  taskId: String
   performerRoles: BpmnTaskInstanceUpdateperformerRolesInput
   performer: UserUpdateOneInput
   processInstance: BpmnProcessInstanceUpdateOneInput
+  task: BpmnTaskUpdateOneInput
 }
 
 input BpmnTaskInstanceUpdateManyInput {
@@ -1685,15 +1734,6 @@ input BpmnTaskInstanceUpdateManyInput {
   upsert: [BpmnTaskInstanceUpsertWithWhereUniqueNestedInput!]
 }
 
-input BpmnTaskInstanceUpdateOneInput {
-  create: BpmnTaskInstanceCreateInput
-  connect: BpmnTaskInstanceWhereUniqueInput
-  disconnect: Boolean
-  delete: Boolean
-  update: BpmnTaskInstanceUpdateDataInput
-  upsert: BpmnTaskInstanceUpsertNestedInput
-}
-
 input BpmnTaskInstanceUpdateperformerRolesInput {
   set: [String!]
 }
@@ -1701,11 +1741,6 @@ input BpmnTaskInstanceUpdateperformerRolesInput {
 input BpmnTaskInstanceUpdateWithWhereUniqueNestedInput {
   where: BpmnTaskInstanceWhereUniqueInput!
   data: BpmnTaskInstanceUpdateDataInput!
-}
-
-input BpmnTaskInstanceUpsertNestedInput {
-  update: BpmnTaskInstanceUpdateDataInput!
-  create: BpmnTaskInstanceCreateInput!
 }
 
 input BpmnTaskInstanceUpsertWithWhereUniqueNestedInput {
@@ -1879,51 +1914,9 @@ input BpmnTaskInstanceWhereInput {
 
   """All values that are not contained in given list."""
   status_not_in: [BpmnTaskInstanceStatus!]
-  taskId: String
-
-  """All values that are not equal to given value."""
-  taskId_not: String
-
-  """All values that are contained in given list."""
-  taskId_in: [String!]
-
-  """All values that are not contained in given list."""
-  taskId_not_in: [String!]
-
-  """All values less than the given value."""
-  taskId_lt: String
-
-  """All values less than or equal the given value."""
-  taskId_lte: String
-
-  """All values greater than the given value."""
-  taskId_gt: String
-
-  """All values greater than or equal the given value."""
-  taskId_gte: String
-
-  """All values containing the given string."""
-  taskId_contains: String
-
-  """All values not containing the given string."""
-  taskId_not_contains: String
-
-  """All values starting with the given string."""
-  taskId_starts_with: String
-
-  """All values not starting with the given string."""
-  taskId_not_starts_with: String
-
-  """All values ending with the given string."""
-  taskId_ends_with: String
-
-  """All values not ending with the given string."""
-  taskId_not_ends_with: String
   performer: UserWhereInput
   processInstance: BpmnProcessInstanceWhereInput
-  _MagicalBackRelation_LoggedBpmnTaskInstance_every: LogWhereInput
-  _MagicalBackRelation_LoggedBpmnTaskInstance_some: LogWhereInput
-  _MagicalBackRelation_LoggedBpmnTaskInstance_none: LogWhereInput
+  task: BpmnTaskWhereInput
   _MagicalBackRelation_BpmnProcessInstanceTasks_every: BpmnProcessInstanceWhereInput
   _MagicalBackRelation_BpmnProcessInstanceTasks_some: BpmnProcessInstanceWhereInput
   _MagicalBackRelation_BpmnProcessInstanceTasks_none: BpmnProcessInstanceWhereInput
@@ -1931,6 +1924,254 @@ input BpmnTaskInstanceWhereInput {
 
 input BpmnTaskInstanceWhereUniqueInput {
   id: ID
+}
+
+enum BpmnTaskOrderByInput {
+  id_ASC
+  id_DESC
+  taskId_ASC
+  taskId_DESC
+  name_ASC
+  name_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type BpmnTaskPreviousValues {
+  id: ID!
+  taskId: ID!
+  name: String!
+}
+
+type BpmnTaskSubscriptionPayload {
+  mutation: MutationType!
+  node: BpmnTask
+  updatedFields: [String!]
+  previousValues: BpmnTaskPreviousValues
+}
+
+input BpmnTaskSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [BpmnTaskSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [BpmnTaskSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [BpmnTaskSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: BpmnTaskWhereInput
+}
+
+input BpmnTaskUpdateDataInput {
+  taskId: ID
+  name: String
+  resources: ResourceUpdateManyInput
+}
+
+input BpmnTaskUpdateInput {
+  taskId: ID
+  name: String
+  resources: ResourceUpdateManyInput
+}
+
+input BpmnTaskUpdateManyInput {
+  create: [BpmnTaskCreateInput!]
+  connect: [BpmnTaskWhereUniqueInput!]
+  disconnect: [BpmnTaskWhereUniqueInput!]
+  delete: [BpmnTaskWhereUniqueInput!]
+  update: [BpmnTaskUpdateWithWhereUniqueNestedInput!]
+  upsert: [BpmnTaskUpsertWithWhereUniqueNestedInput!]
+}
+
+input BpmnTaskUpdateOneInput {
+  create: BpmnTaskCreateInput
+  connect: BpmnTaskWhereUniqueInput
+  delete: Boolean
+  update: BpmnTaskUpdateDataInput
+  upsert: BpmnTaskUpsertNestedInput
+}
+
+input BpmnTaskUpdateWithWhereUniqueNestedInput {
+  where: BpmnTaskWhereUniqueInput!
+  data: BpmnTaskUpdateDataInput!
+}
+
+input BpmnTaskUpsertNestedInput {
+  update: BpmnTaskUpdateDataInput!
+  create: BpmnTaskCreateInput!
+}
+
+input BpmnTaskUpsertWithWhereUniqueNestedInput {
+  where: BpmnTaskWhereUniqueInput!
+  update: BpmnTaskUpdateDataInput!
+  create: BpmnTaskCreateInput!
+}
+
+input BpmnTaskWhereInput {
+  """Logical AND on all given filters."""
+  AND: [BpmnTaskWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [BpmnTaskWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [BpmnTaskWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  taskId: ID
+
+  """All values that are not equal to given value."""
+  taskId_not: ID
+
+  """All values that are contained in given list."""
+  taskId_in: [ID!]
+
+  """All values that are not contained in given list."""
+  taskId_not_in: [ID!]
+
+  """All values less than the given value."""
+  taskId_lt: ID
+
+  """All values less than or equal the given value."""
+  taskId_lte: ID
+
+  """All values greater than the given value."""
+  taskId_gt: ID
+
+  """All values greater than or equal the given value."""
+  taskId_gte: ID
+
+  """All values containing the given string."""
+  taskId_contains: ID
+
+  """All values not containing the given string."""
+  taskId_not_contains: ID
+
+  """All values starting with the given string."""
+  taskId_starts_with: ID
+
+  """All values not starting with the given string."""
+  taskId_not_starts_with: ID
+
+  """All values ending with the given string."""
+  taskId_ends_with: ID
+
+  """All values not ending with the given string."""
+  taskId_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  resources_every: ResourceWhereInput
+  resources_some: ResourceWhereInput
+  resources_none: ResourceWhereInput
+  _MagicalBackRelation_BpmnTaskToBpmnTaskInstance_every: BpmnTaskInstanceWhereInput
+  _MagicalBackRelation_BpmnTaskToBpmnTaskInstance_some: BpmnTaskInstanceWhereInput
+  _MagicalBackRelation_BpmnTaskToBpmnTaskInstance_none: BpmnTaskInstanceWhereInput
+  _MagicalBackRelation_BomnProcessTasks_every: BpmnProcessWhereInput
+  _MagicalBackRelation_BomnProcessTasks_some: BpmnProcessWhereInput
+  _MagicalBackRelation_BomnProcessTasks_none: BpmnProcessWhereInput
+}
+
+input BpmnTaskWhereUniqueInput {
+  id: ID
+  taskId: ID
 }
 
 type Comment implements Node {
@@ -3040,6 +3281,290 @@ input DataWhereUniqueInput {
 
 scalar DateTime
 
+type Document implements Node {
+  id: ID!
+  title: String!
+  content: String
+  version: Int
+}
+
+"""A connection to a list of items."""
+type DocumentConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [DocumentEdge]!
+  aggregate: AggregateDocument!
+}
+
+input DocumentCreateInput {
+  title: String!
+  content: String
+  version: Int
+}
+
+input DocumentCreateOneInput {
+  create: DocumentCreateInput
+  connect: DocumentWhereUniqueInput
+}
+
+"""An edge in a connection."""
+type DocumentEdge {
+  """The item at the end of the edge."""
+  node: Document!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum DocumentOrderByInput {
+  id_ASC
+  id_DESC
+  title_ASC
+  title_DESC
+  content_ASC
+  content_DESC
+  version_ASC
+  version_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type DocumentPreviousValues {
+  id: ID!
+  title: String!
+  content: String
+  version: Int
+}
+
+type DocumentSubscriptionPayload {
+  mutation: MutationType!
+  node: Document
+  updatedFields: [String!]
+  previousValues: DocumentPreviousValues
+}
+
+input DocumentSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [DocumentSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [DocumentSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [DocumentSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: DocumentWhereInput
+}
+
+input DocumentUpdateDataInput {
+  title: String
+  content: String
+  version: Int
+}
+
+input DocumentUpdateInput {
+  title: String
+  content: String
+  version: Int
+}
+
+input DocumentUpdateOneInput {
+  create: DocumentCreateInput
+  connect: DocumentWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: DocumentUpdateDataInput
+  upsert: DocumentUpsertNestedInput
+}
+
+input DocumentUpsertNestedInput {
+  update: DocumentUpdateDataInput!
+  create: DocumentCreateInput!
+}
+
+input DocumentWhereInput {
+  """Logical AND on all given filters."""
+  AND: [DocumentWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [DocumentWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [DocumentWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  title: String
+
+  """All values that are not equal to given value."""
+  title_not: String
+
+  """All values that are contained in given list."""
+  title_in: [String!]
+
+  """All values that are not contained in given list."""
+  title_not_in: [String!]
+
+  """All values less than the given value."""
+  title_lt: String
+
+  """All values less than or equal the given value."""
+  title_lte: String
+
+  """All values greater than the given value."""
+  title_gt: String
+
+  """All values greater than or equal the given value."""
+  title_gte: String
+
+  """All values containing the given string."""
+  title_contains: String
+
+  """All values not containing the given string."""
+  title_not_contains: String
+
+  """All values starting with the given string."""
+  title_starts_with: String
+
+  """All values not starting with the given string."""
+  title_not_starts_with: String
+
+  """All values ending with the given string."""
+  title_ends_with: String
+
+  """All values not ending with the given string."""
+  title_not_ends_with: String
+  content: String
+
+  """All values that are not equal to given value."""
+  content_not: String
+
+  """All values that are contained in given list."""
+  content_in: [String!]
+
+  """All values that are not contained in given list."""
+  content_not_in: [String!]
+
+  """All values less than the given value."""
+  content_lt: String
+
+  """All values less than or equal the given value."""
+  content_lte: String
+
+  """All values greater than the given value."""
+  content_gt: String
+
+  """All values greater than or equal the given value."""
+  content_gte: String
+
+  """All values containing the given string."""
+  content_contains: String
+
+  """All values not containing the given string."""
+  content_not_contains: String
+
+  """All values starting with the given string."""
+  content_starts_with: String
+
+  """All values not starting with the given string."""
+  content_not_starts_with: String
+
+  """All values ending with the given string."""
+  content_ends_with: String
+
+  """All values not ending with the given string."""
+  content_not_ends_with: String
+  version: Int
+
+  """All values that are not equal to given value."""
+  version_not: Int
+
+  """All values that are contained in given list."""
+  version_in: [Int!]
+
+  """All values that are not contained in given list."""
+  version_not_in: [Int!]
+
+  """All values less than the given value."""
+  version_lt: Int
+
+  """All values less than or equal the given value."""
+  version_lte: Int
+
+  """All values greater than the given value."""
+  version_gt: Int
+
+  """All values greater than or equal the given value."""
+  version_gte: Int
+  _MagicalBackRelation_ResourceDocument_every: ResourceWhereInput
+  _MagicalBackRelation_ResourceDocument_some: ResourceWhereInput
+  _MagicalBackRelation_ResourceDocument_none: ResourceWhereInput
+}
+
+input DocumentWhereUniqueInput {
+  id: ID
+}
+
 type Form implements Node {
   id: ID!
   name: String!
@@ -3066,6 +3591,7 @@ enum FormControl {
   Textarea
   Repeater
   Table
+  Text
   DeleteButton
 }
 
@@ -3898,9 +4424,9 @@ input FormWhereInput {
   validations_every: ValidatorWhereInput
   validations_some: ValidatorWhereInput
   validations_none: ValidatorWhereInput
-  _MagicalBackRelation_FormToResource_every: ResourceWhereInput
-  _MagicalBackRelation_FormToResource_some: ResourceWhereInput
-  _MagicalBackRelation_FormToResource_none: ResourceWhereInput
+  _MagicalBackRelation_ResourceReport_every: ResourceWhereInput
+  _MagicalBackRelation_ResourceReport_some: ResourceWhereInput
+  _MagicalBackRelation_ResourceReport_none: ResourceWhereInput
 }
 
 input FormWhereUniqueInput {
@@ -4163,7 +4689,6 @@ type Log {
   elementId: String!
   elementName: String!
   date: DateTime!
-  taskInstance(where: BpmnTaskInstanceWhereInput): BpmnTaskInstance
 }
 
 """A connection to a list of items."""
@@ -4181,7 +4706,6 @@ input LogCreateInput {
   elementName: String!
   date: DateTime!
   processInstance: BpmnProcessInstanceCreateOneWithoutLogInput!
-  taskInstance: BpmnTaskInstanceCreateOneInput
 }
 
 input LogCreateManyWithoutProcessInstanceInput {
@@ -4192,7 +4716,6 @@ input LogCreateWithoutProcessInstanceInput {
   elementId: String!
   elementName: String!
   date: DateTime!
-  taskInstance: BpmnTaskInstanceCreateOneInput
 }
 
 """An edge in a connection."""
@@ -4269,7 +4792,6 @@ input LogUpdateInput {
   elementName: String
   date: DateTime
   processInstance: BpmnProcessInstanceUpdateOneWithoutLogInput
-  taskInstance: BpmnTaskInstanceUpdateOneInput
 }
 
 input LogUpdateManyWithoutProcessInstanceInput {
@@ -4388,7 +4910,6 @@ input LogWhereInput {
   """All values greater than or equal the given value."""
   date_gte: DateTime
   processInstance: BpmnProcessInstanceWhereInput
-  taskInstance: BpmnTaskInstanceWhereInput
 }
 
 """
@@ -4403,11 +4924,12 @@ type Mutation {
   createOrganisation(data: OrganisationCreateInput!): Organisation!
   createRole(data: RoleCreateInput!): Role!
   createUser(data: UserCreateInput!): User!
-  createForm(data: FormCreateInput!): Form!
   createValidator(data: ValidatorCreateInput!): Validator!
+  createForm(data: FormCreateInput!): Form!
   createFormElement(data: FormElementCreateInput!): FormElement!
   createComment(data: CommentCreateInput!): Comment!
   createNotification(data: NotificationCreateInput!): Notification!
+  createDocument(data: DocumentCreateInput!): Document!
   createAccessCondition(data: AccessConditionCreateInput!): AccessCondition!
   createDataDescriptor(data: DataDescriptorCreateInput!): DataDescriptor!
   createResource(data: ResourceCreateInput!): Resource!
@@ -4415,65 +4937,73 @@ type Mutation {
   createData(data: DataCreateInput!): Data!
   createBpmnTaskInstance(data: BpmnTaskInstanceCreateInput!): BpmnTaskInstance!
   createBpmnProcess(data: BpmnProcessCreateInput!): BpmnProcess!
+  createBpmnTask(data: BpmnTaskCreateInput!): BpmnTask!
   createBpmnProcessInstance(data: BpmnProcessInstanceCreateInput!): BpmnProcessInstance!
   updateLocalisation(data: LocalisationUpdateInput!, where: LocalisationWhereUniqueInput!): Localisation
   updateOrganisation(data: OrganisationUpdateInput!, where: OrganisationWhereUniqueInput!): Organisation
   updateRole(data: RoleUpdateInput!, where: RoleWhereUniqueInput!): Role
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  updateForm(data: FormUpdateInput!, where: FormWhereUniqueInput!): Form
   updateValidator(data: ValidatorUpdateInput!, where: ValidatorWhereUniqueInput!): Validator
+  updateForm(data: FormUpdateInput!, where: FormWhereUniqueInput!): Form
   updateFormElement(data: FormElementUpdateInput!, where: FormElementWhereUniqueInput!): FormElement
   updateComment(data: CommentUpdateInput!, where: CommentWhereUniqueInput!): Comment
   updateNotification(data: NotificationUpdateInput!, where: NotificationWhereUniqueInput!): Notification
+  updateDocument(data: DocumentUpdateInput!, where: DocumentWhereUniqueInput!): Document
   updateDataDescriptor(data: DataDescriptorUpdateInput!, where: DataDescriptorWhereUniqueInput!): DataDescriptor
   updateResource(data: ResourceUpdateInput!, where: ResourceWhereUniqueInput!): Resource
   updateAccess(data: AccessUpdateInput!, where: AccessWhereUniqueInput!): Access
   updateData(data: DataUpdateInput!, where: DataWhereUniqueInput!): Data
   updateBpmnTaskInstance(data: BpmnTaskInstanceUpdateInput!, where: BpmnTaskInstanceWhereUniqueInput!): BpmnTaskInstance
   updateBpmnProcess(data: BpmnProcessUpdateInput!, where: BpmnProcessWhereUniqueInput!): BpmnProcess
+  updateBpmnTask(data: BpmnTaskUpdateInput!, where: BpmnTaskWhereUniqueInput!): BpmnTask
   updateBpmnProcessInstance(data: BpmnProcessInstanceUpdateInput!, where: BpmnProcessInstanceWhereUniqueInput!): BpmnProcessInstance
   deleteLocalisation(where: LocalisationWhereUniqueInput!): Localisation
   deleteOrganisation(where: OrganisationWhereUniqueInput!): Organisation
   deleteRole(where: RoleWhereUniqueInput!): Role
   deleteUser(where: UserWhereUniqueInput!): User
-  deleteForm(where: FormWhereUniqueInput!): Form
   deleteValidator(where: ValidatorWhereUniqueInput!): Validator
+  deleteForm(where: FormWhereUniqueInput!): Form
   deleteFormElement(where: FormElementWhereUniqueInput!): FormElement
   deleteComment(where: CommentWhereUniqueInput!): Comment
   deleteNotification(where: NotificationWhereUniqueInput!): Notification
+  deleteDocument(where: DocumentWhereUniqueInput!): Document
   deleteDataDescriptor(where: DataDescriptorWhereUniqueInput!): DataDescriptor
   deleteResource(where: ResourceWhereUniqueInput!): Resource
   deleteAccess(where: AccessWhereUniqueInput!): Access
   deleteData(where: DataWhereUniqueInput!): Data
   deleteBpmnTaskInstance(where: BpmnTaskInstanceWhereUniqueInput!): BpmnTaskInstance
   deleteBpmnProcess(where: BpmnProcessWhereUniqueInput!): BpmnProcess
+  deleteBpmnTask(where: BpmnTaskWhereUniqueInput!): BpmnTask
   deleteBpmnProcessInstance(where: BpmnProcessInstanceWhereUniqueInput!): BpmnProcessInstance
   upsertLocalisation(where: LocalisationWhereUniqueInput!, create: LocalisationCreateInput!, update: LocalisationUpdateInput!): Localisation!
   upsertOrganisation(where: OrganisationWhereUniqueInput!, create: OrganisationCreateInput!, update: OrganisationUpdateInput!): Organisation!
   upsertRole(where: RoleWhereUniqueInput!, create: RoleCreateInput!, update: RoleUpdateInput!): Role!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  upsertForm(where: FormWhereUniqueInput!, create: FormCreateInput!, update: FormUpdateInput!): Form!
   upsertValidator(where: ValidatorWhereUniqueInput!, create: ValidatorCreateInput!, update: ValidatorUpdateInput!): Validator!
+  upsertForm(where: FormWhereUniqueInput!, create: FormCreateInput!, update: FormUpdateInput!): Form!
   upsertFormElement(where: FormElementWhereUniqueInput!, create: FormElementCreateInput!, update: FormElementUpdateInput!): FormElement!
   upsertComment(where: CommentWhereUniqueInput!, create: CommentCreateInput!, update: CommentUpdateInput!): Comment!
   upsertNotification(where: NotificationWhereUniqueInput!, create: NotificationCreateInput!, update: NotificationUpdateInput!): Notification!
+  upsertDocument(where: DocumentWhereUniqueInput!, create: DocumentCreateInput!, update: DocumentUpdateInput!): Document!
   upsertDataDescriptor(where: DataDescriptorWhereUniqueInput!, create: DataDescriptorCreateInput!, update: DataDescriptorUpdateInput!): DataDescriptor!
   upsertResource(where: ResourceWhereUniqueInput!, create: ResourceCreateInput!, update: ResourceUpdateInput!): Resource!
   upsertAccess(where: AccessWhereUniqueInput!, create: AccessCreateInput!, update: AccessUpdateInput!): Access!
   upsertData(where: DataWhereUniqueInput!, create: DataCreateInput!, update: DataUpdateInput!): Data!
   upsertBpmnTaskInstance(where: BpmnTaskInstanceWhereUniqueInput!, create: BpmnTaskInstanceCreateInput!, update: BpmnTaskInstanceUpdateInput!): BpmnTaskInstance!
   upsertBpmnProcess(where: BpmnProcessWhereUniqueInput!, create: BpmnProcessCreateInput!, update: BpmnProcessUpdateInput!): BpmnProcess!
+  upsertBpmnTask(where: BpmnTaskWhereUniqueInput!, create: BpmnTaskCreateInput!, update: BpmnTaskUpdateInput!): BpmnTask!
   upsertBpmnProcessInstance(where: BpmnProcessInstanceWhereUniqueInput!, create: BpmnProcessInstanceCreateInput!, update: BpmnProcessInstanceUpdateInput!): BpmnProcessInstance!
   updateManyLogs(data: LogUpdateInput!, where: LogWhereInput): BatchPayload!
   updateManyLocalisations(data: LocalisationUpdateInput!, where: LocalisationWhereInput): BatchPayload!
   updateManyOrganisations(data: OrganisationUpdateInput!, where: OrganisationWhereInput): BatchPayload!
   updateManyRoles(data: RoleUpdateInput!, where: RoleWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
-  updateManyForms(data: FormUpdateInput!, where: FormWhereInput): BatchPayload!
   updateManyValidators(data: ValidatorUpdateInput!, where: ValidatorWhereInput): BatchPayload!
+  updateManyForms(data: FormUpdateInput!, where: FormWhereInput): BatchPayload!
   updateManyFormElements(data: FormElementUpdateInput!, where: FormElementWhereInput): BatchPayload!
   updateManyComments(data: CommentUpdateInput!, where: CommentWhereInput): BatchPayload!
   updateManyNotifications(data: NotificationUpdateInput!, where: NotificationWhereInput): BatchPayload!
+  updateManyDocuments(data: DocumentUpdateInput!, where: DocumentWhereInput): BatchPayload!
   updateManyAccessConditions(data: AccessConditionUpdateInput!, where: AccessConditionWhereInput): BatchPayload!
   updateManyDataDescriptors(data: DataDescriptorUpdateInput!, where: DataDescriptorWhereInput): BatchPayload!
   updateManyResources(data: ResourceUpdateInput!, where: ResourceWhereInput): BatchPayload!
@@ -4481,17 +5011,19 @@ type Mutation {
   updateManyDatas(data: DataUpdateInput!, where: DataWhereInput): BatchPayload!
   updateManyBpmnTaskInstances(data: BpmnTaskInstanceUpdateInput!, where: BpmnTaskInstanceWhereInput): BatchPayload!
   updateManyBpmnProcesses(data: BpmnProcessUpdateInput!, where: BpmnProcessWhereInput): BatchPayload!
+  updateManyBpmnTasks(data: BpmnTaskUpdateInput!, where: BpmnTaskWhereInput): BatchPayload!
   updateManyBpmnProcessInstances(data: BpmnProcessInstanceUpdateInput!, where: BpmnProcessInstanceWhereInput): BatchPayload!
   deleteManyLogs(where: LogWhereInput): BatchPayload!
   deleteManyLocalisations(where: LocalisationWhereInput): BatchPayload!
   deleteManyOrganisations(where: OrganisationWhereInput): BatchPayload!
   deleteManyRoles(where: RoleWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
-  deleteManyForms(where: FormWhereInput): BatchPayload!
   deleteManyValidators(where: ValidatorWhereInput): BatchPayload!
+  deleteManyForms(where: FormWhereInput): BatchPayload!
   deleteManyFormElements(where: FormElementWhereInput): BatchPayload!
   deleteManyComments(where: CommentWhereInput): BatchPayload!
   deleteManyNotifications(where: NotificationWhereInput): BatchPayload!
+  deleteManyDocuments(where: DocumentWhereInput): BatchPayload!
   deleteManyAccessConditions(where: AccessConditionWhereInput): BatchPayload!
   deleteManyDataDescriptors(where: DataDescriptorWhereInput): BatchPayload!
   deleteManyResources(where: ResourceWhereInput): BatchPayload!
@@ -4499,6 +5031,7 @@ type Mutation {
   deleteManyDatas(where: DataWhereInput): BatchPayload!
   deleteManyBpmnTaskInstances(where: BpmnTaskInstanceWhereInput): BatchPayload!
   deleteManyBpmnProcesses(where: BpmnProcessWhereInput): BatchPayload!
+  deleteManyBpmnTasks(where: BpmnTaskWhereInput): BatchPayload!
   deleteManyBpmnProcessInstances(where: BpmnProcessInstanceWhereInput): BatchPayload!
 }
 
@@ -5140,11 +5673,12 @@ type Query {
   organisations(where: OrganisationWhereInput, orderBy: OrganisationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Organisation]!
   roles(where: RoleWhereInput, orderBy: RoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Role]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
-  forms(where: FormWhereInput, orderBy: FormOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Form]!
   validators(where: ValidatorWhereInput, orderBy: ValidatorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Validator]!
+  forms(where: FormWhereInput, orderBy: FormOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Form]!
   formElements(where: FormElementWhereInput, orderBy: FormElementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FormElement]!
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment]!
   notifications(where: NotificationWhereInput, orderBy: NotificationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Notification]!
+  documents(where: DocumentWhereInput, orderBy: DocumentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Document]!
   accessConditions(where: AccessConditionWhereInput, orderBy: AccessConditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [AccessCondition]!
   dataDescriptors(where: DataDescriptorWhereInput, orderBy: DataDescriptorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [DataDescriptor]!
   resources(where: ResourceWhereInput, orderBy: ResourceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Resource]!
@@ -5152,33 +5686,37 @@ type Query {
   datas(where: DataWhereInput, orderBy: DataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Data]!
   bpmnTaskInstances(where: BpmnTaskInstanceWhereInput, orderBy: BpmnTaskInstanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BpmnTaskInstance]!
   bpmnProcesses(where: BpmnProcessWhereInput, orderBy: BpmnProcessOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BpmnProcess]!
+  bpmnTasks(where: BpmnTaskWhereInput, orderBy: BpmnTaskOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BpmnTask]!
   bpmnProcessInstances(where: BpmnProcessInstanceWhereInput, orderBy: BpmnProcessInstanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BpmnProcessInstance]!
   localisation(where: LocalisationWhereUniqueInput!): Localisation
   organisation(where: OrganisationWhereUniqueInput!): Organisation
   role(where: RoleWhereUniqueInput!): Role
   user(where: UserWhereUniqueInput!): User
-  form(where: FormWhereUniqueInput!): Form
   validator(where: ValidatorWhereUniqueInput!): Validator
+  form(where: FormWhereUniqueInput!): Form
   formElement(where: FormElementWhereUniqueInput!): FormElement
   comment(where: CommentWhereUniqueInput!): Comment
   notification(where: NotificationWhereUniqueInput!): Notification
+  document(where: DocumentWhereUniqueInput!): Document
   dataDescriptor(where: DataDescriptorWhereUniqueInput!): DataDescriptor
   resource(where: ResourceWhereUniqueInput!): Resource
   access(where: AccessWhereUniqueInput!): Access
   data(where: DataWhereUniqueInput!): Data
   bpmnTaskInstance(where: BpmnTaskInstanceWhereUniqueInput!): BpmnTaskInstance
   bpmnProcess(where: BpmnProcessWhereUniqueInput!): BpmnProcess
+  bpmnTask(where: BpmnTaskWhereUniqueInput!): BpmnTask
   bpmnProcessInstance(where: BpmnProcessInstanceWhereUniqueInput!): BpmnProcessInstance
   logsConnection(where: LogWhereInput, orderBy: LogOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LogConnection!
   localisationsConnection(where: LocalisationWhereInput, orderBy: LocalisationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LocalisationConnection!
   organisationsConnection(where: OrganisationWhereInput, orderBy: OrganisationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): OrganisationConnection!
   rolesConnection(where: RoleWhereInput, orderBy: RoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RoleConnection!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
-  formsConnection(where: FormWhereInput, orderBy: FormOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FormConnection!
   validatorsConnection(where: ValidatorWhereInput, orderBy: ValidatorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ValidatorConnection!
+  formsConnection(where: FormWhereInput, orderBy: FormOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FormConnection!
   formElementsConnection(where: FormElementWhereInput, orderBy: FormElementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FormElementConnection!
   commentsConnection(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CommentConnection!
   notificationsConnection(where: NotificationWhereInput, orderBy: NotificationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): NotificationConnection!
+  documentsConnection(where: DocumentWhereInput, orderBy: DocumentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DocumentConnection!
   accessConditionsConnection(where: AccessConditionWhereInput, orderBy: AccessConditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AccessConditionConnection!
   dataDescriptorsConnection(where: DataDescriptorWhereInput, orderBy: DataDescriptorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DataDescriptorConnection!
   resourcesConnection(where: ResourceWhereInput, orderBy: ResourceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ResourceConnection!
@@ -5186,6 +5724,7 @@ type Query {
   datasConnection(where: DataWhereInput, orderBy: DataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DataConnection!
   bpmnTaskInstancesConnection(where: BpmnTaskInstanceWhereInput, orderBy: BpmnTaskInstanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BpmnTaskInstanceConnection!
   bpmnProcessesConnection(where: BpmnProcessWhereInput, orderBy: BpmnProcessOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BpmnProcessConnection!
+  bpmnTasksConnection(where: BpmnTaskWhereInput, orderBy: BpmnTaskOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BpmnTaskConnection!
   bpmnProcessInstancesConnection(where: BpmnProcessInstanceWhereInput, orderBy: BpmnProcessInstanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BpmnProcessInstanceConnection!
 
   """Fetches an object given its ID"""
@@ -5199,8 +5738,9 @@ type Resource implements Node {
   id: ID!
   type: ResourceType!
   name: String!
-  content: String!
+  link: String
   form(where: FormWhereInput): Form
+  document(where: DocumentWhereInput): Document
 }
 
 """A connection to a list of items."""
@@ -5216,8 +5756,9 @@ type ResourceConnection {
 input ResourceCreateInput {
   type: ResourceType!
   name: String!
-  content: String!
+  link: String
   form: FormCreateOneInput
+  document: DocumentCreateOneInput
 }
 
 input ResourceCreateManyInput {
@@ -5241,8 +5782,8 @@ enum ResourceOrderByInput {
   type_DESC
   name_ASC
   name_DESC
-  content_ASC
-  content_DESC
+  link_ASC
+  link_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -5253,7 +5794,7 @@ type ResourcePreviousValues {
   id: ID!
   type: ResourceType!
   name: String!
-  content: String!
+  link: String
 }
 
 type ResourceSubscriptionPayload {
@@ -5306,15 +5847,17 @@ enum ResourceType {
 input ResourceUpdateDataInput {
   type: ResourceType
   name: String
-  content: String
+  link: String
   form: FormUpdateOneInput
+  document: DocumentUpdateOneInput
 }
 
 input ResourceUpdateInput {
   type: ResourceType
   name: String
-  content: String
+  link: String
   form: FormUpdateOneInput
+  document: DocumentUpdateOneInput
 }
 
 input ResourceUpdateManyInput {
@@ -5436,47 +5979,51 @@ input ResourceWhereInput {
 
   """All values not ending with the given string."""
   name_not_ends_with: String
-  content: String
+  link: String
 
   """All values that are not equal to given value."""
-  content_not: String
+  link_not: String
 
   """All values that are contained in given list."""
-  content_in: [String!]
+  link_in: [String!]
 
   """All values that are not contained in given list."""
-  content_not_in: [String!]
+  link_not_in: [String!]
 
   """All values less than the given value."""
-  content_lt: String
+  link_lt: String
 
   """All values less than or equal the given value."""
-  content_lte: String
+  link_lte: String
 
   """All values greater than the given value."""
-  content_gt: String
+  link_gt: String
 
   """All values greater than or equal the given value."""
-  content_gte: String
+  link_gte: String
 
   """All values containing the given string."""
-  content_contains: String
+  link_contains: String
 
   """All values not containing the given string."""
-  content_not_contains: String
+  link_not_contains: String
 
   """All values starting with the given string."""
-  content_starts_with: String
+  link_starts_with: String
 
   """All values not starting with the given string."""
-  content_not_starts_with: String
+  link_not_starts_with: String
 
   """All values ending with the given string."""
-  content_ends_with: String
+  link_ends_with: String
 
   """All values not ending with the given string."""
-  content_not_ends_with: String
+  link_not_ends_with: String
   form: FormWhereInput
+  document: DocumentWhereInput
+  _MagicalBackRelation_BpmnTaskToResource_every: BpmnTaskWhereInput
+  _MagicalBackRelation_BpmnTaskToResource_some: BpmnTaskWhereInput
+  _MagicalBackRelation_BpmnTaskToResource_none: BpmnTaskWhereInput
   _MagicalBackRelation_BpmnProcessResources_every: BpmnProcessWhereInput
   _MagicalBackRelation_BpmnProcessResources_some: BpmnProcessWhereInput
   _MagicalBackRelation_BpmnProcessResources_none: BpmnProcessWhereInput
@@ -5720,11 +6267,12 @@ type Subscription {
   organisation(where: OrganisationSubscriptionWhereInput): OrganisationSubscriptionPayload
   role(where: RoleSubscriptionWhereInput): RoleSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
-  form(where: FormSubscriptionWhereInput): FormSubscriptionPayload
   validator(where: ValidatorSubscriptionWhereInput): ValidatorSubscriptionPayload
+  form(where: FormSubscriptionWhereInput): FormSubscriptionPayload
   formElement(where: FormElementSubscriptionWhereInput): FormElementSubscriptionPayload
   comment(where: CommentSubscriptionWhereInput): CommentSubscriptionPayload
   notification(where: NotificationSubscriptionWhereInput): NotificationSubscriptionPayload
+  document(where: DocumentSubscriptionWhereInput): DocumentSubscriptionPayload
   accessCondition(where: AccessConditionSubscriptionWhereInput): AccessConditionSubscriptionPayload
   dataDescriptor(where: DataDescriptorSubscriptionWhereInput): DataDescriptorSubscriptionPayload
   resource(where: ResourceSubscriptionWhereInput): ResourceSubscriptionPayload
@@ -5732,6 +6280,7 @@ type Subscription {
   data(where: DataSubscriptionWhereInput): DataSubscriptionPayload
   bpmnTaskInstance(where: BpmnTaskInstanceSubscriptionWhereInput): BpmnTaskInstanceSubscriptionPayload
   bpmnProcess(where: BpmnProcessSubscriptionWhereInput): BpmnProcessSubscriptionPayload
+  bpmnTask(where: BpmnTaskSubscriptionWhereInput): BpmnTaskSubscriptionPayload
   bpmnProcessInstance(where: BpmnProcessInstanceSubscriptionWhereInput): BpmnProcessInstanceSubscriptionPayload
 }
 

@@ -22,7 +22,7 @@ type Props = {
   header: string;
   description: string;
   icon: SemanticICONS;
-  processes: QueryTypes.BpmnProcessInstancesQuery_BpmnProcessInstances[];
+  processes: QueryTypes.BpmnProcessInstanceItem[];
   context: App.Context;
 };
 

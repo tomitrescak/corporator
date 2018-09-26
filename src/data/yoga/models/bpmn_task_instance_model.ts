@@ -10,7 +10,7 @@ export class BpmnTaskInstanceModel {
   dateStarted: Date;
   dateFinished: Date;
   duration: number;
-  snapshot: any;
+  data: any;
 
   constructor(taskInstanceModelDao: Partial<Prisma.BpmnTaskInstance>, task?: Task) {
     this.id = taskInstanceModelDao.id;
@@ -21,7 +21,7 @@ export class BpmnTaskInstanceModel {
     this.dateStarted = new Date(taskInstanceModelDao.dateStarted);
     this.dateFinished = new Date(taskInstanceModelDao.dateFinished);
     this.duration = taskInstanceModelDao.duration;
-    this.snapshot = taskInstanceModelDao.snapshot;
+    this.data = taskInstanceModelDao.data;
   }
 
   async execute(context: ServerContext, _form: any) {
