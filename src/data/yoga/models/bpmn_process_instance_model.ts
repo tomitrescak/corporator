@@ -15,58 +15,54 @@ export type ProcessActionResult = {
 };
 
 export class BpmnProcessInstance {
-  static async duplicateInstance(_processInstance: BpmnProcessInstance) {
+  static async duplicateInstance(_processInstance: Prisma.BpmnProcessInstance) {
     throw new Error('not implemented');
   }
 
-  // static async createInstance(
-  //   processId: string,
-  //   processModel: BpmnProcessModel,
-  //   context: ServerContext
-  // ): Promise<BpmnProcessInstance> {
-  //   // create new process instance dao using context.db
-  //   // create object with dao and given process model
-  //   const processInstanceDAO = await context.db.mutation.createBpmnProcessInstance(
-  //     {
-  //       data: {
-  //         // dateFinished: null,
-  //         dateStarted: new Date(),
-  //         // duration: null,
-  //         owner: context.userId,
-  //         data: state.resources, // no resources?
-  //         status: 'Running',
-  //         process: {
-  //           connect: {
-  //             id: processId
-  //           }
-  //         }
-  //         tasks: [], // no task instances at the start
-  //       }
-  //     },
-  //     `{
-  //     id
-  //     dateStarted
-  //     ownerId
-  //     status
-  //     process {
-  //       id
-  //       access
-  //       actionCount
-  //       data
-  //       description
-  //       model
-  //       name
-  //       resources
-  //       status
-  //       version
-  //       versions
-  //     }
-  //   } `
-  //   );
+  static async createInstance(
+    processId: string,
+    processModel: BpmnProcessModel,
+    context: ServerContext
+  ): Promise<BpmnProcessInstance> {
+    // create new process instance dao using context.db
+    // create object with dao and given process model
+    const processInstanceDAO = await context.db.mutation.createBpmnProcessInstance(
+      {
+        data: {
+          // dateFinished: null,
+          dateStarted: new Date(),
+          // duration: null,
+          ownerId: context.userId,
+          data: '{}',
+          status: 'Running',
+          processId
+        }
+      },
+      `{
+      id
+      dateStarted
+      owner
+      status
+      process {
+        id
+        access
+        actionCount
+        dataDescriptors
+        description
+        model
+        name
+        type
+        resources
+        status
+        version
+        versions
+      }
+    } `
+    );
 
-  //   const processInstance = new BpmnProcessInstance(processInstanceDAO, processModel);
-  //   return processInstance.start(context);
-  // }
+    const processInstance = new BpmnProcessInstance(processInstanceDAO, processModel);
+    return processInstance;
+  }
 
   id: string;
   processId: string;
@@ -109,16 +105,18 @@ export class BpmnProcessInstance {
       }
     });
 
-    this.processModel
-      .getElementList<Lane>(BpmnTypes.Lane)
-      .find(l => l.roles.some(r => r === role))
-      .execute(this, context);
-
-    return {
+    const result: ProcessActionResult = {
       active: [],
       executed: [],
       processInstance: this
     };
+
+    this.processModel
+      .getElementList<Lane>(BpmnTypes.Lane)
+      .find(l => l.roles.some(r => r === role))
+      .execute(this, context, result);
+
+    return result;
   }
 
   async pause(context: ServerContext) {
@@ -149,7 +147,13 @@ export class BpmnProcessInstance {
   }
 
   async finish(context: ServerContext) {
-    /* set status to finished */
+    /* 
+      set status to finished 
+      set dateFinished
+      set duration
+      ...anything else?
+    */
+
     await context.db.mutation.updateBpmnProcessInstance({
       data: {
         status: 'Finished'

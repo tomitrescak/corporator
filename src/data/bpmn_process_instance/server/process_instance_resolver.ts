@@ -8,7 +8,7 @@ export const query: Query = {
   async bpmnProcessInstancesQuery(_parent, { input }, ctx, info) {
     return ctx.db.query.bpmnProcessInstances(
       {
-        where: purge<Yoga.BpmnProcessInstanceWhereInput>({
+        where: purge<Prisma.BpmnProcessInstanceWhereInput>({
           status: input.status
         }),
         skip: input.skip,
@@ -123,14 +123,44 @@ export const mutation: Mutation = {
     const processInstance = new BpmnProcessInstance(processInstanceDAO, bpmnProcessModel);
     return processInstance.start(ctx, role);
   },
-  // async duplicateProcessInstance(_parent, { input: { processId } }, ctx, info) {
-  //   // const processInstanceDAO = ctx.db.query.bpmnProcessInstance({
-  //   //   where: {
-  //   //     id: processId
-  //   //   }
-  //   // });
-  //   // const newProcessInstance = BpmnProcessInstance.duplicateInstance();
-  // },
+  async duplicateProcessInstance(_parent, { input: { processId } }, ctx, info) {
+    const processInstanceDAO = await ctx.db.query.bpmnProcessInstance(
+      {
+        where: {
+          id: processId
+        }
+      },
+      `{
+        id
+        comments
+        dataFinished
+        dateStarted
+        duration
+        owner
+        status
+        data
+        log
+        tasks
+        process {
+          id
+          access
+          actionCount
+          dataDescriptors
+          description
+          model
+          name
+          type
+          resources
+          status
+          version
+          versions
+        }
+      } `
+    );
+    const newProcessInstance = BpmnProcessInstance.duplicateInstance(processInstanceDAO);
+
+    return newProcessInstance;
+  },
   async setProcessInstanceStatus(_parent, { input: { processId, status } }, ctx) {
     const process = await ctx.db.mutation.updateBpmnProcessInstance({
       where: {

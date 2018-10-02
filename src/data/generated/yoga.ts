@@ -1,7 +1,7 @@
 import { makeBindingClass, Options } from 'graphql-binding'
 import { GraphQLResolveInfo, GraphQLSchema } from 'graphql'
 import { IResolvers } from 'graphql-tools/dist/Interfaces'
-import * as schema from  '../prisma/schema'
+import * as schema from  '..\prisma\schema'
 
 export interface Query {
     testQuery: <T = Boolean>(args?: {}, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,

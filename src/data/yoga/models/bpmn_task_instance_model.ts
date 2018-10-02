@@ -2,6 +2,10 @@ import { Prisma } from 'data/prisma';
 import { Task } from './bpmn';
 
 export class BpmnTaskInstanceModel {
+  static async createInstance(): Promise<BpmnTaskInstanceModel> {
+    
+  }
+  
   id: string;
   task: Task;
   processInstanceId: string;
@@ -31,7 +35,7 @@ export class BpmnTaskInstanceModel {
         performerId
         dateFinished
         duration
-        snapshot
+        data
     */
 
     await context.db.mutation.updateBpmnTaskInstance({
@@ -43,7 +47,7 @@ export class BpmnTaskInstanceModel {
       }
     });
 
-    // deep clone of snapshot using form
+    // deep clone of data using form
     //
     // pass back into state.resources
   }

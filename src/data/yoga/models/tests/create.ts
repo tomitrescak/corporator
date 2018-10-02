@@ -7,6 +7,32 @@ const defaultUser: UserCreateInput = {
   password: 'p'
 };
 
+const defaultGroup: Bpmn.Group = {
+  organisation: 'org1',
+  roles: ['role1'],
+};
+
+const defaultLane: Bpmn.Lane = {
+  id: 'lane',
+  name: 'lane',
+  $type: 'bpmn:lane',
+  description: '',
+  roles: defaultGroup,
+  nodes: null
+};
+
+const defaultEndEvent: Bpmn.EndEvent = {
+  id: 'end',
+  name: 'endevent',
+  $type: 'bpmn:endevent',
+  description: '',
+  incoming: [] as Bpmn.SequenceFlow[],
+  outgoing: [] as Bpmn.SequenceFlow[],
+  lane: defaultLane
+};
+
+
+
 function merge<T>(a: any, b: T): T {
   for (let key of Object.getOwnPropertyNames(b)) {
     if ((b as any)[key]) {
@@ -32,5 +58,14 @@ export const create = {
     // return ctx.db.mutation.createBpmnProcessInstance({
     //   data: { ...defaultBpmnProcessInstance, ...data }
     // });
-  }
+  },
+  endEventDAO(endEvent: Partial<Bpmn.EndEvent> = {}): Bpmn.EndEvent {
+    return { ...defaultEndEvent, ...endEvent };
+  },
+  laneDAO(lane: Partial<Bpmn.Lane> = {}): Bpmn.Lane {
+    return { ...defaultLane, ...lane };
+  },
+  groupDAO(group: Partial<Bpmn.Group> = {}): Bpmn.Group {
+    return { ...defaultGroup, ...group };
+  },
 };

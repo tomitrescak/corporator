@@ -1,4 +1,4 @@
-import { BpmnProcessInstance } from 'data/yoga/models/bpmn_process_instance_model';
+import { BpmnProcessInstance, ProcessActionResult } from 'data/yoga/models/bpmn_process_instance_model';
 import { BaseElement } from './index';
 
 export abstract class Event extends BaseElement {
@@ -8,5 +8,5 @@ export abstract class Event extends BaseElement {
 
   }
   
-  abstract execute(_state: BpmnProcessInstance, _context: ServerContext): void;
+  abstract execute(_state: BpmnProcessInstance, _context: ServerContext, result: ProcessActionResult): void;
 }

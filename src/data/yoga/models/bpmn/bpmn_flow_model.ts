@@ -1,3 +1,4 @@
+import { BpmnProcessInstance, ProcessActionResult } from 'data/yoga/models/bpmn_process_instance_model';
 import { FlowNode } from './bpmn_flow_node_model';
 import { LaneElement } from './bpmn_lane_element_model';
 import { Lane } from './bpmn_lane_model';
@@ -19,5 +20,7 @@ export abstract class Flow extends LaneElement {
     this.sourceId = flow.sourceRef ? flow.sourceRef.id : null;
     this.targetId = flow.targetRef ? flow.targetRef.id : null;
   }
+
+  abstract execute(_state: BpmnProcessInstance, context: ServerContext, result: ProcessActionResult): void;
 
 }

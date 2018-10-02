@@ -1,12 +1,8 @@
 import { create, its } from 'data/tests';
-import { BpmnProcessModel } from '../../../yoga/models/bpmn_process_model';
+import { BpmnProcessModel } from 'data/yoga/models/bpmn_process_model';
 import { mutation } from '../process_instance_resolver';
 
 describe('BpmnProcess', () => {
-  const role = 'User';
-  const lane = { roles: [role], execute: jest.fn() };
-  BpmnProcessModel.prototype.getElementList = () => [lane] as any;
-
   its(
     'launch process',
     {
@@ -16,10 +12,10 @@ describe('BpmnProcess', () => {
       }
     },
     async ctx => {
-      const process = await create.bpmnProcessMutation({
-        name: 'Test Process',
-        createdById: ctx.userId
-      });
+      const role = 'User';
+      const lane = { roles: [role], execute: jest.fn() };
+      BpmnProcessModel.prototype.getElementList = () => [lane] as any;
+      const process = await create.bpmnProcessMutation({ name: 'Test Process' });
 
       await mutation.launchProcessInstance(null, { input: { processId: process.id, role } }, ctx);
 
@@ -27,38 +23,41 @@ describe('BpmnProcess', () => {
     }
   );
 
-  // its('tests owner resolver', { user: { name: 'Tomi' } }, async ctx => {
-  //   let p = await create.bpmnProcessMutation({
-  //     publicationStatus: 'Published',
-  //     name: 'Process 1',
-  //     readRole: 'user'
-  //   });
+  its(
+    'set process state',
+    {
+      clear: ['BpmnProcessInstance', 'BpmnProcess', 'Log'],
+      user: {
+        name: 'Dean'
+      }
+    },
+    async ctx => {
+      const process = await create.bpmnProcessMutation({ name: 'Test Process' });
 
-  //   const user = await ctx.getUser();
+      const pInstanceDAO = await mutation.setProcessInstanceStatus(
+        null,
+        { input: { processId: process.id, status: 'Finished' } },
+        ctx
+      );
 
-  //   let d = await create.bpmnProcessInstanceMutation({
-  //     ownerId: user.id,
-  //     processId: p.id,
-  //     data: '{}',
-  //     comments: {
-  //       create: [{ userId: user.id, text: '12345', date: create.date() }]
-  //     }
-  //   });
+      expect(pInstanceDAO.status.toEqual('Finished'));
+    }
+  );
 
-  //   const pid = await query.bpmnProcessInstanceQuery(
-  //     null,
-  //     { id: d.id },
-  //     ctx,
-  //     `{
-  //     id
-  //     owner {
-  //       id
-  //     }
-  //   }`
-  //   );
-
-  //   console.log(pid);
-
-  //   expect(2).toBe(3);
-  // });
+  its(
+    'set process state and updates task instances',
+    {
+      clear: ['BpmnProcessInstance', 'BpmnProcess', 'Log'],
+      user: {
+        name: 'Dean'
+      }
+    },
+    async ctx => {
+      // create task instances
+      // const process = await create.process(ctx, { name: 'Test Process' });
+      // const pInstanceDAO = await mutation.setProcessInstanceStatus(null, { input: { processId: process.id, status: 'Finished' } }, ctx);
+      // expect(pInstanceDAO.status.toEqual('Finished'));
+      // check if task instances status' have changed
+    }
+  );
 });

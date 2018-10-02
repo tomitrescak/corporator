@@ -1,4 +1,4 @@
-import { BpmnProcessInstance } from '../bpmn_process_instance_model';
+import { BpmnProcessInstance, ProcessActionResult } from '../bpmn_process_instance_model';
 import { LaneElement } from './bpmn_lane_element_model';
 import { Lane } from './bpmn_lane_model';
 import { SequenceFlow } from './bpmn_sequence_flow_model';
@@ -38,5 +38,5 @@ export abstract class FlowNode extends LaneElement {
     this.outgoing = outgoing ? outgoing : null;
   }
 
-  abstract execute(_state: BpmnProcessInstance, context: ServerContext): void;
+  abstract execute(state: BpmnProcessInstance, context: ServerContext, result: ProcessActionResult): void;
 }

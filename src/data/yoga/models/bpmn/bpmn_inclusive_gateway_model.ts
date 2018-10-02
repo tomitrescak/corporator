@@ -1,4 +1,4 @@
-import { BpmnProcessInstance } from 'data/yoga/models/bpmn_process_instance_model';
+import { BpmnProcessInstance, ProcessActionResult } from 'data/yoga/models/bpmn_process_instance_model';
 import { Gateway } from './bpmn_gateway_model';
 import { Lane } from './bpmn_lane_model';
 
@@ -7,7 +7,7 @@ export class InclusiveGateway extends Gateway {
     super(inclusiveGateway, lane);
   }
 
-  async execute(_state: BpmnProcessInstance, _context: ServerContext) {
+  async execute(_state: BpmnProcessInstance, _context: ServerContext, _result: ProcessActionResult) {
     
     return;
     // if need to pass the flow further down

@@ -1,4 +1,4 @@
-import { BpmnProcessInstance } from 'data/yoga/models/bpmn_process_instance_model';
+import { BpmnProcessInstance, ProcessActionResult } from 'data/yoga/models/bpmn_process_instance_model';
 import { BaseEvent } from './bpmn_base_event_model';
 import { Lane } from './bpmn_lane_model';
 
@@ -7,7 +7,8 @@ export class EndEvent extends BaseEvent {
     super(endEvent, lane);
   }
 
-  execute(state: BpmnProcessInstance, context: ServerContext): void {
+  execute(state: BpmnProcessInstance, context: ServerContext, result: ProcessActionResult): void {
+    result.executed.push(this.id);
     // finish the process
     state.finish(context);
     return;

@@ -1,4 +1,4 @@
-import { BpmnProcessInstance } from 'data/yoga/models/bpmn_process_instance_model';
+import { BpmnProcessInstance, ProcessActionResult } from 'data/yoga/models/bpmn_process_instance_model';
 import { Dictionary } from 'typescript-collections';
 import { BaseElement } from './bpmn_base_element_model';
 import { LaneElement } from './bpmn_lane_element_model';
@@ -23,9 +23,14 @@ export class Lane extends BaseElement {
 
     this.nodes = nodes ? nodes : new Dictionary<string, Dictionary<string, LaneElement>>();
     this.roles = this.name.split(' |,');
+    
+    // lane.roles is unused
+    // if(lane.roles) {
+    //   this.roles = lane.roles.roles
+    // }
   }
 
-  execute(_state: BpmnProcessInstance, _context: ServerContext) {
+  execute(_state: BpmnProcessInstance, _context: ServerContext, _result: ProcessActionResult) {
     // execute the entry point
     return;
   }
