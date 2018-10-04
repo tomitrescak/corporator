@@ -7,39 +7,37 @@ import { ProcessView, ProcessViewType } from '../process_view';
 
 import 'jest-styled-components';
 
-describe('Process', () => {
-  describe('Tabs', () => {
-    const context = create.context();
+describe('Process Tabs', () => {
+  const context = create.context();
 
-    function componentWithData(
-      process: QueryTypes.BpmnProcessDefinition,
-      view: ProcessViewType = 'information'
-    ) {
-      return <ProcessView context={context} process={process} view={view} />;
-    }
+  function componentWithData(
+    process: QueryTypes.BpmnProcessDefinition,
+    view: ProcessViewType = 'information'
+  ) {
+    return <ProcessView context={context} process={process} view={view} />;
+  }
 
-    describe('Information', () => {
-      describe('No Resources', () => {
-        const component = componentWithData(createProcess({ resources: [] }));
+  describe('Information', () => {
+    describe('No Resources', () => {
+      const component = componentWithData(createProcess({ resources: [] }));
 
-        it('renders', () => {
-          const rendered = render(component);
-          expect(rendered).toMatchSnapshot();
-        });
-
-        return { component };
+      it('renders', () => {
+        const rendered = render(component);
+        expect(rendered).toMatchSnapshot();
       });
 
-      describe('With Resources', () => {
-        const component = componentWithData(createProcess());
+      return { component };
+    });
 
-        it('renders', () => {
-          const rendered = render(component);
-          expect(rendered).toMatchSnapshot();
-        });
+    describe('With Resources', () => {
+      const component = componentWithData(createProcess());
 
-        return { component };
+      it('renders', () => {
+        const rendered = render(component);
+        expect(rendered).toMatchSnapshot();
       });
+
+      return { component };
     });
   });
 });

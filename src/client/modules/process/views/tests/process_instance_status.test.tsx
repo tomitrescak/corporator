@@ -5,39 +5,37 @@ import { ProcessInstanceStatus } from '../process_instance_status';
 
 import { create, render } from 'client/tests';
 
-describe('Process', () => {
-  describe('Instances', () => {
-    describe('Status', () => {
-      const context = create.context();
+describe('Process Instance', () => {
+  describe('Status', () => {
+    const context = create.context();
 
-      const Component = (
-        <div>
-          <ProcessInstanceStatus
-            status={QueryTypes.BpmnProcessInstanceStatus.Aborted}
-            context={context}
-          />
-          <ProcessInstanceStatus
-            status={QueryTypes.BpmnProcessInstanceStatus.Finished}
-            context={context}
-          />
-          <ProcessInstanceStatus
-            status={QueryTypes.BpmnProcessInstanceStatus.Paused}
-            context={context}
-          />
-          <ProcessInstanceStatus
-            status={QueryTypes.BpmnProcessInstanceStatus.Running}
-            context={context}
-          />
-        </div>
-      );
+    const Component = (
+      <div>
+        <ProcessInstanceStatus
+          status={QueryTypes.BpmnProcessInstanceStatus.Aborted}
+          context={context}
+        />
+        <ProcessInstanceStatus
+          status={QueryTypes.BpmnProcessInstanceStatus.Finished}
+          context={context}
+        />
+        <ProcessInstanceStatus
+          status={QueryTypes.BpmnProcessInstanceStatus.Paused}
+          context={context}
+        />
+        <ProcessInstanceStatus
+          status={QueryTypes.BpmnProcessInstanceStatus.Running}
+          context={context}
+        />
+      </div>
+    );
 
-      it('renders correctly', () => {
-        expect(render(Component)).toMatchSnapshot();
-      });
-
-      return {
-        component: Component
-      };
+    it('renders correctly', () => {
+      expect(render(Component)).toMatchSnapshot();
     });
+
+    return {
+      component: Component
+    };
   });
 });

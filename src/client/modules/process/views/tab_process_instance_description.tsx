@@ -1,7 +1,8 @@
 import * as React from 'react';
 
-import { Button, Divider, Header, Icon, Message } from 'semantic-ui-react';
+import { Button, Comment, Feed, Form, Header, Icon, Message } from 'semantic-ui-react';
 
+import { AvatarView } from 'client/modules/avatar/avatar_view';
 import { QueryTypes } from 'data/client';
 import { processTypeToIcon } from './process_icon';
 import { ProcessInstanceStatus } from './process_instance_status';
@@ -30,20 +31,78 @@ export const TabProcessInstanceDescription: React.SFC<Props> = ({
       </Header.Content>
     </Header>
 
-    <p>{process.description}</p>
+    <Message positive>
+      <Message.Header>
+        <Icon name="hand point right" /> Your action is required!
+      </Message.Header>
 
-    <Choose>
-      <When condition={!processInstance}>
-        <Button primary>
-          <Icon name="rocket" />
-          <I18>Launch Process</I18>
-        </Button>
-      </When>
-      <Otherwise>
-        <>
-          <Message header={`Status: ${processInstance.status}`} />
-        </>
-      </Otherwise>
-    </Choose>
+      <ul className="list">
+        <li className="content">
+          <a href="#">Something</a>
+        </li>
+      </ul>
+    </Message>
+
+    <Header as="h5" content={context.i18n`Activity`} icon="tasks" dividing />
+
+    <Feed>
+      <Feed.Event
+        icon="pencil"
+        date="Today"
+        summary="You posted on your friend Stevie Feliciano's wall."
+      />
+
+      <Feed.Event>
+        <Feed.Label icon="pencil" />
+        <Feed.Content>
+          <Feed.Date>Today</Feed.Date>
+          <Feed.Summary>You posted on your friend Stevie Feliciano's wall.</Feed.Summary>
+        </Feed.Content>
+      </Feed.Event>
+    </Feed>
+
+    <Header as="h5" content={context.i18n`Comments`} icon="comment" dividing />
+
+    <Comment.Group>
+      <Comment>
+        <AvatarView />
+        <Comment.Content>
+          <Comment.Author as="a">Matt</Comment.Author>
+          <Comment.Metadata>
+            <div>Today at 5:42PM</div>
+          </Comment.Metadata>
+          <Comment.Text>How artistic!</Comment.Text>
+        </Comment.Content>
+      </Comment>
+
+      <Comment>
+        <AvatarView />
+        <Comment.Content>
+          <Comment.Author as="a">Elliot Fu</Comment.Author>
+          <Comment.Metadata>
+            <div>Yesterday at 12:30AM</div>
+          </Comment.Metadata>
+          <Comment.Text>
+            <p>This has been very useful for my research. Thanks as well!</p>
+          </Comment.Text>
+        </Comment.Content>
+      </Comment>
+
+      <Comment>
+        <AvatarView />
+        <Comment.Content>
+          <Comment.Author as="a">Joe Henderson</Comment.Author>
+          <Comment.Metadata>
+            <div>5 days ago</div>
+          </Comment.Metadata>
+          <Comment.Text>Dude, this is awesome. Thanks so much</Comment.Text>
+        </Comment.Content>
+      </Comment>
+
+      <Form reply>
+        <Form.TextArea autoHeight={true} />
+        <Button content="Add Reply" labelPosition="left" icon="edit" primary />
+      </Form>
+    </Comment.Group>
   </TabContent>
 );
