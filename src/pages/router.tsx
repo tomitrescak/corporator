@@ -11,13 +11,13 @@ import { context } from 'client/config/context';
 import { HeaderContainer } from 'client/modules/headers/header_view';
 import { HomeContainer } from 'client/modules/home/home_view';
 import { NotificationsContainer } from 'client/modules/notifications/notifications_view';
-import { ProcessContainer } from 'client/modules/process/containers/process_container';
-import { ProcessInstanceListContainer } from 'client/modules/process/containers/process_instance_list_container';
-import { ProcessListContainer } from 'client/modules/process/containers/process_list_container';
 
 import { appStore } from 'client/stores/app_store';
 
-import { ProcessInstanceContainer } from 'client/modules/process/containers/process_instance_container';
+import { ProcessContainer } from 'client/modules/process/definition/containers/process_container';
+import { ProcessListContainer } from 'client/modules/process/definition/containers/process_list_container';
+import { ProcessInstanceContainer } from 'client/modules/process/instance/containers/process_instance_container';
+import { ProcessInstanceListContainer } from 'client/modules/process/instance/containers/process_instance_list_container';
 import { QueryTypes } from 'data/client';
 import './style.css';
 

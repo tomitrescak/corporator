@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { inject, observer } from 'mobx-react';
-import { CSSTransitionGroup } from 'react-transition-group';
+import { TransitionGroup } from 'react-transition-group';
 import { Button, Header, List, Message } from 'semantic-ui-react';
 
 import { QueryTypes } from 'data/client';
@@ -22,7 +22,7 @@ export const NotificationsListView: React.SFC<Props> = ({ notifications, context
         <>
           <Header content="Notifications" icon="bell" as="h5" dividing />
           <List relaxed divided>
-            <CSSTransitionGroup
+            <TransitionGroup
               component={React.Fragment}
               transitionName="example"
               transitionAppear={true}
@@ -35,7 +35,7 @@ export const NotificationsListView: React.SFC<Props> = ({ notifications, context
               <For each="notification" of={notifications}>
                 <NotificationView key={notification.id} notification={notification} />
               </For>
-            </CSSTransitionGroup>
+            </TransitionGroup>
           </List>
           <RemoveNotificationsMutation>
             {clearNotifications => (
