@@ -5,9 +5,7 @@ import { Button } from 'semantic-ui-react';
 
 import { AppStore } from 'client/stores/app_store';
 import { mock, MockedProvider, ReactTestRenderer, render } from 'client/tests';
-import { LoginButton } from '../login_button_view';
-
-import LOGIN_MUTATION = require('../queries/login_mutation.graphql');
+import { LOGIN_MUTATION, LoginButton } from '../login_button_view';
 
 describe('Login', function() {
   describe('LoginButton', () => {

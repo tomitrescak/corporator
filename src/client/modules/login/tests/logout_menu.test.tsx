@@ -1,13 +1,11 @@
 import * as React from 'react';
 
-import * as RESUME_MUTATION from '../queries/resume_query.graphql';
-
 import 'jest-styled-components';
 
 import { Menu } from 'semantic-ui-react';
 
 import { create, mock, MockedProvider, render } from 'client/tests';
-import { LogoutMenu, ResumeQuery } from '../logout_menu';
+import { LogoutMenu, RESUME, ResumeQuery } from '../logout_menu';
 
 describe('Logout', function() {
   describe('Menu Button', () => {
@@ -25,7 +23,7 @@ describe('Logout', function() {
     });
 
     it('renders empty if no user present and loading', () => {
-      mock.expect(RESUME_MUTATION).loading();
+      mock.expect(RESUME).loading();
 
       const component = CreateLogoutMenu();
 
@@ -34,7 +32,7 @@ describe('Logout', function() {
     });
 
     it('renders empty if no user present', () => {
-      mock.expect(RESUME_MUTATION).reply({});
+      mock.expect(RESUME).reply({});
 
       const component = CreateLogoutMenu();
 
@@ -43,7 +41,7 @@ describe('Logout', function() {
     });
 
     it('renders loading ', () => {
-      mock.expect(RESUME_MUTATION).loading();
+      mock.expect(RESUME).loading();
 
       const store = create.store({ userId: '1' });
       const component = CreateLogoutMenu(store);
@@ -53,7 +51,7 @@ describe('Logout', function() {
     });
 
     it('renders empty if no user returned ', () => {
-      mock.expect(RESUME_MUTATION).reply({ resume: {} });
+      mock.expect(RESUME).reply({ resume: {} });
 
       const store = create.store({ userId: '1' });
       const component = CreateLogoutMenu(store);
@@ -63,7 +61,7 @@ describe('Logout', function() {
     });
 
     it('renders fail and resets store', () => {
-      mock.expect(RESUME_MUTATION).fail('Token Fail');
+      mock.expect(RESUME).fail('Token Fail');
 
       const store = create.store({ userId: '1' }, true);
 
@@ -80,9 +78,9 @@ describe('Logout', function() {
     });
 
     it('renders and sets value', () => {
-      mock
-        .expect(RESUME_MUTATION)
-        .reply({ resume: { user: { id: '2', name: 'Tomas Trescak' }, token: 'ABCD' } });
+      mock.expect(RESUME).reply({
+        resume: { user: { id: '2', name: 'Tomas Trescak', roles: ['User'] }, token: 'ABCD' }
+      });
 
       // const d = component.root.findByType(LogoutMenu).instance;
       // const spy = jest.fn();
@@ -95,7 +93,7 @@ describe('Logout', function() {
       // test callback
 
       const query = component.root.findByType(ResumeQuery);
-      const user = { id: '2', name: 'Tomas Trescak' };
+      const user = { id: '2', name: 'Tomas Trescak', roles: ['User'] };
       query.props.onCompleted({ resume: { user } });
       expect(store.userId).toBe('2');
       expect(store.user).toEqual(user);
@@ -105,10 +103,13 @@ describe('Logout', function() {
 
     it('logs out', () => {
       mock
-        .expect(RESUME_MUTATION)
+        .expect(RESUME)
         .reply({ resume: { user: { id: '2', name: 'Tomas Trescak' }, token: 'ABCD' } });
 
-      const store = create.store({ userId: '1', user: { id: '1', name: 'Tomas' } }, true);
+      const store = create.store(
+        { userId: '1', user: { id: '1', name: 'Tomas', roles: ['User'] as any } },
+        true
+      );
       const component = CreateLogoutMenu(store);
 
       component.root.findByProps({ icon: 'sign out' }).props.onClick();

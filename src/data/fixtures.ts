@@ -270,11 +270,13 @@ async function insertFixtures() {
 
   // tslint:disable-next-line:no-console
   console.log('Creating user ...');
-  const user = createUser ? await create.userMutation() : (await db.query.users({}))[0];
+  const user = createUser
+    ? await create.userMutation({ roles: { set: ['User'] } })
+    : (await db.query.users({}))[0];
 
   // create other user
   const otherUser = createUser
-    ? await create.userMutation({ name: 'Other User', uid: '30001234' })
+    ? await create.userMutation({ name: 'Other User', uid: '30001234', roles: { set: ['Buyer'] } })
     : (await db.query.users({}))[0];
 
   /* =========================================================

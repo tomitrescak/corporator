@@ -7,6 +7,13 @@ if (!process.env.JWT_SECRET) {
   process.env.JWT_SECRET = 'QWERTY%$#@!12345';
 }
 
+export const userFragment = `{
+  id
+  name
+  password
+  roles
+}`;
+
 export function authenticate(req: any) {
   // VERSION WITH TOKENS
   const authHeader = req.headers.authorization;
@@ -48,7 +55,7 @@ export const mutation: Mutation = {
   // },
 
   async login(_, { input: { user, password } }, ctx) {
-    const userDb = await ctx.db.query.user({ where: { uid: user } });
+    const userDb = await ctx.db.query.user({ where: { uid: user } }, userFragment);
     if (!userDb) {
       throw new Error(`AUTHENTICATION ERROR`);
     }

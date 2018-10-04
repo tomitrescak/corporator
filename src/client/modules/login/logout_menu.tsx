@@ -8,10 +8,10 @@ import { Divider, Dropdown, Icon, Loader, Menu } from 'semantic-ui-react';
 
 import { LocalStorage } from '../../config/local_storage';
 
-import RESUME_NF = require('./queries/resume_query.graphql');
-import USER_FRAGMENT from './queries/user.fragment.graphql';
+import * as RESUME_NF from './queries/resume_query.graphql';
+import * as USER_FRAGMENT from './queries/user.fragment.graphql';
 
-const RESUME = gql`
+export const RESUME = gql`
   ${RESUME_NF}
   ${USER_FRAGMENT}
 `;

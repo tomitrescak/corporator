@@ -1,0 +1,341 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Process Instance List Data renders correctly 1`] = `
+<style>
+.c2.c2.c2.c2.c2 {
+  vertical-align: top !important;
+  width: 25px;
+}
+
+.c3 {
+  color: #999;
+  margin: 6px 0px;
+}
+
+.c4 {
+  margin: 3px 0px;
+}
+
+.c1 {
+  max-width: 800px !important;
+}
+
+.c1.c1.c1.c1.c1 .description {
+  font-size: smaller;
+}
+
+.c0 {
+  color: #999;
+}</style>
+
+<div>
+  <div
+    className="c0"
+  >
+    5 processes available
+  </div>
+  <div
+    className="ui header"
+  >
+    <i
+      aria-hidden="true"
+      className="tasks icon"
+    />
+    <div
+      className="content"
+    >
+      All Processes
+      <div
+        className="sub header"
+      >
+        This is the list of all your processes
+      </div>
+    </div>
+  </div>
+  <div
+    className="ui divided relaxed list c1"
+    role="list"
+  >
+    <div
+      className="item"
+      onClick={[Function]}
+      role="listitem"
+    >
+      <i
+        aria-hidden="true"
+        className="money icon middle aligned c2"
+      />
+      <div
+        className="top aligned content"
+      >
+        <a
+          className="header"
+          href="/process/process-1/view/information/1"
+          onClick={[Function]}
+        >
+          Process 1
+        </a>
+        <div
+          className="description"
+        >
+          <div
+            className="c3"
+          >
+            <div
+              className="ui green tiny label"
+              onClick={[Function]}
+            >
+              Running
+            </div>
+             
+             · 
+            Started 2 months ago by Buddy Holly
+          </div>
+          <div
+            className="c4"
+          >
+            <b>
+              Last activity: 
+            </b>
+            Tomas Trescak performed "Task Name" 2 months ago
+          </div>
+          <div
+            className="c4"
+          >
+            <b>
+              Waiting for: 
+            </b>
+             
+            Purchasing to Complete Purchase since 2 months ago and IT Support or IT Delivery to Deliver Technology since 2 months ago
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="item"
+      onClick={[Function]}
+      role="listitem"
+    >
+      <i
+        aria-hidden="true"
+        className="money icon middle aligned c2"
+      />
+      <div
+        className="top aligned content"
+      >
+        <a
+          className="header"
+          href="/process/process-1/view/information/2"
+          onClick={[Function]}
+        >
+          Process 1
+        </a>
+        <div
+          className="description"
+        >
+          <div
+            className="c3"
+          >
+            <div
+              className="ui green tiny label"
+              onClick={[Function]}
+            >
+              Running
+            </div>
+             
+             · 
+            Started 2 months ago by Buddy Holly
+          </div>
+          <div
+            className="c4"
+          >
+            <b>
+              Waiting for: 
+            </b>
+             
+            Approver to Task Name since 2 months ago
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="item"
+      onClick={[Function]}
+      role="listitem"
+    >
+      <i
+        aria-hidden="true"
+        className="money icon middle aligned c2"
+      />
+      <div
+        className="top aligned content"
+      >
+        <a
+          className="header"
+          href="/process/process-1/view/information/3"
+          onClick={[Function]}
+        >
+          Process 1
+        </a>
+        <div
+          className="description"
+        >
+          <div
+            className="c3"
+          >
+            <div
+              className="ui red tiny label"
+              onClick={[Function]}
+            >
+              Aborted
+            </div>
+             
+             · 
+            Started 2 months ago by Buddy Holly
+          </div>
+          <div
+            className="c4"
+          >
+            <b>
+              Last activity: 
+            </b>
+            Tomas Trescak performed "Task Name" 2 months ago
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="item"
+      onClick={[Function]}
+      role="listitem"
+    >
+      <i
+        aria-hidden="true"
+        className="money icon middle aligned c2"
+      />
+      <div
+        className="top aligned content"
+      >
+        <a
+          className="header"
+          href="/process/process-1/view/information/4"
+          onClick={[Function]}
+        >
+          Process 1
+        </a>
+        <div
+          className="description"
+        >
+          <div
+            className="c3"
+          >
+            <div
+              className="ui yellow tiny label"
+              onClick={[Function]}
+            >
+              Paused
+            </div>
+             
+             · 
+            Started 2 months ago by Buddy Holly
+          </div>
+          <div
+            className="c4"
+          >
+            <b>
+              Last activity: 
+            </b>
+            Tomas Trescak performed "Task Name" 2 months ago
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="item"
+      onClick={[Function]}
+      role="listitem"
+    >
+      <i
+        aria-hidden="true"
+        className="money icon middle aligned c2"
+      />
+      <div
+        className="top aligned content"
+      >
+        <a
+          className="header"
+          href="/process/process-1/view/information/5"
+          onClick={[Function]}
+        >
+          Process 1
+        </a>
+        <div
+          className="description"
+        >
+          <div
+            className="c3"
+          >
+            <div
+              className="ui grey tiny label"
+              onClick={[Function]}
+            >
+              Finished
+            </div>
+             
+             · 
+            Started 2 months ago by Buddy Holly
+             · 
+            Finished 2 months ago
+          </div>
+          <div
+            className="c4"
+          >
+            <b>
+              Last activity: 
+            </b>
+            Tomas Trescak performed "Task Name" 2 months ago
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Process Instance List Empty renders empty 1`] = `
+<style>
+.c0 {
+  color: #999;
+}</style>
+
+<div>
+  <div
+    className="c0"
+  >
+    0 processes available
+  </div>
+  <div
+    className="ui header"
+  >
+    <i
+      aria-hidden="true"
+      className="tasks icon"
+    />
+    <div
+      className="content"
+    >
+      Empty List
+      <div
+        className="sub header"
+      >
+        This is the list of all your processes
+      </div>
+    </div>
+  </div>
+  <div
+    className="ui message"
+  >
+    No results
+  </div>
+</div>
+`;

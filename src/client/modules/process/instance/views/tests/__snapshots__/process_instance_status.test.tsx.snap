@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Process Instance Status renders correctly 1`] = `
+<div>
+  <div
+    className="ui red tiny label"
+    onClick={[Function]}
+  >
+    Aborted
+  </div>
+  <div
+    className="ui grey tiny label"
+    onClick={[Function]}
+  >
+    Finished
+  </div>
+  <div
+    className="ui yellow tiny label"
+    onClick={[Function]}
+  >
+    Paused
+  </div>
+  <div
+    className="ui green tiny label"
+    onClick={[Function]}
+  >
+    Running
+  </div>
+</div>
+`;

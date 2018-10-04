@@ -1,14 +1,15 @@
 import * as React from 'react';
 
+import * as LOGIN_MUTATION_NF from './queries/login_mutation.graphql';
+import * as USER_FRAGMENT from './queries/user.fragment.graphql';
+
 import { Mutation } from 'react-apollo';
 import { Button, ButtonProps } from 'semantic-ui-react';
 import styled, { StyledComponentClass } from 'styled-components';
 
 import { gql, QueryTypes } from 'data/client';
-import LOGIN_MUTATION_NF = require('./queries/login_mutation.graphql');
-import USER_FRAGMENT from './queries/user.fragment.graphql';
 
-const LOGIN_MUTATION = gql`
+export const LOGIN_MUTATION = gql`
   ${LOGIN_MUTATION_NF}
   ${USER_FRAGMENT}
 `;

@@ -7,9 +7,8 @@ import { Server as HttpServer } from 'http';
 import { Localisation } from 'data/localisations/server/localisation_resolver';
 import { Prisma } from 'data/prisma';
 import { fragmentReplacements, resolvers } from 'data/resolvers';
-import { authenticate } from 'data/users/server/user_resolver';
+import { authenticate, userFragment } from 'data/users/server/user_resolver';
 import { getUser, getUserId, Loader } from 'data/utils';
-import { SchemaDirectiveVisitor } from 'graphql-tools';
 
 const express = require('express');
 const historyAPIFallback = require('connect-history-api-fallback');
@@ -45,7 +44,7 @@ export const i18n = {
 };
 
 export const cache = {
-  user: new Loader<Prisma.User>(dbf, 'user', 'users')
+  user: new Loader<Prisma.User>(dbf, 'user', 'users', userFragment)
 };
 
 /* =========================================================

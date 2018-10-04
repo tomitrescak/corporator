@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Process Instance Item renders correctly 1`] = `
+<div
+  className="item"
+  onClick={[Function]}
+  role="listitem"
+>
+  <i
+    aria-hidden="true"
+    className="money icon middle aligned sc-bdVaJa jnSeCf"
+  />
+  <div
+    className="top aligned content"
+  >
+    <a
+      className="header"
+      href="/process/process-1/view/information/1"
+      onClick={[Function]}
+    >
+      Process 1
+    </a>
+    <div
+      className="description"
+    >
+      <div
+        className="sc-bwzfXH gzggMh"
+      >
+        <div
+          className="ui green tiny label"
+          onClick={[Function]}
+        >
+          Running
+        </div>
+         
+         · 
+        Started 2 months ago by Buddy Holly
+      </div>
+      <div
+        className="sc-htpNat eaijOI"
+      >
+        <b>
+          Last activity: 
+        </b>
+        Tomas Trescak performed "Task Name" 2 months ago
+      </div>
+      <div
+        className="sc-htpNat eaijOI"
+      >
+        <b>
+          Waiting for: 
+        </b>
+         
+        Purchasing to Complete Purchase since 2 months ago and IT Support or IT Delivery to Deliver Technology since 2 months ago
+      </div>
+    </div>
+  </div>
+</div>
+`;
