@@ -38,6 +38,7 @@ export class ProcessView extends React.Component<Props> {
               </If>
             </TightGrid>
           </When>
+
           <When condition={isResource}>
             <TabProcessResources
               process={process}
@@ -48,6 +49,7 @@ export class ProcessView extends React.Component<Props> {
               ownerId={process.id}
             />
           </When>
+
           <When condition={view === 'diagram'}>
             <TabDiagramView
               context={context}

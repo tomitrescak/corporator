@@ -44,3 +44,18 @@ nameFromScopeStack(scope) {
     return scope.map(s => s[0].toUpperCase() + s.substring(1)).join('');
   }
 ```
+
+# SPY on queries
+
+```
+docker exec -it prisma_mysql_1 /bin/bash
+
+mysql -u root -p         [password is prisma]
+
+SET global general_log_file='/tmp/global.log';
+SET global general_log = on;
+SET global log_output = 'file';
+exit
+
+tail -f -n10 /tmp/global.log
+```

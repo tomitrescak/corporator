@@ -6,6 +6,7 @@ import { AvatarView } from 'client/modules/avatar/avatar_view';
 import { QueryTypes } from 'data/client';
 import { processTypeToIcon } from '../../common/process_icon';
 import { TabContent } from '../../common/process_styles';
+import { ProcessActivityView } from '../../instance/views/process_activity_view';
 import { ProcessInstanceStatus } from '../../instance/views/process_instance_status';
 
 type Props = {
@@ -43,23 +44,7 @@ export const TabProcessInstanceDescription: React.SFC<Props> = ({
       </ul>
     </Message>
 
-    <Header as="h5" content={context.i18n`Activity`} icon="tasks" dividing />
-
-    <Feed>
-      <Feed.Event
-        icon="pencil"
-        date="Today"
-        summary="You posted on your friend Stevie Feliciano's wall."
-      />
-
-      <Feed.Event>
-        <Feed.Label icon="pencil" />
-        <Feed.Content>
-          <Feed.Date>Today</Feed.Date>
-          <Feed.Summary>You posted on your friend Stevie Feliciano's wall.</Feed.Summary>
-        </Feed.Content>
-      </Feed.Event>
-    </Feed>
+    <ProcessActivityView context={context} processInstance={processInstance} />
 
     <Header as="h5" content={context.i18n`Comments`} icon="comment" dividing />
 

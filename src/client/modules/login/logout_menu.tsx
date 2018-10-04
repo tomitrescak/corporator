@@ -1,13 +1,20 @@
 import * as React from 'react';
 
-import { QueryTypes } from 'data/client';
+import { gql, QueryTypes } from 'data/client';
 
 import { inject, observer } from 'mobx-react';
 import { Query } from 'react-apollo';
 import { Divider, Dropdown, Icon, Loader, Menu } from 'semantic-ui-react';
 
 import { LocalStorage } from '../../config/local_storage';
-import RESUME = require('./queries/resume_query.graphql');
+
+import RESUME_NF = require('./queries/resume_query.graphql');
+import USER_FRAGMENT from './queries/user.fragment.graphql';
+
+const RESUME = gql`
+  ${RESUME_NF}
+  ${USER_FRAGMENT}
+`;
 
 /* ========================================================= 
     QUERY

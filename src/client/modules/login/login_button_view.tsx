@@ -4,8 +4,14 @@ import { Mutation } from 'react-apollo';
 import { Button, ButtonProps } from 'semantic-ui-react';
 import styled, { StyledComponentClass } from 'styled-components';
 
-import { QueryTypes } from 'data/client';
-import LOGIN_MUTATION = require('./queries/login_mutation.graphql');
+import { gql, QueryTypes } from 'data/client';
+import LOGIN_MUTATION_NF = require('./queries/login_mutation.graphql');
+import USER_FRAGMENT from './queries/user.fragment.graphql';
+
+const LOGIN_MUTATION = gql`
+  ${LOGIN_MUTATION_NF}
+  ${USER_FRAGMENT}
+`;
 
 interface Props {
   store?: App.Store;

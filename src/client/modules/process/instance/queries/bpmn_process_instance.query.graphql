@@ -9,10 +9,19 @@ fragment BpmnProcessComment on Comment {
 }
 
 fragment BpmnProcessTask on BpmnTaskInstance {
+  id
   dateStarted
   dateFinished
+  status
   performer {
     name
+  }
+  task {
+    name
+    type
+    resources {
+      id
+    }
   }
   performerRoles
 }
@@ -26,8 +35,12 @@ fragment BpmnProcessInstance on BpmnProcessInstance {
   owner {
     name
   }
-  tasks {
+  tasks(orderBy: dateFinished_ASC) {
     ...BpmnProcessTask
+  }
+  log {
+    date
+    elementId
   }
   comments {
     ...BpmnProcessComment

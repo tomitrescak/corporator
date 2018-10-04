@@ -63,30 +63,13 @@
     "jest.setup.js": true,
     "yarn.lock": true,
     "luis.fuse.js": true,
-<<<<<<< HEAD
     "wallaby.data.js": true,
     ".idea": true,
     ".fusebox": true,
     "Archive.zip": true,
-    "README.md": true,
     "src.zip": true,
     "fuse.dev.js": true,
     ".env.dev": true
   },
   "typescript.tsdk": "node_modules/typescript/lib"
-=======
-    ".graphqlconfig.yml": true,
-    "wallaby.data.js": true,
-    ".idea": true,
-    ".fusebox": true,
-    "dist": true,
-    "Archive.zip": true,
-    "README.md": true,
-    "save_schema.js": true,
-    "src.zip": true,
-    "fuse.dev.js": true,
-    "jest.config.js": true,
-    "tsconfig.json": true
-  }
->>>>>>> Added the moddle transform file
 }

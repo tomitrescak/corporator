@@ -10,6 +10,8 @@ enum BpmnTaskInstanceStatus {
   Paused
   Aborted
   Finished
+  Approved
+  Rejected
 }
 
 type BpmnTaskInstance {
@@ -17,7 +19,7 @@ type BpmnTaskInstance {
   dateFinished: DateTime
   dateStarted: DateTime!
   duration: Int
-  performer: User
+  performer: User @relation(name: "TaskPerformer")
   performerRoles: [String!]!
   processInstance: BpmnProcessInstance! @relation(name: "BpmnProcessTasks")
   data: Json

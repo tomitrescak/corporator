@@ -162,6 +162,7 @@ export const create = {
     taskId: null,
     resources: null,
     name: 'Task Name',
+    type: 'Report',
     ...partial
   }),
   bpmnTaskMutation(partial: Partial<Prisma.BpmnTaskCreateInput>) {
@@ -206,7 +207,6 @@ export const create = {
     dateFinished: null,
     dateStarted,
     duration: 0,
-    performerId,
     data: {},
     status: 'Finished',
     performerRoles: { set: ['User'] },
@@ -274,7 +274,7 @@ async function insertFixtures() {
 
   // create other user
   const otherUser = createUser
-    ? await create.userMutation({ name: 'Other User' })
+    ? await create.userMutation({ name: 'Other User', uid: '30001234' })
     : (await db.query.users({}))[0];
 
   /* =========================================================
@@ -397,17 +397,19 @@ async function insertFixtures() {
       connect: {
         id: formResource.id
       }
-    }
+    },
+    type: 'Form'
   });
 
   const reportTask = await create.bpmnTaskMutation({
-    name: 'Form Task',
+    name: 'Report Task',
     taskId: 'Task_0f1st02',
     resources: {
       connect: {
         id: reportResource.id
       }
-    }
+    },
+    type: 'Report'
   });
 
   /* =========================================================
@@ -560,20 +562,37 @@ async function insertFixtures() {
     data: {
       tasks: {
         create: [
-          create.bpmnTaskInstance({ dateStarted, dateFinished }, pid, genericTask.id, otherUser.id),
           create.bpmnTaskInstance(
-            { dateStarted: create.date(-8), dateFinished: create.date(-5) },
+            { dateStarted: create.date(4), dateFinished: create.date(5), status: 'Paused' },
+            pid,
+            genericTask.id,
+            otherUser.id
+          ),
+          create.bpmnTaskInstance(
+            { dateStarted: create.date(2), dateFinished: create.date(3), status: 'Aborted' },
             pid,
             genericTask.id,
             user.id
           ),
           create.bpmnTaskInstance(
-            { dateStarted: create.date(2), dateFinished: create.date(5) },
+            { dateStarted: create.date(0), dateFinished: create.date(1), status: 'Finished' },
+            pid,
+            formTask.id,
+            user.id
+          ),
+          create.bpmnTaskInstance(
+            { dateStarted: create.date(5), dateFinished: create.date(6), status: 'Approved' },
             pid,
             genericTask.id,
             otherUser.id
           ),
-          create.bpmnTaskInstance({ dateStarted: create.date(3) }, pid, formTask.id)
+          create.bpmnTaskInstance(
+            { dateStarted: create.date(8), dateFinished: create.date(9), status: 'Rejected' },
+            pid,
+            genericTask.id,
+            otherUser.id
+          ),
+          create.bpmnTaskInstance({ dateStarted: create.date(12) }, pid, formTask.id)
         ]
       }
     }

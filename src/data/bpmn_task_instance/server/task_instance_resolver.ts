@@ -1,5 +1,14 @@
-import { Mutation, purge, Query, Yoga } from 'data/utils';
+import { Mutation, Prisma, purge, Query, Resolver, Yoga } from 'data/utils';
 import { BpmnTaskInstanceModel } from '../../yoga/models/bpmn_task_instance_model';
+
+// export const resolver: Resolver<Prisma.BpmnTaskInstance> = {
+//   BpmnTaskInstance: {
+//     performer(parent, _, ctx) {
+//       return null;
+//       // return UserLoader.instance(() => ctx.db).findById(parent.)
+//     }
+//   }
+// };
 
 export const query: Query = {
   bpmnTaskInstancesQuery(_parent, { input }, ctx, info) {

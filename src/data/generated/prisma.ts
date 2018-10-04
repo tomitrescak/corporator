@@ -1778,6 +1778,7 @@ type BpmnTask implements Node {
   taskId: ID!
   resources(where: ResourceWhereInput, orderBy: ResourceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Resource!]
   name: String!
+  type: BpmnTaskType!
 }
 
 """A connection to a list of items."""
@@ -1793,6 +1794,7 @@ type BpmnTaskConnection {
 input BpmnTaskCreateInput {
   taskId: ID!
   name: String!
+  type: BpmnTaskType!
   resources: ResourceCreateManyInput
 }
 
@@ -1821,7 +1823,6 @@ type BpmnTaskInstance implements Node {
   dateStarted: DateTime!
   duration: Int
   performer(where: UserWhereInput): User
-  performerId: String
   performerRoles: [String!]!
   processInstance(where: BpmnProcessInstanceWhereInput): BpmnProcessInstance!
   data: Json
@@ -1843,7 +1844,6 @@ input BpmnTaskInstanceCreateInput {
   dateFinished: DateTime
   dateStarted: DateTime!
   duration: Int
-  performerId: String
   data: Json
   status: BpmnTaskInstanceStatus!
   performerRoles: BpmnTaskInstanceCreateperformerRolesInput
@@ -1879,8 +1879,6 @@ enum BpmnTaskInstanceOrderByInput {
   dateStarted_DESC
   duration_ASC
   duration_DESC
-  performerId_ASC
-  performerId_DESC
   data_ASC
   data_DESC
   status_ASC
@@ -1896,7 +1894,6 @@ type BpmnTaskInstancePreviousValues {
   dateFinished: DateTime
   dateStarted: DateTime!
   duration: Int
-  performerId: String
   performerRoles: [String!]!
   data: Json
   status: BpmnTaskInstanceStatus!
@@ -1907,6 +1904,8 @@ enum BpmnTaskInstanceStatus {
   Paused
   Aborted
   Finished
+  Approved
+  Rejected
 }
 
 type BpmnTaskInstanceSubscriptionPayload {
@@ -1952,7 +1951,6 @@ input BpmnTaskInstanceUpdateDataInput {
   dateFinished: DateTime
   dateStarted: DateTime
   duration: Int
-  performerId: String
   data: Json
   status: BpmnTaskInstanceStatus
   performerRoles: BpmnTaskInstanceUpdateperformerRolesInput
@@ -1965,7 +1963,6 @@ input BpmnTaskInstanceUpdateInput {
   dateFinished: DateTime
   dateStarted: DateTime
   duration: Int
-  performerId: String
   data: Json
   status: BpmnTaskInstanceStatus
   performerRoles: BpmnTaskInstanceUpdateperformerRolesInput
@@ -2113,46 +2110,6 @@ input BpmnTaskInstanceWhereInput {
 
   """All values greater than or equal the given value."""
   duration_gte: Int
-  performerId: String
-
-  """All values that are not equal to given value."""
-  performerId_not: String
-
-  """All values that are contained in given list."""
-  performerId_in: [String!]
-
-  """All values that are not contained in given list."""
-  performerId_not_in: [String!]
-
-  """All values less than the given value."""
-  performerId_lt: String
-
-  """All values less than or equal the given value."""
-  performerId_lte: String
-
-  """All values greater than the given value."""
-  performerId_gt: String
-
-  """All values greater than or equal the given value."""
-  performerId_gte: String
-
-  """All values containing the given string."""
-  performerId_contains: String
-
-  """All values not containing the given string."""
-  performerId_not_contains: String
-
-  """All values starting with the given string."""
-  performerId_starts_with: String
-
-  """All values not starting with the given string."""
-  performerId_not_starts_with: String
-
-  """All values ending with the given string."""
-  performerId_ends_with: String
-
-  """All values not ending with the given string."""
-  performerId_not_ends_with: String
   status: BpmnTaskInstanceStatus
 
   """All values that are not equal to given value."""
@@ -2182,6 +2139,8 @@ enum BpmnTaskOrderByInput {
   taskId_DESC
   name_ASC
   name_DESC
+  type_ASC
+  type_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -2192,6 +2151,7 @@ type BpmnTaskPreviousValues {
   id: ID!
   taskId: ID!
   name: String!
+  type: BpmnTaskType!
 }
 
 type BpmnTaskSubscriptionPayload {
@@ -2233,15 +2193,22 @@ input BpmnTaskSubscriptionWhereInput {
   node: BpmnTaskWhereInput
 }
 
+enum BpmnTaskType {
+  Report
+  Form
+}
+
 input BpmnTaskUpdateDataInput {
   taskId: ID
   name: String
+  type: BpmnTaskType
   resources: ResourceUpdateManyInput
 }
 
 input BpmnTaskUpdateInput {
   taskId: ID
   name: String
+  type: BpmnTaskType
   resources: ResourceUpdateManyInput
 }
 
@@ -2407,6 +2374,16 @@ input BpmnTaskWhereInput {
 
   """All values not ending with the given string."""
   name_not_ends_with: String
+  type: BpmnTaskType
+
+  """All values that are not equal to given value."""
+  type_not: BpmnTaskType
+
+  """All values that are contained in given list."""
+  type_in: [BpmnTaskType!]
+
+  """All values that are not contained in given list."""
+  type_not_in: [BpmnTaskType!]
   resources_every: ResourceWhereInput
   resources_some: ResourceWhereInput
   resources_none: ResourceWhereInput
@@ -6944,12 +6921,12 @@ input UserWhereInput {
   data_every: DataWhereInput
   data_some: DataWhereInput
   data_none: DataWhereInput
-  _MagicalBackRelation_BpmnTaskInstanceToUser_every: BpmnTaskInstanceWhereInput
-  _MagicalBackRelation_BpmnTaskInstanceToUser_some: BpmnTaskInstanceWhereInput
-  _MagicalBackRelation_BpmnTaskInstanceToUser_none: BpmnTaskInstanceWhereInput
   _MagicalBackRelation_CommentToUser_every: CommentWhereInput
   _MagicalBackRelation_CommentToUser_some: CommentWhereInput
   _MagicalBackRelation_CommentToUser_none: CommentWhereInput
+  _MagicalBackRelation_TaskPerformer_every: BpmnTaskInstanceWhereInput
+  _MagicalBackRelation_TaskPerformer_some: BpmnTaskInstanceWhereInput
+  _MagicalBackRelation_TaskPerformer_none: BpmnTaskInstanceWhereInput
 }
 
 input UserWhereUniqueInput {
@@ -7461,6 +7438,40 @@ export type NotificationType =   'Info' |
   'Error' |
   'Warning'
 
+export type BpmnProcessInstanceOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'dateFinished_ASC' |
+  'dateFinished_DESC' |
+  'dateStarted_ASC' |
+  'dateStarted_DESC' |
+  'duration_ASC' |
+  'duration_DESC' |
+  'data_ASC' |
+  'data_DESC' |
+  'status_ASC' |
+  'status_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC'
+
+export type BpmnTaskInstanceOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'dateFinished_ASC' |
+  'dateFinished_DESC' |
+  'dateStarted_ASC' |
+  'dateStarted_DESC' |
+  'duration_ASC' |
+  'duration_DESC' |
+  'data_ASC' |
+  'data_DESC' |
+  'status_ASC' |
+  'status_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC'
+
 export type LogOrderByInput =   'elementId_ASC' |
   'elementId_DESC' |
   'elementName_ASC' |
@@ -7477,7 +7488,9 @@ export type LogOrderByInput =   'elementId_ASC' |
 export type BpmnTaskInstanceStatus =   'Waiting' |
   'Paused' |
   'Aborted' |
-  'Finished'
+  'Finished' |
+  'Approved' |
+  'Rejected'
 
 export type NotificationOrderByInput =   'type_ASC' |
   'type_DESC' |
@@ -7496,18 +7509,17 @@ export type NotificationOrderByInput =   'type_ASC' |
   'updatedAt_ASC' |
   'updatedAt_DESC'
 
-export type BpmnProcessInstanceOrderByInput =   'id_ASC' |
+export type BpmnTaskType =   'Report' |
+  'Form'
+
+export type BpmnTaskOrderByInput =   'id_ASC' |
   'id_DESC' |
-  'dateFinished_ASC' |
-  'dateFinished_DESC' |
-  'dateStarted_ASC' |
-  'dateStarted_DESC' |
-  'duration_ASC' |
-  'duration_DESC' |
-  'data_ASC' |
-  'data_DESC' |
-  'status_ASC' |
-  'status_DESC' |
+  'taskId_ASC' |
+  'taskId_DESC' |
+  'name_ASC' |
+  'name_DESC' |
+  'type_ASC' |
+  'type_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
@@ -7550,39 +7562,9 @@ export type DocumentOrderByInput =   'id_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export type BpmnTaskOrderByInput =   'id_ASC' |
-  'id_DESC' |
-  'taskId_ASC' |
-  'taskId_DESC' |
-  'name_ASC' |
-  'name_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
-  'createdAt_ASC' |
-  'createdAt_DESC'
-
-export type BpmnTaskInstanceOrderByInput =   'id_ASC' |
-  'id_DESC' |
-  'dateFinished_ASC' |
-  'dateFinished_DESC' |
-  'dateStarted_ASC' |
-  'dateStarted_DESC' |
-  'duration_ASC' |
-  'duration_DESC' |
-  'performerId_ASC' |
-  'performerId_DESC' |
-  'data_ASC' |
-  'data_DESC' |
-  'status_ASC' |
-  'status_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
-  'createdAt_ASC' |
-  'createdAt_DESC'
-
-export interface ResourceCreateManyInput {
-  create?: ResourceCreateInput[] | ResourceCreateInput
-  connect?: ResourceWhereUniqueInput[] | ResourceWhereUniqueInput
+export interface DataDescriptorCreateManyInput {
+  create?: DataDescriptorCreateInput[] | DataDescriptorCreateInput
+  connect?: DataDescriptorWhereUniqueInput[] | DataDescriptorWhereUniqueInput
 }
 
 export interface LogWhereInput {
@@ -7720,20 +7702,6 @@ export interface BpmnTaskInstanceWhereInput {
   duration_lte?: Int
   duration_gt?: Int
   duration_gte?: Int
-  performerId?: String
-  performerId_not?: String
-  performerId_in?: String[] | String
-  performerId_not_in?: String[] | String
-  performerId_lt?: String
-  performerId_lte?: String
-  performerId_gt?: String
-  performerId_gte?: String
-  performerId_contains?: String
-  performerId_not_contains?: String
-  performerId_starts_with?: String
-  performerId_not_starts_with?: String
-  performerId_ends_with?: String
-  performerId_not_ends_with?: String
   status?: BpmnTaskInstanceStatus
   status_not?: BpmnTaskInstanceStatus
   status_in?: BpmnTaskInstanceStatus[] | BpmnTaskInstanceStatus
@@ -7801,6 +7769,10 @@ export interface BpmnTaskWhereInput {
   name_not_starts_with?: String
   name_ends_with?: String
   name_not_ends_with?: String
+  type?: BpmnTaskType
+  type_not?: BpmnTaskType
+  type_in?: BpmnTaskType[] | BpmnTaskType
+  type_not_in?: BpmnTaskType[] | BpmnTaskType
   resources_every?: ResourceWhereInput
   resources_some?: ResourceWhereInput
   resources_none?: ResourceWhereInput
@@ -8652,6 +8624,7 @@ export interface DataCreateManyInput {
 export interface BpmnTaskUpdateInput {
   taskId?: ID_Input
   name?: String
+  type?: BpmnTaskType
   resources?: ResourceUpdateManyInput
 }
 
@@ -8667,7 +8640,6 @@ export interface BpmnTaskInstanceUpdateInput {
   dateFinished?: DateTime
   dateStarted?: DateTime
   duration?: Int
-  performerId?: String
   data?: Json
   status?: BpmnTaskInstanceStatus
   performerRoles?: BpmnTaskInstanceUpdateperformerRolesInput
@@ -8846,9 +8818,9 @@ export interface BpmnProcessInstanceUpsertWithWhereUniqueWithoutOwnerInput {
   create: BpmnProcessInstanceCreateWithoutOwnerInput
 }
 
-export interface DataDescriptorCreateManyInput {
-  create?: DataDescriptorCreateInput[] | DataDescriptorCreateInput
-  connect?: DataDescriptorWhereUniqueInput[] | DataDescriptorWhereUniqueInput
+export interface ResourceUpdateWithWhereUniqueNestedInput {
+  where: ResourceWhereUniqueInput
+  data: ResourceUpdateDataInput
 }
 
 export interface BpmnTaskUpsertNestedInput {
@@ -8856,9 +8828,9 @@ export interface BpmnTaskUpsertNestedInput {
   create: BpmnTaskCreateInput
 }
 
-export interface ResourceUpdateWithWhereUniqueNestedInput {
-  where: ResourceWhereUniqueInput
-  data: ResourceUpdateDataInput
+export interface ResourceCreateManyInput {
+  create?: ResourceCreateInput[] | ResourceCreateInput
+  connect?: ResourceWhereUniqueInput[] | ResourceWhereUniqueInput
 }
 
 export interface BpmnTaskInstanceUpdateperformerRolesInput {
@@ -9017,6 +8989,7 @@ export interface NotificationSubscriptionWhereInput {
 export interface BpmnTaskCreateInput {
   taskId: ID_Input
   name: String
+  type: BpmnTaskType
   resources?: ResourceCreateManyInput
 }
 
@@ -9229,7 +9202,6 @@ export interface BpmnTaskInstanceCreateInput {
   dateFinished?: DateTime
   dateStarted: DateTime
   duration?: Int
-  performerId?: String
   data?: Json
   status: BpmnTaskInstanceStatus
   performerRoles?: BpmnTaskInstanceCreateperformerRolesInput
@@ -9321,12 +9293,12 @@ export interface UserWhereInput {
   data_every?: DataWhereInput
   data_some?: DataWhereInput
   data_none?: DataWhereInput
-  _MagicalBackRelation_BpmnTaskInstanceToUser_every?: BpmnTaskInstanceWhereInput
-  _MagicalBackRelation_BpmnTaskInstanceToUser_some?: BpmnTaskInstanceWhereInput
-  _MagicalBackRelation_BpmnTaskInstanceToUser_none?: BpmnTaskInstanceWhereInput
   _MagicalBackRelation_CommentToUser_every?: CommentWhereInput
   _MagicalBackRelation_CommentToUser_some?: CommentWhereInput
   _MagicalBackRelation_CommentToUser_none?: CommentWhereInput
+  _MagicalBackRelation_TaskPerformer_every?: BpmnTaskInstanceWhereInput
+  _MagicalBackRelation_TaskPerformer_some?: BpmnTaskInstanceWhereInput
+  _MagicalBackRelation_TaskPerformer_none?: BpmnTaskInstanceWhereInput
 }
 
 export interface BpmnProcessInstanceUpdateWithoutLogDataInput {
@@ -9505,7 +9477,6 @@ export interface BpmnTaskInstanceUpdateDataInput {
   dateFinished?: DateTime
   dateStarted?: DateTime
   duration?: Int
-  performerId?: String
   data?: Json
   status?: BpmnTaskInstanceStatus
   performerRoles?: BpmnTaskInstanceUpdateperformerRolesInput
@@ -9932,6 +9903,7 @@ export interface BpmnProcessUpdateDataInput {
 export interface BpmnTaskUpdateDataInput {
   taskId?: ID_Input
   name?: String
+  type?: BpmnTaskType
   resources?: ResourceUpdateManyInput
 }
 
@@ -10485,6 +10457,7 @@ export interface BpmnTaskPreviousValues {
   id: ID_Output
   taskId: ID_Output
   name: String
+  type: BpmnTaskType
 }
 
 export interface AggregateData {
@@ -10616,7 +10589,6 @@ export interface BpmnTaskInstance extends Node {
   dateStarted: DateTime
   duration?: Int
   performer?: User
-  performerId?: String
   performerRoles: String[]
   processInstance: BpmnProcessInstance
   data?: Json
@@ -10665,6 +10637,7 @@ export interface BpmnTask extends Node {
   taskId: ID_Output
   resources?: Resource[]
   name: String
+  type: BpmnTaskType
 }
 
 export interface AggregateFormElement {
@@ -11295,7 +11268,6 @@ export interface BpmnTaskInstancePreviousValues {
   dateFinished?: DateTime
   dateStarted: DateTime
   duration?: Int
-  performerId?: String
   performerRoles: String[]
   data?: Json
   status: BpmnTaskInstanceStatus

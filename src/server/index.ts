@@ -9,6 +9,7 @@ import { Prisma } from 'data/prisma';
 import { fragmentReplacements, resolvers } from 'data/resolvers';
 import { authenticate } from 'data/users/server/user_resolver';
 import { getUser, getUserId, Loader } from 'data/utils';
+import { SchemaDirectiveVisitor } from 'graphql-tools';
 
 const express = require('express');
 const historyAPIFallback = require('connect-history-api-fallback');
@@ -71,7 +72,6 @@ async function initContext(req: any) {
 const server = new GraphQLServer({
   typeDefs: importSchema('./src/data/yoga.graphql'),
   resolvers,
-
   // resolverValidationOptions: {
   //   requireResolversForResolveType: false
   // },

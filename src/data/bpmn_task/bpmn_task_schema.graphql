@@ -1,6 +1,12 @@
+enum BpmnTaskType {
+  Report
+  Form
+}
+
 type BpmnTask {
   id: ID! @unique
   taskId: ID! @unique
   resources: [Resource!]!
   name: String!
+  type: BpmnTaskType!
 }
