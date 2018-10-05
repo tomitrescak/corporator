@@ -223,34 +223,15 @@ exports[`Process Tabs Information With Resources renders 1`] = `
                     Approval Form
                   </div>
                 </a>
-              </div>
-            </div>
-          </div>
-          <div
-            className="item"
-            onClick={[Function]}
-            role="listitem"
-          >
-            <i
-              aria-hidden="true"
-              className="folder icon"
-            />
-            <div
-              className="content"
-            >
-              Reports
-              <div
-                className="list"
-              >
                 <a
                   className="item"
-                  href="/process/process/preview/report/approval-report/1/1"
+                  href="/process/process/preview/form/approval-report/1/1"
                   onClick={[Function]}
                   role="listitem"
                 >
                   <i
                     aria-hidden="true"
-                    className="newspaper icon"
+                    className="wordpress forms icon"
                   />
                   <div
                     className="content"

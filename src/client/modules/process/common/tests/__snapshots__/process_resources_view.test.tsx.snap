@@ -37,34 +37,15 @@ exports[`Resources Process Instance renders correctly 1`] = `
             Approval Form
           </div>
         </a>
-      </div>
-    </div>
-  </div>
-  <div
-    className="item"
-    onClick={[Function]}
-    role="listitem"
-  >
-    <i
-      aria-hidden="true"
-      className="folder icon"
-    />
-    <div
-      className="content"
-    >
-      Reports
-      <div
-        className="list"
-      >
         <a
           className="item"
-          href="/process/process-1/view/report/approval-report/piid/1"
+          href="/process/process-1/view/form/approval-report/piid/1"
           onClick={[Function]}
           role="listitem"
         >
           <i
             aria-hidden="true"
-            className="newspaper icon"
+            className="wordpress forms icon"
           />
           <div
             className="content"
@@ -222,34 +203,15 @@ exports[`Resources Process renders correctly 1`] = `
             Approval Form
           </div>
         </a>
-      </div>
-    </div>
-  </div>
-  <div
-    className="item"
-    onClick={[Function]}
-    role="listitem"
-  >
-    <i
-      aria-hidden="true"
-      className="folder icon"
-    />
-    <div
-      className="content"
-    >
-      Reports
-      <div
-        className="list"
-      >
         <a
           className="item"
-          href="/process/process-1/preview/report/approval-report/pid/1"
+          href="/process/process-1/preview/form/approval-report/pid/1"
           onClick={[Function]}
           role="listitem"
         >
           <i
             aria-hidden="true"
-            className="newspaper icon"
+            className="wordpress forms icon"
           />
           <div
             className="content"

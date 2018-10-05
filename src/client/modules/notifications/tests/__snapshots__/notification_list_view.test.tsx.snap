@@ -1,46 +1,216 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Notifications List Data renders some notifications 1`] = `
-<div
-  className="ui error message"
->
-  <div
-    className="header"
+<div>
+  <h5
+    className="ui dividing header"
   >
-    Fatal Error ☠️
-  </div>
+    <i
+      aria-hidden="true"
+      className="bell icon"
+    />
+    <div
+      className="content"
+    >
+      Notifications
+    </div>
+  </h5>
   <div
-    className="content"
+    className="ui divided relaxed list"
+    role="list"
   >
     <div
-      style={
-        Object {
-          "fontWeight": "bold",
-          "marginTop": "6px",
-        }
-      }
+      className="item"
+      onClick={[Function]}
+      role="listitem"
     >
-      "Invariant Violation: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.\\n\\nCheck the render method of \`NotificationsListView\`."
+      <i
+        aria-hidden="true"
+        className="icon"
+      >
+        <i
+          aria-hidden="true"
+          className="grey eye icon sc-bwzfXH kZUMPF"
+          onClick={[Function]}
+          title="Mark as viewed"
+        />
+      </i>
+      <div
+        className="content"
+      >
+        <div>
+          <span
+            className="sc-bdVaJa cWCCxy"
+          >
+            2 months ago
+          </span>
+           ·
+           
+          <a
+            href="/process/process-name"
+            onClick={[Function]}
+          >
+            Notification Text
+          </a>
+        </div>
+      </div>
     </div>
-    <pre
-      style={
-        Object {
-          "marginTop": "-18px",
-        }
-      }
+    <div
+      className="item"
+      onClick={[Function]}
+      role="listitem"
     >
-      
-    in div (created by List)
-    in List (created by NotificationsListView)
-    in NotificationsListView (created by inject-NotificationsListView-with-context)
-    in inject-NotificationsListView-with-context
-    in div
-    in ErrorBoundary
-    in ApolloProvider
-    in Provider
-    in Unknown
-    </pre>
+      <i
+        aria-hidden="true"
+        className="icon"
+      >
+        <i
+          aria-hidden="true"
+          className="grey eye icon sc-bwzfXH kZUMPF"
+          onClick={[Function]}
+          title="Mark as viewed"
+        />
+      </i>
+      <div
+        className="content"
+      >
+        <div>
+          <span
+            className="sc-bdVaJa cWCCxy"
+          >
+            2 months ago
+          </span>
+           ·
+           
+          <a
+            href="/process/process-name"
+            onClick={[Function]}
+          >
+            Notification Text
+          </a>
+        </div>
+      </div>
+    </div>
+    <div
+      className="item"
+      onClick={[Function]}
+      role="listitem"
+    >
+      <i
+        aria-hidden="true"
+        className="icon"
+      >
+        <i
+          aria-hidden="true"
+          className="grey eye icon sc-bwzfXH kZUMPF"
+          onClick={[Function]}
+          title="Mark as viewed"
+        />
+      </i>
+      <div
+        className="content"
+      >
+        <div>
+          <span
+            className="sc-bdVaJa cWCCxy"
+          >
+            2 months ago
+          </span>
+           ·
+           
+          <a
+            href="/process/process-name"
+            onClick={[Function]}
+          >
+            Notification Text
+          </a>
+        </div>
+      </div>
+    </div>
+    <div
+      className="item"
+      onClick={[Function]}
+      role="listitem"
+    >
+      <i
+        aria-hidden="true"
+        className="icon"
+      >
+        <i
+          aria-hidden="true"
+          className="grey eye icon sc-bwzfXH kZUMPF"
+          onClick={[Function]}
+          title="Mark as viewed"
+        />
+      </i>
+      <div
+        className="content"
+      >
+        <div>
+          <span
+            className="sc-bdVaJa cWCCxy"
+          >
+            2 months ago
+          </span>
+           ·
+           
+          <a
+            href="/process/process-name"
+            onClick={[Function]}
+          >
+            Notification Text
+          </a>
+        </div>
+      </div>
+    </div>
+    <div
+      className="item"
+      onClick={[Function]}
+      role="listitem"
+    >
+      <i
+        aria-hidden="true"
+        className="icon"
+      >
+        <i
+          aria-hidden="true"
+          className="grey eye icon sc-bwzfXH kZUMPF"
+          onClick={[Function]}
+          title="Mark as viewed"
+        />
+      </i>
+      <div
+        className="content"
+      >
+        <div>
+          <span
+            className="sc-bdVaJa cWCCxy"
+          >
+            2 months ago
+          </span>
+           ·
+           
+          <a
+            href="/process/process-name"
+            onClick={[Function]}
+          >
+            Notification Text
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
+  <button
+    className="ui red icon left labeled button"
+    onClick={[Function]}
+    role="button"
+  >
+    <i
+      aria-hidden="true"
+      className="trash icon"
+    />
+    Clear All
+  </button>
 </div>
 `;
 

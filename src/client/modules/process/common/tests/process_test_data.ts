@@ -67,10 +67,15 @@ export function createProcessItem(process: Partial<QueryTypes.ProcessesQuery_Pro
 
 export function createProcesses(): QueryTypes.ProcessesQuery_Processes[] {
   return [
-    createProcessItem({ name: 'Travel Process' }),
-    createProcessItem({ name: 'Purchase Process', type: QueryTypes.ProcessType.Purchases }),
-    createProcessItem({ name: 'Sales Process', type: QueryTypes.ProcessType.Sales }),
+    createProcessItem({ id: '1', name: 'Travel Process' }),
     createProcessItem({
+      id: '2',
+      name: 'Purchase Process',
+      type: QueryTypes.ProcessType.Purchases
+    }),
+    createProcessItem({ id: '3', name: 'Sales Process', type: QueryTypes.ProcessType.Sales }),
+    createProcessItem({
+      id: '4',
       name: 'Human Resource Process',
       type: QueryTypes.ProcessType.HumanResources
     })

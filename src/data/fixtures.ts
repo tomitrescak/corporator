@@ -358,7 +358,8 @@ async function insertFixtures() {
           },
           column: 9,
           width: 8,
-          row: 0
+          row: 0,
+          
         })
       ]
     }

@@ -99,7 +99,7 @@ exports[`Process Definition List Container renders data 1`] = `
       >
         <a
           className="header"
-          href="/process/purchase-process/preview/information/1"
+          href="/process/purchase-process/preview/information/2"
           onClick={[Function]}
         >
           Purchase Process
@@ -140,7 +140,7 @@ exports[`Process Definition List Container renders data 1`] = `
       >
         <a
           className="header"
-          href="/process/sales-process/preview/information/1"
+          href="/process/sales-process/preview/information/3"
           onClick={[Function]}
         >
           Sales Process
@@ -181,7 +181,7 @@ exports[`Process Definition List Container renders data 1`] = `
       >
         <a
           className="header"
-          href="/process/human-resource-process/preview/information/1"
+          href="/process/human-resource-process/preview/information/4"
           onClick={[Function]}
         >
           Human Resource Process
