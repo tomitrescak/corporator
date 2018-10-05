@@ -1,6 +1,6 @@
 type Log {
   id: ID! @unique
-  # processInstanceId: ID!
+  processInstance: BpmnProcessInstance! @relation(name: "BpmnProcessInstanceLog")
   elementId: String!
   elementName: String!
   date: DateTime!

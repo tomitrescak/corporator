@@ -5,6 +5,7 @@ import { makePrismaBindingClass, BasePrismaOptions } from 'prisma-binding'
 
 export interface Query {
     localisations: <T = Localisation[]>(args: { where?: LocalisationWhereInput, orderBy?: LocalisationOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    logs: <T = Log[]>(args: { where?: LogWhereInput, orderBy?: LogOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     organisations: <T = Organisation[]>(args: { where?: OrganisationWhereInput, orderBy?: OrganisationOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     roles: <T = Role[]>(args: { where?: RoleWhereInput, orderBy?: RoleOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     validators: <T = Validator[]>(args: { where?: ValidatorWhereInput, orderBy?: ValidatorOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -14,7 +15,6 @@ export interface Query {
     users: <T = User[]>(args: { where?: UserWhereInput, orderBy?: UserOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     notifications: <T = Notification[]>(args: { where?: NotificationWhereInput, orderBy?: NotificationOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     documents: <T = Document[]>(args: { where?: DocumentWhereInput, orderBy?: DocumentOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    logs: <T = Log[]>(args: { where?: LogWhereInput, orderBy?: LogOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     accessConditions: <T = AccessCondition[]>(args: { where?: AccessConditionWhereInput, orderBy?: AccessConditionOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     dataDescriptors: <T = DataDescriptor[]>(args: { where?: DataDescriptorWhereInput, orderBy?: DataDescriptorOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     resources: <T = Resource[]>(args: { where?: ResourceWhereInput, orderBy?: ResourceOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -25,6 +25,7 @@ export interface Query {
     bpmnTasks: <T = BpmnTask[]>(args: { where?: BpmnTaskWhereInput, orderBy?: BpmnTaskOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     bpmnProcessInstances: <T = BpmnProcessInstance[]>(args: { where?: BpmnProcessInstanceWhereInput, orderBy?: BpmnProcessInstanceOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     localisation: <T = Localisation | null>(args: { where: LocalisationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    log: <T = Log | null>(args: { where: LogWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     organisation: <T = Organisation | null>(args: { where: OrganisationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     role: <T = Role | null>(args: { where: RoleWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     validator: <T = Validator | null>(args: { where: ValidatorWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -34,7 +35,6 @@ export interface Query {
     user: <T = User | null>(args: { where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     notification: <T = Notification | null>(args: { where: NotificationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     document: <T = Document | null>(args: { where: DocumentWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    log: <T = Log | null>(args: { where: LogWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     dataDescriptor: <T = DataDescriptor | null>(args: { where: DataDescriptorWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     resource: <T = Resource | null>(args: { where: ResourceWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     access: <T = Access | null>(args: { where: AccessWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -44,6 +44,7 @@ export interface Query {
     bpmnTask: <T = BpmnTask | null>(args: { where: BpmnTaskWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     bpmnProcessInstance: <T = BpmnProcessInstance | null>(args: { where: BpmnProcessInstanceWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     localisationsConnection: <T = LocalisationConnection>(args: { where?: LocalisationWhereInput, orderBy?: LocalisationOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    logsConnection: <T = LogConnection>(args: { where?: LogWhereInput, orderBy?: LogOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     organisationsConnection: <T = OrganisationConnection>(args: { where?: OrganisationWhereInput, orderBy?: OrganisationOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     rolesConnection: <T = RoleConnection>(args: { where?: RoleWhereInput, orderBy?: RoleOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     validatorsConnection: <T = ValidatorConnection>(args: { where?: ValidatorWhereInput, orderBy?: ValidatorOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -53,7 +54,6 @@ export interface Query {
     usersConnection: <T = UserConnection>(args: { where?: UserWhereInput, orderBy?: UserOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     notificationsConnection: <T = NotificationConnection>(args: { where?: NotificationWhereInput, orderBy?: NotificationOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     documentsConnection: <T = DocumentConnection>(args: { where?: DocumentWhereInput, orderBy?: DocumentOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    logsConnection: <T = LogConnection>(args: { where?: LogWhereInput, orderBy?: LogOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     accessConditionsConnection: <T = AccessConditionConnection>(args: { where?: AccessConditionWhereInput, orderBy?: AccessConditionOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     dataDescriptorsConnection: <T = DataDescriptorConnection>(args: { where?: DataDescriptorWhereInput, orderBy?: DataDescriptorOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     resourcesConnection: <T = ResourceConnection>(args: { where?: ResourceWhereInput, orderBy?: ResourceOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -68,6 +68,7 @@ export interface Query {
 
 export interface Mutation {
     createLocalisation: <T = Localisation>(args: { data: LocalisationCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    createLog: <T = Log>(args: { data: LogCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createOrganisation: <T = Organisation>(args: { data: OrganisationCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createRole: <T = Role>(args: { data: RoleCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createValidator: <T = Validator>(args: { data: ValidatorCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -77,7 +78,6 @@ export interface Mutation {
     createUser: <T = User>(args: { data: UserCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createNotification: <T = Notification>(args: { data: NotificationCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createDocument: <T = Document>(args: { data: DocumentCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    createLog: <T = Log>(args: { data: LogCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createAccessCondition: <T = AccessCondition>(args: { data: AccessConditionCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createDataDescriptor: <T = DataDescriptor>(args: { data: DataDescriptorCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createResource: <T = Resource>(args: { data: ResourceCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -88,6 +88,7 @@ export interface Mutation {
     createBpmnTask: <T = BpmnTask>(args: { data: BpmnTaskCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createBpmnProcessInstance: <T = BpmnProcessInstance>(args: { data: BpmnProcessInstanceCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateLocalisation: <T = Localisation | null>(args: { data: LocalisationUpdateInput, where: LocalisationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateLog: <T = Log | null>(args: { data: LogUpdateInput, where: LogWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateOrganisation: <T = Organisation | null>(args: { data: OrganisationUpdateInput, where: OrganisationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateRole: <T = Role | null>(args: { data: RoleUpdateInput, where: RoleWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateValidator: <T = Validator | null>(args: { data: ValidatorUpdateInput, where: ValidatorWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -97,7 +98,6 @@ export interface Mutation {
     updateUser: <T = User | null>(args: { data: UserUpdateInput, where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateNotification: <T = Notification | null>(args: { data: NotificationUpdateInput, where: NotificationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateDocument: <T = Document | null>(args: { data: DocumentUpdateInput, where: DocumentWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateLog: <T = Log | null>(args: { data: LogUpdateInput, where: LogWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateDataDescriptor: <T = DataDescriptor | null>(args: { data: DataDescriptorUpdateInput, where: DataDescriptorWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateResource: <T = Resource | null>(args: { data: ResourceUpdateInput, where: ResourceWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateAccess: <T = Access | null>(args: { data: AccessUpdateInput, where: AccessWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -107,6 +107,7 @@ export interface Mutation {
     updateBpmnTask: <T = BpmnTask | null>(args: { data: BpmnTaskUpdateInput, where: BpmnTaskWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateBpmnProcessInstance: <T = BpmnProcessInstance | null>(args: { data: BpmnProcessInstanceUpdateInput, where: BpmnProcessInstanceWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteLocalisation: <T = Localisation | null>(args: { where: LocalisationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteLog: <T = Log | null>(args: { where: LogWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteOrganisation: <T = Organisation | null>(args: { where: OrganisationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteRole: <T = Role | null>(args: { where: RoleWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteValidator: <T = Validator | null>(args: { where: ValidatorWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -116,7 +117,6 @@ export interface Mutation {
     deleteUser: <T = User | null>(args: { where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteNotification: <T = Notification | null>(args: { where: NotificationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteDocument: <T = Document | null>(args: { where: DocumentWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    deleteLog: <T = Log | null>(args: { where: LogWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteDataDescriptor: <T = DataDescriptor | null>(args: { where: DataDescriptorWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteResource: <T = Resource | null>(args: { where: ResourceWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteAccess: <T = Access | null>(args: { where: AccessWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -126,6 +126,7 @@ export interface Mutation {
     deleteBpmnTask: <T = BpmnTask | null>(args: { where: BpmnTaskWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteBpmnProcessInstance: <T = BpmnProcessInstance | null>(args: { where: BpmnProcessInstanceWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertLocalisation: <T = Localisation>(args: { where: LocalisationWhereUniqueInput, create: LocalisationCreateInput, update: LocalisationUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    upsertLog: <T = Log>(args: { where: LogWhereUniqueInput, create: LogCreateInput, update: LogUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertOrganisation: <T = Organisation>(args: { where: OrganisationWhereUniqueInput, create: OrganisationCreateInput, update: OrganisationUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertRole: <T = Role>(args: { where: RoleWhereUniqueInput, create: RoleCreateInput, update: RoleUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertValidator: <T = Validator>(args: { where: ValidatorWhereUniqueInput, create: ValidatorCreateInput, update: ValidatorUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -135,7 +136,6 @@ export interface Mutation {
     upsertUser: <T = User>(args: { where: UserWhereUniqueInput, create: UserCreateInput, update: UserUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertNotification: <T = Notification>(args: { where: NotificationWhereUniqueInput, create: NotificationCreateInput, update: NotificationUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertDocument: <T = Document>(args: { where: DocumentWhereUniqueInput, create: DocumentCreateInput, update: DocumentUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    upsertLog: <T = Log>(args: { where: LogWhereUniqueInput, create: LogCreateInput, update: LogUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertDataDescriptor: <T = DataDescriptor>(args: { where: DataDescriptorWhereUniqueInput, create: DataDescriptorCreateInput, update: DataDescriptorUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertResource: <T = Resource>(args: { where: ResourceWhereUniqueInput, create: ResourceCreateInput, update: ResourceUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertAccess: <T = Access>(args: { where: AccessWhereUniqueInput, create: AccessCreateInput, update: AccessUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -145,6 +145,7 @@ export interface Mutation {
     upsertBpmnTask: <T = BpmnTask>(args: { where: BpmnTaskWhereUniqueInput, create: BpmnTaskCreateInput, update: BpmnTaskUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertBpmnProcessInstance: <T = BpmnProcessInstance>(args: { where: BpmnProcessInstanceWhereUniqueInput, create: BpmnProcessInstanceCreateInput, update: BpmnProcessInstanceUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyLocalisations: <T = BatchPayload>(args: { data: LocalisationUpdateInput, where?: LocalisationWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyLogs: <T = BatchPayload>(args: { data: LogUpdateInput, where?: LogWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyOrganisations: <T = BatchPayload>(args: { data: OrganisationUpdateInput, where?: OrganisationWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyRoles: <T = BatchPayload>(args: { data: RoleUpdateInput, where?: RoleWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyValidators: <T = BatchPayload>(args: { data: ValidatorUpdateInput, where?: ValidatorWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -154,7 +155,6 @@ export interface Mutation {
     updateManyUsers: <T = BatchPayload>(args: { data: UserUpdateInput, where?: UserWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyNotifications: <T = BatchPayload>(args: { data: NotificationUpdateInput, where?: NotificationWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyDocuments: <T = BatchPayload>(args: { data: DocumentUpdateInput, where?: DocumentWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateManyLogs: <T = BatchPayload>(args: { data: LogUpdateInput, where?: LogWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyAccessConditions: <T = BatchPayload>(args: { data: AccessConditionUpdateInput, where?: AccessConditionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyDataDescriptors: <T = BatchPayload>(args: { data: DataDescriptorUpdateInput, where?: DataDescriptorWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyResources: <T = BatchPayload>(args: { data: ResourceUpdateInput, where?: ResourceWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -165,6 +165,7 @@ export interface Mutation {
     updateManyBpmnTasks: <T = BatchPayload>(args: { data: BpmnTaskUpdateInput, where?: BpmnTaskWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyBpmnProcessInstances: <T = BatchPayload>(args: { data: BpmnProcessInstanceUpdateInput, where?: BpmnProcessInstanceWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyLocalisations: <T = BatchPayload>(args: { where?: LocalisationWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteManyLogs: <T = BatchPayload>(args: { where?: LogWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyOrganisations: <T = BatchPayload>(args: { where?: OrganisationWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyRoles: <T = BatchPayload>(args: { where?: RoleWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyValidators: <T = BatchPayload>(args: { where?: ValidatorWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -174,7 +175,6 @@ export interface Mutation {
     deleteManyUsers: <T = BatchPayload>(args: { where?: UserWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyNotifications: <T = BatchPayload>(args: { where?: NotificationWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyDocuments: <T = BatchPayload>(args: { where?: DocumentWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    deleteManyLogs: <T = BatchPayload>(args: { where?: LogWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyAccessConditions: <T = BatchPayload>(args: { where?: AccessConditionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyDataDescriptors: <T = BatchPayload>(args: { where?: DataDescriptorWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyResources: <T = BatchPayload>(args: { where?: ResourceWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -188,6 +188,7 @@ export interface Mutation {
 
 export interface Subscription {
     localisation: <T = LocalisationSubscriptionPayload | null>(args: { where?: LocalisationSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
+    log: <T = LogSubscriptionPayload | null>(args: { where?: LogSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     organisation: <T = OrganisationSubscriptionPayload | null>(args: { where?: OrganisationSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     role: <T = RoleSubscriptionPayload | null>(args: { where?: RoleSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     validator: <T = ValidatorSubscriptionPayload | null>(args: { where?: ValidatorSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
@@ -197,7 +198,6 @@ export interface Subscription {
     user: <T = UserSubscriptionPayload | null>(args: { where?: UserSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     notification: <T = NotificationSubscriptionPayload | null>(args: { where?: NotificationSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     document: <T = DocumentSubscriptionPayload | null>(args: { where?: DocumentSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
-    log: <T = LogSubscriptionPayload | null>(args: { where?: LogSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     accessCondition: <T = AccessConditionSubscriptionPayload | null>(args: { where?: AccessConditionSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     dataDescriptor: <T = DataDescriptorSubscriptionPayload | null>(args: { where?: DataDescriptorSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     resource: <T = ResourceSubscriptionPayload | null>(args: { where?: ResourceSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
@@ -211,6 +211,7 @@ export interface Subscription {
 
 export interface Exists {
   Localisation: (where?: LocalisationWhereInput) => Promise<boolean>
+  Log: (where?: LogWhereInput) => Promise<boolean>
   Organisation: (where?: OrganisationWhereInput) => Promise<boolean>
   Role: (where?: RoleWhereInput) => Promise<boolean>
   Validator: (where?: ValidatorWhereInput) => Promise<boolean>
@@ -220,7 +221,6 @@ export interface Exists {
   User: (where?: UserWhereInput) => Promise<boolean>
   Notification: (where?: NotificationWhereInput) => Promise<boolean>
   Document: (where?: DocumentWhereInput) => Promise<boolean>
-  Log: (where?: LogWhereInput) => Promise<boolean>
   AccessCondition: (where?: AccessConditionWhereInput) => Promise<boolean>
   DataDescriptor: (where?: DataDescriptorWhereInput) => Promise<boolean>
   Resource: (where?: ResourceWhereInput) => Promise<boolean>
@@ -1014,7 +1014,7 @@ input BpmnProcessInstanceCreateInput {
   comments: CommentCreateManyInput
   owner: UserCreateOneWithoutProcessesInput!
   process: BpmnProcessCreateOneInput!
-  log: LogCreateManyInput
+  log: LogCreateManyWithoutProcessInstanceInput
   tasks: BpmnTaskInstanceCreateManyInput
 }
 
@@ -1028,6 +1028,23 @@ input BpmnProcessInstanceCreateOneInput {
   connect: BpmnProcessInstanceWhereUniqueInput
 }
 
+input BpmnProcessInstanceCreateOneWithoutLogInput {
+  create: BpmnProcessInstanceCreateWithoutLogInput
+  connect: BpmnProcessInstanceWhereUniqueInput
+}
+
+input BpmnProcessInstanceCreateWithoutLogInput {
+  dateFinished: DateTime
+  dateStarted: DateTime!
+  duration: Int
+  data: Json!
+  status: BpmnProcessInstanceStatus!
+  comments: CommentCreateManyInput
+  owner: UserCreateOneWithoutProcessesInput!
+  process: BpmnProcessCreateOneInput!
+  tasks: BpmnTaskInstanceCreateManyInput
+}
+
 input BpmnProcessInstanceCreateWithoutOwnerInput {
   dateFinished: DateTime
   dateStarted: DateTime!
@@ -1036,7 +1053,7 @@ input BpmnProcessInstanceCreateWithoutOwnerInput {
   status: BpmnProcessInstanceStatus!
   comments: CommentCreateManyInput
   process: BpmnProcessCreateOneInput!
-  log: LogCreateManyInput
+  log: LogCreateManyWithoutProcessInstanceInput
   tasks: BpmnTaskInstanceCreateManyInput
 }
 
@@ -1132,7 +1149,7 @@ input BpmnProcessInstanceUpdateDataInput {
   comments: CommentUpdateManyInput
   owner: UserUpdateOneWithoutProcessesInput
   process: BpmnProcessUpdateOneInput
-  log: LogUpdateManyInput
+  log: LogUpdateManyWithoutProcessInstanceInput
   tasks: BpmnTaskInstanceUpdateManyInput
 }
 
@@ -1145,7 +1162,7 @@ input BpmnProcessInstanceUpdateInput {
   comments: CommentUpdateManyInput
   owner: UserUpdateOneWithoutProcessesInput
   process: BpmnProcessUpdateOneInput
-  log: LogUpdateManyInput
+  log: LogUpdateManyWithoutProcessInstanceInput
   tasks: BpmnTaskInstanceUpdateManyInput
 }
 
@@ -1166,6 +1183,26 @@ input BpmnProcessInstanceUpdateOneInput {
   upsert: BpmnProcessInstanceUpsertNestedInput
 }
 
+input BpmnProcessInstanceUpdateOneWithoutLogInput {
+  create: BpmnProcessInstanceCreateWithoutLogInput
+  connect: BpmnProcessInstanceWhereUniqueInput
+  delete: Boolean
+  update: BpmnProcessInstanceUpdateWithoutLogDataInput
+  upsert: BpmnProcessInstanceUpsertWithoutLogInput
+}
+
+input BpmnProcessInstanceUpdateWithoutLogDataInput {
+  dateFinished: DateTime
+  dateStarted: DateTime
+  duration: Int
+  data: Json
+  status: BpmnProcessInstanceStatus
+  comments: CommentUpdateManyInput
+  owner: UserUpdateOneWithoutProcessesInput
+  process: BpmnProcessUpdateOneInput
+  tasks: BpmnTaskInstanceUpdateManyInput
+}
+
 input BpmnProcessInstanceUpdateWithoutOwnerDataInput {
   dateFinished: DateTime
   dateStarted: DateTime
@@ -1174,7 +1211,7 @@ input BpmnProcessInstanceUpdateWithoutOwnerDataInput {
   status: BpmnProcessInstanceStatus
   comments: CommentUpdateManyInput
   process: BpmnProcessUpdateOneInput
-  log: LogUpdateManyInput
+  log: LogUpdateManyWithoutProcessInstanceInput
   tasks: BpmnTaskInstanceUpdateManyInput
 }
 
@@ -1186,6 +1223,11 @@ input BpmnProcessInstanceUpdateWithWhereUniqueWithoutOwnerInput {
 input BpmnProcessInstanceUpsertNestedInput {
   update: BpmnProcessInstanceUpdateDataInput!
   create: BpmnProcessInstanceCreateInput!
+}
+
+input BpmnProcessInstanceUpsertWithoutLogInput {
+  update: BpmnProcessInstanceUpdateWithoutLogDataInput!
+  create: BpmnProcessInstanceCreateWithoutLogInput!
 }
 
 input BpmnProcessInstanceUpsertWithWhereUniqueWithoutOwnerInput {
@@ -4876,6 +4918,7 @@ input LocalisationWhereUniqueInput {
 
 type Log implements Node {
   id: ID!
+  processInstance(where: BpmnProcessInstanceWhereInput): BpmnProcessInstance!
   elementId: String!
   elementName: String!
   date: DateTime!
@@ -4902,12 +4945,23 @@ input LogCreateInput {
   taskInstanceId: ID
   status: BpmnTaskInstanceStatus
   message: String
+  processInstance: BpmnProcessInstanceCreateOneWithoutLogInput!
   performer: UserCreateOneInput
 }
 
-input LogCreateManyInput {
-  create: [LogCreateInput!]
+input LogCreateManyWithoutProcessInstanceInput {
+  create: [LogCreateWithoutProcessInstanceInput!]
   connect: [LogWhereUniqueInput!]
+}
+
+input LogCreateWithoutProcessInstanceInput {
+  elementId: String!
+  elementName: String!
+  date: DateTime!
+  taskInstanceId: ID
+  status: BpmnTaskInstanceStatus
+  message: String
+  performer: UserCreateOneInput
 }
 
 """An edge in a connection."""
@@ -4989,16 +5043,6 @@ input LogSubscriptionWhereInput {
   node: LogWhereInput
 }
 
-input LogUpdateDataInput {
-  elementId: String
-  elementName: String
-  date: DateTime
-  taskInstanceId: ID
-  status: BpmnTaskInstanceStatus
-  message: String
-  performer: UserUpdateOneInput
-}
-
 input LogUpdateInput {
   elementId: String
   elementName: String
@@ -5006,27 +5050,38 @@ input LogUpdateInput {
   taskInstanceId: ID
   status: BpmnTaskInstanceStatus
   message: String
+  processInstance: BpmnProcessInstanceUpdateOneWithoutLogInput
   performer: UserUpdateOneInput
 }
 
-input LogUpdateManyInput {
-  create: [LogCreateInput!]
+input LogUpdateManyWithoutProcessInstanceInput {
+  create: [LogCreateWithoutProcessInstanceInput!]
   connect: [LogWhereUniqueInput!]
   disconnect: [LogWhereUniqueInput!]
   delete: [LogWhereUniqueInput!]
-  update: [LogUpdateWithWhereUniqueNestedInput!]
-  upsert: [LogUpsertWithWhereUniqueNestedInput!]
+  update: [LogUpdateWithWhereUniqueWithoutProcessInstanceInput!]
+  upsert: [LogUpsertWithWhereUniqueWithoutProcessInstanceInput!]
 }
 
-input LogUpdateWithWhereUniqueNestedInput {
-  where: LogWhereUniqueInput!
-  data: LogUpdateDataInput!
+input LogUpdateWithoutProcessInstanceDataInput {
+  elementId: String
+  elementName: String
+  date: DateTime
+  taskInstanceId: ID
+  status: BpmnTaskInstanceStatus
+  message: String
+  performer: UserUpdateOneInput
 }
 
-input LogUpsertWithWhereUniqueNestedInput {
+input LogUpdateWithWhereUniqueWithoutProcessInstanceInput {
   where: LogWhereUniqueInput!
-  update: LogUpdateDataInput!
-  create: LogCreateInput!
+  data: LogUpdateWithoutProcessInstanceDataInput!
+}
+
+input LogUpsertWithWhereUniqueWithoutProcessInstanceInput {
+  where: LogWhereUniqueInput!
+  update: LogUpdateWithoutProcessInstanceDataInput!
+  create: LogCreateWithoutProcessInstanceInput!
 }
 
 input LogWhereInput {
@@ -5270,10 +5325,8 @@ input LogWhereInput {
 
   """All values not ending with the given string."""
   message_not_ends_with: String
+  processInstance: BpmnProcessInstanceWhereInput
   performer: UserWhereInput
-  _MagicalBackRelation_BpmnProcessInstanceLog_every: BpmnProcessInstanceWhereInput
-  _MagicalBackRelation_BpmnProcessInstanceLog_some: BpmnProcessInstanceWhereInput
-  _MagicalBackRelation_BpmnProcessInstanceLog_none: BpmnProcessInstanceWhereInput
 }
 
 input LogWhereUniqueInput {
@@ -5288,6 +5341,7 @@ scalar Long
 
 type Mutation {
   createLocalisation(data: LocalisationCreateInput!): Localisation!
+  createLog(data: LogCreateInput!): Log!
   createOrganisation(data: OrganisationCreateInput!): Organisation!
   createRole(data: RoleCreateInput!): Role!
   createValidator(data: ValidatorCreateInput!): Validator!
@@ -5297,7 +5351,6 @@ type Mutation {
   createUser(data: UserCreateInput!): User!
   createNotification(data: NotificationCreateInput!): Notification!
   createDocument(data: DocumentCreateInput!): Document!
-  createLog(data: LogCreateInput!): Log!
   createAccessCondition(data: AccessConditionCreateInput!): AccessCondition!
   createDataDescriptor(data: DataDescriptorCreateInput!): DataDescriptor!
   createResource(data: ResourceCreateInput!): Resource!
@@ -5308,6 +5361,7 @@ type Mutation {
   createBpmnTask(data: BpmnTaskCreateInput!): BpmnTask!
   createBpmnProcessInstance(data: BpmnProcessInstanceCreateInput!): BpmnProcessInstance!
   updateLocalisation(data: LocalisationUpdateInput!, where: LocalisationWhereUniqueInput!): Localisation
+  updateLog(data: LogUpdateInput!, where: LogWhereUniqueInput!): Log
   updateOrganisation(data: OrganisationUpdateInput!, where: OrganisationWhereUniqueInput!): Organisation
   updateRole(data: RoleUpdateInput!, where: RoleWhereUniqueInput!): Role
   updateValidator(data: ValidatorUpdateInput!, where: ValidatorWhereUniqueInput!): Validator
@@ -5317,7 +5371,6 @@ type Mutation {
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateNotification(data: NotificationUpdateInput!, where: NotificationWhereUniqueInput!): Notification
   updateDocument(data: DocumentUpdateInput!, where: DocumentWhereUniqueInput!): Document
-  updateLog(data: LogUpdateInput!, where: LogWhereUniqueInput!): Log
   updateDataDescriptor(data: DataDescriptorUpdateInput!, where: DataDescriptorWhereUniqueInput!): DataDescriptor
   updateResource(data: ResourceUpdateInput!, where: ResourceWhereUniqueInput!): Resource
   updateAccess(data: AccessUpdateInput!, where: AccessWhereUniqueInput!): Access
@@ -5327,6 +5380,7 @@ type Mutation {
   updateBpmnTask(data: BpmnTaskUpdateInput!, where: BpmnTaskWhereUniqueInput!): BpmnTask
   updateBpmnProcessInstance(data: BpmnProcessInstanceUpdateInput!, where: BpmnProcessInstanceWhereUniqueInput!): BpmnProcessInstance
   deleteLocalisation(where: LocalisationWhereUniqueInput!): Localisation
+  deleteLog(where: LogWhereUniqueInput!): Log
   deleteOrganisation(where: OrganisationWhereUniqueInput!): Organisation
   deleteRole(where: RoleWhereUniqueInput!): Role
   deleteValidator(where: ValidatorWhereUniqueInput!): Validator
@@ -5336,7 +5390,6 @@ type Mutation {
   deleteUser(where: UserWhereUniqueInput!): User
   deleteNotification(where: NotificationWhereUniqueInput!): Notification
   deleteDocument(where: DocumentWhereUniqueInput!): Document
-  deleteLog(where: LogWhereUniqueInput!): Log
   deleteDataDescriptor(where: DataDescriptorWhereUniqueInput!): DataDescriptor
   deleteResource(where: ResourceWhereUniqueInput!): Resource
   deleteAccess(where: AccessWhereUniqueInput!): Access
@@ -5346,6 +5399,7 @@ type Mutation {
   deleteBpmnTask(where: BpmnTaskWhereUniqueInput!): BpmnTask
   deleteBpmnProcessInstance(where: BpmnProcessInstanceWhereUniqueInput!): BpmnProcessInstance
   upsertLocalisation(where: LocalisationWhereUniqueInput!, create: LocalisationCreateInput!, update: LocalisationUpdateInput!): Localisation!
+  upsertLog(where: LogWhereUniqueInput!, create: LogCreateInput!, update: LogUpdateInput!): Log!
   upsertOrganisation(where: OrganisationWhereUniqueInput!, create: OrganisationCreateInput!, update: OrganisationUpdateInput!): Organisation!
   upsertRole(where: RoleWhereUniqueInput!, create: RoleCreateInput!, update: RoleUpdateInput!): Role!
   upsertValidator(where: ValidatorWhereUniqueInput!, create: ValidatorCreateInput!, update: ValidatorUpdateInput!): Validator!
@@ -5355,7 +5409,6 @@ type Mutation {
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertNotification(where: NotificationWhereUniqueInput!, create: NotificationCreateInput!, update: NotificationUpdateInput!): Notification!
   upsertDocument(where: DocumentWhereUniqueInput!, create: DocumentCreateInput!, update: DocumentUpdateInput!): Document!
-  upsertLog(where: LogWhereUniqueInput!, create: LogCreateInput!, update: LogUpdateInput!): Log!
   upsertDataDescriptor(where: DataDescriptorWhereUniqueInput!, create: DataDescriptorCreateInput!, update: DataDescriptorUpdateInput!): DataDescriptor!
   upsertResource(where: ResourceWhereUniqueInput!, create: ResourceCreateInput!, update: ResourceUpdateInput!): Resource!
   upsertAccess(where: AccessWhereUniqueInput!, create: AccessCreateInput!, update: AccessUpdateInput!): Access!
@@ -5365,6 +5418,7 @@ type Mutation {
   upsertBpmnTask(where: BpmnTaskWhereUniqueInput!, create: BpmnTaskCreateInput!, update: BpmnTaskUpdateInput!): BpmnTask!
   upsertBpmnProcessInstance(where: BpmnProcessInstanceWhereUniqueInput!, create: BpmnProcessInstanceCreateInput!, update: BpmnProcessInstanceUpdateInput!): BpmnProcessInstance!
   updateManyLocalisations(data: LocalisationUpdateInput!, where: LocalisationWhereInput): BatchPayload!
+  updateManyLogs(data: LogUpdateInput!, where: LogWhereInput): BatchPayload!
   updateManyOrganisations(data: OrganisationUpdateInput!, where: OrganisationWhereInput): BatchPayload!
   updateManyRoles(data: RoleUpdateInput!, where: RoleWhereInput): BatchPayload!
   updateManyValidators(data: ValidatorUpdateInput!, where: ValidatorWhereInput): BatchPayload!
@@ -5374,7 +5428,6 @@ type Mutation {
   updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
   updateManyNotifications(data: NotificationUpdateInput!, where: NotificationWhereInput): BatchPayload!
   updateManyDocuments(data: DocumentUpdateInput!, where: DocumentWhereInput): BatchPayload!
-  updateManyLogs(data: LogUpdateInput!, where: LogWhereInput): BatchPayload!
   updateManyAccessConditions(data: AccessConditionUpdateInput!, where: AccessConditionWhereInput): BatchPayload!
   updateManyDataDescriptors(data: DataDescriptorUpdateInput!, where: DataDescriptorWhereInput): BatchPayload!
   updateManyResources(data: ResourceUpdateInput!, where: ResourceWhereInput): BatchPayload!
@@ -5385,6 +5438,7 @@ type Mutation {
   updateManyBpmnTasks(data: BpmnTaskUpdateInput!, where: BpmnTaskWhereInput): BatchPayload!
   updateManyBpmnProcessInstances(data: BpmnProcessInstanceUpdateInput!, where: BpmnProcessInstanceWhereInput): BatchPayload!
   deleteManyLocalisations(where: LocalisationWhereInput): BatchPayload!
+  deleteManyLogs(where: LogWhereInput): BatchPayload!
   deleteManyOrganisations(where: OrganisationWhereInput): BatchPayload!
   deleteManyRoles(where: RoleWhereInput): BatchPayload!
   deleteManyValidators(where: ValidatorWhereInput): BatchPayload!
@@ -5394,7 +5448,6 @@ type Mutation {
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyNotifications(where: NotificationWhereInput): BatchPayload!
   deleteManyDocuments(where: DocumentWhereInput): BatchPayload!
-  deleteManyLogs(where: LogWhereInput): BatchPayload!
   deleteManyAccessConditions(where: AccessConditionWhereInput): BatchPayload!
   deleteManyDataDescriptors(where: DataDescriptorWhereInput): BatchPayload!
   deleteManyResources(where: ResourceWhereInput): BatchPayload!
@@ -6040,6 +6093,7 @@ enum ProcessType {
 
 type Query {
   localisations(where: LocalisationWhereInput, orderBy: LocalisationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Localisation]!
+  logs(where: LogWhereInput, orderBy: LogOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Log]!
   organisations(where: OrganisationWhereInput, orderBy: OrganisationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Organisation]!
   roles(where: RoleWhereInput, orderBy: RoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Role]!
   validators(where: ValidatorWhereInput, orderBy: ValidatorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Validator]!
@@ -6049,7 +6103,6 @@ type Query {
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   notifications(where: NotificationWhereInput, orderBy: NotificationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Notification]!
   documents(where: DocumentWhereInput, orderBy: DocumentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Document]!
-  logs(where: LogWhereInput, orderBy: LogOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Log]!
   accessConditions(where: AccessConditionWhereInput, orderBy: AccessConditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [AccessCondition]!
   dataDescriptors(where: DataDescriptorWhereInput, orderBy: DataDescriptorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [DataDescriptor]!
   resources(where: ResourceWhereInput, orderBy: ResourceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Resource]!
@@ -6060,6 +6113,7 @@ type Query {
   bpmnTasks(where: BpmnTaskWhereInput, orderBy: BpmnTaskOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BpmnTask]!
   bpmnProcessInstances(where: BpmnProcessInstanceWhereInput, orderBy: BpmnProcessInstanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BpmnProcessInstance]!
   localisation(where: LocalisationWhereUniqueInput!): Localisation
+  log(where: LogWhereUniqueInput!): Log
   organisation(where: OrganisationWhereUniqueInput!): Organisation
   role(where: RoleWhereUniqueInput!): Role
   validator(where: ValidatorWhereUniqueInput!): Validator
@@ -6069,7 +6123,6 @@ type Query {
   user(where: UserWhereUniqueInput!): User
   notification(where: NotificationWhereUniqueInput!): Notification
   document(where: DocumentWhereUniqueInput!): Document
-  log(where: LogWhereUniqueInput!): Log
   dataDescriptor(where: DataDescriptorWhereUniqueInput!): DataDescriptor
   resource(where: ResourceWhereUniqueInput!): Resource
   access(where: AccessWhereUniqueInput!): Access
@@ -6079,6 +6132,7 @@ type Query {
   bpmnTask(where: BpmnTaskWhereUniqueInput!): BpmnTask
   bpmnProcessInstance(where: BpmnProcessInstanceWhereUniqueInput!): BpmnProcessInstance
   localisationsConnection(where: LocalisationWhereInput, orderBy: LocalisationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LocalisationConnection!
+  logsConnection(where: LogWhereInput, orderBy: LogOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LogConnection!
   organisationsConnection(where: OrganisationWhereInput, orderBy: OrganisationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): OrganisationConnection!
   rolesConnection(where: RoleWhereInput, orderBy: RoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RoleConnection!
   validatorsConnection(where: ValidatorWhereInput, orderBy: ValidatorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ValidatorConnection!
@@ -6088,7 +6142,6 @@ type Query {
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   notificationsConnection(where: NotificationWhereInput, orderBy: NotificationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): NotificationConnection!
   documentsConnection(where: DocumentWhereInput, orderBy: DocumentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DocumentConnection!
-  logsConnection(where: LogWhereInput, orderBy: LogOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LogConnection!
   accessConditionsConnection(where: AccessConditionWhereInput, orderBy: AccessConditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AccessConditionConnection!
   dataDescriptorsConnection(where: DataDescriptorWhereInput, orderBy: DataDescriptorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DataDescriptorConnection!
   resourcesConnection(where: ResourceWhereInput, orderBy: ResourceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ResourceConnection!
@@ -6634,6 +6687,7 @@ input RoleWhereUniqueInput {
 
 type Subscription {
   localisation(where: LocalisationSubscriptionWhereInput): LocalisationSubscriptionPayload
+  log(where: LogSubscriptionWhereInput): LogSubscriptionPayload
   organisation(where: OrganisationSubscriptionWhereInput): OrganisationSubscriptionPayload
   role(where: RoleSubscriptionWhereInput): RoleSubscriptionPayload
   validator(where: ValidatorSubscriptionWhereInput): ValidatorSubscriptionPayload
@@ -6643,7 +6697,6 @@ type Subscription {
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   notification(where: NotificationSubscriptionWhereInput): NotificationSubscriptionPayload
   document(where: DocumentSubscriptionWhereInput): DocumentSubscriptionPayload
-  log(where: LogSubscriptionWhereInput): LogSubscriptionPayload
   accessCondition(where: AccessConditionSubscriptionWhereInput): AccessConditionSubscriptionPayload
   dataDescriptor(where: DataDescriptorSubscriptionWhereInput): DataDescriptorSubscriptionPayload
   resource(where: ResourceSubscriptionWhereInput): ResourceSubscriptionPayload
@@ -7319,6 +7372,79 @@ export const Prisma = makePrismaBindingClass<BindingConstructor<Prisma>>({typeDe
  * Types
 */
 
+export type NotificationCode =   'ProcessStarted' |
+  'ProcessFinished' |
+  'ProcessAborted' |
+  'ActionStarted' |
+  'ActionFinished' |
+  'ActionAborted' |
+  'ActionRequired'
+
+export type BpmnTaskType =   'Form'
+
+export type FormElementOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'row_ASC' |
+  'row_DESC' |
+  'column_ASC' |
+  'column_DESC' |
+  'width_ASC' |
+  'width_DESC' |
+  'label_ASC' |
+  'label_DESC' |
+  'inline_ASC' |
+  'inline_DESC' |
+  'defaultValue_ASC' |
+  'defaultValue_DESC' |
+  'list_ASC' |
+  'list_DESC' |
+  'filterSource_ASC' |
+  'filterSource_DESC' |
+  'filterColumn_ASC' |
+  'filterColumn_DESC' |
+  'control_ASC' |
+  'control_DESC' |
+  'controlProps_ASC' |
+  'controlProps_DESC' |
+  'vertical_ASC' |
+  'vertical_DESC' |
+  'parentElement_ASC' |
+  'parentElement_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC'
+
+export type LanguageCode =   'EN'
+
+export type ResourceOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'type_ASC' |
+  'type_DESC' |
+  'name_ASC' |
+  'name_DESC' |
+  'link_ASC' |
+  'link_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC'
+
+export type AccessOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'createdById_ASC' |
+  'createdById_DESC' |
+  'createdOn_ASC' |
+  'createdOn_DESC' |
+  'modifiedById_ASC' |
+  'modifiedById_DESC' |
+  'modifiedOn_ASC' |
+  'modifiedOn_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC'
+
 export type DataDescriptorOrderByInput =   'id_ASC' |
   'id_DESC' |
   'defaultValue_ASC' |
@@ -7342,65 +7468,6 @@ export type DataDescriptorOrderByInput =   'id_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export type BpmnTaskInstanceStatus =   'Started' |
-  'Paused' |
-  'Aborted' |
-  'Finished' |
-  'Approved' |
-  'Rejected'
-
-export type FormControl =   'Input' |
-  'Select' |
-  'Checkbox' |
-  'Radio' |
-  'Textarea' |
-  'Repeater' |
-  'Table' |
-  'Text' |
-  'DeleteButton'
-
-export type LanguageCode =   'EN'
-
-export type NotificationOrderByInput =   'type_ASC' |
-  'type_DESC' |
-  'id_ASC' |
-  'id_DESC' |
-  'userId_ASC' |
-  'userId_DESC' |
-  'createdAt_ASC' |
-  'createdAt_DESC' |
-  'code_ASC' |
-  'code_DESC' |
-  'text_ASC' |
-  'text_DESC' |
-  'visible_ASC' |
-  'visible_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC'
-
-export type AccessOrderByInput =   'id_ASC' |
-  'id_DESC' |
-  'createdById_ASC' |
-  'createdById_DESC' |
-  'createdOn_ASC' |
-  'createdOn_DESC' |
-  'modifiedById_ASC' |
-  'modifiedById_DESC' |
-  'modifiedOn_ASC' |
-  'modifiedOn_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
-  'createdAt_ASC' |
-  'createdAt_DESC'
-
-export type DataType =   'Id' |
-  'Boolean' |
-  'Float' |
-  'Int' |
-  'String' |
-  'Date' |
-  'Object'
-
 export type UserOrderByInput =   'id_ASC' |
   'id_DESC' |
   'uid_ASC' |
@@ -7416,14 +7483,29 @@ export type UserOrderByInput =   'id_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export type CommentOrderByInput =   'id_ASC' |
+export type DataType =   'Id' |
+  'Boolean' |
+  'Float' |
+  'Int' |
+  'String' |
+  'Date' |
+  'Object'
+
+export type RoleOrderByInput =   'id_ASC' |
   'id_DESC' |
-  'text_ASC' |
-  'text_DESC' |
-  'date_ASC' |
-  'date_DESC' |
-  'replyTo_ASC' |
-  'replyTo_DESC' |
+  'name_ASC' |
+  'name_DESC' |
+  'description_ASC' |
+  'description_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC'
+
+export type ValidatorOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'name_ASC' |
+  'name_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
@@ -7470,64 +7552,16 @@ export type BpmnTaskInstanceOrderByInput =   'id_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export type FormElementOrderByInput =   'id_ASC' |
+export type DataOrderByInput =   'id_ASC' |
   'id_DESC' |
-  'row_ASC' |
-  'row_DESC' |
-  'column_ASC' |
-  'column_DESC' |
-  'width_ASC' |
-  'width_DESC' |
-  'label_ASC' |
-  'label_DESC' |
-  'inline_ASC' |
-  'inline_DESC' |
-  'defaultValue_ASC' |
-  'defaultValue_DESC' |
-  'list_ASC' |
-  'list_DESC' |
-  'filterSource_ASC' |
-  'filterSource_DESC' |
-  'filterColumn_ASC' |
-  'filterColumn_DESC' |
-  'control_ASC' |
-  'control_DESC' |
-  'controlProps_ASC' |
-  'controlProps_DESC' |
-  'vertical_ASC' |
-  'vertical_DESC' |
-  'parentElement_ASC' |
-  'parentElement_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
-  'createdAt_ASC' |
-  'createdAt_DESC'
-
-export type LogOrderByInput =   'id_ASC' |
-  'id_DESC' |
-  'elementId_ASC' |
-  'elementId_DESC' |
-  'elementName_ASC' |
-  'elementName_DESC' |
+  'organisationId_ASC' |
+  'organisationId_DESC' |
+  'version_ASC' |
+  'version_DESC' |
   'date_ASC' |
   'date_DESC' |
-  'taskInstanceId_ASC' |
-  'taskInstanceId_DESC' |
-  'status_ASC' |
-  'status_DESC' |
-  'message_ASC' |
-  'message_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
-  'createdAt_ASC' |
-  'createdAt_DESC'
-
-export type FormOrderByInput =   'id_ASC' |
-  'id_DESC' |
-  'name_ASC' |
-  'name_DESC' |
-  'description_ASC' |
-  'description_DESC' |
+  'value_ASC' |
+  'value_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
@@ -7580,15 +7614,6 @@ export type DocumentOrderByInput =   'id_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export type ValidatorOrderByInput =   'id_ASC' |
-  'id_DESC' |
-  'name_ASC' |
-  'name_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
-  'createdAt_ASC' |
-  'createdAt_DESC'
-
 export type BpmnProcessInstanceOrderByInput =   'id_ASC' |
   'id_DESC' |
   'dateFinished_ASC' |
@@ -7605,6 +7630,13 @@ export type BpmnProcessInstanceOrderByInput =   'id_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
   'createdAt_DESC'
+
+export type BpmnTaskInstanceStatus =   'Started' |
+  'Paused' |
+  'Aborted' |
+  'Finished' |
+  'Approved' |
+  'Rejected'
 
 export type ResourceType =   'Url' |
   'File' |
@@ -7624,59 +7656,80 @@ export type BpmnTaskOrderByInput =   'id_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
+export type LogOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'elementId_ASC' |
+  'elementId_DESC' |
+  'elementName_ASC' |
+  'elementName_DESC' |
+  'date_ASC' |
+  'date_DESC' |
+  'taskInstanceId_ASC' |
+  'taskInstanceId_DESC' |
+  'status_ASC' |
+  'status_DESC' |
+  'message_ASC' |
+  'message_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC'
+
+export type FormControl =   'Input' |
+  'Select' |
+  'Checkbox' |
+  'Radio' |
+  'Textarea' |
+  'Repeater' |
+  'Table' |
+  'Text' |
+  'DeleteButton'
+
+export type CommentOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'text_ASC' |
+  'text_DESC' |
+  'date_ASC' |
+  'date_DESC' |
+  'replyTo_ASC' |
+  'replyTo_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC'
+
+export type NotificationOrderByInput =   'type_ASC' |
+  'type_DESC' |
+  'id_ASC' |
+  'id_DESC' |
+  'userId_ASC' |
+  'userId_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC' |
+  'code_ASC' |
+  'code_DESC' |
+  'text_ASC' |
+  'text_DESC' |
+  'visible_ASC' |
+  'visible_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC'
+
 export type NotificationType =   'Info' |
   'Error' |
   'Warning'
-
-export type BpmnTaskType =   'Form'
-
-export type NotificationCode =   'ProcessStarted' |
-  'ProcessFinished' |
-  'ProcessAborted' |
-  'ActionStarted' |
-  'ActionFinished' |
-  'ActionAborted' |
-  'ActionRequired'
 
 export type BpmnProcessInstanceStatus =   'Running' |
   'Finished' |
   'Aborted' |
   'Paused'
 
-export type ResourceOrderByInput =   'id_ASC' |
-  'id_DESC' |
-  'type_ASC' |
-  'type_DESC' |
-  'name_ASC' |
-  'name_DESC' |
-  'link_ASC' |
-  'link_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
-  'createdAt_ASC' |
-  'createdAt_DESC'
-
-export type RoleOrderByInput =   'id_ASC' |
+export type FormOrderByInput =   'id_ASC' |
   'id_DESC' |
   'name_ASC' |
   'name_DESC' |
   'description_ASC' |
   'description_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
-  'createdAt_ASC' |
-  'createdAt_DESC'
-
-export type DataOrderByInput =   'id_ASC' |
-  'id_DESC' |
-  'organisationId_ASC' |
-  'organisationId_DESC' |
-  'version_ASC' |
-  'version_DESC' |
-  'date_ASC' |
-  'date_DESC' |
-  'value_ASC' |
-  'value_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
@@ -7695,9 +7748,19 @@ export type LocalisationOrderByInput =   'id_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export interface UserCreateOneWithoutProcessesInput {
-  create?: UserCreateWithoutProcessesInput
-  connect?: UserWhereUniqueInput
+export interface BpmnProcessCreateInput {
+  actionCount: Int
+  description?: String
+  model: String
+  name: String
+  type: ProcessType
+  status: ProcessStatus
+  version: Int
+  access: AccessCreateOneInput
+  dataDescriptors?: DataDescriptorCreateManyInput
+  resources?: ResourceCreateManyInput
+  versions?: BpmnProcessCreateManyInput
+  tasks?: BpmnTaskCreateManyInput
 }
 
 export interface LocalisationWhereInput {
@@ -7752,15 +7815,14 @@ export interface LocalisationWhereInput {
   language_not_in?: LanguageCode[] | LanguageCode
 }
 
-export interface BpmnTaskInstanceCreateManyInput {
-  create?: BpmnTaskInstanceCreateInput[] | BpmnTaskInstanceCreateInput
-  connect?: BpmnTaskInstanceWhereUniqueInput[] | BpmnTaskInstanceWhereUniqueInput
+export interface BpmnTaskInstanceCreateperformerRolesInput {
+  set?: String[] | String
 }
 
-export interface UserWhereInput {
-  AND?: UserWhereInput[] | UserWhereInput
-  OR?: UserWhereInput[] | UserWhereInput
-  NOT?: UserWhereInput[] | UserWhereInput
+export interface BpmnTaskWhereInput {
+  AND?: BpmnTaskWhereInput[] | BpmnTaskWhereInput
+  OR?: BpmnTaskWhereInput[] | BpmnTaskWhereInput
+  NOT?: BpmnTaskWhereInput[] | BpmnTaskWhereInput
   id?: ID_Input
   id_not?: ID_Input
   id_in?: ID_Input[] | ID_Input
@@ -7775,20 +7837,20 @@ export interface UserWhereInput {
   id_not_starts_with?: ID_Input
   id_ends_with?: ID_Input
   id_not_ends_with?: ID_Input
-  uid?: String
-  uid_not?: String
-  uid_in?: String[] | String
-  uid_not_in?: String[] | String
-  uid_lt?: String
-  uid_lte?: String
-  uid_gt?: String
-  uid_gte?: String
-  uid_contains?: String
-  uid_not_contains?: String
-  uid_starts_with?: String
-  uid_not_starts_with?: String
-  uid_ends_with?: String
-  uid_not_ends_with?: String
+  taskId?: ID_Input
+  taskId_not?: ID_Input
+  taskId_in?: ID_Input[] | ID_Input
+  taskId_not_in?: ID_Input[] | ID_Input
+  taskId_lt?: ID_Input
+  taskId_lte?: ID_Input
+  taskId_gt?: ID_Input
+  taskId_gte?: ID_Input
+  taskId_contains?: ID_Input
+  taskId_not_contains?: ID_Input
+  taskId_starts_with?: ID_Input
+  taskId_not_starts_with?: ID_Input
+  taskId_ends_with?: ID_Input
+  taskId_not_ends_with?: ID_Input
   name?: String
   name_not?: String
   name_in?: String[] | String
@@ -7803,64 +7865,24 @@ export interface UserWhereInput {
   name_not_starts_with?: String
   name_ends_with?: String
   name_not_ends_with?: String
-  description?: String
-  description_not?: String
-  description_in?: String[] | String
-  description_not_in?: String[] | String
-  description_lt?: String
-  description_lte?: String
-  description_gt?: String
-  description_gte?: String
-  description_contains?: String
-  description_not_contains?: String
-  description_starts_with?: String
-  description_not_starts_with?: String
-  description_ends_with?: String
-  description_not_ends_with?: String
-  password?: String
-  password_not?: String
-  password_in?: String[] | String
-  password_not_in?: String[] | String
-  password_lt?: String
-  password_lte?: String
-  password_gt?: String
-  password_gte?: String
-  password_contains?: String
-  password_not_contains?: String
-  password_starts_with?: String
-  password_not_starts_with?: String
-  password_ends_with?: String
-  password_not_ends_with?: String
-  notifications_every?: NotificationWhereInput
-  notifications_some?: NotificationWhereInput
-  notifications_none?: NotificationWhereInput
-  processes_every?: BpmnProcessInstanceWhereInput
-  processes_some?: BpmnProcessInstanceWhereInput
-  processes_none?: BpmnProcessInstanceWhereInput
-  data_every?: DataWhereInput
-  data_some?: DataWhereInput
-  data_none?: DataWhereInput
-  _MagicalBackRelation_CommentToUser_every?: CommentWhereInput
-  _MagicalBackRelation_CommentToUser_some?: CommentWhereInput
-  _MagicalBackRelation_CommentToUser_none?: CommentWhereInput
-  _MagicalBackRelation_TaskPerformer_every?: BpmnTaskInstanceWhereInput
-  _MagicalBackRelation_TaskPerformer_some?: BpmnTaskInstanceWhereInput
-  _MagicalBackRelation_TaskPerformer_none?: BpmnTaskInstanceWhereInput
-  _MagicalBackRelation_LogToUser_every?: LogWhereInput
-  _MagicalBackRelation_LogToUser_some?: LogWhereInput
-  _MagicalBackRelation_LogToUser_none?: LogWhereInput
+  type?: BpmnTaskType
+  type_not?: BpmnTaskType
+  type_in?: BpmnTaskType[] | BpmnTaskType
+  type_not_in?: BpmnTaskType[] | BpmnTaskType
+  resources_every?: ResourceWhereInput
+  resources_some?: ResourceWhereInput
+  resources_none?: ResourceWhereInput
+  _MagicalBackRelation_BpmnTaskToBpmnTaskInstance_every?: BpmnTaskInstanceWhereInput
+  _MagicalBackRelation_BpmnTaskToBpmnTaskInstance_some?: BpmnTaskInstanceWhereInput
+  _MagicalBackRelation_BpmnTaskToBpmnTaskInstance_none?: BpmnTaskInstanceWhereInput
+  _MagicalBackRelation_BomnProcessTasks_every?: BpmnProcessWhereInput
+  _MagicalBackRelation_BomnProcessTasks_some?: BpmnProcessWhereInput
+  _MagicalBackRelation_BomnProcessTasks_none?: BpmnProcessWhereInput
 }
 
-export interface BpmnTaskInstanceCreateInput {
-  dateFinished?: DateTime
-  dateStarted: DateTime
-  duration?: Int
-  data?: Json
-  status: BpmnTaskInstanceStatus
-  performerRoles?: BpmnTaskInstanceCreateperformerRolesInput
-  performer?: UserCreateOneInput
-  processInstance: BpmnProcessInstanceCreateOneInput
-  task: BpmnTaskCreateOneInput
+export interface BpmnTaskCreateOneInput {
+  create?: BpmnTaskCreateInput
+  connect?: BpmnTaskWhereUniqueInput
 }
 
 export interface BpmnTaskInstanceWhereInput {
@@ -7917,138 +7939,20 @@ export interface BpmnTaskInstanceWhereInput {
   _MagicalBackRelation_BpmnProcessInstanceTasks_none?: BpmnProcessInstanceWhereInput
 }
 
-export interface BpmnTaskInstanceCreateperformerRolesInput {
-  set?: String[] | String
+export interface ResourceUpsertWithWhereUniqueNestedInput {
+  where: ResourceWhereUniqueInput
+  update: ResourceUpdateDataInput
+  create: ResourceCreateInput
 }
 
-export interface BpmnProcessInstanceWhereInput {
-  AND?: BpmnProcessInstanceWhereInput[] | BpmnProcessInstanceWhereInput
-  OR?: BpmnProcessInstanceWhereInput[] | BpmnProcessInstanceWhereInput
-  NOT?: BpmnProcessInstanceWhereInput[] | BpmnProcessInstanceWhereInput
-  id?: ID_Input
-  id_not?: ID_Input
-  id_in?: ID_Input[] | ID_Input
-  id_not_in?: ID_Input[] | ID_Input
-  id_lt?: ID_Input
-  id_lte?: ID_Input
-  id_gt?: ID_Input
-  id_gte?: ID_Input
-  id_contains?: ID_Input
-  id_not_contains?: ID_Input
-  id_starts_with?: ID_Input
-  id_not_starts_with?: ID_Input
-  id_ends_with?: ID_Input
-  id_not_ends_with?: ID_Input
-  dateFinished?: DateTime
-  dateFinished_not?: DateTime
-  dateFinished_in?: DateTime[] | DateTime
-  dateFinished_not_in?: DateTime[] | DateTime
-  dateFinished_lt?: DateTime
-  dateFinished_lte?: DateTime
-  dateFinished_gt?: DateTime
-  dateFinished_gte?: DateTime
-  dateStarted?: DateTime
-  dateStarted_not?: DateTime
-  dateStarted_in?: DateTime[] | DateTime
-  dateStarted_not_in?: DateTime[] | DateTime
-  dateStarted_lt?: DateTime
-  dateStarted_lte?: DateTime
-  dateStarted_gt?: DateTime
-  dateStarted_gte?: DateTime
-  duration?: Int
-  duration_not?: Int
-  duration_in?: Int[] | Int
-  duration_not_in?: Int[] | Int
-  duration_lt?: Int
-  duration_lte?: Int
-  duration_gt?: Int
-  duration_gte?: Int
-  status?: BpmnProcessInstanceStatus
-  status_not?: BpmnProcessInstanceStatus
-  status_in?: BpmnProcessInstanceStatus[] | BpmnProcessInstanceStatus
-  status_not_in?: BpmnProcessInstanceStatus[] | BpmnProcessInstanceStatus
-  comments_every?: CommentWhereInput
-  comments_some?: CommentWhereInput
-  comments_none?: CommentWhereInput
-  owner?: UserWhereInput
-  process?: BpmnProcessWhereInput
-  log_every?: LogWhereInput
-  log_some?: LogWhereInput
-  log_none?: LogWhereInput
-  tasks_every?: BpmnTaskInstanceWhereInput
-  tasks_some?: BpmnTaskInstanceWhereInput
-  tasks_none?: BpmnTaskInstanceWhereInput
-  _MagicalBackRelation_BpmnProcessInstanceToNotification_every?: NotificationWhereInput
-  _MagicalBackRelation_BpmnProcessInstanceToNotification_some?: NotificationWhereInput
-  _MagicalBackRelation_BpmnProcessInstanceToNotification_none?: NotificationWhereInput
-  _MagicalBackRelation_BpmnProcessTasks_every?: BpmnTaskInstanceWhereInput
-  _MagicalBackRelation_BpmnProcessTasks_some?: BpmnTaskInstanceWhereInput
-  _MagicalBackRelation_BpmnProcessTasks_none?: BpmnTaskInstanceWhereInput
+export interface UserUpsertWithoutProcessesInput {
+  update: UserUpdateWithoutProcessesDataInput
+  create: UserCreateWithoutProcessesInput
 }
 
-export interface BpmnTaskCreateOneInput {
-  create?: BpmnTaskCreateInput
-  connect?: BpmnTaskWhereUniqueInput
-}
-
-export interface CommentWhereInput {
-  AND?: CommentWhereInput[] | CommentWhereInput
-  OR?: CommentWhereInput[] | CommentWhereInput
-  NOT?: CommentWhereInput[] | CommentWhereInput
-  id?: ID_Input
-  id_not?: ID_Input
-  id_in?: ID_Input[] | ID_Input
-  id_not_in?: ID_Input[] | ID_Input
-  id_lt?: ID_Input
-  id_lte?: ID_Input
-  id_gt?: ID_Input
-  id_gte?: ID_Input
-  id_contains?: ID_Input
-  id_not_contains?: ID_Input
-  id_starts_with?: ID_Input
-  id_not_starts_with?: ID_Input
-  id_ends_with?: ID_Input
-  id_not_ends_with?: ID_Input
-  text?: String
-  text_not?: String
-  text_in?: String[] | String
-  text_not_in?: String[] | String
-  text_lt?: String
-  text_lte?: String
-  text_gt?: String
-  text_gte?: String
-  text_contains?: String
-  text_not_contains?: String
-  text_starts_with?: String
-  text_not_starts_with?: String
-  text_ends_with?: String
-  text_not_ends_with?: String
-  date?: DateTime
-  date_not?: DateTime
-  date_in?: DateTime[] | DateTime
-  date_not_in?: DateTime[] | DateTime
-  date_lt?: DateTime
-  date_lte?: DateTime
-  date_gt?: DateTime
-  date_gte?: DateTime
-  replyTo?: String
-  replyTo_not?: String
-  replyTo_in?: String[] | String
-  replyTo_not_in?: String[] | String
-  replyTo_lt?: String
-  replyTo_lte?: String
-  replyTo_gt?: String
-  replyTo_gte?: String
-  replyTo_contains?: String
-  replyTo_not_contains?: String
-  replyTo_starts_with?: String
-  replyTo_not_starts_with?: String
-  replyTo_ends_with?: String
-  replyTo_not_ends_with?: String
-  user?: UserWhereInput
-  _MagicalBackRelation_BpmnProcessInstanceToComment_every?: BpmnProcessInstanceWhereInput
-  _MagicalBackRelation_BpmnProcessInstanceToComment_some?: BpmnProcessInstanceWhereInput
-  _MagicalBackRelation_BpmnProcessInstanceToComment_none?: BpmnProcessInstanceWhereInput
+export interface DocumentUpsertNestedInput {
+  update: DocumentUpdateDataInput
+  create: DocumentCreateInput
 }
 
 export interface BpmnProcessInstanceCreateManyWithoutOwnerInput {
@@ -8056,10 +7960,36 @@ export interface BpmnProcessInstanceCreateManyWithoutOwnerInput {
   connect?: BpmnProcessInstanceWhereUniqueInput[] | BpmnProcessInstanceWhereUniqueInput
 }
 
-export interface DataWhereInput {
-  AND?: DataWhereInput[] | DataWhereInput
-  OR?: DataWhereInput[] | DataWhereInput
-  NOT?: DataWhereInput[] | DataWhereInput
+export interface DocumentUpdateDataInput {
+  title?: String
+  content?: String
+  version?: Int
+}
+
+export interface BpmnProcessInstanceSubscriptionWhereInput {
+  AND?: BpmnProcessInstanceSubscriptionWhereInput[] | BpmnProcessInstanceSubscriptionWhereInput
+  OR?: BpmnProcessInstanceSubscriptionWhereInput[] | BpmnProcessInstanceSubscriptionWhereInput
+  NOT?: BpmnProcessInstanceSubscriptionWhereInput[] | BpmnProcessInstanceSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: BpmnProcessInstanceWhereInput
+}
+
+export interface DocumentUpdateOneInput {
+  create?: DocumentCreateInput
+  connect?: DocumentWhereUniqueInput
+  disconnect?: Boolean
+  delete?: Boolean
+  update?: DocumentUpdateDataInput
+  upsert?: DocumentUpsertNestedInput
+}
+
+export interface FormWhereInput {
+  AND?: FormWhereInput[] | FormWhereInput
+  OR?: FormWhereInput[] | FormWhereInput
+  NOT?: FormWhereInput[] | FormWhereInput
   id?: ID_Input
   id_not?: ID_Input
   id_in?: ID_Input[] | ID_Input
@@ -8074,207 +8004,158 @@ export interface DataWhereInput {
   id_not_starts_with?: ID_Input
   id_ends_with?: ID_Input
   id_not_ends_with?: ID_Input
-  organisationId?: String
-  organisationId_not?: String
-  organisationId_in?: String[] | String
-  organisationId_not_in?: String[] | String
-  organisationId_lt?: String
-  organisationId_lte?: String
-  organisationId_gt?: String
-  organisationId_gte?: String
-  organisationId_contains?: String
-  organisationId_not_contains?: String
-  organisationId_starts_with?: String
-  organisationId_not_starts_with?: String
-  organisationId_ends_with?: String
-  organisationId_not_ends_with?: String
-  version?: Int
-  version_not?: Int
-  version_in?: Int[] | Int
-  version_not_in?: Int[] | Int
-  version_lt?: Int
-  version_lte?: Int
-  version_gt?: Int
-  version_gte?: Int
-  date?: DateTime
-  date_not?: DateTime
-  date_in?: DateTime[] | DateTime
-  date_not_in?: DateTime[] | DateTime
-  date_lt?: DateTime
-  date_lte?: DateTime
-  date_gt?: DateTime
-  date_gte?: DateTime
-  value?: String
-  value_not?: String
-  value_in?: String[] | String
-  value_not_in?: String[] | String
-  value_lt?: String
-  value_lte?: String
-  value_gt?: String
-  value_gte?: String
-  value_contains?: String
-  value_not_contains?: String
-  value_starts_with?: String
-  value_not_starts_with?: String
-  value_ends_with?: String
-  value_not_ends_with?: String
-  descriptor?: DataDescriptorWhereInput
-  _MagicalBackRelation_UserData_every?: UserWhereInput
-  _MagicalBackRelation_UserData_some?: UserWhereInput
-  _MagicalBackRelation_UserData_none?: UserWhereInput
-}
-
-export interface ResourceUpdateWithWhereUniqueNestedInput {
-  where: ResourceWhereUniqueInput
-  data: ResourceUpdateDataInput
-}
-
-export interface BpmnProcessInstanceUpdateDataInput {
-  dateFinished?: DateTime
-  dateStarted?: DateTime
-  duration?: Int
-  data?: Json
-  status?: BpmnProcessInstanceStatus
-  comments?: CommentUpdateManyInput
-  owner?: UserUpdateOneWithoutProcessesInput
-  process?: BpmnProcessUpdateOneInput
-  log?: LogUpdateManyInput
-  tasks?: BpmnTaskInstanceUpdateManyInput
-}
-
-export interface ResourceUpdateManyInput {
-  create?: ResourceCreateInput[] | ResourceCreateInput
-  connect?: ResourceWhereUniqueInput[] | ResourceWhereUniqueInput
-  disconnect?: ResourceWhereUniqueInput[] | ResourceWhereUniqueInput
-  delete?: ResourceWhereUniqueInput[] | ResourceWhereUniqueInput
-  update?: ResourceUpdateWithWhereUniqueNestedInput[] | ResourceUpdateWithWhereUniqueNestedInput
-  upsert?: ResourceUpsertWithWhereUniqueNestedInput[] | ResourceUpsertWithWhereUniqueNestedInput
-}
-
-export interface BpmnProcessInstanceCreateWithoutOwnerInput {
-  dateFinished?: DateTime
-  dateStarted: DateTime
-  duration?: Int
-  data: Json
-  status: BpmnProcessInstanceStatus
-  comments?: CommentCreateManyInput
-  process: BpmnProcessCreateOneInput
-  log?: LogCreateManyInput
-  tasks?: BpmnTaskInstanceCreateManyInput
-}
-
-export interface DataDescriptorUpsertWithWhereUniqueNestedInput {
-  where: DataDescriptorWhereUniqueInput
-  update: DataDescriptorUpdateDataInput
-  create: DataDescriptorCreateInput
-}
-
-export interface AccessConditionWhereInput {
-  AND?: AccessConditionWhereInput[] | AccessConditionWhereInput
-  OR?: AccessConditionWhereInput[] | AccessConditionWhereInput
-  NOT?: AccessConditionWhereInput[] | AccessConditionWhereInput
-  organisationId?: ID_Input
-  organisationId_not?: ID_Input
-  organisationId_in?: ID_Input[] | ID_Input
-  organisationId_not_in?: ID_Input[] | ID_Input
-  organisationId_lt?: ID_Input
-  organisationId_lte?: ID_Input
-  organisationId_gt?: ID_Input
-  organisationId_gte?: ID_Input
-  organisationId_contains?: ID_Input
-  organisationId_not_contains?: ID_Input
-  organisationId_starts_with?: ID_Input
-  organisationId_not_starts_with?: ID_Input
-  organisationId_ends_with?: ID_Input
-  organisationId_not_ends_with?: ID_Input
-  roleId?: ID_Input
-  roleId_not?: ID_Input
-  roleId_in?: ID_Input[] | ID_Input
-  roleId_not_in?: ID_Input[] | ID_Input
-  roleId_lt?: ID_Input
-  roleId_lte?: ID_Input
-  roleId_gt?: ID_Input
-  roleId_gte?: ID_Input
-  roleId_contains?: ID_Input
-  roleId_not_contains?: ID_Input
-  roleId_starts_with?: ID_Input
-  roleId_not_starts_with?: ID_Input
-  roleId_ends_with?: ID_Input
-  roleId_not_ends_with?: ID_Input
-  userId?: ID_Input
-  userId_not?: ID_Input
-  userId_in?: ID_Input[] | ID_Input
-  userId_not_in?: ID_Input[] | ID_Input
-  userId_lt?: ID_Input
-  userId_lte?: ID_Input
-  userId_gt?: ID_Input
-  userId_gte?: ID_Input
-  userId_contains?: ID_Input
-  userId_not_contains?: ID_Input
-  userId_starts_with?: ID_Input
-  userId_not_starts_with?: ID_Input
-  userId_ends_with?: ID_Input
-  userId_not_ends_with?: ID_Input
-  _MagicalBackRelation_CanRead_every?: AccessWhereInput
-  _MagicalBackRelation_CanRead_some?: AccessWhereInput
-  _MagicalBackRelation_CanRead_none?: AccessWhereInput
-  _MagicalBackRelation_CanWrite_every?: AccessWhereInput
-  _MagicalBackRelation_CanWrite_some?: AccessWhereInput
-  _MagicalBackRelation_CanWrite_none?: AccessWhereInput
-  _MagicalBackRelation_CanExecute_every?: AccessWhereInput
-  _MagicalBackRelation_CanExecute_some?: AccessWhereInput
-  _MagicalBackRelation_CanExecute_none?: AccessWhereInput
-}
-
-export interface DataDescriptorUpdateWithWhereUniqueNestedInput {
-  where: DataDescriptorWhereUniqueInput
-  data: DataDescriptorUpdateDataInput
-}
-
-export interface BpmnProcessSubscriptionWhereInput {
-  AND?: BpmnProcessSubscriptionWhereInput[] | BpmnProcessSubscriptionWhereInput
-  OR?: BpmnProcessSubscriptionWhereInput[] | BpmnProcessSubscriptionWhereInput
-  NOT?: BpmnProcessSubscriptionWhereInput[] | BpmnProcessSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: BpmnProcessWhereInput
-}
-
-export interface DataDescriptorUpdateManyInput {
-  create?: DataDescriptorCreateInput[] | DataDescriptorCreateInput
-  connect?: DataDescriptorWhereUniqueInput[] | DataDescriptorWhereUniqueInput
-  disconnect?: DataDescriptorWhereUniqueInput[] | DataDescriptorWhereUniqueInput
-  delete?: DataDescriptorWhereUniqueInput[] | DataDescriptorWhereUniqueInput
-  update?: DataDescriptorUpdateWithWhereUniqueNestedInput[] | DataDescriptorUpdateWithWhereUniqueNestedInput
-  upsert?: DataDescriptorUpsertWithWhereUniqueNestedInput[] | DataDescriptorUpsertWithWhereUniqueNestedInput
-}
-
-export interface DataSubscriptionWhereInput {
-  AND?: DataSubscriptionWhereInput[] | DataSubscriptionWhereInput
-  OR?: DataSubscriptionWhereInput[] | DataSubscriptionWhereInput
-  NOT?: DataSubscriptionWhereInput[] | DataSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: DataWhereInput
-}
-
-export interface BpmnProcessUpdateDataInput {
-  actionCount?: Int
-  description?: String
-  model?: String
   name?: String
-  type?: ProcessType
-  status?: ProcessStatus
-  version?: Int
-  access?: AccessUpdateOneInput
-  dataDescriptors?: DataDescriptorUpdateManyInput
-  resources?: ResourceUpdateManyInput
-  versions?: BpmnProcessUpdateManyInput
-  tasks?: BpmnTaskUpdateManyInput
+  name_not?: String
+  name_in?: String[] | String
+  name_not_in?: String[] | String
+  name_lt?: String
+  name_lte?: String
+  name_gt?: String
+  name_gte?: String
+  name_contains?: String
+  name_not_contains?: String
+  name_starts_with?: String
+  name_not_starts_with?: String
+  name_ends_with?: String
+  name_not_ends_with?: String
+  description?: String
+  description_not?: String
+  description_in?: String[] | String
+  description_not_in?: String[] | String
+  description_lt?: String
+  description_lte?: String
+  description_gt?: String
+  description_gte?: String
+  description_contains?: String
+  description_not_contains?: String
+  description_starts_with?: String
+  description_not_starts_with?: String
+  description_ends_with?: String
+  description_not_ends_with?: String
+  elements_every?: FormElementWhereInput
+  elements_some?: FormElementWhereInput
+  elements_none?: FormElementWhereInput
+  validations_every?: ValidatorWhereInput
+  validations_some?: ValidatorWhereInput
+  validations_none?: ValidatorWhereInput
+  _MagicalBackRelation_ResourceReport_every?: ResourceWhereInput
+  _MagicalBackRelation_ResourceReport_some?: ResourceWhereInput
+  _MagicalBackRelation_ResourceReport_none?: ResourceWhereInput
+}
+
+export interface FormUpsertNestedInput {
+  update: FormUpdateDataInput
+  create: FormCreateInput
+}
+
+export interface ResourceWhereInput {
+  AND?: ResourceWhereInput[] | ResourceWhereInput
+  OR?: ResourceWhereInput[] | ResourceWhereInput
+  NOT?: ResourceWhereInput[] | ResourceWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  type?: ResourceType
+  type_not?: ResourceType
+  type_in?: ResourceType[] | ResourceType
+  type_not_in?: ResourceType[] | ResourceType
+  name?: String
+  name_not?: String
+  name_in?: String[] | String
+  name_not_in?: String[] | String
+  name_lt?: String
+  name_lte?: String
+  name_gt?: String
+  name_gte?: String
+  name_contains?: String
+  name_not_contains?: String
+  name_starts_with?: String
+  name_not_starts_with?: String
+  name_ends_with?: String
+  name_not_ends_with?: String
+  link?: String
+  link_not?: String
+  link_in?: String[] | String
+  link_not_in?: String[] | String
+  link_lt?: String
+  link_lte?: String
+  link_gt?: String
+  link_gte?: String
+  link_contains?: String
+  link_not_contains?: String
+  link_starts_with?: String
+  link_not_starts_with?: String
+  link_ends_with?: String
+  link_not_ends_with?: String
+  form?: FormWhereInput
+  document?: DocumentWhereInput
+  _MagicalBackRelation_BpmnTaskToResource_every?: BpmnTaskWhereInput
+  _MagicalBackRelation_BpmnTaskToResource_some?: BpmnTaskWhereInput
+  _MagicalBackRelation_BpmnTaskToResource_none?: BpmnTaskWhereInput
+  _MagicalBackRelation_BpmnProcessResources_every?: BpmnProcessWhereInput
+  _MagicalBackRelation_BpmnProcessResources_some?: BpmnProcessWhereInput
+  _MagicalBackRelation_BpmnProcessResources_none?: BpmnProcessWhereInput
+}
+
+export interface FormElementUpsertWithWhereUniqueNestedInput {
+  where: FormElementWhereUniqueInput
+  update: FormElementUpdateDataInput
+  create: FormElementCreateInput
+}
+
+export interface BpmnTaskInstanceSubscriptionWhereInput {
+  AND?: BpmnTaskInstanceSubscriptionWhereInput[] | BpmnTaskInstanceSubscriptionWhereInput
+  OR?: BpmnTaskInstanceSubscriptionWhereInput[] | BpmnTaskInstanceSubscriptionWhereInput
+  NOT?: BpmnTaskInstanceSubscriptionWhereInput[] | BpmnTaskInstanceSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: BpmnTaskInstanceWhereInput
+}
+
+export interface FormElementUpdateDataInput {
+  row?: Int
+  column?: Int
+  width?: Int
+  label?: String
+  inline?: Boolean
+  defaultValue?: String
+  list?: String
+  filterSource?: String
+  filterColumn?: String
+  control?: FormControl
+  controlProps?: Json
+  vertical?: Boolean
+  parentElement?: ID_Input
+  source?: DataDescriptorUpdateOneInput
+}
+
+export interface AccessSubscriptionWhereInput {
+  AND?: AccessSubscriptionWhereInput[] | AccessSubscriptionWhereInput
+  OR?: AccessSubscriptionWhereInput[] | AccessSubscriptionWhereInput
+  NOT?: AccessSubscriptionWhereInput[] | AccessSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: AccessWhereInput
+}
+
+export interface FormElementUpdateWithWhereUniqueNestedInput {
+  where: FormElementWhereUniqueInput
+  data: FormElementUpdateDataInput
 }
 
 export interface ResourceSubscriptionWhereInput {
@@ -8288,12 +8169,13 @@ export interface ResourceSubscriptionWhereInput {
   node?: ResourceWhereInput
 }
 
-export interface BpmnProcessUpdateOneInput {
-  create?: BpmnProcessCreateInput
-  connect?: BpmnProcessWhereUniqueInput
-  delete?: Boolean
-  update?: BpmnProcessUpdateDataInput
-  upsert?: BpmnProcessUpsertNestedInput
+export interface FormElementUpdateManyInput {
+  create?: FormElementCreateInput[] | FormElementCreateInput
+  connect?: FormElementWhereUniqueInput[] | FormElementWhereUniqueInput
+  disconnect?: FormElementWhereUniqueInput[] | FormElementWhereUniqueInput
+  delete?: FormElementWhereUniqueInput[] | FormElementWhereUniqueInput
+  update?: FormElementUpdateWithWhereUniqueNestedInput[] | FormElementUpdateWithWhereUniqueNestedInput
+  upsert?: FormElementUpsertWithWhereUniqueNestedInput[] | FormElementUpsertWithWhereUniqueNestedInput
 }
 
 export interface DataDescriptorSubscriptionWhereInput {
@@ -8307,9 +8189,11 @@ export interface DataDescriptorSubscriptionWhereInput {
   node?: DataDescriptorWhereInput
 }
 
-export interface UserUpsertWithoutProcessesInput {
-  update: UserUpdateWithoutProcessesDataInput
-  create: UserCreateWithoutProcessesInput
+export interface FormUpdateDataInput {
+  name?: String
+  description?: String
+  elements?: FormElementUpdateManyInput
+  validations?: ValidatorUpdateManyInput
 }
 
 export interface DataDescriptorWhereInput {
@@ -8423,10 +8307,13 @@ export interface DataDescriptorWhereInput {
   _MagicalBackRelation_BpmnProcessToDataDescriptor_none?: BpmnProcessWhereInput
 }
 
-export interface DataUpsertWithWhereUniqueNestedInput {
-  where: DataWhereUniqueInput
-  update: DataUpdateDataInput
-  create: DataCreateInput
+export interface FormUpdateOneInput {
+  create?: FormCreateInput
+  connect?: FormWhereUniqueInput
+  disconnect?: Boolean
+  delete?: Boolean
+  update?: FormUpdateDataInput
+  upsert?: FormUpsertNestedInput
 }
 
 export interface DocumentSubscriptionWhereInput {
@@ -8440,12 +8327,12 @@ export interface DocumentSubscriptionWhereInput {
   node?: DocumentWhereInput
 }
 
-export interface DataUpdateDataInput {
-  organisationId?: String
-  version?: Int
-  date?: DateTime
-  value?: String
-  descriptor?: DataDescriptorUpdateOneInput
+export interface ResourceUpdateDataInput {
+  type?: ResourceType
+  name?: String
+  link?: String
+  form?: FormUpdateOneInput
+  document?: DocumentUpdateOneInput
 }
 
 export interface UserSubscriptionWhereInput {
@@ -8459,35 +8346,39 @@ export interface UserSubscriptionWhereInput {
   node?: UserWhereInput
 }
 
-export interface DataUpdateWithWhereUniqueNestedInput {
-  where: DataWhereUniqueInput
-  data: DataUpdateDataInput
+export interface ResourceUpdateWithWhereUniqueNestedInput {
+  where: ResourceWhereUniqueInput
+  data: ResourceUpdateDataInput
 }
 
-export interface CommentSubscriptionWhereInput {
-  AND?: CommentSubscriptionWhereInput[] | CommentSubscriptionWhereInput
-  OR?: CommentSubscriptionWhereInput[] | CommentSubscriptionWhereInput
-  NOT?: CommentSubscriptionWhereInput[] | CommentSubscriptionWhereInput
+export interface FormElementSubscriptionWhereInput {
+  AND?: FormElementSubscriptionWhereInput[] | FormElementSubscriptionWhereInput
+  OR?: FormElementSubscriptionWhereInput[] | FormElementSubscriptionWhereInput
+  NOT?: FormElementSubscriptionWhereInput[] | FormElementSubscriptionWhereInput
   mutation_in?: MutationType[] | MutationType
   updatedFields_contains?: String
   updatedFields_contains_every?: String[] | String
   updatedFields_contains_some?: String[] | String
-  node?: CommentWhereInput
+  node?: FormElementWhereInput
 }
 
-export interface DataUpdateManyInput {
-  create?: DataCreateInput[] | DataCreateInput
-  connect?: DataWhereUniqueInput[] | DataWhereUniqueInput
-  disconnect?: DataWhereUniqueInput[] | DataWhereUniqueInput
-  delete?: DataWhereUniqueInput[] | DataWhereUniqueInput
-  update?: DataUpdateWithWhereUniqueNestedInput[] | DataUpdateWithWhereUniqueNestedInput
-  upsert?: DataUpsertWithWhereUniqueNestedInput[] | DataUpsertWithWhereUniqueNestedInput
+export interface ResourceUpdateManyInput {
+  create?: ResourceCreateInput[] | ResourceCreateInput
+  connect?: ResourceWhereUniqueInput[] | ResourceWhereUniqueInput
+  disconnect?: ResourceWhereUniqueInput[] | ResourceWhereUniqueInput
+  delete?: ResourceWhereUniqueInput[] | ResourceWhereUniqueInput
+  update?: ResourceUpdateWithWhereUniqueNestedInput[] | ResourceUpdateWithWhereUniqueNestedInput
+  upsert?: ResourceUpsertWithWhereUniqueNestedInput[] | ResourceUpsertWithWhereUniqueNestedInput
 }
 
-export interface FormWhereInput {
-  AND?: FormWhereInput[] | FormWhereInput
-  OR?: FormWhereInput[] | FormWhereInput
-  NOT?: FormWhereInput[] | FormWhereInput
+export interface NotificationWhereInput {
+  AND?: NotificationWhereInput[] | NotificationWhereInput
+  OR?: NotificationWhereInput[] | NotificationWhereInput
+  NOT?: NotificationWhereInput[] | NotificationWhereInput
+  type?: NotificationType
+  type_not?: NotificationType
+  type_in?: NotificationType[] | NotificationType
+  type_not_in?: NotificationType[] | NotificationType
   id?: ID_Input
   id_not?: ID_Input
   id_in?: ID_Input[] | ID_Input
@@ -8502,72 +8393,74 @@ export interface FormWhereInput {
   id_not_starts_with?: ID_Input
   id_ends_with?: ID_Input
   id_not_ends_with?: ID_Input
-  name?: String
-  name_not?: String
-  name_in?: String[] | String
-  name_not_in?: String[] | String
-  name_lt?: String
-  name_lte?: String
-  name_gt?: String
-  name_gte?: String
-  name_contains?: String
-  name_not_contains?: String
-  name_starts_with?: String
-  name_not_starts_with?: String
-  name_ends_with?: String
-  name_not_ends_with?: String
-  description?: String
-  description_not?: String
-  description_in?: String[] | String
-  description_not_in?: String[] | String
-  description_lt?: String
-  description_lte?: String
-  description_gt?: String
-  description_gte?: String
-  description_contains?: String
-  description_not_contains?: String
-  description_starts_with?: String
-  description_not_starts_with?: String
-  description_ends_with?: String
-  description_not_ends_with?: String
-  elements_every?: FormElementWhereInput
-  elements_some?: FormElementWhereInput
-  elements_none?: FormElementWhereInput
-  validations_every?: ValidatorWhereInput
-  validations_some?: ValidatorWhereInput
-  validations_none?: ValidatorWhereInput
-  _MagicalBackRelation_ResourceReport_every?: ResourceWhereInput
-  _MagicalBackRelation_ResourceReport_some?: ResourceWhereInput
-  _MagicalBackRelation_ResourceReport_none?: ResourceWhereInput
+  userId?: ID_Input
+  userId_not?: ID_Input
+  userId_in?: ID_Input[] | ID_Input
+  userId_not_in?: ID_Input[] | ID_Input
+  userId_lt?: ID_Input
+  userId_lte?: ID_Input
+  userId_gt?: ID_Input
+  userId_gte?: ID_Input
+  userId_contains?: ID_Input
+  userId_not_contains?: ID_Input
+  userId_starts_with?: ID_Input
+  userId_not_starts_with?: ID_Input
+  userId_ends_with?: ID_Input
+  userId_not_ends_with?: ID_Input
+  createdAt?: DateTime
+  createdAt_not?: DateTime
+  createdAt_in?: DateTime[] | DateTime
+  createdAt_not_in?: DateTime[] | DateTime
+  createdAt_lt?: DateTime
+  createdAt_lte?: DateTime
+  createdAt_gt?: DateTime
+  createdAt_gte?: DateTime
+  code?: NotificationCode
+  code_not?: NotificationCode
+  code_in?: NotificationCode[] | NotificationCode
+  code_not_in?: NotificationCode[] | NotificationCode
+  text?: String
+  text_not?: String
+  text_in?: String[] | String
+  text_not_in?: String[] | String
+  text_lt?: String
+  text_lte?: String
+  text_gt?: String
+  text_gte?: String
+  text_contains?: String
+  text_not_contains?: String
+  text_starts_with?: String
+  text_not_starts_with?: String
+  text_ends_with?: String
+  text_not_ends_with?: String
+  visible?: Boolean
+  visible_not?: Boolean
+  processInstance?: BpmnProcessInstanceWhereInput
+  _MagicalBackRelation_UserNotifications_every?: UserWhereInput
+  _MagicalBackRelation_UserNotifications_some?: UserWhereInput
+  _MagicalBackRelation_UserNotifications_none?: UserWhereInput
 }
 
-export interface UserUpdateWithoutProcessesDataInput {
-  uid?: String
-  name?: String
-  description?: String
-  password?: String
-  roles?: UserUpdaterolesInput
-  notifications?: NotificationUpdateManyInput
-  data?: DataUpdateManyInput
+export interface DataDescriptorUpsertWithWhereUniqueNestedInput {
+  where: DataDescriptorWhereUniqueInput
+  update: DataDescriptorUpdateDataInput
+  create: DataDescriptorCreateInput
 }
 
-export interface FormSubscriptionWhereInput {
-  AND?: FormSubscriptionWhereInput[] | FormSubscriptionWhereInput
-  OR?: FormSubscriptionWhereInput[] | FormSubscriptionWhereInput
-  NOT?: FormSubscriptionWhereInput[] | FormSubscriptionWhereInput
+export interface ValidatorSubscriptionWhereInput {
+  AND?: ValidatorSubscriptionWhereInput[] | ValidatorSubscriptionWhereInput
+  OR?: ValidatorSubscriptionWhereInput[] | ValidatorSubscriptionWhereInput
+  NOT?: ValidatorSubscriptionWhereInput[] | ValidatorSubscriptionWhereInput
   mutation_in?: MutationType[] | MutationType
   updatedFields_contains?: String
   updatedFields_contains_every?: String[] | String
   updatedFields_contains_some?: String[] | String
-  node?: FormWhereInput
+  node?: ValidatorWhereInput
 }
 
-export interface UserUpdateOneWithoutProcessesInput {
-  create?: UserCreateWithoutProcessesInput
-  connect?: UserWhereUniqueInput
-  delete?: Boolean
-  update?: UserUpdateWithoutProcessesDataInput
-  upsert?: UserUpsertWithoutProcessesInput
+export interface DataDescriptorUpdateWithWhereUniqueNestedInput {
+  where: DataDescriptorWhereUniqueInput
+  data: DataDescriptorUpdateDataInput
 }
 
 export interface RoleSubscriptionWhereInput {
@@ -8581,34 +8474,90 @@ export interface RoleSubscriptionWhereInput {
   node?: RoleWhereInput
 }
 
-export interface CommentUpsertWithWhereUniqueNestedInput {
-  where: CommentWhereUniqueInput
-  update: CommentUpdateDataInput
-  create: CommentCreateInput
+export interface DataDescriptorUpdateManyInput {
+  create?: DataDescriptorCreateInput[] | DataDescriptorCreateInput
+  connect?: DataDescriptorWhereUniqueInput[] | DataDescriptorWhereUniqueInput
+  disconnect?: DataDescriptorWhereUniqueInput[] | DataDescriptorWhereUniqueInput
+  delete?: DataDescriptorWhereUniqueInput[] | DataDescriptorWhereUniqueInput
+  update?: DataDescriptorUpdateWithWhereUniqueNestedInput[] | DataDescriptorUpdateWithWhereUniqueNestedInput
+  upsert?: DataDescriptorUpsertWithWhereUniqueNestedInput[] | DataDescriptorUpsertWithWhereUniqueNestedInput
 }
 
-export interface OrganisationSubscriptionWhereInput {
-  AND?: OrganisationSubscriptionWhereInput[] | OrganisationSubscriptionWhereInput
-  OR?: OrganisationSubscriptionWhereInput[] | OrganisationSubscriptionWhereInput
-  NOT?: OrganisationSubscriptionWhereInput[] | OrganisationSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: OrganisationWhereInput
+export interface BpmnProcessInstanceWhereInput {
+  AND?: BpmnProcessInstanceWhereInput[] | BpmnProcessInstanceWhereInput
+  OR?: BpmnProcessInstanceWhereInput[] | BpmnProcessInstanceWhereInput
+  NOT?: BpmnProcessInstanceWhereInput[] | BpmnProcessInstanceWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  dateFinished?: DateTime
+  dateFinished_not?: DateTime
+  dateFinished_in?: DateTime[] | DateTime
+  dateFinished_not_in?: DateTime[] | DateTime
+  dateFinished_lt?: DateTime
+  dateFinished_lte?: DateTime
+  dateFinished_gt?: DateTime
+  dateFinished_gte?: DateTime
+  dateStarted?: DateTime
+  dateStarted_not?: DateTime
+  dateStarted_in?: DateTime[] | DateTime
+  dateStarted_not_in?: DateTime[] | DateTime
+  dateStarted_lt?: DateTime
+  dateStarted_lte?: DateTime
+  dateStarted_gt?: DateTime
+  dateStarted_gte?: DateTime
+  duration?: Int
+  duration_not?: Int
+  duration_in?: Int[] | Int
+  duration_not_in?: Int[] | Int
+  duration_lt?: Int
+  duration_lte?: Int
+  duration_gt?: Int
+  duration_gte?: Int
+  status?: BpmnProcessInstanceStatus
+  status_not?: BpmnProcessInstanceStatus
+  status_in?: BpmnProcessInstanceStatus[] | BpmnProcessInstanceStatus
+  status_not_in?: BpmnProcessInstanceStatus[] | BpmnProcessInstanceStatus
+  comments_every?: CommentWhereInput
+  comments_some?: CommentWhereInput
+  comments_none?: CommentWhereInput
+  owner?: UserWhereInput
+  process?: BpmnProcessWhereInput
+  log_every?: LogWhereInput
+  log_some?: LogWhereInput
+  log_none?: LogWhereInput
+  tasks_every?: BpmnTaskInstanceWhereInput
+  tasks_some?: BpmnTaskInstanceWhereInput
+  tasks_none?: BpmnTaskInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceToNotification_every?: NotificationWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceToNotification_some?: NotificationWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceToNotification_none?: NotificationWhereInput
+  _MagicalBackRelation_BpmnProcessTasks_every?: BpmnTaskInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessTasks_some?: BpmnTaskInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessTasks_none?: BpmnTaskInstanceWhereInput
 }
 
-export interface CommentUpdateDataInput {
-  text?: String
-  date?: DateTime
-  replyTo?: String
-  user?: UserUpdateOneInput
+export interface LocalisationCreateInput {
+  code: String
+  text: String
+  language: LanguageCode
 }
 
-export interface OrganisationWhereInput {
-  AND?: OrganisationWhereInput[] | OrganisationWhereInput
-  OR?: OrganisationWhereInput[] | OrganisationWhereInput
-  NOT?: OrganisationWhereInput[] | OrganisationWhereInput
+export interface RoleWhereInput {
+  AND?: RoleWhereInput[] | RoleWhereInput
+  OR?: RoleWhereInput[] | RoleWhereInput
+  NOT?: RoleWhereInput[] | RoleWhereInput
   id?: ID_Input
   id_not?: ID_Input
   id_in?: ID_Input[] | ID_Input
@@ -8653,9 +8602,149 @@ export interface OrganisationWhereInput {
   description_not_ends_with?: String
 }
 
-export interface CommentUpdateWithWhereUniqueNestedInput {
-  where: CommentWhereUniqueInput
-  data: CommentUpdateDataInput
+export interface LogCreateInput {
+  elementId: String
+  elementName: String
+  date: DateTime
+  taskInstanceId?: ID_Input
+  status?: BpmnTaskInstanceStatus
+  message?: String
+  processInstance: BpmnProcessInstanceCreateOneWithoutLogInput
+  performer?: UserCreateOneInput
+}
+
+export interface LocalisationSubscriptionWhereInput {
+  AND?: LocalisationSubscriptionWhereInput[] | LocalisationSubscriptionWhereInput
+  OR?: LocalisationSubscriptionWhereInput[] | LocalisationSubscriptionWhereInput
+  NOT?: LocalisationSubscriptionWhereInput[] | LocalisationSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: LocalisationWhereInput
+}
+
+export interface BpmnProcessInstanceCreateOneWithoutLogInput {
+  create?: BpmnProcessInstanceCreateWithoutLogInput
+  connect?: BpmnProcessInstanceWhereUniqueInput
+}
+
+export interface BpmnProcessInstanceUpdateInput {
+  dateFinished?: DateTime
+  dateStarted?: DateTime
+  duration?: Int
+  data?: Json
+  status?: BpmnProcessInstanceStatus
+  comments?: CommentUpdateManyInput
+  owner?: UserUpdateOneWithoutProcessesInput
+  process?: BpmnProcessUpdateOneInput
+  log?: LogUpdateManyWithoutProcessInstanceInput
+  tasks?: BpmnTaskInstanceUpdateManyInput
+}
+
+export interface BpmnProcessInstanceCreateWithoutLogInput {
+  dateFinished?: DateTime
+  dateStarted: DateTime
+  duration?: Int
+  data: Json
+  status: BpmnProcessInstanceStatus
+  comments?: CommentCreateManyInput
+  owner: UserCreateOneWithoutProcessesInput
+  process: BpmnProcessCreateOneInput
+  tasks?: BpmnTaskInstanceCreateManyInput
+}
+
+export interface LogWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface CommentCreateManyInput {
+  create?: CommentCreateInput[] | CommentCreateInput
+  connect?: CommentWhereUniqueInput[] | CommentWhereUniqueInput
+}
+
+export interface RoleWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface CommentCreateInput {
+  text: String
+  date: DateTime
+  replyTo?: String
+  user: UserCreateOneInput
+}
+
+export interface FormWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface UserCreateOneInput {
+  create?: UserCreateInput
+  connect?: UserWhereUniqueInput
+}
+
+export interface CommentWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface UserCreateInput {
+  uid: String
+  name: String
+  description?: String
+  password: String
+  roles?: UserCreaterolesInput
+  notifications?: NotificationCreateManyInput
+  processes?: BpmnProcessInstanceCreateManyWithoutOwnerInput
+  data?: DataCreateManyInput
+}
+
+export interface NotificationWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface UserCreaterolesInput {
+  set?: String[] | String
+}
+
+export interface DataDescriptorWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface NotificationCreateManyInput {
+  create?: NotificationCreateInput[] | NotificationCreateInput
+  connect?: NotificationWhereUniqueInput[] | NotificationWhereUniqueInput
+}
+
+export interface AccessWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface NotificationCreateInput {
+  type: NotificationType
+  userId: ID_Input
+  code: NotificationCode
+  text?: String
+  visible: Boolean
+  params?: NotificationCreateparamsInput
+  processInstance: BpmnProcessInstanceCreateOneInput
+}
+
+export interface BpmnTaskInstanceWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface NotificationCreateparamsInput {
+  set?: String[] | String
+}
+
+export interface BpmnTaskWhereUniqueInput {
+  id?: ID_Input
+  taskId?: ID_Input
+}
+
+export interface BpmnProcessInstanceCreateOneInput {
+  create?: BpmnProcessInstanceCreateInput
+  connect?: BpmnProcessInstanceWhereUniqueInput
 }
 
 export interface BpmnTaskUpdateInput {
@@ -8665,91 +8754,97 @@ export interface BpmnTaskUpdateInput {
   resources?: ResourceUpdateManyInput
 }
 
-export interface LocalisationCreateInput {
-  code: String
-  text: String
-  language: LanguageCode
+export interface BpmnProcessInstanceCreateInput {
+  dateFinished?: DateTime
+  dateStarted: DateTime
+  duration?: Int
+  data: Json
+  status: BpmnProcessInstanceStatus
+  comments?: CommentCreateManyInput
+  owner: UserCreateOneWithoutProcessesInput
+  process: BpmnProcessCreateOneInput
+  log?: LogCreateManyWithoutProcessInstanceInput
+  tasks?: BpmnTaskInstanceCreateManyInput
 }
 
-export interface OrganisationWhereUniqueInput {
-  id?: ID_Input
+export interface BpmnTaskInstanceUpdateInput {
+  dateFinished?: DateTime
+  dateStarted?: DateTime
+  duration?: Int
+  data?: Json
+  status?: BpmnTaskInstanceStatus
+  performerRoles?: BpmnTaskInstanceUpdateperformerRolesInput
+  performer?: UserUpdateOneInput
+  processInstance?: BpmnProcessInstanceUpdateOneInput
+  task?: BpmnTaskUpdateOneInput
 }
 
-export interface OrganisationCreateInput {
+export interface UserCreateOneWithoutProcessesInput {
+  create?: UserCreateWithoutProcessesInput
+  connect?: UserWhereUniqueInput
+}
+
+export interface AccessUpdateInput {
+  createdById?: ID_Input
+  createdOn?: DateTime
+  modifiedById?: ID_Input
+  modifiedOn?: DateTime
+  read?: AccessConditionUpdateManyInput
+  write?: AccessConditionUpdateManyInput
+  execute?: AccessConditionUpdateManyInput
+}
+
+export interface UserCreateWithoutProcessesInput {
+  uid: String
   name: String
   description?: String
+  password: String
+  roles?: UserCreaterolesInput
+  notifications?: NotificationCreateManyInput
+  data?: DataCreateManyInput
 }
 
-export interface ValidatorWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface RoleCreateInput {
-  name: String
-  description?: String
-}
-
-export interface FormElementWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface ValidatorCreateInput {
-  name: String
-  params?: ValidatorCreateparamsInput
-}
-
-export interface UserWhereUniqueInput {
-  id?: ID_Input
-  uid?: String
-}
-
-export interface ValidatorCreateparamsInput {
-  set?: String[] | String
-}
-
-export interface DocumentWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface FormCreateInput {
-  name: String
-  description?: String
-  elements?: FormElementCreateManyInput
-  validations?: ValidatorCreateManyInput
-}
-
-export interface DataDescriptorWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface FormElementCreateManyInput {
-  create?: FormElementCreateInput[] | FormElementCreateInput
-  connect?: FormElementWhereUniqueInput[] | FormElementWhereUniqueInput
-}
-
-export interface AccessWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface FormElementCreateInput {
-  row?: Int
-  column?: Int
-  width?: Int
-  label?: String
-  inline?: Boolean
+export interface DataDescriptorUpdateInput {
   defaultValue?: String
-  list?: String
-  filterSource?: String
-  filterColumn?: String
-  control?: FormControl
-  controlProps?: Json
-  vertical?: Boolean
-  parentElement?: ID_Input
-  source?: DataDescriptorCreateOneInput
+  description?: String
+  expression?: String
+  isArray?: Boolean
+  clone?: Boolean
+  name?: String
+  type?: DataType
+  parentDescriptor?: ID_Input
+  access?: AccessUpdateOneInput
+  validators?: ValidatorUpdateManyInput
 }
 
-export interface BpmnTaskInstanceWhereUniqueInput {
-  id?: ID_Input
+export interface DataCreateManyInput {
+  create?: DataCreateInput[] | DataCreateInput
+  connect?: DataWhereUniqueInput[] | DataWhereUniqueInput
+}
+
+export interface NotificationUpdateInput {
+  type?: NotificationType
+  userId?: ID_Input
+  code?: NotificationCode
+  text?: String
+  visible?: Boolean
+  params?: NotificationUpdateparamsInput
+  processInstance?: BpmnProcessInstanceUpdateOneInput
+}
+
+export interface DataCreateInput {
+  organisationId?: String
+  version?: Int
+  date?: DateTime
+  value?: String
+  descriptor?: DataDescriptorCreateOneInput
+}
+
+export interface CommentUpdateInput {
+  text?: String
+  date?: DateTime
+  replyTo?: String
+  user?: UserUpdateOneInput
 }
 
 export interface DataDescriptorCreateOneInput {
@@ -8757,9 +8852,11 @@ export interface DataDescriptorCreateOneInput {
   connect?: DataDescriptorWhereUniqueInput
 }
 
-export interface BpmnTaskWhereUniqueInput {
-  id?: ID_Input
-  taskId?: ID_Input
+export interface FormUpdateInput {
+  name?: String
+  description?: String
+  elements?: FormElementUpdateManyInput
+  validations?: ValidatorUpdateManyInput
 }
 
 export interface DataDescriptorCreateInput {
@@ -8775,7 +8872,106 @@ export interface DataDescriptorCreateInput {
   validators?: ValidatorCreateManyInput
 }
 
-export interface BpmnProcessUpdateInput {
+export interface RoleUpdateInput {
+  name?: String
+  description?: String
+}
+
+export interface AccessCreateOneInput {
+  create?: AccessCreateInput
+  connect?: AccessWhereUniqueInput
+}
+
+export interface BpmnProcessInstanceUpsertWithoutLogInput {
+  update: BpmnProcessInstanceUpdateWithoutLogDataInput
+  create: BpmnProcessInstanceCreateWithoutLogInput
+}
+
+export interface AccessCreateInput {
+  createdById: ID_Input
+  createdOn?: DateTime
+  modifiedById?: ID_Input
+  modifiedOn?: DateTime
+  read?: AccessConditionCreateManyInput
+  write?: AccessConditionCreateManyInput
+  execute?: AccessConditionCreateManyInput
+}
+
+export interface UserUpsertNestedInput {
+  update: UserUpdateDataInput
+  create: UserCreateInput
+}
+
+export interface AccessConditionCreateManyInput {
+  create?: AccessConditionCreateInput[] | AccessConditionCreateInput
+}
+
+export interface BpmnProcessInstanceUpdateWithoutOwnerDataInput {
+  dateFinished?: DateTime
+  dateStarted?: DateTime
+  duration?: Int
+  data?: Json
+  status?: BpmnProcessInstanceStatus
+  comments?: CommentUpdateManyInput
+  process?: BpmnProcessUpdateOneInput
+  log?: LogUpdateManyWithoutProcessInstanceInput
+  tasks?: BpmnTaskInstanceUpdateManyInput
+}
+
+export interface AccessConditionCreateInput {
+  organisationId?: ID_Input
+  roleId?: ID_Input
+  userId?: ID_Input
+}
+
+export interface BpmnProcessInstanceUpdateManyWithoutOwnerInput {
+  create?: BpmnProcessInstanceCreateWithoutOwnerInput[] | BpmnProcessInstanceCreateWithoutOwnerInput
+  connect?: BpmnProcessInstanceWhereUniqueInput[] | BpmnProcessInstanceWhereUniqueInput
+  disconnect?: BpmnProcessInstanceWhereUniqueInput[] | BpmnProcessInstanceWhereUniqueInput
+  delete?: BpmnProcessInstanceWhereUniqueInput[] | BpmnProcessInstanceWhereUniqueInput
+  update?: BpmnProcessInstanceUpdateWithWhereUniqueWithoutOwnerInput[] | BpmnProcessInstanceUpdateWithWhereUniqueWithoutOwnerInput
+  upsert?: BpmnProcessInstanceUpsertWithWhereUniqueWithoutOwnerInput[] | BpmnProcessInstanceUpsertWithWhereUniqueWithoutOwnerInput
+}
+
+export interface ValidatorCreateManyInput {
+  create?: ValidatorCreateInput[] | ValidatorCreateInput
+  connect?: ValidatorWhereUniqueInput[] | ValidatorWhereUniqueInput
+}
+
+export interface BpmnProcessInstanceUpsertNestedInput {
+  update: BpmnProcessInstanceUpdateDataInput
+  create: BpmnProcessInstanceCreateInput
+}
+
+export interface ValidatorCreateInput {
+  name: String
+  params?: ValidatorCreateparamsInput
+}
+
+export interface BpmnTaskUpsertNestedInput {
+  update: BpmnTaskUpdateDataInput
+  create: BpmnTaskCreateInput
+}
+
+export interface ValidatorCreateparamsInput {
+  set?: String[] | String
+}
+
+export interface BpmnTaskInstanceUpdateperformerRolesInput {
+  set?: String[] | String
+}
+
+export interface BpmnProcessCreateOneInput {
+  create?: BpmnProcessCreateInput
+  connect?: BpmnProcessWhereUniqueInput
+}
+
+export interface BpmnTaskInstanceUpdateWithWhereUniqueNestedInput {
+  where: BpmnTaskInstanceWhereUniqueInput
+  data: BpmnTaskInstanceUpdateDataInput
+}
+
+export interface BpmnProcessUpdateDataInput {
   actionCount?: Int
   description?: String
   model?: String
@@ -8790,190 +8986,25 @@ export interface BpmnProcessUpdateInput {
   tasks?: BpmnTaskUpdateManyInput
 }
 
-export interface AccessCreateOneInput {
-  create?: AccessCreateInput
-  connect?: AccessWhereUniqueInput
-}
-
-export interface DataUpdateInput {
-  organisationId?: String
-  version?: Int
-  date?: DateTime
-  value?: String
-  descriptor?: DataDescriptorUpdateOneInput
-}
-
-export interface AccessCreateInput {
-  createdById: ID_Input
-  createdOn?: DateTime
-  modifiedById?: ID_Input
-  modifiedOn?: DateTime
-  read?: AccessConditionCreateManyInput
-  write?: AccessConditionCreateManyInput
-  execute?: AccessConditionCreateManyInput
-}
-
-export interface ResourceUpdateInput {
-  type?: ResourceType
-  name?: String
-  link?: String
-  form?: FormUpdateOneInput
-  document?: DocumentUpdateOneInput
-}
-
-export interface AccessConditionCreateManyInput {
-  create?: AccessConditionCreateInput[] | AccessConditionCreateInput
-}
-
-export interface LogUpdateInput {
-  elementId?: String
-  elementName?: String
-  date?: DateTime
-  taskInstanceId?: ID_Input
-  status?: BpmnTaskInstanceStatus
-  message?: String
-  performer?: UserUpdateOneInput
-}
-
-export interface AccessConditionCreateInput {
-  organisationId?: ID_Input
-  roleId?: ID_Input
-  userId?: ID_Input
-}
-
-export interface NotificationUpdateInput {
-  type?: NotificationType
-  userId?: ID_Input
-  code?: NotificationCode
-  text?: String
-  visible?: Boolean
-  params?: NotificationUpdateparamsInput
-  processInstance?: BpmnProcessInstanceUpdateOneInput
-}
-
-export interface ValidatorCreateManyInput {
-  create?: ValidatorCreateInput[] | ValidatorCreateInput
-  connect?: ValidatorWhereUniqueInput[] | ValidatorWhereUniqueInput
-}
-
-export interface UserUpsertNestedInput {
-  update: UserUpdateDataInput
-  create: UserCreateInput
-}
-
-export interface CommentCreateInput {
-  text: String
-  date: DateTime
-  replyTo?: String
-  user: UserCreateOneInput
-}
-
-export interface BpmnProcessInstanceUpdateWithoutOwnerDataInput {
-  dateFinished?: DateTime
-  dateStarted?: DateTime
-  duration?: Int
-  data?: Json
-  status?: BpmnProcessInstanceStatus
-  comments?: CommentUpdateManyInput
-  process?: BpmnProcessUpdateOneInput
-  log?: LogUpdateManyInput
-  tasks?: BpmnTaskInstanceUpdateManyInput
-}
-
-export interface UserCreateOneInput {
-  create?: UserCreateInput
-  connect?: UserWhereUniqueInput
-}
-
-export interface BpmnProcessInstanceUpdateManyWithoutOwnerInput {
-  create?: BpmnProcessInstanceCreateWithoutOwnerInput[] | BpmnProcessInstanceCreateWithoutOwnerInput
-  connect?: BpmnProcessInstanceWhereUniqueInput[] | BpmnProcessInstanceWhereUniqueInput
-  disconnect?: BpmnProcessInstanceWhereUniqueInput[] | BpmnProcessInstanceWhereUniqueInput
-  delete?: BpmnProcessInstanceWhereUniqueInput[] | BpmnProcessInstanceWhereUniqueInput
-  update?: BpmnProcessInstanceUpdateWithWhereUniqueWithoutOwnerInput[] | BpmnProcessInstanceUpdateWithWhereUniqueWithoutOwnerInput
-  upsert?: BpmnProcessInstanceUpsertWithWhereUniqueWithoutOwnerInput[] | BpmnProcessInstanceUpsertWithWhereUniqueWithoutOwnerInput
-}
-
-export interface UserCreateInput {
-  uid: String
-  name: String
-  description?: String
-  password: String
-  roles?: UserCreaterolesInput
-  notifications?: NotificationCreateManyInput
-  processes?: BpmnProcessInstanceCreateManyWithoutOwnerInput
-  data?: DataCreateManyInput
-}
-
-export interface BpmnProcessInstanceUpsertNestedInput {
-  update: BpmnProcessInstanceUpdateDataInput
-  create: BpmnProcessInstanceCreateInput
-}
-
-export interface UserCreaterolesInput {
-  set?: String[] | String
-}
-
-export interface BpmnTaskUpsertNestedInput {
-  update: BpmnTaskUpdateDataInput
-  create: BpmnTaskCreateInput
-}
-
-export interface NotificationCreateManyInput {
-  create?: NotificationCreateInput[] | NotificationCreateInput
-  connect?: NotificationWhereUniqueInput[] | NotificationWhereUniqueInput
-}
-
-export interface BpmnTaskInstanceUpdateperformerRolesInput {
-  set?: String[] | String
-}
-
-export interface NotificationCreateInput {
-  type: NotificationType
-  userId: ID_Input
-  code: NotificationCode
-  text?: String
-  visible: Boolean
-  params?: NotificationCreateparamsInput
-  processInstance: BpmnProcessInstanceCreateOneInput
-}
-
-export interface BpmnTaskInstanceUpdateWithWhereUniqueNestedInput {
-  where: BpmnTaskInstanceWhereUniqueInput
-  data: BpmnTaskInstanceUpdateDataInput
-}
-
-export interface NotificationCreateparamsInput {
-  set?: String[] | String
-}
-
-export interface LogUpsertWithWhereUniqueNestedInput {
+export interface LogUpsertWithWhereUniqueWithoutProcessInstanceInput {
   where: LogWhereUniqueInput
-  update: LogUpdateDataInput
-  create: LogCreateInput
+  update: LogUpdateWithoutProcessInstanceDataInput
+  create: LogCreateWithoutProcessInstanceInput
 }
 
-export interface BpmnProcessInstanceCreateOneInput {
-  create?: BpmnProcessInstanceCreateInput
-  connect?: BpmnProcessInstanceWhereUniqueInput
+export interface DataDescriptorCreateManyInput {
+  create?: DataDescriptorCreateInput[] | DataDescriptorCreateInput
+  connect?: DataDescriptorWhereUniqueInput[] | DataDescriptorWhereUniqueInput
 }
 
-export interface LogUpdateWithWhereUniqueNestedInput {
+export interface LogUpdateWithWhereUniqueWithoutProcessInstanceInput {
   where: LogWhereUniqueInput
-  data: LogUpdateDataInput
+  data: LogUpdateWithoutProcessInstanceDataInput
 }
 
-export interface BpmnProcessInstanceCreateInput {
-  dateFinished?: DateTime
-  dateStarted: DateTime
-  duration?: Int
-  data: Json
-  status: BpmnProcessInstanceStatus
-  comments?: CommentCreateManyInput
-  owner: UserCreateOneWithoutProcessesInput
-  process: BpmnProcessCreateOneInput
-  log?: LogCreateManyInput
-  tasks?: BpmnTaskInstanceCreateManyInput
+export interface ResourceCreateManyInput {
+  create?: ResourceCreateInput[] | ResourceCreateInput
+  connect?: ResourceWhereUniqueInput[] | ResourceWhereUniqueInput
 }
 
 export interface BpmnProcessUpsertNestedInput {
@@ -8981,9 +9012,12 @@ export interface BpmnProcessUpsertNestedInput {
   create: BpmnProcessCreateInput
 }
 
-export interface CommentCreateManyInput {
-  create?: CommentCreateInput[] | CommentCreateInput
-  connect?: CommentWhereUniqueInput[] | CommentWhereUniqueInput
+export interface ResourceCreateInput {
+  type: ResourceType
+  name: String
+  link?: String
+  form?: FormCreateOneInput
+  document?: DocumentCreateOneInput
 }
 
 export interface BpmnTaskUpdateDataInput {
@@ -8993,13 +9027,9 @@ export interface BpmnTaskUpdateDataInput {
   resources?: ResourceUpdateManyInput
 }
 
-export interface CommentUpdateManyInput {
-  create?: CommentCreateInput[] | CommentCreateInput
-  connect?: CommentWhereUniqueInput[] | CommentWhereUniqueInput
-  disconnect?: CommentWhereUniqueInput[] | CommentWhereUniqueInput
-  delete?: CommentWhereUniqueInput[] | CommentWhereUniqueInput
-  update?: CommentUpdateWithWhereUniqueNestedInput[] | CommentUpdateWithWhereUniqueNestedInput
-  upsert?: CommentUpsertWithWhereUniqueNestedInput[] | CommentUpsertWithWhereUniqueNestedInput
+export interface FormCreateOneInput {
+  create?: FormCreateInput
+  connect?: FormWhereUniqueInput
 }
 
 export interface BpmnTaskUpdateManyInput {
@@ -9011,14 +9041,11 @@ export interface BpmnTaskUpdateManyInput {
   upsert?: BpmnTaskUpsertWithWhereUniqueNestedInput[] | BpmnTaskUpsertWithWhereUniqueNestedInput
 }
 
-export interface UserCreateWithoutProcessesInput {
-  uid: String
+export interface FormCreateInput {
   name: String
   description?: String
-  password: String
-  roles?: UserCreaterolesInput
-  notifications?: NotificationCreateManyInput
-  data?: DataCreateManyInput
+  elements?: FormElementCreateManyInput
+  validations?: ValidatorCreateManyInput
 }
 
 export interface BpmnProcessUpdateWithWhereUniqueNestedInput {
@@ -9026,203 +9053,9 @@ export interface BpmnProcessUpdateWithWhereUniqueNestedInput {
   data: BpmnProcessUpdateDataInput
 }
 
-export interface DataCreateManyInput {
-  create?: DataCreateInput[] | DataCreateInput
-  connect?: DataWhereUniqueInput[] | DataWhereUniqueInput
-}
-
-export interface ResourceUpsertWithWhereUniqueNestedInput {
-  where: ResourceWhereUniqueInput
-  update: ResourceUpdateDataInput
-  create: ResourceCreateInput
-}
-
-export interface DataCreateInput {
-  organisationId?: String
-  version?: Int
-  date?: DateTime
-  value?: String
-  descriptor?: DataDescriptorCreateOneInput
-}
-
-export interface DocumentUpdateDataInput {
-  title?: String
-  content?: String
-  version?: Int
-}
-
-export interface BpmnProcessCreateOneInput {
-  create?: BpmnProcessCreateInput
-  connect?: BpmnProcessWhereUniqueInput
-}
-
-export interface FormUpsertNestedInput {
-  update: FormUpdateDataInput
-  create: FormCreateInput
-}
-
-export interface BpmnProcessCreateInput {
-  actionCount: Int
-  description?: String
-  model: String
-  name: String
-  type: ProcessType
-  status: ProcessStatus
-  version: Int
-  access: AccessCreateOneInput
-  dataDescriptors?: DataDescriptorCreateManyInput
-  resources?: ResourceCreateManyInput
-  versions?: BpmnProcessCreateManyInput
-  tasks?: BpmnTaskCreateManyInput
-}
-
-export interface FormUpdateOneInput {
-  create?: FormCreateInput
-  connect?: FormWhereUniqueInput
-  disconnect?: Boolean
-  delete?: Boolean
-  update?: FormUpdateDataInput
-  upsert?: FormUpsertNestedInput
-}
-
-export interface DataDescriptorCreateManyInput {
-  create?: DataDescriptorCreateInput[] | DataDescriptorCreateInput
-  connect?: DataDescriptorWhereUniqueInput[] | DataDescriptorWhereUniqueInput
-}
-
-export interface BpmnProcessInstanceSubscriptionWhereInput {
-  AND?: BpmnProcessInstanceSubscriptionWhereInput[] | BpmnProcessInstanceSubscriptionWhereInput
-  OR?: BpmnProcessInstanceSubscriptionWhereInput[] | BpmnProcessInstanceSubscriptionWhereInput
-  NOT?: BpmnProcessInstanceSubscriptionWhereInput[] | BpmnProcessInstanceSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: BpmnProcessInstanceWhereInput
-}
-
-export interface ResourceCreateManyInput {
-  create?: ResourceCreateInput[] | ResourceCreateInput
-  connect?: ResourceWhereUniqueInput[] | ResourceWhereUniqueInput
-}
-
-export interface BpmnTaskInstanceSubscriptionWhereInput {
-  AND?: BpmnTaskInstanceSubscriptionWhereInput[] | BpmnTaskInstanceSubscriptionWhereInput
-  OR?: BpmnTaskInstanceSubscriptionWhereInput[] | BpmnTaskInstanceSubscriptionWhereInput
-  NOT?: BpmnTaskInstanceSubscriptionWhereInput[] | BpmnTaskInstanceSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: BpmnTaskInstanceWhereInput
-}
-
-export interface ResourceCreateInput {
-  type: ResourceType
-  name: String
-  link?: String
-  form?: FormCreateOneInput
-  document?: DocumentCreateOneInput
-}
-
-export interface AccessWhereInput {
-  AND?: AccessWhereInput[] | AccessWhereInput
-  OR?: AccessWhereInput[] | AccessWhereInput
-  NOT?: AccessWhereInput[] | AccessWhereInput
-  id?: ID_Input
-  id_not?: ID_Input
-  id_in?: ID_Input[] | ID_Input
-  id_not_in?: ID_Input[] | ID_Input
-  id_lt?: ID_Input
-  id_lte?: ID_Input
-  id_gt?: ID_Input
-  id_gte?: ID_Input
-  id_contains?: ID_Input
-  id_not_contains?: ID_Input
-  id_starts_with?: ID_Input
-  id_not_starts_with?: ID_Input
-  id_ends_with?: ID_Input
-  id_not_ends_with?: ID_Input
-  createdById?: ID_Input
-  createdById_not?: ID_Input
-  createdById_in?: ID_Input[] | ID_Input
-  createdById_not_in?: ID_Input[] | ID_Input
-  createdById_lt?: ID_Input
-  createdById_lte?: ID_Input
-  createdById_gt?: ID_Input
-  createdById_gte?: ID_Input
-  createdById_contains?: ID_Input
-  createdById_not_contains?: ID_Input
-  createdById_starts_with?: ID_Input
-  createdById_not_starts_with?: ID_Input
-  createdById_ends_with?: ID_Input
-  createdById_not_ends_with?: ID_Input
-  createdOn?: DateTime
-  createdOn_not?: DateTime
-  createdOn_in?: DateTime[] | DateTime
-  createdOn_not_in?: DateTime[] | DateTime
-  createdOn_lt?: DateTime
-  createdOn_lte?: DateTime
-  createdOn_gt?: DateTime
-  createdOn_gte?: DateTime
-  modifiedById?: ID_Input
-  modifiedById_not?: ID_Input
-  modifiedById_in?: ID_Input[] | ID_Input
-  modifiedById_not_in?: ID_Input[] | ID_Input
-  modifiedById_lt?: ID_Input
-  modifiedById_lte?: ID_Input
-  modifiedById_gt?: ID_Input
-  modifiedById_gte?: ID_Input
-  modifiedById_contains?: ID_Input
-  modifiedById_not_contains?: ID_Input
-  modifiedById_starts_with?: ID_Input
-  modifiedById_not_starts_with?: ID_Input
-  modifiedById_ends_with?: ID_Input
-  modifiedById_not_ends_with?: ID_Input
-  modifiedOn?: DateTime
-  modifiedOn_not?: DateTime
-  modifiedOn_in?: DateTime[] | DateTime
-  modifiedOn_not_in?: DateTime[] | DateTime
-  modifiedOn_lt?: DateTime
-  modifiedOn_lte?: DateTime
-  modifiedOn_gt?: DateTime
-  modifiedOn_gte?: DateTime
-  read_every?: AccessConditionWhereInput
-  read_some?: AccessConditionWhereInput
-  read_none?: AccessConditionWhereInput
-  write_every?: AccessConditionWhereInput
-  write_some?: AccessConditionWhereInput
-  write_none?: AccessConditionWhereInput
-  execute_every?: AccessConditionWhereInput
-  execute_some?: AccessConditionWhereInput
-  execute_none?: AccessConditionWhereInput
-  _MagicalBackRelation_BpmnProcessAccess_every?: BpmnProcessWhereInput
-  _MagicalBackRelation_BpmnProcessAccess_some?: BpmnProcessWhereInput
-  _MagicalBackRelation_BpmnProcessAccess_none?: BpmnProcessWhereInput
-  _MagicalBackRelation_AccessToDataDescriptor_every?: DataDescriptorWhereInput
-  _MagicalBackRelation_AccessToDataDescriptor_some?: DataDescriptorWhereInput
-  _MagicalBackRelation_AccessToDataDescriptor_none?: DataDescriptorWhereInput
-}
-
-export interface FormCreateOneInput {
-  create?: FormCreateInput
-  connect?: FormWhereUniqueInput
-}
-
-export interface LogSubscriptionWhereInput {
-  AND?: LogSubscriptionWhereInput[] | LogSubscriptionWhereInput
-  OR?: LogSubscriptionWhereInput[] | LogSubscriptionWhereInput
-  NOT?: LogSubscriptionWhereInput[] | LogSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: LogWhereInput
-}
-
-export interface DocumentCreateOneInput {
-  create?: DocumentCreateInput
-  connect?: DocumentWhereUniqueInput
+export interface FormElementCreateManyInput {
+  create?: FormElementCreateInput[] | FormElementCreateInput
+  connect?: FormElementWhereUniqueInput[] | FormElementWhereUniqueInput
 }
 
 export interface FormElementWhereInput {
@@ -9365,16 +9198,60 @@ export interface FormElementWhereInput {
   _MagicalBackRelation_FormToFormElement_none?: FormWhereInput
 }
 
+export interface FormElementCreateInput {
+  row?: Int
+  column?: Int
+  width?: Int
+  label?: String
+  inline?: Boolean
+  defaultValue?: String
+  list?: String
+  filterSource?: String
+  filterColumn?: String
+  control?: FormControl
+  controlProps?: Json
+  vertical?: Boolean
+  parentElement?: ID_Input
+  source?: DataDescriptorCreateOneInput
+}
+
+export interface BpmnProcessSubscriptionWhereInput {
+  AND?: BpmnProcessSubscriptionWhereInput[] | BpmnProcessSubscriptionWhereInput
+  OR?: BpmnProcessSubscriptionWhereInput[] | BpmnProcessSubscriptionWhereInput
+  NOT?: BpmnProcessSubscriptionWhereInput[] | BpmnProcessSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: BpmnProcessWhereInput
+}
+
+export interface DocumentCreateOneInput {
+  create?: DocumentCreateInput
+  connect?: DocumentWhereUniqueInput
+}
+
+export interface DataSubscriptionWhereInput {
+  AND?: DataSubscriptionWhereInput[] | DataSubscriptionWhereInput
+  OR?: DataSubscriptionWhereInput[] | DataSubscriptionWhereInput
+  NOT?: DataSubscriptionWhereInput[] | DataSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: DataWhereInput
+}
+
 export interface DocumentCreateInput {
   title: String
   content?: String
   version?: Int
 }
 
-export interface ValidatorWhereInput {
-  AND?: ValidatorWhereInput[] | ValidatorWhereInput
-  OR?: ValidatorWhereInput[] | ValidatorWhereInput
-  NOT?: ValidatorWhereInput[] | ValidatorWhereInput
+export interface AccessWhereInput {
+  AND?: AccessWhereInput[] | AccessWhereInput
+  OR?: AccessWhereInput[] | AccessWhereInput
+  NOT?: AccessWhereInput[] | AccessWhereInput
   id?: ID_Input
   id_not?: ID_Input
   id_in?: ID_Input[] | ID_Input
@@ -9389,6 +9266,195 @@ export interface ValidatorWhereInput {
   id_not_starts_with?: ID_Input
   id_ends_with?: ID_Input
   id_not_ends_with?: ID_Input
+  createdById?: ID_Input
+  createdById_not?: ID_Input
+  createdById_in?: ID_Input[] | ID_Input
+  createdById_not_in?: ID_Input[] | ID_Input
+  createdById_lt?: ID_Input
+  createdById_lte?: ID_Input
+  createdById_gt?: ID_Input
+  createdById_gte?: ID_Input
+  createdById_contains?: ID_Input
+  createdById_not_contains?: ID_Input
+  createdById_starts_with?: ID_Input
+  createdById_not_starts_with?: ID_Input
+  createdById_ends_with?: ID_Input
+  createdById_not_ends_with?: ID_Input
+  createdOn?: DateTime
+  createdOn_not?: DateTime
+  createdOn_in?: DateTime[] | DateTime
+  createdOn_not_in?: DateTime[] | DateTime
+  createdOn_lt?: DateTime
+  createdOn_lte?: DateTime
+  createdOn_gt?: DateTime
+  createdOn_gte?: DateTime
+  modifiedById?: ID_Input
+  modifiedById_not?: ID_Input
+  modifiedById_in?: ID_Input[] | ID_Input
+  modifiedById_not_in?: ID_Input[] | ID_Input
+  modifiedById_lt?: ID_Input
+  modifiedById_lte?: ID_Input
+  modifiedById_gt?: ID_Input
+  modifiedById_gte?: ID_Input
+  modifiedById_contains?: ID_Input
+  modifiedById_not_contains?: ID_Input
+  modifiedById_starts_with?: ID_Input
+  modifiedById_not_starts_with?: ID_Input
+  modifiedById_ends_with?: ID_Input
+  modifiedById_not_ends_with?: ID_Input
+  modifiedOn?: DateTime
+  modifiedOn_not?: DateTime
+  modifiedOn_in?: DateTime[] | DateTime
+  modifiedOn_not_in?: DateTime[] | DateTime
+  modifiedOn_lt?: DateTime
+  modifiedOn_lte?: DateTime
+  modifiedOn_gt?: DateTime
+  modifiedOn_gte?: DateTime
+  read_every?: AccessConditionWhereInput
+  read_some?: AccessConditionWhereInput
+  read_none?: AccessConditionWhereInput
+  write_every?: AccessConditionWhereInput
+  write_some?: AccessConditionWhereInput
+  write_none?: AccessConditionWhereInput
+  execute_every?: AccessConditionWhereInput
+  execute_some?: AccessConditionWhereInput
+  execute_none?: AccessConditionWhereInput
+  _MagicalBackRelation_BpmnProcessAccess_every?: BpmnProcessWhereInput
+  _MagicalBackRelation_BpmnProcessAccess_some?: BpmnProcessWhereInput
+  _MagicalBackRelation_BpmnProcessAccess_none?: BpmnProcessWhereInput
+  _MagicalBackRelation_AccessToDataDescriptor_every?: DataDescriptorWhereInput
+  _MagicalBackRelation_AccessToDataDescriptor_some?: DataDescriptorWhereInput
+  _MagicalBackRelation_AccessToDataDescriptor_none?: DataDescriptorWhereInput
+}
+
+export interface BpmnProcessCreateManyInput {
+  create?: BpmnProcessCreateInput[] | BpmnProcessCreateInput
+  connect?: BpmnProcessWhereUniqueInput[] | BpmnProcessWhereUniqueInput
+}
+
+export interface DataWhereInput {
+  AND?: DataWhereInput[] | DataWhereInput
+  OR?: DataWhereInput[] | DataWhereInput
+  NOT?: DataWhereInput[] | DataWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  organisationId?: String
+  organisationId_not?: String
+  organisationId_in?: String[] | String
+  organisationId_not_in?: String[] | String
+  organisationId_lt?: String
+  organisationId_lte?: String
+  organisationId_gt?: String
+  organisationId_gte?: String
+  organisationId_contains?: String
+  organisationId_not_contains?: String
+  organisationId_starts_with?: String
+  organisationId_not_starts_with?: String
+  organisationId_ends_with?: String
+  organisationId_not_ends_with?: String
+  version?: Int
+  version_not?: Int
+  version_in?: Int[] | Int
+  version_not_in?: Int[] | Int
+  version_lt?: Int
+  version_lte?: Int
+  version_gt?: Int
+  version_gte?: Int
+  date?: DateTime
+  date_not?: DateTime
+  date_in?: DateTime[] | DateTime
+  date_not_in?: DateTime[] | DateTime
+  date_lt?: DateTime
+  date_lte?: DateTime
+  date_gt?: DateTime
+  date_gte?: DateTime
+  value?: String
+  value_not?: String
+  value_in?: String[] | String
+  value_not_in?: String[] | String
+  value_lt?: String
+  value_lte?: String
+  value_gt?: String
+  value_gte?: String
+  value_contains?: String
+  value_not_contains?: String
+  value_starts_with?: String
+  value_not_starts_with?: String
+  value_ends_with?: String
+  value_not_ends_with?: String
+  descriptor?: DataDescriptorWhereInput
+  _MagicalBackRelation_UserData_every?: UserWhereInput
+  _MagicalBackRelation_UserData_some?: UserWhereInput
+  _MagicalBackRelation_UserData_none?: UserWhereInput
+}
+
+export interface BpmnTaskCreateManyInput {
+  create?: BpmnTaskCreateInput[] | BpmnTaskCreateInput
+  connect?: BpmnTaskWhereUniqueInput[] | BpmnTaskWhereUniqueInput
+}
+
+export interface CommentSubscriptionWhereInput {
+  AND?: CommentSubscriptionWhereInput[] | CommentSubscriptionWhereInput
+  OR?: CommentSubscriptionWhereInput[] | CommentSubscriptionWhereInput
+  NOT?: CommentSubscriptionWhereInput[] | CommentSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: CommentWhereInput
+}
+
+export interface BpmnTaskCreateInput {
+  taskId: ID_Input
+  name: String
+  type?: BpmnTaskType
+  resources?: ResourceCreateManyInput
+}
+
+export interface UserWhereInput {
+  AND?: UserWhereInput[] | UserWhereInput
+  OR?: UserWhereInput[] | UserWhereInput
+  NOT?: UserWhereInput[] | UserWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  uid?: String
+  uid_not?: String
+  uid_in?: String[] | String
+  uid_not_in?: String[] | String
+  uid_lt?: String
+  uid_lte?: String
+  uid_gt?: String
+  uid_gte?: String
+  uid_contains?: String
+  uid_not_contains?: String
+  uid_starts_with?: String
+  uid_not_starts_with?: String
+  uid_ends_with?: String
+  uid_not_ends_with?: String
   name?: String
   name_not?: String
   name_in?: String[] | String
@@ -9403,23 +9469,63 @@ export interface ValidatorWhereInput {
   name_not_starts_with?: String
   name_ends_with?: String
   name_not_ends_with?: String
-  _MagicalBackRelation_FormToValidator_every?: FormWhereInput
-  _MagicalBackRelation_FormToValidator_some?: FormWhereInput
-  _MagicalBackRelation_FormToValidator_none?: FormWhereInput
-  _MagicalBackRelation_DataDescriptorToValidator_every?: DataDescriptorWhereInput
-  _MagicalBackRelation_DataDescriptorToValidator_some?: DataDescriptorWhereInput
-  _MagicalBackRelation_DataDescriptorToValidator_none?: DataDescriptorWhereInput
+  description?: String
+  description_not?: String
+  description_in?: String[] | String
+  description_not_in?: String[] | String
+  description_lt?: String
+  description_lte?: String
+  description_gt?: String
+  description_gte?: String
+  description_contains?: String
+  description_not_contains?: String
+  description_starts_with?: String
+  description_not_starts_with?: String
+  description_ends_with?: String
+  description_not_ends_with?: String
+  password?: String
+  password_not?: String
+  password_in?: String[] | String
+  password_not_in?: String[] | String
+  password_lt?: String
+  password_lte?: String
+  password_gt?: String
+  password_gte?: String
+  password_contains?: String
+  password_not_contains?: String
+  password_starts_with?: String
+  password_not_starts_with?: String
+  password_ends_with?: String
+  password_not_ends_with?: String
+  notifications_every?: NotificationWhereInput
+  notifications_some?: NotificationWhereInput
+  notifications_none?: NotificationWhereInput
+  processes_every?: BpmnProcessInstanceWhereInput
+  processes_some?: BpmnProcessInstanceWhereInput
+  processes_none?: BpmnProcessInstanceWhereInput
+  data_every?: DataWhereInput
+  data_some?: DataWhereInput
+  data_none?: DataWhereInput
+  _MagicalBackRelation_CommentToUser_every?: CommentWhereInput
+  _MagicalBackRelation_CommentToUser_some?: CommentWhereInput
+  _MagicalBackRelation_CommentToUser_none?: CommentWhereInput
+  _MagicalBackRelation_TaskPerformer_every?: BpmnTaskInstanceWhereInput
+  _MagicalBackRelation_TaskPerformer_some?: BpmnTaskInstanceWhereInput
+  _MagicalBackRelation_TaskPerformer_none?: BpmnTaskInstanceWhereInput
+  _MagicalBackRelation_LogToUser_every?: LogWhereInput
+  _MagicalBackRelation_LogToUser_some?: LogWhereInput
+  _MagicalBackRelation_LogToUser_none?: LogWhereInput
 }
 
-export interface BpmnProcessCreateManyInput {
-  create?: BpmnProcessCreateInput[] | BpmnProcessCreateInput
-  connect?: BpmnProcessWhereUniqueInput[] | BpmnProcessWhereUniqueInput
+export interface LogCreateManyWithoutProcessInstanceInput {
+  create?: LogCreateWithoutProcessInstanceInput[] | LogCreateWithoutProcessInstanceInput
+  connect?: LogWhereUniqueInput[] | LogWhereUniqueInput
 }
 
-export interface RoleWhereInput {
-  AND?: RoleWhereInput[] | RoleWhereInput
-  OR?: RoleWhereInput[] | RoleWhereInput
-  NOT?: RoleWhereInput[] | RoleWhereInput
+export interface OrganisationWhereInput {
+  AND?: OrganisationWhereInput[] | OrganisationWhereInput
+  OR?: OrganisationWhereInput[] | OrganisationWhereInput
+  NOT?: OrganisationWhereInput[] | OrganisationWhereInput
   id?: ID_Input
   id_not?: ID_Input
   id_in?: ID_Input[] | ID_Input
@@ -9464,38 +9570,7 @@ export interface RoleWhereInput {
   description_not_ends_with?: String
 }
 
-export interface BpmnTaskCreateManyInput {
-  create?: BpmnTaskCreateInput[] | BpmnTaskCreateInput
-  connect?: BpmnTaskWhereUniqueInput[] | BpmnTaskWhereUniqueInput
-}
-
-export interface AccessConditionUpdateInput {
-  organisationId?: ID_Input
-  roleId?: ID_Input
-  userId?: ID_Input
-}
-
-export interface BpmnTaskCreateInput {
-  taskId: ID_Input
-  name: String
-  type?: BpmnTaskType
-  resources?: ResourceCreateManyInput
-}
-
-export interface LocalisationWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface LogCreateManyInput {
-  create?: LogCreateInput[] | LogCreateInput
-  connect?: LogWhereUniqueInput[] | LogWhereUniqueInput
-}
-
-export interface FormWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface LogCreateInput {
+export interface LogCreateWithoutProcessInstanceInput {
   elementId: String
   elementName: String
   date: DateTime
@@ -9505,146 +9580,41 @@ export interface LogCreateInput {
   performer?: UserCreateOneInput
 }
 
-export interface NotificationWhereUniqueInput {
-  id?: ID_Input
+export interface LogSubscriptionWhereInput {
+  AND?: LogSubscriptionWhereInput[] | LogSubscriptionWhereInput
+  OR?: LogSubscriptionWhereInput[] | LogSubscriptionWhereInput
+  NOT?: LogSubscriptionWhereInput[] | LogSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: LogWhereInput
 }
 
-export interface NotificationWhereInput {
-  AND?: NotificationWhereInput[] | NotificationWhereInput
-  OR?: NotificationWhereInput[] | NotificationWhereInput
-  NOT?: NotificationWhereInput[] | NotificationWhereInput
-  type?: NotificationType
-  type_not?: NotificationType
-  type_in?: NotificationType[] | NotificationType
-  type_not_in?: NotificationType[] | NotificationType
-  id?: ID_Input
-  id_not?: ID_Input
-  id_in?: ID_Input[] | ID_Input
-  id_not_in?: ID_Input[] | ID_Input
-  id_lt?: ID_Input
-  id_lte?: ID_Input
-  id_gt?: ID_Input
-  id_gte?: ID_Input
-  id_contains?: ID_Input
-  id_not_contains?: ID_Input
-  id_starts_with?: ID_Input
-  id_not_starts_with?: ID_Input
-  id_ends_with?: ID_Input
-  id_not_ends_with?: ID_Input
+export interface BpmnTaskInstanceCreateManyInput {
+  create?: BpmnTaskInstanceCreateInput[] | BpmnTaskInstanceCreateInput
+  connect?: BpmnTaskInstanceWhereUniqueInput[] | BpmnTaskInstanceWhereUniqueInput
+}
+
+export interface AccessConditionUpdateInput {
+  organisationId?: ID_Input
+  roleId?: ID_Input
   userId?: ID_Input
-  userId_not?: ID_Input
-  userId_in?: ID_Input[] | ID_Input
-  userId_not_in?: ID_Input[] | ID_Input
-  userId_lt?: ID_Input
-  userId_lte?: ID_Input
-  userId_gt?: ID_Input
-  userId_gte?: ID_Input
-  userId_contains?: ID_Input
-  userId_not_contains?: ID_Input
-  userId_starts_with?: ID_Input
-  userId_not_starts_with?: ID_Input
-  userId_ends_with?: ID_Input
-  userId_not_ends_with?: ID_Input
-  createdAt?: DateTime
-  createdAt_not?: DateTime
-  createdAt_in?: DateTime[] | DateTime
-  createdAt_not_in?: DateTime[] | DateTime
-  createdAt_lt?: DateTime
-  createdAt_lte?: DateTime
-  createdAt_gt?: DateTime
-  createdAt_gte?: DateTime
-  code?: NotificationCode
-  code_not?: NotificationCode
-  code_in?: NotificationCode[] | NotificationCode
-  code_not_in?: NotificationCode[] | NotificationCode
-  text?: String
-  text_not?: String
-  text_in?: String[] | String
-  text_not_in?: String[] | String
-  text_lt?: String
-  text_lte?: String
-  text_gt?: String
-  text_gte?: String
-  text_contains?: String
-  text_not_contains?: String
-  text_starts_with?: String
-  text_not_starts_with?: String
-  text_ends_with?: String
-  text_not_ends_with?: String
-  visible?: Boolean
-  visible_not?: Boolean
-  processInstance?: BpmnProcessInstanceWhereInput
-  _MagicalBackRelation_UserNotifications_every?: UserWhereInput
-  _MagicalBackRelation_UserNotifications_some?: UserWhereInput
-  _MagicalBackRelation_UserNotifications_none?: UserWhereInput
 }
 
-export interface ResourceWhereUniqueInput {
-  id?: ID_Input
+export interface BpmnTaskInstanceCreateInput {
+  dateFinished?: DateTime
+  dateStarted: DateTime
+  duration?: Int
+  data?: Json
+  status: BpmnTaskInstanceStatus
+  performerRoles?: BpmnTaskInstanceCreateperformerRolesInput
+  performer?: UserCreateOneInput
+  processInstance: BpmnProcessInstanceCreateOneInput
+  task: BpmnTaskCreateOneInput
 }
 
-export interface BpmnTaskWhereInput {
-  AND?: BpmnTaskWhereInput[] | BpmnTaskWhereInput
-  OR?: BpmnTaskWhereInput[] | BpmnTaskWhereInput
-  NOT?: BpmnTaskWhereInput[] | BpmnTaskWhereInput
-  id?: ID_Input
-  id_not?: ID_Input
-  id_in?: ID_Input[] | ID_Input
-  id_not_in?: ID_Input[] | ID_Input
-  id_lt?: ID_Input
-  id_lte?: ID_Input
-  id_gt?: ID_Input
-  id_gte?: ID_Input
-  id_contains?: ID_Input
-  id_not_contains?: ID_Input
-  id_starts_with?: ID_Input
-  id_not_starts_with?: ID_Input
-  id_ends_with?: ID_Input
-  id_not_ends_with?: ID_Input
-  taskId?: ID_Input
-  taskId_not?: ID_Input
-  taskId_in?: ID_Input[] | ID_Input
-  taskId_not_in?: ID_Input[] | ID_Input
-  taskId_lt?: ID_Input
-  taskId_lte?: ID_Input
-  taskId_gt?: ID_Input
-  taskId_gte?: ID_Input
-  taskId_contains?: ID_Input
-  taskId_not_contains?: ID_Input
-  taskId_starts_with?: ID_Input
-  taskId_not_starts_with?: ID_Input
-  taskId_ends_with?: ID_Input
-  taskId_not_ends_with?: ID_Input
-  name?: String
-  name_not?: String
-  name_in?: String[] | String
-  name_not_in?: String[] | String
-  name_lt?: String
-  name_lte?: String
-  name_gt?: String
-  name_gte?: String
-  name_contains?: String
-  name_not_contains?: String
-  name_starts_with?: String
-  name_not_starts_with?: String
-  name_ends_with?: String
-  name_not_ends_with?: String
-  type?: BpmnTaskType
-  type_not?: BpmnTaskType
-  type_in?: BpmnTaskType[] | BpmnTaskType
-  type_not_in?: BpmnTaskType[] | BpmnTaskType
-  resources_every?: ResourceWhereInput
-  resources_some?: ResourceWhereInput
-  resources_none?: ResourceWhereInput
-  _MagicalBackRelation_BpmnTaskToBpmnTaskInstance_every?: BpmnTaskInstanceWhereInput
-  _MagicalBackRelation_BpmnTaskToBpmnTaskInstance_some?: BpmnTaskInstanceWhereInput
-  _MagicalBackRelation_BpmnTaskToBpmnTaskInstance_none?: BpmnTaskInstanceWhereInput
-  _MagicalBackRelation_BomnProcessTasks_every?: BpmnProcessWhereInput
-  _MagicalBackRelation_BomnProcessTasks_some?: BpmnProcessWhereInput
-  _MagicalBackRelation_BomnProcessTasks_none?: BpmnProcessWhereInput
-}
-
-export interface BpmnProcessWhereUniqueInput {
+export interface OrganisationWhereUniqueInput {
   id?: ID_Input
 }
 
@@ -9707,22 +9677,14 @@ export interface DocumentWhereInput {
   _MagicalBackRelation_ResourceDocument_none?: ResourceWhereInput
 }
 
-export interface BpmnTaskInstanceUpdateInput {
-  dateFinished?: DateTime
-  dateStarted?: DateTime
-  duration?: Int
-  data?: Json
-  status?: BpmnTaskInstanceStatus
-  performerRoles?: BpmnTaskInstanceUpdateperformerRolesInput
-  performer?: UserUpdateOneInput
-  processInstance?: BpmnProcessInstanceUpdateOneInput
-  task?: BpmnTaskUpdateOneInput
+export interface FormElementWhereUniqueInput {
+  id?: ID_Input
 }
 
-export interface LogWhereInput {
-  AND?: LogWhereInput[] | LogWhereInput
-  OR?: LogWhereInput[] | LogWhereInput
-  NOT?: LogWhereInput[] | LogWhereInput
+export interface ValidatorWhereInput {
+  AND?: ValidatorWhereInput[] | ValidatorWhereInput
+  OR?: ValidatorWhereInput[] | ValidatorWhereInput
+  NOT?: ValidatorWhereInput[] | ValidatorWhereInput
   id?: ID_Input
   id_not?: ID_Input
   id_in?: ID_Input[] | ID_Input
@@ -9737,115 +9699,6 @@ export interface LogWhereInput {
   id_not_starts_with?: ID_Input
   id_ends_with?: ID_Input
   id_not_ends_with?: ID_Input
-  elementId?: String
-  elementId_not?: String
-  elementId_in?: String[] | String
-  elementId_not_in?: String[] | String
-  elementId_lt?: String
-  elementId_lte?: String
-  elementId_gt?: String
-  elementId_gte?: String
-  elementId_contains?: String
-  elementId_not_contains?: String
-  elementId_starts_with?: String
-  elementId_not_starts_with?: String
-  elementId_ends_with?: String
-  elementId_not_ends_with?: String
-  elementName?: String
-  elementName_not?: String
-  elementName_in?: String[] | String
-  elementName_not_in?: String[] | String
-  elementName_lt?: String
-  elementName_lte?: String
-  elementName_gt?: String
-  elementName_gte?: String
-  elementName_contains?: String
-  elementName_not_contains?: String
-  elementName_starts_with?: String
-  elementName_not_starts_with?: String
-  elementName_ends_with?: String
-  elementName_not_ends_with?: String
-  date?: DateTime
-  date_not?: DateTime
-  date_in?: DateTime[] | DateTime
-  date_not_in?: DateTime[] | DateTime
-  date_lt?: DateTime
-  date_lte?: DateTime
-  date_gt?: DateTime
-  date_gte?: DateTime
-  taskInstanceId?: ID_Input
-  taskInstanceId_not?: ID_Input
-  taskInstanceId_in?: ID_Input[] | ID_Input
-  taskInstanceId_not_in?: ID_Input[] | ID_Input
-  taskInstanceId_lt?: ID_Input
-  taskInstanceId_lte?: ID_Input
-  taskInstanceId_gt?: ID_Input
-  taskInstanceId_gte?: ID_Input
-  taskInstanceId_contains?: ID_Input
-  taskInstanceId_not_contains?: ID_Input
-  taskInstanceId_starts_with?: ID_Input
-  taskInstanceId_not_starts_with?: ID_Input
-  taskInstanceId_ends_with?: ID_Input
-  taskInstanceId_not_ends_with?: ID_Input
-  status?: BpmnTaskInstanceStatus
-  status_not?: BpmnTaskInstanceStatus
-  status_in?: BpmnTaskInstanceStatus[] | BpmnTaskInstanceStatus
-  status_not_in?: BpmnTaskInstanceStatus[] | BpmnTaskInstanceStatus
-  message?: String
-  message_not?: String
-  message_in?: String[] | String
-  message_not_in?: String[] | String
-  message_lt?: String
-  message_lte?: String
-  message_gt?: String
-  message_gte?: String
-  message_contains?: String
-  message_not_contains?: String
-  message_starts_with?: String
-  message_not_starts_with?: String
-  message_ends_with?: String
-  message_not_ends_with?: String
-  performer?: UserWhereInput
-  _MagicalBackRelation_BpmnProcessInstanceLog_every?: BpmnProcessInstanceWhereInput
-  _MagicalBackRelation_BpmnProcessInstanceLog_some?: BpmnProcessInstanceWhereInput
-  _MagicalBackRelation_BpmnProcessInstanceLog_none?: BpmnProcessInstanceWhereInput
-}
-
-export interface DataDescriptorUpdateInput {
-  defaultValue?: String
-  description?: String
-  expression?: String
-  isArray?: Boolean
-  clone?: Boolean
-  name?: String
-  type?: DataType
-  parentDescriptor?: ID_Input
-  access?: AccessUpdateOneInput
-  validators?: ValidatorUpdateManyInput
-}
-
-export interface ResourceWhereInput {
-  AND?: ResourceWhereInput[] | ResourceWhereInput
-  OR?: ResourceWhereInput[] | ResourceWhereInput
-  NOT?: ResourceWhereInput[] | ResourceWhereInput
-  id?: ID_Input
-  id_not?: ID_Input
-  id_in?: ID_Input[] | ID_Input
-  id_not_in?: ID_Input[] | ID_Input
-  id_lt?: ID_Input
-  id_lte?: ID_Input
-  id_gt?: ID_Input
-  id_gte?: ID_Input
-  id_contains?: ID_Input
-  id_not_contains?: ID_Input
-  id_starts_with?: ID_Input
-  id_not_starts_with?: ID_Input
-  id_ends_with?: ID_Input
-  id_not_ends_with?: ID_Input
-  type?: ResourceType
-  type_not?: ResourceType
-  type_in?: ResourceType[] | ResourceType
-  type_not_in?: ResourceType[] | ResourceType
   name?: String
   name_not?: String
   name_in?: String[] | String
@@ -9860,31 +9713,202 @@ export interface ResourceWhereInput {
   name_not_starts_with?: String
   name_ends_with?: String
   name_not_ends_with?: String
-  link?: String
-  link_not?: String
-  link_in?: String[] | String
-  link_not_in?: String[] | String
-  link_lt?: String
-  link_lte?: String
-  link_gt?: String
-  link_gte?: String
-  link_contains?: String
-  link_not_contains?: String
-  link_starts_with?: String
-  link_not_starts_with?: String
-  link_ends_with?: String
-  link_not_ends_with?: String
-  form?: FormWhereInput
-  document?: DocumentWhereInput
-  _MagicalBackRelation_BpmnTaskToResource_every?: BpmnTaskWhereInput
-  _MagicalBackRelation_BpmnTaskToResource_some?: BpmnTaskWhereInput
-  _MagicalBackRelation_BpmnTaskToResource_none?: BpmnTaskWhereInput
-  _MagicalBackRelation_BpmnProcessResources_every?: BpmnProcessWhereInput
-  _MagicalBackRelation_BpmnProcessResources_some?: BpmnProcessWhereInput
-  _MagicalBackRelation_BpmnProcessResources_none?: BpmnProcessWhereInput
+  _MagicalBackRelation_FormToValidator_every?: FormWhereInput
+  _MagicalBackRelation_FormToValidator_some?: FormWhereInput
+  _MagicalBackRelation_FormToValidator_none?: FormWhereInput
+  _MagicalBackRelation_DataDescriptorToValidator_every?: DataDescriptorWhereInput
+  _MagicalBackRelation_DataDescriptorToValidator_some?: DataDescriptorWhereInput
+  _MagicalBackRelation_DataDescriptorToValidator_none?: DataDescriptorWhereInput
 }
 
-export interface UserUpdateInput {
+export interface DocumentWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface BpmnProcessUpdateOneInput {
+  create?: BpmnProcessCreateInput
+  connect?: BpmnProcessWhereUniqueInput
+  delete?: Boolean
+  update?: BpmnProcessUpdateDataInput
+  upsert?: BpmnProcessUpsertNestedInput
+}
+
+export interface DataWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface BpmnProcessInstanceCreateWithoutOwnerInput {
+  dateFinished?: DateTime
+  dateStarted: DateTime
+  duration?: Int
+  data: Json
+  status: BpmnProcessInstanceStatus
+  comments?: CommentCreateManyInput
+  process: BpmnProcessCreateOneInput
+  log?: LogCreateManyWithoutProcessInstanceInput
+  tasks?: BpmnTaskInstanceCreateManyInput
+}
+
+export interface BpmnProcessInstanceWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface OrganisationCreateInput {
+  name: String
+  description?: String
+}
+
+export interface DataUpdateInput {
+  organisationId?: String
+  version?: Int
+  date?: DateTime
+  value?: String
+  descriptor?: DataDescriptorUpdateOneInput
+}
+
+export interface RoleCreateInput {
+  name: String
+  description?: String
+}
+
+export interface DocumentUpdateInput {
+  title?: String
+  content?: String
+  version?: Int
+}
+
+export interface LocalisationUpdateInput {
+  code?: String
+  text?: String
+  language?: LanguageCode
+}
+
+export interface FormElementUpdateInput {
+  row?: Int
+  column?: Int
+  width?: Int
+  label?: String
+  inline?: Boolean
+  defaultValue?: String
+  list?: String
+  filterSource?: String
+  filterColumn?: String
+  control?: FormControl
+  controlProps?: Json
+  vertical?: Boolean
+  parentElement?: ID_Input
+  source?: DataDescriptorUpdateOneInput
+}
+
+export interface LogUpdateInput {
+  elementId?: String
+  elementName?: String
+  date?: DateTime
+  taskInstanceId?: ID_Input
+  status?: BpmnTaskInstanceStatus
+  message?: String
+  processInstance?: BpmnProcessInstanceUpdateOneWithoutLogInput
+  performer?: UserUpdateOneInput
+}
+
+export interface OrganisationUpdateInput {
+  name?: String
+  description?: String
+}
+
+export interface BpmnProcessInstanceUpdateOneWithoutLogInput {
+  create?: BpmnProcessInstanceCreateWithoutLogInput
+  connect?: BpmnProcessInstanceWhereUniqueInput
+  delete?: Boolean
+  update?: BpmnProcessInstanceUpdateWithoutLogDataInput
+  upsert?: BpmnProcessInstanceUpsertWithoutLogInput
+}
+
+export interface BpmnProcessInstanceUpsertWithWhereUniqueWithoutOwnerInput {
+  where: BpmnProcessInstanceWhereUniqueInput
+  update: BpmnProcessInstanceUpdateWithoutOwnerDataInput
+  create: BpmnProcessInstanceCreateWithoutOwnerInput
+}
+
+export interface BpmnProcessInstanceUpdateWithoutLogDataInput {
+  dateFinished?: DateTime
+  dateStarted?: DateTime
+  duration?: Int
+  data?: Json
+  status?: BpmnProcessInstanceStatus
+  comments?: CommentUpdateManyInput
+  owner?: UserUpdateOneWithoutProcessesInput
+  process?: BpmnProcessUpdateOneInput
+  tasks?: BpmnTaskInstanceUpdateManyInput
+}
+
+export interface NotificationUpsertWithWhereUniqueNestedInput {
+  where: NotificationWhereUniqueInput
+  update: NotificationUpdateDataInput
+  create: NotificationCreateInput
+}
+
+export interface CommentUpdateManyInput {
+  create?: CommentCreateInput[] | CommentCreateInput
+  connect?: CommentWhereUniqueInput[] | CommentWhereUniqueInput
+  disconnect?: CommentWhereUniqueInput[] | CommentWhereUniqueInput
+  delete?: CommentWhereUniqueInput[] | CommentWhereUniqueInput
+  update?: CommentUpdateWithWhereUniqueNestedInput[] | CommentUpdateWithWhereUniqueNestedInput
+  upsert?: CommentUpsertWithWhereUniqueNestedInput[] | CommentUpsertWithWhereUniqueNestedInput
+}
+
+export interface BpmnTaskUpdateOneInput {
+  create?: BpmnTaskCreateInput
+  connect?: BpmnTaskWhereUniqueInput
+  delete?: Boolean
+  update?: BpmnTaskUpdateDataInput
+  upsert?: BpmnTaskUpsertNestedInput
+}
+
+export interface CommentUpdateWithWhereUniqueNestedInput {
+  where: CommentWhereUniqueInput
+  data: CommentUpdateDataInput
+}
+
+export interface BpmnTaskInstanceUpdateManyInput {
+  create?: BpmnTaskInstanceCreateInput[] | BpmnTaskInstanceCreateInput
+  connect?: BpmnTaskInstanceWhereUniqueInput[] | BpmnTaskInstanceWhereUniqueInput
+  disconnect?: BpmnTaskInstanceWhereUniqueInput[] | BpmnTaskInstanceWhereUniqueInput
+  delete?: BpmnTaskInstanceWhereUniqueInput[] | BpmnTaskInstanceWhereUniqueInput
+  update?: BpmnTaskInstanceUpdateWithWhereUniqueNestedInput[] | BpmnTaskInstanceUpdateWithWhereUniqueNestedInput
+  upsert?: BpmnTaskInstanceUpsertWithWhereUniqueNestedInput[] | BpmnTaskInstanceUpsertWithWhereUniqueNestedInput
+}
+
+export interface CommentUpdateDataInput {
+  text?: String
+  date?: DateTime
+  replyTo?: String
+  user?: UserUpdateOneInput
+}
+
+export interface LogUpdateManyWithoutProcessInstanceInput {
+  create?: LogCreateWithoutProcessInstanceInput[] | LogCreateWithoutProcessInstanceInput
+  connect?: LogWhereUniqueInput[] | LogWhereUniqueInput
+  disconnect?: LogWhereUniqueInput[] | LogWhereUniqueInput
+  delete?: LogWhereUniqueInput[] | LogWhereUniqueInput
+  update?: LogUpdateWithWhereUniqueWithoutProcessInstanceInput[] | LogUpdateWithWhereUniqueWithoutProcessInstanceInput
+  upsert?: LogUpsertWithWhereUniqueWithoutProcessInstanceInput[] | LogUpsertWithWhereUniqueWithoutProcessInstanceInput
+}
+
+export interface UserUpdateOneInput {
+  create?: UserCreateInput
+  connect?: UserWhereUniqueInput
+  delete?: Boolean
+  update?: UserUpdateDataInput
+  upsert?: UserUpsertNestedInput
+}
+
+export interface BpmnTaskUpdateWithWhereUniqueNestedInput {
+  where: BpmnTaskWhereUniqueInput
+  data: BpmnTaskUpdateDataInput
+}
+
+export interface UserUpdateDataInput {
   uid?: String
   name?: String
   description?: String
@@ -9893,6 +9917,19 @@ export interface UserUpdateInput {
   notifications?: NotificationUpdateManyInput
   processes?: BpmnProcessInstanceUpdateManyWithoutOwnerInput
   data?: DataUpdateManyInput
+}
+
+export interface BpmnProcessUpdateManyInput {
+  create?: BpmnProcessCreateInput[] | BpmnProcessCreateInput
+  connect?: BpmnProcessWhereUniqueInput[] | BpmnProcessWhereUniqueInput
+  disconnect?: BpmnProcessWhereUniqueInput[] | BpmnProcessWhereUniqueInput
+  delete?: BpmnProcessWhereUniqueInput[] | BpmnProcessWhereUniqueInput
+  update?: BpmnProcessUpdateWithWhereUniqueNestedInput[] | BpmnProcessUpdateWithWhereUniqueNestedInput
+  upsert?: BpmnProcessUpsertWithWhereUniqueNestedInput[] | BpmnProcessUpsertWithWhereUniqueNestedInput
+}
+
+export interface UserUpdaterolesInput {
+  set?: String[] | String
 }
 
 export interface BpmnProcessWhereInput {
@@ -10000,26 +10037,149 @@ export interface BpmnProcessWhereInput {
   _MagicalBackRelation_BpmnProcessInstanceProcess_none?: BpmnProcessInstanceWhereInput
 }
 
+export interface NotificationUpdateManyInput {
+  create?: NotificationCreateInput[] | NotificationCreateInput
+  connect?: NotificationWhereUniqueInput[] | NotificationWhereUniqueInput
+  disconnect?: NotificationWhereUniqueInput[] | NotificationWhereUniqueInput
+  delete?: NotificationWhereUniqueInput[] | NotificationWhereUniqueInput
+  update?: NotificationUpdateWithWhereUniqueNestedInput[] | NotificationUpdateWithWhereUniqueNestedInput
+  upsert?: NotificationUpsertWithWhereUniqueNestedInput[] | NotificationUpsertWithWhereUniqueNestedInput
+}
+
+export interface AccessConditionSubscriptionWhereInput {
+  AND?: AccessConditionSubscriptionWhereInput[] | AccessConditionSubscriptionWhereInput
+  OR?: AccessConditionSubscriptionWhereInput[] | AccessConditionSubscriptionWhereInput
+  NOT?: AccessConditionSubscriptionWhereInput[] | AccessConditionSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: AccessConditionWhereInput
+}
+
+export interface NotificationUpdateWithWhereUniqueNestedInput {
+  where: NotificationWhereUniqueInput
+  data: NotificationUpdateDataInput
+}
+
+export interface FormSubscriptionWhereInput {
+  AND?: FormSubscriptionWhereInput[] | FormSubscriptionWhereInput
+  OR?: FormSubscriptionWhereInput[] | FormSubscriptionWhereInput
+  NOT?: FormSubscriptionWhereInput[] | FormSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: FormWhereInput
+}
+
+export interface NotificationUpdateDataInput {
+  type?: NotificationType
+  userId?: ID_Input
+  code?: NotificationCode
+  text?: String
+  visible?: Boolean
+  params?: NotificationUpdateparamsInput
+  processInstance?: BpmnProcessInstanceUpdateOneInput
+}
+
+export interface OrganisationSubscriptionWhereInput {
+  AND?: OrganisationSubscriptionWhereInput[] | OrganisationSubscriptionWhereInput
+  OR?: OrganisationSubscriptionWhereInput[] | OrganisationSubscriptionWhereInput
+  NOT?: OrganisationSubscriptionWhereInput[] | OrganisationSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: OrganisationWhereInput
+}
+
+export interface NotificationUpdateparamsInput {
+  set?: String[] | String
+}
+
+export interface LocalisationWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface BpmnProcessInstanceUpdateOneInput {
+  create?: BpmnProcessInstanceCreateInput
+  connect?: BpmnProcessInstanceWhereUniqueInput
+  delete?: Boolean
+  update?: BpmnProcessInstanceUpdateDataInput
+  upsert?: BpmnProcessInstanceUpsertNestedInput
+}
+
+export interface UserWhereUniqueInput {
+  id?: ID_Input
+  uid?: String
+}
+
+export interface BpmnProcessInstanceUpdateDataInput {
+  dateFinished?: DateTime
+  dateStarted?: DateTime
+  duration?: Int
+  data?: Json
+  status?: BpmnProcessInstanceStatus
+  comments?: CommentUpdateManyInput
+  owner?: UserUpdateOneWithoutProcessesInput
+  process?: BpmnProcessUpdateOneInput
+  log?: LogUpdateManyWithoutProcessInstanceInput
+  tasks?: BpmnTaskInstanceUpdateManyInput
+}
+
+export interface BpmnProcessWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface UserUpdateOneWithoutProcessesInput {
+  create?: UserCreateWithoutProcessesInput
+  connect?: UserWhereUniqueInput
+  delete?: Boolean
+  update?: UserUpdateWithoutProcessesDataInput
+  upsert?: UserUpsertWithoutProcessesInput
+}
+
+export interface ResourceUpdateInput {
+  type?: ResourceType
+  name?: String
+  link?: String
+  form?: FormUpdateOneInput
+  document?: DocumentUpdateOneInput
+}
+
+export interface UserUpdateWithoutProcessesDataInput {
+  uid?: String
+  name?: String
+  description?: String
+  password?: String
+  roles?: UserUpdaterolesInput
+  notifications?: NotificationUpdateManyInput
+  data?: DataUpdateManyInput
+}
+
+export interface ValidatorUpdateInput {
+  name?: String
+  params?: ValidatorUpdateparamsInput
+}
+
+export interface DataUpdateManyInput {
+  create?: DataCreateInput[] | DataCreateInput
+  connect?: DataWhereUniqueInput[] | DataWhereUniqueInput
+  disconnect?: DataWhereUniqueInput[] | DataWhereUniqueInput
+  delete?: DataWhereUniqueInput[] | DataWhereUniqueInput
+  update?: DataUpdateWithWhereUniqueNestedInput[] | DataUpdateWithWhereUniqueNestedInput
+  upsert?: DataUpsertWithWhereUniqueNestedInput[] | DataUpsertWithWhereUniqueNestedInput
+}
+
 export interface BpmnProcessInstanceUpdateWithWhereUniqueWithoutOwnerInput {
   where: BpmnProcessInstanceWhereUniqueInput
   data: BpmnProcessInstanceUpdateWithoutOwnerDataInput
 }
 
-export interface LocalisationUpdateInput {
-  code?: String
-  text?: String
-  language?: LanguageCode
-}
-
-export interface BpmnTaskInstanceUpsertWithWhereUniqueNestedInput {
-  where: BpmnTaskInstanceWhereUniqueInput
-  update: BpmnTaskInstanceUpdateDataInput
-  create: BpmnTaskInstanceCreateInput
-}
-
-export interface OrganisationUpdateInput {
-  name?: String
-  description?: String
+export interface DataUpdateWithWhereUniqueNestedInput {
+  where: DataWhereUniqueInput
+  data: DataUpdateDataInput
 }
 
 export interface BpmnTaskInstanceUpdateDataInput {
@@ -10034,112 +10194,18 @@ export interface BpmnTaskInstanceUpdateDataInput {
   task?: BpmnTaskUpdateOneInput
 }
 
-export interface RoleUpdateInput {
-  name?: String
-  description?: String
-}
-
-export interface LogUpdateDataInput {
-  elementId?: String
-  elementName?: String
+export interface DataUpdateDataInput {
+  organisationId?: String
+  version?: Int
   date?: DateTime
-  taskInstanceId?: ID_Input
-  status?: BpmnTaskInstanceStatus
-  message?: String
-  performer?: UserUpdateOneInput
-}
-
-export interface ValidatorUpdateInput {
-  name?: String
-  params?: ValidatorUpdateparamsInput
+  value?: String
+  descriptor?: DataDescriptorUpdateOneInput
 }
 
 export interface BpmnTaskUpsertWithWhereUniqueNestedInput {
   where: BpmnTaskWhereUniqueInput
   update: BpmnTaskUpdateDataInput
   create: BpmnTaskCreateInput
-}
-
-export interface ValidatorUpdateparamsInput {
-  set?: String[] | String
-}
-
-export interface BpmnProcessUpsertWithWhereUniqueNestedInput {
-  where: BpmnProcessWhereUniqueInput
-  update: BpmnProcessUpdateDataInput
-  create: BpmnProcessCreateInput
-}
-
-export interface FormUpdateInput {
-  name?: String
-  description?: String
-  elements?: FormElementUpdateManyInput
-  validations?: ValidatorUpdateManyInput
-}
-
-export interface DocumentUpsertNestedInput {
-  update: DocumentUpdateDataInput
-  create: DocumentCreateInput
-}
-
-export interface FormElementUpdateManyInput {
-  create?: FormElementCreateInput[] | FormElementCreateInput
-  connect?: FormElementWhereUniqueInput[] | FormElementWhereUniqueInput
-  disconnect?: FormElementWhereUniqueInput[] | FormElementWhereUniqueInput
-  delete?: FormElementWhereUniqueInput[] | FormElementWhereUniqueInput
-  update?: FormElementUpdateWithWhereUniqueNestedInput[] | FormElementUpdateWithWhereUniqueNestedInput
-  upsert?: FormElementUpsertWithWhereUniqueNestedInput[] | FormElementUpsertWithWhereUniqueNestedInput
-}
-
-export interface FormUpdateDataInput {
-  name?: String
-  description?: String
-  elements?: FormElementUpdateManyInput
-  validations?: ValidatorUpdateManyInput
-}
-
-export interface FormElementUpdateWithWhereUniqueNestedInput {
-  where: FormElementWhereUniqueInput
-  data: FormElementUpdateDataInput
-}
-
-export interface BpmnTaskSubscriptionWhereInput {
-  AND?: BpmnTaskSubscriptionWhereInput[] | BpmnTaskSubscriptionWhereInput
-  OR?: BpmnTaskSubscriptionWhereInput[] | BpmnTaskSubscriptionWhereInput
-  NOT?: BpmnTaskSubscriptionWhereInput[] | BpmnTaskSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: BpmnTaskWhereInput
-}
-
-export interface FormElementUpdateDataInput {
-  row?: Int
-  column?: Int
-  width?: Int
-  label?: String
-  inline?: Boolean
-  defaultValue?: String
-  list?: String
-  filterSource?: String
-  filterColumn?: String
-  control?: FormControl
-  controlProps?: Json
-  vertical?: Boolean
-  parentElement?: ID_Input
-  source?: DataDescriptorUpdateOneInput
-}
-
-export interface AccessConditionSubscriptionWhereInput {
-  AND?: AccessConditionSubscriptionWhereInput[] | AccessConditionSubscriptionWhereInput
-  OR?: AccessConditionSubscriptionWhereInput[] | AccessConditionSubscriptionWhereInput
-  NOT?: AccessConditionSubscriptionWhereInput[] | AccessConditionSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: AccessConditionWhereInput
 }
 
 export interface DataDescriptorUpdateOneInput {
@@ -10151,15 +10217,15 @@ export interface DataDescriptorUpdateOneInput {
   upsert?: DataDescriptorUpsertNestedInput
 }
 
-export interface FormElementSubscriptionWhereInput {
-  AND?: FormElementSubscriptionWhereInput[] | FormElementSubscriptionWhereInput
-  OR?: FormElementSubscriptionWhereInput[] | FormElementSubscriptionWhereInput
-  NOT?: FormElementSubscriptionWhereInput[] | FormElementSubscriptionWhereInput
+export interface BpmnTaskSubscriptionWhereInput {
+  AND?: BpmnTaskSubscriptionWhereInput[] | BpmnTaskSubscriptionWhereInput
+  OR?: BpmnTaskSubscriptionWhereInput[] | BpmnTaskSubscriptionWhereInput
+  NOT?: BpmnTaskSubscriptionWhereInput[] | BpmnTaskSubscriptionWhereInput
   mutation_in?: MutationType[] | MutationType
   updatedFields_contains?: String
   updatedFields_contains_every?: String[] | String
   updatedFields_contains_some?: String[] | String
-  node?: FormElementWhereInput
+  node?: BpmnTaskWhereInput
 }
 
 export interface DataDescriptorUpdateDataInput {
@@ -10175,15 +10241,15 @@ export interface DataDescriptorUpdateDataInput {
   validators?: ValidatorUpdateManyInput
 }
 
-export interface LocalisationSubscriptionWhereInput {
-  AND?: LocalisationSubscriptionWhereInput[] | LocalisationSubscriptionWhereInput
-  OR?: LocalisationSubscriptionWhereInput[] | LocalisationSubscriptionWhereInput
-  NOT?: LocalisationSubscriptionWhereInput[] | LocalisationSubscriptionWhereInput
+export interface NotificationSubscriptionWhereInput {
+  AND?: NotificationSubscriptionWhereInput[] | NotificationSubscriptionWhereInput
+  OR?: NotificationSubscriptionWhereInput[] | NotificationSubscriptionWhereInput
+  NOT?: NotificationSubscriptionWhereInput[] | NotificationSubscriptionWhereInput
   mutation_in?: MutationType[] | MutationType
   updatedFields_contains?: String
   updatedFields_contains_every?: String[] | String
   updatedFields_contains_some?: String[] | String
-  node?: LocalisationWhereInput
+  node?: NotificationWhereInput
 }
 
 export interface AccessUpdateOneInput {
@@ -10195,8 +10261,94 @@ export interface AccessUpdateOneInput {
   upsert?: AccessUpsertNestedInput
 }
 
-export interface RoleWhereUniqueInput {
+export interface LogWhereInput {
+  AND?: LogWhereInput[] | LogWhereInput
+  OR?: LogWhereInput[] | LogWhereInput
+  NOT?: LogWhereInput[] | LogWhereInput
   id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  elementId?: String
+  elementId_not?: String
+  elementId_in?: String[] | String
+  elementId_not_in?: String[] | String
+  elementId_lt?: String
+  elementId_lte?: String
+  elementId_gt?: String
+  elementId_gte?: String
+  elementId_contains?: String
+  elementId_not_contains?: String
+  elementId_starts_with?: String
+  elementId_not_starts_with?: String
+  elementId_ends_with?: String
+  elementId_not_ends_with?: String
+  elementName?: String
+  elementName_not?: String
+  elementName_in?: String[] | String
+  elementName_not_in?: String[] | String
+  elementName_lt?: String
+  elementName_lte?: String
+  elementName_gt?: String
+  elementName_gte?: String
+  elementName_contains?: String
+  elementName_not_contains?: String
+  elementName_starts_with?: String
+  elementName_not_starts_with?: String
+  elementName_ends_with?: String
+  elementName_not_ends_with?: String
+  date?: DateTime
+  date_not?: DateTime
+  date_in?: DateTime[] | DateTime
+  date_not_in?: DateTime[] | DateTime
+  date_lt?: DateTime
+  date_lte?: DateTime
+  date_gt?: DateTime
+  date_gte?: DateTime
+  taskInstanceId?: ID_Input
+  taskInstanceId_not?: ID_Input
+  taskInstanceId_in?: ID_Input[] | ID_Input
+  taskInstanceId_not_in?: ID_Input[] | ID_Input
+  taskInstanceId_lt?: ID_Input
+  taskInstanceId_lte?: ID_Input
+  taskInstanceId_gt?: ID_Input
+  taskInstanceId_gte?: ID_Input
+  taskInstanceId_contains?: ID_Input
+  taskInstanceId_not_contains?: ID_Input
+  taskInstanceId_starts_with?: ID_Input
+  taskInstanceId_not_starts_with?: ID_Input
+  taskInstanceId_ends_with?: ID_Input
+  taskInstanceId_not_ends_with?: ID_Input
+  status?: BpmnTaskInstanceStatus
+  status_not?: BpmnTaskInstanceStatus
+  status_in?: BpmnTaskInstanceStatus[] | BpmnTaskInstanceStatus
+  status_not_in?: BpmnTaskInstanceStatus[] | BpmnTaskInstanceStatus
+  message?: String
+  message_not?: String
+  message_in?: String[] | String
+  message_not_in?: String[] | String
+  message_lt?: String
+  message_lte?: String
+  message_gt?: String
+  message_gte?: String
+  message_contains?: String
+  message_not_contains?: String
+  message_starts_with?: String
+  message_not_starts_with?: String
+  message_ends_with?: String
+  message_not_ends_with?: String
+  processInstance?: BpmnProcessInstanceWhereInput
+  performer?: UserWhereInput
 }
 
 export interface AccessUpdateDataInput {
@@ -10209,7 +10361,7 @@ export interface AccessUpdateDataInput {
   execute?: AccessConditionUpdateManyInput
 }
 
-export interface LogWhereUniqueInput {
+export interface ResourceWhereUniqueInput {
   id?: ID_Input
 }
 
@@ -10217,8 +10369,15 @@ export interface AccessConditionUpdateManyInput {
   create?: AccessConditionCreateInput[] | AccessConditionCreateInput
 }
 
-export interface BpmnProcessInstanceWhereUniqueInput {
-  id?: ID_Input
+export interface UserUpdateInput {
+  uid?: String
+  name?: String
+  description?: String
+  password?: String
+  roles?: UserUpdaterolesInput
+  notifications?: NotificationUpdateManyInput
+  processes?: BpmnProcessInstanceUpdateManyWithoutOwnerInput
+  data?: DataUpdateManyInput
 }
 
 export interface AccessUpsertNestedInput {
@@ -10226,10 +10385,10 @@ export interface AccessUpsertNestedInput {
   create: AccessCreateInput
 }
 
-export interface DocumentUpdateInput {
-  title?: String
-  content?: String
-  version?: Int
+export interface BpmnTaskInstanceUpsertWithWhereUniqueNestedInput {
+  where: BpmnTaskInstanceWhereUniqueInput
+  update: BpmnTaskInstanceUpdateDataInput
+  create: BpmnTaskInstanceCreateInput
 }
 
 export interface ValidatorUpdateManyInput {
@@ -10241,10 +10400,10 @@ export interface ValidatorUpdateManyInput {
   upsert?: ValidatorUpsertWithWhereUniqueNestedInput[] | ValidatorUpsertWithWhereUniqueNestedInput
 }
 
-export interface NotificationUpsertWithWhereUniqueNestedInput {
-  where: NotificationWhereUniqueInput
-  update: NotificationUpdateDataInput
-  create: NotificationCreateInput
+export interface BpmnProcessUpsertWithWhereUniqueNestedInput {
+  where: BpmnProcessWhereUniqueInput
+  update: BpmnProcessUpdateDataInput
+  create: BpmnProcessCreateInput
 }
 
 export interface ValidatorUpdateWithWhereUniqueNestedInput {
@@ -10252,13 +10411,64 @@ export interface ValidatorUpdateWithWhereUniqueNestedInput {
   data: ValidatorUpdateDataInput
 }
 
-export interface BpmnTaskInstanceUpdateManyInput {
-  create?: BpmnTaskInstanceCreateInput[] | BpmnTaskInstanceCreateInput
-  connect?: BpmnTaskInstanceWhereUniqueInput[] | BpmnTaskInstanceWhereUniqueInput
-  disconnect?: BpmnTaskInstanceWhereUniqueInput[] | BpmnTaskInstanceWhereUniqueInput
-  delete?: BpmnTaskInstanceWhereUniqueInput[] | BpmnTaskInstanceWhereUniqueInput
-  update?: BpmnTaskInstanceUpdateWithWhereUniqueNestedInput[] | BpmnTaskInstanceUpdateWithWhereUniqueNestedInput
-  upsert?: BpmnTaskInstanceUpsertWithWhereUniqueNestedInput[] | BpmnTaskInstanceUpsertWithWhereUniqueNestedInput
+export interface CommentWhereInput {
+  AND?: CommentWhereInput[] | CommentWhereInput
+  OR?: CommentWhereInput[] | CommentWhereInput
+  NOT?: CommentWhereInput[] | CommentWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  text?: String
+  text_not?: String
+  text_in?: String[] | String
+  text_not_in?: String[] | String
+  text_lt?: String
+  text_lte?: String
+  text_gt?: String
+  text_gte?: String
+  text_contains?: String
+  text_not_contains?: String
+  text_starts_with?: String
+  text_not_starts_with?: String
+  text_ends_with?: String
+  text_not_ends_with?: String
+  date?: DateTime
+  date_not?: DateTime
+  date_in?: DateTime[] | DateTime
+  date_not_in?: DateTime[] | DateTime
+  date_lt?: DateTime
+  date_lte?: DateTime
+  date_gt?: DateTime
+  date_gte?: DateTime
+  replyTo?: String
+  replyTo_not?: String
+  replyTo_in?: String[] | String
+  replyTo_not_in?: String[] | String
+  replyTo_lt?: String
+  replyTo_lte?: String
+  replyTo_gt?: String
+  replyTo_gte?: String
+  replyTo_contains?: String
+  replyTo_not_contains?: String
+  replyTo_starts_with?: String
+  replyTo_not_starts_with?: String
+  replyTo_ends_with?: String
+  replyTo_not_ends_with?: String
+  user?: UserWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceToComment_every?: BpmnProcessInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceToComment_some?: BpmnProcessInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceToComment_none?: BpmnProcessInstanceWhereInput
 }
 
 export interface ValidatorUpdateDataInput {
@@ -10266,9 +10476,30 @@ export interface ValidatorUpdateDataInput {
   params?: ValidatorUpdateparamsInput
 }
 
-export interface BpmnTaskUpdateWithWhereUniqueNestedInput {
-  where: BpmnTaskWhereUniqueInput
-  data: BpmnTaskUpdateDataInput
+export interface BpmnProcessUpdateInput {
+  actionCount?: Int
+  description?: String
+  model?: String
+  name?: String
+  type?: ProcessType
+  status?: ProcessStatus
+  version?: Int
+  access?: AccessUpdateOneInput
+  dataDescriptors?: DataDescriptorUpdateManyInput
+  resources?: ResourceUpdateManyInput
+  versions?: BpmnProcessUpdateManyInput
+  tasks?: BpmnTaskUpdateManyInput
+}
+
+export interface DataUpsertWithWhereUniqueNestedInput {
+  where: DataWhereUniqueInput
+  update: DataUpdateDataInput
+  create: DataCreateInput
+}
+
+export interface DataDescriptorUpsertNestedInput {
+  update: DataDescriptorUpdateDataInput
+  create: DataDescriptorCreateInput
 }
 
 export interface ValidatorUpsertWithWhereUniqueNestedInput {
@@ -10277,211 +10508,85 @@ export interface ValidatorUpsertWithWhereUniqueNestedInput {
   create: ValidatorCreateInput
 }
 
-export interface DocumentUpdateOneInput {
-  create?: DocumentCreateInput
-  connect?: DocumentWhereUniqueInput
-  disconnect?: Boolean
-  delete?: Boolean
-  update?: DocumentUpdateDataInput
-  upsert?: DocumentUpsertNestedInput
-}
-
-export interface DataDescriptorUpsertNestedInput {
-  update: DataDescriptorUpdateDataInput
-  create: DataDescriptorCreateInput
-}
-
-export interface AccessSubscriptionWhereInput {
-  AND?: AccessSubscriptionWhereInput[] | AccessSubscriptionWhereInput
-  OR?: AccessSubscriptionWhereInput[] | AccessSubscriptionWhereInput
-  NOT?: AccessSubscriptionWhereInput[] | AccessSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: AccessWhereInput
-}
-
-export interface FormElementUpsertWithWhereUniqueNestedInput {
-  where: FormElementWhereUniqueInput
-  update: FormElementUpdateDataInput
-  create: FormElementCreateInput
-}
-
-export interface ValidatorSubscriptionWhereInput {
-  AND?: ValidatorSubscriptionWhereInput[] | ValidatorSubscriptionWhereInput
-  OR?: ValidatorSubscriptionWhereInput[] | ValidatorSubscriptionWhereInput
-  NOT?: ValidatorSubscriptionWhereInput[] | ValidatorSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: ValidatorWhereInput
-}
-
-export interface FormElementUpdateInput {
-  row?: Int
-  column?: Int
-  width?: Int
-  label?: String
-  inline?: Boolean
-  defaultValue?: String
-  list?: String
-  filterSource?: String
-  filterColumn?: String
-  control?: FormControl
-  controlProps?: Json
-  vertical?: Boolean
-  parentElement?: ID_Input
-  source?: DataDescriptorUpdateOneInput
-}
-
-export interface CommentWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface CommentUpdateInput {
-  text?: String
-  date?: DateTime
-  replyTo?: String
-  user?: UserUpdateOneInput
-}
-
-export interface AccessUpdateInput {
-  createdById?: ID_Input
-  createdOn?: DateTime
-  modifiedById?: ID_Input
-  modifiedOn?: DateTime
-  read?: AccessConditionUpdateManyInput
-  write?: AccessConditionUpdateManyInput
-  execute?: AccessConditionUpdateManyInput
-}
-
-export interface UserUpdateOneInput {
-  create?: UserCreateInput
-  connect?: UserWhereUniqueInput
-  delete?: Boolean
-  update?: UserUpdateDataInput
-  upsert?: UserUpsertNestedInput
-}
-
-export interface BpmnTaskUpdateOneInput {
-  create?: BpmnTaskCreateInput
-  connect?: BpmnTaskWhereUniqueInput
-  delete?: Boolean
-  update?: BpmnTaskUpdateDataInput
-  upsert?: BpmnTaskUpsertNestedInput
-}
-
-export interface UserUpdateDataInput {
-  uid?: String
-  name?: String
-  description?: String
-  password?: String
-  roles?: UserUpdaterolesInput
-  notifications?: NotificationUpdateManyInput
-  processes?: BpmnProcessInstanceUpdateManyWithoutOwnerInput
-  data?: DataUpdateManyInput
-}
-
-export interface BpmnProcessUpdateManyInput {
-  create?: BpmnProcessCreateInput[] | BpmnProcessCreateInput
-  connect?: BpmnProcessWhereUniqueInput[] | BpmnProcessWhereUniqueInput
-  disconnect?: BpmnProcessWhereUniqueInput[] | BpmnProcessWhereUniqueInput
-  delete?: BpmnProcessWhereUniqueInput[] | BpmnProcessWhereUniqueInput
-  update?: BpmnProcessUpdateWithWhereUniqueNestedInput[] | BpmnProcessUpdateWithWhereUniqueNestedInput
-  upsert?: BpmnProcessUpsertWithWhereUniqueNestedInput[] | BpmnProcessUpsertWithWhereUniqueNestedInput
-}
-
-export interface UserUpdaterolesInput {
+export interface ValidatorUpdateparamsInput {
   set?: String[] | String
 }
 
-export interface NotificationSubscriptionWhereInput {
-  AND?: NotificationSubscriptionWhereInput[] | NotificationSubscriptionWhereInput
-  OR?: NotificationSubscriptionWhereInput[] | NotificationSubscriptionWhereInput
-  NOT?: NotificationSubscriptionWhereInput[] | NotificationSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: NotificationWhereInput
+export interface CommentUpsertWithWhereUniqueNestedInput {
+  where: CommentWhereUniqueInput
+  update: CommentUpdateDataInput
+  create: CommentCreateInput
 }
 
-export interface NotificationUpdateManyInput {
-  create?: NotificationCreateInput[] | NotificationCreateInput
-  connect?: NotificationWhereUniqueInput[] | NotificationWhereUniqueInput
-  disconnect?: NotificationWhereUniqueInput[] | NotificationWhereUniqueInput
-  delete?: NotificationWhereUniqueInput[] | NotificationWhereUniqueInput
-  update?: NotificationUpdateWithWhereUniqueNestedInput[] | NotificationUpdateWithWhereUniqueNestedInput
-  upsert?: NotificationUpsertWithWhereUniqueNestedInput[] | NotificationUpsertWithWhereUniqueNestedInput
-}
-
-export interface DataWhereUniqueInput {
+export interface ValidatorWhereUniqueInput {
   id?: ID_Input
 }
 
-export interface BpmnProcessInstanceUpdateOneInput {
-  create?: BpmnProcessInstanceCreateInput
-  connect?: BpmnProcessInstanceWhereUniqueInput
-  delete?: Boolean
-  update?: BpmnProcessInstanceUpdateDataInput
-  upsert?: BpmnProcessInstanceUpsertNestedInput
-}
-
-export interface NotificationUpdateparamsInput {
-  set?: String[] | String
-}
-
-export interface NotificationUpdateDataInput {
-  type?: NotificationType
+export interface AccessConditionWhereInput {
+  AND?: AccessConditionWhereInput[] | AccessConditionWhereInput
+  OR?: AccessConditionWhereInput[] | AccessConditionWhereInput
+  NOT?: AccessConditionWhereInput[] | AccessConditionWhereInput
+  organisationId?: ID_Input
+  organisationId_not?: ID_Input
+  organisationId_in?: ID_Input[] | ID_Input
+  organisationId_not_in?: ID_Input[] | ID_Input
+  organisationId_lt?: ID_Input
+  organisationId_lte?: ID_Input
+  organisationId_gt?: ID_Input
+  organisationId_gte?: ID_Input
+  organisationId_contains?: ID_Input
+  organisationId_not_contains?: ID_Input
+  organisationId_starts_with?: ID_Input
+  organisationId_not_starts_with?: ID_Input
+  organisationId_ends_with?: ID_Input
+  organisationId_not_ends_with?: ID_Input
+  roleId?: ID_Input
+  roleId_not?: ID_Input
+  roleId_in?: ID_Input[] | ID_Input
+  roleId_not_in?: ID_Input[] | ID_Input
+  roleId_lt?: ID_Input
+  roleId_lte?: ID_Input
+  roleId_gt?: ID_Input
+  roleId_gte?: ID_Input
+  roleId_contains?: ID_Input
+  roleId_not_contains?: ID_Input
+  roleId_starts_with?: ID_Input
+  roleId_not_starts_with?: ID_Input
+  roleId_ends_with?: ID_Input
+  roleId_not_ends_with?: ID_Input
   userId?: ID_Input
-  code?: NotificationCode
-  text?: String
-  visible?: Boolean
-  params?: NotificationUpdateparamsInput
-  processInstance?: BpmnProcessInstanceUpdateOneInput
+  userId_not?: ID_Input
+  userId_in?: ID_Input[] | ID_Input
+  userId_not_in?: ID_Input[] | ID_Input
+  userId_lt?: ID_Input
+  userId_lte?: ID_Input
+  userId_gt?: ID_Input
+  userId_gte?: ID_Input
+  userId_contains?: ID_Input
+  userId_not_contains?: ID_Input
+  userId_starts_with?: ID_Input
+  userId_not_starts_with?: ID_Input
+  userId_ends_with?: ID_Input
+  userId_not_ends_with?: ID_Input
+  _MagicalBackRelation_CanRead_every?: AccessWhereInput
+  _MagicalBackRelation_CanRead_some?: AccessWhereInput
+  _MagicalBackRelation_CanRead_none?: AccessWhereInput
+  _MagicalBackRelation_CanWrite_every?: AccessWhereInput
+  _MagicalBackRelation_CanWrite_some?: AccessWhereInput
+  _MagicalBackRelation_CanWrite_none?: AccessWhereInput
+  _MagicalBackRelation_CanExecute_every?: AccessWhereInput
+  _MagicalBackRelation_CanExecute_some?: AccessWhereInput
+  _MagicalBackRelation_CanExecute_none?: AccessWhereInput
 }
 
-export interface NotificationUpdateWithWhereUniqueNestedInput {
-  where: NotificationWhereUniqueInput
-  data: NotificationUpdateDataInput
-}
-
-export interface BpmnProcessInstanceUpsertWithWhereUniqueWithoutOwnerInput {
-  where: BpmnProcessInstanceWhereUniqueInput
-  update: BpmnProcessInstanceUpdateWithoutOwnerDataInput
-  create: BpmnProcessInstanceCreateWithoutOwnerInput
-}
-
-export interface BpmnProcessInstanceUpdateInput {
-  dateFinished?: DateTime
-  dateStarted?: DateTime
-  duration?: Int
-  data?: Json
-  status?: BpmnProcessInstanceStatus
-  comments?: CommentUpdateManyInput
-  owner?: UserUpdateOneWithoutProcessesInput
-  process?: BpmnProcessUpdateOneInput
-  log?: LogUpdateManyInput
-  tasks?: BpmnTaskInstanceUpdateManyInput
-}
-
-export interface ResourceUpdateDataInput {
-  type?: ResourceType
-  name?: String
-  link?: String
-  form?: FormUpdateOneInput
-  document?: DocumentUpdateOneInput
-}
-
-export interface LogUpdateManyInput {
-  create?: LogCreateInput[] | LogCreateInput
-  connect?: LogWhereUniqueInput[] | LogWhereUniqueInput
-  disconnect?: LogWhereUniqueInput[] | LogWhereUniqueInput
-  delete?: LogWhereUniqueInput[] | LogWhereUniqueInput
-  update?: LogUpdateWithWhereUniqueNestedInput[] | LogUpdateWithWhereUniqueNestedInput
-  upsert?: LogUpsertWithWhereUniqueNestedInput[] | LogUpsertWithWhereUniqueNestedInput
+export interface LogUpdateWithoutProcessInstanceDataInput {
+  elementId?: String
+  elementName?: String
+  date?: DateTime
+  taskInstanceId?: ID_Input
+  status?: BpmnTaskInstanceStatus
+  message?: String
+  performer?: UserUpdateOneInput
 }
 
 /*
@@ -10505,17 +10610,75 @@ export interface BatchPayload {
   count: Long
 }
 
-export interface Validator extends Node {
+export interface Log extends Node {
   id: ID_Output
-  name: String
-  params: String[]
+  processInstance: BpmnProcessInstance
+  elementId: String
+  elementName: String
+  date: DateTime
+  taskInstanceId?: ID_Output
+  performer?: User
+  status?: BpmnTaskInstanceStatus
+  message?: String
 }
 
-export interface BpmnProcessInstanceSubscriptionPayload {
-  mutation: MutationType
-  node?: BpmnProcessInstance
-  updatedFields?: String[]
-  previousValues?: BpmnProcessInstancePreviousValues
+export interface BpmnProcessInstance extends Node {
+  id: ID_Output
+  comments?: Comment[]
+  dateFinished?: DateTime
+  dateStarted: DateTime
+  duration?: Int
+  owner: User
+  process: BpmnProcess
+  data: Json
+  log?: Log[]
+  status: BpmnProcessInstanceStatus
+  tasks?: BpmnTaskInstance[]
+}
+
+export interface AggregateBpmnProcessInstance {
+  count: Int
+}
+
+export interface Localisation extends Node {
+  id: ID_Output
+  code: String
+  text: String
+  language: LanguageCode
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface BpmnProcessInstanceConnection {
+  pageInfo: PageInfo
+  edges: BpmnProcessInstanceEdge[]
+  aggregate: AggregateBpmnProcessInstance
+}
+
+export interface Role extends Node {
+  id: ID_Output
+  name: String
+  description?: String
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface BpmnTaskEdge {
+  node: BpmnTask
+  cursor: String
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface BpmnProcessInstanceEdge {
+  node: BpmnProcessInstance
+  cursor: String
 }
 
 export interface BpmnProcessPreviousValues {
@@ -10529,93 +10692,45 @@ export interface BpmnProcessPreviousValues {
   version: Int
 }
 
-export interface Localisation extends Node {
-  id: ID_Output
-  code: String
-  text: String
-  language: LanguageCode
-}
-
-/*
- * An edge in a connection.
-
- */
-export interface BpmnProcessInstanceEdge {
-  node: BpmnProcessInstance
-  cursor: String
-}
-
-export interface AggregateBpmnProcessInstance {
+export interface AggregateBpmnTask {
   count: Int
-}
-
-/*
- * An edge in a connection.
-
- */
-export interface BpmnTaskEdge {
-  node: BpmnTask
-  cursor: String
-}
-
-/*
- * A connection to a list of items.
-
- */
-export interface BpmnProcessInstanceConnection {
-  pageInfo: PageInfo
-  edges: BpmnProcessInstanceEdge[]
-  aggregate: AggregateBpmnProcessInstance
 }
 
 export interface AggregateBpmnProcess {
   count: Int
 }
 
-export interface Data extends Node {
-  id: ID_Output
-  descriptor?: DataDescriptor
-  organisationId?: String
-  version?: Int
-  date?: DateTime
-  value?: String
-}
-
 /*
  * A connection to a list of items.
 
  */
-export interface BpmnProcessConnection {
+export interface BpmnTaskConnection {
   pageInfo: PageInfo
-  edges: BpmnProcessEdge[]
-  aggregate: AggregateBpmnProcess
+  edges: BpmnTaskEdge[]
+  aggregate: AggregateBpmnTask
 }
 
-export interface Organisation extends Node {
-  id: ID_Output
-  name: String
-  description?: String
+export interface AggregateBpmnTaskInstance {
+  count: Int
 }
 
 /*
  * An edge in a connection.
 
  */
-export interface BpmnTaskInstanceEdge {
-  node: BpmnTaskInstance
+export interface BpmnProcessEdge {
+  node: BpmnProcess
   cursor: String
 }
 
-export interface Form extends Node {
-  id: ID_Output
-  name: String
-  description?: String
-  elements?: FormElement[]
-  validations?: Validator[]
-}
+/*
+ * A connection to a list of items.
 
-export interface AggregateData {
-  count: Int
+ */
+export interface BpmnTaskInstanceConnection {
+  pageInfo: PageInfo
+  edges: BpmnTaskInstanceEdge[]
+  aggregate: AggregateBpmnTaskInstance
 }
 
 export interface LocalisationSubscriptionPayload {
@@ -10626,13 +10741,12 @@ export interface LocalisationSubscriptionPayload {
 }
 
 /*
- * A connection to a list of items.
+ * An edge in a connection.
 
  */
-export interface DataConnection {
-  pageInfo: PageInfo
-  edges: DataEdge[]
-  aggregate: AggregateData
+export interface DataEdge {
+  node: Data
+  cursor: String
 }
 
 export interface LocalisationPreviousValues {
@@ -10642,13 +10756,97 @@ export interface LocalisationPreviousValues {
   language: LanguageCode
 }
 
+export interface AggregateAccess {
+  count: Int
+}
+
+export interface BpmnTaskPreviousValues {
+  id: ID_Output
+  taskId: ID_Output
+  name: String
+  type?: BpmnTaskType
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface AccessConnection {
+  pageInfo: PageInfo
+  edges: AccessEdge[]
+  aggregate: AggregateAccess
+}
+
+export interface LogSubscriptionPayload {
+  mutation: MutationType
+  node?: Log
+  updatedFields?: String[]
+  previousValues?: LogPreviousValues
+}
+
 /*
  * An edge in a connection.
 
  */
-export interface AccessEdge {
-  node: Access
+export interface ResourceEdge {
+  node: Resource
   cursor: String
+}
+
+export interface LogPreviousValues {
+  id: ID_Output
+  elementId: String
+  elementName: String
+  date: DateTime
+  taskInstanceId?: ID_Output
+  status?: BpmnTaskInstanceStatus
+  message?: String
+}
+
+export interface AggregateDataDescriptor {
+  count: Int
+}
+
+export interface Organisation extends Node {
+  id: ID_Output
+  name: String
+  description?: String
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface DataDescriptorConnection {
+  pageInfo: PageInfo
+  edges: DataDescriptorEdge[]
+  aggregate: AggregateDataDescriptor
+}
+
+export interface OrganisationSubscriptionPayload {
+  mutation: MutationType
+  node?: Organisation
+  updatedFields?: String[]
+  previousValues?: OrganisationPreviousValues
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface AccessConditionEdge {
+  node: AccessCondition
+  cursor: String
+}
+
+export interface OrganisationPreviousValues {
+  id: ID_Output
+  name: String
+  description?: String
+}
+
+export interface AggregateDocument {
+  count: Int
 }
 
 export interface BpmnTaskInstance extends Node {
@@ -10664,106 +10862,6 @@ export interface BpmnTaskInstance extends Node {
   task: BpmnTask
 }
 
-export interface AggregateResource {
-  count: Int
-}
-
-export interface OrganisationSubscriptionPayload {
-  mutation: MutationType
-  node?: Organisation
-  updatedFields?: String[]
-  previousValues?: OrganisationPreviousValues
-}
-
-/*
- * A connection to a list of items.
-
- */
-export interface ResourceConnection {
-  pageInfo: PageInfo
-  edges: ResourceEdge[]
-  aggregate: AggregateResource
-}
-
-export interface OrganisationPreviousValues {
-  id: ID_Output
-  name: String
-  description?: String
-}
-
-/*
- * An edge in a connection.
-
- */
-export interface DataDescriptorEdge {
-  node: DataDescriptor
-  cursor: String
-}
-
-export interface Log extends Node {
-  id: ID_Output
-  elementId: String
-  elementName: String
-  date: DateTime
-  taskInstanceId?: ID_Output
-  performer?: User
-  status?: BpmnTaskInstanceStatus
-  message?: String
-}
-
-export interface AggregateAccessCondition {
-  count: Int
-}
-
-export interface RoleSubscriptionPayload {
-  mutation: MutationType
-  node?: Role
-  updatedFields?: String[]
-  previousValues?: RolePreviousValues
-}
-
-/*
- * A connection to a list of items.
-
- */
-export interface AccessConditionConnection {
-  pageInfo: PageInfo
-  edges: AccessConditionEdge[]
-  aggregate: AggregateAccessCondition
-}
-
-export interface RolePreviousValues {
-  id: ID_Output
-  name: String
-  description?: String
-}
-
-/*
- * An edge in a connection.
-
- */
-export interface LogEdge {
-  node: Log
-  cursor: String
-}
-
-export interface Role extends Node {
-  id: ID_Output
-  name: String
-  description?: String
-}
-
-export interface AggregateDocument {
-  count: Int
-}
-
-export interface ValidatorSubscriptionPayload {
-  mutation: MutationType
-  node?: Validator
-  updatedFields?: String[]
-  previousValues?: ValidatorPreviousValues
-}
-
 /*
  * A connection to a list of items.
 
@@ -10774,10 +10872,11 @@ export interface DocumentConnection {
   aggregate: AggregateDocument
 }
 
-export interface ValidatorPreviousValues {
-  id: ID_Output
-  name: String
-  params: String[]
+export interface RoleSubscriptionPayload {
+  mutation: MutationType
+  node?: Role
+  updatedFields?: String[]
+  previousValues?: RolePreviousValues
 }
 
 /*
@@ -10789,23 +10888,22 @@ export interface NotificationEdge {
   cursor: String
 }
 
-export interface BpmnTask extends Node {
+export interface RolePreviousValues {
   id: ID_Output
-  taskId: ID_Output
-  resources?: Resource[]
   name: String
-  type?: BpmnTaskType
+  description?: String
 }
 
 export interface AggregateUser {
   count: Int
 }
 
-export interface FormSubscriptionPayload {
-  mutation: MutationType
-  node?: Form
-  updatedFields?: String[]
-  previousValues?: FormPreviousValues
+export interface BpmnTask extends Node {
+  id: ID_Output
+  taskId: ID_Output
+  resources?: Resource[]
+  name: String
+  type?: BpmnTaskType
 }
 
 /*
@@ -10818,10 +10916,11 @@ export interface UserConnection {
   aggregate: AggregateUser
 }
 
-export interface FormPreviousValues {
-  id: ID_Output
-  name: String
-  description?: String
+export interface ValidatorSubscriptionPayload {
+  mutation: MutationType
+  node?: Validator
+  updatedFields?: String[]
+  previousValues?: ValidatorPreviousValues
 }
 
 /*
@@ -10833,22 +10932,21 @@ export interface CommentEdge {
   cursor: String
 }
 
-export interface Document extends Node {
+export interface ValidatorPreviousValues {
   id: ID_Output
-  title: String
-  content?: String
-  version?: Int
+  name: String
+  params: String[]
 }
 
 export interface AggregateFormElement {
   count: Int
 }
 
-export interface FormElementSubscriptionPayload {
-  mutation: MutationType
-  node?: FormElement
-  updatedFields?: String[]
-  previousValues?: FormElementPreviousValues
+export interface Document extends Node {
+  id: ID_Output
+  title: String
+  content?: String
+  version?: Int
 }
 
 /*
@@ -10859,6 +10957,65 @@ export interface FormElementConnection {
   pageInfo: PageInfo
   edges: FormElementEdge[]
   aggregate: AggregateFormElement
+}
+
+export interface FormSubscriptionPayload {
+  mutation: MutationType
+  node?: Form
+  updatedFields?: String[]
+  previousValues?: FormPreviousValues
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface FormEdge {
+  node: Form
+  cursor: String
+}
+
+export interface FormPreviousValues {
+  id: ID_Output
+  name: String
+  description?: String
+}
+
+export interface AggregateValidator {
+  count: Int
+}
+
+export interface BpmnTaskSubscriptionPayload {
+  mutation: MutationType
+  node?: BpmnTask
+  updatedFields?: String[]
+  previousValues?: BpmnTaskPreviousValues
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface ValidatorConnection {
+  pageInfo: PageInfo
+  edges: ValidatorEdge[]
+  aggregate: AggregateValidator
+}
+
+export interface FormElementSubscriptionPayload {
+  mutation: MutationType
+  node?: FormElement
+  updatedFields?: String[]
+  previousValues?: FormElementPreviousValues
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface RoleEdge {
+  node: Role
+  cursor: String
 }
 
 export interface FormElementPreviousValues {
@@ -10878,452 +11035,8 @@ export interface FormElementPreviousValues {
   parentElement?: ID_Output
 }
 
-/*
- * An edge in a connection.
-
- */
-export interface FormEdge {
-  node: Form
-  cursor: String
-}
-
-export interface Resource extends Node {
-  id: ID_Output
-  type: ResourceType
-  name: String
-  link?: String
-  form?: Form
-  document?: Document
-}
-
-export interface AggregateValidator {
-  count: Int
-}
-
-export interface CommentSubscriptionPayload {
-  mutation: MutationType
-  node?: Comment
-  updatedFields?: String[]
-  previousValues?: CommentPreviousValues
-}
-
-/*
- * A connection to a list of items.
-
- */
-export interface ValidatorConnection {
-  pageInfo: PageInfo
-  edges: ValidatorEdge[]
-  aggregate: AggregateValidator
-}
-
-export interface CommentPreviousValues {
-  id: ID_Output
-  text: String
-  date: DateTime
-  replyTo?: String
-}
-
-/*
- * An edge in a connection.
-
- */
-export interface RoleEdge {
-  node: Role
-  cursor: String
-}
-
-export interface BpmnTaskPreviousValues {
-  id: ID_Output
-  taskId: ID_Output
-  name: String
-  type?: BpmnTaskType
-}
-
 export interface AggregateOrganisation {
   count: Int
-}
-
-export interface UserSubscriptionPayload {
-  mutation: MutationType
-  node?: User
-  updatedFields?: String[]
-  previousValues?: UserPreviousValues
-}
-
-/*
- * A connection to a list of items.
-
- */
-export interface OrganisationConnection {
-  pageInfo: PageInfo
-  edges: OrganisationEdge[]
-  aggregate: AggregateOrganisation
-}
-
-export interface UserPreviousValues {
-  id: ID_Output
-  uid: String
-  name: String
-  roles: String[]
-  description?: String
-  password: String
-}
-
-/*
- * An edge in a connection.
-
- */
-export interface LocalisationEdge {
-  node: Localisation
-  cursor: String
-}
-
-export interface BpmnProcess extends Node {
-  id: ID_Output
-  access: Access
-  actionCount: Int
-  dataDescriptors?: DataDescriptor[]
-  description?: String
-  model: String
-  name: String
-  type: ProcessType
-  resources?: Resource[]
-  status: ProcessStatus
-  version: Int
-  versions?: BpmnProcess[]
-  tasks?: BpmnTask[]
-}
-
-/*
- * A connection to a list of items.
-
- */
-export interface LocalisationConnection {
-  pageInfo: PageInfo
-  edges: LocalisationEdge[]
-  aggregate: AggregateLocalisation
-}
-
-export interface NotificationSubscriptionPayload {
-  mutation: MutationType
-  node?: Notification
-  updatedFields?: String[]
-  previousValues?: NotificationPreviousValues
-}
-
-/*
- * A connection to a list of items.
-
- */
-export interface BpmnTaskConnection {
-  pageInfo: PageInfo
-  edges: BpmnTaskEdge[]
-  aggregate: AggregateBpmnTask
-}
-
-export interface NotificationPreviousValues {
-  type: NotificationType
-  id: ID_Output
-  userId: ID_Output
-  createdAt: DateTime
-  code: NotificationCode
-  text?: String
-  params: String[]
-  visible: Boolean
-}
-
-export interface AggregateBpmnTaskInstance {
-  count: Int
-}
-
-export interface BpmnProcessInstance extends Node {
-  id: ID_Output
-  comments?: Comment[]
-  dateFinished?: DateTime
-  dateStarted: DateTime
-  duration?: Int
-  owner: User
-  process: BpmnProcess
-  data: Json
-  log?: Log[]
-  status: BpmnProcessInstanceStatus
-  tasks?: BpmnTaskInstance[]
-}
-
-/*
- * An edge in a connection.
-
- */
-export interface DataEdge {
-  node: Data
-  cursor: String
-}
-
-export interface DocumentSubscriptionPayload {
-  mutation: MutationType
-  node?: Document
-  updatedFields?: String[]
-  previousValues?: DocumentPreviousValues
-}
-
-/*
- * A connection to a list of items.
-
- */
-export interface AccessConnection {
-  pageInfo: PageInfo
-  edges: AccessEdge[]
-  aggregate: AggregateAccess
-}
-
-export interface DocumentPreviousValues {
-  id: ID_Output
-  title: String
-  content?: String
-  version?: Int
-}
-
-export interface AggregateDataDescriptor {
-  count: Int
-}
-
-export interface Notification extends Node {
-  type: NotificationType
-  id: ID_Output
-  userId: ID_Output
-  createdAt: DateTime
-  code: NotificationCode
-  text?: String
-  processInstance: BpmnProcessInstance
-  params: String[]
-  visible: Boolean
-}
-
-/*
- * An edge in a connection.
-
- */
-export interface AccessConditionEdge {
-  node: AccessCondition
-  cursor: String
-}
-
-export interface LogSubscriptionPayload {
-  mutation: MutationType
-  node?: Log
-  updatedFields?: String[]
-  previousValues?: LogPreviousValues
-}
-
-/*
- * A connection to a list of items.
-
- */
-export interface LogConnection {
-  pageInfo: PageInfo
-  edges: LogEdge[]
-  aggregate: AggregateLog
-}
-
-export interface LogPreviousValues {
-  id: ID_Output
-  elementId: String
-  elementName: String
-  date: DateTime
-  taskInstanceId?: ID_Output
-  status?: BpmnTaskInstanceStatus
-  message?: String
-}
-
-export interface AggregateNotification {
-  count: Int
-}
-
-export interface User extends Node {
-  id: ID_Output
-  uid: String
-  name: String
-  roles: String[]
-  description?: String
-  password: String
-  notifications?: Notification[]
-  processes?: BpmnProcessInstance[]
-  data?: Data[]
-}
-
-/*
- * An edge in a connection.
-
- */
-export interface UserEdge {
-  node: User
-  cursor: String
-}
-
-export interface AccessConditionSubscriptionPayload {
-  mutation: MutationType
-  node?: AccessCondition
-  updatedFields?: String[]
-  previousValues?: AccessConditionPreviousValues
-}
-
-/*
- * A connection to a list of items.
-
- */
-export interface CommentConnection {
-  pageInfo: PageInfo
-  edges: CommentEdge[]
-  aggregate: AggregateComment
-}
-
-export interface AccessConditionPreviousValues {
-  organisationId?: ID_Output
-  roleId?: ID_Output
-  userId?: ID_Output
-}
-
-export interface AggregateForm {
-  count: Int
-}
-
-export interface Comment extends Node {
-  id: ID_Output
-  text: String
-  user: User
-  date: DateTime
-  replyTo?: String
-}
-
-/*
- * An edge in a connection.
-
- */
-export interface ValidatorEdge {
-  node: Validator
-  cursor: String
-}
-
-export interface DataDescriptorSubscriptionPayload {
-  mutation: MutationType
-  node?: DataDescriptor
-  updatedFields?: String[]
-  previousValues?: DataDescriptorPreviousValues
-}
-
-/*
- * A connection to a list of items.
-
- */
-export interface RoleConnection {
-  pageInfo: PageInfo
-  edges: RoleEdge[]
-  aggregate: AggregateRole
-}
-
-export interface DataDescriptorPreviousValues {
-  id: ID_Output
-  defaultValue?: String
-  description?: String
-  expression?: String
-  isArray?: Boolean
-  clone?: Boolean
-  name?: String
-  type?: DataType
-  parentDescriptor?: ID_Output
-}
-
-export interface AggregateLocalisation {
-  count: Int
-}
-
-export interface BpmnTaskSubscriptionPayload {
-  mutation: MutationType
-  node?: BpmnTask
-  updatedFields?: String[]
-  previousValues?: BpmnTaskPreviousValues
-}
-
-export interface AggregateBpmnTask {
-  count: Int
-}
-
-export interface ResourceSubscriptionPayload {
-  mutation: MutationType
-  node?: Resource
-  updatedFields?: String[]
-  previousValues?: ResourcePreviousValues
-}
-
-/*
- * A connection to a list of items.
-
- */
-export interface BpmnTaskInstanceConnection {
-  pageInfo: PageInfo
-  edges: BpmnTaskInstanceEdge[]
-  aggregate: AggregateBpmnTaskInstance
-}
-
-export interface ResourcePreviousValues {
-  id: ID_Output
-  type: ResourceType
-  name: String
-  link?: String
-}
-
-/*
- * An edge in a connection.
-
- */
-export interface ResourceEdge {
-  node: Resource
-  cursor: String
-}
-
-export interface AccessCondition {
-  organisationId?: ID_Output
-  roleId?: ID_Output
-  userId?: ID_Output
-}
-
-export interface AggregateLog {
-  count: Int
-}
-
-export interface AccessSubscriptionPayload {
-  mutation: MutationType
-  node?: Access
-  updatedFields?: String[]
-  previousValues?: AccessPreviousValues
-}
-
-/*
- * A connection to a list of items.
-
- */
-export interface NotificationConnection {
-  pageInfo: PageInfo
-  edges: NotificationEdge[]
-  aggregate: AggregateNotification
-}
-
-export interface AccessPreviousValues {
-  id: ID_Output
-  createdById: ID_Output
-  createdOn?: DateTime
-  modifiedById?: ID_Output
-  modifiedOn?: DateTime
-}
-
-/*
- * An edge in a connection.
-
- */
-export interface FormElementEdge {
-  node: FormElement
-  cursor: String
 }
 
 export interface FormElement extends Node {
@@ -11344,15 +11057,53 @@ export interface FormElement extends Node {
   parentElement?: ID_Output
 }
 
-export interface AggregateRole {
+/*
+ * A connection to a list of items.
+
+ */
+export interface OrganisationConnection {
+  pageInfo: PageInfo
+  edges: OrganisationEdge[]
+  aggregate: AggregateOrganisation
+}
+
+export interface CommentSubscriptionPayload {
+  mutation: MutationType
+  node?: Comment
+  updatedFields?: String[]
+  previousValues?: CommentPreviousValues
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface LogEdge {
+  node: Log
+  cursor: String
+}
+
+export interface CommentPreviousValues {
+  id: ID_Output
+  text: String
+  date: DateTime
+  replyTo?: String
+}
+
+export interface AggregateLocalisation {
   count: Int
 }
 
-export interface DataSubscriptionPayload {
-  mutation: MutationType
-  node?: Data
-  updatedFields?: String[]
-  previousValues?: DataPreviousValues
+export interface User extends Node {
+  id: ID_Output
+  uid: String
+  name: String
+  roles: String[]
+  description?: String
+  password: String
+  notifications?: Notification[]
+  processes?: BpmnProcessInstance[]
+  data?: Data[]
 }
 
 /*
@@ -11366,15 +11117,274 @@ export interface PageInfo {
   endCursor?: String
 }
 
-export interface DataPreviousValues {
-  id: ID_Output
-  organisationId?: String
-  version?: Int
-  date?: DateTime
-  value?: String
+export interface UserSubscriptionPayload {
+  mutation: MutationType
+  node?: User
+  updatedFields?: String[]
+  previousValues?: UserPreviousValues
 }
 
-export interface AggregateAccess {
+export interface BpmnProcessInstanceSubscriptionPayload {
+  mutation: MutationType
+  node?: BpmnProcessInstance
+  updatedFields?: String[]
+  previousValues?: BpmnProcessInstancePreviousValues
+}
+
+export interface UserPreviousValues {
+  id: ID_Output
+  uid: String
+  name: String
+  roles: String[]
+  description?: String
+  password: String
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface BpmnProcessConnection {
+  pageInfo: PageInfo
+  edges: BpmnProcessEdge[]
+  aggregate: AggregateBpmnProcess
+}
+
+export interface Form extends Node {
+  id: ID_Output
+  name: String
+  description?: String
+  elements?: FormElement[]
+  validations?: Validator[]
+}
+
+export interface AggregateData {
+  count: Int
+}
+
+export interface NotificationSubscriptionPayload {
+  mutation: MutationType
+  node?: Notification
+  updatedFields?: String[]
+  previousValues?: NotificationPreviousValues
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface AccessEdge {
+  node: Access
+  cursor: String
+}
+
+export interface NotificationPreviousValues {
+  type: NotificationType
+  id: ID_Output
+  userId: ID_Output
+  createdAt: DateTime
+  code: NotificationCode
+  text?: String
+  params: String[]
+  visible: Boolean
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface ResourceConnection {
+  pageInfo: PageInfo
+  edges: ResourceEdge[]
+  aggregate: AggregateResource
+}
+
+export interface Resource extends Node {
+  id: ID_Output
+  type: ResourceType
+  name: String
+  link?: String
+  form?: Form
+  document?: Document
+}
+
+export interface AggregateAccessCondition {
+  count: Int
+}
+
+export interface DocumentSubscriptionPayload {
+  mutation: MutationType
+  node?: Document
+  updatedFields?: String[]
+  previousValues?: DocumentPreviousValues
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface DocumentEdge {
+  node: Document
+  cursor: String
+}
+
+export interface DocumentPreviousValues {
+  id: ID_Output
+  title: String
+  content?: String
+  version?: Int
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface NotificationConnection {
+  pageInfo: PageInfo
+  edges: NotificationEdge[]
+  aggregate: AggregateNotification
+}
+
+export interface BpmnProcess extends Node {
+  id: ID_Output
+  access: Access
+  actionCount: Int
+  dataDescriptors?: DataDescriptor[]
+  description?: String
+  model: String
+  name: String
+  type: ProcessType
+  resources?: Resource[]
+  status: ProcessStatus
+  version: Int
+  versions?: BpmnProcess[]
+  tasks?: BpmnTask[]
+}
+
+export interface AggregateComment {
+  count: Int
+}
+
+export interface AccessConditionSubscriptionPayload {
+  mutation: MutationType
+  node?: AccessCondition
+  updatedFields?: String[]
+  previousValues?: AccessConditionPreviousValues
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface FormElementEdge {
+  node: FormElement
+  cursor: String
+}
+
+export interface AccessConditionPreviousValues {
+  organisationId?: ID_Output
+  roleId?: ID_Output
+  userId?: ID_Output
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface FormConnection {
+  pageInfo: PageInfo
+  edges: FormEdge[]
+  aggregate: AggregateForm
+}
+
+export interface Validator extends Node {
+  id: ID_Output
+  name: String
+  params: String[]
+}
+
+export interface AggregateRole {
+  count: Int
+}
+
+export interface DataDescriptorSubscriptionPayload {
+  mutation: MutationType
+  node?: DataDescriptor
+  updatedFields?: String[]
+  previousValues?: DataDescriptorPreviousValues
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface OrganisationEdge {
+  node: Organisation
+  cursor: String
+}
+
+export interface DataDescriptorPreviousValues {
+  id: ID_Output
+  defaultValue?: String
+  description?: String
+  expression?: String
+  isArray?: Boolean
+  clone?: Boolean
+  name?: String
+  type?: DataType
+  parentDescriptor?: ID_Output
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface LogConnection {
+  pageInfo: PageInfo
+  edges: LogEdge[]
+  aggregate: AggregateLog
+}
+
+export interface AccessCondition {
+  organisationId?: ID_Output
+  roleId?: ID_Output
+  userId?: ID_Output
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface LocalisationConnection {
+  pageInfo: PageInfo
+  edges: LocalisationEdge[]
+  aggregate: AggregateLocalisation
+}
+
+export interface ResourceSubscriptionPayload {
+  mutation: MutationType
+  node?: Resource
+  updatedFields?: String[]
+  previousValues?: ResourcePreviousValues
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface BpmnTaskInstanceEdge {
+  node: BpmnTaskInstance
+  cursor: String
+}
+
+export interface ResourcePreviousValues {
+  id: ID_Output
+  type: ResourceType
+  name: String
+  link?: String
+}
+
+export interface AggregateResource {
   count: Int
 }
 
@@ -11390,29 +11400,41 @@ export interface Access extends Node {
 }
 
 /*
- * An edge in a connection.
-
- */
-export interface DocumentEdge {
-  node: Document
-  cursor: String
-}
-
-/*
  * A connection to a list of items.
 
  */
-export interface FormConnection {
+export interface AccessConditionConnection {
   pageInfo: PageInfo
-  edges: FormEdge[]
-  aggregate: AggregateForm
+  edges: AccessConditionEdge[]
+  aggregate: AggregateAccessCondition
 }
 
-export interface BpmnProcessSubscriptionPayload {
+export interface AccessSubscriptionPayload {
   mutation: MutationType
-  node?: BpmnProcess
+  node?: Access
   updatedFields?: String[]
-  previousValues?: BpmnProcessPreviousValues
+  previousValues?: AccessPreviousValues
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface UserEdge {
+  node: User
+  cursor: String
+}
+
+export interface AccessPreviousValues {
+  id: ID_Output
+  createdById: ID_Output
+  createdOn?: DateTime
+  modifiedById?: ID_Output
+  modifiedOn?: DateTime
+}
+
+export interface AggregateForm {
+  count: Int
 }
 
 export interface DataDescriptor extends Node {
@@ -11427,6 +11449,91 @@ export interface DataDescriptor extends Node {
   type?: DataType
   validators?: Validator[]
   parentDescriptor?: ID_Output
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface RoleConnection {
+  pageInfo: PageInfo
+  edges: RoleEdge[]
+  aggregate: AggregateRole
+}
+
+export interface DataSubscriptionPayload {
+  mutation: MutationType
+  node?: Data
+  updatedFields?: String[]
+  previousValues?: DataPreviousValues
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface LocalisationEdge {
+  node: Localisation
+  cursor: String
+}
+
+export interface DataPreviousValues {
+  id: ID_Output
+  organisationId?: String
+  version?: Int
+  date?: DateTime
+  value?: String
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface DataConnection {
+  pageInfo: PageInfo
+  edges: DataEdge[]
+  aggregate: AggregateData
+}
+
+export interface Data extends Node {
+  id: ID_Output
+  descriptor?: DataDescriptor
+  organisationId?: String
+  version?: Int
+  date?: DateTime
+  value?: String
+}
+
+export interface AggregateNotification {
+  count: Int
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface ValidatorEdge {
+  node: Validator
+  cursor: String
+}
+
+export interface BpmnProcessSubscriptionPayload {
+  mutation: MutationType
+  node?: BpmnProcess
+  updatedFields?: String[]
+  previousValues?: BpmnProcessPreviousValues
+}
+
+export interface Notification extends Node {
+  type: NotificationType
+  id: ID_Output
+  userId: ID_Output
+  createdAt: DateTime
+  code: NotificationCode
+  text?: String
+  processInstance: BpmnProcessInstance
+  params: String[]
+  visible: Boolean
 }
 
 export interface BpmnTaskInstancePreviousValues {
@@ -11446,16 +11553,7 @@ export interface BpmnTaskInstanceSubscriptionPayload {
   previousValues?: BpmnTaskInstancePreviousValues
 }
 
-/*
- * An edge in a connection.
-
- */
-export interface OrganisationEdge {
-  node: Organisation
-  cursor: String
-}
-
-export interface AggregateComment {
+export interface AggregateLog {
   count: Int
 }
 
@@ -11463,20 +11561,33 @@ export interface AggregateComment {
  * A connection to a list of items.
 
  */
-export interface DataDescriptorConnection {
+export interface CommentConnection {
   pageInfo: PageInfo
-  edges: DataDescriptorEdge[]
-  aggregate: AggregateDataDescriptor
+  edges: CommentEdge[]
+  aggregate: AggregateComment
 }
 
 /*
  * An edge in a connection.
 
  */
-export interface BpmnProcessEdge {
-  node: BpmnProcess
+export interface DataDescriptorEdge {
+  node: DataDescriptor
   cursor: String
 }
+
+export interface Comment extends Node {
+  id: ID_Output
+  text: String
+  user: User
+  date: DateTime
+  replyTo?: String
+}
+
+/*
+The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
+*/
+export type String = string
 
 /*
 The `Long` scalar type represents non-fractional signed whole numeric values.
@@ -11485,29 +11596,24 @@ Long can represent values between -(2^63) and 2^63 - 1.
 export type Long = string
 
 /*
-The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
-*/
-export type ID_Input = string | number
-export type ID_Output = string
-
-/*
 The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
 */
 export type Int = number
 
 /*
-The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
+The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
 */
-export type String = string
+export type ID_Input = string | number
+export type ID_Output = string
 
-/*
-The `Boolean` scalar type represents `true` or `false`.
-*/
-export type Boolean = boolean
+export type DateTime = Date | string
 
 /*
 Raw JSON value
 */
 export type Json = any
 
-export type DateTime = Date | string
+/*
+The `Boolean` scalar type represents `true` or `false`.
+*/
+export type Boolean = boolean

@@ -18,6 +18,7 @@ import { QueryTypes } from 'data/client';
 import { processTypeToIcon } from '../../common/process_icon';
 import { TabContent } from '../../common/process_styles';
 import { ProcessActivityView } from '../../instance/views/process_activity_view';
+import { ProcessCurrentAction } from '../../instance/views/process_current_action_view';
 import { ProcessInstanceStatus } from '../../instance/views/process_instance_status';
 // import { Link } from '@reach/router';
 
@@ -27,41 +28,11 @@ type Props = {
   processInstance: QueryTypes.BpmnProcessInstance;
 };
 
-function taskToLinks(
-  process: QueryTypes.BpmnProcessDefinition,
-  processInstanceId: string,
-  t: QueryTypes.BpmnProcessInstanceTask,
-  ctx: App.Context
-) {
-  return t.task.resources.map(r => {
-    if (r.type === QueryTypes.ResourceType.Form) {
-      return (
-        <List.Item key={r.id}>
-          <List.Icon name="hand point right" />
-          <List.Content>
-            <Link
-              to={`/process/${process.name.url()}/view/${r.type.toLowerCase()}/${r.name.url()}/${processInstanceId}/${
-                r.form.id
-              }`}
-            >{ctx.i18n`Complete "${r.name}"`}</Link>
-          </List.Content>
-        </List.Item>
-      );
-    }
-    return null;
-  });
-}
-
 export const TabProcessInstanceDescription: React.SFC<Props> = ({
   context,
   process,
   processInstance
 }) => {
-  const currentActions = processInstance.tasks.filter(t => !t.dateFinished);
-  const userActions = currentActions.filter(a =>
-    a.performerRoles.some(r => context.store.user.roles.includes(r))
-  );
-
   return (
     <TabContent>
       <Header as="h2">
@@ -69,35 +40,14 @@ export const TabProcessInstanceDescription: React.SFC<Props> = ({
         <Header.Content>
           {process.name}
           <Header.Subheader>
-            <ProcessInstanceStatus context={context} status={processInstance.status} /> &middot;
+            <ProcessInstanceStatus context={context} status={processInstance.status} />
+            &nbsp;&middot;&nbsp;
             <I18>Manage your process</I18> &middot; {process.type}
           </Header.Subheader>
         </Header.Content>
       </Header>
 
-      <If condition={userActions.length}>
-        <>
-          <Message positive attached="top">
-            <Message.Header>
-              <I18>Your actions are required!</I18>
-            </Message.Header>
-
-            <List>
-              {userActions.map(a => (
-                <>{taskToLinks(process, processInstance.id, a, context)}</>
-              ))}
-            </List>
-
-            <Divider />
-            <Button primary content="Submit" size="medium" />
-
-            <div style={{ float: 'right' }}>
-              <I18>Task Status: </I18>
-              <Label content="Complete" />
-            </div>
-          </Message>
-        </>
-      </If>
+      <ProcessCurrentAction processInstance={processInstance} context={context} />
 
       <ProcessActivityView context={context} processInstance={processInstance} />
 

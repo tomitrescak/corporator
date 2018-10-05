@@ -131,7 +131,7 @@ export class FormModel {
     const mstDefinition: { [index: string]: any } = {};
     const validators: { [index: string]: any } = {};
 
-    const viewDefinition = (self: any) => {
+    const viewDefinition = () => {
       const view = {};
 
       /* =========================================================
@@ -229,7 +229,7 @@ export class FormModel {
     descriptors: DataDescriptor[],
     data: any,
     lists?: Array<{ name: string; items: any[] }>,
-    initRandomValues = false
+    _initRandomValues = false
   ): DataSet {
     // data initialisation
     // const data: any = {};

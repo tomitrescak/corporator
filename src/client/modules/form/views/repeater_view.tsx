@@ -62,7 +62,7 @@ export class RepeaterView extends React.Component<Props> {
             <>
               {list.map((listItemDataSet: DataSet) => (
                 <RepeaterRow
-                  key={listItemDataSet.id}
+                  key={(listItemDataSet as any).id}
                   owner={owner}
                   formControl={formControl}
                   data={listItemDataSet}

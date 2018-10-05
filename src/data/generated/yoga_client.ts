@@ -1409,10 +1409,8 @@ export interface LogWhereInput {
   message_not_starts_with?: String
   message_ends_with?: String
   message_not_ends_with?: String
+  processInstance?: BpmnProcessInstanceWhereInput
   performer?: UserWhereInput
-  _MagicalBackRelation_BpmnProcessInstanceLog_every?: BpmnProcessInstanceWhereInput
-  _MagicalBackRelation_BpmnProcessInstanceLog_some?: BpmnProcessInstanceWhereInput
-  _MagicalBackRelation_BpmnProcessInstanceLog_none?: BpmnProcessInstanceWhereInput
 }
 
 export interface AuthInput {
@@ -2350,6 +2348,7 @@ export interface DataDescriptor extends Node {
 
 export interface Log extends Node {
   id: ID_Output
+  processInstance: BpmnProcessInstance
   elementId: String
   elementName: String
   date: DateTime

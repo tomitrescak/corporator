@@ -129,13 +129,7 @@ describe('Form', () => {
         ['requiredValidator', '', 'ok'],
         ['emailValidator', 'bad', 'good@email.cz'],
         ['regExValidator', 'tomi', 'ttomi', 'tt'],
-        [
-          'expressionValidator',
-          'foo',
-          'bar',
-          'console.log(value); return value === "bar"',
-          'Say whut?'
-        ]
+        ['expressionValidator', 'foo', 'bar', 'value === "bar"', 'Say whut?']
       ];
 
       const elements = [];

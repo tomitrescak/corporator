@@ -1,5 +1,3 @@
-import * as validations from './validation';
-
 import { IObservableArray, toJS } from 'mobx';
 import { types } from 'mobx-state-tree';
 
@@ -43,7 +41,7 @@ export const FormStore = types
     errors: types.map(types.string),
     strings: types.map(types.string)
   })
-  .volatile(self => ({
+  .volatile(() => ({
     // tslint:disable-next-line:no-object-literal-type-assertion
     validators: {} as { [name: string]: IValidator[] },
     // tslint:disable-next-line:no-object-literal-type-assertion
@@ -94,7 +92,7 @@ export const FormStore = types
         }
         return valid;
       },
-      // setValitators(values: { [name: string]: IValidator[] }) {
+      // setValidators(values: { [name: string]: IValidator[] }) {
       //   for (let key of Object.getOwnPropertyNames(values)) {
       //     self.validators[key] = values[key];
       //   }
@@ -142,16 +140,6 @@ export const FormStore = types
     setStringValue(key: string, value: any) {
       self.strings.set(key, value);
 
-      // const descriptor = self.descriptors[key];
-      let error = '';
-      // switch (descriptor.type) {
-      //   case 'Int':
-      //     error = validations.intValidator(value);
-      //     break;
-      //   case 'Float':
-      //     error = validations.floatValidator(value);
-      //     break;
-      // }
       let isOK = self.validateField(key, value);
 
       if (isOK) {

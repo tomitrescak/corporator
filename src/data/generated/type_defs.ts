@@ -2420,6 +2420,7 @@ scalar Json
 
 type Log implements Node {
   id: ID!
+  processInstance(where: BpmnProcessInstanceWhereInput): BpmnProcessInstance!
   elementId: String!
   elementName: String!
   date: DateTime!
@@ -2749,10 +2750,8 @@ input LogWhereInput {
   All values not ending with the given string.
   """
   message_not_ends_with: String
+  processInstance: BpmnProcessInstanceWhereInput
   performer: UserWhereInput
-  _MagicalBackRelation_BpmnProcessInstanceLog_every: BpmnProcessInstanceWhereInput
-  _MagicalBackRelation_BpmnProcessInstanceLog_some: BpmnProcessInstanceWhereInput
-  _MagicalBackRelation_BpmnProcessInstanceLog_none: BpmnProcessInstanceWhereInput
 }
 
 enum LogOrderByInput {

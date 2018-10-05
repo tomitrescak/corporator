@@ -1,9 +1,8 @@
-import { autorun, toJS } from 'mobx';
+import { autorun } from 'mobx';
 
 import { create } from 'client/modules/form/views/tests/form_query_data';
 import { QueryTypes } from 'data/client';
 import { FormModel } from '../form_model';
-import { FormStore } from '../form_store';
 
 it('creates a new model', () => {
   let model = new FormModel({
