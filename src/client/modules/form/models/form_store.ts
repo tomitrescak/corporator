@@ -41,7 +41,7 @@ export interface ListValue {
 export const FormStore = types
   .model({
     errors: types.map(types.string),
-    strings: types.maybe(types.model())
+    strings: types.map(types.string)
   })
   .volatile(self => ({
     // tslint:disable-next-line:no-object-literal-type-assertion
@@ -67,14 +67,6 @@ export const FormStore = types
       },
       getList(key: string): ListValue[] {
         return (self as any)[key];
-      },
-      getStringValue(key: string): string {
-        // expressions are evaluated on the fly
-        if (this.getDescriptor(key).expression) {
-          // @ts-ignore
-          return self[key];
-        }
-        return (self.strings as any)[key] || this.getDescriptor(key).defaultValue || '';
       },
       validateField(name: string, value: string) {
         if (!self.validators[name]) {
@@ -148,7 +140,7 @@ export const FormStore = types
   })
   .actions(self => ({
     setStringValue(key: string, value: any) {
-      (self.strings as any)[key] = value;
+      self.strings.set(key, value);
 
       // const descriptor = self.descriptors[key];
       let error = '';
@@ -171,6 +163,19 @@ export const FormStore = types
   .views(self => ({
     getValue(item: string): any {
       return (self as any)[item];
+    },
+    getStringValue(key: string): string {
+      // expressions are evaluated on the fly
+      if (self.getDescriptor(key).expression) {
+        // @ts-ignore
+        return self[key];
+      }
+
+      // init
+      if (!self.strings.has(key)) {
+        self.setStringValue(key, (self as any)[key] == null ? '' : (self as any)[key].toString());
+      }
+      return self.strings.get(key); // || this.getDescriptor(key).defaultValue || '';
     },
     getError(item: string): string {
       return self.errors.get(item);

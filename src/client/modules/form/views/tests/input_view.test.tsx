@@ -15,7 +15,7 @@ describe('Form', () => {
     create.descriptor({
       name: 'younger',
       type: QueryTypes.DataType.Int,
-      expression: `self['owner.personal.age'] - 20`
+      expression: `console.log(this); return this['owner.personal.age'] - 20`
     }),
     create.descriptor({
       name: 'older',
@@ -120,15 +120,22 @@ describe('Form', () => {
   describe('Validators', () => {
     function componentWithData() {
       const validators = [
-        ['intPositiveValidator', '-1', '2']
-        // ['intValidator', '2.5', '0'],
-        // ['intNonZeroValidator', '0', '-7'],
-        // ['floatValidator', 'd', '2.7'],
-        // ['floatPositiveValidator', '-5', '7'],
-        // ['floatNonZeroValidator', '0', '6.8'],
-        // ['requiredValidator', '', 'ok'],
-        // ['emailValidator', 'good@email.cz', 'bad'],
-        // ['regExValidator', 'tomi', 'ttomi', 'tt']
+        ['intPositiveValidator', '-1', '2'],
+        ['intValidator', '2.5', '0'],
+        ['intNonZeroValidator', '0', '7'],
+        ['floatValidator', 'd', '2.7'],
+        ['floatPositiveValidator', '-5', '7'],
+        ['floatNonZeroValidator', '0', '6.8'],
+        ['requiredValidator', '', 'ok'],
+        ['emailValidator', 'bad', 'good@email.cz'],
+        ['regExValidator', 'tomi', 'ttomi', 'tt'],
+        [
+          'expressionValidator',
+          'foo',
+          'bar',
+          'console.log(value); return value === "bar"',
+          'Say whut?'
+        ]
       ];
 
       const elements = [];
@@ -143,22 +150,40 @@ describe('Form', () => {
         vdescriptors.push(
           create.descriptor({
             name: badDescriptor,
+            validators: [{ id: '1', name: v[0], params: v[3] ? [v[3], v[4]] : [] }]
+          })
+        );
+        vdescriptors.push(
+          create.descriptor({
+            name: goodDescriptor,
             validators: [{ id: '1', name: v[0], params: v[3] ? [v[3]] : [] }]
           })
         );
 
         vControlData[badDescriptor] = v[1];
+        vControlData[goodDescriptor] = v[2];
 
         elements.push(
           create.formElement({
             id: i.toString(),
             row: i,
             column: 0,
-            width: 16,
+            width: 8,
             control: QueryTypes.FormControl.Input,
-            label: v[0] + ' Error',
+            label: badDescriptor,
             source: create.descriptor({
               name: badDescriptor
+            })
+          }),
+          create.formElement({
+            id: i.toString(),
+            row: i,
+            column: 8,
+            width: 8,
+            control: QueryTypes.FormControl.Input,
+            label: goodDescriptor,
+            source: create.descriptor({
+              name: goodDescriptor
             })
           })
         );

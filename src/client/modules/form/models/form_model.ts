@@ -60,10 +60,36 @@ function mstTypeFactory(
 let time = Date.now();
 let i = 0;
 
+export function safeEval(t: any, expression: string, value: any = null) {
+  const f = new Function(
+    'value',
+    'eval',
+    'global',
+    'window',
+    'document',
+    'setTimeout',
+    'setInterval',
+    'Object',
+    // 'console',
+    'XMLHttpRequest',
+    'Function',
+    expression.indexOf(';') > 0 ? expression : 'return ' + expression
+  );
+  return f.call(t, value);
+}
+
 function createValidator(validator: QueryTypes.DataDescriptor_Validators) {
   switch (validator.name) {
     case 'regExValidator':
-      break;
+      return validations.regExValidator(new RegExp(validator.params[0]), validator.params[1]);
+    case 'expressionValidator':
+      // @ts-ignore
+      return function(value) {
+        if (!safeEval('_', validator.params[0], value)) {
+          return validator.params[1] || 'Unexpected value';
+        }
+      };
+
     default:
       const v = (validations as any)[validator.name];
       if (!v) {
@@ -98,7 +124,6 @@ export class FormModel {
 
     // prepare model and views
 
-    const strings: { [index: string]: any } = {};
     const mstDefinition: { [index: string]: any } = {};
     const validators: { [index: string]: any } = {};
 
@@ -113,8 +138,8 @@ export class FormModel {
         // expressions do not need state tree entry they are evaluated automatically
         if (desc.expression) {
           (view as any).__defineGetter__(desc.name, function() {
-            // tslint:disable-next-line:no-eval
-            return eval(desc.expression);
+            // @ts-ignore
+            return safeEval(this, desc.expression);
           });
         }
       }
@@ -130,6 +155,10 @@ export class FormModel {
       return view;
     };
 
+    /* =========================================================
+        MST Nodes
+       ======================================================== */
+
     // add mst nodes for non expression fields
     // expressions do not need custom nodes and are handled by views
     for (let desc of descriptors) {
@@ -142,10 +171,12 @@ export class FormModel {
         mstDefinition[desc.name] = desc.defaultValue
           ? FormModel.parseDefault(desc)
           : types.maybe(mstTypeFactory(desc, lists, descriptors));
-        strings[desc.name] = types.maybe(types.string);
       }
 
-      // create validators
+      /* =========================================================
+          VALIDATORS
+         ======================================================== */
+
       validators[desc.name] = [];
       if (desc.validators && desc.validators.length) {
         validators[desc.name] = desc.validators.map(v => createValidator(v));
@@ -160,9 +191,6 @@ export class FormModel {
       }
     }
 
-    // add string
-    mstDefinition.strings = types.model(strings);
-
     // build tree
     const mst = FormStore.named('FormStore')
       .props(mstDefinition)
@@ -173,38 +201,6 @@ export class FormModel {
       .views(viewDefinition);
 
     return mst;
-  }
-
-  static initStrings(data: any, parent?: any, parentKey?: string) {
-    // arrays
-
-    if (data && Array.isArray(data)) {
-      for (let m of data) {
-        FormModel.initStrings(m);
-      }
-    }
-
-    // objects
-    else if (data && typeof data === 'object') {
-      data.strings = {};
-
-      for (let key of Object.getOwnPropertyNames(data)) {
-        if (key === 'strings') {
-          continue;
-        }
-
-        let item = data[key];
-        this.initStrings(item, data, key);
-      }
-    }
-
-    // scalars
-    else if (parent) {
-      parent.strings[parentKey] = data ? data.toString() : '';
-      return data;
-    }
-
-    return data;
   }
 
   static randomValue(descriptor: DataDescriptor) {
@@ -237,7 +233,7 @@ export class FormModel {
     //   }
     // }
 
-    FormModel.initStrings(data);
+    // FormModel.initStrings(data);
 
     const mst = FormModel.buildMst(descriptors, lists);
 
