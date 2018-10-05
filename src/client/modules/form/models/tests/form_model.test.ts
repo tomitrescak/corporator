@@ -3,6 +3,7 @@ import { autorun, toJS } from 'mobx';
 import { create } from 'client/modules/form/views/tests/form_query_data';
 import { QueryTypes } from 'data/client';
 import { FormModel } from '../form_model';
+import { FormStore } from '../form_store';
 
 it('creates a new model', () => {
   let model = new FormModel({
@@ -55,18 +56,25 @@ it('builds MST', () => {
       name: 'taller',
       type: QueryTypes.DataType.Int,
       expression: `this['height'] + 10`
-    })
+    }),
+    create.descriptor({
+      id: '1',
+      name: 'countries',
+      type: QueryTypes.DataType.Object,
+      isArray: true
+    }),
+    create.descriptor({ name: 'name', type: QueryTypes.DataType.String, parentDescriptor: '1' }),
+    create.descriptor({ name: 'capital', type: QueryTypes.DataType.String, parentDescriptor: '1' })
   ];
-  const model = FormModel.buildMst(descriptors);
-  console.log(model);
 
-  const instance = FormModel.buildMstModel(descriptors, { height: 6 });
+  const instance = FormModel.buildMstModel(descriptors, {
+    height: 6,
+    parent: {},
+    countries: [{ name: 'Slovakia', capital: 'Bratislava' }]
+  });
 
   expect(instance.getValue('height')).toEqual(6);
   expect(instance.getValue('taller')).toEqual(16);
-
-  expect(instance.weight).toBe(60);
-  expect(instance.parent.weight).toBe(60);
 
   let finalHeight = 0;
   autorun(() => {
@@ -78,5 +86,10 @@ it('builds MST', () => {
   expect(finalHeight).toEqual(20);
 
   // check js version
-  expect(instance.toJS()).toEqual({ age: 7, height: 10 });
+  expect(instance.toJS()).toEqual({
+    age: 7,
+    countries: [{ capital: 'Bratislava', name: 'Slovakia' }],
+    height: 10,
+    parent: { weight: 60 }
+  });
 });

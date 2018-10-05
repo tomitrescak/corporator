@@ -49,8 +49,7 @@ function mstTypeFactory(
       return types.boolean;
     case 'Object':
       const children = all.filter(d => d.parentDescriptor === desc.id);
-      console.log(children);
-      return FormModel.buildMst(children, lists);
+      return FormModel.buildMst(desc.id, children, lists);
     // return For
     case undefined:
       return types.string;
@@ -115,7 +114,11 @@ export class FormModel {
     return descriptor.defaultValue;
   }
 
-  static buildMst(descriptors: DataDescriptor[], lists?: Array<{ name: string; items: any[] }>) {
+  static buildMst(
+    parentDescriptorId: string,
+    descriptors: DataDescriptor[],
+    lists?: Array<{ name: string; items: any[] }>
+  ) {
     const descriptorMap: {
       [index: string]: DataDescriptor;
     } = {};
@@ -135,7 +138,7 @@ export class FormModel {
           EXPRESSIONS
          ======================================================== */
 
-      for (let desc of descriptors) {
+      for (let desc of descriptors.filter(d => d.parentDescriptor === parentDescriptorId)) {
         // expressions do not need state tree entry they are evaluated automatically
         if (desc.expression) {
           (view as any).__defineGetter__(desc.name, function() {
@@ -162,12 +165,14 @@ export class FormModel {
 
     // add mst nodes for non expression fields
     // expressions do not need custom nodes and are handled by views
-    for (let desc of descriptors) {
+    for (let desc of descriptors.filter(d => d.parentDescriptor === parentDescriptorId)) {
       // expressions do not need state tree entry they are evaluated automatically
       if (desc.isArray) {
         mstDefinition[desc.name] = types.array(mstTypeFactory(desc, lists, descriptors));
       } else if (desc.type === 'Id') {
         mstDefinition[desc.name] = types.optional(types.identifier, () => (time + i++).toString()); // shortid.generate());
+      } else if (desc.type === 'Object') {
+        mstDefinition[desc.name] = mstTypeFactory(desc, lists, descriptors);
       } else if (!desc.expression) {
         mstDefinition[desc.name] = desc.defaultValue
           ? FormModel.parseDefault(desc)
@@ -236,7 +241,7 @@ export class FormModel {
 
     // FormModel.initStrings(data);
 
-    const mst = FormModel.buildMst(descriptors, lists);
+    const mst = FormModel.buildMst(null, descriptors, lists);
 
     return mst.create(data);
   }
