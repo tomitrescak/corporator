@@ -15,7 +15,7 @@ describe('Form', () => {
     create.descriptor({
       name: 'younger',
       type: QueryTypes.DataType.Int,
-      expression: `this['owner.personal.age'] - 10`
+      expression: `self['owner.personal.age'] - 20`
     }),
     create.descriptor({
       name: 'older',
@@ -24,17 +24,14 @@ describe('Form', () => {
     })
   ];
 
-  const controlData = [
-    { name: 'owner.personal.name', value: 'Tomas' },
-    {
-      name: 'owner.personal.age',
-      value: 33
-    }
-  ];
+  const controlData = {
+    'owner.personal.name': 'Tomas',
+    'owner.personal.age': 33
+  };
 
   const dataSet = FormModel.buildMstModel(descriptors, controlData);
 
-  describe('Viewer', () => {
+  describe('Input', () => {
     function componentWithData() {
       const form = new FormModel(
         create.form({
@@ -43,7 +40,7 @@ describe('Form', () => {
               id: '1',
               row: 0,
               column: 0,
-              width: 16,
+              width: 14,
               control: QueryTypes.FormControl.Input,
               controlProps: {
                 label: 'Name'
@@ -77,12 +74,13 @@ describe('Form', () => {
                 id: '',
                 name: 'younger'
               }),
-              label: 'Younger'
+              label: 'Younger:',
+              inline: true
             }),
             create.formElement({
               id: '4',
-              row: 1,
-              column: 13,
+              row: 0,
+              column: 14,
               width: 2,
               control: QueryTypes.FormControl.Input,
               source: create.descriptor({

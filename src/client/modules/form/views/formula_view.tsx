@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { observer } from 'mobx-react';
 
+import styled from 'styled-components';
 import { DataSet, FormElement } from '../models/form_model';
 
 type FormControlProps = {
@@ -10,6 +11,10 @@ type FormControlProps = {
 };
 
 type Props = FormControlProps;
+
+const Formula = styled.div`
+  padding: 9px 0px;
+`;
 
 @observer
 export class FormulaView extends React.Component<Props> {
@@ -20,18 +25,14 @@ export class FormulaView extends React.Component<Props> {
 
   render() {
     const {
-      formControl: { source, label },
+      formControl: { source },
       owner
     } = this.props;
 
     return (
-      <>
-        <If condition={label != null}>
-          <label htmlFor={name}>{label}</label>
-        </If>
-
-        <div style={{ padding: '.67em 0' }}>{owner.getStringValue(source.name)}</div>
-      </>
+      <div className="ui input">
+        <Formula>{owner.getValue(source.name)}</Formula>
+      </div>
     );
   }
 }

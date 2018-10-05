@@ -1,21 +1,81 @@
+import * as validations from './validation';
+
+import { IObservableArray, toJS } from 'mobx';
 import { types } from 'mobx-state-tree';
+
+import { DataDescriptor } from './form_model';
 
 export type IValidator = (input: string) => string;
 
 export type IFormStore = typeof FormStore.Type;
 
+function strip(obj: any) {
+  if (typeof obj === 'object') {
+    if (obj.errors) {
+      delete obj.errors;
+      delete obj.validators;
+      delete obj.strings;
+      delete obj.descriptors;
+    }
+
+    for (let key of Object.getOwnPropertyNames(obj)) {
+      let item = obj[key];
+      strip(item);
+    }
+  }
+
+  if (Array.isArray(obj)) {
+    for (let item of obj) {
+      strip(item);
+    }
+  }
+  return obj;
+}
+
+export interface ListValue {
+  [index: string]: string;
+  text: string;
+  value: string;
+}
+
 export const FormStore = types
   .model({
-    errors: types.map(types.string)
+    errors: types.map(types.string),
+    strings: types.maybe(types.model())
   })
-  .volatile(() => ({
+  .volatile(self => ({
     // tslint:disable-next-line:no-object-literal-type-assertion
-    validators: {} as { [name: string]: IValidator[] }
+    validators: {} as { [name: string]: IValidator[] },
+    // tslint:disable-next-line:no-object-literal-type-assertion
+    descriptors: {} as { [index: string]: DataDescriptor }
   }))
   .actions(function(self) {
     // let validators: values: { [name: string]: IValidator[] } = new Map<string, IValidator[]>();
 
     return {
+      toJS() {
+        return strip(toJS(self));
+      },
+      getDescriptor(key: string) {
+        if (!self.descriptors[key]) {
+          throw new Error('Descriptor does not exist: ' + key);
+        }
+        return self.descriptors[key];
+      },
+      isExpression(key: string) {
+        return !!(key && this.getDescriptor(key).expression);
+      },
+      getList(key: string): ListValue[] {
+        return (self as any)[key];
+      },
+      getStringValue(key: string): string {
+        // expressions are evaluated on the fly
+        if (this.getDescriptor(key).expression) {
+          // @ts-ignore
+          return self[key];
+        }
+        return (self.strings as any)[key] || this.getDescriptor(key).defaultValue || '';
+      },
       validateField(name: string, value: string) {
         if (!self.validators[name]) {
           return true;
@@ -56,11 +116,57 @@ export const FormStore = types
       setItem(item: string, value: string): void {
         (self as any)[item] = value;
         (self as IFormStore).validateField(item, value);
+      },
+      addRow(key: string) {
+        ((self as any)[key] as any[]).push({});
+      },
+      removeRow(key: string, index: number) {
+        ((self as any)[key] as any[]).splice(index);
+      },
+      removeRowData<T>(key: string, data: T) {
+        ((self as any)[key] as IObservableArray<T>).remove(data);
+      },
+      parseValue(key: string, value: any) {
+        const descriptor = self.descriptors[key];
+        switch (descriptor.type) {
+          case 'Int':
+            (self as any)[key] = parseInt(value || 0, 10) as any;
+            break;
+          case 'Float':
+            (self as any)[key] = parseFloat(value || 0) as any;
+            break;
+          case 'Boolean':
+            (self as any)[key] = (value === true || value === 'true' || value === 'True') as any;
+            break;
+          default:
+            (self as any)[key] = value;
+        }
       }
     };
   })
+  .actions(self => ({
+    setStringValue(key: string, value: any) {
+      (self.strings as any)[key] = value;
+
+      const descriptor = self.descriptors[key];
+      let error = '';
+      switch (descriptor.type) {
+        case 'Int':
+          error = validations.intValidator(value);
+          break;
+        case 'Float':
+          error = validations.floatValidator(value);
+          break;
+      }
+
+      if (!error) {
+        self.parseValue(key, value);
+      }
+      self.setError(key, error);
+    }
+  }))
   .views(self => ({
-    getItem(item: string): string {
+    getValue(item: string): any {
       return (self as any)[item];
     },
     getError(item: string): string {

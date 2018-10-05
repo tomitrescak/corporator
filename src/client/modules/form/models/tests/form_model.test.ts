@@ -1,8 +1,49 @@
-import { autorun } from 'mobx';
+import { autorun, toJS } from 'mobx';
 
 import { create } from 'client/modules/form/views/tests/form_query_data';
 import { QueryTypes } from 'data/client';
+import { SearchResults } from 'semantic-ui-react';
 import { FormModel } from '../form_model';
+import { FormStore } from '../form_store';
+
+describe('initStrings', () => {
+  it('initialises simple object', () => {
+    const o: any = { a: 1, b: null };
+    const result = FormModel.initStrings(o);
+
+    expect(result).toEqual({ __errors: {}, __strings: { a: '1', b: '' }, a: 1, b: null });
+  });
+
+  it('initialises complex object', () => {
+    const o: any = { a: { b: 1, c: { d: 'Yes' } } };
+    const result = FormModel.initStrings(o);
+
+    expect(result).toEqual({
+      __errors: {},
+      __strings: {},
+      a: {
+        __errors: {},
+        __strings: { b: '1' },
+        b: 1,
+        c: { __errors: {}, __strings: { d: 'Yes' }, d: 'Yes' }
+      }
+    });
+  });
+
+  it('initialises arrays', () => {
+    const o: any = { a: [{ b: 1 }, { c: 'A' }] };
+    const result = FormModel.initStrings(o);
+
+    expect(result).toEqual({
+      __errors: {},
+      __strings: {},
+      a: [
+        { __errors: {}, __strings: { b: '1' }, b: 1 },
+        { __errors: {}, __strings: { c: 'A' }, c: 'A' }
+      ]
+    });
+  });
+});
 
 it('creates a new model', () => {
   let model = new FormModel({
@@ -50,7 +91,7 @@ it('builds MST', () => {
       expression: `this['height'] + 10`
     })
   ];
-  const instance = FormModel.buildMstModel(descriptors, [{ name: 'height', value: 6 }]);
+  const instance = FormModel.buildMstModel(descriptors, { height: 6 });
 
   expect(instance.getValue('height')).toEqual(6);
   expect(instance.getValue('taller')).toEqual(16);

@@ -1,11 +1,10 @@
 // import * as shortid from 'shortid';
-import * as validations from './validation';
 
-import { IObservableArray } from 'mobx';
 import { ISimpleType, types } from 'mobx-state-tree';
 
 import { QueryTypes } from 'data/client';
-import { DataDescriptor, Form, FormElement, ListValue } from './form_model';
+import { DataDescriptor, Form, FormElement } from './form_model';
+import { FormStore, IFormStore } from './form_store';
 import { FormValidation } from './form_validation_model';
 import { random } from './random';
 
@@ -13,23 +12,11 @@ export type FormElement = QueryTypes.FormElement & { elements: FormElement[] };
 export type DataDescriptor = QueryTypes.DataDescriptor; // & { descriptors: DataDescriptor[] };
 export type Form = QueryTypes.Form; // & { elements: FormElement[] };
 
-export interface DataSet {
-  id?: string;
-  addRow(key: string): void;
-  removeRow(key: string, index: number): void;
-  removeRowData<T>(key: string, data: T): void;
-  getList(name: string): ListValue[];
-  getValue(name: string): any;
-  parseValue(name: string, value: any): void;
-  getError(name: string): any;
-  getStringValue(name: string): any;
-  setStringValue(name: string, value: any): void;
-  isExpression(key: string): boolean;
-}
+export type DataSet = typeof FormStore.Type;
 
 export type FormControlProps = {
   formControl: FormElement;
-  owner: DataSet;
+  owner: IFormStore;
 };
 
 function formItemSort(a: FormElement, b: FormElement) {
@@ -68,12 +55,6 @@ function mstTypeFactory(
   throw new Error('MST Type not supported: ' + desc.type);
 }
 
-export interface ListValue {
-  [index: string]: string;
-  text: string;
-  value: string;
-}
-
 let time = Date.now();
 let i = 0;
 
@@ -101,42 +82,17 @@ export class FormModel {
     }
 
     // prepare model and views
-    const mstDefinition: { [index: string]: any } = {};
-    const viewDefinition = (self: any) => {
-      const view = {
-        getDescriptor(key: string) {
-          if (!descriptorMap[key]) {
-            throw new Error('Descriptor does not exist: ' + key);
-          }
-          return descriptorMap[key];
-        },
-        isExpression(key: string) {
-          return !!(key && this.getDescriptor(key).expression);
-        },
-        getValue(key: string) {
-          if (self[key] == null) {
-            return this.getDescriptor(key).defaultValue;
-          }
-          return self[key];
-        },
-        getList(key: string): ListValue[] {
-          return self[key];
-        },
-        getStringValue(key: string) {
-          // expressions are evaluated on the fly
-          if (this.getDescriptor(key).expression) {
-            // @ts-ignore
-            return self[key];
-          }
-          return self[key + '_str'] || this.getDescriptor(key).defaultValue || '';
-        },
-        getError(key: string) {
-          return self[key + '_error'];
-        }
-      };
 
-      // add expressions views
-      // expression are dynamic formulas evaluated from script
+    const strings: { [index: string]: any } = {};
+    const mstDefinition: { [index: string]: any } = {};
+    const validators = {};
+
+    const viewDefinition = (self: any) => {
+      const view = {};
+
+      /* =========================================================
+          EXPRESSIONS
+         ======================================================== */
 
       for (let desc of descriptors) {
         // expressions do not need state tree entry they are evaluated automatically
@@ -171,85 +127,52 @@ export class FormModel {
         mstDefinition[desc.name] = desc.defaultValue
           ? FormModel.parseDefault(desc)
           : types.maybe(mstTypeFactory(desc, lists, descriptors));
-        mstDefinition[desc.name + '_str'] = types.maybe(types.string);
-        mstDefinition[desc.name + '_error'] = types.maybe(types.string);
+        strings[desc.name] = types.maybe(types.string);
       }
     }
 
-    // add generic method
+    // add string
+    mstDefinition.strings = types.model(strings);
 
     // build tree
-    const mst = types
-      .model('Store', mstDefinition)
-      .views(viewDefinition)
-      .actions(self => ({
-        addRow(key: string) {
-          (self[key] as any[]).push({});
-        },
-        removeRow(key: string, index: number) {
-          (self[key] as any[]).splice(index);
-        },
-        removeRowData<T>(key: string, data: T) {
-          (self[key] as IObservableArray<T>).remove(data);
-        },
-        parseValue(key: string, value: any) {
-          const descriptor = descriptorMap[key];
-          switch (descriptor.type) {
-            case 'Int':
-              self[key] = parseInt(value || 0, 10) as any;
-              break;
-            case 'Float':
-              self[key] = parseFloat(value || 0) as any;
-              break;
-            case 'Boolean':
-              self[key] = (value === true || value === 'true' || value === 'True') as any;
-              break;
-            default:
-              self[key] = value;
-          }
-        },
-        setError(key: string, error: string) {
-          (self as any)[key + '_error'] = error;
-        }
+    const mst = FormStore.named('FormStore')
+      .props(mstDefinition)
+      .volatile(_self => ({
+        descriptors: descriptorMap,
+        validators
       }))
-      .actions(self => ({
-        setStringValue(key: string, value: any) {
-          self[key + '_str'] = value;
-
-          const descriptor = descriptorMap[key];
-          let error = '';
-          switch (descriptor.type) {
-            case 'Int':
-              error = validations.intValidator(value);
-              break;
-            case 'Float':
-              error = validations.floatValidator(value);
-              break;
-          }
-
-          if (!error) {
-            self.parseValue(key, value);
-          }
-          self.setError(key, error);
-        }
-      }));
+      .views(viewDefinition);
 
     return mst;
   }
 
-  static initStrings(data: any, dataArray: Array<{ name: string; value: any }>) {
-    for (let item of dataArray) {
-      data[item.name] = item.value;
-      if (Array.isArray(item.value)) {
-        data[item.name] = [];
-        for (let m of item.value) {
-          const n = {};
-          data[item.name].push(n);
-          FormModel.initStrings(n, m);
-        }
-      } else {
-        data[item.name + '_str'] = item.value ? item.value.toString() : '';
+  static initStrings(data: any, parent?: any, parentKey?: string) {
+    // arrays
+
+    if (data && Array.isArray(data)) {
+      for (let m of data) {
+        FormModel.initStrings(m);
       }
+    }
+
+    // objects
+    else if (data && typeof data === 'object') {
+      data.strings = {};
+
+      for (let key of Object.getOwnPropertyNames(data)) {
+        if (key === 'strings') {
+          continue;
+        }
+
+        let item = data[key];
+        this.initStrings(item, data, key);
+      }
+    }
+
+    // scalars
+    else if (parent) {
+      parent.strings[parentKey] = data ? data.toString() : '';
+      return data;
     }
 
     return data;
@@ -273,21 +196,22 @@ export class FormModel {
 
   static buildMstModel(
     descriptors: DataDescriptor[],
-    dataArray: Array<{ name: string; value: any }>,
+    data: any,
     lists?: Array<{ name: string; items: any[] }>,
     initRandomValues = false
   ): DataSet {
     // data initialisation
-    const data: any = {};
-    if (initRandomValues) {
-      for (let descriptor of descriptors) {
-        dataArray.push({ name: descriptor.name, value: FormModel.randomValue(descriptor) });
-      }
-    }
+    // const data: any = {};
+    // if (initRandomValues) {
+    //   for (let descriptor of descriptors) {
+    //     dataArray.push({ name: descriptor.name, value: FormModel.randomValue(descriptor) });
+    //   }
+    // }
 
-    FormModel.initStrings(data, dataArray);
+    FormModel.initStrings(data);
 
     const mst = FormModel.buildMst(descriptors, lists);
+
     return mst.create(data);
   }
 

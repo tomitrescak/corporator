@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { observer } from 'mobx-react';
 import { Form, SemanticWIDTHSNUMBER } from 'semantic-ui-react';
 
 import { groupByArray } from 'data/helpers';
