@@ -206,8 +206,6 @@ describe('Form', () => {
       );
     }
 
-    it('renders correctly with and witout error', () => {});
-
     return {
       component: componentWithData()
     };

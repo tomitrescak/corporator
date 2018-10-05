@@ -13,10 +13,17 @@ import { Segment } from 'semantic-ui-react';
 describe('Form', () => {
   const descriptors = [
     create.descriptor({ name: 'agree', type: QueryTypes.DataType.Boolean }),
-    create.descriptor({ name: 'disagree', type: QueryTypes.DataType.Boolean })
+    create.descriptor({ name: 'disagree', type: QueryTypes.DataType.Boolean }),
+    create.descriptor({
+      name: 'must',
+      type: QueryTypes.DataType.Boolean,
+      validators: [
+        { id: '1', name: 'requiredValidator', params: ['You must agree to terms and conditions'] }
+      ]
+    })
   ];
 
-  const controlData = [{ name: 'agree', value: true }, { name: 'disagree', value: false }];
+  const controlData = { agree: true, disagree: false };
   const dataSet = FormModel.buildMstModel(descriptors, controlData);
 
   storyOf(
@@ -52,10 +59,24 @@ describe('Form', () => {
                   id: '',
                   name: 'disagree'
                 })
+              }),
+              create.formElement({
+                id: '1',
+                row: 2,
+                column: 0,
+                width: 8,
+                control: QueryTypes.FormControl.Checkbox,
+                label: 'Must Agree With Terms and Conditions',
+                source: create.descriptor({
+                  id: '',
+                  name: 'must'
+                })
               })
             ]
           })
         );
+
+        dataSet.validate();
 
         // just another notation
         return (

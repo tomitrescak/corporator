@@ -49,6 +49,7 @@ function mstTypeFactory(
       return types.boolean;
     case 'Object':
       const children = all.filter(d => d.parentDescriptor === desc.id);
+      console.log(children);
       return FormModel.buildMst(children, lists);
     // return For
     case undefined:
@@ -95,7 +96,7 @@ function createValidator(validator: QueryTypes.DataDescriptor_Validators) {
       if (!v) {
         throw new Error('Validator does not exist!: ' + validator.name);
       }
-      return (validations as any)[validator.name];
+      return (value: any) => (validations as any)[validator.name](value, validator.params[0]);
   }
 }
 

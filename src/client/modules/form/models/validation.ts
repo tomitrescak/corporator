@@ -1,18 +1,18 @@
 import i18n from 'es2015-i18n-tag';
 
-export function requiredValidator(value: string | number) {
-  return value === '' || value == null ? i18n`This field is required!` : '';
+export function requiredValidator(value: string | number, message?: string) {
+  return value === '' || value == null ? message || i18n`This field is required!` : '';
 }
 
-export function regExValidator(reg: RegExp, format?: string) {
+export function regExValidator(reg: RegExp, format?: string, message?: string) {
   return (value: string) => {
     if (reg.exec(value)) {
       return '';
     }
     if (format) {
-      return i18n`Expecting format: ${format}`;
+      return message || i18n`Expecting format: ${format}`;
     }
-    return i18n`Unexpected format`;
+    return message || i18n`Unexpected format`;
   };
 }
 
@@ -55,40 +55,40 @@ export function emailValidator(value: string) {
   return value == null || value === '' || isEmail(value) ? '' : i18n`Email has incorrect format!`;
 }
 
-export function intPositiveValidator(value: number | string) {
+export function intPositiveValidator(value: number | string, message?: string) {
   return value == null || value === '' || isPositiveInt(value.toString())
     ? ''
-    : i18n`Expected positive integer value`;
+    : message || i18n`Expected positive integer value`;
 }
 
-export function intValidator(value: number | string) {
+export function intValidator(value: number | string, message?: string) {
   return value == null || value === '' || isInt(value.toString())
     ? ''
-    : i18n`Expected integer value`;
+    : message || i18n`Expected integer value`;
 }
 
-export function intNonZeroValidator(value: number | string) {
+export function intNonZeroValidator(value: number | string, message?: string) {
   return value == null || value === '' || isNonZeroInt(value.toString())
     ? ''
-    : i18n`Expected non-zero integer value`;
+    : message || i18n`Expected non-zero integer value`;
 }
 
-export function floatValidator(value: number | string) {
+export function floatValidator(value: number | string, message?: string) {
   return value == null || value === '' || isFloat(value.toString())
     ? ''
-    : i18n`Expected float value`;
+    : message || i18n`Expected float value`;
 }
 
-export function floatPositiveValidator(value: number | string) {
+export function floatPositiveValidator(value: number | string, message?: string) {
   return value == null || value === '' || isPositiveFloat(value.toString())
     ? ''
-    : i18n`Expected positive float value`;
+    : message || i18n`Expected positive float value`;
 }
 
-export function floatNonZeroValidator(value: number | string) {
+export function floatNonZeroValidator(value: number | string, message?: string) {
   return value == null || value === '' || isNonZeroFloat(value.toString())
     ? ''
-    : i18n`Expected non-zero float value`;
+    : message || i18n`Expected non-zero float value`;
 }
 
 export function lengthValidator(length: number, message?: string) {

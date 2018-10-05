@@ -18,13 +18,8 @@ exports[`Form Radio changes values 1`] = `
         >
           Religions
         </label>
-        <label
-          htmlFor="nodejs"
-        >
-          Religions
-        </label>
         <div
-          className="ui radio checkbox sc-bdVaJa cakjOM"
+          className="ui radio checkbox sc-bwzfXH dMjbhr"
           onChange={[Function]}
           onClick={[Function]}
           onMouseDown={[Function]}
@@ -44,7 +39,7 @@ exports[`Form Radio changes values 1`] = `
           </label>
         </div>
         <div
-          className="ui checked radio checkbox sc-bdVaJa cakjOM"
+          className="ui checked radio checkbox sc-bwzfXH dMjbhr"
           onChange={[Function]}
           onClick={[Function]}
           onMouseDown={[Function]}
@@ -64,7 +59,7 @@ exports[`Form Radio changes values 1`] = `
           </label>
         </div>
         <div
-          className="ui radio checkbox sc-bdVaJa cakjOM"
+          className="ui radio checkbox sc-bwzfXH dMjbhr"
           onChange={[Function]}
           onClick={[Function]}
           onMouseDown={[Function]}
@@ -96,19 +91,14 @@ exports[`Form Radio changes values 1`] = `
         >
           Religions
         </label>
-        <label
-          htmlFor="nodejs"
-        >
-          Religions
-        </label>
         <div
-          className="ui checked radio checkbox sc-bdVaJa cakjOM"
+          className="ui radio checkbox sc-bwzfXH dMjbhr"
           onChange={[Function]}
           onClick={[Function]}
           onMouseDown={[Function]}
         >
           <input
-            checked={true}
+            checked={false}
             className="hidden"
             name="lined_religion"
             onClick={[Function]}
@@ -123,13 +113,13 @@ exports[`Form Radio changes values 1`] = `
         </div>
         <br />
         <div
-          className="ui radio checkbox sc-bdVaJa cakjOM"
+          className="ui checked radio checkbox sc-bwzfXH dMjbhr"
           onChange={[Function]}
           onClick={[Function]}
           onMouseDown={[Function]}
         >
           <input
-            checked={false}
+            checked={true}
             className="hidden"
             name="lined_religion"
             onClick={[Function]}
@@ -144,7 +134,7 @@ exports[`Form Radio changes values 1`] = `
         </div>
         <br />
         <div
-          className="ui radio checkbox sc-bdVaJa cakjOM"
+          className="ui radio checkbox sc-bwzfXH dMjbhr"
           onChange={[Function]}
           onClick={[Function]}
           onMouseDown={[Function]}
@@ -188,13 +178,8 @@ exports[`Form Radio renders correctly 1`] = `
         >
           Religions
         </label>
-        <label
-          htmlFor="nodejs"
-        >
-          Religions
-        </label>
         <div
-          className="ui radio checkbox sc-bdVaJa cakjOM"
+          className="ui radio checkbox sc-bwzfXH dMjbhr"
           onChange={[Function]}
           onClick={[Function]}
           onMouseDown={[Function]}
@@ -214,7 +199,7 @@ exports[`Form Radio renders correctly 1`] = `
           </label>
         </div>
         <div
-          className="ui radio checkbox sc-bdVaJa cakjOM"
+          className="ui radio checkbox sc-bwzfXH dMjbhr"
           onChange={[Function]}
           onClick={[Function]}
           onMouseDown={[Function]}
@@ -234,7 +219,7 @@ exports[`Form Radio renders correctly 1`] = `
           </label>
         </div>
         <div
-          className="ui checked radio checkbox sc-bdVaJa cakjOM"
+          className="ui checked radio checkbox sc-bwzfXH dMjbhr"
           onChange={[Function]}
           onClick={[Function]}
           onMouseDown={[Function]}
@@ -266,19 +251,14 @@ exports[`Form Radio renders correctly 1`] = `
         >
           Religions
         </label>
-        <label
-          htmlFor="nodejs"
-        >
-          Religions
-        </label>
         <div
-          className="ui checked radio checkbox sc-bdVaJa cakjOM"
+          className="ui radio checkbox sc-bwzfXH dMjbhr"
           onChange={[Function]}
           onClick={[Function]}
           onMouseDown={[Function]}
         >
           <input
-            checked={true}
+            checked={false}
             className="hidden"
             name="lined_religion"
             onClick={[Function]}
@@ -293,13 +273,13 @@ exports[`Form Radio renders correctly 1`] = `
         </div>
         <br />
         <div
-          className="ui radio checkbox sc-bdVaJa cakjOM"
+          className="ui checked radio checkbox sc-bwzfXH dMjbhr"
           onChange={[Function]}
           onClick={[Function]}
           onMouseDown={[Function]}
         >
           <input
-            checked={false}
+            checked={true}
             className="hidden"
             name="lined_religion"
             onClick={[Function]}
@@ -314,7 +294,7 @@ exports[`Form Radio renders correctly 1`] = `
         </div>
         <br />
         <div
-          className="ui radio checkbox sc-bdVaJa cakjOM"
+          className="ui radio checkbox sc-bwzfXH dMjbhr"
           onChange={[Function]}
           onClick={[Function]}
           onMouseDown={[Function]}

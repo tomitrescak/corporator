@@ -6,7 +6,6 @@ import styled from 'styled-components';
 
 import { FormControlProps } from '../models/form_model';
 
-
 const FormRadio = styled(Radio)`
   margin-right: 12px;
   margin-bottom: 6px;
@@ -21,16 +20,13 @@ export class RadioView extends React.Component<FormControlProps> {
 
   render() {
     const {
-      formControl: { source, controlProps, list, vertical, label },
+      formControl: { source, controlProps, list, vertical },
       owner
     } = this.props;
     const radioValues = owner.getList(list);
 
     return (
       <>
-        <If condition={label != null}>
-          <label htmlFor={name}>{label}</label>
-        </If>
         {radioValues.map(item => (
           <React.Fragment key={item.value}>
             <FormRadio

@@ -21,15 +21,12 @@ describe('Form', () => {
     create.descriptor({ name: 'capital', type: QueryTypes.DataType.String, parentDescriptor: '1' })
   ];
 
-  const dataSetData = [
-    {
-      name: 'countries',
-      value: [
-        [{ name: 'name', value: 'Slovakia' }, { name: 'capital', value: 'Bratislava' }],
-        [{ name: 'name', value: 'Australia' }, { name: 'capital', value: 'Canberra' }]
-      ]
-    }
-  ];
+  const dataSetData = {
+    countries: [
+      { name: 'Slovakia', capital: 'Bratislava' },
+      { name: 'Australia', capital: 'Canberra' }
+    ]
+  };
   const dataSet = FormModel.buildMstModel(descriptors, dataSetData);
 
   storyOf(

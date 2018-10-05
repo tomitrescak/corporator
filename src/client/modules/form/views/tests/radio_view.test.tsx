@@ -25,7 +25,7 @@ describe('Form', () => {
     }
   ];
 
-  const controlData = [{ name: 'religion', value: 'JE' }, { name: 'lined_religion', value: 'CH' }];
+  const controlData = { religion: 'JE', lined_religion: 'BU' };
   const dataSet = FormModel.buildMstModel(descriptors, controlData, lists);
 
   storyOf(

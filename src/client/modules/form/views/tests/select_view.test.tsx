@@ -11,7 +11,7 @@ import { create } from './form_query_data';
 describe('Form', function() {
   const descriptors = [create.descriptor({ name: 'country' }), create.descriptor({ name: 'city' })];
 
-  const controlData = [{ name: 'country', value: 'SK' }, { name: 'city', value: 'KE' }];
+  const controlData = { country: 'SK', city: 'KE' };
 
   const lists = [
     {

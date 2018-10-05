@@ -72,6 +72,43 @@ exports[`Form Checkbox changes value and all related formulas 1`] = `
         </div>
       </div>
     </div>
+    <div
+      className="fields"
+    >
+      <div
+        className="eight wide field"
+      >
+        <div
+          className="field"
+        >
+          <div
+            className="ui checkbox"
+            onChange={[Function]}
+            onClick={[Function]}
+            onMouseDown={[Function]}
+          >
+            <input
+              checked={false}
+              className="hidden"
+              name="must"
+              onClick={[Function]}
+              readOnly={true}
+              tabIndex={0}
+              type="checkbox"
+            />
+            <label>
+              Must Agree With Terms and Conditions
+            </label>
+          </div>
+          <div
+            className="ui red pointing label"
+            onClick={[Function]}
+          >
+            You must agree to terms and conditions
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 `;
@@ -148,6 +185,43 @@ exports[`Form Checkbox renders correctly 1`] = `
         </div>
       </div>
     </div>
+    <div
+      className="fields"
+    >
+      <div
+        className="eight wide field"
+      >
+        <div
+          className="field"
+        >
+          <div
+            className="ui checkbox"
+            onChange={[Function]}
+            onClick={[Function]}
+            onMouseDown={[Function]}
+          >
+            <input
+              checked={false}
+              className="hidden"
+              name="must"
+              onClick={[Function]}
+              readOnly={true}
+              tabIndex={0}
+              type="checkbox"
+            />
+            <label>
+              Must Agree With Terms and Conditions
+            </label>
+          </div>
+          <div
+            className="ui red pointing label"
+            onClick={[Function]}
+          >
+            You must agree to terms and conditions
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 `;
@@ -220,6 +294,43 @@ exports[`Form Checkbox renders other 1`] = `
             <label>
               Disagree With Terms and Conditions
             </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="fields"
+    >
+      <div
+        className="eight wide field"
+      >
+        <div
+          className="field"
+        >
+          <div
+            className="ui checkbox"
+            onChange={[Function]}
+            onClick={[Function]}
+            onMouseDown={[Function]}
+          >
+            <input
+              checked={false}
+              className="hidden"
+              name="must"
+              onClick={[Function]}
+              readOnly={true}
+              tabIndex={0}
+              type="checkbox"
+            />
+            <label>
+              Must Agree With Terms and Conditions
+            </label>
+          </div>
+          <div
+            className="ui red pointing label"
+            onClick={[Function]}
+          >
+            You must agree to terms and conditions
           </div>
         </div>
       </div>
