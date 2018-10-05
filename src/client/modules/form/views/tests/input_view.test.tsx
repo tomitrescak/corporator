@@ -116,4 +116,75 @@ describe('Form', () => {
 
     return { componentWithData };
   });
+
+  describe('Validators', () => {
+    function componentWithData() {
+      const validators = [
+        ['emailValidator', 'good@email.cz', 'bad'],
+        ['intPositiveValidator', '-1', '2'],
+        ['intValidator', '2.5', '0'],
+        ['intNonZeroValidator', '0', '-7'],
+        ['floatValidator', 'd', '2.7'],
+        ['floatPositiveValidator', '-5', '7'],
+        ['floatNonZeroValidator', '0', '6.8'],
+        ['requiredValidator', '', 'ok'],
+        ['regExValidator', 'tomi', 'ttomi', 'tt']
+      ];
+
+      const elements = [];
+      const vdescriptors = [];
+      const vControlData: any = {};
+
+      for (let i = 0; i < validators.length; i++) {
+        let v = validators[i];
+        let badDescriptor = v[0] + '.Error';
+        let goodDescriptor = v[0] + '.OK';
+
+        vdescriptors.push(
+          create.descriptor({
+            name: badDescriptor,
+            validators: [{ id: '1', name: v[0], params: v[3] ? [v[3]] : [] }]
+          })
+        );
+
+        vControlData[badDescriptor] = v[1];
+
+        elements.push(
+          create.formElement({
+            id: i.toString(),
+            row: i,
+            column: 0,
+            width: 16,
+            control: QueryTypes.FormControl.Input,
+            label: v[0] + ' Error',
+            source: create.descriptor({
+              name: badDescriptor
+            })
+          })
+        );
+      }
+
+      const vDataSet = FormModel.buildMstModel(vdescriptors, vControlData);
+      // vDataSet.validate();
+
+      const form = new FormModel(
+        create.form({
+          elements
+        })
+      );
+
+      // just another notation
+      return (
+        <Segment className="ui form">
+          <FormView form={form} data={vDataSet} />
+        </Segment>
+      );
+    }
+
+    it('renders correctly with and witout error', () => {});
+
+    return {
+      component: componentWithData()
+    };
+  });
 });

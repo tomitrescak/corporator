@@ -1,249 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Form I renders correctly 1`] = `
-<div
-  className="ui segment ui form"
->
-  <div
-    className="ui form"
-  >
-    <div
-      className="fields"
-    >
-      <div
-        className="sixteen wide field"
-      >
-        <label
-          htmlFor="owner.personal.name"
-        >
-          Mimo
-        </label>
-        <div
-          className="ui labeled input"
-        >
-          <div
-            className="ui label label"
-            onClick={[Function]}
-          >
-            Name
-          </div>
-          <input
-            name="nodejs"
-            onChange={[Function]}
-            type="text"
-          />
-        </div>
-      </div>
-    </div>
-    <div
-      className="fields"
-    >
-      <div
-        className="one wide field"
-      >
-         
-      </div>
-      <div
-        className="inline field"
-      >
-        <label
-          htmlFor="owner.personal.age"
-        >
-          Age: 
-        </label>
-        <div
-          className="ui input"
-        >
-          <input
-            name="nodejs"
-            onChange={[Function]}
-            type="text"
-          />
-        </div>
-      </div>
-      <div
-        className="two wide field"
-      >
-         
-      </div>
-      <div
-        className="two wide field"
-      >
-        <label
-          htmlFor="younger"
-        >
-          Younger
-        </label>
-        <label
-          htmlFor="nodejs"
-        >
-          Younger
-        </label>
-        <div
-          style={
-            Object {
-              "padding": ".67em 0",
-            }
-          }
-        >
-          23
-        </div>
-      </div>
-      <div
-        className="one wide field"
-      >
-         
-      </div>
-      <div
-        className="two wide field"
-      >
-        <label
-          htmlFor="older"
-        >
-          Older
-        </label>
-        <label
-          htmlFor="nodejs"
-        >
-          Older
-        </label>
-        <div
-          style={
-            Object {
-              "padding": ".67em 0",
-            }
-          }
-        >
-          43
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Form Inp renders correctly 1`] = `
-<div
-  className="ui segment ui form"
->
-  <div
-    className="ui form"
-  >
-    <div
-      className="fields"
-    >
-      <div
-        className="sixteen wide field"
-      >
-        <label
-          htmlFor="owner.personal.name"
-        >
-          Mimo
-        </label>
-        <div
-          className="ui labeled input"
-        >
-          <div
-            className="ui label label"
-            onClick={[Function]}
-          >
-            Name
-          </div>
-          <input
-            name="nodejs"
-            onChange={[Function]}
-            type="text"
-          />
-        </div>
-      </div>
-    </div>
-    <div
-      className="fields"
-    >
-      <div
-        className="one wide field"
-      >
-         
-      </div>
-      <div
-        className="inline field"
-      >
-        <label
-          htmlFor="owner.personal.age"
-        >
-          Age: 
-        </label>
-        <div
-          className="ui input"
-        >
-          <input
-            name="nodejs"
-            onChange={[Function]}
-            type="text"
-          />
-        </div>
-      </div>
-      <div
-        className="two wide field"
-      >
-         
-      </div>
-      <div
-        className="two wide field"
-      >
-        <label
-          htmlFor="younger"
-        >
-          Younger
-        </label>
-        <label
-          htmlFor="nodejs"
-        >
-          Younger
-        </label>
-        <div
-          style={
-            Object {
-              "padding": ".67em 0",
-            }
-          }
-        >
-          23
-        </div>
-      </div>
-      <div
-        className="one wide field"
-      >
-         
-      </div>
-      <div
-        className="two wide field"
-      >
-        <label
-          htmlFor="older"
-        >
-          Older
-        </label>
-        <label
-          htmlFor="nodejs"
-        >
-          Older
-        </label>
-        <div
-          style={
-            Object {
-              "padding": ".67em 0",
-            }
-          }
-        >
-          43
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
 exports[`Form Input changes value and all related formulas 1`] = `
 <div
   className="ui segment ui form"
@@ -255,7 +11,7 @@ exports[`Form Input changes value and all related formulas 1`] = `
       className="fields"
     >
       <div
-        className="sixteen wide field"
+        className="fourteen wide field"
       >
         <label
           htmlFor="owner.personal.name"
@@ -277,6 +33,24 @@ exports[`Form Input changes value and all related formulas 1`] = `
             type="text"
             value="Tomas"
           />
+        </div>
+      </div>
+      <div
+        className="two wide field"
+      >
+        <label
+          htmlFor="older"
+        >
+          Older
+        </label>
+        <div
+          className="ui input"
+        >
+          <div
+            className="sc-bdVaJa iDwIel"
+          >
+            50
+          </div>
         </div>
       </div>
     </div>
@@ -313,54 +87,21 @@ exports[`Form Input changes value and all related formulas 1`] = `
          
       </div>
       <div
-        className="two wide field"
+        className="inline field"
       >
         <label
           htmlFor="younger"
         >
-          Younger
-        </label>
-        <label
-          htmlFor="nodejs"
-        >
-          Younger
+          Younger:
         </label>
         <div
-          style={
-            Object {
-              "padding": ".67em 0",
-            }
-          }
+          className="ui input"
         >
-          23
-        </div>
-      </div>
-      <div
-        className="one wide field"
-      >
-         
-      </div>
-      <div
-        className="two wide field"
-      >
-        <label
-          htmlFor="older"
-        >
-          Older
-        </label>
-        <label
-          htmlFor="nodejs"
-        >
-          Older
-        </label>
-        <div
-          style={
-            Object {
-              "padding": ".67em 0",
-            }
-          }
-        >
-          43
+          <div
+            className="sc-bdVaJa iDwIel"
+          >
+            20
+          </div>
         </div>
       </div>
     </div>
@@ -379,129 +120,7 @@ exports[`Form Input renders correctly 1`] = `
       className="fields"
     >
       <div
-        className="sixteen wide field"
-      >
-        <label
-          htmlFor="owner.personal.name"
-        >
-          Mimo
-        </label>
-        <div
-          className="ui labeled input"
-        >
-          <div
-            className="ui label label"
-            onClick={[Function]}
-          >
-            Name
-          </div>
-          <input
-            name="nodejs"
-            onChange={[Function]}
-            type="text"
-          />
-        </div>
-      </div>
-    </div>
-    <div
-      className="fields"
-    >
-      <div
-        className="one wide field"
-      >
-         
-      </div>
-      <div
-        className="inline field"
-      >
-        <label
-          htmlFor="owner.personal.age"
-        >
-          Age: 
-        </label>
-        <div
-          className="ui input"
-        >
-          <input
-            name="nodejs"
-            onChange={[Function]}
-            type="text"
-          />
-        </div>
-      </div>
-      <div
-        className="two wide field"
-      >
-         
-      </div>
-      <div
-        className="two wide field"
-      >
-        <label
-          htmlFor="younger"
-        >
-          Younger
-        </label>
-        <label
-          htmlFor="nodejs"
-        >
-          Younger
-        </label>
-        <div
-          style={
-            Object {
-              "padding": ".67em 0",
-            }
-          }
-        >
-          23
-        </div>
-      </div>
-      <div
-        className="one wide field"
-      >
-         
-      </div>
-      <div
-        className="two wide field"
-      >
-        <label
-          htmlFor="older"
-        >
-          Older
-        </label>
-        <label
-          htmlFor="nodejs"
-        >
-          Older
-        </label>
-        <div
-          style={
-            Object {
-              "padding": ".67em 0",
-            }
-          }
-        >
-          43
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Form Viewer changes value and all related formulas 1`] = `
-<div
-  className="ui segment ui form"
->
-  <div
-    className="ui form"
-  >
-    <div
-      className="fields"
-    >
-      <div
-        className="sixteen wide field"
+        className="fourteen wide field"
       >
         <label
           htmlFor="owner.personal.name"
@@ -523,6 +142,24 @@ exports[`Form Viewer changes value and all related formulas 1`] = `
             type="text"
             value="Tomas"
           />
+        </div>
+      </div>
+      <div
+        className="two wide field"
+      >
+        <label
+          htmlFor="older"
+        >
+          Older
+        </label>
+        <div
+          className="ui input"
+        >
+          <div
+            className="sc-bdVaJa iDwIel"
+          >
+            43
+          </div>
         </div>
       </div>
     </div>
@@ -549,112 +186,12 @@ exports[`Form Viewer changes value and all related formulas 1`] = `
             name="owner.personal.age"
             onChange={[Function]}
             type="text"
-            value="40"
+            value={33}
           />
         </div>
       </div>
       <div
         className="two wide field"
-      >
-         
-      </div>
-      <div
-        className="two wide field"
-      >
-        <label
-          htmlFor="younger"
-        >
-          Younger
-        </label>
-        <label
-          htmlFor="nodejs"
-        >
-          Younger
-        </label>
-        <div
-          style={
-            Object {
-              "padding": ".67em 0",
-            }
-          }
-        >
-          30
-        </div>
-      </div>
-      <div
-        className="one wide field"
-      >
-         
-      </div>
-      <div
-        className="two wide field"
-      >
-        <label
-          htmlFor="older"
-        >
-          Older
-        </label>
-        <label
-          htmlFor="nodejs"
-        >
-          Older
-        </label>
-        <div
-          style={
-            Object {
-              "padding": ".67em 0",
-            }
-          }
-        >
-          50
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Form Viewer renders correctly 1`] = `
-<div
-  className="ui segment ui form"
->
-  <div
-    className="ui form"
-  >
-    <div
-      className="fields"
-    >
-      <div
-        className="sixteen wide field"
-      >
-        <label
-          htmlFor="owner.personal.name"
-        >
-          Mimo
-        </label>
-        <div
-          className="ui labeled input"
-        >
-          <div
-            className="ui label label"
-            onClick={[Function]}
-          >
-            Name
-          </div>
-          <input
-            name="owner.personal.name"
-            onChange={[Function]}
-            type="text"
-            value="Tomas"
-          />
-        </div>
-      </div>
-    </div>
-    <div
-      className="fields"
-    >
-      <div
-        className="one wide field"
       >
          
       </div>
@@ -662,75 +199,18 @@ exports[`Form Viewer renders correctly 1`] = `
         className="inline field"
       >
         <label
-          htmlFor="owner.personal.age"
+          htmlFor="younger"
         >
-          Age: 
+          Younger:
         </label>
         <div
           className="ui input"
         >
-          <input
-            name="owner.personal.age"
-            onChange={[Function]}
-            type="text"
-            value="33"
-          />
-        </div>
-      </div>
-      <div
-        className="two wide field"
-      >
-         
-      </div>
-      <div
-        className="two wide field"
-      >
-        <label
-          htmlFor="younger"
-        >
-          Younger
-        </label>
-        <label
-          htmlFor="nodejs"
-        >
-          Younger
-        </label>
-        <div
-          style={
-            Object {
-              "padding": ".67em 0",
-            }
-          }
-        >
-          23
-        </div>
-      </div>
-      <div
-        className="one wide field"
-      >
-         
-      </div>
-      <div
-        className="two wide field"
-      >
-        <label
-          htmlFor="older"
-        >
-          Older
-        </label>
-        <label
-          htmlFor="nodejs"
-        >
-          Older
-        </label>
-        <div
-          style={
-            Object {
-              "padding": ".67em 0",
-            }
-          }
-        >
-          43
+          <div
+            className="sc-bdVaJa iDwIel"
+          >
+            13
+          </div>
         </div>
       </div>
     </div>

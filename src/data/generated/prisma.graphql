@@ -1,5 +1,5 @@
 # source: http://localhost:4466
-# timestamp: Fri Oct 05 2018 09:59:51 GMT+1000 (Australian Eastern Standard Time)
+# timestamp: Fri Oct 05 2018 17:11:55 GMT+1000 (Australian Eastern Standard Time)
 
 type Access implements Node {
   id: ID!
@@ -2446,7 +2446,7 @@ type DataDescriptor implements Node {
   clone: Boolean
   name: String
   type: DataType
-  validators(where: ValidatorWhereInput): Validator
+  validators(where: ValidatorWhereInput, orderBy: ValidatorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Validator!]
   parentDescriptor: ID
 }
 
@@ -2470,7 +2470,7 @@ input DataDescriptorCreateInput {
   type: DataType
   parentDescriptor: ID
   access: AccessCreateOneInput
-  validators: ValidatorCreateOneInput
+  validators: ValidatorCreateManyInput
 }
 
 input DataDescriptorCreateManyInput {
@@ -2578,7 +2578,7 @@ input DataDescriptorUpdateDataInput {
   type: DataType
   parentDescriptor: ID
   access: AccessUpdateOneInput
-  validators: ValidatorUpdateOneInput
+  validators: ValidatorUpdateManyInput
 }
 
 input DataDescriptorUpdateInput {
@@ -2591,7 +2591,7 @@ input DataDescriptorUpdateInput {
   type: DataType
   parentDescriptor: ID
   access: AccessUpdateOneInput
-  validators: ValidatorUpdateOneInput
+  validators: ValidatorUpdateManyInput
 }
 
 input DataDescriptorUpdateManyInput {
@@ -2896,7 +2896,9 @@ input DataDescriptorWhereInput {
   """All values not ending with the given string."""
   parentDescriptor_not_ends_with: ID
   access: AccessWhereInput
-  validators: ValidatorWhereInput
+  validators_every: ValidatorWhereInput
+  validators_some: ValidatorWhereInput
+  validators_none: ValidatorWhereInput
   _MagicalBackRelation_DataToDataDescriptor_every: DataWhereInput
   _MagicalBackRelation_DataToDataDescriptor_some: DataWhereInput
   _MagicalBackRelation_DataToDataDescriptor_none: DataWhereInput
@@ -6853,11 +6855,6 @@ input ValidatorCreateManyInput {
   connect: [ValidatorWhereUniqueInput!]
 }
 
-input ValidatorCreateOneInput {
-  create: ValidatorCreateInput
-  connect: ValidatorWhereUniqueInput
-}
-
 input ValidatorCreateparamsInput {
   set: [String!]
 }
@@ -6946,15 +6943,6 @@ input ValidatorUpdateManyInput {
   upsert: [ValidatorUpsertWithWhereUniqueNestedInput!]
 }
 
-input ValidatorUpdateOneInput {
-  create: ValidatorCreateInput
-  connect: ValidatorWhereUniqueInput
-  disconnect: Boolean
-  delete: Boolean
-  update: ValidatorUpdateDataInput
-  upsert: ValidatorUpsertNestedInput
-}
-
 input ValidatorUpdateparamsInput {
   set: [String!]
 }
@@ -6962,11 +6950,6 @@ input ValidatorUpdateparamsInput {
 input ValidatorUpdateWithWhereUniqueNestedInput {
   where: ValidatorWhereUniqueInput!
   data: ValidatorUpdateDataInput!
-}
-
-input ValidatorUpsertNestedInput {
-  update: ValidatorUpdateDataInput!
-  create: ValidatorCreateInput!
 }
 
 input ValidatorUpsertWithWhereUniqueNestedInput {

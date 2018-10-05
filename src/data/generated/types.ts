@@ -20,7 +20,7 @@ export interface FormQuery_FormQuery_Elements_Source {
   name: string | null;
   type: DataType | null;
   parentDescriptor: string | null;
-  validators: FormQuery_FormQuery_Elements_Source_Validators | null;
+  validators: FormQuery_FormQuery_Elements_Source_Validators[] | null;
 }
 
 export interface FormQuery_FormQuery_Elements {
@@ -70,7 +70,7 @@ export interface FormQuery_Process_DataDescriptors {
   name: string | null;
   type: DataType | null;
   parentDescriptor: string | null;
-  validators: FormQuery_Process_DataDescriptors_Validators | null;
+  validators: FormQuery_Process_DataDescriptors_Validators[] | null;
 }
 
 export interface FormQuery_Process {
@@ -486,7 +486,7 @@ export interface DataDescriptor {
   name: string | null;
   type: DataType | null;
   parentDescriptor: string | null;
-  validators: DataDescriptor_Validators | null;
+  validators: DataDescriptor_Validators[] | null;
 }
 
 /* tslint:disable */
@@ -511,7 +511,7 @@ export interface FormElement_Source {
   name: string | null;
   type: DataType | null;
   parentDescriptor: string | null;
-  validators: FormElement_Source_Validators | null;
+  validators: FormElement_Source_Validators[] | null;
 }
 
 export interface FormElement {
@@ -554,7 +554,7 @@ export interface Form_Elements_Source {
   name: string | null;
   type: DataType | null;
   parentDescriptor: string | null;
-  validators: Form_Elements_Source_Validators | null;
+  validators: Form_Elements_Source_Validators[] | null;
 }
 
 export interface Form_Elements {

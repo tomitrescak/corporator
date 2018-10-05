@@ -692,7 +692,7 @@ type DataDescriptor implements Node {
   clone: Boolean
   name: String
   type: DataType
-  validators(where: ValidatorWhereInput): Validator
+  validators(where: ValidatorWhereInput, orderBy: ValidatorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Validator!]
   parentDescriptor: ID
 }
 
@@ -1051,7 +1051,9 @@ input DataDescriptorWhereInput {
   """
   parentDescriptor_not_ends_with: ID
   access: AccessWhereInput
-  validators: ValidatorWhereInput
+  validators_every: ValidatorWhereInput
+  validators_some: ValidatorWhereInput
+  validators_none: ValidatorWhereInput
   _MagicalBackRelation_DataToDataDescriptor_every: DataWhereInput
   _MagicalBackRelation_DataToDataDescriptor_some: DataWhereInput
   _MagicalBackRelation_DataToDataDescriptor_none: DataWhereInput
@@ -3570,6 +3572,17 @@ input ValidatorWhereInput {
   _MagicalBackRelation_DataDescriptorToValidator_none: DataDescriptorWhereInput
 }
 
+enum ValidatorOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
 """
 An edge in a connection.
 """
@@ -4189,17 +4202,6 @@ enum FormElementOrderByInput {
   vertical_DESC
   parentElement_ASC
   parentElement_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
-}
-
-enum ValidatorOrderByInput {
-  id_ASC
-  id_DESC
-  name_ASC
-  name_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC

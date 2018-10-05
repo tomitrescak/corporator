@@ -53,11 +53,9 @@ export interface Binding {
 
 export interface BindingConstructor<T> {
   // @ts-ignore
-  // @ts-ignore
   new(...args): T
 }
 
-// @ts-ignore
 
 /**
  * Types
@@ -101,10 +99,22 @@ export type DataOrderByInput =   'id_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export type ValidatorOrderByInput =   'id_ASC' |
+export type BpmnProcessOrderByInput =   'id_ASC' |
   'id_DESC' |
+  'actionCount_ASC' |
+  'actionCount_DESC' |
+  'description_ASC' |
+  'description_DESC' |
+  'model_ASC' |
+  'model_DESC' |
   'name_ASC' |
   'name_DESC' |
+  'type_ASC' |
+  'type_DESC' |
+  'status_ASC' |
+  'status_DESC' |
+  'version_ASC' |
+  'version_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
@@ -127,22 +137,14 @@ export type BpmnProcessInstanceOrderByInput =   'id_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export type BpmnProcessOrderByInput =   'id_ASC' |
+export type BpmnTaskOrderByInput =   'id_ASC' |
   'id_DESC' |
-  'actionCount_ASC' |
-  'actionCount_DESC' |
-  'description_ASC' |
-  'description_DESC' |
-  'model_ASC' |
-  'model_DESC' |
+  'taskId_ASC' |
+  'taskId_DESC' |
   'name_ASC' |
   'name_DESC' |
   'type_ASC' |
   'type_DESC' |
-  'status_ASC' |
-  'status_DESC' |
-  'version_ASC' |
-  'version_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
@@ -198,6 +200,90 @@ export type CommentOrderByInput =   'id_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
+export type ResourceOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'type_ASC' |
+  'type_DESC' |
+  'name_ASC' |
+  'name_DESC' |
+  'link_ASC' |
+  'link_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC'
+
+export type BpmnTaskInstanceStatus =   'Started' |
+  'Paused' |
+  'Aborted' |
+  'Finished' |
+  'Approved' |
+  'Rejected'
+
+export type DataDescriptorOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'defaultValue_ASC' |
+  'defaultValue_DESC' |
+  'description_ASC' |
+  'description_DESC' |
+  'expression_ASC' |
+  'expression_DESC' |
+  'isArray_ASC' |
+  'isArray_DESC' |
+  'clone_ASC' |
+  'clone_DESC' |
+  'name_ASC' |
+  'name_DESC' |
+  'type_ASC' |
+  'type_DESC' |
+  'parentDescriptor_ASC' |
+  'parentDescriptor_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC'
+
+export type ProcessType =   'HumanResources' |
+  'Purchases' |
+  'Sales' |
+  'Travel'
+
+export type MutationType =   'CREATED' |
+  'UPDATED' |
+  'DELETED'
+
+export type LogOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'elementId_ASC' |
+  'elementId_DESC' |
+  'elementName_ASC' |
+  'elementName_DESC' |
+  'date_ASC' |
+  'date_DESC' |
+  'taskInstanceId_ASC' |
+  'taskInstanceId_DESC' |
+  'status_ASC' |
+  'status_DESC' |
+  'message_ASC' |
+  'message_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC'
+
+export type LanguageCode =   'EN'
+
+export type ResourceType =   'Url' |
+  'File' |
+  'Form' |
+  'Document'
+
+export type BpmnTaskType =   'Form'
+
+export type ProcessStatus =   'Draft' |
+  'Proposal' |
+  'Published'
+
 export type BpmnTaskInstanceOrderByInput =   'id_ASC' |
   'id_DESC' |
   'dateFinished_ASC' |
@@ -214,35 +300,6 @@ export type BpmnTaskInstanceOrderByInput =   'id_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
   'createdAt_DESC'
-
-export type BpmnTaskInstanceStatus =   'Started' |
-  'Paused' |
-  'Aborted' |
-  'Finished' |
-  'Approved' |
-  'Rejected'
-
-export type ResourceOrderByInput =   'id_ASC' |
-  'id_DESC' |
-  'type_ASC' |
-  'type_DESC' |
-  'name_ASC' |
-  'name_DESC' |
-  'link_ASC' |
-  'link_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
-  'createdAt_ASC' |
-  'createdAt_DESC'
-
-export type ProcessType =   'HumanResources' |
-  'Purchases' |
-  'Sales' |
-  'Travel'
-
-export type MutationType =   'CREATED' |
-  'UPDATED' |
-  'DELETED'
 
 export type FormElementOrderByInput =   'id_ASC' |
   'id_DESC' |
@@ -277,69 +334,10 @@ export type FormElementOrderByInput =   'id_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export type LanguageCode =   'EN'
-
-export type ResourceType =   'Url' |
-  'File' |
-  'Form' |
-  'Document'
-
-export type BpmnTaskType =   'Form'
-
-export type ProcessStatus =   'Draft' |
-  'Proposal' |
-  'Published'
-
-export type LogOrderByInput =   'id_ASC' |
+export type ValidatorOrderByInput =   'id_ASC' |
   'id_DESC' |
-  'elementId_ASC' |
-  'elementId_DESC' |
-  'elementName_ASC' |
-  'elementName_DESC' |
-  'date_ASC' |
-  'date_DESC' |
-  'taskInstanceId_ASC' |
-  'taskInstanceId_DESC' |
-  'status_ASC' |
-  'status_DESC' |
-  'message_ASC' |
-  'message_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
-  'createdAt_ASC' |
-  'createdAt_DESC'
-
-export type BpmnTaskOrderByInput =   'id_ASC' |
-  'id_DESC' |
-  'taskId_ASC' |
-  'taskId_DESC' |
   'name_ASC' |
   'name_DESC' |
-  'type_ASC' |
-  'type_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
-  'createdAt_ASC' |
-  'createdAt_DESC'
-
-export type DataDescriptorOrderByInput =   'id_ASC' |
-  'id_DESC' |
-  'defaultValue_ASC' |
-  'defaultValue_DESC' |
-  'description_ASC' |
-  'description_DESC' |
-  'expression_ASC' |
-  'expression_DESC' |
-  'isArray_ASC' |
-  'isArray_DESC' |
-  'clone_ASC' |
-  'clone_DESC' |
-  'name_ASC' |
-  'name_DESC' |
-  'type_ASC' |
-  'type_DESC' |
-  'parentDescriptor_ASC' |
-  'parentDescriptor_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
@@ -869,35 +867,6 @@ export interface BpmnProcessWhereInput {
   _MagicalBackRelation_BpmnProcessInstanceProcess_none?: BpmnProcessInstanceWhereInput
 }
 
-export interface BpmnProcessInstancesInput {
-  status?: BpmnProcessInstanceStatus
-  name?: String
-  dateStarted?: DateTime
-  dateFinished?: DateTime
-  duration?: Int
-  processId?: String
-  skip?: Int
-  first?: Int
-}
-
-export interface CreateTaskInstanceInput {
-  processInstanceId: String
-  taskId: String
-  performerRoles: String[] | String
-}
-
-export interface BpmnProcessesInput {
-  status?: ProcessStatus
-  name?: String
-  skip?: Int
-  first?: Int
-}
-
-export interface SetProcessInstanceStatusInput {
-  processId: String
-  status: BpmnProcessInstanceStatus
-}
-
 export interface UserWhereInput {
   AND?: UserWhereInput[] | UserWhereInput
   OR?: UserWhereInput[] | UserWhereInput
@@ -990,6 +959,35 @@ export interface UserWhereInput {
   _MagicalBackRelation_LogToUser_every?: LogWhereInput
   _MagicalBackRelation_LogToUser_some?: LogWhereInput
   _MagicalBackRelation_LogToUser_none?: LogWhereInput
+}
+
+export interface CreateTaskInstanceInput {
+  processInstanceId: String
+  taskId: String
+  performerRoles: String[] | String
+}
+
+export interface BpmnProcessInstancesInput {
+  status?: BpmnProcessInstanceStatus
+  name?: String
+  dateStarted?: DateTime
+  dateFinished?: DateTime
+  duration?: Int
+  processId?: String
+  skip?: Int
+  first?: Int
+}
+
+export interface SetProcessInstanceStatusInput {
+  processId: String
+  status: BpmnProcessInstanceStatus
+}
+
+export interface BpmnProcessesInput {
+  status?: ProcessStatus
+  name?: String
+  skip?: Int
+  first?: Int
 }
 
 export interface AccessWhereInput {
@@ -1680,7 +1678,9 @@ export interface DataDescriptorWhereInput {
   parentDescriptor_ends_with?: ID_Input
   parentDescriptor_not_ends_with?: ID_Input
   access?: AccessWhereInput
-  validators?: ValidatorWhereInput
+  validators_every?: ValidatorWhereInput
+  validators_some?: ValidatorWhereInput
+  validators_none?: ValidatorWhereInput
   _MagicalBackRelation_DataToDataDescriptor_every?: DataWhereInput
   _MagicalBackRelation_DataToDataDescriptor_some?: DataWhereInput
   _MagicalBackRelation_DataToDataDescriptor_none?: DataWhereInput
@@ -2344,7 +2344,7 @@ export interface DataDescriptor extends Node {
   clone?: Boolean
   name?: String
   type?: DataType
-  validators?: Validator
+  validators?: Validator[]
   parentDescriptor?: ID_Output
 }
 

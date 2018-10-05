@@ -13,7 +13,7 @@ enum FormControl {
 type Validator {
   id: ID! @unique
   name: String!
-  params: [String!]!
+  params: [String!]
 }
 
 type FormElement {
