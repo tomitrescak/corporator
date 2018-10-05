@@ -4,6 +4,9 @@ import * as React from 'react';
 
 import i18n from 'es2015-i18n-tag';
 
+import { appStore } from 'client/stores/app_store';
+
+import './conditional_components';
 import './helpers';
 
 // Add locale-specific relative date/time formatting rules.
@@ -28,7 +31,8 @@ const Ui = {
 
 export const context = {
   Ui,
-  i18n
+  i18n,
+  store: appStore
 };
 
 declare global {

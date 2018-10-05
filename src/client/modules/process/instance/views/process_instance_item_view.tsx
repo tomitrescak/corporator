@@ -65,7 +65,7 @@ export const ProcessInstanceItem: React.SFC<Props> = ({ processInstance, context
             </If>
           </Meta>
 
-          <If condition={!!lastTask}>
+          <If condition={lastTask}>
             <Info>
               <b>{context.i18n`Last activity: `}</b>
               {context.i18n`${lastTask.performer.name} performed "${

@@ -16,7 +16,7 @@ export class BpmnTaskInstanceModel {
     this.id = taskInstanceModelDao.id;
     this.task = task ? task : null;
     this.processInstanceId = taskInstanceModelDao.processInstance.id;
-    this.performerId = taskInstanceModelDao.performerId;
+    this.performerId = taskInstanceModelDao.performer.id;
     this.performerRoles = taskInstanceModelDao.performerRoles;
     this.dateStarted = new Date(taskInstanceModelDao.dateStarted);
     this.dateFinished = new Date(taskInstanceModelDao.dateFinished);

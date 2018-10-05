@@ -1,4 +1,4 @@
-import { Mutation, Prisma, purge, Query, Resolver, Yoga } from 'data/utils';
+import { Mutation, purge, Query, Yoga } from 'data/utils';
 import { BpmnTaskInstanceModel } from '../../yoga/models/bpmn_task_instance_model';
 
 // export const resolver: Resolver<Prisma.BpmnTaskInstance> = {

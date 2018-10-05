@@ -29,55 +29,61 @@ export class ProcessInstanceView extends React.Component<Props> {
 
     return (
       <div className="pageFrom">
-        <Choose>
-          <When condition={view === 'information'}>
-            <TightGrid className="ui form" stackable>
-              <Grid.Column width={view === 'information' && process.resources.length ? 11 : 16}>
-                <TabProcessInstanceDescription
+        {/*************************************
+              INFORMATION TAB
+            ***************************************/}
+
+        <If condition={view === 'information'}>
+          <TightGrid className="ui form" stackable>
+            <Grid.Column width={view === 'information' && process.resources.length ? 11 : 16}>
+              <TabProcessInstanceDescription
+                process={process}
+                processInstance={processInstance}
+                context={context}
+              />
+            </Grid.Column>
+
+            <If condition={!!process.resources.length}>
+              <Grid.Column width={5}>
+                <MenuResourceView
+                  context={context}
                   process={process}
                   processInstance={processInstance}
-                  context={context}
                 />
               </Grid.Column>
+            </If>
+          </TightGrid>
+        </If>
 
-              <If condition={!!process.resources.length}>
-                <Grid.Column width={5}>
-                  <MenuResourceView
-                    context={context}
-                    process={process}
-                    processInstance={processInstance}
-                  />
-                </Grid.Column>
-              </If>
-            </TightGrid>
-          </When>
+        {/*************************************
+              RESOURCE TAB
+            ***************************************/}
 
-          <When condition={isResource}>
-            <TabProcessResources
-              process={process}
-              processInstance={processInstance}
-              context={context}
-              contentType={view}
-              resourceId={this.props.resourceId}
-              viewType={editableViewType}
-              ownerId={id}
-            />
-          </When>
+        <If condition={isResource}>
+          <TabProcessResources
+            process={process}
+            processInstance={processInstance}
+            context={context}
+            contentType={view}
+            resourceId={this.props.resourceId}
+            viewType={editableViewType}
+            ownerId={id}
+          />
+        </If>
 
-          <When condition={view === 'diagram'}>
-            <TabDiagramView
-              context={context}
-              process={process}
-              viewType="view"
-              ownerId={processInstance.id}
-            />
-          </When>
-        </Choose>
+        {/*************************************
+              DIAGRAM TAB
+            ***************************************/}
+
+        <If condition={view === 'diagram'}>
+          <TabDiagramView
+            context={context}
+            process={process}
+            viewType="view"
+            ownerId={processInstance.id}
+          />
+        </If>
       </div>
     );
   }
 }
-
-// {/*************************************
-//               RESOURCE TAB
-//             ***************************************/}

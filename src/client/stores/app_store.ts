@@ -27,7 +27,7 @@ export const AppStore = types
       setUser(user: QueryTypes.User) {
         self.login.password = '';
         self.userId = user.id;
-        self.user = user;
+        self.user = user as any;
         self.localStorage.userId = user.id;
       },
       logout() {

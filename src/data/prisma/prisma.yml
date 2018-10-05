@@ -9,6 +9,7 @@ datamodel:
   - ../data_descriptor/data_descriptor_schema.graphql
   - ../form/form_schema.graphql
   - ../localisations/localisations_schema.graphql
+  - ../logging/log_schema.graphql
   - ../notifications/notifications_schema.graphql
   - ../organisations/organisations_schema.graphql
   - ../resources/resources_schema.graphql

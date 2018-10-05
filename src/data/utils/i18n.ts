@@ -3,7 +3,7 @@ import { Loader } from './loader';
 
 export class Localisation extends Loader<Prisma.Localisation, Prisma.LocalisationWhereInput> {
   constructor(db: () => Prisma.Prisma, language: Prisma.LanguageCode) {
-    super(db, null, 'localisations', id => ({ language, code: id }));
+    super(db, undefined, 'localisations', undefined, id => ({ language, code: id }));
   }
 
   async translate(code: string) {

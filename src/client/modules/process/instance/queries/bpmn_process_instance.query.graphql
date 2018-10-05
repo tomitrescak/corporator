@@ -8,7 +8,7 @@ fragment BpmnProcessComment on Comment {
   }
 }
 
-fragment BpmnProcessTask on BpmnTaskInstance {
+fragment BpmnProcessInstanceTask on BpmnTaskInstance {
   id
   dateStarted
   dateFinished
@@ -16,14 +16,32 @@ fragment BpmnProcessTask on BpmnTaskInstance {
   performer {
     name
   }
+  data
   task {
     name
     type
     resources {
       id
+      type
+      name
+      form {
+        id
+      }
     }
   }
   performerRoles
+}
+
+fragment LogMessage on Log {
+  id
+  date
+  elementId
+  elementName
+  performer {
+    name
+  }
+  message
+  status
 }
 
 fragment BpmnProcessInstance on BpmnProcessInstance {
@@ -36,11 +54,10 @@ fragment BpmnProcessInstance on BpmnProcessInstance {
     name
   }
   tasks(orderBy: dateFinished_ASC) {
-    ...BpmnProcessTask
+    ...BpmnProcessInstanceTask
   }
   log {
-    date
-    elementId
+    ...LogMessage
   }
   comments {
     ...BpmnProcessComment

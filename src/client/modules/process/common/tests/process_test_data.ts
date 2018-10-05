@@ -18,7 +18,7 @@ const resources: QueryTypes.BpmnProcessResource[] = [
   },
   {
     id: '2',
-    type: QueryTypes.ResourceType.Report,
+    type: QueryTypes.ResourceType.Form,
     name: 'Approval Report',
     link: null,
     form: { id: '1' },
@@ -98,7 +98,7 @@ export function createProcess(
 export function createProcessInstanceList() {
   return [
     createProcessListInstance({ id: '1' }),
-    createProcessListInstance({ id: '2' }, [createProcessListInstanceTask({ dateFinished: null })]),
+    createProcessListInstance({ id: '2' }, [createProcessInstanceTask({ dateFinished: null })]),
     createProcessListInstance({ id: '3', status: QueryTypes.BpmnProcessInstanceStatus.Aborted }),
     createProcessListInstance({ id: '4', status: QueryTypes.BpmnProcessInstanceStatus.Paused }),
     createProcessListInstance(
@@ -107,21 +107,67 @@ export function createProcessInstanceList() {
         status: QueryTypes.BpmnProcessInstanceStatus.Finished,
         dateFinished: create.finishedDate
       },
-      [createProcessListInstanceTask()]
+      [createProcessInstanceTask()]
     )
   ];
 }
 
-export function createProcessListInstanceTask(
-  task: Partial<QueryTypes.BpmnProcessInstancesQuery_BpmnProcessInstancesQuery_Tasks> = {}
-): QueryTypes.BpmnProcessInstancesQuery_BpmnProcessInstancesQuery_Tasks {
+// export function createProcessListInstanceTask(
+//   task: Partial<QueryTypes.BpmnProcessInstanceItemTask> = {}
+// ): QueryTypes.BpmnProcessInstancesQuery_BpmnProcessInstancesQuery_Tasks {
+//   return {
+//     dateStarted: create.createdDate,
+//     dateFinished: create.finishedDate,
+//     performer: {
+//       name: 'Tomas Trescak'
+//     },
+//     task: {
+//       name: 'Task Name'
+//     },
+//     performerRoles: ['Approver'],
+//     ...task
+//   };
+// }
+
+// const processInstanceItemTasks: QueryTypes.BpmnProcessInstanceItemTask[] = [
+//   createProcessListInstanceTask({ dateFinished: create.createdDate }),
+//   createProcessListInstanceTask(),
+//   createProcessListInstanceTask({ dateFinished: create.createdDate }),
+//   {
+//     dateStarted: create.createdDate,
+//     dateFinished: null,
+//     performer: null,
+//     performerRoles: ['Purchasing'],
+//     task: {
+//       name: 'Complete Purchase'
+//     }
+//   },
+//   {
+//     task: {
+//       name: 'Deliver Technology'
+//     },
+//     dateStarted: create.createdDate,
+//     dateFinished: null,
+//     performer: null,
+//     performerRoles: ['IT Support', 'IT Delivery']
+//   }
+// ];
+
+export function createProcessInstanceTask(
+  task: Partial<QueryTypes.BpmnProcessInstanceTask> = {}
+): QueryTypes.BpmnProcessInstanceTask {
   return {
+    id: '1',
+    status: QueryTypes.BpmnTaskInstanceStatus.Started,
+    data: {},
     dateStarted: create.createdDate,
     dateFinished: create.finishedDate,
     performer: {
       name: 'Tomas Trescak'
     },
     task: {
+      type: QueryTypes.BpmnTaskType.Form,
+      resources: [],
       name: 'Task Name'
     },
     performerRoles: ['Approver'],
@@ -129,28 +175,32 @@ export function createProcessListInstanceTask(
   };
 }
 
-const processTasks: QueryTypes.BpmnProcessInstancesQuery_BpmnProcessInstancesQuery_Tasks[] = [
-  createProcessListInstanceTask({ dateFinished: create.createdDate }),
-  createProcessListInstanceTask(),
-  createProcessListInstanceTask({ dateFinished: create.createdDate }),
-  {
+const processInstanceTasks: QueryTypes.BpmnProcessInstanceTask[] = [
+  createProcessInstanceTask({ dateFinished: create.createdDate }),
+  createProcessInstanceTask(),
+  createProcessInstanceTask({ dateFinished: create.createdDate }),
+  createProcessInstanceTask({
     dateStarted: create.createdDate,
     dateFinished: null,
     performer: null,
     performerRoles: ['Purchasing'],
     task: {
-      name: 'Complete Purchase'
+      type: QueryTypes.BpmnTaskType.Form,
+      name: 'Complete Purchase',
+      resources: []
     }
-  },
-  {
+  }),
+  createProcessInstanceTask({
     task: {
-      name: 'Deliver Technology'
+      type: QueryTypes.BpmnTaskType.Form,
+      name: 'Deliver Technology',
+      resources: []
     },
     dateStarted: create.createdDate,
     dateFinished: null,
     performer: null,
     performerRoles: ['IT Support', 'IT Delivery']
-  }
+  })
 ];
 
 export function createProcessListInstance(
@@ -171,7 +221,7 @@ export function createProcessListInstance(
       name: 'Buddy Holly'
     },
     status: QueryTypes.BpmnProcessInstanceStatus.Running,
-    tasks: tasks || processTasks,
+    tasks: tasks || processInstanceTasks,
     ...process
   };
 }
@@ -212,10 +262,11 @@ export function createProcessInstance(
       model: student_purchase,
       resources
     },
+    log: [],
     owner: {
       name: 'Buddy Holly'
     },
-    tasks: processTasks,
+    tasks: processInstanceTasks,
     comments: [
       createComment({ id: '1', text: 'Comment 6', date: create.date(2) }),
       createComment({ id: '2', text: 'Comment 2' }, 'User B'),

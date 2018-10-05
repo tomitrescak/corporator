@@ -5,14 +5,6 @@ enum BpmnProcessInstanceStatus {
   Paused
 }
 
-type Log {
-  processInstance: BpmnProcessInstance! @relation(name: "BpmnProcessInstanceLog")
-  elementId: String!
-  elementName: String!
-  date: DateTime!
-  #  taskInstance: BpmnTaskInstance @relation(name: "LoggedBpmnTaskInstance")
-}
-
 type BpmnProcessInstance {
   id: ID! @unique
   comments: [Comment!]!

@@ -30,8 +30,6 @@ function typeToText(type: ProcessViewType, context: App.Context) {
   switch (type) {
     case 'form':
       return context.i18n`Forms`;
-    case 'report':
-      return context.i18n`Reports`;
     case 'document':
       return context.i18n`Documents`;
   }

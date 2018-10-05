@@ -3,14 +3,7 @@ import styled from 'styled-components';
 
 export type EditableViewType = 'view' | 'preview';
 
-export type ProcessViewType =
-  | 'information'
-  | 'resources'
-  | 'form'
-  | 'report'
-  | 'document'
-  | 'diagram'
-  | 'log';
+export type ProcessViewType = 'information' | 'resources' | 'form' | 'document' | 'diagram' | 'log';
 
 export const TightGrid = styled(Grid)`
   margin: 12px 0px 0px 0px !important;

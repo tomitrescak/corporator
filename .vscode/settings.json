@@ -59,8 +59,6 @@
     ".next.babelrc": true,
     ".babelrc": true,
     "test": true,
-    "fuse.server.js": true,
-    "jest.setup.js": true,
     "yarn.lock": true,
     "luis.fuse.js": true,
     "wallaby.data.js": true,
@@ -68,7 +66,6 @@
     ".fusebox": true,
     "Archive.zip": true,
     "src.zip": true,
-    "fuse.dev.js": true,
     ".env.dev": true
   },
   "typescript.tsdk": "node_modules/typescript/lib"

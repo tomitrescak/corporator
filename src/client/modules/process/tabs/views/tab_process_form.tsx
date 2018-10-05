@@ -99,7 +99,7 @@ export class TabFormView extends React.Component<Props, State> {
                 <Grid>
                   <Grid.Column width={this.state.showInstructions ? 8 : 16}>
                     <FieldSet disabled={previewOnly} aria-disabled={previewOnly}>
-                      <FormView form={form} data={data} report={props.contentType === 'report'} />
+                      <FormView form={form} data={data} />
                     </FieldSet>
                   </Grid.Column>
                   <If condition={this.state.showInstructions}>

@@ -29,8 +29,6 @@ function createFilter(processType: ProcessViewType): QueryTypes.ResourceType {
       return QueryTypes.ResourceType.Document;
     case 'form':
       return QueryTypes.ResourceType.Form;
-    case 'report':
-      return QueryTypes.ResourceType.Report;
   }
   return undefined;
 }
@@ -47,9 +45,7 @@ export class TabProcessResources extends React.PureComponent<Props> {
       case 'document':
         return <TabDocumentView id={resourceId} {...this.props} />;
       case 'form':
-      case 'report': {
         return <TabFormView id={resourceId} {...this.props} />;
-      }
     }
 
     throw new Error('Not implemented: ' + contentType);

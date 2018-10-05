@@ -54,9 +54,11 @@ export interface Binding {
 
 export interface BindingConstructor<T> {
   // @ts-ignore
+  // @ts-ignore
   new(...args): T
 }
 
+// @ts-ignore
 // @ts-ignore
 export const Binding = makeBindingClass<BindingConstructor<Binding>>({ schema })
 
@@ -216,7 +218,7 @@ export type BpmnTaskInstanceOrderByInput =   'id_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export type BpmnTaskInstanceStatus =   'Waiting' |
+export type BpmnTaskInstanceStatus =   'Started' |
   'Paused' |
   'Aborted' |
   'Finished' |
@@ -283,24 +285,28 @@ export type LanguageCode =   'EN'
 export type ResourceType =   'Url' |
   'File' |
   'Form' |
-  'Report' |
   'Document'
 
-export type BpmnTaskType =   'Report' |
-  'Form'
+export type BpmnTaskType =   'Form'
 
 export type ProcessStatus =   'Draft' |
   'Proposal' |
   'Published'
 
-export type LogOrderByInput =   'elementId_ASC' |
+export type LogOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'elementId_ASC' |
   'elementId_DESC' |
   'elementName_ASC' |
   'elementName_DESC' |
   'date_ASC' |
   'date_DESC' |
-  'id_ASC' |
-  'id_DESC' |
+  'taskInstanceId_ASC' |
+  'taskInstanceId_DESC' |
+  'status_ASC' |
+  'status_DESC' |
+  'message_ASC' |
+  'message_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
@@ -984,6 +990,9 @@ export interface UserWhereInput {
   _MagicalBackRelation_TaskPerformer_every?: BpmnTaskInstanceWhereInput
   _MagicalBackRelation_TaskPerformer_some?: BpmnTaskInstanceWhereInput
   _MagicalBackRelation_TaskPerformer_none?: BpmnTaskInstanceWhereInput
+  _MagicalBackRelation_LogToUser_every?: LogWhereInput
+  _MagicalBackRelation_LogToUser_some?: LogWhereInput
+  _MagicalBackRelation_LogToUser_none?: LogWhereInput
 }
 
 export interface AccessWhereInput {
@@ -1323,6 +1332,20 @@ export interface LogWhereInput {
   AND?: LogWhereInput[] | LogWhereInput
   OR?: LogWhereInput[] | LogWhereInput
   NOT?: LogWhereInput[] | LogWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
   elementId?: String
   elementId_not?: String
   elementId_in?: String[] | String
@@ -1359,7 +1382,42 @@ export interface LogWhereInput {
   date_lte?: DateTime
   date_gt?: DateTime
   date_gte?: DateTime
-  processInstance?: BpmnProcessInstanceWhereInput
+  taskInstanceId?: ID_Input
+  taskInstanceId_not?: ID_Input
+  taskInstanceId_in?: ID_Input[] | ID_Input
+  taskInstanceId_not_in?: ID_Input[] | ID_Input
+  taskInstanceId_lt?: ID_Input
+  taskInstanceId_lte?: ID_Input
+  taskInstanceId_gt?: ID_Input
+  taskInstanceId_gte?: ID_Input
+  taskInstanceId_contains?: ID_Input
+  taskInstanceId_not_contains?: ID_Input
+  taskInstanceId_starts_with?: ID_Input
+  taskInstanceId_not_starts_with?: ID_Input
+  taskInstanceId_ends_with?: ID_Input
+  taskInstanceId_not_ends_with?: ID_Input
+  status?: BpmnTaskInstanceStatus
+  status_not?: BpmnTaskInstanceStatus
+  status_in?: BpmnTaskInstanceStatus[] | BpmnTaskInstanceStatus
+  status_not_in?: BpmnTaskInstanceStatus[] | BpmnTaskInstanceStatus
+  message?: String
+  message_not?: String
+  message_in?: String[] | String
+  message_not_in?: String[] | String
+  message_lt?: String
+  message_lte?: String
+  message_gt?: String
+  message_gte?: String
+  message_contains?: String
+  message_not_contains?: String
+  message_starts_with?: String
+  message_not_starts_with?: String
+  message_ends_with?: String
+  message_not_ends_with?: String
+  performer?: UserWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceLog_every?: BpmnProcessInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceLog_some?: BpmnProcessInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceLog_none?: BpmnProcessInstanceWhereInput
 }
 
 export interface AuthInput {
@@ -2063,7 +2121,7 @@ export interface BpmnTask extends Node {
   taskId: ID_Output
   resources?: Resource[]
   name: String
-  type: BpmnTaskType
+  type?: BpmnTaskType
 }
 
 /*
@@ -2098,9 +2156,13 @@ export interface AuthPayload {
 }
 
 export interface LogPreviousValues {
+  id: ID_Output
   elementId: String
   elementName: String
   date: DateTime
+  taskInstanceId?: ID_Output
+  status?: BpmnTaskInstanceStatus
+  message?: String
 }
 
 export interface BpmnProcessInstanceOutput {
@@ -2262,7 +2324,7 @@ export interface BpmnTaskPreviousValues {
   id: ID_Output
   taskId: ID_Output
   name: String
-  type: BpmnTaskType
+  type?: BpmnTaskType
 }
 
 export interface AggregateBpmnProcessInstance {
@@ -2289,11 +2351,15 @@ export interface DataDescriptor extends Node {
   parentDescriptor?: ID_Output
 }
 
-export interface Log {
-  processInstance: BpmnProcessInstance
+export interface Log extends Node {
+  id: ID_Output
   elementId: String
   elementName: String
   date: DateTime
+  taskInstanceId?: ID_Output
+  performer?: User
+  status?: BpmnTaskInstanceStatus
+  message?: String
 }
 
 /*

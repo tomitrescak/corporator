@@ -4,7 +4,7 @@ import { protect, unprotect } from 'mobx-state-tree';
 
 import { client } from 'client/config/apollo';
 import { context } from 'client/config/context';
-import { AppStore } from 'client/stores/app_store';
+import { AppStore, appStore } from 'client/stores/app_store';
 
 import { typeDefs } from 'data/generated/type_defs';
 
@@ -25,7 +25,8 @@ const finishedDate = new Date(2018, 2, 15);
 // mock context
 const mockedContext = {
   Ui: { ...context.Ui },
-  i18n: context.i18n
+  i18n: context.i18n,
+  store: { ...appStore }
 };
 mockedContext.Ui.relativeDate = () => '2 months ago';
 

@@ -4,18 +4,16 @@ import { Form, SemanticWIDTHSNUMBER } from 'semantic-ui-react';
 
 import { groupByArray } from 'data/helpers';
 
-import { QueryTypes } from 'data/client';
 import { renderControl } from '../models/form_control_factory';
 import { DataSet, FormElement } from '../models/form_model';
 
 interface IFieldOwner {
-  elements?: QueryTypes.Form_Elements[];
+  elements?: FormElement[];
 }
 
 interface Props {
   data: DataSet;
   form: IFieldOwner;
-  report?: boolean;
   handlers?: { [index: string]: () => void };
 }
 
@@ -73,16 +71,15 @@ export class FormView extends React.Component<Props> {
     this.lastColumn = 0;
     this.lastRow = 0;
 
-    let row: { key: number; values: FormElement[] };
     const rows = groupByArray(this.props.form.elements, 'row');
 
     return (
-      <div className={'ui form' + (this.props.report ? ' report' : '')}>
-        <For each="row" of={rows}>
+      <div className={'ui form'}>
+        {rows.map(row => (
           <Form.Group key={row.key}>
             {row.values.map(element => this.renderColumn(element))}
           </Form.Group>
-        </For>
+        ))}
       </div>
     );
   }

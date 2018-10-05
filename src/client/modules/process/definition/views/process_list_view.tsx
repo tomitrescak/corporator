@@ -3,6 +3,7 @@ import * as React from 'react';
 import { Header, List, ListProps, Message } from 'semantic-ui-react';
 import styled, { StyledComponentClass } from 'styled-components';
 
+import { QueryTypes } from 'data/client';
 import { ProcessItemView } from './process_item_view';
 
 const ProcessList: StyledComponentClass<ListProps, {}> = styled(List)`
@@ -18,12 +19,10 @@ const ResultInfo = styled.div`
 `;
 
 type Props = {
-  processes: any[];
+  processes: QueryTypes.ProcessesQuery_Processes[];
   context: App.Context;
 };
 
-let process: any;
-let index: number;
 export const ProcessListView: React.SFC<Props> = ({ processes, context }) => (
   <React.Fragment>
     <ResultInfo>
@@ -39,9 +38,9 @@ export const ProcessListView: React.SFC<Props> = ({ processes, context }) => (
     <Choose>
       <When condition={processes && processes.length > 0}>
         <ProcessList divided relaxed>
-          <For each="process" of={processes} index="index">
-            <ProcessItemView key={index} process={process} />
-          </For>
+          {processes.map(process => (
+            <ProcessItemView key={process.id} process={process} />
+          ))}
         </ProcessList>
       </When>
       <Otherwise>

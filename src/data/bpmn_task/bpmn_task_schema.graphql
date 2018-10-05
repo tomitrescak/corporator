@@ -1,5 +1,4 @@
 enum BpmnTaskType {
-  Report
   Form
 }
 
@@ -8,5 +7,5 @@ type BpmnTask {
   taskId: ID! @unique
   resources: [Resource!]!
   name: String!
-  type: BpmnTaskType!
+  type: BpmnTaskType
 }

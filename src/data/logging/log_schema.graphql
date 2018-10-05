@@ -1,0 +1,11 @@
+type Log {
+  id: ID! @unique
+  # processInstanceId: ID!
+  elementId: String!
+  elementName: String!
+  date: DateTime!
+  taskInstanceId: ID
+  performer: User
+  status: BpmnTaskInstanceStatus
+  message: String
+}

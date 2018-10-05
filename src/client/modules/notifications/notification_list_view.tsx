@@ -13,8 +13,6 @@ type Props = {
   context?: App.Context;
 };
 
-let notification: QueryTypes.Notifications;
-
 export const NotificationsListView: React.SFC<Props> = ({ notifications, context }) => (
   <>
     <Choose>
@@ -32,9 +30,9 @@ export const NotificationsListView: React.SFC<Props> = ({ notifications, context
               transitionLeave={true}
               transitionLeaveTimeout={500}
             >
-              <For each="notification" of={notifications}>
+              {notifications.map(notification => (
                 <NotificationView key={notification.id} notification={notification} />
-              </For>
+              ))}
             </TransitionGroup>
           </List>
           <RemoveNotificationsMutation>

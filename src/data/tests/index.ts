@@ -58,7 +58,7 @@ export async function its(
 
       const user = await create.user(context, options.user);
 
-      context.getUser = async () => user;
+      context.getUser = async () => user as any;
       context.userId = user.id;
     }
 

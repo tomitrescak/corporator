@@ -150,7 +150,7 @@ export const mutation: Mutation = {
 
       switch (status) {
         case 'Running':
-          newTaskInstanceStatus = 'Waiting';
+          newTaskInstanceStatus = 'Started';
           break;
         case 'Paused':
           newTaskInstanceStatus = 'Paused';

@@ -68,16 +68,15 @@ export class TableView extends React.Component<Props> {
     this.lastColumn = 0;
     this.lastRow = 0;
 
-    let row: { key: number; values: FormElement[] };
     const rows = groupByArray(this.props.form.elements, 'row');
 
     return (
       <div className="ui form">
-        <For each="row" of={rows}>
+        {rows.map(row => (
           <Form.Group key={row.key}>
             {row.values.map(element => this.renderColumn(element))}
           </Form.Group>
-        </For>
+        ))}
       </div>
     );
   }

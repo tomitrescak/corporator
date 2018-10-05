@@ -1669,7 +1669,7 @@ type BpmnTask implements Node {
   taskId: ID!
   resources(where: ResourceWhereInput, orderBy: ResourceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Resource!]
   name: String!
-  type: BpmnTaskType!
+  type: BpmnTaskType
 }
 
 input BpmnTaskWhereInput {
@@ -2406,6 +2406,9 @@ input UserWhereInput {
   _MagicalBackRelation_TaskPerformer_every: BpmnTaskInstanceWhereInput
   _MagicalBackRelation_TaskPerformer_some: BpmnTaskInstanceWhereInput
   _MagicalBackRelation_TaskPerformer_none: BpmnTaskInstanceWhereInput
+  _MagicalBackRelation_LogToUser_every: LogWhereInput
+  _MagicalBackRelation_LogToUser_some: LogWhereInput
+  _MagicalBackRelation_LogToUser_none: LogWhereInput
 }
 
 """
@@ -2413,11 +2416,15 @@ Raw JSON value
 """
 scalar Json
 
-type Log {
-  processInstance(where: BpmnProcessInstanceWhereInput): BpmnProcessInstance!
+type Log implements Node {
+  id: ID!
   elementId: String!
   elementName: String!
   date: DateTime!
+  taskInstanceId: ID
+  performer(where: UserWhereInput): User
+  status: BpmnTaskInstanceStatus
+  message: String
 }
 
 input LogWhereInput {
@@ -2433,6 +2440,59 @@ input LogWhereInput {
   Logical NOT on all given filters combined by AND.
   """
   NOT: [LogWhereInput!]
+  id: ID
+  """
+  All values that are not equal to given value.
+  """
+  id_not: ID
+  """
+  All values that are contained in given list.
+  """
+  id_in: [ID!]
+  """
+  All values that are not contained in given list.
+  """
+  id_not_in: [ID!]
+  """
+  All values less than the given value.
+  """
+  id_lt: ID
+  """
+  All values less than or equal the given value.
+  """
+  id_lte: ID
+  """
+  All values greater than the given value.
+  """
+  id_gt: ID
+  """
+  All values greater than or equal the given value.
+  """
+  id_gte: ID
+  """
+  All values containing the given string.
+  """
+  id_contains: ID
+  """
+  All values not containing the given string.
+  """
+  id_not_contains: ID
+  """
+  All values starting with the given string.
+  """
+  id_starts_with: ID
+  """
+  All values not starting with the given string.
+  """
+  id_not_starts_with: ID
+  """
+  All values ending with the given string.
+  """
+  id_ends_with: ID
+  """
+  All values not ending with the given string.
+  """
+  id_not_ends_with: ID
   elementId: String
   """
   All values that are not equal to given value.
@@ -2568,18 +2628,146 @@ input LogWhereInput {
   All values greater than or equal the given value.
   """
   date_gte: DateTime
-  processInstance: BpmnProcessInstanceWhereInput
+  taskInstanceId: ID
+  """
+  All values that are not equal to given value.
+  """
+  taskInstanceId_not: ID
+  """
+  All values that are contained in given list.
+  """
+  taskInstanceId_in: [ID!]
+  """
+  All values that are not contained in given list.
+  """
+  taskInstanceId_not_in: [ID!]
+  """
+  All values less than the given value.
+  """
+  taskInstanceId_lt: ID
+  """
+  All values less than or equal the given value.
+  """
+  taskInstanceId_lte: ID
+  """
+  All values greater than the given value.
+  """
+  taskInstanceId_gt: ID
+  """
+  All values greater than or equal the given value.
+  """
+  taskInstanceId_gte: ID
+  """
+  All values containing the given string.
+  """
+  taskInstanceId_contains: ID
+  """
+  All values not containing the given string.
+  """
+  taskInstanceId_not_contains: ID
+  """
+  All values starting with the given string.
+  """
+  taskInstanceId_starts_with: ID
+  """
+  All values not starting with the given string.
+  """
+  taskInstanceId_not_starts_with: ID
+  """
+  All values ending with the given string.
+  """
+  taskInstanceId_ends_with: ID
+  """
+  All values not ending with the given string.
+  """
+  taskInstanceId_not_ends_with: ID
+  status: BpmnTaskInstanceStatus
+  """
+  All values that are not equal to given value.
+  """
+  status_not: BpmnTaskInstanceStatus
+  """
+  All values that are contained in given list.
+  """
+  status_in: [BpmnTaskInstanceStatus!]
+  """
+  All values that are not contained in given list.
+  """
+  status_not_in: [BpmnTaskInstanceStatus!]
+  message: String
+  """
+  All values that are not equal to given value.
+  """
+  message_not: String
+  """
+  All values that are contained in given list.
+  """
+  message_in: [String!]
+  """
+  All values that are not contained in given list.
+  """
+  message_not_in: [String!]
+  """
+  All values less than the given value.
+  """
+  message_lt: String
+  """
+  All values less than or equal the given value.
+  """
+  message_lte: String
+  """
+  All values greater than the given value.
+  """
+  message_gt: String
+  """
+  All values greater than or equal the given value.
+  """
+  message_gte: String
+  """
+  All values containing the given string.
+  """
+  message_contains: String
+  """
+  All values not containing the given string.
+  """
+  message_not_contains: String
+  """
+  All values starting with the given string.
+  """
+  message_starts_with: String
+  """
+  All values not starting with the given string.
+  """
+  message_not_starts_with: String
+  """
+  All values ending with the given string.
+  """
+  message_ends_with: String
+  """
+  All values not ending with the given string.
+  """
+  message_not_ends_with: String
+  performer: UserWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceLog_every: BpmnProcessInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceLog_some: BpmnProcessInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceLog_none: BpmnProcessInstanceWhereInput
 }
 
 enum LogOrderByInput {
+  id_ASC
+  id_DESC
   elementId_ASC
   elementId_DESC
   elementName_ASC
   elementName_DESC
   date_ASC
   date_DESC
-  id_ASC
-  id_DESC
+  taskInstanceId_ASC
+  taskInstanceId_DESC
+  status_ASC
+  status_DESC
+  message_ASC
+  message_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -2787,7 +2975,7 @@ enum BpmnTaskInstanceOrderByInput {
 }
 
 enum BpmnTaskInstanceStatus {
-  Waiting
+  Started
   Paused
   Aborted
   Finished
@@ -3140,7 +3328,6 @@ type BpmnProcessPreviousValues {
 }
 
 enum BpmnTaskType {
-  Report
   Form
 }
 
@@ -3194,7 +3381,7 @@ type BpmnTaskPreviousValues {
   id: ID!
   taskId: ID!
   name: String!
-  type: BpmnTaskType!
+  type: BpmnTaskType
 }
 
 """
@@ -4145,9 +4332,13 @@ type AggregateLog {
 }
 
 type LogPreviousValues {
+  id: ID!
   elementId: String!
   elementName: String!
   date: DateTime!
+  taskInstanceId: ID
+  status: BpmnTaskInstanceStatus
+  message: String
 }
 
 """
@@ -4213,7 +4404,6 @@ enum ResourceType {
   Url
   File
   Form
-  Report
   Document
 }
 

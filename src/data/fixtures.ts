@@ -162,7 +162,7 @@ export const create = {
     taskId: null,
     resources: null,
     name: 'Task Name',
-    type: 'Report',
+    type: 'Form',
     ...partial
   }),
   bpmnTaskMutation(partial: Partial<Prisma.BpmnTaskCreateInput>) {
@@ -249,13 +249,10 @@ export const create = {
   resourceMutation(partial: Partial<Prisma.ResourceCreateInput>) {
     return db.mutation.createResource({ data: create.resource(partial) });
   },
-  log: (
-    partial: Partial<Prisma.LogCreateWithoutProcessInstanceInput> = {}
-  ): Prisma.LogCreateWithoutProcessInstanceInput => ({
+  log: (partial: Partial<Prisma.LogCreateInput> = {}): Prisma.LogCreateInput => ({
     date: dateStarted,
     elementId: null,
     elementName: '',
-    // processInstance: undefined,
     ...partial
   })
 };
@@ -376,8 +373,8 @@ async function insertFixtures() {
   });
 
   const reportResource = await create.resourceMutation({
-    type: 'Report',
-    name: 'Approval Report',
+    type: 'Form',
+    name: 'Deans Report',
     form: {
       connect: { id: report.id }
     }
@@ -411,7 +408,7 @@ async function insertFixtures() {
         id: reportResource.id
       }
     },
-    type: 'Report'
+    type: 'Form'
   });
 
   /* =========================================================
@@ -509,12 +506,35 @@ async function insertFixtures() {
       owner: { connect: { id: user.id } },
       log: {
         create: [
-          create.log({ elementId: 'StartEvent_1' }),
-          create.log({ elementId: 'SequenceFlow_1v4vufq' }),
-          create.log({ elementId: 'Task_17t05yl' }),
+          create.log({
+            elementId: 'StartEvent_1',
+            elementName: 'Start event',
+            date: create.date(0)
+          }),
+          create.log({ elementId: 'SequenceFlow_1v4vufq', date: create.date(2) }),
+          create.log({
+            elementId: 'Task_17t05yl',
+            date: create.date(2),
+            status: 'Started',
+            elementName: 'Approve Report'
+          }),
+          create.log({
+            date: create.date(3),
+            elementId: 'Task_17t05yl',
+            performer: {
+              connect: { id: otherUser.id }
+            },
+            status: 'Approved',
+            elementName: 'Approve Report',
+            message: 'Everything went well. Bravo!'
+          }),
           create.log({ elementId: 'SequenceFlow_0fvr9vw', date: create.date(1) }),
           create.log({ elementId: 'SequenceFlow_1g6j69j' }),
-          create.log({ elementId: 'Task_1c0tszi' }),
+          create.log({
+            elementId: 'Task_1c0tszi',
+            elementName: 'Submit More',
+            date: create.date(4)
+          }),
           create.log({ elementId: 'ExclusiveGateway_1r8olns' })
         ]
       }

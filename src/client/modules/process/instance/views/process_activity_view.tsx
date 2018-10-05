@@ -1,23 +1,23 @@
+import * as datetimeDifference from 'datetime-difference';
 import * as React from 'react';
 
 import { QueryTypes } from 'data/client';
-import { BpmnProcessInstance_Tasks } from 'data/generated/types';
-import { Divider, Feed, Header, SemanticICONS } from 'semantic-ui-react';
+import { Feed, Header, SemanticICONS } from 'semantic-ui-react';
 
 export type Props = {
   context: App.Context;
   processInstance: QueryTypes.BpmnProcessInstance;
 };
 
-function taskResultToIcon(t: QueryTypes.BpmnProcessTask): SemanticICONS {
-  if (t.task.type === QueryTypes.BpmnTaskType.Form) {
-    return 'wordpress forms';
+function logResultToIcon(t: QueryTypes.LogMessage): SemanticICONS {
+  if (t.status === QueryTypes.BpmnTaskInstanceStatus.Started) {
+    return 'stopwatch';
   }
-  if (
-    t.status === QueryTypes.BpmnTaskInstanceStatus.Approved ||
-    t.status === QueryTypes.BpmnTaskInstanceStatus.Finished
-  ) {
+  if (t.status === QueryTypes.BpmnTaskInstanceStatus.Approved) {
     return 'check';
+  }
+  if (t.status === QueryTypes.BpmnTaskInstanceStatus.Finished) {
+    return 'wordpress forms';
   }
   if (
     t.status === QueryTypes.BpmnTaskInstanceStatus.Rejected ||
@@ -31,68 +31,86 @@ function taskResultToIcon(t: QueryTypes.BpmnProcessTask): SemanticICONS {
   throw new Error('Not supported state: ' + t.status);
 }
 
-function taskToName(t: QueryTypes.BpmnProcessTask, ctx: App.Context): string {
+function taskToName(t: QueryTypes.LogMessage, ctx: App.Context): string {
+  if (t.status === QueryTypes.BpmnTaskInstanceStatus.Started) {
+    return `started the task "${t.elementName}"`;
+  }
   if (t.status === QueryTypes.BpmnTaskInstanceStatus.Aborted) {
-    return `aborted the task "${t.task.name}"`;
+    return `aborted the task "${t.elementName}"`;
   }
   if (t.status === QueryTypes.BpmnTaskInstanceStatus.Paused) {
-    return `paused the task "${t.task.name}"`;
+    return `paused the task "${t.elementName}"`;
   }
-  if (t.task.type === QueryTypes.BpmnTaskType.Form) {
-    return ctx.i18n`submitted form(s) for task "${t.task.name}"`;
+  if (t.status === QueryTypes.BpmnTaskInstanceStatus.Finished) {
+    return ctx.i18n`finished task "${t.elementName}"`;
   }
   if (t.status === QueryTypes.BpmnTaskInstanceStatus.Rejected) {
-    return ctx.i18n`rejected report in task "${t.task.name}"`;
+    return ctx.i18n`rejected task "${t.elementName}"`;
   }
-  if (
-    t.status === QueryTypes.BpmnTaskInstanceStatus.Approved ||
-    t.status === QueryTypes.BpmnTaskInstanceStatus.Finished
-  ) {
-    return ctx.i18n`approved report in task "${t.task.name}"`;
+  if (t.status === QueryTypes.BpmnTaskInstanceStatus.Approved) {
+    return ctx.i18n`approved task "${t.elementName}"`;
   }
   throw new Error('Not supported state: ' + t.status);
 }
 
-export const ProcessActivityView: React.SFC<Props> = ({ context, processInstance }) => (
-  <>
-    <Header as="h5" content={context.i18n`Activity`} icon="tasks" dividing />
+function relativeDate(t1: QueryTypes.LogMessage, t2: QueryTypes.LogMessage) {
+  const result = datetimeDifference(new Date(t1.date), new Date(t2.date));
+  const differences = Object.keys(result).filter(k => !!result[k] && k.indexOf('sec') === -1);
+  if (differences.length) {
+    return differences
+      .map(k => `${result[k]} ${result[k] === 1 ? k.slice(0, -1) : k} later`)
+      .join(', ');
+  }
+  return 'only a moment later';
+}
 
-    <Choose>
-      <When condition={processInstance.tasks.length === 0}>
-        <I18>This process has no previous activity.</I18>
-      </When>
-      <Otherwise>
-        <>
-          <Feed>
-            {processInstance.tasks.filter(t => t.dateFinished).map(t => (
-              <Feed.Event key={t.id}>
-                <Feed.Label icon={taskResultToIcon(t)} />
-                <Feed.Content>
-                  <Feed.Date>{context.Ui.relativeDate(t.dateFinished)}</Feed.Date>
-                  <Feed.Summary>
-                    {t.performer.name} {taskToName(t, context)}
-                  </Feed.Summary>
-                </Feed.Content>
-              </Feed.Event>
-            ))}
-          </Feed>
-          <Feed>
-            {processInstance.tasks.filter(t => !t.dateFinished).map(t => (
-              <Feed.Event key={t.id}>
-                <Feed.Label icon="pencil" />
-                <Feed.Content>
-                  <Feed.Date>{context.Ui.relativeDate(t.dateStarted)}</Feed.Date>
-                  <Feed.Summary>
-                    {context.i18n`Task "${
-                      t.task.name
-                    }" is waiting for execution by role "${t.performerRoles.join(', ')}"`}{' '}
-                  </Feed.Summary>
-                </Feed.Content>
-              </Feed.Event>
-            ))}
-          </Feed>
-        </>
-      </Otherwise>
-    </Choose>
-  </>
-);
+export const ProcessActivityView: React.SFC<Props> = ({ context, processInstance }) => {
+  const filtered = processInstance.log.filter(l => l.status);
+  return (
+    <>
+      <Header as="h5" content={context.i18n`Activity`} icon="tasks" dividing />
+
+      <Choose>
+        <When condition={processInstance.tasks.length === 0}>
+          <I18>This process has no previous activity.</I18>
+        </When>
+        <Otherwise>
+          <>
+            <Feed>
+              {filtered.map((t, i) => (
+                <>
+                  <Feed.Event key={t.id}>
+                    <Feed.Label icon={logResultToIcon(t)} />
+                    <Feed.Content>
+                      <Feed.Date>
+                        {context.Ui.relativeDate(t.date)}
+                        <If condition={i > 0}>
+                          <>
+                            &nbsp;&middot;&nbsp;
+                            {relativeDate(filtered[i], filtered[i - 1])}
+                          </>
+                        </If>
+                      </Feed.Date>
+                      <Feed.Summary>
+                        <Choose>
+                          <When condition={t.performer}>
+                            <>
+                              {t.performer.name} {taskToName(t, context)}
+                            </>
+                          </When>
+                          <Otherwise>
+                            <>{context.i18n`Task "${t.elementName}" started`}</>
+                          </Otherwise>
+                        </Choose>
+                      </Feed.Summary>
+                    </Feed.Content>
+                  </Feed.Event>
+                </>
+              ))}
+            </Feed>
+          </>
+        </Otherwise>
+      </Choose>
+    </>
+  );
+};

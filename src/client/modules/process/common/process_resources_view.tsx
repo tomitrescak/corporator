@@ -54,7 +54,6 @@ export class ProcessResources extends React.Component<Props> {
     const { process, filter } = this.props;
 
     const forms = process.resources.filter(r => r.type === QueryTypes.ResourceType.Form);
-    const reports = process.resources.filter(r => r.type === QueryTypes.ResourceType.Report);
     const documents = process.resources.filter(r => r.type === QueryTypes.ResourceType.Document);
     const files = process.resources.filter(r => r.type === QueryTypes.ResourceType.File);
     const links = process.resources.filter(r => r.type === QueryTypes.ResourceType.Url);
@@ -83,28 +82,6 @@ export class ProcessResources extends React.Component<Props> {
                       icon="wordpress forms"
                       content={r.name}
                       // onClick={() => this.setState({ activeResource: r })}
-                    />
-                  ))}
-                </List.List>
-              </List.Content>
-            </List.Item>
-          </If>
-          <If
-            condition={!!reports.length && (!filter || filter === QueryTypes.ResourceType.Report)}
-          >
-            <List.Item>
-              <List.Icon name="folder" />
-              <List.Content>
-                <List.Header as={I18}>Reports</List.Header>
-                <List.List>
-                  {reports.map(r => (
-                    <List.Item
-                      as={Link}
-                      to={this.createUrl(r, (r.form || { id: 'error' }).id)}
-                      key={r.id}
-                      icon="newspaper"
-                      content={r.name}
-                      onClick={() => this.setState({ activeResource: r })}
                     />
                   ))}
                 </List.List>

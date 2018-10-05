@@ -1,4 +1,5 @@
 import { Loader, Prisma } from 'data/utils';
+import { userFragment } from './user_resolver';
 
 export class UserLoader extends Loader<Prisma.User, Prisma.UserWhereInput> {
   static loader: UserLoader;
@@ -9,6 +10,6 @@ export class UserLoader extends Loader<Prisma.User, Prisma.UserWhereInput> {
     return UserLoader.loader;
   }
   constructor(db: () => Prisma.Prisma) {
-    super(db, 'user', 'users', id => ({ id }));
+    super(db, 'user', 'users', userFragment, id => ({ id }));
   }
 }
