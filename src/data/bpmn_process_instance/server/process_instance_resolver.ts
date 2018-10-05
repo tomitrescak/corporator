@@ -158,6 +158,38 @@ export const mutation: Mutation = {
       } `
     );
     const newProcessInstance = BpmnProcessInstance.duplicateInstance(processInstanceDAO);
+      }
+    });
+
+    if (taskInstances) {
+      let newTaskInstanceStatus: Prisma.BpmnTaskInstanceStatus;
+
+      switch (status) {
+        case 'Running':
+          newTaskInstanceStatus = 'Started';
+          break;
+        case 'Paused':
+          newTaskInstanceStatus = 'Paused';
+          break;
+        case 'Aborted':
+          newTaskInstanceStatus = 'Aborted';
+          break;
+        case 'Finished':
+          newTaskInstanceStatus = 'Finished';
+          break;
+      }
+
+      taskInstances.forEach(async (taskInstance: Prisma.BpmnTaskInstance) => {
+        await ctx.db.mutation.updateBpmnTaskInstance({
+          where: {
+            id: taskInstance.id
+          },
+          data: {
+            status: newTaskInstanceStatus
+          }
+        });
+      });
+    }
 
     return newProcessInstance;
   },

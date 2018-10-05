@@ -3828,4 +3828,4 @@ input BpmnTaskInstanceWhereInput {
 enum LanguageCode {
   EN
 }
-`
+`;

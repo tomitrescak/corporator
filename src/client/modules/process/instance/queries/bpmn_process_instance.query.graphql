@@ -40,6 +40,18 @@ fragment LogMessage on Log {
   status
 }
 
+fragment LogMessage on Log {
+  id
+  date
+  elementId
+  elementName
+  performer {
+    name
+  }
+  message
+  status
+}
+
 fragment BpmnProcessInstance on BpmnProcessInstance {
   id
   status

@@ -17,6 +17,31 @@ type Props = {
   processInstance: QueryTypes.BpmnProcessInstance;
 };
 
+function taskToLinks(
+  process: QueryTypes.BpmnProcessDefinition,
+  processInstanceId: string,
+  t: QueryTypes.BpmnProcessInstanceTask,
+  ctx: App.Context
+) {
+  return t.task.resources.map(r => {
+    if (r.type === QueryTypes.ResourceType.Form) {
+      return (
+        <List.Item key={r.id}>
+          <List.Icon name="hand point right" />
+          <List.Content>
+            <Link
+              to={`/process/${process.name.url()}/view/${r.type.toLowerCase()}/${r.name.url()}/${processInstanceId}/${
+                r.form.id
+              }`}
+            >{ctx.i18n`Complete "${r.name}"`}</Link>
+          </List.Content>
+        </List.Item>
+      );
+    }
+    return null;
+  });
+}
+
 export const TabProcessInstanceDescription: React.SFC<Props> = ({
   context,
   process,

@@ -2,10 +2,8 @@ import { Prisma } from 'data/prisma';
 import { Task } from './bpmn';
 
 export class BpmnTaskInstanceModel {
-  static async createInstance(): Promise<BpmnTaskInstanceModel> {
-    
-  }
-  
+  static async createInstance(): Promise<BpmnTaskInstanceModel> {}
+
   id: string;
   task: Task;
   processInstanceId: string;

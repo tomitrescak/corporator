@@ -72,16 +72,18 @@ export function withMock<T>(object: T, property: keyof T, impl: (mockedObject: T
   object[property] = jest.fn() as any;
   try {
     impl(object);
-  }
-  catch (ex) {
+  } catch (ex) {
     throw ex;
-  }
-  finally {
+  } finally {
     object[property] = original;
   }
 }
 
-export async function testMockedResolver<T>(object: T, property: keyof T, impl: (args: any, context: any, info: any) => any) {
+export async function testMockedResolver<T>(
+  object: T,
+  property: keyof T,
+  impl: (args: any, context: any, info: any) => any
+) {
   const original = object[property];
   object[property] = jest.fn() as any;
 
@@ -97,15 +99,11 @@ export async function testMockedResolver<T>(object: T, property: keyof T, impl: 
 
     expect(object[property]).toHaveBeenCalledWith(ctx, input, info);
     expect(result).toEqual(1000);
-  }
-  catch (ex) {
+  } catch (ex) {
     throw ex;
-  }
-  finally {
+  } finally {
     object[property] = original;
   }
-
-
 }
 
 export async function its(

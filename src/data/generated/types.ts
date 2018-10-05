@@ -695,6 +695,29 @@ export interface BpmnProcessInstanceItemTask {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL fragment: BpmnProcessInstanceItemTask
+// ====================================================
+
+export interface BpmnProcessInstanceItemTask_Task {
+  name: string;
+}
+
+export interface BpmnProcessInstanceItemTask_Performer {
+  name: string;
+}
+
+export interface BpmnProcessInstanceItemTask {
+  dateStarted: any;
+  dateFinished: any | null;
+  task: BpmnProcessInstanceItemTask_Task;
+  performer: BpmnProcessInstanceItemTask_Performer | null;
+  performerRoles: string[];
+}
+
+/* tslint:disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL fragment: BpmnProcessInstanceItem
 // ====================================================
 
