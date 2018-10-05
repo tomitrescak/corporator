@@ -120,15 +120,15 @@ describe('Form', () => {
   describe('Validators', () => {
     function componentWithData() {
       const validators = [
-        ['emailValidator', 'good@email.cz', 'bad'],
-        ['intPositiveValidator', '-1', '2'],
-        ['intValidator', '2.5', '0'],
-        ['intNonZeroValidator', '0', '-7'],
-        ['floatValidator', 'd', '2.7'],
-        ['floatPositiveValidator', '-5', '7'],
-        ['floatNonZeroValidator', '0', '6.8'],
-        ['requiredValidator', '', 'ok'],
-        ['regExValidator', 'tomi', 'ttomi', 'tt']
+        ['intPositiveValidator', '-1', '2']
+        // ['intValidator', '2.5', '0'],
+        // ['intNonZeroValidator', '0', '-7'],
+        // ['floatValidator', 'd', '2.7'],
+        // ['floatPositiveValidator', '-5', '7'],
+        // ['floatNonZeroValidator', '0', '6.8'],
+        // ['requiredValidator', '', 'ok'],
+        // ['emailValidator', 'good@email.cz', 'bad'],
+        // ['regExValidator', 'tomi', 'ttomi', 'tt']
       ];
 
       const elements = [];
@@ -165,7 +165,7 @@ describe('Form', () => {
       }
 
       const vDataSet = FormModel.buildMstModel(vdescriptors, vControlData);
-      // vDataSet.validate();
+      vDataSet.validate();
 
       const form = new FormModel(
         create.form({

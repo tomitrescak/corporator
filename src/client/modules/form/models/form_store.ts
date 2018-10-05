@@ -84,10 +84,12 @@ export const FormStore = types
         self.errors.set(name, '');
 
         for (let v of self.validators[name]) {
-          let result = v(value);
-          if (result) {
-            self.errors.set(name, result);
-            return false;
+          if (v) {
+            let result = v(value);
+            if (result) {
+              self.errors.set(name, result);
+              return false;
+            }
           }
         }
 
@@ -148,21 +150,22 @@ export const FormStore = types
     setStringValue(key: string, value: any) {
       (self.strings as any)[key] = value;
 
-      const descriptor = self.descriptors[key];
+      // const descriptor = self.descriptors[key];
       let error = '';
-      switch (descriptor.type) {
-        case 'Int':
-          error = validations.intValidator(value);
-          break;
-        case 'Float':
-          error = validations.floatValidator(value);
-          break;
-      }
+      // switch (descriptor.type) {
+      //   case 'Int':
+      //     error = validations.intValidator(value);
+      //     break;
+      //   case 'Float':
+      //     error = validations.floatValidator(value);
+      //     break;
+      // }
+      let isOK = self.validateField(key, value);
 
-      if (!error) {
+      if (isOK) {
         self.parseValue(key, value);
       }
-      self.setError(key, error);
+      // self.setError(key, error);
     }
   }))
   .views(self => ({

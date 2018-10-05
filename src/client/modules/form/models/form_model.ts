@@ -1,5 +1,7 @@
 // import * as shortid from 'shortid';
 
+import * as validations from './validation';
+
 import { ISimpleType, types } from 'mobx-state-tree';
 
 import { QueryTypes } from 'data/client';
@@ -58,6 +60,19 @@ function mstTypeFactory(
 let time = Date.now();
 let i = 0;
 
+function createValidator(validator: QueryTypes.DataDescriptor_Validators) {
+  switch (validator.name) {
+    case 'regExValidator':
+      break;
+    default:
+      const v = (validations as any)[validator.name];
+      if (!v) {
+        throw new Error('Validator does not exist!: ' + validator.name);
+      }
+      return (validations as any)[validator.name];
+  }
+}
+
 export class FormModel {
   static parseDefault(descriptor: DataDescriptor) {
     switch (descriptor.type) {
@@ -85,7 +100,7 @@ export class FormModel {
 
     const strings: { [index: string]: any } = {};
     const mstDefinition: { [index: string]: any } = {};
-    const validators = {};
+    const validators: { [index: string]: any } = {};
 
     const viewDefinition = (self: any) => {
       const view = {};
@@ -128,6 +143,20 @@ export class FormModel {
           ? FormModel.parseDefault(desc)
           : types.maybe(mstTypeFactory(desc, lists, descriptors));
         strings[desc.name] = types.maybe(types.string);
+      }
+
+      // create validators
+      validators[desc.name] = [];
+      if (desc.validators && desc.validators.length) {
+        validators[desc.name] = desc.validators.map(v => createValidator(v));
+      }
+      switch (desc.type) {
+        case 'Int':
+          validators[desc.name].push(validations.intValidator);
+          break;
+        case 'Float':
+          validators[desc.name].push(validations.floatValidator);
+          break;
       }
     }
 

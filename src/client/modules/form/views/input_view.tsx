@@ -26,7 +26,7 @@ export class InputView extends React.Component<FormControlProps> {
           {...controlProps}
           name={source.name}
           error={!!owner.getError(source.name)}
-          value={owner.getValue(source.name)}
+          value={owner.getStringValue(source.name)}
           onChange={this.handleInputChange}
         />
 
