@@ -1,6 +1,6 @@
 import { types } from 'mobx-state-tree';
 import { FormStore } from '../form/models/form_store';
-import { requiredValidator } from '../form/models/validation';
+import { RequiredValidator } from '../form/models/validation';
 
 export const LoginStore = FormStore.named('LoginStore')
   .props({
@@ -11,8 +11,8 @@ export const LoginStore = FormStore.named('LoginStore')
   })
   .volatile(_self => ({
     validators: {
-      user: [requiredValidator],
-      password: [requiredValidator]
+      user: [RequiredValidator],
+      password: [RequiredValidator]
     }
   }))
   .actions(self => ({

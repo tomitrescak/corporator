@@ -17,6 +17,9 @@ fragment BpmnProcessDefinition on BpmnProcess {
   description
   type
   model
+  dataDescriptors {
+    ...DataDescriptor
+  }
   resources {
     ...BpmnProcessResource
   }

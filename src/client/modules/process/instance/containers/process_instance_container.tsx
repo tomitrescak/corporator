@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import * as DESCRIPTOR_FRAGMENT from '../../../form/queries/descriptor_fragment.graphql';
 import * as PROCESS_FRAGMENT from '../../definition/queries/bpmn_process.fragment.graphql';
 import * as PROCESS_INSTANCE_QUERY_NO_FRAGMENT from '../queries/bpmn_process_instance.query.graphql';
 
@@ -23,6 +24,7 @@ type Variables = QueryTypes.BpmnProcessInstanceQueryVariables;
 const PROCESS_INSTANCE_QUERY = gql`
   ${PROCESS_INSTANCE_QUERY_NO_FRAGMENT}
   ${PROCESS_FRAGMENT}
+  ${DESCRIPTOR_FRAGMENT}
 `;
 
 export { PROCESS_INSTANCE_QUERY };

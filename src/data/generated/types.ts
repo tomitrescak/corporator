@@ -7,7 +7,7 @@
 
 export interface FormQuery_FormQuery_Elements_Source_Validators {
   id: string;
-  name: string;
+  name: ValidatorFunction;
   params: string[];
 }
 
@@ -43,7 +43,7 @@ export interface FormQuery_FormQuery_Elements {
 
 export interface FormQuery_FormQuery_Validations {
   id: string;
-  name: string;
+  name: ValidatorFunction;
   params: string[];
 }
 
@@ -57,7 +57,7 @@ export interface FormQuery_FormQuery {
 
 export interface FormQuery_Process_DataDescriptors_Validators {
   id: string;
-  name: string;
+  name: ValidatorFunction;
   params: string[];
 }
 
@@ -205,6 +205,24 @@ export interface NotificationsQueryVariables {
 // GraphQL query operation: ProcessQuery
 // ====================================================
 
+export interface ProcessQuery_Process_DataDescriptors_Validators {
+  id: string;
+  name: ValidatorFunction;
+  params: string[];
+}
+
+export interface ProcessQuery_Process_DataDescriptors {
+  id: string;
+  defaultValue: string | null;
+  description: string | null;
+  expression: string | null;
+  isArray: boolean | null;
+  name: string | null;
+  type: DataType | null;
+  parentDescriptor: string | null;
+  validators: ProcessQuery_Process_DataDescriptors_Validators[] | null;
+}
+
 export interface ProcessQuery_Process_Resources_Form {
   id: string;
 }
@@ -228,6 +246,7 @@ export interface ProcessQuery_Process {
   description: string | null;
   type: ProcessType;
   model: string;
+  dataDescriptors: ProcessQuery_Process_DataDescriptors[] | null;
   resources: ProcessQuery_Process_Resources[] | null;
 }
 
@@ -269,6 +288,24 @@ export interface ProcessesQueryVariables {
 // GraphQL query operation: BpmnProcessInstanceQuery
 // ====================================================
 
+export interface BpmnProcessInstanceQuery_BpmnProcessInstanceQuery_Process_DataDescriptors_Validators {
+  id: string;
+  name: ValidatorFunction;
+  params: string[];
+}
+
+export interface BpmnProcessInstanceQuery_BpmnProcessInstanceQuery_Process_DataDescriptors {
+  id: string;
+  defaultValue: string | null;
+  description: string | null;
+  expression: string | null;
+  isArray: boolean | null;
+  name: string | null;
+  type: DataType | null;
+  parentDescriptor: string | null;
+  validators: BpmnProcessInstanceQuery_BpmnProcessInstanceQuery_Process_DataDescriptors_Validators[] | null;
+}
+
 export interface BpmnProcessInstanceQuery_BpmnProcessInstanceQuery_Process_Resources_Form {
   id: string;
 }
@@ -292,6 +329,7 @@ export interface BpmnProcessInstanceQuery_BpmnProcessInstanceQuery_Process {
   description: string | null;
   type: ProcessType;
   model: string;
+  dataDescriptors: BpmnProcessInstanceQuery_BpmnProcessInstanceQuery_Process_DataDescriptors[] | null;
   resources: BpmnProcessInstanceQuery_BpmnProcessInstanceQuery_Process_Resources[] | null;
 }
 
@@ -460,7 +498,7 @@ export interface DocumentQueryVariables {
 
 export interface Validator {
   id: string;
-  name: string;
+  name: ValidatorFunction;
   params: string[];
 }
 
@@ -473,7 +511,7 @@ export interface Validator {
 
 export interface DataDescriptor_Validators {
   id: string;
-  name: string;
+  name: ValidatorFunction;
   params: string[];
 }
 
@@ -498,7 +536,7 @@ export interface DataDescriptor {
 
 export interface FormElement_Source_Validators {
   id: string;
-  name: string;
+  name: ValidatorFunction;
   params: string[];
 }
 
@@ -541,7 +579,7 @@ export interface FormElement {
 
 export interface Form_Elements_Source_Validators {
   id: string;
-  name: string;
+  name: ValidatorFunction;
   params: string[];
 }
 
@@ -577,7 +615,7 @@ export interface Form_Elements {
 
 export interface Form_Validations {
   id: string;
-  name: string;
+  name: ValidatorFunction;
   params: string[];
 }
 
@@ -657,6 +695,24 @@ export interface BpmnProcessResource {
 // GraphQL fragment: BpmnProcessDefinition
 // ====================================================
 
+export interface BpmnProcessDefinition_DataDescriptors_Validators {
+  id: string;
+  name: ValidatorFunction;
+  params: string[];
+}
+
+export interface BpmnProcessDefinition_DataDescriptors {
+  id: string;
+  defaultValue: string | null;
+  description: string | null;
+  expression: string | null;
+  isArray: boolean | null;
+  name: string | null;
+  type: DataType | null;
+  parentDescriptor: string | null;
+  validators: BpmnProcessDefinition_DataDescriptors_Validators[] | null;
+}
+
 export interface BpmnProcessDefinition_Resources_Form {
   id: string;
 }
@@ -680,6 +736,7 @@ export interface BpmnProcessDefinition {
   description: string | null;
   type: ProcessType;
   model: string;
+  dataDescriptors: BpmnProcessDefinition_DataDescriptors[] | null;
   resources: BpmnProcessDefinition_Resources[] | null;
 }
 
@@ -769,6 +826,24 @@ export interface LogMessage {
 // GraphQL fragment: BpmnProcessInstance
 // ====================================================
 
+export interface BpmnProcessInstance_Process_DataDescriptors_Validators {
+  id: string;
+  name: ValidatorFunction;
+  params: string[];
+}
+
+export interface BpmnProcessInstance_Process_DataDescriptors {
+  id: string;
+  defaultValue: string | null;
+  description: string | null;
+  expression: string | null;
+  isArray: boolean | null;
+  name: string | null;
+  type: DataType | null;
+  parentDescriptor: string | null;
+  validators: BpmnProcessInstance_Process_DataDescriptors_Validators[] | null;
+}
+
 export interface BpmnProcessInstance_Process_Resources_Form {
   id: string;
 }
@@ -792,6 +867,7 @@ export interface BpmnProcessInstance_Process {
   description: string | null;
   type: ProcessType;
   model: string;
+  dataDescriptors: BpmnProcessInstance_Process_DataDescriptors[] | null;
   resources: BpmnProcessInstance_Process_Resources[] | null;
 }
 
@@ -1009,6 +1085,22 @@ export enum ResourceType {
   File = "File",
   Form = "Form",
   Url = "Url",
+}
+
+export enum ValidatorFunction {
+  ArrayLengthValidator = "ArrayLengthValidator",
+  EmailValidator = "EmailValidator",
+  EqualityValidator = "EqualityValidator",
+  ExpressionValidator = "ExpressionValidator",
+  FloatNonZeroValidator = "FloatNonZeroValidator",
+  FloatPositiveValidator = "FloatPositiveValidator",
+  FloatValidator = "FloatValidator",
+  IntNonZeroValidator = "IntNonZeroValidator",
+  IntPositiveValidator = "IntPositiveValidator",
+  IntValidator = "IntValidator",
+  RegExValidator = "RegExValidator",
+  RequiredValidator = "RequiredValidator",
+  StringLengthValidator = "StringLengthValidator",
 }
 
 export interface AuthInput {

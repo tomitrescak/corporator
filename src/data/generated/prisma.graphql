@@ -1,5 +1,5 @@
 # source: http://localhost:4466
-# timestamp: Mon Oct 08 2018 11:28:44 GMT+1100 (Australian Eastern Daylight Time)
+# timestamp: Tue Oct 09 2018 15:47:33 GMT+1100 (Australian Eastern Daylight Time)
 
 type Access implements Node {
   id: ID!
@@ -761,7 +761,7 @@ input BpmnProcessInstanceCreateInput {
   comments: CommentCreateManyInput
   owner: UserCreateOneWithoutProcessesInput!
   process: BpmnProcessCreateOneInput!
-  log: LogCreateManyWithoutProcessInstanceInput
+  log: LogCreateManyInput
   tasks: BpmnTaskInstanceCreateManyInput
 }
 
@@ -775,23 +775,6 @@ input BpmnProcessInstanceCreateOneInput {
   connect: BpmnProcessInstanceWhereUniqueInput
 }
 
-input BpmnProcessInstanceCreateOneWithoutLogInput {
-  create: BpmnProcessInstanceCreateWithoutLogInput
-  connect: BpmnProcessInstanceWhereUniqueInput
-}
-
-input BpmnProcessInstanceCreateWithoutLogInput {
-  dateFinished: DateTime
-  dateStarted: DateTime!
-  duration: Int
-  data: Json!
-  status: BpmnProcessInstanceStatus!
-  comments: CommentCreateManyInput
-  owner: UserCreateOneWithoutProcessesInput!
-  process: BpmnProcessCreateOneInput!
-  tasks: BpmnTaskInstanceCreateManyInput
-}
-
 input BpmnProcessInstanceCreateWithoutOwnerInput {
   dateFinished: DateTime
   dateStarted: DateTime!
@@ -800,7 +783,7 @@ input BpmnProcessInstanceCreateWithoutOwnerInput {
   status: BpmnProcessInstanceStatus!
   comments: CommentCreateManyInput
   process: BpmnProcessCreateOneInput!
-  log: LogCreateManyWithoutProcessInstanceInput
+  log: LogCreateManyInput
   tasks: BpmnTaskInstanceCreateManyInput
 }
 
@@ -896,7 +879,7 @@ input BpmnProcessInstanceUpdateDataInput {
   comments: CommentUpdateManyInput
   owner: UserUpdateOneWithoutProcessesInput
   process: BpmnProcessUpdateOneInput
-  log: LogUpdateManyWithoutProcessInstanceInput
+  log: LogUpdateManyInput
   tasks: BpmnTaskInstanceUpdateManyInput
 }
 
@@ -909,7 +892,7 @@ input BpmnProcessInstanceUpdateInput {
   comments: CommentUpdateManyInput
   owner: UserUpdateOneWithoutProcessesInput
   process: BpmnProcessUpdateOneInput
-  log: LogUpdateManyWithoutProcessInstanceInput
+  log: LogUpdateManyInput
   tasks: BpmnTaskInstanceUpdateManyInput
 }
 
@@ -930,26 +913,6 @@ input BpmnProcessInstanceUpdateOneInput {
   upsert: BpmnProcessInstanceUpsertNestedInput
 }
 
-input BpmnProcessInstanceUpdateOneWithoutLogInput {
-  create: BpmnProcessInstanceCreateWithoutLogInput
-  connect: BpmnProcessInstanceWhereUniqueInput
-  delete: Boolean
-  update: BpmnProcessInstanceUpdateWithoutLogDataInput
-  upsert: BpmnProcessInstanceUpsertWithoutLogInput
-}
-
-input BpmnProcessInstanceUpdateWithoutLogDataInput {
-  dateFinished: DateTime
-  dateStarted: DateTime
-  duration: Int
-  data: Json
-  status: BpmnProcessInstanceStatus
-  comments: CommentUpdateManyInput
-  owner: UserUpdateOneWithoutProcessesInput
-  process: BpmnProcessUpdateOneInput
-  tasks: BpmnTaskInstanceUpdateManyInput
-}
-
 input BpmnProcessInstanceUpdateWithoutOwnerDataInput {
   dateFinished: DateTime
   dateStarted: DateTime
@@ -958,7 +921,7 @@ input BpmnProcessInstanceUpdateWithoutOwnerDataInput {
   status: BpmnProcessInstanceStatus
   comments: CommentUpdateManyInput
   process: BpmnProcessUpdateOneInput
-  log: LogUpdateManyWithoutProcessInstanceInput
+  log: LogUpdateManyInput
   tasks: BpmnTaskInstanceUpdateManyInput
 }
 
@@ -970,11 +933,6 @@ input BpmnProcessInstanceUpdateWithWhereUniqueWithoutOwnerInput {
 input BpmnProcessInstanceUpsertNestedInput {
   update: BpmnProcessInstanceUpdateDataInput!
   create: BpmnProcessInstanceCreateInput!
-}
-
-input BpmnProcessInstanceUpsertWithoutLogInput {
-  update: BpmnProcessInstanceUpdateWithoutLogDataInput!
-  create: BpmnProcessInstanceCreateWithoutLogInput!
 }
 
 input BpmnProcessInstanceUpsertWithWhereUniqueWithoutOwnerInput {
@@ -4665,7 +4623,6 @@ input LocalisationWhereUniqueInput {
 
 type Log implements Node {
   id: ID!
-  processInstance(where: BpmnProcessInstanceWhereInput): BpmnProcessInstance!
   elementId: String!
   elementName: String!
   date: DateTime!
@@ -4692,23 +4649,12 @@ input LogCreateInput {
   taskInstanceId: ID
   status: BpmnTaskInstanceStatus
   message: String
-  processInstance: BpmnProcessInstanceCreateOneWithoutLogInput!
   performer: UserCreateOneInput
 }
 
-input LogCreateManyWithoutProcessInstanceInput {
-  create: [LogCreateWithoutProcessInstanceInput!]
+input LogCreateManyInput {
+  create: [LogCreateInput!]
   connect: [LogWhereUniqueInput!]
-}
-
-input LogCreateWithoutProcessInstanceInput {
-  elementId: String!
-  elementName: String!
-  date: DateTime!
-  taskInstanceId: ID
-  status: BpmnTaskInstanceStatus
-  message: String
-  performer: UserCreateOneInput
 }
 
 """An edge in a connection."""
@@ -4790,6 +4736,16 @@ input LogSubscriptionWhereInput {
   node: LogWhereInput
 }
 
+input LogUpdateDataInput {
+  elementId: String
+  elementName: String
+  date: DateTime
+  taskInstanceId: ID
+  status: BpmnTaskInstanceStatus
+  message: String
+  performer: UserUpdateOneInput
+}
+
 input LogUpdateInput {
   elementId: String
   elementName: String
@@ -4797,38 +4753,27 @@ input LogUpdateInput {
   taskInstanceId: ID
   status: BpmnTaskInstanceStatus
   message: String
-  processInstance: BpmnProcessInstanceUpdateOneWithoutLogInput
   performer: UserUpdateOneInput
 }
 
-input LogUpdateManyWithoutProcessInstanceInput {
-  create: [LogCreateWithoutProcessInstanceInput!]
+input LogUpdateManyInput {
+  create: [LogCreateInput!]
   connect: [LogWhereUniqueInput!]
   disconnect: [LogWhereUniqueInput!]
   delete: [LogWhereUniqueInput!]
-  update: [LogUpdateWithWhereUniqueWithoutProcessInstanceInput!]
-  upsert: [LogUpsertWithWhereUniqueWithoutProcessInstanceInput!]
+  update: [LogUpdateWithWhereUniqueNestedInput!]
+  upsert: [LogUpsertWithWhereUniqueNestedInput!]
 }
 
-input LogUpdateWithoutProcessInstanceDataInput {
-  elementId: String
-  elementName: String
-  date: DateTime
-  taskInstanceId: ID
-  status: BpmnTaskInstanceStatus
-  message: String
-  performer: UserUpdateOneInput
-}
-
-input LogUpdateWithWhereUniqueWithoutProcessInstanceInput {
+input LogUpdateWithWhereUniqueNestedInput {
   where: LogWhereUniqueInput!
-  data: LogUpdateWithoutProcessInstanceDataInput!
+  data: LogUpdateDataInput!
 }
 
-input LogUpsertWithWhereUniqueWithoutProcessInstanceInput {
+input LogUpsertWithWhereUniqueNestedInput {
   where: LogWhereUniqueInput!
-  update: LogUpdateWithoutProcessInstanceDataInput!
-  create: LogCreateWithoutProcessInstanceInput!
+  update: LogUpdateDataInput!
+  create: LogCreateInput!
 }
 
 input LogWhereInput {
@@ -5072,8 +5017,10 @@ input LogWhereInput {
 
   """All values not ending with the given string."""
   message_not_ends_with: String
-  processInstance: BpmnProcessInstanceWhereInput
   performer: UserWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceLog_every: BpmnProcessInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceLog_some: BpmnProcessInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceLog_none: BpmnProcessInstanceWhereInput
 }
 
 input LogWhereUniqueInput {
@@ -5088,7 +5035,6 @@ scalar Long
 
 type Mutation {
   createLocalisation(data: LocalisationCreateInput!): Localisation!
-  createLog(data: LogCreateInput!): Log!
   createOrganisation(data: OrganisationCreateInput!): Organisation!
   createRole(data: RoleCreateInput!): Role!
   createValidator(data: ValidatorCreateInput!): Validator!
@@ -5098,6 +5044,7 @@ type Mutation {
   createUser(data: UserCreateInput!): User!
   createNotification(data: NotificationCreateInput!): Notification!
   createDocument(data: DocumentCreateInput!): Document!
+  createLog(data: LogCreateInput!): Log!
   createAccessCondition(data: AccessConditionCreateInput!): AccessCondition!
   createDataDescriptor(data: DataDescriptorCreateInput!): DataDescriptor!
   createResource(data: ResourceCreateInput!): Resource!
@@ -5108,7 +5055,6 @@ type Mutation {
   createBpmnTask(data: BpmnTaskCreateInput!): BpmnTask!
   createBpmnProcessInstance(data: BpmnProcessInstanceCreateInput!): BpmnProcessInstance!
   updateLocalisation(data: LocalisationUpdateInput!, where: LocalisationWhereUniqueInput!): Localisation
-  updateLog(data: LogUpdateInput!, where: LogWhereUniqueInput!): Log
   updateOrganisation(data: OrganisationUpdateInput!, where: OrganisationWhereUniqueInput!): Organisation
   updateRole(data: RoleUpdateInput!, where: RoleWhereUniqueInput!): Role
   updateValidator(data: ValidatorUpdateInput!, where: ValidatorWhereUniqueInput!): Validator
@@ -5118,6 +5064,7 @@ type Mutation {
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateNotification(data: NotificationUpdateInput!, where: NotificationWhereUniqueInput!): Notification
   updateDocument(data: DocumentUpdateInput!, where: DocumentWhereUniqueInput!): Document
+  updateLog(data: LogUpdateInput!, where: LogWhereUniqueInput!): Log
   updateDataDescriptor(data: DataDescriptorUpdateInput!, where: DataDescriptorWhereUniqueInput!): DataDescriptor
   updateResource(data: ResourceUpdateInput!, where: ResourceWhereUniqueInput!): Resource
   updateAccess(data: AccessUpdateInput!, where: AccessWhereUniqueInput!): Access
@@ -5127,7 +5074,6 @@ type Mutation {
   updateBpmnTask(data: BpmnTaskUpdateInput!, where: BpmnTaskWhereUniqueInput!): BpmnTask
   updateBpmnProcessInstance(data: BpmnProcessInstanceUpdateInput!, where: BpmnProcessInstanceWhereUniqueInput!): BpmnProcessInstance
   deleteLocalisation(where: LocalisationWhereUniqueInput!): Localisation
-  deleteLog(where: LogWhereUniqueInput!): Log
   deleteOrganisation(where: OrganisationWhereUniqueInput!): Organisation
   deleteRole(where: RoleWhereUniqueInput!): Role
   deleteValidator(where: ValidatorWhereUniqueInput!): Validator
@@ -5137,6 +5083,7 @@ type Mutation {
   deleteUser(where: UserWhereUniqueInput!): User
   deleteNotification(where: NotificationWhereUniqueInput!): Notification
   deleteDocument(where: DocumentWhereUniqueInput!): Document
+  deleteLog(where: LogWhereUniqueInput!): Log
   deleteDataDescriptor(where: DataDescriptorWhereUniqueInput!): DataDescriptor
   deleteResource(where: ResourceWhereUniqueInput!): Resource
   deleteAccess(where: AccessWhereUniqueInput!): Access
@@ -5146,7 +5093,6 @@ type Mutation {
   deleteBpmnTask(where: BpmnTaskWhereUniqueInput!): BpmnTask
   deleteBpmnProcessInstance(where: BpmnProcessInstanceWhereUniqueInput!): BpmnProcessInstance
   upsertLocalisation(where: LocalisationWhereUniqueInput!, create: LocalisationCreateInput!, update: LocalisationUpdateInput!): Localisation!
-  upsertLog(where: LogWhereUniqueInput!, create: LogCreateInput!, update: LogUpdateInput!): Log!
   upsertOrganisation(where: OrganisationWhereUniqueInput!, create: OrganisationCreateInput!, update: OrganisationUpdateInput!): Organisation!
   upsertRole(where: RoleWhereUniqueInput!, create: RoleCreateInput!, update: RoleUpdateInput!): Role!
   upsertValidator(where: ValidatorWhereUniqueInput!, create: ValidatorCreateInput!, update: ValidatorUpdateInput!): Validator!
@@ -5156,6 +5102,7 @@ type Mutation {
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertNotification(where: NotificationWhereUniqueInput!, create: NotificationCreateInput!, update: NotificationUpdateInput!): Notification!
   upsertDocument(where: DocumentWhereUniqueInput!, create: DocumentCreateInput!, update: DocumentUpdateInput!): Document!
+  upsertLog(where: LogWhereUniqueInput!, create: LogCreateInput!, update: LogUpdateInput!): Log!
   upsertDataDescriptor(where: DataDescriptorWhereUniqueInput!, create: DataDescriptorCreateInput!, update: DataDescriptorUpdateInput!): DataDescriptor!
   upsertResource(where: ResourceWhereUniqueInput!, create: ResourceCreateInput!, update: ResourceUpdateInput!): Resource!
   upsertAccess(where: AccessWhereUniqueInput!, create: AccessCreateInput!, update: AccessUpdateInput!): Access!
@@ -5165,7 +5112,6 @@ type Mutation {
   upsertBpmnTask(where: BpmnTaskWhereUniqueInput!, create: BpmnTaskCreateInput!, update: BpmnTaskUpdateInput!): BpmnTask!
   upsertBpmnProcessInstance(where: BpmnProcessInstanceWhereUniqueInput!, create: BpmnProcessInstanceCreateInput!, update: BpmnProcessInstanceUpdateInput!): BpmnProcessInstance!
   updateManyLocalisations(data: LocalisationUpdateInput!, where: LocalisationWhereInput): BatchPayload!
-  updateManyLogs(data: LogUpdateInput!, where: LogWhereInput): BatchPayload!
   updateManyOrganisations(data: OrganisationUpdateInput!, where: OrganisationWhereInput): BatchPayload!
   updateManyRoles(data: RoleUpdateInput!, where: RoleWhereInput): BatchPayload!
   updateManyValidators(data: ValidatorUpdateInput!, where: ValidatorWhereInput): BatchPayload!
@@ -5175,6 +5121,7 @@ type Mutation {
   updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
   updateManyNotifications(data: NotificationUpdateInput!, where: NotificationWhereInput): BatchPayload!
   updateManyDocuments(data: DocumentUpdateInput!, where: DocumentWhereInput): BatchPayload!
+  updateManyLogs(data: LogUpdateInput!, where: LogWhereInput): BatchPayload!
   updateManyAccessConditions(data: AccessConditionUpdateInput!, where: AccessConditionWhereInput): BatchPayload!
   updateManyDataDescriptors(data: DataDescriptorUpdateInput!, where: DataDescriptorWhereInput): BatchPayload!
   updateManyResources(data: ResourceUpdateInput!, where: ResourceWhereInput): BatchPayload!
@@ -5185,7 +5132,6 @@ type Mutation {
   updateManyBpmnTasks(data: BpmnTaskUpdateInput!, where: BpmnTaskWhereInput): BatchPayload!
   updateManyBpmnProcessInstances(data: BpmnProcessInstanceUpdateInput!, where: BpmnProcessInstanceWhereInput): BatchPayload!
   deleteManyLocalisations(where: LocalisationWhereInput): BatchPayload!
-  deleteManyLogs(where: LogWhereInput): BatchPayload!
   deleteManyOrganisations(where: OrganisationWhereInput): BatchPayload!
   deleteManyRoles(where: RoleWhereInput): BatchPayload!
   deleteManyValidators(where: ValidatorWhereInput): BatchPayload!
@@ -5195,6 +5141,7 @@ type Mutation {
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyNotifications(where: NotificationWhereInput): BatchPayload!
   deleteManyDocuments(where: DocumentWhereInput): BatchPayload!
+  deleteManyLogs(where: LogWhereInput): BatchPayload!
   deleteManyAccessConditions(where: AccessConditionWhereInput): BatchPayload!
   deleteManyDataDescriptors(where: DataDescriptorWhereInput): BatchPayload!
   deleteManyResources(where: ResourceWhereInput): BatchPayload!
@@ -5840,7 +5787,6 @@ enum ProcessType {
 
 type Query {
   localisations(where: LocalisationWhereInput, orderBy: LocalisationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Localisation]!
-  logs(where: LogWhereInput, orderBy: LogOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Log]!
   organisations(where: OrganisationWhereInput, orderBy: OrganisationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Organisation]!
   roles(where: RoleWhereInput, orderBy: RoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Role]!
   validators(where: ValidatorWhereInput, orderBy: ValidatorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Validator]!
@@ -5850,6 +5796,7 @@ type Query {
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   notifications(where: NotificationWhereInput, orderBy: NotificationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Notification]!
   documents(where: DocumentWhereInput, orderBy: DocumentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Document]!
+  logs(where: LogWhereInput, orderBy: LogOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Log]!
   accessConditions(where: AccessConditionWhereInput, orderBy: AccessConditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [AccessCondition]!
   dataDescriptors(where: DataDescriptorWhereInput, orderBy: DataDescriptorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [DataDescriptor]!
   resources(where: ResourceWhereInput, orderBy: ResourceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Resource]!
@@ -5860,7 +5807,6 @@ type Query {
   bpmnTasks(where: BpmnTaskWhereInput, orderBy: BpmnTaskOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BpmnTask]!
   bpmnProcessInstances(where: BpmnProcessInstanceWhereInput, orderBy: BpmnProcessInstanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BpmnProcessInstance]!
   localisation(where: LocalisationWhereUniqueInput!): Localisation
-  log(where: LogWhereUniqueInput!): Log
   organisation(where: OrganisationWhereUniqueInput!): Organisation
   role(where: RoleWhereUniqueInput!): Role
   validator(where: ValidatorWhereUniqueInput!): Validator
@@ -5870,6 +5816,7 @@ type Query {
   user(where: UserWhereUniqueInput!): User
   notification(where: NotificationWhereUniqueInput!): Notification
   document(where: DocumentWhereUniqueInput!): Document
+  log(where: LogWhereUniqueInput!): Log
   dataDescriptor(where: DataDescriptorWhereUniqueInput!): DataDescriptor
   resource(where: ResourceWhereUniqueInput!): Resource
   access(where: AccessWhereUniqueInput!): Access
@@ -5879,7 +5826,6 @@ type Query {
   bpmnTask(where: BpmnTaskWhereUniqueInput!): BpmnTask
   bpmnProcessInstance(where: BpmnProcessInstanceWhereUniqueInput!): BpmnProcessInstance
   localisationsConnection(where: LocalisationWhereInput, orderBy: LocalisationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LocalisationConnection!
-  logsConnection(where: LogWhereInput, orderBy: LogOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LogConnection!
   organisationsConnection(where: OrganisationWhereInput, orderBy: OrganisationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): OrganisationConnection!
   rolesConnection(where: RoleWhereInput, orderBy: RoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RoleConnection!
   validatorsConnection(where: ValidatorWhereInput, orderBy: ValidatorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ValidatorConnection!
@@ -5889,6 +5835,7 @@ type Query {
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   notificationsConnection(where: NotificationWhereInput, orderBy: NotificationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): NotificationConnection!
   documentsConnection(where: DocumentWhereInput, orderBy: DocumentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DocumentConnection!
+  logsConnection(where: LogWhereInput, orderBy: LogOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LogConnection!
   accessConditionsConnection(where: AccessConditionWhereInput, orderBy: AccessConditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AccessConditionConnection!
   dataDescriptorsConnection(where: DataDescriptorWhereInput, orderBy: DataDescriptorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DataDescriptorConnection!
   resourcesConnection(where: ResourceWhereInput, orderBy: ResourceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ResourceConnection!
@@ -6434,7 +6381,6 @@ input RoleWhereUniqueInput {
 
 type Subscription {
   localisation(where: LocalisationSubscriptionWhereInput): LocalisationSubscriptionPayload
-  log(where: LogSubscriptionWhereInput): LogSubscriptionPayload
   organisation(where: OrganisationSubscriptionWhereInput): OrganisationSubscriptionPayload
   role(where: RoleSubscriptionWhereInput): RoleSubscriptionPayload
   validator(where: ValidatorSubscriptionWhereInput): ValidatorSubscriptionPayload
@@ -6444,6 +6390,7 @@ type Subscription {
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   notification(where: NotificationSubscriptionWhereInput): NotificationSubscriptionPayload
   document(where: DocumentSubscriptionWhereInput): DocumentSubscriptionPayload
+  log(where: LogSubscriptionWhereInput): LogSubscriptionPayload
   accessCondition(where: AccessConditionSubscriptionWhereInput): AccessConditionSubscriptionPayload
   dataDescriptor(where: DataDescriptorSubscriptionWhereInput): DataDescriptorSubscriptionPayload
   resource(where: ResourceSubscriptionWhereInput): ResourceSubscriptionPayload
@@ -6884,7 +6831,7 @@ input UserWhereUniqueInput {
 
 type Validator implements Node {
   id: ID!
-  name: String!
+  name: ValidatorFunction!
   params: [String!]!
 }
 
@@ -6899,7 +6846,7 @@ type ValidatorConnection {
 }
 
 input ValidatorCreateInput {
-  name: String!
+  name: ValidatorFunction!
   params: ValidatorCreateparamsInput
 }
 
@@ -6921,6 +6868,22 @@ type ValidatorEdge {
   cursor: String!
 }
 
+enum ValidatorFunction {
+  RequiredValidator
+  ArrayLengthValidator
+  EmailValidator
+  IntPositiveValidator
+  IntValidator
+  IntNonZeroValidator
+  FloatValidator
+  FloatPositiveValidator
+  FloatNonZeroValidator
+  StringLengthValidator
+  EqualityValidator
+  RegExValidator
+  ExpressionValidator
+}
+
 enum ValidatorOrderByInput {
   id_ASC
   id_DESC
@@ -6934,7 +6897,7 @@ enum ValidatorOrderByInput {
 
 type ValidatorPreviousValues {
   id: ID!
-  name: String!
+  name: ValidatorFunction!
   params: [String!]!
 }
 
@@ -6978,12 +6941,12 @@ input ValidatorSubscriptionWhereInput {
 }
 
 input ValidatorUpdateDataInput {
-  name: String
+  name: ValidatorFunction
   params: ValidatorUpdateparamsInput
 }
 
 input ValidatorUpdateInput {
-  name: String
+  name: ValidatorFunction
   params: ValidatorUpdateparamsInput
 }
 
@@ -7060,46 +7023,16 @@ input ValidatorWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
-  name: String
+  name: ValidatorFunction
 
   """All values that are not equal to given value."""
-  name_not: String
+  name_not: ValidatorFunction
 
   """All values that are contained in given list."""
-  name_in: [String!]
+  name_in: [ValidatorFunction!]
 
   """All values that are not contained in given list."""
-  name_not_in: [String!]
-
-  """All values less than the given value."""
-  name_lt: String
-
-  """All values less than or equal the given value."""
-  name_lte: String
-
-  """All values greater than the given value."""
-  name_gt: String
-
-  """All values greater than or equal the given value."""
-  name_gte: String
-
-  """All values containing the given string."""
-  name_contains: String
-
-  """All values not containing the given string."""
-  name_not_contains: String
-
-  """All values starting with the given string."""
-  name_starts_with: String
-
-  """All values not starting with the given string."""
-  name_not_starts_with: String
-
-  """All values ending with the given string."""
-  name_ends_with: String
-
-  """All values not ending with the given string."""
-  name_not_ends_with: String
+  name_not_in: [ValidatorFunction!]
   _MagicalBackRelation_FormToValidator_every: FormWhereInput
   _MagicalBackRelation_FormToValidator_some: FormWhereInput
   _MagicalBackRelation_FormToValidator_none: FormWhereInput

@@ -10,9 +10,25 @@ enum FormControl {
   DeleteButton
 }
 
+enum ValidatorFunction {
+  ArrayLengthValidator
+  EmailValidator
+  EqualityValidator
+  ExpressionValidator
+  FloatNonZeroValidator
+  FloatPositiveValidator
+  FloatValidator
+  IntNonZeroValidator
+  IntPositiveValidator
+  IntValidator
+  RegExValidator
+  RequiredValidator
+  StringLengthValidator
+}
+
 type Validator {
   id: ID! @unique
-  name: String!
+  name: ValidatorFunction!
   params: [String!]
 }
 

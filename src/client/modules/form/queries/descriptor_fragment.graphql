@@ -1,0 +1,20 @@
+fragment Validator on Validator {
+  id
+  name
+  params
+}
+
+fragment DataDescriptor on DataDescriptor {
+  id
+  defaultValue
+  description
+  expression
+  id
+  isArray
+  name
+  type
+  parentDescriptor
+  validators {
+    ...Validator
+  }
+}

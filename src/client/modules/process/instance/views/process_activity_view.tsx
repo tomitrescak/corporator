@@ -78,34 +78,32 @@ export const ProcessActivityView: React.SFC<Props> = ({ context, processInstance
           <>
             <Feed>
               {filtered.map((t, i) => (
-                <>
-                  <Feed.Event key={t.id}>
-                    <Feed.Label icon={logResultToIcon(t)} />
-                    <Feed.Content>
-                      <Feed.Date>
-                        {context.Ui.relativeDate(t.date)}
-                        <If condition={i > 0}>
+                <Feed.Event key={t.id}>
+                  <Feed.Label icon={logResultToIcon(t)} />
+                  <Feed.Content>
+                    <Feed.Date>
+                      {context.Ui.relativeDate(t.date)}
+                      <If condition={i > 0}>
+                        <>
+                          &nbsp;&middot;&nbsp;
+                          {relativeDate(filtered[i], filtered[i - 1])}
+                        </>
+                      </If>
+                    </Feed.Date>
+                    <Feed.Summary>
+                      <Choose>
+                        <When condition={t.performer}>
                           <>
-                            &nbsp;&middot;&nbsp;
-                            {relativeDate(filtered[i], filtered[i - 1])}
+                            {t.performer.name} {taskToName(t, context)}
                           </>
-                        </If>
-                      </Feed.Date>
-                      <Feed.Summary>
-                        <Choose>
-                          <When condition={t.performer}>
-                            <>
-                              {t.performer.name} {taskToName(t, context)}
-                            </>
-                          </When>
-                          <Otherwise>
-                            <>{context.i18n`Task "${t.elementName}" started`}</>
-                          </Otherwise>
-                        </Choose>
-                      </Feed.Summary>
-                    </Feed.Content>
-                  </Feed.Event>
-                </>
+                        </When>
+                        <Otherwise>
+                          <>{context.i18n`Task "${t.elementName}" started`}</>
+                        </Otherwise>
+                      </Choose>
+                    </Feed.Summary>
+                  </Feed.Content>
+                </Feed.Event>
               ))}
             </Feed>
           </>
@@ -114,3 +112,5 @@ export const ProcessActivityView: React.SFC<Props> = ({ context, processInstance
     </>
   );
 };
+
+ProcessActivityView.displayName = 'ProcessActivityView';

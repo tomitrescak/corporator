@@ -127,8 +127,11 @@ export const create = {
     parentElement: null,
     ...element
   }),
+  elementMutation(element: Partial<Prisma.FormElementCreateInput> = {}) {
+    return db.mutation.createFormElement({ data: create.element(element) });
+  },
   validation: (element: Partial<Prisma.ValidatorCreateInput>): Prisma.ValidatorCreateInput => ({
-    name: 'Required',
+    name: 'RequiredValidator',
     params: null,
     ...element
   }),
@@ -305,13 +308,75 @@ async function insertFixtures() {
   const nameDescriptor = await create.descriptorMutation({ name: 'owner.personal.name' });
   const ageDescriptor = await create.descriptorMutation({
     name: 'owner.personal.age',
-    type: 'Float'
+    type: 'Float',
+    validators: {
+      create: [{ name: 'RequiredValidator' }]
+    }
+  });
+  const childrenDescriptor = await create.descriptorMutation({
+    name: 'children',
+    type: 'Object',
+    isArray: true,
+    validators: {
+      create: [{ name: 'ArrayLengthValidator', params: { set: ['1'] } }]
+    }
+  });
+  const childDescriptor = await create.descriptorMutation({
+    name: 'childName',
+    type: 'String',
+    validators: {
+      create: [{ name: 'RequiredValidator' }]
+    },
+    parentDescriptor: childrenDescriptor.id
+  });
+  const addressDescriptor = await create.descriptorMutation({
+    name: 'address',
+    type: 'Object'
+  });
+  const cityDescriptor = await create.descriptorMutation({
+    name: 'city',
+    type: 'String',
+    validators: {
+      create: [{ name: 'RequiredValidator' }]
+    },
+    parentDescriptor: addressDescriptor.id
+  });
+  const zipDescriptor = await create.descriptorMutation({
+    name: 'zip',
+    type: 'String',
+    validators: {
+      create: [{ name: 'RegExValidator', params: { set: ['\\d\\d\\d\\d'] } }]
+    },
+    parentDescriptor: addressDescriptor.id
+  });
+
+  const addressElement = await create.elementMutation({
+    label: 'Address',
+    control: 'Text',
+    source: {
+      connect: { id: addressDescriptor.id }
+    },
+    column: 0,
+    width: 16,
+    row: 1
+  });
+
+  const childrenElement = await create.elementMutation({
+    label: 'Children',
+    control: 'Text',
+    source: {
+      connect: { id: childrenDescriptor.id }
+    },
+    column: 0,
+    width: 16,
+    row: 2
   });
 
   const report = await create.formMutation({
     name: 'Registration Form',
     description: 'This is a registration form',
     elements: {
+      connect: [{ id: addressElement.id }, { id: childrenElement.id }],
       create: [
         create.element({
           label: 'Name',
@@ -330,6 +395,39 @@ async function insertFixtures() {
             connect: { id: ageDescriptor.id }
           },
           column: 8,
+          width: 8,
+          row: 0
+        }),
+        create.element({
+          label: 'City',
+          control: 'Text',
+          source: {
+            connect: { id: cityDescriptor.id }
+          },
+          parentElement: addressElement.id,
+          column: 0,
+          width: 8,
+          row: 0
+        }),
+        create.element({
+          label: 'Zip',
+          control: 'Text',
+          source: {
+            connect: { id: zipDescriptor.id }
+          },
+          parentElement: addressElement.id,
+          column: 8,
+          width: 8,
+          row: 0
+        }),
+        create.element({
+          label: 'Name',
+          control: 'Text',
+          source: {
+            connect: { id: childDescriptor.id }
+          },
+          parentElement: childrenElement.id,
+          column: 0,
           width: 8,
           row: 0
         })
@@ -358,8 +456,7 @@ async function insertFixtures() {
           },
           column: 9,
           width: 8,
-          row: 0,
-          
+          row: 0
         })
       ]
     }

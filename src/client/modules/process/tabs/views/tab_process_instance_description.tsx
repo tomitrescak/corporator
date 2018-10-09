@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { Link } from '@reach/router';
 import {
+  Accordion,
   Button,
   Comment,
   Divider,
@@ -10,7 +11,8 @@ import {
   Icon,
   Label,
   List,
-  Message
+  Message,
+  Segment
 } from 'semantic-ui-react';
 
 import { AvatarView } from 'client/modules/avatar/avatar_view';

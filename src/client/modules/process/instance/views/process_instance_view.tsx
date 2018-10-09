@@ -4,6 +4,7 @@ import { Grid } from 'semantic-ui-react';
 
 import { QueryTypes } from 'data/client';
 import { ProcessViewType, TightGrid } from '../../common/process_styles';
+import { MenuActionsView } from '../../menu/menu_actions_view';
 import { MenuResourceView } from '../../menu/menu_resources_view';
 import { TabDiagramView } from '../../tabs/views/tab_diagram_view';
 import { TabProcessInstanceDescription } from '../../tabs/views/tab_process_instance_description';
@@ -45,10 +46,16 @@ export class ProcessInstanceView extends React.Component<Props> {
 
             <If condition={!!process.resources.length}>
               <Grid.Column width={5}>
+                <MenuActionsView
+                  context={context}
+                  process={process}
+                  processInstance={processInstance}
+                />
                 <MenuResourceView
                   context={context}
                   process={process}
                   processInstance={processInstance}
+                  attached={true}
                 />
               </Grid.Column>
             </If>

@@ -80,9 +80,9 @@ export function safeEval(t: any, expression: string, value: any = null) {
 
 function createValidator(validator: QueryTypes.DataDescriptor_Validators) {
   switch (validator.name) {
-    case 'regExValidator':
-      return validations.regExValidator(new RegExp(validator.params[0]), validator.params[1]);
-    case 'expressionValidator':
+    case 'RegExValidator':
+      return validations.RegExValidator(new RegExp(validator.params[0]), validator.params[1]);
+    case 'ExpressionValidator':
       // @ts-ignore
       return function(value) {
         if (!safeEval('_', validator.params[0], value)) {
@@ -189,10 +189,10 @@ export class FormModel {
       }
       switch (desc.type) {
         case 'Int':
-          validators[desc.name].push(validations.intValidator);
+          validators[desc.name].push(validations.IntValidator);
           break;
         case 'Float':
-          validators[desc.name].push(validations.floatValidator);
+          validators[desc.name].push(validations.FloatValidator);
           break;
       }
     }

@@ -7,6 +7,12 @@ export type IValidator = (input: string) => string;
 
 export type IFormStore = typeof FormStore.Type;
 
+export type ValidationResult = {
+  valid: number;
+  invalid: number;
+  total: number;
+};
+
 function strip(obj: any) {
   if (typeof obj === 'object') {
     if (obj.errors) {
@@ -85,12 +91,31 @@ export const FormStore = types
 
         return true;
       },
-      validate() {
-        let valid = true;
+
+      validateWithReport(): ValidationResult {
+        let total = 0;
+        let valid = 0;
+
+        // validate self
+
         for (let key of Object.getOwnPropertyNames(self.validators)) {
-          valid = (self as IFormStore).validateField(key, (self as any)[key]) && valid;
+          total += 1;
+          if ((self as IFormStore).validateField(key, (self as any)[key])) {
+            valid += 1;
+          }
         }
-        return valid;
+
+        // validate arrays
+
+        // validate objects
+
+        // create report
+
+        return {
+          total,
+          valid,
+          invalid: total - valid
+        };
       },
       // setValidators(values: { [name: string]: IValidator[] }) {
       //   for (let key of Object.getOwnPropertyNames(values)) {
@@ -137,6 +162,9 @@ export const FormStore = types
     };
   })
   .actions(self => ({
+    validate() {
+      return self.validateWithReport().invalid === 0;
+    },
     setStringValue(key: string, value: any) {
       self.strings.set(key, value);
 

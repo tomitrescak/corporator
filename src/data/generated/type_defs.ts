@@ -2420,7 +2420,6 @@ scalar Json
 
 type Log implements Node {
   id: ID!
-  processInstance(where: BpmnProcessInstanceWhereInput): BpmnProcessInstance!
   elementId: String!
   elementName: String!
   date: DateTime!
@@ -2750,8 +2749,10 @@ input LogWhereInput {
   All values not ending with the given string.
   """
   message_not_ends_with: String
-  processInstance: BpmnProcessInstanceWhereInput
   performer: UserWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceLog_every: BpmnProcessInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceLog_some: BpmnProcessInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceLog_none: BpmnProcessInstanceWhereInput
 }
 
 enum LogOrderByInput {
@@ -3440,7 +3441,7 @@ enum DataType {
 
 type Validator implements Node {
   id: ID!
-  name: String!
+  name: ValidatorFunction!
   params: [String!]!
 }
 
@@ -3510,59 +3511,19 @@ input ValidatorWhereInput {
   All values not ending with the given string.
   """
   id_not_ends_with: ID
-  name: String
+  name: ValidatorFunction
   """
   All values that are not equal to given value.
   """
-  name_not: String
+  name_not: ValidatorFunction
   """
   All values that are contained in given list.
   """
-  name_in: [String!]
+  name_in: [ValidatorFunction!]
   """
   All values that are not contained in given list.
   """
-  name_not_in: [String!]
-  """
-  All values less than the given value.
-  """
-  name_lt: String
-  """
-  All values less than or equal the given value.
-  """
-  name_lte: String
-  """
-  All values greater than the given value.
-  """
-  name_gt: String
-  """
-  All values greater than or equal the given value.
-  """
-  name_gte: String
-  """
-  All values containing the given string.
-  """
-  name_contains: String
-  """
-  All values not containing the given string.
-  """
-  name_not_contains: String
-  """
-  All values starting with the given string.
-  """
-  name_starts_with: String
-  """
-  All values not starting with the given string.
-  """
-  name_not_starts_with: String
-  """
-  All values ending with the given string.
-  """
-  name_ends_with: String
-  """
-  All values not ending with the given string.
-  """
-  name_not_ends_with: String
+  name_not_in: [ValidatorFunction!]
   _MagicalBackRelation_FormToValidator_every: FormWhereInput
   _MagicalBackRelation_FormToValidator_some: FormWhereInput
   _MagicalBackRelation_FormToValidator_none: FormWhereInput
@@ -5408,6 +5369,22 @@ type UserPreviousValues {
   password: String!
 }
 
+enum ValidatorFunction {
+  RequiredValidator
+  ArrayLengthValidator
+  EmailValidator
+  IntPositiveValidator
+  IntValidator
+  IntNonZeroValidator
+  FloatValidator
+  FloatPositiveValidator
+  FloatNonZeroValidator
+  StringLengthValidator
+  EqualityValidator
+  RegExValidator
+  ExpressionValidator
+}
+
 """
 An edge in a connection.
 """
@@ -5428,7 +5405,7 @@ type AggregateValidator {
 
 type ValidatorPreviousValues {
   id: ID!
-  name: String!
+  name: ValidatorFunction!
   params: [String!]!
 }
 `

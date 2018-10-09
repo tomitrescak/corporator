@@ -9,13 +9,19 @@ type Props = {
   process?: QueryTypes.BpmnProcessDefinition;
   context: App.Context;
   processInstance?: QueryTypes.BpmnProcessInstance;
+  attached: any;
 };
 
-export const MenuResourceView: React.SFC<Props> = ({ context, process, processInstance }) => (
+export const MenuResourceView: React.SFC<Props> = ({
+  context,
+  process,
+  processInstance,
+  attached = top
+}) => (
   <>
     <Header
       inverted
-      attached="top"
+      attached={attached}
       as="h5"
       icon="folder"
       size="tiny"
