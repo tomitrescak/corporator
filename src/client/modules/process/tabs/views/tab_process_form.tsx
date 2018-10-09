@@ -1,6 +1,8 @@
 import * as React from 'react';
 
-import * as FORM_QUERY from 'client/modules/form/queries/form_query.graphql';
+import * as DESCRIPTOR_FRAGMENT from 'client/modules/form/queries/descriptor_fragment.graphql';
+import * as FORM_FRAGMENT from 'client/modules/form/queries/form_fragment.graphql';
+import * as FORM_QUERY_NO_FRAGMENT from 'client/modules/form/queries/form_query.graphql';
 
 import { Query } from 'react-apollo';
 import styled from 'styled-components';
@@ -8,10 +10,16 @@ import styled from 'styled-components';
 import { renderResult } from 'client/modules/common';
 import { FormModel } from 'client/modules/form/models/form_model';
 import { FormView } from 'client/modules/form/views/form_view';
-import { QueryTypes } from 'data/client';
+import { gql, QueryTypes } from 'data/client';
 import { Button, Grid, Header } from 'semantic-ui-react';
 import { EditableViewType, ProcessViewType } from '../../common/process_styles';
 import { TabBreadcrumbs } from './tab_breadcrumbs';
+
+export const FORM_QUERY = gql`
+  ${FORM_QUERY_NO_FRAGMENT}
+  ${FORM_FRAGMENT}
+  ${DESCRIPTOR_FRAGMENT}
+`;
 
 const FieldSet = styled.fieldset`
   border: 0px;
@@ -53,6 +61,7 @@ class FormQuery extends Query<QueryTypes.FormQuery, QueryTypes.FormQueryVariable
 
 type Props = {
   process: QueryTypes.BpmnProcessDefinition;
+  processInstance?: QueryTypes.BpmnProcessInstance;
   contentType: ProcessViewType;
   context: App.Context;
   viewType: EditableViewType;
@@ -82,7 +91,7 @@ export class TabFormView extends React.Component<Props, State> {
             let form = new FormModel(result.data.formQuery);
             let data = FormModel.buildMstModel(
               result.data.process.dataDescriptors,
-              [],
+              this.props.processInstance ? this.props.processInstance.data : {},
               [],
               previewOnly
             );

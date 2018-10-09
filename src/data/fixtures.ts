@@ -363,7 +363,7 @@ async function insertFixtures() {
 
   const childrenElement = await create.elementMutation({
     label: 'Children',
-    control: 'Text',
+    control: 'Repeater',
     source: {
       connect: { id: childrenDescriptor.id }
     },
@@ -376,7 +376,6 @@ async function insertFixtures() {
     name: 'Registration Form',
     description: 'This is a registration form',
     elements: {
-      connect: [{ id: addressElement.id }, { id: childrenElement.id }],
       create: [
         create.element({
           label: 'Name',
@@ -395,6 +394,34 @@ async function insertFixtures() {
             connect: { id: ageDescriptor.id }
           },
           column: 8,
+          width: 8,
+          row: 0
+        })
+      ]
+    }
+  });
+
+  const form = await create.formMutation({
+    name: 'Registration Form',
+    description: 'This is a registration form',
+    elements: {
+      connect: [{ id: addressElement.id }, { id: childrenElement.id }],
+      create: [
+        create.element({
+          label: 'Name',
+          source: {
+            connect: { id: nameDescriptor.id }
+          },
+          column: 0,
+          width: 8,
+          row: 0
+        }),
+        create.element({
+          label: 'Age',
+          source: {
+            connect: { id: ageDescriptor.id }
+          },
+          column: 9,
           width: 8,
           row: 0
         }),
@@ -428,33 +455,6 @@ async function insertFixtures() {
           },
           parentElement: childrenElement.id,
           column: 0,
-          width: 8,
-          row: 0
-        })
-      ]
-    }
-  });
-
-  const form = await create.formMutation({
-    name: 'Registration Form',
-    description: 'This is a registration form',
-    elements: {
-      create: [
-        create.element({
-          label: 'Name',
-          source: {
-            connect: { id: nameDescriptor.id }
-          },
-          column: 0,
-          width: 8,
-          row: 0
-        }),
-        create.element({
-          label: 'Age',
-          source: {
-            connect: { id: ageDescriptor.id }
-          },
-          column: 9,
           width: 8,
           row: 0
         })
@@ -522,7 +522,15 @@ async function insertFixtures() {
       description: 'Process 1 description',
       type: 'Purchases',
       dataDescriptors: {
-        connect: [{ id: nameDescriptor.id }, { id: ageDescriptor.id }]
+        connect: [
+          { id: nameDescriptor.id },
+          { id: ageDescriptor.id },
+          { id: childrenDescriptor.id },
+          { id: childDescriptor.id },
+          { id: addressDescriptor.id },
+          { id: cityDescriptor.id },
+          { id: zipDescriptor.id }
+        ]
       },
       tasks: {
         connect: [{ id: formTask.id }, { id: reportTask.id }, { id: genericTask.id }]
