@@ -84,7 +84,10 @@ export type FormControl =   'Input' |
   'Repeater' |
   'Table' |
   'Text' |
-  'DeleteButton'
+  'Form' |
+  'DeleteButton' |
+  'ApproveButton' |
+  'RejectButton'
 
 export type BpmnProcessInstanceOrderByInput =   'id_ASC' |
   'id_DESC' |
@@ -271,19 +274,19 @@ export type LogOrderByInput =   'id_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export type ValidatorFunction =   'RequiredValidator' |
-  'ArrayLengthValidator' |
+export type ValidatorFunction =   'ArrayLengthValidator' |
   'EmailValidator' |
+  'EqualityValidator' |
+  'ExpressionValidator' |
+  'FloatNonZeroValidator' |
+  'FloatPositiveValidator' |
+  'FloatValidator' |
+  'IntNonZeroValidator' |
   'IntPositiveValidator' |
   'IntValidator' |
-  'IntNonZeroValidator' |
-  'FloatValidator' |
-  'FloatPositiveValidator' |
-  'FloatNonZeroValidator' |
-  'StringLengthValidator' |
-  'EqualityValidator' |
   'RegExValidator' |
-  'ExpressionValidator'
+  'RequiredValidator' |
+  'StringLengthValidator'
 
 export type LanguageCode =   'EN'
 

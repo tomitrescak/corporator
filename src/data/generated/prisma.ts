@@ -3782,7 +3782,10 @@ enum FormControl {
   Repeater
   Table
   Text
+  Form
   DeleteButton
+  ApproveButton
+  RejectButton
 }
 
 input FormCreateInput {
@@ -7122,19 +7125,19 @@ type ValidatorEdge {
 }
 
 enum ValidatorFunction {
-  RequiredValidator
   ArrayLengthValidator
   EmailValidator
+  EqualityValidator
+  ExpressionValidator
+  FloatNonZeroValidator
+  FloatPositiveValidator
+  FloatValidator
+  IntNonZeroValidator
   IntPositiveValidator
   IntValidator
-  IntNonZeroValidator
-  FloatValidator
-  FloatPositiveValidator
-  FloatNonZeroValidator
-  StringLengthValidator
-  EqualityValidator
   RegExValidator
-  ExpressionValidator
+  RequiredValidator
+  StringLengthValidator
 }
 
 enum ValidatorOrderByInput {
@@ -7343,7 +7346,10 @@ export type FormControl =   'Input' |
   'Repeater' |
   'Table' |
   'Text' |
-  'DeleteButton'
+  'Form' |
+  'DeleteButton' |
+  'ApproveButton' |
+  'RejectButton'
 
 export type LanguageCode =   'EN'
 
@@ -7519,19 +7525,19 @@ export type FormOrderByInput =   'id_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export type ValidatorFunction =   'RequiredValidator' |
-  'ArrayLengthValidator' |
+export type ValidatorFunction =   'ArrayLengthValidator' |
   'EmailValidator' |
+  'EqualityValidator' |
+  'ExpressionValidator' |
+  'FloatNonZeroValidator' |
+  'FloatPositiveValidator' |
+  'FloatValidator' |
+  'IntNonZeroValidator' |
   'IntPositiveValidator' |
   'IntValidator' |
-  'IntNonZeroValidator' |
-  'FloatValidator' |
-  'FloatPositiveValidator' |
-  'FloatNonZeroValidator' |
-  'StringLengthValidator' |
-  'EqualityValidator' |
   'RegExValidator' |
-  'ExpressionValidator'
+  'RequiredValidator' |
+  'StringLengthValidator'
 
 export type ProcessType =   'HumanResources' |
   'Purchases' |

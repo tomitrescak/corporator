@@ -3,16 +3,18 @@ import * as React from 'react';
 import { Button } from 'semantic-ui-react';
 
 import { CheckboxView } from '../views/checkbox_view';
+import { FormView } from '../views/form_view';
 import { FormulaView } from '../views/formula_view';
 import { InputView } from '../views/input_view';
 import { RadioView } from '../views/radio_view';
 import { RepeaterView } from '../views/repeater_view';
 import { SelectView } from '../views/select_view';
-import { DataSet, FormElement } from './form_model';
+import { DataSet, FormElement, FormModel } from './form_model';
 
 export function renderControl(
   control: FormElement,
   dataSet: DataSet,
+  form: FormModel,
   handlers: { [index: string]: () => void }
 ) {
   const formElement = control as FormElement;
@@ -24,6 +26,12 @@ export function renderControl(
   switch (formElement.control) {
     case 'Input':
       return <InputView owner={dataSet} formControl={formElement} />;
+    case 'Form':
+      return (
+        <div className="ui form">
+          <FormView data={dataSet[control.source.name]} form={formElement} handlers={handlers} />
+        </div>
+      );
     case 'Select':
       return <SelectView owner={dataSet} formControl={formElement} />;
     case 'Checkbox':

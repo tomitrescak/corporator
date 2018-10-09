@@ -68,7 +68,7 @@ it('builds MST', () => {
 
   const instance = FormModel.buildMstModel(descriptors, {
     height: 6,
-    parent: {},
+    parent: { weight: 10 },
     countries: [{ name: 'Slovakia', capital: 'Bratislava' }]
   });
 
@@ -89,6 +89,6 @@ it('builds MST', () => {
     age: 7,
     countries: [{ capital: 'Bratislava', name: 'Slovakia' }],
     height: 10,
-    parent: { weight: 60 }
+    parent: { weight: 10 }
   });
 });

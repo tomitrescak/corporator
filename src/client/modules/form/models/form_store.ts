@@ -1,6 +1,7 @@
 import { IObservableArray, toJS } from 'mobx';
 import { types } from 'mobx-state-tree';
 
+import { QueryTypes } from 'data/client';
 import { DataDescriptor } from './form_model';
 
 export type IValidator = (input: string) => string;
@@ -181,10 +182,15 @@ export const FormStore = types
       return (self as any)[item];
     },
     getStringValue(key: string): string {
+      const descriptor = self.getDescriptor(key);
       // expressions are evaluated on the fly
-      if (self.getDescriptor(key).expression) {
+      if (descriptor.expression) {
         // @ts-ignore
         return self[key];
+      }
+
+      if (descriptor.type === QueryTypes.DataType.Object) {
+        return '<ERROR! Rendering Object as TEXT>';
       }
 
       // init

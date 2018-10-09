@@ -352,7 +352,7 @@ async function insertFixtures() {
 
   const addressElement = await create.elementMutation({
     label: 'Address',
-    control: 'Text',
+    control: 'Form',
     source: {
       connect: { id: addressDescriptor.id }
     },
@@ -427,7 +427,7 @@ async function insertFixtures() {
         }),
         create.element({
           label: 'City',
-          control: 'Text',
+          control: 'Input',
           source: {
             connect: { id: cityDescriptor.id }
           },
@@ -438,7 +438,7 @@ async function insertFixtures() {
         }),
         create.element({
           label: 'Zip',
-          control: 'Text',
+          control: 'Input',
           source: {
             connect: { id: zipDescriptor.id }
           },
@@ -610,6 +610,11 @@ async function insertFixtures() {
     create.bpmnProcessInstance({
       process: { connect: { id: processes[0].id } },
       owner: { connect: { id: user.id } },
+      data: {
+        'owner.personal.name': 'Tomas',
+        address: {},
+        children: []
+      },
       log: {
         create: [
           create.log({

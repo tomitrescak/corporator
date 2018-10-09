@@ -1050,10 +1050,13 @@ export enum DataType {
 }
 
 export enum FormControl {
+  ApproveButton = "ApproveButton",
   Checkbox = "Checkbox",
   DeleteButton = "DeleteButton",
+  Form = "Form",
   Input = "Input",
   Radio = "Radio",
+  RejectButton = "RejectButton",
   Repeater = "Repeater",
   Select = "Select",
   Table = "Table",

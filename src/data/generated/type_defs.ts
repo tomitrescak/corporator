@@ -4195,7 +4195,10 @@ enum FormControl {
   Repeater
   Table
   Text
+  Form
   DeleteButton
+  ApproveButton
+  RejectButton
 }
 
 """
@@ -5370,19 +5373,19 @@ type UserPreviousValues {
 }
 
 enum ValidatorFunction {
-  RequiredValidator
   ArrayLengthValidator
   EmailValidator
+  EqualityValidator
+  ExpressionValidator
+  FloatNonZeroValidator
+  FloatPositiveValidator
+  FloatValidator
+  IntNonZeroValidator
   IntPositiveValidator
   IntValidator
-  IntNonZeroValidator
-  FloatValidator
-  FloatPositiveValidator
-  FloatNonZeroValidator
-  StringLengthValidator
-  EqualityValidator
   RegExValidator
-  ExpressionValidator
+  RequiredValidator
+  StringLengthValidator
 }
 
 """

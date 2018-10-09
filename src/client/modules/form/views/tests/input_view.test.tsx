@@ -120,16 +120,16 @@ describe('Form', () => {
   describe('Validators', () => {
     function componentWithData() {
       const validators = [
-        ['intPositiveValidator', '-1', '2'],
-        ['intValidator', '2.5', '0'],
-        ['intNonZeroValidator', '0', '7'],
-        ['floatValidator', 'd', '2.7'],
-        ['floatPositiveValidator', '-5', '7'],
-        ['floatNonZeroValidator', '0', '6.8'],
-        ['requiredValidator', '', 'ok'],
-        ['emailValidator', 'bad', 'good@email.cz'],
-        ['regExValidator', 'tomi', 'ttomi', 'tt'],
-        ['expressionValidator', 'foo', 'bar', 'value === "bar"', 'Say whut?']
+        ['IntPositiveValidator', '-1', '2'],
+        ['IntValidator', '2.5', '0'],
+        ['IntNonZeroValidator', '0', '7'],
+        ['FloatValidator', 'd', '2.7'],
+        ['FloatPositiveValidator', '-5', '7'],
+        ['FloatNonZeroValidator', '0', '6.8'],
+        ['RequiredValidator', '', 'ok'],
+        ['EmailValidator', 'bad', 'good@email.cz'],
+        ['RegExValidator', 'tomi', 'ttomi', 'tt'],
+        ['ExpressionValidator', 'foo', 'bar', 'value === "bar"', 'Say whut?']
       ];
 
       const elements = [];
@@ -137,7 +137,7 @@ describe('Form', () => {
       const vControlData: any = {};
 
       for (let i = 0; i < validators.length; i++) {
-        let v = validators[i];
+        let v: any = validators[i];
         let badDescriptor = v[0] + '.Error';
         let goodDescriptor = v[0] + '.OK';
 
