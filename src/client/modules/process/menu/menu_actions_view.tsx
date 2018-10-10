@@ -3,7 +3,6 @@ import * as React from 'react';
 import { Divider, Header, List, Segment } from 'semantic-ui-react';
 
 import { QueryTypes } from 'data/client';
-import { ProcessResources } from '../common/process_resources_view';
 
 type Props = {
   process?: QueryTypes.BpmnProcessDefinition;
@@ -11,7 +10,7 @@ type Props = {
   processInstance?: QueryTypes.BpmnProcessInstance;
 };
 
-export const MenuActionsView: React.SFC<Props> = ({ context, process, processInstance }) => (
+export const MenuActionsView: React.SFC<Props> = () => (
   <>
     <Header inverted attached="top" as="h5" icon="bolt" size="tiny" content="Actions" dividing />
     <Segment attached>

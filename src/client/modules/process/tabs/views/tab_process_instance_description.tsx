@@ -1,19 +1,6 @@
 import * as React from 'react';
 
-import { Link } from '@reach/router';
-import {
-  Accordion,
-  Button,
-  Comment,
-  Divider,
-  Form,
-  Header,
-  Icon,
-  Label,
-  List,
-  Message,
-  Segment
-} from 'semantic-ui-react';
+import { Button, Comment, Form, Header, Icon } from 'semantic-ui-react';
 
 import { AvatarView } from 'client/modules/avatar/avatar_view';
 import { QueryTypes } from 'data/client';

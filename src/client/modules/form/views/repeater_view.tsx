@@ -4,10 +4,15 @@ import { observer } from 'mobx-react';
 
 import i18n from 'es2015-i18n-tag';
 import { IObservableArray } from 'mobx';
-import { Button, Message } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
+import styled from 'styled-components';
 
 import { DataSet, FormElement } from '../models/form_model';
 import { FormView } from './form_view';
+
+const NoItems = styled.div`
+  margin: 6px 0px 12px 0px;
+`;
 
 type Props = {
   formControl: FormElement;
@@ -56,13 +61,13 @@ export class RepeaterView extends React.Component<Props> {
       <>
         <Choose>
           <When condition={list == null || list.length === 0}>
-            <Message>{i18n`No items`}</Message>
+            <NoItems>{i18n`This collection contains no items ...`}</NoItems>
           </When>
           <Otherwise>
             <>
-              {list.map((listItemDataSet: DataSet) => (
+              {list.map((listItemDataSet: DataSet, i) => (
                 <RepeaterRow
-                  key={(listItemDataSet as any).id}
+                  key={i + Date.now()}
                   owner={owner}
                   formControl={formControl}
                   data={listItemDataSet}

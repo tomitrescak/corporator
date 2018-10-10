@@ -88,6 +88,7 @@ export function createProcess(
   return {
     id: '1',
     name: 'Process',
+    dataDescriptors: [],
     description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`,
     type: QueryTypes.ProcessType.Travel,
     model: null,
@@ -261,6 +262,7 @@ export function createProcessInstance(
     process: {
       id: 'pid',
       name: 'Process 1',
+      dataDescriptors: [],
       description:
         'Exercitation laborum id mollit reprehenderit exercitation ad adipisicing duis id qui ut tempor ullamco. Duis magna eu pariatur sit aliquip consectetur occaecat quis officia Lorem tempor elit. Et sint ad dolor sint minim laborum aliqua Lorem. Quis laborum veniam ullamco id culpa occaecat deserunt incididunt esse. Sint irure sunt duis Lorem eu eu culpa reprehenderit Lorem. Do cupidatat nisi velit dolore mollit.',
       type: QueryTypes.ProcessType.Purchases,

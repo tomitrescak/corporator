@@ -18,7 +18,11 @@ describe('Form', () => {
       name: 'must',
       type: QueryTypes.DataType.Boolean,
       validators: [
-        { id: '1', name: 'requiredValidator', params: ['You must agree to terms and conditions'] }
+        {
+          id: '1',
+          name: QueryTypes.ValidatorFunction.RequiredValidator,
+          params: ['You must agree to terms and conditions']
+        }
       ]
     })
   ];

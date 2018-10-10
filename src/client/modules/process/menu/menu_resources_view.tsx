@@ -9,7 +9,7 @@ type Props = {
   process?: QueryTypes.BpmnProcessDefinition;
   context: App.Context;
   processInstance?: QueryTypes.BpmnProcessInstance;
-  attached: any;
+  attached?: any;
 };
 
 export const MenuResourceView: React.SFC<Props> = ({

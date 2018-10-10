@@ -11,7 +11,7 @@ import { renderResult } from 'client/modules/common';
 import { FormModel } from 'client/modules/form/models/form_model';
 import { FormView } from 'client/modules/form/views/form_view';
 import { gql, QueryTypes } from 'data/client';
-import { Button, Grid, Header } from 'semantic-ui-react';
+import { Button, Divider, Grid, Header, Icon } from 'semantic-ui-react';
 import { EditableViewType, ProcessViewType } from '../../common/process_styles';
 import { TabBreadcrumbs } from './tab_breadcrumbs';
 
@@ -124,6 +124,10 @@ export class TabFormView extends React.Component<Props, State> {
                     </Grid.Column>
                   </If>
                 </Grid>
+
+                <Divider horizontal>
+                  <Icon circular name="bolt" />
+                </Divider>
                 <ButtonRow>
                   <Button primary content="Save" icon="save" labelPosition="left" />
                   <Button

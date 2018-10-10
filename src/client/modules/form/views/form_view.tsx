@@ -59,7 +59,7 @@ export class FormView extends React.Component<Props> {
               {formControl.label}
             </label>
           )}
-        {renderControl(control, this.props.data, this.props.form, this.props.handlers)}
+        {renderControl(control, this.props.data, this.props.handlers)}
       </Form.Field>
     );
 

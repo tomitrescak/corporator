@@ -9,12 +9,11 @@ import { InputView } from '../views/input_view';
 import { RadioView } from '../views/radio_view';
 import { RepeaterView } from '../views/repeater_view';
 import { SelectView } from '../views/select_view';
-import { DataSet, FormElement, FormModel } from './form_model';
+import { DataSet, FormElement } from './form_model';
 
 export function renderControl(
   control: FormElement,
   dataSet: DataSet,
-  form: FormModel,
   handlers: { [index: string]: () => void }
 ) {
   const formElement = control as FormElement;
@@ -29,7 +28,11 @@ export function renderControl(
     case 'Form':
       return (
         <div className="ui form">
-          <FormView data={dataSet[control.source.name]} form={formElement} handlers={handlers} />
+          <FormView
+            data={dataSet.getValue(control.source.name)}
+            form={formElement}
+            handlers={handlers}
+          />
         </div>
       );
     case 'Select':

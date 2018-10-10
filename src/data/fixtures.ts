@@ -379,7 +379,7 @@ async function insertFixtures() {
       create: [
         create.element({
           label: 'Name',
-          control: 'Text',
+          control: 'Text', 
           source: {
             connect: { id: nameDescriptor.id }
           },
@@ -421,7 +421,7 @@ async function insertFixtures() {
           source: {
             connect: { id: ageDescriptor.id }
           },
-          column: 9,
+          column: 8,
           width: 8,
           row: 0
         }),
@@ -449,7 +449,7 @@ async function insertFixtures() {
         }),
         create.element({
           label: 'Name',
-          control: 'Text',
+          control: 'Input',
           source: {
             connect: { id: childDescriptor.id }
           },

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Link } from '@reach/router';
-import { Button, Divider, Label, List, Message, Progress, ProgressProps } from 'semantic-ui-react';
+import { Button, List, Message, Progress, ProgressProps } from 'semantic-ui-react';
 import styled, { StyledComponentClass } from 'styled-components';
 
 import { FormModel } from 'client/modules/form/models/form_model';
