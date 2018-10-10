@@ -12,8 +12,8 @@ interface IFieldOwner {
 }
 
 interface Props {
-  data: DataSet;
-  form: IFieldOwner;
+  owner: DataSet;
+  formControl: IFieldOwner;
   handlers?: { [index: string]: () => void };
 }
 
@@ -59,7 +59,7 @@ export class FormView extends React.Component<Props> {
               {formControl.label}
             </label>
           )}
-        {renderControl(control, this.props.data, this.props.handlers)}
+        {renderControl(control, this.props.owner, this.props.handlers)}
       </Form.Field>
     );
 
@@ -71,10 +71,10 @@ export class FormView extends React.Component<Props> {
     this.lastColumn = 0;
     this.lastRow = 0;
 
-    const rows = groupByArray(this.props.form.elements, 'row');
+    const rows = groupByArray(this.props.formControl.elements, 'row');
 
     return (
-      <div className={'ui form'}>
+      <div className="ui form" style={{ maxWidth: '1000px' }}>
         {rows.map(row => (
           <Form.Group key={row.key}>
             {row.values.map(element => this.renderColumn(element))}

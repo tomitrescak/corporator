@@ -75,7 +75,7 @@ describe('Form', function() {
       // just another notation
       return (
         <Segment className="ui form">
-          <FormView form={form} data={dataSet} />
+          <FormView formControl={form} owner={dataSet} />
         </Segment>
       );
     }

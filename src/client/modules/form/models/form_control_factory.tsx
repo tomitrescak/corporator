@@ -9,6 +9,7 @@ import { InputView } from '../views/input_view';
 import { RadioView } from '../views/radio_view';
 import { RepeaterView } from '../views/repeater_view';
 import { SelectView } from '../views/select_view';
+import { TableView } from '../views/table_view';
 import { DataSet, FormElement } from './form_model';
 
 export function renderControl(
@@ -29,8 +30,8 @@ export function renderControl(
       return (
         <div className="ui form">
           <FormView
-            data={dataSet.getValue(control.source.name)}
-            form={formElement}
+            owner={dataSet.getValue(control.source.name)}
+            formControl={formElement}
             handlers={handlers}
           />
         </div>
@@ -43,6 +44,8 @@ export function renderControl(
       return <RadioView owner={dataSet} formControl={formElement} />;
     case 'Repeater':
       return <RepeaterView owner={dataSet} formControl={formElement} />;
+    case 'Table':
+      return <TableView owner={dataSet} formControl={formElement} />;
     case 'DeleteButton':
       return <Button icon="trash" color="red" onClick={handlers.delete} />;
     case 'Text':

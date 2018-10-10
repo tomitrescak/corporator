@@ -21,6 +21,8 @@ function strip(obj: any) {
       delete obj.validators;
       delete obj.strings;
       delete obj.descriptors;
+      delete obj.arrays;
+      delete obj.objects;
     }
 
     for (let key of Object.getOwnPropertyNames(obj)) {
@@ -37,6 +39,13 @@ function strip(obj: any) {
   return obj;
 }
 
+export function isRequired(descriptor: QueryTypes.DataDescriptor) {
+  return (
+    descriptor.validators.length &&
+    descriptor.validators.some(d => d.name === QueryTypes.ValidatorFunction.RequiredValidator)
+  );
+}
+
 export interface ListValue {
   [index: string]: string;
   text: string;
@@ -49,6 +58,8 @@ export const FormStore = types
     strings: types.map(types.string)
   })
   .volatile(() => ({
+    arrays: [],
+    objects: [],
     // tslint:disable-next-line:no-object-literal-type-assertion
     validators: {} as { [name: string]: IValidator[] },
     // tslint:disable-next-line:no-object-literal-type-assertion
@@ -91,32 +102,6 @@ export const FormStore = types
         }
 
         return true;
-      },
-
-      validateWithReport(): ValidationResult {
-        let total = 0;
-        let valid = 0;
-
-        // validate self
-
-        for (let key of Object.getOwnPropertyNames(self.validators)) {
-          total += 1;
-          if ((self as IFormStore).validateField(key, (self as any)[key])) {
-            valid += 1;
-          }
-        }
-
-        // validate arrays
-
-        // validate objects
-
-        // create report
-
-        return {
-          total,
-          valid,
-          invalid: total - valid
-        };
       },
       // setValidators(values: { [name: string]: IValidator[] }) {
       //   for (let key of Object.getOwnPropertyNames(values)) {
@@ -163,16 +148,48 @@ export const FormStore = types
     };
   })
   .actions(self => ({
+    validateWithReport(): ValidationResult {
+      let total = 0;
+      let valid = 0;
+
+      // validate self
+
+      for (let key of Object.getOwnPropertyNames(self.validators)) {
+        total += 1;
+        if (self.validateField(key, (self as any)[key])) {
+          valid += 1;
+        }
+      }
+
+      // validate arrays
+      for (let key of self.) {
+
+      }
+
+      // validate objects
+
+      // create report
+
+      return {
+        total,
+        valid,
+        invalid: total - valid
+      };
+    }
+  }))
+  .actions(self => ({
     validate() {
       return self.validateWithReport().invalid === 0;
     },
-    setStringValue(key: string, value: any) {
+    setStringValue(key: string, value: any, validate = true) {
       self.strings.set(key, value);
 
-      let isOK = self.validateField(key, value);
+      if (validate) {
+        let isOK = self.validateField(key, value);
 
-      if (isOK) {
-        self.parseValue(key, value);
+        if (isOK) {
+          self.parseValue(key, value);
+        }
       }
       // self.setError(key, error);
     }
@@ -195,7 +212,11 @@ export const FormStore = types
 
       // init
       if (!self.strings.has(key)) {
-        self.setStringValue(key, (self as any)[key] == null ? '' : (self as any)[key].toString());
+        self.setStringValue(
+          key,
+          (self as any)[key] == null ? '' : (self as any)[key].toString(),
+          false
+        );
       }
       return self.strings.get(key); // || this.getDescriptor(key).defaultValue || '';
     },

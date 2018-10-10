@@ -8,7 +8,7 @@ import { Query } from 'react-apollo';
 import styled from 'styled-components';
 
 import { renderResult } from 'client/modules/common';
-import { FormModel } from 'client/modules/form/models/form_model';
+import { DataSet, FormModel } from 'client/modules/form/models/form_model';
 import { FormView } from 'client/modules/form/views/form_view';
 import { gql, QueryTypes } from 'data/client';
 import { Button, Divider, Grid, Header, Icon } from 'semantic-ui-react';
@@ -75,9 +75,16 @@ type State = {
 
 export class TabFormView extends React.Component<Props, State> {
   state = { showInstructions: false };
+  data: DataSet;
 
   toggleInstruction = () => {
     this.setState({ showInstructions: !this.state.showInstructions });
+  };
+
+  save = () => {
+    if (this.data) {
+      this.data.validate();
+    }
   };
 
   render() {
@@ -89,7 +96,7 @@ export class TabFormView extends React.Component<Props, State> {
         {result =>
           renderResult(result, () => {
             let form = new FormModel(result.data.formQuery);
-            let data = FormModel.buildMstModel(
+            this.data = FormModel.buildMstModel(
               result.data.process.dataDescriptors,
               this.props.processInstance ? this.props.processInstance.data : {},
               [],
@@ -108,7 +115,7 @@ export class TabFormView extends React.Component<Props, State> {
                 <Grid>
                   <Grid.Column width={this.state.showInstructions ? 8 : 16}>
                     <FieldSet disabled={previewOnly} aria-disabled={previewOnly}>
-                      <FormView form={form} data={data} />
+                      <FormView formControl={form} owner={this.data} />
                     </FieldSet>
                   </Grid.Column>
                   <If condition={this.state.showInstructions}>
@@ -129,13 +136,14 @@ export class TabFormView extends React.Component<Props, State> {
                   <Icon circular name="bolt" />
                 </Divider>
                 <ButtonRow>
-                  <Button primary content="Save" icon="save" labelPosition="left" />
                   <Button
-                    color="green"
-                    content="Save and Submit "
-                    icon="disk"
+                    primary
+                    content="Save"
+                    icon="save"
                     labelPosition="left"
+                    onClick={this.save}
                   />
+                  <Button color="green" content="Save and Back " icon="disk" labelPosition="left" />
                 </ButtonRow>
               </>
             );

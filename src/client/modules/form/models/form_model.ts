@@ -183,7 +183,6 @@ export class FormModel {
           VALIDATORS
          ======================================================== */
 
-      validators[desc.name] = [];
       if (desc.validators && desc.validators.length) {
         validators[desc.name] = desc.validators.map(v => createValidator(v));
       }

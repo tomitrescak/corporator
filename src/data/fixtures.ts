@@ -363,7 +363,7 @@ async function insertFixtures() {
 
   const childrenElement = await create.elementMutation({
     label: 'Children',
-    control: 'Repeater',
+    control: 'Table',
     source: {
       connect: { id: childrenDescriptor.id }
     },
@@ -379,7 +379,7 @@ async function insertFixtures() {
       create: [
         create.element({
           label: 'Name',
-          control: 'Text', 
+          control: 'Text',
           source: {
             connect: { id: nameDescriptor.id }
           },

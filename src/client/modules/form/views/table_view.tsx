@@ -1,82 +1,78 @@
 import * as React from 'react';
 
-import { Form, SemanticWIDTHSNUMBER } from 'semantic-ui-react';
+import { observer } from 'mobx-react';
 
-import { groupByArray } from 'data/helpers';
+import { IObservableArray } from 'mobx';
+import { Button, Form } from 'semantic-ui-react';
+import styled from 'styled-components';
+
 import { renderControl } from '../models/form_control_factory';
 import { DataSet, FormElement } from '../models/form_model';
 
-interface IFieldOwner {
-  elements?: FormElement[];
-}
+const FormHeader = styled(Form.Group)`
+  margin-bottom: 0px !important;
+`;
 
-interface Props {
+type RowProps = {
+  formControl: FormElement;
+  owner: DataSet;
   data: DataSet;
-  form: IFieldOwner;
-  deleteForm: () => void;
+};
+
+class TableRow extends React.PureComponent<RowProps> {
+  handlers = {
+    delete: () => {
+      this.props.owner.removeRowData(this.props.formControl.source.name, this.props.data);
+    }
+  };
+  render() {
+    return (
+      <Form.Group>
+        {this.props.formControl.elements.map(e => (
+          <Form.Field width={this.props.formControl.width as any} key={e.id}>
+            {renderControl(e, this.props.owner, null)}
+          </Form.Field>
+        ))}
+        <Form.Field width={1}>
+          <Button color="red" icon="trash" />
+        </Form.Field>
+      </Form.Group>
+    );
+  }
 }
 
+type Props = {
+  formControl: FormElement;
+  owner: DataSet;
+};
+
+@observer
 export class TableView extends React.Component<Props> {
-  lastRow = -1;
-  lastColumn = -1;
-
-  renderColumn(control: FormElement) {
-    if (control.row !== this.lastRow) {
-      this.lastRow = control.row;
-      this.lastColumn = 0;
-    }
-    // we initialise all columns and add missing ones in between
-    let columns = [];
-    const formControl = control;
-
-    if (formControl.control === 'DeleteButton') {
-      formControl.label = '\xA0';
-    }
-
-    // insert missing start column
-    if (control.column > this.lastColumn) {
-      columns.push(
-        <Form.Field
-          key={this.lastColumn}
-          width={(control.column - this.lastColumn) as SemanticWIDTHSNUMBER}
-        >
-          &nbsp;
-        </Form.Field>
-      );
-    }
-
-    columns.push(
-      <Form.Field
-        key={control.column}
-        width={formControl.inline ? undefined : (control.width as SemanticWIDTHSNUMBER)}
-        inline={formControl.inline}
-      >
-        {formControl.label &&
-          formControl.control !== 'Checkbox' &&
-          formControl.label !== 'Radio' && (
-            <label htmlFor={formControl.source.name}>{formControl.label}</label>
-          )}
-        {renderControl(control, this.props.data, null)}
-      </Form.Field>
-    );
-
-    this.lastColumn = control.column + control.width;
-    return columns;
-  }
+  addRow = () => {
+    const {
+      formControl: { source },
+      owner
+    } = this.props;
+    owner.addRow(source.name);
+  };
 
   render() {
-    this.lastColumn = 0;
-    this.lastRow = 0;
-
-    const rows = groupByArray(this.props.form.elements, 'row');
+    const owner = this.props.owner;
+    const formControl = this.props.formControl as FormElement;
+    const source = formControl.source;
+    const list: IObservableArray<DataSet> = owner.getValue(source.name);
 
     return (
       <div className="ui form">
-        {rows.map(row => (
-          <Form.Group key={row.key}>
-            {row.values.map(element => this.renderColumn(element))}
-          </Form.Group>
+        <FormHeader>
+          {formControl.elements.map((e, i) => (
+            <Form.Field key={i} label={e.label} width={e.width as any} />
+          ))}
+        </FormHeader>
+        {list.map((row, i) => (
+          <TableRow key={i} formControl={formControl} owner={row} data={owner} />
         ))}
+        <Button primary icon="plus" content="Add" labelPosition="left" onClick={this.addRow} />
       </div>
     );
   }

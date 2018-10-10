@@ -96,7 +96,7 @@ describe('Form', () => {
       // just another notation
       return (
         <Segment className="ui form">
-          <FormView form={form} data={dataSet} />
+          <FormView formControl={form} owner={dataSet} />
         </Segment>
       );
     }
@@ -195,7 +195,7 @@ describe('Form', () => {
       // just another notation
       return (
         <Segment className="ui form">
-          <FormView form={form} data={vDataSet} />
+          <FormView formControl={form} owner={vDataSet} />
         </Segment>
       );
     }

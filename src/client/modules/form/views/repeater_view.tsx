@@ -14,11 +14,6 @@ const NoItems = styled.div`
   margin: 6px 0px 12px 0px;
 `;
 
-type Props = {
-  formControl: FormElement;
-  owner: DataSet;
-};
-
 type RowProps = {
   formControl: FormElement;
   owner: DataSet;
@@ -33,10 +28,19 @@ class RepeaterRow extends React.PureComponent<RowProps> {
   };
   render() {
     return (
-      <FormView data={this.props.data} form={this.props.formControl} handlers={this.handlers} />
+      <FormView
+        owner={this.props.data}
+        formControl={this.props.formControl}
+        handlers={this.handlers}
+      />
     );
   }
 }
+
+type Props = {
+  formControl: FormElement;
+  owner: DataSet;
+};
 
 @observer
 export class RepeaterView extends React.Component<Props> {
