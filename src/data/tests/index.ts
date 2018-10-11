@@ -67,6 +67,47 @@ export function removeIds(obj: any) {
   }
 }
 
+export function withMock<T>(object: T, property: keyof T, impl: (mockedObject: T) => void) {
+  const original = object[property];
+  object[property] = jest.fn() as any;
+  try {
+    impl(object);
+  }
+  catch (ex) {
+    throw ex;
+  }
+  finally {
+    object[property] = original;
+  }
+}
+
+export async function testMockedResolver<T>(object: T, property: keyof T, impl: (args: any, context: any, info: any) => any) {
+  const original = object[property];
+  object[property] = jest.fn() as any;
+
+  const input = {};
+  const args = { input };
+  const ctx: any = {};
+  const info: any = {};
+
+  (object[property] as any).mockReturnValue(1000);
+
+  try {
+    const result = await impl(args, ctx, info);
+
+    expect(object[property]).toHaveBeenCalledWith(ctx, input, info);
+    expect(result).toEqual(1000);
+  }
+  catch (ex) {
+    throw ex;
+  }
+  finally {
+    object[property] = original;
+  }
+
+
+}
+
 export async function its(
   name: string,
   options: Options = { language: 'EN' },

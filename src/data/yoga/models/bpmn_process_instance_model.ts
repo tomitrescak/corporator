@@ -1,4 +1,5 @@
 import { Prisma } from 'data/prisma';
+import { Yoga } from 'data/yoga';
 import { Lane } from './bpmn/bpmn_lane_model';
 import { BpmnProcessModel, BpmnTypes } from './bpmn_process_model';
 
@@ -64,10 +65,68 @@ export class BpmnProcessInstance {
     return processInstance;
   }
 
+  static async setStatus(
+    ctx: ServerContext,
+    { processInstanceId, status }: Yoga.SetProcessInstanceStatusInput,
+    info: any
+  ) {
+    const process = await ctx.db.mutation.updateBpmnProcessInstance(
+      {
+        where: {
+          id: processInstanceId
+        },
+        data: {
+          status
+        }
+      },
+      info
+    );
+
+    // update all taskInstances of this process
+    const taskInstances = await ctx.db.query.bpmnTaskInstances({
+      where: {
+        processInstanceId
+      }
+    });
+
+    if (taskInstances) {
+      let newTaskInstanceStatus: Prisma.BpmnTaskInstanceStatus;
+
+      switch (status) {
+        case 'Running':
+          newTaskInstanceStatus = 'Started';
+          break;
+        case 'Paused':
+          newTaskInstanceStatus = 'Paused';
+          break;
+        case 'Aborted':
+          newTaskInstanceStatus = 'Aborted';
+          break;
+        case 'Finished':
+          newTaskInstanceStatus = 'Finished';
+          break;
+      }
+
+      taskInstances.forEach(async (taskInstance: Prisma.BpmnTaskInstance) => {
+        await ctx.db.mutation.updateBpmnTaskInstance({
+          where: {
+            id: taskInstance.id
+          },
+          data: {
+            status: newTaskInstanceStatus
+          }
+        });
+      });
+    }
+
+    return process;
+  }
+
   id: string;
   processId: string;
   processModel: BpmnProcessModel;
   resources: any; // JSON
+  data: any; // JSON
   ownerId: string;
   status: Prisma.BpmnProcessInstanceStatus;
   dateStarted: Date;
@@ -152,7 +211,7 @@ export class BpmnProcessInstance {
       set dateFinished
       set duration
       ...anything else?
-    */
+      */
 
     await context.db.mutation.updateBpmnProcessInstance({
       data: {
