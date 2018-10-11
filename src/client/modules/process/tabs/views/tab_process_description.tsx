@@ -1,8 +1,8 @@
 import * as React from 'react';
 
+import { Link } from 'react-router-dom';
 import { Button, Header, Icon } from 'semantic-ui-react';
 
-import { Link } from 'react-router-dom';
 import { QueryTypes } from 'data/client';
 import { processTypeToIcon } from '../../common/process_icon';
 import { TabContent } from '../../common/process_styles';

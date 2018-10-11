@@ -1,9 +1,9 @@
 import * as React from 'react';
 
 import { Link } from 'react-router-dom';
-import { QueryTypes } from 'data/client';
-
 import { Button, List } from 'semantic-ui-react';
+
+import { QueryTypes } from 'data/client';
 import { ProcessIcon } from '../../common/process_icon';
 
 type Props = {

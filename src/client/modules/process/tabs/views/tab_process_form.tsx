@@ -14,7 +14,6 @@ import { gql, QueryTypes } from 'data/client';
 import { Breadcrumb, Button, Divider, Grid, Header, Icon, Segment } from 'semantic-ui-react';
 import { EditableViewType, ProcessViewType } from '../../common/process_styles';
 import { TabBreadcrumbs } from './tab_breadcrumbs';
-import { Prompt } from 'react-router';
 
 export const FORM_QUERY = gql`
   ${FORM_QUERY_NO_FRAGMENT}

@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { Link } from 'react-router-dom';
 import { ApolloError } from 'apollo-client';
 import { inject, observer } from 'mobx-react';
+import { Link } from 'react-router-dom';
 import { Loader, Menu } from 'semantic-ui-react';
 
 import { NotificationsQuery } from './notifications_queries';

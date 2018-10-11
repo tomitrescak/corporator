@@ -60,13 +60,24 @@ export const FormStore = types
     errors: types.map(types.string),
     strings: types.map(types.string)
   })
-  .volatile(() => ({
+  .volatile(self => ({
     arrays: [],
     objects: [],
     // tslint:disable-next-line:no-object-literal-type-assertion
     validators: {} as { [name: string]: IValidator[] },
     // tslint:disable-next-line:no-object-literal-type-assertion
-    descriptors: {} as { [index: string]: DataDescriptor }
+    descriptors: {} as { [index: string]: DataDescriptor },
+    helpers: {
+      getDescriptor(key: string) {
+        if (!self.descriptors[key]) {
+          throw new Error('Descriptor does not exist: ' + key);
+        }
+        return self.descriptors[key];
+      },
+      isExpression(key: string) {
+        return !!(key && this.getDescriptor(key).expression);
+      }
+    }
   }))
   .actions(function(self) {
     // let validators: values: { [name: string]: IValidator[] } = new Map<string, IValidator[]>();
@@ -85,15 +96,7 @@ export const FormStore = types
       toJS() {
         return strip(toJS(self));
       },
-      getDescriptor(key: string) {
-        if (!self.descriptors[key]) {
-          throw new Error('Descriptor does not exist: ' + key);
-        }
-        return self.descriptors[key];
-      },
-      isExpression(key: string) {
-        return !!(key && this.getDescriptor(key).expression);
-      },
+
       getList(key: string): ListValue[] {
         return (self as any)[key];
       },
@@ -226,7 +229,7 @@ export const FormStore = types
       return (self as any)[item];
     },
     getStringValue(key: string): string {
-      const descriptor = self.getDescriptor(key);
+      const descriptor = self.helpers.getDescriptor(key);
       // expressions are evaluated on the fly
       if (descriptor.expression) {
         // @ts-ignore

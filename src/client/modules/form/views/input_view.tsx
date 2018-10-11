@@ -19,7 +19,7 @@ export class InputView extends React.Component<FormControlProps> {
   render() {
     const { formControl, owner } = this.props;
     const { source, controlProps } = formControl;
-    const descriptor = owner.getDescriptor(source.name);
+    const descriptor = owner.helpers.getDescriptor(source.name);
     const label = isRequired(descriptor)
       ? { label: { icon: 'asterisk' }, labelPosition: 'right corner' }
       : {};
