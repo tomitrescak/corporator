@@ -5,7 +5,7 @@ import logo = require('./logo.png');
 import { Input, InputProps, Menu, MenuProps } from 'semantic-ui-react';
 import styled, { StyledComponentClass } from 'styled-components';
 
-import { Link, Location } from '@reach/router';
+import { Link, withRouter } from 'react-router-dom';
 import { LogoutMenu } from '../login/logout_menu';
 import { NotificationAlertContainer } from '../notifications/notification_alert';
 import { Logo } from './header_logo';
@@ -95,35 +95,33 @@ const MenuElements = () => (
   </>
 );
 
-export const HeaderAuthorised = () => (
-  <Location>
-    {({ location }: any) => (
-      <TopPanel>
-        <TopMenu secondary>
-          <Menu.Item>
-            <Link to="/">
-              <Logo src={logo} alt="logo" />
-            </Link>
-          </Menu.Item>
-          <SearchMenuItem>
-            <Search icon="search" placeholder="Find Process..." />
-          </SearchMenuItem>
-          <Menu.Menu className="wideMenu">
-            <MenuElements />
-          </Menu.Menu>
-          <Menu.Menu position="right">
-            <NotificationAlertContainer active={!!location.pathname.match(/\/notifications/)} />
-            <LogoutMenu>
-              <Menu.Item icon="user" content="Profile" />
-            </LogoutMenu>
-          </Menu.Menu>
-        </TopMenu>
-        <Narrow>
-          <BottomMenu secondary borderless pointing color="blue">
-            <MenuElements />
-          </BottomMenu>
-        </Narrow>
-        {/* <BottomMenu secondary borderless pointing color="blue">
+export const HeaderAuthorised = withRouter(({ location }) => (
+  <TopPanel>
+    <TopMenu secondary>
+      <Menu.Item>
+        <Link to="/">
+          <Logo src={logo} alt="logo" />
+        </Link>
+      </Menu.Item>
+      <SearchMenuItem>
+        <Search icon="search" placeholder="Find Process..." />
+      </SearchMenuItem>
+      <Menu.Menu className="wideMenu">
+        <MenuElements />
+      </Menu.Menu>
+      <Menu.Menu position="right">
+        <NotificationAlertContainer active={!!location.pathname.match(/\/notifications/)} />
+        <LogoutMenu>
+          <Menu.Item icon="user" content="Profile" />
+        </LogoutMenu>
+      </Menu.Menu>
+    </TopMenu>
+    <Narrow>
+      <BottomMenu secondary borderless pointing color="blue">
+        <MenuElements />
+      </BottomMenu>
+    </Narrow>
+    {/* <BottomMenu secondary borderless pointing color="blue">
           <Menu.Item
             as={Link}
             to="/process/create"
@@ -149,7 +147,5 @@ export const HeaderAuthorised = () => (
             <Menu.Item name="favourites" content="Favourites" icon="star" />
           </Menu.Menu>
         </BottomMenu> */}
-      </TopPanel>
-    )}
-  </Location>
-);
+  </TopPanel>
+));

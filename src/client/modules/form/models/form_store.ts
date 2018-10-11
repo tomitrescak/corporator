@@ -1,5 +1,6 @@
 import { IObservableArray, toJS } from 'mobx';
 import { types } from 'mobx-state-tree';
+import { UndoManager } from 'mst-middlewares';
 
 import { QueryTypes } from 'data/client';
 import { DataDescriptor, DataSet } from './form_model';

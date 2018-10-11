@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Link } from '@reach/router';
+import { Link } from 'react-router-dom';
 import { Button, List, Message, Progress, ProgressProps } from 'semantic-ui-react';
 import styled, { StyledComponentClass } from 'styled-components';
 

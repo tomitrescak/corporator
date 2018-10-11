@@ -14,6 +14,9 @@ import './helpers';
 TimeAgo.locale(en);
 const timeAgo = new TimeAgo('en-US');
 
+// sweet alert
+const swal = require('sweetalert2');
+
 const Ui = {
   urlName(name: string) {
     let result = name.replace(/\:/g, '');
@@ -27,6 +30,22 @@ const Ui = {
   relativeDate(date: Date | string | any) {
     // @ts-ignore
     return timeAgo.format(new Date(date));
+  },
+  async confirmDialogAsync(
+    text = i18n`Do you want to delete this record? This action cannot be undone.`,
+    title = i18n`Are you sure?`,
+    confirmButtonText = i18n`Delete`,
+    type = 'warning'
+  ) {
+    const result = await swal({
+      title: title,
+      text: text,
+      type: type,
+      showCancelButton: true,
+      cancelButtonColor: '#d33',
+      confirmButtonText: confirmButtonText
+    });
+    return !!result.value;
   }
 };
 

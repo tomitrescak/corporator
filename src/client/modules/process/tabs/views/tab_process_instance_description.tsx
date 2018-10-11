@@ -9,7 +9,7 @@ import { TabContent } from '../../common/process_styles';
 import { ProcessActivityView } from '../../instance/views/process_activity_view';
 import { ProcessCurrentAction } from '../../instance/views/process_current_action_view';
 import { ProcessInstanceStatus } from '../../instance/views/process_instance_status';
-// import { Link } from '@reach/router';
+// import { Link } from 'react-router-dom';
 
 type Props = {
   process: QueryTypes.BpmnProcessDefinition;

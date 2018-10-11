@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import { observer } from 'mobx-react';
+import { Prompt } from 'react-router-dom';
 import { Form, SemanticWIDTHSNUMBER } from 'semantic-ui-react';
 
 import { groupByArray } from 'data/helpers';
@@ -16,6 +18,13 @@ interface Props {
   formControl: IFieldOwner;
   handlers?: { [index: string]: () => void };
 }
+
+const Blocker = observer(({ owner }) => (
+  <Prompt
+    when={owner.dirty}
+    message={location => `Are you sure you want to go to ${location.pathname}`}
+  />
+));
 
 export class FormView extends React.Component<Props> {
   lastRow = -1;
@@ -75,6 +84,7 @@ export class FormView extends React.Component<Props> {
 
     return (
       <div className="ui form" style={{ maxWidth: '1000px' }}>
+        <Blocker owner={this.props.owner} />
         {rows.map(row => (
           <Form.Group key={row.key}>
             {row.values.map(element => this.renderColumn(element))}

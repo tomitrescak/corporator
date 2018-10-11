@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Link } from '@reach/router';
+import { Link } from 'react-router-dom';
 import { ApolloError } from 'apollo-client';
 import { inject, observer } from 'mobx-react';
 import { Loader, Menu } from 'semantic-ui-react';

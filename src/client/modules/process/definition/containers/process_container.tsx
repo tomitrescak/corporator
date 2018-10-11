@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import * as PROCESS_FRAGMENT from '../queries/bpmn_process.fragment.graphql';
+import * as DESCRIPTOR_FRAGMENT from '../../../form/queries/descriptor_fragment.graphql';
 import * as PROCESS_QUERY_NO_FRAGMENTS from '../queries/bpmn_process.query.graphql';
 
 import { inject } from 'mobx-react';
@@ -9,7 +10,7 @@ import { Query, QueryProps } from 'react-apollo';
 import { gql, QueryTypes } from 'data/client';
 
 import { renderResult } from 'client/modules/common';
-import { ProcessQueryVariables } from 'data/generated/types';
+import { ProcessViewType } from '../../common/process_styles';
 import { ProcessView } from '../views/process_view';
 
 /* =========================================================
@@ -24,6 +25,7 @@ type StaticProps = Partial<QueryProps<Data, Variables>>;
 const PROCESS_QUERY = gql`
   ${PROCESS_QUERY_NO_FRAGMENTS}
   ${PROCESS_FRAGMENT}
+  ${DESCRIPTOR_FRAGMENT}
 `;
 
 export { PROCESS_QUERY };
@@ -40,29 +42,30 @@ class ProcessQuery extends Query<Data, Variables> {
    ======================================================== */
 
 type Props = {
-  path?: string;
   context?: App.Context;
-  contentType?: ProcessQueryVariables;
-  sourceId?: string;
-  resourceId?: string;
+  match: {
+    params: {
+      contentType?: ProcessViewType;
+      sourceId?: string;
+      resourceId?: string;
+    };
+  };
 };
 
-export const ProcessContainer: React.SFC<Props> = inject('context')(
-  ({ context, contentType, sourceId, resourceId }) => (
-    <ProcessQuery variables={{ id: sourceId }}>
-      {result => {
-        // console.log(result.data.processes)
-        return renderResult(result, () => (
-          <ProcessView
-            process={result.data.process}
-            context={context}
-            view={contentType}
-            resourceId={resourceId}
-          />
-        ));
-      }}
-    </ProcessQuery>
-  )
-);
+export const ProcessContainer: React.SFC<Props> = inject('context')(({ context, match }: Props) => (
+  <ProcessQuery variables={{ id: match.params.sourceId }}>
+    {result => {
+      // console.log(result.data.processes)
+      return renderResult(result, () => (
+        <ProcessView
+          process={result.data.process}
+          context={context}
+          view={match.params.contentType}
+          resourceId={match.params.resourceId}
+        />
+      ));
+    }}
+  </ProcessQuery>
+));
 
 ProcessContainer.displayName = 'ProcessViewContainer';

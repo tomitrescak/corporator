@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { QueryTypes } from 'data/client';
 
-import { Link } from '@reach/router';
+import { Link } from 'react-router-dom';
 import { inject } from 'mobx-react';
 import { Icon, List } from 'semantic-ui-react';
 import styled from 'styled-components';

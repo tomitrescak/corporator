@@ -4,7 +4,7 @@ import logo = require('./logo.png');
 import { Menu, MenuProps } from 'semantic-ui-react';
 import styled, { StyledComponentClass } from 'styled-components';
 
-import { Link } from '@reach/router';
+import { Link } from 'react-router-dom';
 import { LogoutMenu } from '../login/logout_menu';
 import { Logo } from './header_logo';
 

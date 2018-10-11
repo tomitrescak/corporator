@@ -10,7 +10,7 @@ import { Query } from 'react-apollo';
 import { gql, QueryTypes } from 'data/client';
 
 import { renderResult } from 'client/modules/common';
-import { ProcessQueryVariables } from 'data/generated/types';
+import { ProcessViewType } from '../../common/process_styles';
 import { ProcessInstanceView } from '../views/process_instance_view';
 
 /* =========================================================
@@ -41,25 +41,28 @@ class ProcessInstanceQuery extends Query<Data, Variables> {
    ======================================================== */
 
 type Props = {
-  path?: string;
   context?: App.Context;
-  contentType?: ProcessQueryVariables;
-  sourceId?: string;
-  resourceId?: string;
+  match: {
+    params: {
+      contentType?: ProcessViewType;
+      sourceId?: string;
+      resourceId?: string;
+    };
+  };
 };
 
 export const ProcessInstanceContainer: React.SFC<Props> = inject('context')(
-  ({ context, contentType, sourceId, resourceId }) => (
-    <ProcessInstanceQuery variables={{ id: sourceId }}>
+  ({ match, context }: Props) => (
+    <ProcessInstanceQuery variables={{ id: match.params.sourceId }}>
       {result => {
         // console.log(result.data.processes)
         return renderResult(result, () => (
           <ProcessInstanceView
             process={result.data.bpmnProcessInstanceQuery.process}
             context={context}
-            view={contentType}
+            view={match.params.contentType}
             processInstance={result.data.bpmnProcessInstanceQuery}
-            resourceId={resourceId}
+            resourceId={match.params.resourceId}
           />
         ));
       }}

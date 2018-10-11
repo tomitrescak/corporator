@@ -56,7 +56,7 @@ export class RepeaterView extends React.Component<Props> {
       owner
     } = this.props;
     owner.addRow(source.name);
-    owner.validate();
+    owner.validateField(source.name, owner.getValue(source.name));
   };
 
   render(): JSX.Element {
