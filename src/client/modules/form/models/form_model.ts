@@ -3,6 +3,7 @@
 import * as validations from './validation';
 
 import { ISimpleType, types } from 'mobx-state-tree';
+import { UndoManager } from 'mst-middlewares';
 
 import { QueryTypes } from 'data/client';
 import { DataDescriptor, Form, FormElement } from './form_model';
@@ -99,6 +100,28 @@ function createValidator(validator: QueryTypes.DataDescriptor_Validators) {
   }
 }
 
+/* =========================================================
+    Undo Manager
+   ======================================================== */
+
+export let undoManager = {
+  manager: null as typeof UndoManager.Type,
+  undo() {
+    this.manager.canUndo && this.manager.undo();
+  },
+  redo() {
+    this.manager.canRedo && this.manager.redo();
+  }
+};
+export const setUndoManager = (targetStore: any) => {
+  undoManager.manager = targetStore.history;
+  return {};
+};
+
+/* =========================================================
+    Form Model
+   ======================================================== */
+
 export class FormModel {
   static parseDefault(descriptor: DataDescriptor) {
     switch (descriptor.type) {
@@ -193,12 +216,22 @@ export class FormModel {
       }
       switch (desc.type) {
         case 'Int':
+          if (!validators[desc.name]) {
+            validators[desc.name] = [];
+          }
           validators[desc.name].push(validations.IntValidator);
           break;
         case 'Float':
+          if (!validators[desc.name]) {
+            validators[desc.name] = [];
+          }
           validators[desc.name].push(validations.FloatValidator);
           break;
       }
+    }
+
+    if (parentDescriptorId == null) {
+      mstDefinition.history = types.optional(UndoManager, {});
     }
 
     // build tree
@@ -248,8 +281,11 @@ export class FormModel {
     // FormModel.initStrings(data);
 
     const mst = FormModel.buildMst(null, descriptors, lists);
+    const dataset = mst.create(data);
 
-    return mst.create(data);
+    setUndoManager(dataset);
+
+    return dataset;
   }
 
   id: string;

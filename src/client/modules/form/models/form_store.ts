@@ -42,6 +42,7 @@ function strip(obj: any) {
 
 export function isRequired(descriptor: QueryTypes.DataDescriptor) {
   return (
+    descriptor.validators &&
     descriptor.validators.length &&
     descriptor.validators.some(d => d.name === QueryTypes.ValidatorFunction.RequiredValidator)
   );
