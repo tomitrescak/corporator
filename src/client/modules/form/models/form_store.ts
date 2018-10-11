@@ -2,7 +2,7 @@ import { IObservableArray, toJS } from 'mobx';
 import { types } from 'mobx-state-tree';
 
 import { QueryTypes } from 'data/client';
-import { DataDescriptor } from './form_model';
+import { DataDescriptor, DataSet } from './form_model';
 
 export type IValidator = (input: string) => string;
 
@@ -54,6 +54,7 @@ export interface ListValue {
 
 export const FormStore = types
   .model({
+    dirty: false,
     errors: types.map(types.string),
     strings: types.map(types.string)
   })
@@ -68,7 +69,17 @@ export const FormStore = types
   .actions(function(self) {
     // let validators: values: { [name: string]: IValidator[] } = new Map<string, IValidator[]>();
 
+    function setValue(key: string, value: any) {
+      if ((self as any)[key] !== value) {
+        (self as any)[key] = value;
+        self.dirty = true;
+      }
+    }
+
     return {
+      saved() {
+        self.dirty = false;
+      },
       toJS() {
         return strip(toJS(self));
       },
@@ -133,16 +144,16 @@ export const FormStore = types
         const descriptor = self.descriptors[key];
         switch (descriptor.type) {
           case 'Int':
-            (self as any)[key] = parseInt(value || 0, 10) as any;
+            setValue(key, parseInt(value || 0, 10));
             break;
           case 'Float':
-            (self as any)[key] = parseFloat(value || 0) as any;
+            setValue(key, parseFloat(value || 0));
             break;
           case 'Boolean':
-            (self as any)[key] = (value === true || value === 'true' || value === 'True') as any;
+            setValue(key, value === true || value === 'true' || value === 'True');
             break;
           default:
-            (self as any)[key] = value;
+            setValue(key, value);
         }
       }
     };
@@ -161,12 +172,26 @@ export const FormStore = types
         }
       }
 
-      // validate arrays
-      for (let key of self.) {
+      // validate objects
 
+      for (let key of self.objects) {
+        let obj = (self as IFormStore).getValue(key) as DataSet;
+        let result = obj.validateWithReport();
+        total += result.total;
+        valid = result.valid;
       }
 
-      // validate objects
+      // validate arrays
+
+      for (let key of self.arrays) {
+        let obj = (self as IFormStore).getValue(key) as DataSet[];
+
+        for (let row of obj) {
+          let result = row.validateWithReport();
+          total += result.total;
+          valid = result.valid;
+        }
+      }
 
       // create report
 

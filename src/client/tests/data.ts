@@ -24,6 +24,7 @@ const finishedDate = new Date(2018, 2, 15);
 
 // mock context
 const mockedContext = {
+  activeForm: null as any,
   Ui: { ...context.Ui },
   i18n: context.i18n,
   store: { ...appStore }

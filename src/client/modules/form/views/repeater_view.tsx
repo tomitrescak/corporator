@@ -8,6 +8,7 @@ import { Button } from 'semantic-ui-react';
 import styled from 'styled-components';
 
 import { DataSet, FormElement } from '../models/form_model';
+import { ErrorView } from './error_view';
 import { FormView } from './form_view';
 
 const NoItems = styled.div`
@@ -55,6 +56,7 @@ export class RepeaterView extends React.Component<Props> {
       owner
     } = this.props;
     owner.addRow(source.name);
+    owner.validate();
   };
 
   render(): JSX.Element {
@@ -81,6 +83,7 @@ export class RepeaterView extends React.Component<Props> {
           </Otherwise>
         </Choose>
         <Button primary icon="plus" content="Add" labelPosition="left" onClick={this.addRow} />
+        <ErrorView owner={owner} source={source.name} pointing="left" />
       </>
     );
   }

@@ -8,6 +8,7 @@ import styled from 'styled-components';
 
 import { renderControl } from '../models/form_control_factory';
 import { DataSet, FormElement } from '../models/form_model';
+import { ErrorView } from './error_view';
 
 const FormHeader = styled(Form.Group)`
   margin-bottom: 0px !important;
@@ -54,6 +55,7 @@ export class TableView extends React.Component<Props> {
       owner
     } = this.props;
     owner.addRow(source.name);
+    owner.validate();
   };
 
   render() {
@@ -73,6 +75,11 @@ export class TableView extends React.Component<Props> {
           <TableRow key={i} formControl={formControl} owner={row} data={owner} />
         ))}
         <Button primary icon="plus" content="Add" labelPosition="left" onClick={this.addRow} />
+        <ErrorView
+          owner={this.props.owner}
+          source={this.props.formControl.source.name}
+          pointing="left"
+        />
       </div>
     );
   }

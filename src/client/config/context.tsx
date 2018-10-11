@@ -4,6 +4,7 @@ import * as React from 'react';
 
 import i18n from 'es2015-i18n-tag';
 
+import { FormStore } from 'client/modules/form/models/form_store';
 import { appStore } from 'client/stores/app_store';
 
 import './conditional_components';
@@ -30,6 +31,7 @@ const Ui = {
 };
 
 export const context = {
+  activeForm: null as typeof FormStore.Type,
   Ui,
   i18n,
   store: appStore

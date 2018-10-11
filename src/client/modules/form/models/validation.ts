@@ -56,10 +56,14 @@ export function ArrayLengthValidator(value: any[], minLength: string, maxLength:
     value == null ||
     (minLength != null &&
       value.length < parseInt(minLength, 10) &&
-      i18n`Expected at least ${minLength} records`) ||
+      i18n`Expected at least ${minLength} ${
+        parseInt(minLength, 10) === 1 ? i18n`record` : i18n`records`
+      }`) ||
     (maxLength != null &&
       value.length > parseInt(maxLength, 10) &&
-      i18n`Expected maximum ${minLength} records`)
+      i18n`Expected maximum ${minLength} ${
+        parseInt(minLength, 10) === 1 ? i18n`record` : i18n`records`
+      }`)
   );
 }
 

@@ -21,7 +21,6 @@ type Props = {
   context: App.Context;
   ownerId: string;
   process: QueryTypes.BpmnProcessDefinition;
-  showInstructions?: Function;
   title?: string;
   viewType: EditableViewType;
 };
@@ -42,9 +41,10 @@ export const TabBreadcrumbs: React.SFC<Props> = ({
   title,
   ownerId,
   viewType,
-  showInstructions
+  children
 }) => (
   <Breadcrumbs>
+    {children}
     <Breadcrumb.Section
       link
       as={Link}
@@ -69,14 +69,6 @@ export const TabBreadcrumbs: React.SFC<Props> = ({
       <>
         <Breadcrumb.Divider icon="right angle" />
         <Breadcrumb.Section active>{title}</Breadcrumb.Section>
-      </>
-    </If>
-    <If condition={!!showInstructions}>
-      <>
-        <a href="#" onClick={showInstructions as any} style={{ float: 'right' }}>
-          <Icon name="info circle" />
-          <I18>Instructions</I18>
-        </a>
       </>
     </If>
   </Breadcrumbs>

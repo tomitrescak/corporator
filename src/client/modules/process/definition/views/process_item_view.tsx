@@ -1,8 +1,8 @@
 import * as React from 'react';
 
+import { Link } from '@reach/router';
 import { QueryTypes } from 'data/client';
 
-import { Link } from '@reach/router';
 import { Button, List } from 'semantic-ui-react';
 import { ProcessIcon } from '../../common/process_icon';
 

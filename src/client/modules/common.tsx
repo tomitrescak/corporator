@@ -10,6 +10,10 @@ const LoaderHolder = styled.div`
   margin: 12px;
 `;
 
+/* =========================================================
+    RENDER RESULT
+   ======================================================== */
+
 export function renderResult(
   result: QueryResult<any, any>,
   Component: () => JSX.Element

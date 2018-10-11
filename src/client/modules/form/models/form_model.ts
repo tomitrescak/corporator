@@ -163,16 +163,21 @@ export class FormModel {
         MST Nodes
        ======================================================== */
 
+    let arrays: string[] = [];
+    let objects: string[] = [];
+
     // add mst nodes for non expression fields
     // expressions do not need custom nodes and are handled by views
     for (let desc of descriptors.filter(d => d.parentDescriptor === parentDescriptorId)) {
       // expressions do not need state tree entry they are evaluated automatically
       if (desc.isArray) {
         mstDefinition[desc.name] = types.array(mstTypeFactory(desc, lists, descriptors));
+        arrays.push(desc.name);
       } else if (desc.type === 'Id') {
         mstDefinition[desc.name] = types.optional(types.identifier, () => (time + i++).toString()); // shortid.generate());
       } else if (desc.type === 'Object') {
         mstDefinition[desc.name] = mstTypeFactory(desc, lists, descriptors);
+        objects.push(desc.name);
       } else if (!desc.expression) {
         mstDefinition[desc.name] = desc.defaultValue
           ? FormModel.parseDefault(desc)
@@ -201,7 +206,9 @@ export class FormModel {
       .props(mstDefinition)
       .volatile(_self => ({
         descriptors: descriptorMap,
-        validators
+        validators,
+        arrays,
+        objects
       }))
       .views(viewDefinition);
 

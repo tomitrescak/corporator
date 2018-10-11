@@ -11,7 +11,7 @@ import { renderResult } from 'client/modules/common';
 import { DataSet, FormModel } from 'client/modules/form/models/form_model';
 import { FormView } from 'client/modules/form/views/form_view';
 import { gql, QueryTypes } from 'data/client';
-import { Button, Divider, Grid, Header, Icon } from 'semantic-ui-react';
+import { Breadcrumb, Button, Divider, Grid, Header, Icon, Segment } from 'semantic-ui-react';
 import { EditableViewType, ProcessViewType } from '../../common/process_styles';
 import { TabBreadcrumbs } from './tab_breadcrumbs';
 
@@ -51,8 +51,9 @@ const InfoContent = styled.div`
   margin-bottom: 1rem;
 `;
 
-const ButtonRow = styled.div`
+const ButtonRow = styled(Segment)`
   padding: 0px 12px;
+  margin: 12px !important;
 `;
 
 class FormQuery extends Query<QueryTypes.FormQuery, QueryTypes.FormQueryVariables> {
@@ -87,6 +88,10 @@ export class TabFormView extends React.Component<Props, State> {
     }
   };
 
+  async componentWillUnmount() {
+    alert('unmounting ...' + this.data.dirty);
+  }
+
   render() {
     const props = this.props;
     const previewOnly = props.viewType === 'preview';
@@ -109,8 +114,28 @@ export class TabFormView extends React.Component<Props, State> {
                   {...props}
                   title={result.data.formQuery.name}
                   ownerId={props.ownerId}
-                  showInstructions={result.data.formQuery.description && this.toggleInstruction}
-                />
+                >
+                  <Button
+                    icon="arrow alternate circle left"
+                    onClick={this.save}
+                    title={this.props.context.i18n`Save and go back to process overview`}
+                  />
+                  <Button
+                    color="green"
+                    icon="save"
+                    onClick={this.save}
+                    title={this.props.context.i18n`Save`}
+                  />
+                  <If condition={result.data.formQuery.description}>
+                    <Button
+                      onClick={this.toggleInstruction}
+                      primary
+                      icon="info"
+                      title={this.props.context.i18n`Show Information`}
+                    />
+                  </If>
+                  <Breadcrumb.Divider icon="right angle" />
+                </TabBreadcrumbs>
 
                 <Grid>
                   <Grid.Column width={this.state.showInstructions ? 8 : 16}>
@@ -131,20 +156,6 @@ export class TabFormView extends React.Component<Props, State> {
                     </Grid.Column>
                   </If>
                 </Grid>
-
-                <Divider horizontal>
-                  <Icon circular name="bolt" />
-                </Divider>
-                <ButtonRow>
-                  <Button
-                    primary
-                    content="Save"
-                    icon="save"
-                    labelPosition="left"
-                    onClick={this.save}
-                  />
-                  <Button color="green" content="Save and Back " icon="disk" labelPosition="left" />
-                </ButtonRow>
               </>
             );
           })
