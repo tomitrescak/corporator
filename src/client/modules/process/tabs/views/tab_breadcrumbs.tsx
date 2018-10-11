@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Link } from 'react-router-dom';
-import { Breadcrumb, Icon } from 'semantic-ui-react';
+import { Breadcrumb } from 'semantic-ui-react';
 import styled from 'styled-components';
 
 import { QueryTypes } from 'data/client';

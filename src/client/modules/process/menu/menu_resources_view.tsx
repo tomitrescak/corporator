@@ -16,7 +16,7 @@ export const MenuResourceView: React.SFC<Props> = ({
   context,
   process,
   processInstance,
-  attached = top
+  attached = 'top'
 }) => (
   <>
     <Header

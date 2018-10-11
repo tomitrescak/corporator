@@ -4,9 +4,8 @@ import * as renderer from 'react-test-renderer';
 import { Button, Segment } from 'semantic-ui-react';
 
 import { QueryTypes } from 'data/client';
-import { types } from 'mobx-state-tree';
+
 import { FormModel, undoManager } from '../../models/form_model';
-import { FormStore } from '../../models/form_store';
 import { TableView } from '../table_view';
 import { create } from './form_query_data';
 
@@ -19,7 +18,12 @@ describe('Form', () => {
       isArray: true
     }),
     create.descriptor({ name: 'id', type: QueryTypes.DataType.Id, parentDescriptor: '1' }),
-    create.descriptor({ name: 'name', type: QueryTypes.DataType.String, parentDescriptor: '1' }),
+    create.descriptor({
+      name: 'name',
+      type: QueryTypes.DataType.String,
+      parentDescriptor: '1',
+      validators: [{ id: 'r', name: QueryTypes.ValidatorFunction.RequiredValidator, params: [] }]
+    }),
     create.descriptor({ name: 'capital', type: QueryTypes.DataType.String, parentDescriptor: '1' })
   ];
 

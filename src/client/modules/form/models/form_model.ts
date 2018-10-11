@@ -36,6 +36,7 @@ function formItemSort(a: FormElement, b: FormElement) {
 
 function mstTypeFactory(
   desc: DataDescriptor,
+  defaultObject: any,
   lists: Array<{ name: string; items: any[] }>,
   all: DataDescriptor[]
 ): ISimpleType<any> {
@@ -50,7 +51,7 @@ function mstTypeFactory(
       return types.boolean;
     case 'Object':
       const children = all.filter(d => d.parentDescriptor === desc.id);
-      return FormModel.buildMst(desc.id, children, lists);
+      return FormModel.buildMst(desc.id, defaultObject, children, lists);
     // return For
     case undefined:
       return types.string;
@@ -106,11 +107,11 @@ function createValidator(validator: QueryTypes.DataDescriptor_Validators) {
 
 export let undoManager = {
   manager: null as typeof UndoManager.Type,
-  undo() {
-    this.manager.canUndo && this.manager.undo();
+  undo: () => {
+    undoManager.manager.canUndo && undoManager.manager.undo();
   },
-  redo() {
-    this.manager.canRedo && this.manager.redo();
+  redo: () => {
+    undoManager.manager.canRedo && undoManager.manager.redo();
   }
 };
 export const setUndoManager = (targetStore: any) => {
@@ -121,6 +122,10 @@ export const setUndoManager = (targetStore: any) => {
 /* =========================================================
     Form Model
    ======================================================== */
+
+function shortId() {
+  return (time + i++).toString();
+}
 
 export class FormModel {
   static parseDefault(descriptor: DataDescriptor) {
@@ -137,8 +142,45 @@ export class FormModel {
     return descriptor.defaultValue;
   }
 
+  static initStrings(data: any, parent?: any, parentKey?: string) {
+    if (data && data.strings) {
+      return data;
+    }
+
+    // arrays
+
+    if (data && Array.isArray(data)) {
+      for (let m of data) {
+        FormModel.initStrings(m);
+      }
+    }
+
+    // objects
+    else if (data && typeof data === 'object') {
+      data.strings = {};
+
+      for (let key of Object.getOwnPropertyNames(data)) {
+        if (key === 'strings') {
+          continue;
+        }
+
+        let item = data[key];
+        FormModel.initStrings(item, data, key);
+      }
+    }
+
+    // scalars
+    else if (parent) {
+      parent.strings[parentKey] = data != null ? data.toString() : '';
+      return data;
+    }
+
+    return data;
+  }
+
   static buildMst(
     parentDescriptorId: string,
+    defaultValue: any,
     descriptors: DataDescriptor[],
     lists?: Array<{ name: string; items: any[] }>
   ) {
@@ -194,17 +236,27 @@ export class FormModel {
     for (let desc of descriptors.filter(d => d.parentDescriptor === parentDescriptorId)) {
       // expressions do not need state tree entry they are evaluated automatically
       if (desc.isArray) {
-        mstDefinition[desc.name] = types.array(mstTypeFactory(desc, lists, descriptors));
+        const obj = {};
+        mstDefinition[desc.name] = types.array(
+          types.optional(mstTypeFactory(desc, obj, lists, descriptors), () => {
+            return obj;
+          })
+        );
+        defaultValue[desc.name] = [];
+        defaultValue[desc.name + '_default'] = obj;
         arrays.push(desc.name);
       } else if (desc.type === 'Id') {
-        mstDefinition[desc.name] = types.optional(types.identifier, () => (time + i++).toString()); // shortid.generate());
+        mstDefinition[desc.name] = types.optional(types.identifier, shortId); // shortid.generate());
       } else if (desc.type === 'Object') {
-        mstDefinition[desc.name] = mstTypeFactory(desc, lists, descriptors);
+        const newParent = {};
+        defaultValue[desc.name] = newParent;
+        mstDefinition[desc.name] = mstTypeFactory(desc, newParent, lists, descriptors);
         objects.push(desc.name);
       } else if (!desc.expression) {
+        defaultValue[desc.name] = desc.defaultValue == null ? undefined : desc.defaultValue;
         mstDefinition[desc.name] = desc.defaultValue
           ? FormModel.parseDefault(desc)
-          : types.maybe(mstTypeFactory(desc, lists, descriptors));
+          : types.maybe(mstTypeFactory(desc, defaultValue, lists, descriptors));
       }
 
       /* =========================================================
@@ -234,6 +286,9 @@ export class FormModel {
       mstDefinition.history = types.optional(UndoManager, {});
     }
 
+    // add strings to default data
+    FormModel.initStrings(defaultValue);
+
     // build tree
     const mst = FormStore.named('FormStore')
       .props(mstDefinition)
@@ -241,7 +296,8 @@ export class FormModel {
         descriptors: descriptorMap,
         validators,
         arrays,
-        objects
+        objects,
+        defaultValue
       }))
       .views(viewDefinition);
 
@@ -278,9 +334,9 @@ export class FormModel {
     //   }
     // }
 
-    // FormModel.initStrings(data);
+    FormModel.initStrings(data);
 
-    const mst = FormModel.buildMst(null, descriptors, lists);
+    const mst = FormModel.buildMst(null, {}, descriptors, lists);
     const dataset = mst.create(data);
 
     setUndoManager(dataset);

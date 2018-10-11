@@ -16,7 +16,6 @@ exports[`Process Instance Item renders correctly 1`] = `
     <a
       className="header"
       href="/process/process-1/view/information/1"
-      onClick={[Function]}
     >
       Process 1
     </a>

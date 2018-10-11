@@ -5,6 +5,22 @@ global.storyOf = function(name, props, impl) {
 // mock
 jest.mock('apollo-link-http');
 
+const React = require('react');
+class Link extends React.Component {
+  render() {
+    const { to, children, ...rest } = this.props;
+    return React.createElement('a', { ...rest, href: to }, children);
+  }
+}
+
+const { withRouter } = require('react-router-dom');
+jest.mock('react-router-dom', () => ({
+  Link,
+  Prompt: () => React.createElement('div', { style: { display: 'none' } }, 'Blocker'),
+  withRouter: component => props =>
+    React.createElement(component, { ...props, location: { pathname: 'home' } })
+}));
+
 // NOTE: DISABLE THIS IF GETTING: ECONNREFUSED 127.0.0.1:9838
 require('jest-spy-serialiser').registerSpy();
 
@@ -38,7 +54,6 @@ it = function(name, impl) {
   });
 };
 
-const React = require('react');
 const Mui = ({ children, ...rest }) => React.createElement('div', { ...rest }, children);
 
 jest.mock('react-transition-group', () => ({

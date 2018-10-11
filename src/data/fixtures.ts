@@ -345,7 +345,7 @@ async function insertFixtures() {
     name: 'zip',
     type: 'String',
     validators: {
-      create: [{ name: 'RegExValidator', params: { set: ['\\d\\d\\d\\d'] } }]
+      create: [{ name: 'RegExValidator', params: { set: ['^\\d\\d\\d\\d$'] } }]
     },
     parentDescriptor: addressDescriptor.id
   });
@@ -612,7 +612,11 @@ async function insertFixtures() {
       owner: { connect: { id: user.id } },
       data: {
         'owner.personal.name': 'Tomas',
-        address: {},
+        'owner.personal.age': 0,
+        address: {
+          city: '',
+          zip: ''
+        },
         children: []
       },
       log: {

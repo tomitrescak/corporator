@@ -48,7 +48,6 @@ exports[`Notifications Container renders final 1`] = `
            
           <a
             href="/process/process-name"
-            onClick={[Function]}
           >
             Notification Text
           </a>
@@ -84,7 +83,6 @@ exports[`Notifications Container renders final 1`] = `
            
           <a
             href="/process/process-name"
-            onClick={[Function]}
           >
             Notification Text
           </a>
@@ -120,7 +118,6 @@ exports[`Notifications Container renders final 1`] = `
            
           <a
             href="/process/process-name"
-            onClick={[Function]}
           >
             Notification Text
           </a>
@@ -156,7 +153,6 @@ exports[`Notifications Container renders final 1`] = `
            
           <a
             href="/process/process-name"
-            onClick={[Function]}
           >
             Notification Text
           </a>
@@ -192,7 +188,6 @@ exports[`Notifications Container renders final 1`] = `
            
           <a
             href="/process/process-name"
-            onClick={[Function]}
           >
             Notification Text
           </a>

@@ -39,3 +39,5 @@ export const TabProcessDescription: React.SFC<Props> = ({ process, context }) =>
     </Button>
   </TabContent>
 );
+
+TabProcessDescription.displayName = 'TabProcessDescription';

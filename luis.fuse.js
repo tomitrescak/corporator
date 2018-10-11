@@ -31,7 +31,16 @@ const fuse = FuseBox.init({
     SnapshotPlugin(),
     ['.graphql', GraphQLPlugin()]
   ],
-  sourceMaps: true
+  sourceMaps: true,
+  shim: {
+    'react-router-dom': {
+      exports: `{ 
+        Link: props => require('react').createElement('a', { href: props.to }, props.children),
+        Prompt: () => require('react').createElement('div', { style: { display: 'none' } }, 'Blocker'),
+        withRouter: component => props => require('react').createElement(component, { ...props, location: { pathname: 'home' } })
+      }`
+    }
+  }
 });
 const historyAPIFallback = require('connect-history-api-fallback');
 

@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`builds MST 1`] = `
+Object {
+  "age": 7,
+  "countries": Array [
+    Object {
+      "capital": "Bratislava",
+      "defaultValue": Object {
+        "capital": undefined,
+        "name": undefined,
+        "strings": Object {
+          "capital": "",
+          "name": "",
+        },
+      },
+      "dirty": false,
+      "getDescriptor": [Function],
+      "isExpression": [Function],
+      "name": "Slovakia",
+    },
+  ],
+  "defaultValue": Object {
+    "age": "7",
+    "countries": Array [],
+    "countries_default": Object {
+      "capital": undefined,
+      "name": undefined,
+      "strings": Object {
+        "capital": "",
+        "name": "",
+      },
+    },
+    "height": "5",
+    "parent": Object {
+      "strings": Object {
+        "weight": "60",
+      },
+      "weight": "60",
+    },
+    "strings": Object {
+      "age": "7",
+      "height": "5",
+    },
+  },
+  "dirty": true,
+  "getDescriptor": [Function],
+  "height": 10,
+  "history": Object {
+    "history": Array [
+      Object {
+        "inversePatches": Array [
+          Object {
+            "op": "replace",
+            "path": "/height",
+            "value": 6,
+          },
+          Object {
+            "op": "replace",
+            "path": "/dirty",
+            "value": false,
+          },
+        ],
+        "patches": Array [
+          Object {
+            "op": "replace",
+            "path": "/height",
+            "value": 10,
+          },
+          Object {
+            "op": "replace",
+            "path": "/dirty",
+            "value": true,
+          },
+        ],
+      },
+    ],
+    "undoIdx": 1,
+  },
+  "isExpression": [Function],
+  "parent": Object {
+    "defaultValue": Object {
+      "strings": Object {
+        "weight": "60",
+      },
+      "weight": "60",
+    },
+    "dirty": false,
+    "getDescriptor": [Function],
+    "isExpression": [Function],
+    "weight": 10,
+  },
+}
+`;

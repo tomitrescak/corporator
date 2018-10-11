@@ -1,0 +1,165 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Form Table renders correctly 1`] = `
+<div
+  className="ui segment ui form"
+>
+  <div
+    className="ui form"
+  >
+    <div
+      className="fields sc-bxivhb tKARF"
+    >
+      <div
+        className="eight wide field"
+      >
+        <label>
+          Name
+        </label>
+      </div>
+      <div
+        className="eight wide field"
+      >
+        <label>
+          Capital
+        </label>
+      </div>
+    </div>
+    <div
+      className="fields"
+    >
+      <div
+        className="sixteen wide field"
+      >
+        <div
+          className="ui right corner labeled input"
+        >
+          <div
+            className="ui label label right corner"
+            onClick={[Function]}
+          >
+            <i
+              aria-hidden="true"
+              className="asterisk icon"
+            />
+          </div>
+          <input
+            name="name"
+            onChange={[Function]}
+            type="text"
+            value="Slovakia"
+          />
+        </div>
+      </div>
+      <div
+        className="sixteen wide field"
+      >
+        <div
+          className="ui input"
+        >
+          <input
+            name="capital"
+            onChange={[Function]}
+            type="text"
+            value="Bratislava"
+          />
+        </div>
+      </div>
+      <div
+        className="one wide field"
+      >
+        <button
+          className="ui red icon button"
+          onClick={[Function]}
+          role="button"
+        >
+          <i
+            aria-hidden="true"
+            className="trash icon"
+          />
+        </button>
+      </div>
+    </div>
+    <div
+      className="fields"
+    >
+      <div
+        className="sixteen wide field"
+      >
+        <div
+          className="ui right corner labeled input"
+        >
+          <div
+            className="ui label label right corner"
+            onClick={[Function]}
+          >
+            <i
+              aria-hidden="true"
+              className="asterisk icon"
+            />
+          </div>
+          <input
+            name="name"
+            onChange={[Function]}
+            type="text"
+            value="Australia"
+          />
+        </div>
+      </div>
+      <div
+        className="sixteen wide field"
+      >
+        <div
+          className="ui input"
+        >
+          <input
+            name="capital"
+            onChange={[Function]}
+            type="text"
+            value="Canberra"
+          />
+        </div>
+      </div>
+      <div
+        className="one wide field"
+      >
+        <button
+          className="ui red icon button"
+          onClick={[Function]}
+          role="button"
+        >
+          <i
+            aria-hidden="true"
+            className="trash icon"
+          />
+        </button>
+      </div>
+    </div>
+    <button
+      className="ui icon primary left labeled button"
+      onClick={[Function]}
+      role="button"
+    >
+      <i
+        aria-hidden="true"
+        className="plus icon"
+      />
+      Add
+    </button>
+  </div>
+  <button
+    className="ui button"
+    onClick={[Function]}
+    role="button"
+  >
+    Undo
+  </button>
+  <button
+    className="ui button"
+    onClick={[Function]}
+    role="button"
+  >
+    Redo
+  </button>
+</div>
+`;

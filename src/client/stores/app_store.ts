@@ -15,7 +15,8 @@ export const AppStore = types
   .model('AppStore', {
     userId: types.maybe(types.string),
     user: types.maybe(UserStore),
-    login: types.optional(LoginStore, () => LoginStore.create({}))
+    login: types.optional(LoginStore, () => LoginStore.create({})),
+    instructions: types.optional(types.boolean, false)
   })
   .volatile(_self => ({
     i18n,
@@ -36,6 +37,9 @@ export const AppStore = types
         self.client().resetStore();
         self.localStorage.userId = null;
         self.localStorage.token = null;
+      },
+      toggleInstructions() {
+        self.instructions = !self.instructions;
       }
     };
   });

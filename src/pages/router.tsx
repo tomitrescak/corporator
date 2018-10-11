@@ -21,7 +21,7 @@ import { ProcessInstanceListContainer } from 'client/modules/process/instance/co
 import { QueryTypes } from 'data/client';
 import './style.css';
 
-const getConfirmation = async (message: string, callback: Function) => {
+const getConfirmation = async (_message: string, callback: Function) => {
   const result = await context.Ui.confirmDialogAsync(
     context.i18n`If you change the current page, all your changes will be lost.`,
     context.i18n`You have unsaved changes!`,

@@ -9,7 +9,8 @@ import { groupByArray } from 'data/helpers';
 import { renderControl } from '../models/form_control_factory';
 import { DataSet, FormElement } from '../models/form_model';
 
-interface IFieldOwner {
+export interface IFieldOwner {
+  description: string;
   elements?: FormElement[];
 }
 

@@ -85,10 +85,5 @@ it('builds MST', () => {
   expect(finalHeight).toEqual(20);
 
   // check js version
-  expect(instance.toJS()).toEqual({
-    age: 7,
-    countries: [{ capital: 'Bratislava', name: 'Slovakia' }],
-    height: 10,
-    parent: { weight: 10 }
-  });
+  expect(instance.toJS()).toMatchSnapshot();
 });

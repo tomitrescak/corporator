@@ -6,7 +6,21 @@ exports[`Form Select changes value and all related formulas 1`] = `
 >
   <div
     className="ui form"
+    style={
+      Object {
+        "maxWidth": "1000px",
+      }
+    }
   >
+    <div
+      style={
+        Object {
+          "display": "none",
+        }
+      }
+    >
+      Blocker
+    </div>
     <div
       className="fields"
     >
@@ -185,7 +199,21 @@ exports[`Form Select renders correctly 1`] = `
 >
   <div
     className="ui form"
+    style={
+      Object {
+        "maxWidth": "1000px",
+      }
+    }
   >
+    <div
+      style={
+        Object {
+          "display": "none",
+        }
+      }
+    >
+      Blocker
+    </div>
     <div
       className="fields"
     >

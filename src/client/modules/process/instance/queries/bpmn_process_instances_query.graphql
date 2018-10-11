@@ -1,4 +1,5 @@
 fragment BpmnProcessInstanceItemTask on BpmnTaskInstance {
+  id
   dateStarted
   dateFinished
   task {

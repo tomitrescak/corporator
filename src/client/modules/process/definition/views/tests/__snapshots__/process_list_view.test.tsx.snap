@@ -115,7 +115,6 @@ exports[`Process Definition List Records renders with data 1`] = `
         <a
           className="header"
           href="/process/travel-process/preview/information/1"
-          onClick={[Function]}
         >
           Travel Process
         </a>
@@ -156,7 +155,6 @@ exports[`Process Definition List Records renders with data 1`] = `
         <a
           className="header"
           href="/process/purchase-process/preview/information/2"
-          onClick={[Function]}
         >
           Purchase Process
         </a>
@@ -197,7 +195,6 @@ exports[`Process Definition List Records renders with data 1`] = `
         <a
           className="header"
           href="/process/sales-process/preview/information/3"
-          onClick={[Function]}
         >
           Sales Process
         </a>
@@ -238,7 +235,6 @@ exports[`Process Definition List Records renders with data 1`] = `
         <a
           className="header"
           href="/process/human-resource-process/preview/information/4"
-          onClick={[Function]}
         >
           Human Resource Process
         </a>

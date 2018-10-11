@@ -19,7 +19,7 @@ export function renderControl(
 ) {
   const formElement = control as FormElement;
 
-  if (formElement.source && dataSet.helpers.isExpression(formElement.source.name)) {
+  if (formElement.source && dataSet.isExpression(formElement.source.name)) {
     return <FormulaView owner={dataSet} formControl={formElement} />;
   }
 

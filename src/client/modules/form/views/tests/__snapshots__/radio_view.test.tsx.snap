@@ -6,7 +6,21 @@ exports[`Form Radio changes values 1`] = `
 >
   <div
     className="ui form"
+    style={
+      Object {
+        "maxWidth": "1000px",
+      }
+    }
   >
+    <div
+      style={
+        Object {
+          "display": "none",
+        }
+      }
+    >
+      Blocker
+    </div>
     <div
       className="fields"
     >
@@ -166,7 +180,21 @@ exports[`Form Radio renders correctly 1`] = `
 >
   <div
     className="ui form"
+    style={
+      Object {
+        "maxWidth": "1000px",
+      }
+    }
   >
+    <div
+      style={
+        Object {
+          "display": "none",
+        }
+      }
+    >
+      Blocker
+    </div>
     <div
       className="fields"
     >

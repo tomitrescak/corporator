@@ -55,7 +55,6 @@ export class TableView extends React.Component<Props> {
       owner
     } = this.props;
     owner.addRow(source.name);
-    owner.validateField(source.name, owner.getValue(source.name));
   };
 
   render() {
@@ -66,14 +65,17 @@ export class TableView extends React.Component<Props> {
 
     return (
       <div className="ui form">
-        <FormHeader>
-          {formControl.elements.map((e, i) => (
-            <Form.Field key={i} label={e.label} width={e.width as any} />
-          ))}
-        </FormHeader>
+        <If condition={list && list.length}>
+          <FormHeader>
+            {formControl.elements.map((e, i) => (
+              <Form.Field key={i} label={e.label} width={e.width as any} />
+            ))}
+          </FormHeader>
+        </If>
         {list.map((row, i) => (
           <TableRow key={i} formControl={formControl} owner={row} data={owner} />
         ))}
+
         <Button primary icon="plus" content="Add" labelPosition="left" onClick={this.addRow} />
         <ErrorView
           owner={this.props.owner}

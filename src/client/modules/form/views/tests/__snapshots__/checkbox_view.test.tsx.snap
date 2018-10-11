@@ -9,7 +9,21 @@ exports[`Form Checkbox changes value and all related formulas 1`] = `
 >
   <div
     className="ui form"
+    style={
+      Object {
+        "maxWidth": "1000px",
+      }
+    }
   >
+    <div
+      style={
+        Object {
+          "display": "none",
+        }
+      }
+    >
+      Blocker
+    </div>
     <div
       className="fields"
     >
@@ -122,7 +136,21 @@ exports[`Form Checkbox renders correctly 1`] = `
 >
   <div
     className="ui form"
+    style={
+      Object {
+        "maxWidth": "1000px",
+      }
+    }
   >
+    <div
+      style={
+        Object {
+          "display": "none",
+        }
+      }
+    >
+      Blocker
+    </div>
     <div
       className="fields"
     >
@@ -235,7 +263,21 @@ exports[`Form Checkbox renders other 1`] = `
 >
   <div
     className="ui form"
+    style={
+      Object {
+        "maxWidth": "1000px",
+      }
+    }
   >
+    <div
+      style={
+        Object {
+          "display": "none",
+        }
+      }
+    >
+      Blocker
+    </div>
     <div
       className="fields"
     >

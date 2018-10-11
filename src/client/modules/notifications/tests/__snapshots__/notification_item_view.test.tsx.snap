@@ -30,7 +30,6 @@ exports[`Notifications Item renders default view 1`] = `
        
       <a
         href="/process/process-name"
-        onClick={[Function]}
       >
         Notification Text
       </a>

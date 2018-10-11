@@ -1,9 +1,8 @@
 import { IObservableArray, toJS } from 'mobx';
 import { types } from 'mobx-state-tree';
-import { UndoManager } from 'mst-middlewares';
 
 import { QueryTypes } from 'data/client';
-import { DataDescriptor, DataSet } from './form_model';
+import { DataDescriptor, DataSet, FormModel } from './form_model';
 
 export type IValidator = (input: string) => string;
 
@@ -40,6 +39,25 @@ function strip(obj: any) {
   return obj;
 }
 
+function clone(obj: any) {
+  if (obj === null || typeof obj !== 'object' || 'isActiveClone' in obj) {
+    return obj;
+  }
+
+  // @ts-ignore
+  let temp = obj instanceof Date ? new obj.constructor() : obj.constructor();
+
+  for (let key in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) {
+      // tslint:disable-next-line:no-string-literal
+      obj.isActiveClone = null;
+      temp[key] = clone(obj[key]);
+      delete obj.isActiveClone;
+    }
+  }
+  return temp;
+}
+
 export function isRequired(descriptor: QueryTypes.DataDescriptor) {
   return (
     descriptor.validators &&
@@ -60,23 +78,43 @@ export const FormStore = types
     errors: types.map(types.string),
     strings: types.map(types.string)
   })
-  .volatile(self => ({
+  .volatile(_self => ({
     arrays: [],
     objects: [],
     // tslint:disable-next-line:no-object-literal-type-assertion
     validators: {} as { [name: string]: IValidator[] },
     // tslint:disable-next-line:no-object-literal-type-assertion
     descriptors: {} as { [index: string]: DataDescriptor },
-    helpers: {
-      getDescriptor(key: string) {
-        if (!self.descriptors[key]) {
-          throw new Error('Descriptor does not exist: ' + key);
-        }
-        return self.descriptors[key];
-      },
-      isExpression(key: string) {
-        return !!(key && this.getDescriptor(key).expression);
+    getDescriptor(key: string) {
+      if (!this.descriptors[key]) {
+        throw new Error('Descriptor does not exist: ' + key);
       }
+      return this.descriptors[key];
+    },
+    isExpression(key: string) {
+      return !!(key && this.getDescriptor(key).expression);
+    }
+  }))
+  .views(self => ({
+    getValue(item: string): any {
+      return (self as any)[item];
+    },
+    getStringValue(key: string): string {
+      const descriptor = self.getDescriptor(key);
+      // expressions are evaluated on the fly
+      if (descriptor.expression) {
+        // @ts-ignore
+        return self[key];
+      }
+
+      if (descriptor.type === QueryTypes.DataType.Object) {
+        return '<ERROR! Rendering Object as TEXT>';
+      }
+
+      return self.strings.get(key); // || this.getDescriptor(key).defaultValue || '';
+    },
+    getError(item: string): string {
+      return self.errors.get(item);
     }
   }))
   .actions(function(self) {
@@ -137,7 +175,12 @@ export const FormStore = types
         (self as IFormStore).validateField(item, value);
       },
       addRow(key: string) {
-        ((self as any)[key] as any[]).push({});
+        const original = (self as any).defaultValue[key + '_default'];
+        const data = clone(original);
+
+        ((self as any)[key] as any[]).push(data);
+
+        this.validateField(key, self.getValue(key));
       },
       removeRow(key: string, index: number) {
         ((self as any)[key] as any[]).splice(index);
@@ -160,100 +203,66 @@ export const FormStore = types
           default:
             setValue(key, value);
         }
-      }
-    };
-  })
-  .actions(self => ({
-    validateWithReport(): ValidationResult {
-      let total = 0;
-      let valid = 0;
+      },
+      validateWithReport(): ValidationResult {
+        let total = 0;
+        let valid = 0;
 
-      // validate self
+        // validate self
 
-      for (let key of Object.getOwnPropertyNames(self.validators)) {
-        total += 1;
-        if (self.validateField(key, (self as any)[key])) {
-          valid += 1;
+        for (let key of Object.getOwnPropertyNames(self.validators)) {
+          total += 1;
+          if (this.validateField(key, (self as any)[key])) {
+            valid += 1;
+          }
         }
-      }
 
-      // validate objects
+        // validate objects
 
-      for (let key of self.objects) {
-        let obj = (self as IFormStore).getValue(key) as DataSet;
-        let result = obj.validateWithReport();
-        total += result.total;
-        valid = result.valid;
-      }
-
-      // validate arrays
-
-      for (let key of self.arrays) {
-        let obj = (self as IFormStore).getValue(key) as DataSet[];
-
-        for (let row of obj) {
-          let result = row.validateWithReport();
+        for (let key of self.objects) {
+          let obj = self.getValue(key) as DataSet;
+          let result = obj.validateWithReport();
           total += result.total;
           valid = result.valid;
         }
-      }
 
-      // create report
+        // validate arrays
 
-      return {
-        total,
-        valid,
-        invalid: total - valid
-      };
-    }
-  }))
-  .actions(self => ({
-    validate() {
-      return self.validateWithReport().invalid === 0;
-    },
-    setStringValue(key: string, value: any, validate = true) {
-      self.strings.set(key, value);
+        for (let key of self.arrays) {
+          let obj = (self as IFormStore).getValue(key) as DataSet[];
 
-      if (validate) {
-        let isOK = self.validateField(key, value);
-
-        if (isOK) {
-          self.parseValue(key, value);
+          for (let row of obj) {
+            let result = row.validateWithReport();
+            total += result.total;
+            valid = result.valid;
+          }
         }
-      }
-      // self.setError(key, error);
-    }
-  }))
-  .views(self => ({
-    getValue(item: string): any {
-      return (self as any)[item];
-    },
-    getStringValue(key: string): string {
-      const descriptor = self.helpers.getDescriptor(key);
-      // expressions are evaluated on the fly
-      if (descriptor.expression) {
-        // @ts-ignore
-        return self[key];
-      }
 
-      if (descriptor.type === QueryTypes.DataType.Object) {
-        return '<ERROR! Rendering Object as TEXT>';
-      }
+        // create report
 
-      // init
-      if (!self.strings.has(key)) {
-        self.setStringValue(
-          key,
-          (self as any)[key] == null ? '' : (self as any)[key].toString(),
-          false
-        );
+        return {
+          total,
+          valid,
+          invalid: total - valid
+        };
+      },
+      validate() {
+        return this.validateWithReport().invalid === 0;
+      },
+      setStringValue(key: string, value: any, validate = true) {
+        self.strings.set(key, value);
+
+        if (validate) {
+          let isOK = this.validateField(key, value);
+
+          if (isOK) {
+            this.parseValue(key, value);
+          }
+        }
+        // self.setError(key, error);
       }
-      return self.strings.get(key); // || this.getDescriptor(key).defaultValue || '';
-    },
-    getError(item: string): string {
-      return self.errors.get(item);
-    }
-  }));
+    };
+  });
 
 // export const FormStore = types
 //   .model({

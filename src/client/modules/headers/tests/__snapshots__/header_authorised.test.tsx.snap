@@ -12,9 +12,7 @@ exports[`Headers Authorised renders correctly 1`] = `
       onClick={[Function]}
     >
       <a
-        aria-current="page"
         href="/"
-        onClick={[Function]}
       >
         <img
           alt="logo"

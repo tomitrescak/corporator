@@ -71,7 +71,6 @@ exports[`Process Instance List Data renders correctly 1`] = `
         <a
           className="header"
           href="/process/process-1/view/information/1"
-          onClick={[Function]}
         >
           Process 1
         </a>
@@ -126,7 +125,6 @@ exports[`Process Instance List Data renders correctly 1`] = `
         <a
           className="header"
           href="/process/process-1/view/information/2"
-          onClick={[Function]}
         >
           Process 1
         </a>
@@ -173,7 +171,6 @@ exports[`Process Instance List Data renders correctly 1`] = `
         <a
           className="header"
           href="/process/process-1/view/information/3"
-          onClick={[Function]}
         >
           Process 1
         </a>
@@ -219,7 +216,6 @@ exports[`Process Instance List Data renders correctly 1`] = `
         <a
           className="header"
           href="/process/process-1/view/information/4"
-          onClick={[Function]}
         >
           Process 1
         </a>
@@ -265,7 +261,6 @@ exports[`Process Instance List Data renders correctly 1`] = `
         <a
           className="header"
           href="/process/process-1/view/information/5"
-          onClick={[Function]}
         >
           Process 1
         </a>
