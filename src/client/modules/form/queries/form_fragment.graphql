@@ -33,7 +33,4 @@ fragment Form on Form {
   elements {
     ...FormElement
   }
-  validations {
-    ...Validator
-  }
 }

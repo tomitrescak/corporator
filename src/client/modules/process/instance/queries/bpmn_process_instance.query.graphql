@@ -14,10 +14,12 @@ fragment BpmnProcessInstanceTask on BpmnTaskInstance {
   dateFinished
   status
   performer {
+    id
     name
   }
   data
   task {
+    id
     name
     type
     resources {
@@ -38,6 +40,7 @@ fragment LogMessage on Log {
   elementId
   elementName
   performer {
+    id
     name
   }
   message
@@ -51,6 +54,7 @@ fragment BpmnProcessInstance on BpmnProcessInstance {
     ...BpmnProcessDefinition
   }
   owner {
+    id
     name
   }
   tasks(orderBy: dateFinished_ASC) {

@@ -3,9 +3,11 @@ fragment BpmnProcessInstanceItemTask on BpmnTaskInstance {
   dateStarted
   dateFinished
   task {
+    id
     name
   }
   performer {
+    id
     name
   }
   performerRoles
@@ -15,11 +17,13 @@ fragment BpmnProcessInstanceItem on BpmnProcessInstance {
   id
   status
   process {
+    id
     name
     description
     type
   }
   owner {
+    id
     name
   }
   tasks {
