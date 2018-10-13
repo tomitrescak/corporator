@@ -10,7 +10,6 @@ import { renderControl } from '../models/form_control_factory';
 import { DataSet, FormElement } from '../models/form_model';
 
 export interface IFieldOwner {
-  description: string;
   elements?: FormElement[];
 }
 

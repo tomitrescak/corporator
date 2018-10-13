@@ -12,7 +12,7 @@ import { renderResult } from 'client/modules/common';
 import { DataSet, FormModel, undoManager } from 'client/modules/form/models/form_model';
 import { FormView, IFieldOwner } from 'client/modules/form/views/form_view';
 import { gql, QueryTypes } from 'data/client';
-import { Breadcrumb, Button, Grid, Header, Segment, Icon } from 'semantic-ui-react';
+import { Breadcrumb, Button, Grid, Header, Icon, Segment } from 'semantic-ui-react';
 import { EditableViewType, ProcessViewType } from '../../common/process_styles';
 import { TabBreadcrumbs } from './tab_breadcrumbs';
 
@@ -240,7 +240,7 @@ export class FormViewHeader extends React.Component<HeaderProps> {
 
 type ContentProps = {
   context: App.Context;
-  form: IFieldOwner;
+  form: IFieldOwner & { description: string };
   data: DataSet;
   previewOnly: boolean;
 };
