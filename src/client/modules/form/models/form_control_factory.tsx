@@ -19,11 +19,9 @@ export function renderControl(
 ) {
   const formElement = control as FormElement;
 
-  if (formElement.source && dataSet.isExpression(formElement.source.name)) {
-    return <FormulaView owner={dataSet} formControl={formElement} />;
-  }
-
   switch (formElement.control) {
+    case 'Formula':
+      return <FormulaView owner={dataSet} formControl={formElement} />;
     case 'Input':
       return <InputView owner={dataSet} formControl={formElement} />;
     case 'Form':

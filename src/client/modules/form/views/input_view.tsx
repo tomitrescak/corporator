@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { Form, Input, InputProps } from 'semantic-ui-react';
 
 import { FormControlProps } from '../models/form_model';
-import { IFormStore, isRequired } from '../models/form_store';
+import { IFormStore } from '../models/form_store';
 import { ErrorLabel, ErrorView } from './error_view';
 
 @observer
@@ -19,8 +19,8 @@ export class InputView extends React.Component<FormControlProps> {
   render() {
     const { formControl, owner } = this.props;
     const { source, controlProps } = formControl;
-    const descriptor = owner.getDescriptor(source.name);
-    const label = isRequired(descriptor)
+
+    const label = owner.isRequired(source.name)
       ? { label: { icon: 'asterisk' }, labelPosition: 'right corner' }
       : {};
 

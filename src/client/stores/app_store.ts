@@ -16,7 +16,8 @@ export const AppStore = types
     userId: types.maybe(types.string),
     user: types.maybe(UserStore),
     login: types.optional(LoginStore, () => LoginStore.create({})),
-    instructions: types.optional(types.boolean, false)
+    instructions: types.optional(types.boolean, false),
+    dirty: types.optional(types.boolean, false)
   })
   .volatile(_self => ({
     i18n,
@@ -30,6 +31,9 @@ export const AppStore = types
         self.userId = user.id;
         self.user = user as any;
         self.localStorage.userId = user.id;
+      },
+      setDirty(value: boolean) {
+        self.dirty = value;
       },
       logout() {
         self.userId = undefined;

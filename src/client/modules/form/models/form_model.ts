@@ -7,7 +7,7 @@ import { UndoManager } from 'mst-middlewares';
 
 import { QueryTypes } from 'data/client';
 import { DataDescriptor, Form, FormElement } from './form_model';
-import { FormStore, IFormStore } from './form_store';
+import { FormStore, IFormStore, ValidationResult } from './form_store';
 import { FormValidation } from './form_validation_model';
 import { random } from './random';
 
@@ -292,14 +292,16 @@ export class FormModel {
     // build tree
     const mst = FormStore.named('FormStore')
       .props(mstDefinition)
-      .volatile(_self => ({
-        descriptors: descriptorMap,
-        validators,
-        arrays,
-        objects,
-        defaultValue
-      }))
-      .views(viewDefinition);
+      .views(viewDefinition)
+      .actions(_self => ({
+        privateHelpers: () => ({
+          defaultValue,
+          validators,
+          arrays,
+          objects,
+          descriptors
+        })
+      }));
 
     return mst;
   }
