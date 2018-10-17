@@ -2,7 +2,7 @@ type User {
   id: ID! @unique
   uid: String! @unique
   name: String!
-  roles: [String!]!
+  roles: [ID!]!
   description: String
   password: String!
   notifications: [Notification!]! @relation(name: "UserNotifications", onDelete: CASCADE)

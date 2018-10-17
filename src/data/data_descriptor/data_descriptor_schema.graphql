@@ -1,31 +1,16 @@
-enum DataType {
-  Id
-  Boolean
-  Float
-  Int
-  String
-  Date
-  Object
-}
-
-type DataDescriptor {
+type Schema {
   id: ID! @unique
-  access: Access
-  defaultValue: String
-  description: String
-  expression: String
-  isArray: Boolean
-  clone: Boolean
-  name: String
-  type: DataType
-  validators: [Validator!]!
-  parentDescriptor: ID
+  name: String! @unique
+  description: String!
+  schema: Json!
+  version: Int
+  date: DateTime
 }
 
 type Data {
   id: ID! @unique
-  descriptor: DataDescriptor
-  organisationId: String
+  schemaId: ID!
+  schema: Schema @relation(name: "DataSchema")
   version: Int
   date: DateTime
   value: String

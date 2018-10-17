@@ -4,13 +4,13 @@ export { default as gql } from 'graphql-tag';
 
 export { QueryTypes };
 
-export function purge<T>(params: any): T {
+export function purge<T>(params: T): T {
   for (let key of Object.getOwnPropertyNames(params)) {
-    if (!params[key]) {
-      delete params[key];
+    if (!(params as any)[key]) {
+      delete (params as any)[key];
     }
-    if (params[key] instanceof Object) {
-      purge(params[key]);
+    if ((params as any)[key] instanceof Object) {
+      purge((params as any)[key]);
     }
   }
   return params;

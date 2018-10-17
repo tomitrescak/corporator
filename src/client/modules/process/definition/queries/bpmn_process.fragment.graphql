@@ -1,13 +1,10 @@
-fragment BpmnProcessResource on Resource {
-  name
-  type
+fragment BpmnProcessResource on ProcessResource {
   id
-  link
-  form {
-    id
-  }
-  document {
-    id
+  readRole
+  resource {
+    type
+    title
+    content
   }
 }
 
@@ -17,9 +14,7 @@ fragment BpmnProcessDefinition on BpmnProcess {
   description
   type
   model
-  dataDescriptors {
-    ...DataDescriptor
-  }
+  schema
   resources {
     ...BpmnProcessResource
   }

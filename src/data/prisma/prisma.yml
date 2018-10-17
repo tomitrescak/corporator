@@ -1,13 +1,11 @@
 endpoint: ${env:ENDPOINT}
 datamodel:
-  - ../access/access_schema.graphql
   - ../bpmn_process/bpmn_process_schema.graphql
   - ../bpmn_process_instance/bpmn_process_instance_schema.graphql
   - ../bpmn_task/bpmn_task_schema.graphql
   - ../bpmn_task_instance/bpmn_task_instance_schema.graphql
   - ../comments/comments_schema.graphql
   - ../data_descriptor/data_descriptor_schema.graphql
-  - ../form/form_schema.graphql
   - ../localisations/localisations_schema.graphql
   - ../logging/log_schema.graphql
   - ../notifications/notifications_schema.graphql

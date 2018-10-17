@@ -4,6 +4,8 @@ import * as NOTIFICATIONS_QUERY from './queries/notifications_query.graphql';
 import { NotificationsListContainer } from './notification_list_view';
 import { NotificationsQuery } from './notifications_queries';
 
+export { NOTIFICATIONS_QUERY };
+
 type Props = {
   path?: string;
 };

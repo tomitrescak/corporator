@@ -20,10 +20,12 @@ type Notification {
   type: NotificationType!
   id: ID! @unique
   userId: ID!
+  user: User @relation(name: "UserNotifications", onDelete: CASCADE)
   createdAt: DateTime!
   code: NotificationCode!
   text: String
-  processInstance: BpmnProcessInstance!
-  params: [String!]!
+  processInstanceId: ID!
+  processInstance: BpmnProcessInstance
+  params: String
   visible: Boolean!
 }

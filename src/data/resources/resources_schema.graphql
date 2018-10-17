@@ -5,18 +5,31 @@ enum ResourceType {
   Document
 }
 
-type Document {
-  id: ID! @unique
-  title: String!
-  content: String
-  version: Int
-}
-
 type Resource {
   id: ID! @unique
+  resourceId: ID!
   type: ResourceType!
-  name: String!
-  link: String
-  form: Form @relation(name: "ResourceReport", onDelete: CASCADE)
-  document: Document @relation(name: "ResourceDocument", onDelete: CASCADE)
+  title: String!
+  content: String!
+  version: Int!
+  publicationStatus: PublicationStatus!
+
+  # Access
+
+  createdById: ID!
+  updatedById: ID
+  readRole: String
+  readUser: String
+  writeRole: String
+  writeUser: String
+}
+
+type ProcessResource {
+  id: ID! @unique
+  resourceId: ID!
+  resource: Resource
+
+  # Access
+
+  readRole: String
 }

@@ -2,5 +2,5 @@
 
 type Query {
   resourceQuery(id: ID!): Resource
-  documentQuery(id: ID!): Document
+  documentQuery(id: ID!): Resource
 }

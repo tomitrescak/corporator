@@ -1,10 +1,12 @@
 // dog.test.js
 import * as React from 'react';
-import * as QUERY from '../queries/notifications_query.graphql';
+import * as NOTIFICATIONS_QUERY from '../queries/notifications_query.graphql';
 
 import { mock, MockedProvider, QueryTypes, render } from 'client/tests';
 import { NotificationsContainer } from '../notifications_view';
 import { createNotification } from './notifications_test_data';
+
+export { NOTIFICATIONS_QUERY };
 
 export const notificationData = [
   createNotification({ id: '1', createdAt: new Date(2010, 1, 2, 12, 50) }),
@@ -18,7 +20,7 @@ describe('Notifications', () => {
   describe('Container', () => {
     function componentWithData(notifications: QueryTypes.Notifications[] = null) {
       if (!notifications) {
-        mock.expect(QUERY).reply({
+        mock.expect(NOTIFICATIONS_QUERY).reply({
           notificationsQuery: [{ id: '1', name: 'one' }, { id: '2', name: 'two' }]
         });
       }
@@ -33,7 +35,7 @@ describe('Notifications', () => {
     }
 
     it('renders loading', () => {
-      mock.expect(QUERY).loading();
+      mock.expect(NOTIFICATIONS_QUERY).loading();
       const container = render(componentWithData());
 
       expect(container).toMatchSnapshot();
@@ -41,7 +43,7 @@ describe('Notifications', () => {
     });
 
     it('renders final', async () => {
-      mock.expect(QUERY).reply({
+      mock.expect(NOTIFICATIONS_QUERY).reply({
         notificationsQuery: notificationData
       });
 

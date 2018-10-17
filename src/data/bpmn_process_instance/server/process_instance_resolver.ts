@@ -1,6 +1,8 @@
-import { Mutation, Prisma, purge, Query, Yoga } from 'data/utils';
+import { Mutation, Prisma, purge, Query, Resolver, Yoga } from 'data/utils';
 import { BpmnProcessInstance } from '../../yoga/models/bpmn_process_instance_model';
 import { BpmnProcessModel } from '../../yoga/models/bpmn_process_model';
+
+const graphql = (e: TemplateStringsArray) => e[0];
 
 export const query: Query = {
   async bpmnProcessInstancesQuery(_parent, { input }, ctx, info) {
@@ -21,7 +23,8 @@ export const query: Query = {
       return a.process.name.localeCompare(b.process.name, 'en', { numeric: true });
     });
   },
-  bpmnProcessInstanceQuery(_parent, { id }, ctx, info) {
+  async bpmnProcessInstanceQuery(_parent, { id }, ctx, info) {
+    return (await ctx.db.query.bpmnProcessInstances({}, info))[0];
     return ctx.db.query.bpmnProcessInstance({ where: { id } }, info);
   }
 };
@@ -37,6 +40,27 @@ export const userFragment = `
   id
 `;
 
+export const resolver: Resolver<Prisma.BpmnProcessInstance> = {
+  BpmnProcessInstance: {
+    owner: {
+      fragment: graphql`
+        fragment Instance on BpmnProcessInstance {
+          ownerId
+        }
+      `,
+      async resolve(parent, _, ctx) {
+        return ctx.cache.user.findById(parent.ownerId);
+      }
+    },
+    comments: {
+      fragment: ``,
+      resolve(parent, ctx) {
+        return parent.comments;
+      }
+    }
+  }
+};
+
 export const mutation: Mutation = {
   async launchProcessInstance(_parent, { input: { processId, role } }, ctx) {
     const userId = ctx.userId;
@@ -45,30 +69,30 @@ export const mutation: Mutation = {
       {
         data: {
           dateStarted: new Date(),
-          // duration: 0,
-          owner: {
-            connect: {
-              id: userId
-            }
-          },
-          process: {
-            connect: {
-              id: processId
-            }
-          },
-          data: {},
+          ownerId: userId,
+          processId: processId,
+          data: '{}',
           status: 'Running'
         }
       },
       `{
       id
-      owner {
-        ${userFragment}
-      }
       data
       status
     }`
     );
+
+    const m = await ctx.db.query.bpmnProcessInstance(
+      { where: { id: processInstanceDAO.id } },
+      `{ 
+        id 
+        owner { 
+          ${userFragment} 
+        }
+      }`
+    );
+
+    processInstanceDAO.owner = await ctx.cache.user.findById(userId);
 
     // await ctx.db.mutation.updateUser(
     //   {
@@ -87,31 +111,19 @@ export const mutation: Mutation = {
     const bpmnProcessModelDao = await ctx.db.query.bpmnProcess(
       { where: { id: processId } },
       `{
-      id
-      access {
         id
         createdById
-        createdOn
-        modifiedById
-        modifiedOn
-        read {
-          ${accessConditionFragment}
-        }
-        write {
-          ${accessConditionFragment}
-        }
-        execute {
-          ${accessConditionFragment}
-        }
-      }
-      actionCount
-      description
-      model
-      name
-      type
-      status
+        updatedById
+        updatedAt
+        actionCount
+        description
+        model
+        name
+        type
+        publicationStatus
     }`
     );
+
     // console.log(bpmnProcessModelDao);
     const bpmnProcessModel = new BpmnProcessModel(bpmnProcessModelDao);
 

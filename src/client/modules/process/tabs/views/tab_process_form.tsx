@@ -1,7 +1,5 @@
 import * as React from 'react';
 
-import * as DESCRIPTOR_FRAGMENT from 'client/modules/form/queries/descriptor_fragment.graphql';
-import * as FORM_FRAGMENT from 'client/modules/form/queries/form_fragment.graphql';
 import * as FORM_QUERY_NO_FRAGMENT from 'client/modules/form/queries/form_query.graphql';
 
 import { observer } from 'mobx-react';
@@ -18,8 +16,6 @@ import { TabBreadcrumbs } from './tab_breadcrumbs';
 
 export const FORM_QUERY = gql`
   ${FORM_QUERY_NO_FRAGMENT}
-  ${FORM_FRAGMENT}
-  ${DESCRIPTOR_FRAGMENT}
 `;
 
 const FieldSet = styled.fieldset`

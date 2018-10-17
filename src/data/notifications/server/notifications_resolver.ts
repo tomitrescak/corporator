@@ -47,12 +47,8 @@ export const mutation: Mutation = {
       data: {
         userId: input.userId,
         code: input.code,
-        params: { set: input.params },
-        processInstance: {
-          connect: {
-            id: input.processInstanceId
-          }
-        },
+        params: input.params as string,
+        processInstanceId: input.processInstanceId,
         type: input.type,
         visible: true
       }

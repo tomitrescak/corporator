@@ -25,13 +25,11 @@ fragment BpmnProcessInstanceTask on BpmnTaskInstance {
     resources {
       id
       type
-      name
-      form {
-        id
-      }
+      title
+      content
     }
   }
-  performerRoles
+  performerRole
 }
 
 fragment LogMessage on Log {

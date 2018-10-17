@@ -2,7 +2,8 @@
 type Comment {
   id: ID! @unique
   text: String!
-  user: User!
+  userId: ID!
+  user: User
   date: DateTime!
-  replyTo: String
+  replyTo: ID
 }

@@ -53,11 +53,10 @@ export class BpmnProcessModel {
   id: string;
   name: string;
   description: string;
-  access: Access;
   definition: any;
   generatedDescription: string;
   version: number;
-  status: string;
+  status: Prisma.PublicationStatus;
   roles: string[];
   actionCount: number;
 
@@ -71,10 +70,9 @@ export class BpmnProcessModel {
     this.id = processModelDao.id;
     this.name = processModelDao.name;
     this.description = processModelDao.description;
-    this.access = new Access(processModelDao.access);
     // this.definition = this.generatedDescription = processModelDao.generatedDescription;
     this.version = processModelDao.version;
-    this.status = processModelDao.status;
+    this.status = processModelDao.publicationStatus;
     // this.roles = processModelDao.roles;
     this.actionCount = processModelDao.actionCount;
 

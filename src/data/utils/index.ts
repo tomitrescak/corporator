@@ -4,7 +4,7 @@ import { GraphQLResolveInfo } from 'graphql';
 
 import { Prisma } from 'data/generated/prisma';
 import { Mutation as PrismaMutation, Query as PrismaQuery, User } from 'data/generated/yoga';
-import { cache } from 'server/index';
+import { CacheType } from 'server/cache';
 import { Localisation } from '../localisations/server/localisation_resolver';
 
 export { Prisma } from 'data/prisma';
@@ -40,7 +40,7 @@ export interface Context {
   request: any;
   response: any;
   userId: string;
-  cache?: typeof cache;
+  cache?: CacheType;
   i18n: Localisation;
   getUser?(): Promise<User>;
   getUserId?(): string;

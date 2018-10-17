@@ -20,7 +20,11 @@ module.exports = function(wallaby) {
 
     env: {
       type: 'node',
-      runner: 'node'
+      runner: 'node',
+      params: {
+        NODE_ENV: 'test',
+        ENDPOINT: 'http://localhost:4466/test'
+      }
     },
     workers: {
       initial: 1,
@@ -29,6 +33,34 @@ module.exports = function(wallaby) {
     preprocessors: {
       'src/**/*.tsx': file => require('jsx-controls-loader').loader(file.content)
     },
-    testFramework: 'jest'
+    testFramework: 'jest',
+    setup() {
+      const path = require('path');
+      const moduleAlias = require('module-alias');
+      moduleAlias.addAlias('client', path.dirname(require.resolve('./src/client')));
+      moduleAlias.addAlias('server', path.dirname(require.resolve('./src/server')));
+      moduleAlias.addAlias('data', path.dirname(require.resolve('./src/data')));
+
+      process.env.ENDPOINT = 'http://localhost:4466/test';
+
+      const { server } = require('./src/server/prisma');
+      return server
+        .start({
+          port: 4000,
+          endpoint: '/'
+        })
+        .then(server => {
+          wallaby.app = server;
+          console.log('SERVER STARTED');
+        });
+    },
+    teardown(wallaby) {
+      if (wallaby.app) {
+        console.log('TEARING DOWN');
+        return wallaby.app.close();
+      } else {
+        console.log('NOTHNG TO TEAR DOWN');
+      }
+    }
   };
 };

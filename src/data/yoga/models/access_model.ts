@@ -1,80 +1,52 @@
 import { Prisma } from 'data/prisma';
-import { Yoga } from 'data/yoga';
 
-export class AccessCondition {
-  organisationId?: string;
-  roleId?: string;
-  userId?: string;
-  // precondition: string;
-  // postcondition: string;
-
-  constructor(accessCondition: Yoga.AccessCondition) {
-    this.organisationId = accessCondition.organisationId;
-    this.roleId = accessCondition.roleId;
-    this.userId = accessCondition.userId;
-    // this.precondition = accessCondition.precondition;
-    // this.postcondition = accessCondition.postcondition;
-  }
+interface IAccessNode {
+  createdById: string;
+  createdOn: Date;
+  updatedById: string;
+  updatedOn: Date;
+  readRole: string;
+  writeRole: string;
+  executeRole: string;
 }
 
 export class Access {
   createdById: string;
   createdOn: Date;
-  modifiedById: string;
-  modifiedOn: Date;
-  read: AccessCondition[];
-  write: AccessCondition[];
-  execute: AccessCondition[];
+  updatedById: string;
+  updatedOn: Date;
+  readRole: string[];
+  writeRole: string[];
+  executeRole: string[];
 
-  constructor(access: Yoga.Access) {
+  constructor(access: IAccessNode) {
     this.createdById = access.createdById;
     this.createdOn = new Date(access.createdOn);
-    this.modifiedById = access.modifiedById;
-    this.modifiedOn = new Date(access.modifiedOn);
-    this.read = access.read;
-    this.write = access.write;
-    this.execute = access.execute;
+    this.updatedById = access.updatedById;
+    this.updatedOn = new Date(access.updatedOn);
+    this.readRole = access.readRole.split('|');
+    this.writeRole = access.writeRole.split('|');
+    this.executeRole = access.executeRole.split('|');
   }
 
   canRead(user: Prisma.User) {
-    if (!this.read) {
+    if (!this.readRole) {
       return true;
-    } // ?
-
-    let allowed = false;
-    this.read.forEach(condition => {
-      if (user.roles.includes(condition.roleId)) {
-        allowed = true;
-      }
-    });
-    return allowed;
+    }
+    return this.readRole.some(role => user.roles.some(r => r.id === role));
   }
 
   canWrite(user: Prisma.User) {
-    if (!this.write) {
+    if (!this.writeRole) {
       return true;
-    } // ?
-
-    let allowed = false;
-    this.write.forEach(condition => {
-      if (user.roles.includes(condition.roleId)) {
-        allowed = true;
-      }
-    });
-    return allowed;
+    }
+    return this.writeRole.some(role => user.roles.some(r => r.id === role));
   }
 
   canExecute(user: Prisma.User) {
-    if (!this.execute) {
+    if (!this.executeRole) {
       return true;
-    } // ?
-
-    let allowed = false;
-    this.execute.forEach(condition => {
-      if (user.roles.includes(condition.roleId)) {
-        allowed = true;
-      }
-    });
-    return allowed;
+    }
+    return this.executeRole.some(role => user.roles.some(r => r.id === role));
   }
 }

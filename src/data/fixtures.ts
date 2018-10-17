@@ -1,58 +1,17 @@
-import * as bcrypt from 'bcryptjs';
-import { spfBpmn } from './fixtures_data';
 import * as Prisma from './generated/prisma';
 
-require('dotenv').config({ path: process.argv[5] });
+import { spfBpmn } from './fixtures_data';
+import { access, create, dateFinished, dateStarted, db } from './tests/create_data';
 
-// tslint:disable-next-line:no-console
-console.log('Loading data to: ' + process.env.ENDPOINT);
+if (process.argv[5]) {
+  require('dotenv').config({ path: process.argv[5] });
 
-let db: Prisma.Prisma = new Prisma.Prisma({
-  endpoint: process.env.ENDPOINT
-  // debug: true
-  // secret: 'my_secret123', // only needed if specified in `database/prisma.yml`
-});
+  // tslint:disable-next-line:no-console
+  console.log('Loading data to: ' + process.env.ENDPOINT);
+}
 
 let loadFixtures = !!process.argv[3];
 let createUser = !!process.argv[7];
-
-/* =========================================================
-    Constants
-   ======================================================== */
-
-const dateStarted = new Date(2018, 1, 2);
-const dateFinished = new Date(2018, 2, 10);
-
-const access = (owner: string, role: string, permission: string): Prisma.AccessCreateOneInput => ({
-  create: {
-    createdById: owner,
-    createdOn: dateStarted,
-    execute: {
-      create: {
-        organisationId: null,
-        roleId: permission[2] === 'x' && role,
-        userId: null
-      }
-      //#endregion
-    },
-    read: {
-      create: {
-        organisationId: null,
-        roleId: permission[1] === 'w' && role,
-        userId: null
-      }
-    },
-    write: {
-      create: {
-        organisationId: null,
-        roleId: permission[0] === 'r' && role,
-        userId: null
-      }
-    },
-    modifiedById: owner,
-    modifiedOn: dateFinished
-  }
-});
 
 /* =========================================================
     DEFAULT DATA
@@ -94,172 +53,6 @@ async function loadDefaultLocalisations() {
 // tslint:disable-next-line:no-console
 loadDefaultLocalisations().then(() => console.log('Localisations loaded ..'));
 
-export const create = {
-  date(addDays: number = 0) {
-    return new Date(2018, 2, 10 + addDays);
-  },
-  userMutation(user: Partial<Prisma.UserCreateInput> = {}) {
-    return db.mutation.createUser({ data: create.user(user) });
-  },
-  user: (user: Partial<Prisma.UserCreateInput> = {}): Prisma.UserCreateInput => ({
-    name: 'Tomas Trescak',
-    uid: '30031005',
-    roles: {
-      set: ['admin']
-    },
-    password: bcrypt.hashSync('123', 10),
-    ...user
-  }),
-  element: (element: Partial<Prisma.FormElementCreateInput>): Prisma.FormElementCreateInput => ({
-    column: 0,
-    control: 'Input',
-    controlProps: null,
-    defaultValue: null,
-    filterColumn: null,
-    filterSource: null,
-    inline: false,
-    label: null,
-    list: null,
-    row: 0,
-    source: null,
-    vertical: null,
-    width: null,
-    parentElement: null,
-    ...element
-  }),
-  elementMutation(element: Partial<Prisma.FormElementCreateInput> = {}) {
-    return db.mutation.createFormElement({ data: create.element(element) });
-  },
-  validation: (element: Partial<Prisma.ValidatorCreateInput>): Prisma.ValidatorCreateInput => ({
-    name: 'RequiredValidator',
-    params: null,
-    ...element
-  }),
-  formMutation(form: Partial<Prisma.FormCreateInput> = {}) {
-    return db.mutation.createForm({ data: create.form(form) });
-  },
-  form: (form: Partial<Prisma.FormCreateInput> = {}): Prisma.FormCreateInput => ({
-    name: 'Form',
-    description: 'Test Form',
-    elements: form.elements,
-    validations: form.validations,
-    ...form
-  }),
-  descriptor: (
-    partial: Partial<Prisma.DataDescriptorCreateInput>
-  ): Prisma.DataDescriptorCreateInput => ({
-    name: null,
-    description: 'Description',
-    expression: null,
-    type: 'String',
-    isArray: false,
-    defaultValue: null,
-    validators: null,
-    parentDescriptor: null,
-    ...partial
-  }),
-  descriptorMutation(partial: Partial<Prisma.DataDescriptorCreateInput>) {
-    return db.mutation.createDataDescriptor({ data: create.descriptor(partial) });
-  },
-  bpmnTask: (partial: Partial<Prisma.BpmnTaskCreateInput>): Prisma.BpmnTaskCreateInput => ({
-    taskId: null,
-    resources: null,
-    name: 'Task Name',
-    type: 'Form',
-    ...partial
-  }),
-  bpmnTaskMutation(partial: Partial<Prisma.BpmnTaskCreateInput>) {
-    return db.mutation.createBpmnTask({ data: create.bpmnTask(partial) });
-  },
-  bpmnProcess: (
-    partial: Partial<Prisma.BpmnProcessCreateInput>
-  ): Prisma.BpmnProcessCreateInput => ({
-    name: 'Process',
-    description: 'Process 4 description',
-    model: '',
-    status: 'Published',
-    actionCount: 0,
-    type: 'HumanResources',
-    version: 0,
-    access: null,
-    resources: null,
-    ...partial
-  }),
-  bpmnProcessMutation(partial: Partial<Prisma.BpmnProcessCreateInput>) {
-    return db.mutation.createBpmnProcess({ data: create.bpmnProcess(partial) });
-  },
-  bpmnProcessInstance: (
-    partial: Partial<Prisma.BpmnProcessInstanceCreateInput>
-  ): Prisma.BpmnProcessInstanceCreateInput => ({
-    process: null,
-    data: {},
-    owner: null,
-    status: 'Running',
-    dateStarted,
-    ...partial
-  }),
-  bpmnProcessInstanceMutation(partial: Partial<Prisma.BpmnProcessInstanceCreateInput>) {
-    return db.mutation.createBpmnProcessInstance({ data: create.bpmnProcessInstance(partial) });
-  },
-  bpmnTaskInstance: (
-    partial: Partial<Prisma.BpmnTaskInstanceCreateInput>,
-    processInstanceId: string,
-    taskId: string,
-    performerId: string = null
-  ): Prisma.BpmnTaskInstanceCreateInput => ({
-    dateFinished: null,
-    dateStarted,
-    duration: 0,
-    data: {},
-    status: 'Finished',
-    performerRoles: { set: ['User'] },
-    performer: performerId ? { connect: { id: performerId } } : null,
-    processInstance: { connect: { id: processInstanceId } },
-    task: { connect: { id: taskId } },
-    ...partial
-  }),
-  bpmnTaskInstanceMutation(
-    partial: Partial<Prisma.BpmnTaskInstanceCreateInput>,
-    processInstanceId: string,
-    taskId: string
-  ) {
-    return db.mutation.createBpmnTaskInstance({
-      data: create.bpmnTaskInstance(partial, processInstanceId, taskId)
-    });
-  },
-  notification: (
-    partial: Partial<Prisma.NotificationCreateInput>
-  ): Prisma.NotificationCreateInput => ({
-    userId: null,
-    processInstance: null,
-    visible: true,
-    code: 'ProcessStarted',
-    params: { set: ['Process Name'] },
-    type: 'Info',
-    ...partial
-  }),
-  notificationMutation(partial: Partial<Prisma.NotificationCreateInput>) {
-    return db.mutation.createNotification({ data: create.notification(partial) });
-  },
-  resource: (partial: Partial<Prisma.ResourceCreateInput>): Prisma.ResourceCreateInput => ({
-    document: null,
-    form: null,
-    link: null,
-    name: 'Resource',
-    type: 'Url',
-    ...partial
-  }),
-  resourceMutation(partial: Partial<Prisma.ResourceCreateInput>) {
-    return db.mutation.createResource({ data: create.resource(partial) });
-  },
-  log: (partial: Partial<Prisma.LogCreateInput> = {}): Prisma.LogCreateInput => ({
-    date: dateStarted,
-    elementId: null,
-    elementName: '',
-    ...partial
-  })
-};
-
 /* =========================================================
     FIXTURES
    ======================================================== */
@@ -269,14 +62,27 @@ async function insertFixtures() {
   console.log('Loading fixtures ...');
 
   // tslint:disable-next-line:no-console
+  console.log('Creating role');
+  const userRole = await create.roleMutation({
+    name: 'User'
+  });
+  const buyerRole = await create.roleMutation({
+    name: 'Buyer'
+  });
+
+  // tslint:disable-next-line:no-console
   console.log('Creating user ...');
   const user = createUser
-    ? await create.userMutation({ roles: { set: ['User'] } })
+    ? await create.userMutation({ roles: { connect: { id: userRole.id } } })
     : (await db.query.users({}))[0];
 
   // create other user
   const otherUser = createUser
-    ? await create.userMutation({ name: 'Other User', uid: '30001234', roles: { set: ['Buyer'] } })
+    ? await create.userMutation({
+        name: 'Other User',
+        uid: '30001234',
+        roles: { connect: { id: buyerRole.id } }
+      })
     : (await db.query.users({}))[0];
 
   /* =========================================================
@@ -287,10 +93,6 @@ async function insertFixtures() {
   console.log('Cleanup ...');
 
   await db.mutation.deleteManyLogs({});
-  await db.mutation.deleteManyDataDescriptors({});
-  await db.mutation.deleteManyFormElements({});
-  await db.mutation.deleteManyDocuments({});
-  await db.mutation.deleteManyForms({});
   await db.mutation.deleteManyResources({});
   await db.mutation.deleteManyNotifications({});
   await db.mutation.deleteManyBpmnTaskInstances({});
@@ -305,177 +107,179 @@ async function insertFixtures() {
   // tslint:disable-next-line:no-console
   console.log('Creating resources ...');
 
-  const nameDescriptor = await create.descriptorMutation({ name: 'owner.personal.name' });
-  const ageDescriptor = await create.descriptorMutation({
-    name: 'owner.personal.age',
-    type: 'Float',
-    validators: {
-      create: [{ name: 'RequiredValidator' }]
-    }
-  });
-  const childrenDescriptor = await create.descriptorMutation({
-    name: 'children',
-    type: 'Object',
-    isArray: true,
-    validators: {
-      create: [{ name: 'ArrayLengthValidator', params: { set: ['1'] } }]
-    }
-  });
-  const childDescriptor = await create.descriptorMutation({
-    name: 'childName',
-    type: 'String',
-    validators: {
-      create: [{ name: 'RequiredValidator' }]
-    },
-    parentDescriptor: childrenDescriptor.id
-  });
-  const addressDescriptor = await create.descriptorMutation({
-    name: 'address',
-    type: 'Object'
-  });
-  const cityDescriptor = await create.descriptorMutation({
-    name: 'city',
-    type: 'String',
-    validators: {
-      create: [{ name: 'RequiredValidator' }]
-    },
-    parentDescriptor: addressDescriptor.id
-  });
-  const zipDescriptor = await create.descriptorMutation({
-    name: 'zip',
-    type: 'String',
-    validators: {
-      create: [{ name: 'RegExValidator', params: { set: ['^\\d\\d\\d\\d$'] } }]
-    },
-    parentDescriptor: addressDescriptor.id
+  const nameSchema = await create.schemaMutation({
+    name: 'name',
+    schema: create.jsonSchemaProperty({
+      type: 'string'
+    })
   });
 
-  const addressElement = await create.elementMutation({
-    label: 'Address',
-    control: 'Form',
-    source: {
-      connect: { id: addressDescriptor.id }
-    },
-    column: 0,
-    width: 16,
-    row: 1
+  const ageSchema = await create.schemaMutation({
+    name: 'name',
+    schema: create.jsonSchemaProperty({
+      type: 'integer',
+      minimum: 0
+    })
   });
 
-  const childrenElement = await create.elementMutation({
-    label: 'Children',
-    control: 'Table',
-    source: {
-      connect: { id: childrenDescriptor.id }
+  const schema = create.jsonSchema({
+    definitions: {
+      name: { $id: nameSchema.id },
+      age: { $id: ageSchema.id }
     },
-    column: 0,
-    width: 16,
-    row: 2
+    properties: {
+      name: {
+        $ref: '#/definitions/name'
+      },
+      age: {
+        $ref: '#/definitions/age'
+      },
+      children: {
+        type: 'array',
+        items: {
+          type: 'object',
+          properties: {
+            childName: {
+              type: 'string'
+            }
+          },
+          required: ['childName']
+        },
+        minItems: 1
+      },
+      address: {
+        type: 'object',
+        properties: {
+          city: {
+            type: 'string'
+          },
+          zip: {
+            type: 'string',
+            pattern: '^\\d\\d\\d\\d$'
+          }
+        },
+        required: ['city']
+      }
+    },
+    required: ['owner.personal.name']
   });
 
-  const report = await create.formMutation({
+  const report: Form = {
+    name: 'Validation Report',
+    description: 'This is a registration report',
+    elements: [
+      create.element({
+        label: 'Name',
+        control: 'Text',
+        source: 'name',
+        column: 0,
+        width: 8,
+        row: 0
+      }),
+      create.element({
+        label: 'Age',
+        control: 'Text',
+        source: 'name',
+        column: 8,
+        width: 8,
+        row: 0
+      })
+    ]
+  };
+
+  const form = await create.form({
     name: 'Registration Form',
     description: 'This is a registration form',
-    elements: {
-      create: [
-        create.element({
-          label: 'Name',
-          control: 'Text',
-          source: {
-            connect: { id: nameDescriptor.id }
-          },
-          column: 0,
-          width: 8,
-          row: 0
-        }),
-        create.element({
-          label: 'Age',
-          control: 'Text',
-          source: {
-            connect: { id: ageDescriptor.id }
-          },
-          column: 8,
-          width: 8,
-          row: 0
-        })
-      ]
-    }
-  });
-
-  const form = await create.formMutation({
-    name: 'Registration Form',
-    description: 'This is a registration form',
-    elements: {
-      connect: [{ id: addressElement.id }, { id: childrenElement.id }],
-      create: [
-        create.element({
-          label: 'Name',
-          source: {
-            connect: { id: nameDescriptor.id }
-          },
-          column: 0,
-          width: 8,
-          row: 0
-        }),
-        create.element({
-          label: 'Age',
-          source: {
-            connect: { id: ageDescriptor.id }
-          },
-          column: 8,
-          width: 8,
-          row: 0
-        }),
-        create.element({
-          label: 'City',
-          control: 'Input',
-          source: {
-            connect: { id: cityDescriptor.id }
-          },
-          parentElement: addressElement.id,
-          column: 0,
-          width: 8,
-          row: 0
-        }),
-        create.element({
-          label: 'Zip',
-          control: 'Input',
-          source: {
-            connect: { id: zipDescriptor.id }
-          },
-          parentElement: addressElement.id,
-          column: 8,
-          width: 8,
-          row: 0
-        }),
-        create.element({
-          label: 'Name',
-          control: 'Input',
-          source: {
-            connect: { id: childDescriptor.id }
-          },
-          parentElement: childrenElement.id,
-          column: 0,
-          width: 8,
-          row: 0
-        })
-      ]
-    }
+    elements: [
+      create.element({
+        label: 'Address',
+        control: 'Form',
+        source: 'address',
+        column: 0,
+        width: 16,
+        row: 1,
+        elements: [
+          create.element({
+            label: 'City',
+            control: 'Input',
+            source: 'city',
+            column: 0,
+            width: 8,
+            row: 0
+          }),
+          create.element({
+            label: 'Zip',
+            control: 'Input',
+            source: 'zip',
+            column: 8,
+            width: 8,
+            row: 0
+          })
+        ]
+      }),
+      create.element({
+        label: 'Children',
+        control: 'Table',
+        source: 'children',
+        column: 0,
+        width: 16,
+        row: 2,
+        elements: [
+          create.element({
+            label: 'Name',
+            control: 'Input',
+            source: 'childName',
+            column: 0,
+            width: 8,
+            row: 0
+          })
+        ]
+      }),
+      create.element({
+        label: 'Name',
+        source: 'name',
+        column: 0,
+        width: 8,
+        row: 0
+      }),
+      create.element({
+        label: 'Age',
+        source: 'age',
+        column: 8,
+        width: 8,
+        row: 0
+      })
+    ]
   });
 
   const formResource = await create.resourceMutation({
     type: 'Form',
-    name: 'Approval Form',
-    form: {
-      connect: { id: form.id }
-    }
+    title: form.name,
+    content: JSON.stringify(form)
   });
 
   const reportResource = await create.resourceMutation({
     type: 'Form',
-    name: 'Deans Report',
-    form: {
-      connect: { id: report.id }
-    }
+    title: report.name,
+    content: JSON.stringify(report)
+  });
+
+  const fileResource = await create.resourceMutation({
+    type: 'File',
+    title: 'Excel File',
+    content: '/uploads/file.doc'
+  });
+
+  const urlResource = await create.resourceMutation({
+    type: 'Url',
+    title: 'External Resource',
+    content: 'http://google.com'
+  });
+
+  const documentResource = await create.resourceMutation({
+    type: 'Document',
+    title: 'Guidelines',
+    content: `<h1>Guidelines</h1><p>This is guideline document</p>`
   });
 
   /* =========================================================
@@ -521,75 +325,45 @@ async function insertFixtures() {
       name: 'Process 1',
       description: 'Process 1 description',
       type: 'Purchases',
-      dataDescriptors: {
-        connect: [
-          { id: nameDescriptor.id },
-          { id: ageDescriptor.id },
-          { id: childrenDescriptor.id },
-          { id: childDescriptor.id },
-          { id: addressDescriptor.id },
-          { id: cityDescriptor.id },
-          { id: zipDescriptor.id }
-        ]
-      },
+      schema: schema,
       tasks: {
         connect: [{ id: formTask.id }, { id: reportTask.id }, { id: genericTask.id }]
       },
       resources: {
-        create: [
-          {
-            type: 'Form',
-            name: 'Advanced Form'
-          },
-          {
-            type: 'File',
-            name: 'Excel File',
-            link: '/uploads/file.doc'
-          },
-          {
-            type: 'Url',
-            name: 'External Resource',
-            link: 'http://google.com'
-          },
-          {
-            type: 'Document',
-            name: 'Guidelines',
-            document: {
-              create: {
-                content: `<h1>Guidelines</h1><p>This is guideline document</p>`,
-                title: 'Guidelines'
-              }
-            }
-          }
-        ],
-        connect: [{ id: formResource.id }, { id: reportResource.id }]
+        connect: [
+          { id: reportResource.id },
+          { id: formResource.id },
+          { id: fileResource.id },
+          { id: urlResource.id },
+          { id: documentResource.id }
+        ]
       },
       version: 0,
       model: spfBpmn,
-      access: access(user.id, 'User', 'rwx')
+      ...access(user.id, userRole.id, 'rwx')
     }),
     create.bpmnProcess({
       name: 'Process 4',
       description: 'Process 4 description',
       type: 'HumanResources',
-      access: access(user.id, 'User', 'rw-')
+      ...access(user.id, 'User', 'rw-')
     }),
     create.bpmnProcess({
       name: 'Process 2',
       description: 'Process 2 description',
-      status: 'Draft',
+      publicationStatus: 'Draft',
       type: 'Sales',
-      access: access(user.id, 'User', 'r-x')
+      ...access(user.id, 'User', 'r-x')
     }),
     create.bpmnProcess({
       name: 'Process 3',
       description: 'Process 3 description',
       model: '',
-      status: 'Proposal',
+      publicationStatus: 'Proposal',
       actionCount: 0,
       type: 'Travel',
       version: 0,
-      access: access(user.id, 'User', 'r--')
+      ...access(user.id, 'User', 'r--')
     })
   ];
 
@@ -610,7 +384,7 @@ async function insertFixtures() {
     create.bpmnProcessInstance({
       process: { connect: { id: processes[0].id } },
       owner: { connect: { id: user.id } },
-      data: {
+      data: JSON.stringify({
         'owner.personal.name': 'Tomas',
         'owner.personal.age': 0,
         address: {
@@ -618,7 +392,7 @@ async function insertFixtures() {
           zip: ''
         },
         children: []
-      },
+      }),
       log: {
         create: [
           create.log({
@@ -656,7 +430,7 @@ async function insertFixtures() {
     }),
     create.bpmnProcessInstance({
       process: { connect: { id: processes[1].id } },
-      data: {},
+      data: '{}',
       owner: { connect: { id: user.id } },
       status: 'Running',
       dateStarted
@@ -703,33 +477,38 @@ async function insertFixtures() {
             { dateStarted: create.date(4), dateFinished: create.date(5), status: 'Paused' },
             pid,
             genericTask.id,
+            userRole.id,
             otherUser.id
           ),
           create.bpmnTaskInstance(
             { dateStarted: create.date(2), dateFinished: create.date(3), status: 'Aborted' },
             pid,
             genericTask.id,
+            userRole.id,
             user.id
           ),
           create.bpmnTaskInstance(
             { dateStarted: create.date(0), dateFinished: create.date(1), status: 'Finished' },
             pid,
             formTask.id,
+            userRole.id,
             user.id
           ),
           create.bpmnTaskInstance(
             { dateStarted: create.date(5), dateFinished: create.date(6), status: 'Approved' },
             pid,
             genericTask.id,
+            userRole.id,
             otherUser.id
           ),
           create.bpmnTaskInstance(
             { dateStarted: create.date(8), dateFinished: create.date(9), status: 'Rejected' },
             pid,
             genericTask.id,
+            userRole.id,
             otherUser.id
           ),
-          create.bpmnTaskInstance({ dateStarted: create.date(12) }, pid, formTask.id)
+          create.bpmnTaskInstance({ dateStarted: create.date(12) }, pid, formTask.id, userRole.id)
         ]
       }
     }
@@ -752,7 +531,7 @@ async function insertFixtures() {
       processInstance: { connect: { id: processInstances[0].id } },
       visible: true,
       code: 'ProcessStarted',
-      params: { set: ['Process Name'] },
+      params: 'Process Name',
       type: 'Info'
     }),
     create.notification({
@@ -760,7 +539,7 @@ async function insertFixtures() {
       processInstance: { connect: { id: processInstances[0].id } },
       visible: true,
       code: 'ProcessFinished',
-      params: { set: ['Process Name'] },
+      params: 'Process Name',
       type: 'Info'
     }),
     create.notification({
@@ -768,7 +547,7 @@ async function insertFixtures() {
       processInstance: { connect: { id: processInstances[0].id } },
       visible: true,
       code: 'ProcessAborted',
-      params: { set: ['Process Name'] },
+      params: 'Process Name',
       type: 'Error'
     }),
     create.notification({
@@ -776,7 +555,7 @@ async function insertFixtures() {
       processInstance: { connect: { id: processInstances[0].id } },
       visible: true,
       code: 'ActionStarted',
-      params: { set: ['Action Name', 'Process Name'] },
+      params: 'Action Name|Process Name',
       type: 'Info'
     }),
     create.notification({
@@ -784,7 +563,7 @@ async function insertFixtures() {
       processInstance: { connect: { id: processInstances[0].id } },
       visible: true,
       code: 'ActionFinished',
-      params: { set: ['Tomas Trescak', 'Action Name', 'Process Name'] },
+      params: 'Tomas Trescak|Action Name|Process Name',
       type: 'Info'
     }),
     create.notification({
@@ -792,7 +571,7 @@ async function insertFixtures() {
       processInstance: { connect: { id: processInstances[0].id } },
       visible: true,
       code: 'ActionRequired',
-      params: { set: ['Action Name', 'Process Name', 'Tomas Trescak'] },
+      params: 'Action Name|Process Name|Tomas Trescak',
       type: 'Info'
     }),
     create.notification({
@@ -800,7 +579,7 @@ async function insertFixtures() {
       processInstance: { connect: { id: processInstances[0].id } },
       visible: true,
       code: 'ActionAborted',
-      params: { set: ['Tomas Trescak', 'Action Name', 'Process Name', 'Reason'] },
+      params: 'Tomas Trescak|Action Name|Process Name|Reason',
       type: 'Warning'
     })
   ];

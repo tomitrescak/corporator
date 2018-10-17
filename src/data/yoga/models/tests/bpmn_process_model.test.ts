@@ -59,7 +59,6 @@ describe('bpmn process model', () => {
     // test all properties
     expect(model.status).toEqual('Published');
     expect(model.version).toEqual(0);
-    expect(model.access).toBeDefined();
     expect(model.actionCount).toEqual(0);
     expect(model.generatedDescription).toBeNull();
 

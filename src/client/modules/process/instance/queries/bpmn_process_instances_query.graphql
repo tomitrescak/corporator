@@ -10,7 +10,9 @@ fragment BpmnProcessInstanceItemTask on BpmnTaskInstance {
     id
     name
   }
-  performerRoles
+  performerRole {
+    name
+  }
 }
 
 fragment BpmnProcessInstanceItem on BpmnProcessInstance {

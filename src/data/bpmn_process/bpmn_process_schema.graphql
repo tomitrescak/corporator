@@ -1,4 +1,4 @@
-enum ProcessStatus {
+enum PublicationStatus {
   Draft
   Proposal
   Published
@@ -13,17 +13,30 @@ enum ProcessType {
 
 type BpmnProcess {
   id: ID! @unique
-  access: Access! @relation(name: "BpmnProcessAccess", onDelete: CASCADE)
+  processID: ID
   actionCount: Int!
-  dataDescriptors: [DataDescriptor!]!
+  schema: Json
   description: String
   # XML version of the model
   model: String!
   name: String!
-  type: ProcessType!
-  resources: [Resource!]! @relation(name: "BpmnProcessResources", onDelete: CASCADE)
-  status: ProcessStatus!
+  tasks: [BpmnTask!]! @relation(name: "BpmnProcessTasks", onDelete: CASCADE)
+  # e.g. HumanResources, Purchases, Sales, Travel
+  type: String!
+  resources: [ProcessResource!]! @relation(name: "BpmnProcessResources", onDelete: CASCADE)
+  publicationStatus: PublicationStatus!
   version: Int!
-  versions: [BpmnProcess!]! @relation(name: "BpmnProcessVersions", onDelete: CASCADE)
-  tasks: [BpmnTask!]! @relation(name: "BomnProcessTasks", onDelete: CASCADE)
+
+  # access
+
+  createdAt: DateTime!
+  createdById: ID!
+  updatedAt: DateTime!
+  updatedById: ID
+  readRole: String
+  readUser: String
+  writeRole: String
+  writeUser: String
+  executeRole: String
+  executeUser: String
 }

@@ -1,12 +1,10 @@
-query FormQuery($formId: ID!, $processId: ID!) {
-  formQuery(id: $formId) {
-    ...Form
+query ResourceQuery($formId: ID!, $processId: ID!) {
+  resourceQuery(id: $formId) {
+    ...Resource
   }
 
   process(id: $processId) {
     id
-    dataDescriptors {
-      ...DataDescriptor
-    }
+    schema
   }
 }

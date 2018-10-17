@@ -1,0 +1,6 @@
+fragment Resource on Resource {
+  id
+  type
+  title
+  content
+}

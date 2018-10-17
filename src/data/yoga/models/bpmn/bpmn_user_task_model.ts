@@ -9,36 +9,31 @@ export class UserTask extends Task {
   }
 
   async execute(state: BpmnProcessInstance, context: ServerContext) {
-    if (context.getUser()) {
-      /*const taskInstance = */ await context.db.mutation.createBpmnTaskInstance({
-        data: {
-          // dateFinished: null,
-          dateStarted: new Date(),
-          // duration: null,
-          // performerId: null,
-          data: JSON.parse(JSON.stringify(state.resources)), // clone of properties (not of functions)
-          // taskId: this.id,
-          // name: this.name,
-          // performerRoles: BpmnTaskInstanceCreateperformerRolesInput,
-          task: {
-            connect: { id: this.id }
-          },
-          performerRoles: {
-            set: this.lane.roles
-          },
-          performer: {
-            connect: {
-              id: context.userId
-            }
-          },
-          processInstance: {
-            connect: {
-              id: state.id
-            }
-          },
-          status: 'Started'
-        }
-      });
-    }
+    const user = await context.getUser();
+
+    // TODO: Think what will happen when you change the role name!!!
+    const role = user.roles.find(r => this.lane.roles.includes(r.name));
+
+    /*const taskInstance = */ await context.db.mutation.createBpmnTaskInstance({
+      data: {
+        // dateFinished: null,
+        dateStarted: new Date(),
+        // duration: null,
+        // performerId: null,
+        data: JSON.parse(JSON.stringify(state.resources)), // clone of properties (not of functions)
+        // taskId: this.id,
+        // name: this.name,
+        // performerRoles: BpmnTaskInstanceCreateperformerRolesInput,
+        taskId: this.id,
+        performerRoleId: role.id,
+        performerId: context.userId,
+        processInstance: {
+          connect: {
+            id: state.id
+          }
+        },
+        status: 'Started'
+      }
+    });
   }
 }

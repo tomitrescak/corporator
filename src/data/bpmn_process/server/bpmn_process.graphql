@@ -1,11 +1,11 @@
-#import BpmnProcess, ProcessStatus from '../../generated/prisma.graphql'
+#import * from '../../generated/prisma.graphql'
 
 # ========================================================= #
 #  QUERIES
 # ========================================================= # */
 
 input BpmnProcessesInput {
-  status: ProcessStatus
+  status: PublicationStatus
   name: String
   skip: Int
   first: Int
@@ -24,7 +24,7 @@ input CreateProcessInput {
   name: String!
   description: String
   model: String
-  status: ProcessStatus
+  status: PublicationStatus
 }
 
 type Mutation {

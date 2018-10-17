@@ -4,14 +4,14 @@ import { Prisma } from '../prisma';
 import { LruCacheWrapper } from './lru_cache';
 
 export class Loader<V, S = any, K = string> {
-  public db: () => Prisma.Prisma;
+  public db: Prisma.Prisma;
 
   private singleLoader: DataLoader<K, V>;
   private multiLoader: DataLoader<K, V[]>;
   private existLoader: any;
 
   constructor(
-    db: () => Prisma.Prisma,
+    db: Prisma.Prisma,
     querySingle: keyof Prisma.Query = null,
     queryMultiple: keyof Prisma.Query = null,
     info?: string,
@@ -21,18 +21,16 @@ export class Loader<V, S = any, K = string> {
 
     if (querySingle) {
       this.singleLoader = this.createLoader(
-        id => (this.db().query as any)[querySingle]({ where: { id } }, info) as Promise<V>
+        id => (this.db.query as any)[querySingle]({ where: { id } }, info) as Promise<V>
       );
     }
     if (queryMultiple) {
       this.multiLoader = this.createLoader(
         id =>
-          (this.db().query as any)[queryMultiple]({ where: multiSelector(id) }, info) as Promise<
-            V[]
-          >
+          (this.db.query as any)[queryMultiple]({ where: multiSelector(id) }, info) as Promise<V[]>
       );
       this.existLoader = async () => {
-        const records = await (this.db().query as any)[queryMultiple]({ first: 1 });
+        const records = await (this.db.query as any)[queryMultiple]({ first: 1 });
         return records.length > 0;
       };
     }

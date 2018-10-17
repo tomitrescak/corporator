@@ -1,4 +1,4 @@
-import { Mutation, purge, Query, Yoga } from '../../utils';
+import { Mutation, purge, Query, Resolver, Yoga } from '../../utils';
 
 export const query: Query = {
   async process(_parent, { id }, ctx, info) {
@@ -13,12 +13,8 @@ export const query: Query = {
     const user = await ctx.getUser();
     const where = purge<Yoga.BpmnProcessWhereInput>({
       name_contains: name,
-      status,
-      access: {
-        read_some: {
-          roleId_in: user.roles
-        }
-      }
+      publicationStatus: status,
+      OR: [{ readRole: null }, ...user.roles.map(r => ({ readRole_contains: r }))]
     });
 
     return ctx.db.query.bpmnProcesses(
@@ -40,29 +36,15 @@ export const mutation: Mutation = {
       {
         data: {
           actionCount: 0,
-          dataDescriptors: null,
+          schema: null,
           resources: null,
           description,
           model,
           name,
-          status,
+          publicationStatus: status,
           type: 'Sales',
           version: 0,
-          access: {
-            create: {
-              createdOn: new Date(),
-              createdById: userId,
-              read: {
-                create: {}
-              },
-              write: {
-                create: {}
-              },
-              execute: {
-                create: {}
-              }
-            }
-          }
+          createdById: userId
         }
       },
       info

@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import * as PROCESS_FRAGMENT from '../queries/bpmn_process.fragment.graphql';
-import * as DESCRIPTOR_FRAGMENT from '../../../form/queries/descriptor_fragment.graphql';
 import * as PROCESS_QUERY_NO_FRAGMENTS from '../queries/bpmn_process.query.graphql';
 
 import { inject } from 'mobx-react';
@@ -25,7 +24,6 @@ type StaticProps = Partial<QueryProps<Data, Variables>>;
 const PROCESS_QUERY = gql`
   ${PROCESS_QUERY_NO_FRAGMENTS}
   ${PROCESS_FRAGMENT}
-  ${DESCRIPTOR_FRAGMENT}
 `;
 
 export { PROCESS_QUERY };

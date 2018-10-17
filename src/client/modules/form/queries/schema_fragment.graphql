@@ -1,0 +1,5 @@
+fragment Schema on Schema {
+  id
+  name
+  schema
+}

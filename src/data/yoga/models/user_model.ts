@@ -7,13 +7,11 @@ export class UserModel {
   roles: string[];
   password: string;
 
-  constructor(userDao: Prisma.User ) {
+  constructor(userDao: Prisma.User) {
     this.id = userDao.id;
     this.name = userDao.name;
     this.description = userDao.description;
     this.roles = userDao.roles;
     this.password = userDao.password;
-
   }
-  
 }

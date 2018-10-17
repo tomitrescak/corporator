@@ -4,10 +4,7 @@ import { BpmnProcessInstance, User, UserCreateInput } from '../../../generated/p
 const defaultUser: UserCreateInput = {
   name: 'Tomas Trescak',
   uid: '1000',
-  password: 'p',
-  roles: {
-    set: []
-  }
+  password: 'p'
 };
 
 function merge<T>(a: any, b: T): T {
@@ -25,9 +22,7 @@ export const create = {
       name: data.name,
       uid: data.uid,
       password: data.password,
-      roles: {
-        set: data.roles
-      }
+      roles: { create: data.roles.map(r => ({ name: r.name })) }
     };
     return ctx.db.mutation.createUser({
       data: merge(defaultUser, input)

@@ -6,7 +6,7 @@ export class BpmnTaskInstanceModel {
   task: Task;
   processInstanceId: string;
   performerId: string;
-  performerRoles: string[];
+  performerRole: Prisma.Role;
   dateStarted: Date;
   dateFinished: Date;
   duration: number;
@@ -17,7 +17,7 @@ export class BpmnTaskInstanceModel {
     this.task = task ? task : null;
     this.processInstanceId = taskInstanceModelDao.processInstance.id;
     this.performerId = taskInstanceModelDao.performer.id;
-    this.performerRoles = taskInstanceModelDao.performerRoles;
+    this.performerRole = taskInstanceModelDao.performerRole;
     this.dateStarted = new Date(taskInstanceModelDao.dateStarted);
     this.dateFinished = new Date(taskInstanceModelDao.dateFinished);
     this.duration = taskInstanceModelDao.duration;
