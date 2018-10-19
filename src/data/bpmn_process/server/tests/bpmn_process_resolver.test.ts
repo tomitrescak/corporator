@@ -1,4 +1,4 @@
-import { create, its } from 'data/tests';
+import { create, its, removeIds } from 'data/tests';
 
 import { query } from '../bpmn_process_resolver';
 
@@ -67,7 +67,7 @@ describe('Bpmn Process Resolver', () => {
 
     const user = await ctx.getUser();
 
-    let d = await create.bpmnProcessInstanceMutation({
+    const pi = await create.bpmnProcessInstanceMutation({
       ownerId: user.id,
       processId: p.id,
       data: '{}',
@@ -76,26 +76,12 @@ describe('Bpmn Process Resolver', () => {
       }
     });
 
-    // await create.notificationMutation({
-    //   userId: user.id,
-    //   code: 'ProcessFinished',
-    //   processInstanceId: d.id,
-    //   visible: true
-    // });
-    // const ps1 = await client.query({
-    //   query: NOTIFICATIONS_QUERY,
-    //   variables: { input: {} }
-    // });
-
-    // console.log(ps1);
-
     const result = await fetch({
       query: PROCESS_INSTANCE_QUERY_FULL,
-      variables: { id: p.id }
+      variables: { id: pi.id }
     });
 
+    removeIds(result);
     expect(result).toMatchSnapshot();
-
-    // expect(pss).toBe(4);
   });
 });

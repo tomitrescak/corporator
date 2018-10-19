@@ -1,11 +1,15 @@
 {
-  "extends": ["tslint:latest", "tslint-react", "tslint-config-prettier"],
+  "extends": [
+    "tslint:latest",
+    "tslint-react",
+    "tslint-config-prettier",
+    "tslint-no-circular-imports"
+  ],
   "linterOptions": {
-    "exclude": [
-      "src/data/generated/**"
-    ]
+    "exclude": ["src/data/generated/**"]
   },
   "rules": {
+    "no-circular-imports": true,
     "ban-types": false,
     "interface-name": false,
     "interface-over-type-literal": false,

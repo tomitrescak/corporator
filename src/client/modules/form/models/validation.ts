@@ -92,7 +92,7 @@ export function IntNonZeroValidator(value: number | string, message?: string) {
 export function FloatValidator(value: number | string, message?: string) {
   return value == null || value === '' || isFloat(value.toString())
     ? ''
-    : message || i18n`Expected float value`;
+    : message || i18n`Expected decimal value`;
 }
 
 export function FloatPositiveValidator(value: number | string, message?: string) {

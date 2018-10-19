@@ -24,7 +24,6 @@ export const query: Query = {
     });
   },
   async bpmnProcessInstanceQuery(_parent, { id }, ctx, info) {
-    return (await ctx.db.query.bpmnProcessInstances({}, info))[0];
     return ctx.db.query.bpmnProcessInstance({ where: { id } }, info);
   }
 };
@@ -48,7 +47,7 @@ export const resolver: Resolver<Prisma.BpmnProcessInstance> = {
           ownerId
         }
       `,
-      async resolve(parent, _, ctx) {
+      resolve(parent, _, ctx) {
         return ctx.cache.user.findById(parent.ownerId);
       }
     },

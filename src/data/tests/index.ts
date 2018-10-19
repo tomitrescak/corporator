@@ -16,7 +16,10 @@ type Helpers = {
 type HelperContext = ServerContext & Helpers;
 
 let db: Prisma.Prisma;
-let context: HelperContext;
+// let context: HelperContext;
+let fetch = createApolloFetch({
+  uri: 'http://localhost:4000'
+});
 
 type TestUser = {
   name: string;
@@ -49,6 +52,21 @@ async function clear(options: Options) {
   }
 }
 
+export function removeIds(obj: any) {
+  for (let key of Object.getOwnPropertyNames(obj)) {
+    const element = obj[key];
+    if (Array.isArray(element)) {
+      for (let a of element) {
+        delete a.id;
+        removeIds(a);
+      }
+    } else if (element && typeof element === 'object') {
+      delete element.id;
+      removeIds(element);
+    }
+  }
+}
+
 export async function its(
   name: string,
   options: Options = { language: 'EN' },
@@ -67,22 +85,19 @@ export async function its(
   }
 
   // init context
-  if (!context) {
-    context = {
-      db,
-      request: {},
-      response: {},
-      userId: null,
-      user: null,
-      i18n: null,
-      ctx: null,
-      fetch: createApolloFetch({
-        uri: 'http://localhost:4000'
-      }),
-      cache: cache(db)
-    };
-    context.ctx = context;
-  }
+
+  const context: HelperContext = {
+    db,
+    request: {},
+    response: {},
+    userId: null,
+    user: null,
+    i18n: null,
+    ctx: null,
+    fetch,
+    cache: cache(db)
+  };
+  context.ctx = context;
 
   // call the original it
   it(name, async () => {
