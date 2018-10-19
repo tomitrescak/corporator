@@ -5,6 +5,7 @@ type Log {
   date: DateTime!
   taskInstanceId: ID
   performerId: ID
+  performer: User
   status: BpmnTaskInstanceStatus
   message: String
 }

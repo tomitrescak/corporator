@@ -1,8 +1,8 @@
-# A comment ...
 type Comment {
   id: ID! @unique
   text: String!
   userId: ID!
+  user: User!
   date: DateTime!
   replyTo: ID
 }

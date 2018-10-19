@@ -7,14 +7,12 @@ enum BpmnProcessInstanceStatus {
 
 type BpmnProcessInstance {
   id: ID! @unique
-  comments: [Comment!]!
+  comments: [Comment!]! @relation(name: "BpmnProcessInstanceComments", onDelete: CASCADE)
   dateFinished: DateTime
   dateStarted: DateTime!
   duration: Int
   ownerId: ID!
-  owner: User @relation(name: "UserProcesses")
   processId: ID!
-  process: BpmnProcess @relation(name: "BpmnProcessInstanceProcess")
   data: String!
   log: [Log!]! @relation(name: "BpmnProcessInstanceLog", onDelete: CASCADE)
   status: BpmnProcessInstanceStatus!

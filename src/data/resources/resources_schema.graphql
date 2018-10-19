@@ -27,7 +27,6 @@ type Resource {
 type ProcessResource {
   id: ID! @unique
   resourceId: ID!
-  resource: Resource
 
   # Access
 

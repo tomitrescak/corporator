@@ -1,5 +1,21 @@
 #import * from '../../generated/prisma.graphql'
 
+# ========================================================= #
+#  TYPES
+# ========================================================= # */
+
+type ProcessResource {
+  id: ID! @unique
+  resourceId: ID!
+
+  # Access
+  readRole: String
+}
+
+# ========================================================= #
+#  QUERIES
+# ========================================================= # */
+
 type Query {
   resourceQuery(id: ID!): Resource
   documentQuery(id: ID!): Resource

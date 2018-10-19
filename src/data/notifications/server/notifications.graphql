@@ -1,6 +1,24 @@
 #import Notification, NotificationCode from '../../generated/prisma.graphql'
 
 # ========================================================= #
+#  TYPES
+# ========================================================= # */
+
+type Notification {
+  type: NotificationType!
+  id: ID! @unique
+  userId: ID!
+  user: User @relation(name: "UserNotifications", onDelete: CASCADE)
+  createdAt: DateTime!
+  code: NotificationCode!
+  text: String
+  processInstanceId: ID!
+  processInstance: BpmnProcessInstance
+  params: String
+  visible: Boolean!
+}
+
+# ========================================================= #
 #  QUERIES
 # ========================================================= # */
 

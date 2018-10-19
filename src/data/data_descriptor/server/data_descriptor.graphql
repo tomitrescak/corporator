@@ -1,0 +1,8 @@
+type Data {
+  id: ID! @unique
+  schemaId: ID!
+  schema: Schema @relation(name: "DataSchema")
+  version: Int
+  date: DateTime
+  value: String
+}

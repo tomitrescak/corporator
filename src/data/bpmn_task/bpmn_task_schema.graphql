@@ -5,7 +5,7 @@ enum BpmnTaskType {
 type BpmnTask {
   id: ID! @unique
   taskId: ID! @unique
-  resources: [Resource!]!
+  resources: [ID!]!
   name: String!
   type: BpmnTaskType
 }
