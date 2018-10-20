@@ -4,5 +4,6 @@ type Comment {
   text: String!
   userId: ID!
   date: DateTime!
-  replyTo: ID
+  replyTo: String
+  resourceId: ID
 }

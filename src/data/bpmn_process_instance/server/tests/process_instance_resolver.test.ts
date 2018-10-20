@@ -4,9 +4,9 @@ import { BpmnProcessModel } from '../../../yoga/models/bpmn_process_model';
 
 import { mutation } from '../process_instance_resolver';
 
-describe('BpmnProcess', () => {
+describe('Bpmn Process Instance Resolver', () => {
   its(
-    'launch process',
+    'Launches a Process Instance',
     {
       clear: ['Notification', 'BpmnProcessInstance', 'BpmnProcess', 'Log'],
       user: {
@@ -25,9 +25,9 @@ describe('BpmnProcess', () => {
     }
   );
 
-  its('set process state', {}, async _ctx => {
-    testMockedResolver(BpmnProcessInstance, 'setStatus', (args, context, info) => {
-      return mutation.setProcessInstanceStatus(null, args, context, info);
-    });
-  });
+  // its('set process state', {}, async _ctx => {
+  //   // testMockedResolver(BpmnProcessInstance, 'setStatus', (args, context, info) => {
+  //   //   return mutation.setProcessInstanceStatus(null, args, context, info);
+  //   // });
+  // });
 });

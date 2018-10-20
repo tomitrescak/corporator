@@ -2,6 +2,7 @@ import { Prisma } from 'data/prisma';
 import { Yoga } from 'data/yoga';
 import { Lane } from './bpmn/bpmn_lane_model';
 import { BpmnProcessModel, BpmnTypes } from './bpmn_process_model';
+import { BpmnTaskInstanceModel } from './bpmn_task_instance_model';
 
 export type ProcessActionResult = {
   /**
@@ -16,8 +17,46 @@ export type ProcessActionResult = {
 };
 
 export class BpmnProcessInstance {
-  static async duplicateInstance(_processInstance: Prisma.BpmnProcessInstance) {
-    throw new Error('not implemented');
+  static async duplicateInstance(
+    processInstanceId: string,
+    context: ServerContext,
+    info?: any
+  ): Promise<Prisma.BpmnProcessInstance> {
+    // retrieve and build process model
+    const processInstanceDAO = await context.db.query.bpmnProcessInstance({
+      where: {
+        id: processInstanceId
+      }
+    });
+
+    // const newData =
+
+    const newProcessInstanceDAO = await context.db.mutation.createBpmnProcessInstance(
+      {
+        data: {
+          dateStarted: new Date(),
+          duration: 0,
+          data: processInstanceDAO.data
+            ? JSON.parse(JSON.stringify(processInstanceDAO.data))
+            : null,
+          status: 'Running',
+
+          owner: {
+            connect: {
+              id: context.userId
+            }
+          },
+          process: {
+            connect: {
+              id: processInstanceDAO.process.id
+            }
+          }
+        }
+      },
+      info
+    );
+
+    return newProcessInstanceDAO;
   }
 
   static async createInstance(
@@ -65,12 +104,94 @@ export class BpmnProcessInstance {
     return processInstance;
   }
 
-  static async setStatus(
+  static async pauseInstance(
+    processInstanceId: string,
+    context: ServerContext,
+    info?: any
+  ): Promise<Prisma.BpmnProcessInstance> {
+    /* 
+      set status of process instance and waiting task instances to paused 
+      send email to people...
+
+    */
+    const processInstanceDAO = await BpmnProcessInstance.setStatus(
+      context,
+      processInstanceId,
+      'Paused',
+      info
+    );
+    const stakeholders = await context.db.query.users({
+      where: {
+        processes_every: {
+          id: processInstanceId
+        }
+      }
+    });
+
+    if (stakeholders) {
+      stakeholders.forEach(stakeholder => {
+        // send email?
+      });
+    }
+
+    return processInstanceDAO;
+  }
+
+  static async abortInstance(
+    processInstanceId: string,
+    context: ServerContext,
+    info?: any
+  ): Promise<Prisma.BpmnProcessInstance> {
+    return BpmnProcessInstance.setStatus(context, processInstanceId, 'Aborted', info);
+  }
+
+  static async finishInstance(
+    processInstanceId: string,
+    context: ServerContext,
+    info?: any
+  ): Promise<Prisma.BpmnProcessInstance> {
+    return BpmnProcessInstance.setStatus(context, processInstanceId, 'Finished', info);
+  }
+
+  static async addComment(
+    processInstanceId: string,
+    context: ServerContext,
+    comment: string,
+    replyTo?: string,
+    info?: any
+  ): Promise<Prisma.BpmnProcessInstance> {
+    /* add comment to array */
+    return context.db.mutation.updateBpmnProcessInstance(
+      {
+        where: {
+          id: processInstanceId
+        },
+        data: {
+          comments: {
+            create: {
+              text: comment,
+              date: new Date(),
+              replyTo: replyTo ? replyTo : null,
+              user: {
+                connect: {
+                  id: context.userId
+                }
+              }
+            }
+          }
+        }
+      },
+      info
+    );
+  }
+
+  private static async setStatus(
     ctx: ServerContext,
-    { processInstanceId, status }: Yoga.SetProcessInstanceStatusInput,
-    info: any
+    processInstanceId: string,
+    status: Yoga.BpmnProcessInstanceStatus,
+    info?: any
   ) {
-    const process = await ctx.db.mutation.updateBpmnProcessInstance(
+    const processInstanceDAO = await ctx.db.mutation.updateBpmnProcessInstance(
       {
         where: {
           id: processInstanceId
@@ -82,14 +203,14 @@ export class BpmnProcessInstance {
       info
     );
 
-    // update all taskInstances of this process
-    const taskInstances = await ctx.db.query.bpmnTaskInstances({
+    // update all taskInstanceDAOs of this process
+    const taskInstanceDAOs = await ctx.db.query.bpmnTaskInstances({
       where: {
         processInstanceId
       }
     });
 
-    if (taskInstances) {
+    if (taskInstanceDAOs) {
       let newTaskInstanceStatus: Prisma.BpmnTaskInstanceStatus;
 
       switch (status) {
@@ -103,23 +224,22 @@ export class BpmnProcessInstance {
           newTaskInstanceStatus = 'Aborted';
           break;
         case 'Finished':
-          newTaskInstanceStatus = 'Finished';
+          // process is done, we can abort any incomplete tasks
+          newTaskInstanceStatus = 'Aborted';
           break;
       }
 
-      taskInstances.forEach(async (taskInstance: Prisma.BpmnTaskInstance) => {
-        await ctx.db.mutation.updateBpmnTaskInstance({
-          where: {
-            id: taskInstance.id
-          },
-          data: {
-            status: newTaskInstanceStatus
-          }
-        });
+      taskInstanceDAOs.forEach(async (taskInstance: Prisma.BpmnTaskInstance) => {
+        // only 'Started' and 'paused' tasks can change their status
+        if (taskInstance.status !== 'Started' && taskInstance.status !== 'Paused') {
+          // do not override status if it is Approved, Rejected, Finished or Aborted
+          return;
+        }
+        await BpmnTaskInstanceModel.setStatus(ctx, taskInstance.id, newTaskInstanceStatus);
       });
     }
 
-    return process;
+    return processInstanceDAO;
   }
 
   id: string;
@@ -211,7 +331,7 @@ export class BpmnProcessInstance {
       set dateFinished
       set duration
       ...anything else?
-      */
+    */
 
     await context.db.mutation.updateBpmnProcessInstance({
       data: {

@@ -21,17 +21,21 @@ input CreateTaskInstanceInput {
 }
 
 input UpdateTaskInstanceStatusInput {
-  taskId: String!
+  taskInstanceId: String!
   status: BpmnTaskInstanceStatus!
 }
 
-input SubmitFormInput {
-  taskId: String!
-  form: [String!]!
+input SubmitTaskInput {
+  taskInstanceId: String!
+}
+
+input SaveFormInput {
+  taskInstanceId: String!
+  data: Json
 }
 
 type Mutation {
-  createTaskInstance(input: CreateTaskInstanceInput!): BpmnTaskInstance
   updateTaskInstanceStatus(input: UpdateTaskInstanceStatusInput!): BpmnTaskInstance
-  submitForm(input: SubmitFormInput!): BpmnTaskInstance
+  submitTask(input: SubmitTaskInput!): BpmnTaskInstance
+  saveForm(input: SaveFormInput!): BpmnTaskInstance
 }

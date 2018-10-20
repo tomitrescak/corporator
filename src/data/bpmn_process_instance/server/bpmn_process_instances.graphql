@@ -37,13 +37,24 @@ input DuplicateProcessInstanceInput {
   processInstanceId: String!
 }
 
-input SetProcessInstanceStatusInput {
+input AbortProcessInstanceInput {
   processInstanceId: String!
-  status: BpmnProcessInstanceStatus!
+}
+
+input PauseProcessInstanceInput {
+  processInstanceId: String!
+}
+
+input AddCommentInput {
+  processInstanceId: String!
+  comment: String!
+  replyTo: String
 }
 
 type Mutation {
   launchProcessInstance(input: LaunchProcessInstanceInput!): BpmnProcessInstanceOutput
   duplicateProcessInstance(input: DuplicateProcessInstanceInput!): BpmnProcessInstanceOutput
-  setProcessInstanceStatus(input: SetProcessInstanceStatusInput!): BpmnProcessInstanceOutput
+  abortProcessInstance(input: AbortProcessInstanceInput!): BpmnProcessInstance
+  pauseProcessInstance(input: PauseProcessInstanceInput!): BpmnProcessInstance
+  addComment(input: AddCommentInput!): BpmnProcessInstance
 }

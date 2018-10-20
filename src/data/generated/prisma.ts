@@ -2367,6 +2367,8 @@ enum CommentOrderByInput {
   date_DESC
   replyTo_ASC
   replyTo_DESC
+  resourceId_ASC
+  resourceId_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -9106,6 +9108,7 @@ export interface OrganisationPreviousValues {
   text: String
   date: DateTime
   replyTo?: String
+  resourceId?: ID_Output
 }
 
 /*

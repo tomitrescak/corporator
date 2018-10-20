@@ -2,6 +2,9 @@ const menu = require('node-menu');
 const { execSync } = require('child_process');
 
 function nexec(command, prefix = './node_modules/.bin/') {
+  if(process.platform === "win32") {   
+    prefix = prefix.replace(/\//g, '\\');
+  }
   try {
     execSync(prefix + command, { cwd: __dirname, stdio: [0, 1, 2] });
   } catch (ex) {

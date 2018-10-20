@@ -4,10 +4,10 @@ import { BpmnProcessInstance } from '../bpmn_process_instance_model';
 
 describe('Bpmn Process Instance', () => {
   its(
-    'sets status to finished',
+    'sets status to aborted',
     {
       // clear: ['BpmnProcess', 'User', 'BpmnProcessInstance'],
-      clear: ['BpmnProcessInstance', 'BpmnProcess' ],
+      clear: ['BpmnProcessInstance', 'BpmnProcess', 'User' ],
       user: {
         uid: 'user1',
         name: 'Dean'
@@ -34,81 +34,158 @@ describe('Bpmn Process Instance', () => {
           }
         }
       });
-      const pInstanceDAO = await BpmnProcessInstance.setStatus(ctx, { processInstanceId: processInstance.id, status: 'Finished' }, '');
-      // expect(true).toBe(false);
-      expect(pInstanceDAO.status).toEqual('Finished');
+      const pInstanceDAO = await BpmnProcessInstance.abortInstance(processInstance.id, ctx);
+      expect(pInstanceDAO.status).toEqual('Aborted');
+    },
+    
+  );
 
-      // const taskInstances = await ctx.db.query.bpmnTaskInstances({
+  its(
+    'correctly aborts process instance and related task instances',
+    {
+      clear: ['BpmnProcessInstance', 'BpmnProcess', 'BpmnTaskInstance', 'User'],
+      user: {
+        uid: 'user1'
+      }
+    },
+    async (ctx, user) => {
+      /**/
+      // const taskDAO = await create.bpmnTask(ctx);
+
+      // const task = await ctx.db.query.bpmnTasks({
       //   where: {
-      //     processInstance: {
-      //       id: process.id
+      //     name: 'taskName' 
+      //   }
+      // });
+
+      // expect(task.length).toEqual(2);
+
+      // const processDAO = await create.process(ctx);
+      // const processInstanceDAO = await create.bpmnProcessInstance(ctx, {
+      //   owner: {
+      //     connect: {
+      //       id: ctx.userId
+      //     }
+      //   },
+      //   process: {
+      //     connect: {
+      //       id: processDAO.id
+      //     }
+      //   }
+      // });
+      
+      // await create.bpmnTaskInstance(ctx, {
+      //   processInstance: {
+      //     connect: {
+      //       id: processInstanceDAO.id
+      //     }
+      //   },
+      //   status: 'Paused',
+      //   task: {
+      //     connect: {
+      //       id: taskDAO.id
       //     }
       //   }
       // });
 
-      // taskInstances.forEach(task => {
-      //   expect(task.status).toEqual('Finished');
+      // const pInstanceDAO = await BpmnProcessInstance.abortInstance(processInstanceDAO.id, ctx);
+      // expect(pInstanceDAO.status).toEqual('Aborted');
+
+      // const taskInstances = await ctx.db.query.bpmnTaskInstances({
+      //   where: {
+      //     processInstance: {
+      //       id: processInstanceDAO.id
+      //     }
+      //   }
       // });
+
+      // taskInstances.forEach(taskInstance => {
+      //   expect(taskInstance.status).toEqual('Aborted');
+      // });
+
     }
   );
-  // its(
-  //   'starts',
-  //   {
-  //     clear: ['User', 'BpmnProcessInstance', 'BpmnProcess', 'Log'],
-  //     user: {
-  //       name: 'Dean'
-  //     }
-  //   },
-  //   async ctx => {
-  //     // create instance
-  //     // check if status has been set to Running
-  //     // check if appropriate lane has been executed
-  //   }
-  // );
 
-  // its(
-  //   'pauses',
-  //   {
-  //     clear: ['User', 'BpmnProcessInstance', 'BpmnProcess'],
-  //     user: {
-  //       name: 'Dean'
-  //     }
-  //   },
-  //   async ctx => {
-  //     // create instance
-  //     // check if status has been set to Paused
-  //     // check if status of child task Instance has been set to Paused
-  //   }
-  // );
+  its(
+    'sets status to finished',
+    {
+      // clear: ['BpmnProcess', 'User', 'BpmnProcessInstance'],
+      clear: ['BpmnProcessInstance', 'BpmnProcess', 'User' ],
+      user: {
+        uid: 'user1',
+        name: 'Dean'
+      }
+    },
+    async ctx => {
+      // expect(true).toBe(false);
+      const bpmnProcess = await create.process(ctx);
 
-  // its(
-  //   'aborts',
-  //   {
-  //     clear: ['User', 'BpmnProcessInstance', 'BpmnProcess'],
-  //     user: {
-  //       name: 'Dean'
-  //     }
-  //   },
-  //   async ctx => {
-  //     // create instance
-  //     // check if status has been set to Aborted
-  //     // check if status of child task Instance has been set to Aborted
-  //   }
-  // );
+      const processInstance = await ctx.db.mutation.createBpmnProcessInstance({
+        data: {
+          dateStarted: new Date(),
+          data: {},
+          status: 'Running',
+          owner: {
+            connect: {
+              id: ctx.userId
+            }
+          },
+          process: {
+            connect: {
+              id: bpmnProcess.id
+            }
+          }
+        }
+      });
+      const pInstanceDAO = await BpmnProcessInstance.finishInstance(processInstance.id, ctx);
+      expect(pInstanceDAO.status).toEqual('Finished');
+    },
+    
+  );
 
-  // its(
-  //   'finishes',
-  //   {
-  //     clear: ['User', 'BpmnProcessInstance', 'BpmnProcess'],
-  //     user: {
-  //       name: 'Dean'
-  //     }
-  //   },
-  //   async ctx => {
-  //     // create instance
-  //     // check if status has been set to Finished
-  //     // check if status of child task Instance has been set to Finished
-  //     // check date finished
-  //   }
-  // );
+
+  its('correctly finishes process instance and related task instances', {}, async ctx => {
+    /**/
+  });
+
+  its(
+    'sets status to paused',
+    {
+      // clear: ['BpmnProcess', 'User', 'BpmnProcessInstance'],
+      clear: ['BpmnProcessInstance', 'BpmnProcess', 'User' ],
+      user: {
+        uid: 'user1',
+        name: 'Dean'
+      }
+    },
+    async ctx => {
+      // expect(true).toBe(false);
+      const bpmnProcess = await create.process(ctx);
+
+      const processInstance = await ctx.db.mutation.createBpmnProcessInstance({
+        data: {
+          dateStarted: new Date(),
+          data: {},
+          status: 'Running',
+          owner: {
+            connect: {
+              id: ctx.userId
+            }
+          },
+          process: {
+            connect: {
+              id: bpmnProcess.id
+            }
+          }
+        }
+      });
+      const pInstanceDAO = await BpmnProcessInstance.pauseInstance(processInstance.id, ctx);
+      expect(pInstanceDAO.status).toEqual('Paused');
+    },
+    
+  );
+  its('correctly pauses process instance and related task instances', {}, async ctx => {
+    /**/
+  });
+  
 });

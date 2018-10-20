@@ -23,7 +23,7 @@ jest.mock('bpmn-moddle', () => {
   };
 });
 
-import { create } from 'data/tests'; // TODO: Move
+import { create, its } from 'data/tests'; // TODO: Move
 import {
   EndEvent,
   FlowNode,
@@ -50,9 +50,7 @@ import {
 } from './json_data';
 
 describe('bpmn process model', () => {
-  it('passes', () => {
-    /**/
-  });
+  
   xit('creates a new instance from database', async () => {
     const model = new BpmnProcessModel(create.processDao());
 

@@ -22,10 +22,12 @@ type Mutation {
   createProcess(input: CreateProcessInput!): BpmnProcess
   launchProcessInstance(input: LaunchProcessInstanceInput!): BpmnProcessInstanceOutput
   duplicateProcessInstance(input: DuplicateProcessInstanceInput!): BpmnProcessInstanceOutput
-  setProcessInstanceStatus(input: SetProcessInstanceStatusInput!): BpmnProcessInstanceOutput
-  createTaskInstance(input: CreateTaskInstanceInput!): BpmnTaskInstance
+  abortProcessInstance(input: AbortProcessInstanceInput!): BpmnProcessInstance
+  pauseProcessInstance(input: PauseProcessInstanceInput!): BpmnProcessInstance
+  addComment(input: AddCommentInput!): BpmnProcessInstance
   updateTaskInstanceStatus(input: UpdateTaskInstanceStatusInput!): BpmnTaskInstance
-  submitForm(input: SubmitFormInput!): BpmnTaskInstance
+  submitTask(input: SubmitTaskInput!): BpmnTaskInstance
+  saveForm(input: SaveFormInput!): BpmnTaskInstance
   login(input: AuthInput!): AuthPayload!
   signup(input: AuthInput!): AuthPayload!
 }
@@ -216,28 +218,35 @@ input LaunchProcessInstanceInput {
 }
 
 input DuplicateProcessInstanceInput {
-  processId: String!
-}
-
-input SetProcessInstanceStatusInput {
-  processId: String!
-  status: BpmnProcessInstanceStatus!
-}
-
-input CreateTaskInstanceInput {
   processInstanceId: String!
-  taskId: String!
-  performerRoles: [String!]!
+}
+
+input AbortProcessInstanceInput {
+  processInstanceId: String!
+}
+
+input PauseProcessInstanceInput {
+  processInstanceId: String!
+}
+
+input AddCommentInput {
+  processInstanceId: String!
+  comment: String!
+  replyTo: String
 }
 
 input UpdateTaskInstanceStatusInput {
-  taskId: String!
+  taskInstanceId: String!
   status: BpmnTaskInstanceStatus!
 }
 
-input SubmitFormInput {
-  taskId: String!
-  form: [String!]!
+input SubmitTaskInput {
+  taskInstanceId: String!
+}
+
+input SaveFormInput {
+  taskInstanceId: String!
+  data: Json
 }
 
 input AuthInput {

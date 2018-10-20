@@ -26,38 +26,10 @@ export const query: Query = {
 };
 
 export const mutation: Mutation = {
-  async createTaskInstance(_parent, _args, _ctx) {
-    // { input: { processInstanceId, taskId, performerRoles } }
-
-    throw new Error('Not implemented ...');
-
-    // NOTE FROM TOMAS
-    // DEAN: I think you need to use the method from 'UserTask.execute' ....
-    // The important bit is that the created task instance have a name assigned.
-    // I also think that we are not launching task instance directly ...
-
-    // const newTaskInstance = await ctx.db.mutation.createBpmnTaskInstance({
-    //   data: {
-    //     dateStarted: new Date(),
-    //     duration: 0,
-    //     performerRoles: {
-    //       set: performerRoles
-    //     },
-    //     processInstance: {
-    //       connect: {
-    //         id: processInstanceId
-    //       }
-    //     },
-    //     status: 'Waiting',
-    //     taskId
-    //   }
-    // });
-    // return newTaskInstance;
-  },
-  async updateTaskInstanceStatus(_parent, { input: { taskId, status } }, ctx) {
+  async updateTaskInstanceStatus(_parent, { input: { taskInstanceId, status } }, ctx) {
     const taskInstance = await ctx.db.mutation.updateBpmnTaskInstance({
       where: {
-        id: taskId
+        id: taskInstanceId
       },
       data: {
         status
@@ -67,15 +39,19 @@ export const mutation: Mutation = {
     return taskInstance;
   },
 
-  async submitForm(_parent, { input: { taskId, form } }, ctx) {
+  async submitTask(_parent, { input: { taskInstanceId } }, ctx) {
     const taskInstanceDAO = await ctx.db.query.bpmnTaskInstance({
       where: {
-        id: taskId
+        id: taskInstanceId
       }
     });
 
     const taskInstance = new BpmnTaskInstanceModel(taskInstanceDAO);
 
-    return taskInstance.execute(ctx, form);
+    return taskInstance.execute(ctx);
+  },
+  async saveForm(_parent, { input: { taskInstanceId, data } }, ctx) {
+    /* store info but do not finish task instance */
+    return BpmnTaskInstanceModel.saveForm(ctx, taskInstanceId, data);
   }
 };

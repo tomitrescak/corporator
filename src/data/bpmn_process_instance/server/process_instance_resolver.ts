@@ -75,32 +75,6 @@ export const mutation: Mutation = {
     }`
     );
 
-    // const m = await ctx.db.query.bpmnProcessInstance(
-    //   { where: { id: processInstanceDAO.id } },
-    //   `{
-    //     id
-    //     owner {
-    //       ${userFragment}
-    //     }
-    //   }`
-    // );
-
-    // processInstanceDAO.owner = await ctx.cache.user.findById(userId);
-
-    // await ctx.db.mutation.updateUser(
-    //   {
-    //     where: { id: userId },
-    //     data: {
-    //       processes: {
-    //         connect: {
-    //           id: processInstanceDAO.id
-    //         }
-    //       }
-    //     }
-    //   },
-    //   info
-    // );
-
     const bpmnProcessModelDao = await ctx.db.query.bpmnProcess(
       { where: { id: processId } },
       `{
@@ -124,76 +98,17 @@ export const mutation: Mutation = {
     return processInstance.start(ctx, role);
   },
   async duplicateProcessInstance(_parent, { input: { processInstanceId } }, ctx, info) {
-    const processInstanceDAO = await ctx.db.query.bpmnProcessInstance(
-      {
-        where: {
-          id: processInstanceId
-        }
-      },
-      `{
-        id
-        comments
-        dataFinished
-        dateStarted
-        duration
-        owner
-        status
-        data
-        log
-        tasks
-        process {
-          id
-          access
-          actionCount
-          dataDescriptors
-          description
-          model
-          name
-          type
-          resources
-          status
-          version
-          versions
-        }
-      } `
-    );
-    const newProcessInstance = BpmnProcessInstance.duplicateInstance(processInstanceDAO);
-      }
-    });
-
-    if (taskInstances) {
-      let newTaskInstanceStatus: Prisma.BpmnTaskInstanceStatus;
-
-      switch (status) {
-        case 'Running':
-          newTaskInstanceStatus = 'Started';
-          break;
-        case 'Paused':
-          newTaskInstanceStatus = 'Paused';
-          break;
-        case 'Aborted':
-          newTaskInstanceStatus = 'Aborted';
-          break;
-        case 'Finished':
-          newTaskInstanceStatus = 'Finished';
-          break;
-      }
-
-      taskInstances.forEach(async (taskInstance: Prisma.BpmnTaskInstance) => {
-        await ctx.db.mutation.updateBpmnTaskInstance({
-          where: {
-            id: taskInstance.id
-          },
-          data: {
-            status: newTaskInstanceStatus
-          }
-        });
-      });
-    }
-
+    const newProcessInstance = BpmnProcessInstance.duplicateInstance(processInstanceId, ctx, info);
     return newProcessInstance;
   },
-  async setProcessInstanceStatus(_parent, { input }, ctx, info) {
-    return BpmnProcessInstance.setStatus(ctx, input, info);
+  async abortProcessInstance(_parent, { input: { processInstanceId } }, ctx, info) {
+    return BpmnProcessInstance.abortInstance(processInstanceId, ctx, info);
+  },
+  async pauseProcessInstance(_parent, { input: { processInstanceId } }, ctx, info) {
+    return BpmnProcessInstance.pauseInstance(processInstanceId, ctx, info);
+  },
+  async addComment(_parent, { input: { processInstanceId, comment, replyTo } }, ctx, info) {
+    /* push given comment to process instance */
+    return BpmnProcessInstance.addComment(processInstanceId, ctx, comment, replyTo, info);
   }
 };
