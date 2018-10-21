@@ -1,5 +1,3 @@
-#import BpmnProcessInstance from './bpmn_process_instances.graphql'
-
 enum NotificationCode {
   ProcessStarted
   ProcessFinished

@@ -3,93 +3,87 @@ import * as renderer from 'react-test-renderer';
 
 import { Segment } from 'semantic-ui-react';
 
-import { QueryTypes } from 'data/client';
+import { JSONSchema } from 'data/schema/schema';
 import { FormModel } from '../../models/form_model';
 import { FormView } from '../form_view';
 import { create } from './form_query_data';
 
 describe('Form', () => {
-  const descriptors = [
-    create.descriptor({
-      id: '1',
-      name: 'countries',
-      type: QueryTypes.DataType.Object,
-      isArray: true
-    }),
-    create.descriptor({ name: 'id', type: QueryTypes.DataType.Id, parentDescriptor: '1' }),
-    create.descriptor({ name: 'name', type: QueryTypes.DataType.String, parentDescriptor: '1' }),
-    create.descriptor({ name: 'capital', type: QueryTypes.DataType.String, parentDescriptor: '1' })
-  ];
+  const schema: JSONSchema = {
+    type: 'object',
+    properties: {
+      countries: {
+        type: 'array',
+        items: {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'id'
+            },
+            name: {
+              type: 'string'
+            },
+            capital: {
+              type: 'string'
+            }
+          }
+        }
+      }
+    }
+  };
 
-  const dataSetData = {
+  const controlData = {
     countries: [
       { name: 'Slovakia', capital: 'Bratislava' },
       { name: 'Australia', capital: 'Canberra' }
     ]
   };
-  const dataSet = FormModel.buildMstModel(descriptors, dataSetData);
+
+  const formDefinition: Form = create.form({
+    elements: [
+      create.formElement({
+        row: 0,
+        column: 0,
+        width: 16,
+        control: 'Repeater',
+        source: 'countries'
+      }),
+      create.formElement({
+        row: 0,
+        column: 0,
+        width: 8,
+        control: 'Input',
+        label: 'Name',
+        source: 'name'
+      }),
+      create.formElement({
+        row: 0,
+        column: 8,
+        width: 8,
+        control: 'Input',
+        label: 'Capital',
+        source: 'capital'
+      }),
+      create.formElement({
+        row: 0,
+        column: 15,
+        width: 1,
+        control: 'DeleteButton',
+        label: '\xa0'
+      })
+    ]
+  });
 
   storyOf(
     'Repeater',
     {
       get component() {
-        const form = new FormModel(
-          create.form({
-            elements: [
-              create.formElement({
-                id: '1',
-                row: 0,
-                column: 0,
-                width: 16,
-                control: QueryTypes.FormControl.Repeater,
-                source: create.descriptor({
-                  id: '',
-                  name: 'countries'
-                })
-              }),
-              create.formElement({
-                id: '2',
-                parentElement: '1',
-                row: 0,
-                column: 0,
-                width: 8,
-                control: QueryTypes.FormControl.Input,
-                label: 'Name',
-                source: create.descriptor({
-                  id: '',
-                  name: 'name'
-                })
-              }),
-              create.formElement({
-                id: '3',
-                parentElement: '1',
-                row: 0,
-                column: 8,
-                width: 8,
-                control: QueryTypes.FormControl.Input,
-                label: 'Capital',
-                source: create.descriptor({
-                  id: '',
-                  name: 'capital'
-                })
-              }),
-              create.formElement({
-                id: '4',
-                parentElement: '1',
-                row: 0,
-                column: 15,
-                width: 1,
-                control: QueryTypes.FormControl.DeleteButton,
-                label: '\xa0'
-              })
-            ]
-          })
-        );
+        const form = new FormModel(formDefinition, schema, controlData);
 
         // just another notation
         return (
           <Segment className="ui form">
-            <FormView formControl={form} owner={dataSet} />
+            <FormView formControl={form} owner={form.dataSet} />
           </Segment>
         );
       }

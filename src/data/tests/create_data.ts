@@ -37,7 +37,8 @@ export const create = {
     return new Date(2018, 2, 10 + addDays);
   },
   role: (role: Partial<Prisma.RoleCreateInput> = {}): Prisma.RoleCreateInput => ({
-    name: 'Tomas Trescak',
+    name: 'User',
+    roleId: 'User',
     ...role
   }),
   async roleMutation(role: Partial<Prisma.RoleCreateInput> = {}): Promise<Prisma.Role> {
@@ -137,20 +138,6 @@ export const create = {
     resources: null,
     ...partial
   }),
-  activityDao(from: Partial<Yoga.BpmnProcessInstance> = {}): Yoga.BpmnProcessInstance {
-    return {
-      id: 'aid',
-      process: create.processDao(),
-      data: null,
-      ownerId: null,
-      status: 'Running',
-      dateStarted,
-      dateFinished,
-      duration: 0,
-      processId: null,
-      ...from
-    };
-  },
   dataDao(data: Partial<Yoga.Data> = {}): Yoga.Data {
     return {
       id: '1',
@@ -164,7 +151,7 @@ export const create = {
   bpmnProcessMutation(partial: Partial<Prisma.BpmnProcessCreateInput>) {
     return db.mutation.createBpmnProcess({ data: create.bpmnProcess(partial) });
   },
-  processDao(from: Partial<Yoga.BpmnProcess> = {}): Yoga.BpmnProcess {
+  processDao(from: Partial<Prisma.BpmnProcess> = {}): Prisma.BpmnProcess {
     return {
       id: 'bpmn',
       name: 'Bpmn',
@@ -172,6 +159,7 @@ export const create = {
       createdAt: null,
       updatedAt: null,
       createdById: null,
+      resources: null,
       // generatedDescription: null,
       model: '<xml />',
       schema: '{}',
@@ -188,9 +176,7 @@ export const create = {
   ): Prisma.BpmnProcessInstanceCreateInput => ({
     ownerId: null,
     processId: null,
-    process: null,
     data: null,
-    owner: null,
     status: 'Running',
     dateStarted,
     ...partial
@@ -206,6 +192,9 @@ export const create = {
       process: null,
       data: null,
       owner: null,
+      comments: [],
+      log: [],
+      tasks: [],
       status: 'Running',
       dateStarted,
       ...from
@@ -215,7 +204,6 @@ export const create = {
     partial: Partial<Prisma.BpmnTaskInstanceCreateInput>,
     processInstanceId: string,
     taskId: string,
-    performerRoleId: string,
     performerId: string = null
   ): Prisma.BpmnTaskInstanceCreateInput => ({
     dateFinished: null,
@@ -223,7 +211,6 @@ export const create = {
     duration: 0,
     data: {},
     status: 'Finished',
-    performerRoleId,
     performerId,
     processInstance: { connect: { id: processInstanceId } },
     taskId,
@@ -233,17 +220,10 @@ export const create = {
     partial: Partial<Prisma.BpmnTaskInstanceCreateInput>,
     processInstanceId: string,
     taskId: string,
-    performerRoleId: string,
     performerId: string = null
   ) {
     return db.mutation.createBpmnTaskInstance({
-      data: create.bpmnTaskInstance(
-        partial,
-        processInstanceId,
-        taskId,
-        performerRoleId,
-        performerId
-      )
+      data: create.bpmnTaskInstance(partial, processInstanceId, taskId, performerId)
     });
   },
   notification: (

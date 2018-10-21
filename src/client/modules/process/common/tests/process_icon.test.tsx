@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import { render } from 'client/tests';
-import { QueryTypes } from 'data/client';
 import { ProcessIcon } from '../process_icon';
 
 describe('Process', () => {
@@ -9,16 +8,16 @@ describe('Process', () => {
     const Component = (
       <ul>
         <li>
-          <ProcessIcon type={QueryTypes.ProcessType.HumanResources} /> Human Resources
+          <ProcessIcon type={'HumanResources'} /> Human Resources
         </li>
         <li>
-          <ProcessIcon type={QueryTypes.ProcessType.Purchases} /> Purchases
+          <ProcessIcon type={'Purchases'} /> Purchases
         </li>
         <li>
-          <ProcessIcon type={QueryTypes.ProcessType.Sales} /> Sales
+          <ProcessIcon type={'Sales'} /> Sales
         </li>
         <li>
-          <ProcessIcon type={QueryTypes.ProcessType.Travel} /> Travel
+          <ProcessIcon type={'Travel'} /> Travel
         </li>
       </ul>
     );

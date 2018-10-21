@@ -1,0 +1,10 @@
+query FormQuery($formId: ID!, $processId: ID!) {
+  processResourceQuery(id: $formId) {
+    ...Resource
+  }
+
+  bpmnProcessQuery(id: $processId) {
+    id
+    schema
+  }
+}

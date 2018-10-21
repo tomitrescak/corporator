@@ -1,20 +1,13 @@
-import { QueryTypes } from 'data/client';
-import { DataDescriptor, Form, FormElement } from '../../models/form_model';
-
 export const defaultForm: Form = {
-  id: 'form',
   name: 'Form',
   description: 'Test Form',
-  elements: [],
-  validations: []
+  elements: []
 };
 
 export const defaultFormElement: FormElement = {
-  id: 'form',
   column: 0,
   control: null,
   controlProps: null,
-  defaultValue: null,
   filterColumn: null,
   filterSource: null,
   inline: false,
@@ -24,20 +17,7 @@ export const defaultFormElement: FormElement = {
   source: null,
   vertical: null,
   width: null,
-  parentElement: null,
   elements: null
-};
-
-const defaultDescriptor: DataDescriptor = {
-  id: '1',
-  name: null,
-  description: 'Description',
-  expression: null,
-  type: QueryTypes.DataType.String,
-  isArray: false,
-  defaultValue: null,
-  validators: null,
-  parentDescriptor: null
 };
 
 export const create = {
@@ -46,8 +26,5 @@ export const create = {
   },
   formElement(form: Partial<FormElement> = {}): FormElement {
     return { ...defaultFormElement, ...form };
-  },
-  descriptor(data: Partial<DataDescriptor> = {}): DataDescriptor {
-    return { ...defaultDescriptor, ...data };
   }
 };

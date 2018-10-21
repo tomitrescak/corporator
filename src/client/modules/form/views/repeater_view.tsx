@@ -7,7 +7,7 @@ import { IObservableArray } from 'mobx';
 import { Button } from 'semantic-ui-react';
 import styled from 'styled-components';
 
-import { DataSet, FormElement } from '../models/form_model';
+import { DataSet } from '../models/form_store';
 import { ErrorView } from './error_view';
 import { FormView } from './form_view';
 
@@ -24,7 +24,7 @@ type RowProps = {
 class RepeaterRow extends React.PureComponent<RowProps> {
   handlers = {
     delete: () => {
-      this.props.owner.removeRowData(this.props.formControl.source.name, this.props.data);
+      this.props.owner.removeRowData(this.props.formControl.source, this.props.data);
     }
   };
   render() {
@@ -47,7 +47,7 @@ type Props = {
 export class RepeaterView extends React.Component<Props> {
   handleToggleChange = (_e: React.ChangeEvent<HTMLInputElement>, control: HTMLInputElement) => {
     // find value
-    this.props.owner.parseValue(this.props.formControl.source.name, control.checked);
+    this.props.owner.parseValue(this.props.formControl.source, control.checked);
   };
 
   addRow = () => {
@@ -55,14 +55,14 @@ export class RepeaterView extends React.Component<Props> {
       formControl: { source },
       owner
     } = this.props;
-    owner.addRow(source.name);
-    owner.validateField(source.name, owner.getValue(source.name));
+    owner.addRow(source);
+    owner.validateValue(source, owner.getValue(source));
   };
 
   render(): JSX.Element {
     const { formControl, owner } = this.props;
     const source = formControl.source;
-    const list: IObservableArray<DataSet> = owner.getValue(source.name);
+    const list: IObservableArray<DataSet> = owner.getValue(source);
     return (
       <>
         <Choose>
@@ -83,7 +83,7 @@ export class RepeaterView extends React.Component<Props> {
           </Otherwise>
         </Choose>
         <Button primary icon="plus" content="Add" labelPosition="left" onClick={this.addRow} />
-        <ErrorView owner={owner} source={source.name} pointing="left" />
+        <ErrorView owner={owner} source={source} pointing="left" />
       </>
     );
   }

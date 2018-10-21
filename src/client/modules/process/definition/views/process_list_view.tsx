@@ -19,7 +19,7 @@ const ResultInfo = styled.div`
 `;
 
 type Props = {
-  processes: QueryTypes.ProcessesQuery_Processes[];
+  processes: QueryTypes.BpmnProcessItem[];
   context: App.Context;
 };
 

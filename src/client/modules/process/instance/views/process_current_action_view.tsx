@@ -10,8 +10,11 @@ import { QueryTypes } from 'data/client';
 
 type Props = {
   context: App.Context;
+  process: QueryTypes.BpmnProcessDefinition;
   processInstance: QueryTypes.BpmnProcessInstance;
 };
+
+type ValidationMap = { [id: string]: ValidationResult };
 
 const FormProgress: StyledComponentClass<ProgressProps, {}> = styled(Progress)`
   float: right;
@@ -35,24 +38,28 @@ const CompletedLabel = styled.div`
 `;
 
 function taskToLinks(
+  process: QueryTypes.BpmnProcessDefinition,
   processInstance: QueryTypes.BpmnProcessInstance,
-  task: QueryTypes.BpmnProcessInstanceTask,
-  validation: ValidationResult,
+  taskInstance: QueryTypes.BpmnProcessInstanceTask,
+  validationMap: ValidationMap,
   ctx: App.Context
 ) {
-  return task.task.resources.map(r => {
-    if (r.type === QueryTypes.ResourceType.Form) {
+  return taskInstance.task.resources.map(resourceId => {
+    let pr = process.resources.find(p => p.id === resourceId);
+    let validation = validationMap[resourceId];
+
+    if (pr.resource.type === QueryTypes.ResourceType.Form) {
       // validate form
 
       return (
-        <List.Item key={r.id}>
+        <List.Item key={pr.id}>
           <List.Icon name={validation.invalid === 0 ? 'check' : 'hand point right'} />
           <Content>
             <Link
-              to={`/process/${processInstance.process.name.url()}/view/${r.type.toLowerCase()}/${r.name.url()}/${
+              to={`/process/${process.name.url()}/view/${pr.resource.type.toLowerCase()}/${pr.resource.title.url()}/${
                 processInstance.id
-              }/${r.form.id}`}
-            >{ctx.i18n`Complete "${r.name}"`}</Link>
+              }/${pr.id}`}
+            >{ctx.i18n`Complete "${pr.resource.title}"`}</Link>
             <If condition={validation.invalid}>
               <FormProgress
                 value={validation.valid}
@@ -70,21 +77,36 @@ function taskToLinks(
   });
 }
 
-export const ProcessCurrentAction: React.SFC<Props> = ({ context, processInstance }) => {
-  const currentActions = processInstance.tasks.filter(t => !t.dateFinished);
-  const userActions = currentActions.filter(a =>
-    a.performerRoles.some(r => context.store.user.roles.includes(r))
+export const ProcessCurrentAction: React.SFC<Props> = ({ context, process, processInstance }) => {
+  const currentTasks = processInstance.tasks.filter(t => !t.dateFinished);
+  const userTasks = currentTasks.filter(a =>
+    context.store.user.roles.some(r => a.task.performerRoles.some(b => b === r))
   );
 
-  if (!currentActions.length) {
+  if (!currentTasks.length) {
     return null;
   }
 
-  const model = FormModel.buildMstModel(
-    processInstance.process.dataDescriptors,
-    processInstance.data
-  );
-  const validation = model.validateWithReport();
+  // validate all user actions
+
+  let validationMap: ValidationMap = {};
+  let valid = true;
+
+  for (let taskInstance of userTasks) {
+    for (let resource of taskInstance.task.resources) {
+      let pr = process.resources.find(p => p.id === resource);
+
+      const model = new FormModel(
+        JSON.parse(pr.resource.content),
+        process.schema,
+        taskInstance.data
+      );
+      const validation = model.validateWithReport();
+
+      validationMap[resource] = validation;
+      valid = valid && validation.invalid === 0;
+    }
+  }
 
   return (
     <>
@@ -94,12 +116,12 @@ export const ProcessCurrentAction: React.SFC<Props> = ({ context, processInstanc
         </Message.Header>
 
         <List>
-          {userActions.map(tasks => (
+          {userTasks.map(tasks => (
             <React.Fragment key={tasks.id}>
-              {taskToLinks(processInstance, tasks, validation, context)}
+              {taskToLinks(process, processInstance, tasks, validationMap, context)}
             </React.Fragment>
           ))}
-          <If condition={validation.invalid}>
+          <If condition={!valid}>
             <List.Item>
               <CompletedLabel>
                 <I18>Items Completed</I18>
@@ -108,7 +130,7 @@ export const ProcessCurrentAction: React.SFC<Props> = ({ context, processInstanc
           </If>
         </List>
 
-        <If condition={!validation.invalid}>
+        <If condition={valid}>
           <Centered>
             <Button
               primary

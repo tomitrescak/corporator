@@ -9,10 +9,10 @@ export class UserTask extends Task {
   }
 
   async execute(state: BpmnProcessInstance, context: ServerContext) {
-    const user = await context.getUser();
+    // const user = await context.getUser();
 
     // TODO: Think what will happen when you change the role name!!!
-    const role = user.roles.find(r => this.lane.roles.includes(r.name));
+    // const role = user.roles.find(r => this.lane.roles.includes(r));
 
     /*const taskInstance = */ await context.db.mutation.createBpmnTaskInstance({
       data: {
@@ -25,7 +25,7 @@ export class UserTask extends Task {
         // name: this.name,
         // performerRoles: BpmnTaskInstanceCreateperformerRolesInput,
         taskId: this.id,
-        performerRoleId: role.id,
+        // performerRoleId: role,
         performerId: context.userId,
         processInstance: {
           connect: {

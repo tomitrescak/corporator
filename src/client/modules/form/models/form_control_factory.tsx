@@ -10,7 +10,7 @@ import { RadioView } from '../views/radio_view';
 import { RepeaterView } from '../views/repeater_view';
 import { SelectView } from '../views/select_view';
 import { TableView } from '../views/table_view';
-import { DataSet, FormElement } from './form_model';
+import { DataSet } from './form_store';
 
 export function renderControl(
   control: FormElement,
@@ -28,7 +28,7 @@ export function renderControl(
       return (
         <div className="ui form">
           <FormView
-            owner={dataSet.getValue(control.source.name)}
+            owner={dataSet.getValue(control.source)}
             formControl={formElement}
             handlers={handlers}
           />
@@ -47,7 +47,7 @@ export function renderControl(
     case 'DeleteButton':
       return <Button icon="trash" color="red" onClick={handlers.delete} />;
     case 'Text':
-      return <span className="formText">{dataSet.getStringValue(formElement.source.name)}</span>;
+      return <span className="formText">{dataSet.getValue(formElement.source)}</span>;
   }
 
   throw new Error('Not implemented: ' + formElement.control);

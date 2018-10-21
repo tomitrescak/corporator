@@ -1,0 +1,5 @@
+query ResourceQuery($id: ID!) {
+  resourceQuery(id: $id) {
+    ...Resource
+  }
+}

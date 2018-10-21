@@ -10,9 +10,11 @@ export { PROCESS_LIST_QUERY };
     Process List
    ======================================================== */
 
-type Data = QueryTypes.ProcessesQuery;
-type Variables = QueryTypes.ProcessesQueryVariables;
-type Props = Partial<QueryProps<QueryTypes.ProcessesQuery, QueryTypes.ProcessesQueryVariables>>;
+type Data = QueryTypes.BpmnProcessesQuery;
+type Variables = QueryTypes.BpmnProcessesQueryVariables;
+type Props = Partial<
+  QueryProps<QueryTypes.BpmnProcessesQuery, QueryTypes.BpmnProcessesQueryVariables>
+>;
 
 export class ProcessListQuery extends Query<Data, Variables> {
   static displayName = 'ProcessesQuery';

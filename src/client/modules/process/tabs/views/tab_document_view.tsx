@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import * as DOCUMENT_QUERY from '../queries/document.query.graphql';
+import * as RESOURCE_QUERY from 'client/modules/resources/queries/process_resource_query.graphql';
 
 import { Query } from 'react-apollo';
 
@@ -9,8 +9,11 @@ import { QueryTypes } from 'data/client';
 import { EditableViewType, ProcessViewType, TabContent } from '../../common/process_styles';
 import { TabBreadcrumbs } from './tab_breadcrumbs';
 
-class ResourceQuery extends Query<QueryTypes.DocumentQuery, QueryTypes.DocumentQueryVariables> {
-  static defaultProps = { query: DOCUMENT_QUERY };
+class ResourceQuery extends Query<
+  QueryTypes.ProcessResourceQuery,
+  QueryTypes.ProcessResourceQueryVariables
+> {
+  static defaultProps = { query: RESOURCE_QUERY };
 }
 
 type Props = {
@@ -29,12 +32,12 @@ export const TabDocumentView: React.SFC<Props> = props => (
         <>
           <TabBreadcrumbs
             {...props}
-            title={result.data.documentQuery.title}
+            title={result.data.processResourceQuery.title}
             ownerId={props.ownerId}
           />
 
           <TabContent>
-            <div dangerouslySetInnerHTML={{ __html: result.data.documentQuery.content }} />
+            <div dangerouslySetInnerHTML={{ __html: result.data.processResourceQuery.content }} />
           </TabContent>
         </>
       ))

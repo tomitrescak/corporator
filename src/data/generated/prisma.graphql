@@ -1,5 +1,5 @@
 # source: http://localhost:4466
-# timestamp: Fri Oct 19 2018 17:36:39 GMT+1100 (Australian Eastern Daylight Time)
+# timestamp: Mon Oct 22 2018 09:54:06 GMT+1100 (Australian Eastern Daylight Time)
 
 type AggregateBpmnProcess {
   count: Int!
@@ -1423,6 +1423,7 @@ input BpmnProcessWhereUniqueInput {
 type BpmnTask implements Node {
   id: ID!
   taskId: ID!
+  performerRoles: [ID!]!
   resources: [ID!]!
   name: String!
   type: BpmnTaskType
@@ -1442,12 +1443,17 @@ input BpmnTaskCreateInput {
   taskId: ID!
   name: String!
   type: BpmnTaskType
+  performerRoles: BpmnTaskCreateperformerRolesInput
   resources: BpmnTaskCreateresourcesInput
 }
 
 input BpmnTaskCreateManyInput {
   create: [BpmnTaskCreateInput!]
   connect: [BpmnTaskWhereUniqueInput!]
+}
+
+input BpmnTaskCreateperformerRolesInput {
+  set: [ID!]
 }
 
 input BpmnTaskCreateresourcesInput {
@@ -1469,7 +1475,6 @@ type BpmnTaskInstance implements Node {
   dateStarted: DateTime!
   duration: Int
   performerId: ID
-  performerRole: ID
   processInstance(where: BpmnProcessInstanceWhereInput): BpmnProcessInstance!
   data: Json
   status: BpmnTaskInstanceStatus!
@@ -1491,7 +1496,6 @@ input BpmnTaskInstanceCreateInput {
   dateStarted: DateTime!
   duration: Int
   performerId: ID
-  performerRole: ID
   data: Json
   status: BpmnTaskInstanceStatus!
   taskId: ID!
@@ -1508,7 +1512,6 @@ input BpmnTaskInstanceCreateWithoutProcessInstanceInput {
   dateStarted: DateTime!
   duration: Int
   performerId: ID
-  performerRole: ID
   data: Json
   status: BpmnTaskInstanceStatus!
   taskId: ID!
@@ -1534,8 +1537,6 @@ enum BpmnTaskInstanceOrderByInput {
   duration_DESC
   performerId_ASC
   performerId_DESC
-  performerRole_ASC
-  performerRole_DESC
   data_ASC
   data_DESC
   status_ASC
@@ -1554,7 +1555,6 @@ type BpmnTaskInstancePreviousValues {
   dateStarted: DateTime!
   duration: Int
   performerId: ID
-  performerRole: ID
   data: Json
   status: BpmnTaskInstanceStatus!
   taskId: ID!
@@ -1613,7 +1613,6 @@ input BpmnTaskInstanceUpdateInput {
   dateStarted: DateTime
   duration: Int
   performerId: ID
-  performerRole: ID
   data: Json
   status: BpmnTaskInstanceStatus
   taskId: ID
@@ -1634,7 +1633,6 @@ input BpmnTaskInstanceUpdateWithoutProcessInstanceDataInput {
   dateStarted: DateTime
   duration: Int
   performerId: ID
-  performerRole: ID
   data: Json
   status: BpmnTaskInstanceStatus
   taskId: ID
@@ -1806,46 +1804,6 @@ input BpmnTaskInstanceWhereInput {
 
   """All values not ending with the given string."""
   performerId_not_ends_with: ID
-  performerRole: ID
-
-  """All values that are not equal to given value."""
-  performerRole_not: ID
-
-  """All values that are contained in given list."""
-  performerRole_in: [ID!]
-
-  """All values that are not contained in given list."""
-  performerRole_not_in: [ID!]
-
-  """All values less than the given value."""
-  performerRole_lt: ID
-
-  """All values less than or equal the given value."""
-  performerRole_lte: ID
-
-  """All values greater than the given value."""
-  performerRole_gt: ID
-
-  """All values greater than or equal the given value."""
-  performerRole_gte: ID
-
-  """All values containing the given string."""
-  performerRole_contains: ID
-
-  """All values not containing the given string."""
-  performerRole_not_contains: ID
-
-  """All values starting with the given string."""
-  performerRole_starts_with: ID
-
-  """All values not starting with the given string."""
-  performerRole_not_starts_with: ID
-
-  """All values ending with the given string."""
-  performerRole_ends_with: ID
-
-  """All values not ending with the given string."""
-  performerRole_not_ends_with: ID
   status: BpmnTaskInstanceStatus
 
   """All values that are not equal to given value."""
@@ -1921,6 +1879,7 @@ enum BpmnTaskOrderByInput {
 type BpmnTaskPreviousValues {
   id: ID!
   taskId: ID!
+  performerRoles: [ID!]!
   resources: [ID!]!
   name: String!
   type: BpmnTaskType
@@ -1973,6 +1932,7 @@ input BpmnTaskUpdateDataInput {
   taskId: ID
   name: String
   type: BpmnTaskType
+  performerRoles: BpmnTaskUpdateperformerRolesInput
   resources: BpmnTaskUpdateresourcesInput
 }
 
@@ -1980,6 +1940,7 @@ input BpmnTaskUpdateInput {
   taskId: ID
   name: String
   type: BpmnTaskType
+  performerRoles: BpmnTaskUpdateperformerRolesInput
   resources: BpmnTaskUpdateresourcesInput
 }
 
@@ -1990,6 +1951,10 @@ input BpmnTaskUpdateManyInput {
   delete: [BpmnTaskWhereUniqueInput!]
   update: [BpmnTaskUpdateWithWhereUniqueNestedInput!]
   upsert: [BpmnTaskUpsertWithWhereUniqueNestedInput!]
+}
+
+input BpmnTaskUpdateperformerRolesInput {
+  set: [ID!]
 }
 
 input BpmnTaskUpdateresourcesInput {
@@ -4310,7 +4275,7 @@ type PageInfo {
 type ProcessResource implements Node {
   id: ID!
   resourceId: ID!
-  readRole: String
+  readRoles: [String!]!
 }
 
 """A connection to a list of items."""
@@ -4325,12 +4290,16 @@ type ProcessResourceConnection {
 
 input ProcessResourceCreateInput {
   resourceId: ID!
-  readRole: String
+  readRoles: ProcessResourceCreatereadRolesInput
 }
 
 input ProcessResourceCreateManyInput {
   create: [ProcessResourceCreateInput!]
   connect: [ProcessResourceWhereUniqueInput!]
+}
+
+input ProcessResourceCreatereadRolesInput {
+  set: [String!]
 }
 
 """An edge in a connection."""
@@ -4347,8 +4316,6 @@ enum ProcessResourceOrderByInput {
   id_DESC
   resourceId_ASC
   resourceId_DESC
-  readRole_ASC
-  readRole_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -4358,7 +4325,7 @@ enum ProcessResourceOrderByInput {
 type ProcessResourcePreviousValues {
   id: ID!
   resourceId: ID!
-  readRole: String
+  readRoles: [String!]!
 }
 
 type ProcessResourceSubscriptionPayload {
@@ -4402,12 +4369,12 @@ input ProcessResourceSubscriptionWhereInput {
 
 input ProcessResourceUpdateDataInput {
   resourceId: ID
-  readRole: String
+  readRoles: ProcessResourceUpdatereadRolesInput
 }
 
 input ProcessResourceUpdateInput {
   resourceId: ID
-  readRole: String
+  readRoles: ProcessResourceUpdatereadRolesInput
 }
 
 input ProcessResourceUpdateManyInput {
@@ -4417,6 +4384,10 @@ input ProcessResourceUpdateManyInput {
   delete: [ProcessResourceWhereUniqueInput!]
   update: [ProcessResourceUpdateWithWhereUniqueNestedInput!]
   upsert: [ProcessResourceUpsertWithWhereUniqueNestedInput!]
+}
+
+input ProcessResourceUpdatereadRolesInput {
+  set: [String!]
 }
 
 input ProcessResourceUpdateWithWhereUniqueNestedInput {
@@ -4519,46 +4490,6 @@ input ProcessResourceWhereInput {
 
   """All values not ending with the given string."""
   resourceId_not_ends_with: ID
-  readRole: String
-
-  """All values that are not equal to given value."""
-  readRole_not: String
-
-  """All values that are contained in given list."""
-  readRole_in: [String!]
-
-  """All values that are not contained in given list."""
-  readRole_not_in: [String!]
-
-  """All values less than the given value."""
-  readRole_lt: String
-
-  """All values less than or equal the given value."""
-  readRole_lte: String
-
-  """All values greater than the given value."""
-  readRole_gt: String
-
-  """All values greater than or equal the given value."""
-  readRole_gte: String
-
-  """All values containing the given string."""
-  readRole_contains: String
-
-  """All values not containing the given string."""
-  readRole_not_contains: String
-
-  """All values starting with the given string."""
-  readRole_starts_with: String
-
-  """All values not starting with the given string."""
-  readRole_not_starts_with: String
-
-  """All values ending with the given string."""
-  readRole_ends_with: String
-
-  """All values not ending with the given string."""
-  readRole_not_ends_with: String
   _MagicalBackRelation_BpmnProcessResources_every: BpmnProcessWhereInput
   _MagicalBackRelation_BpmnProcessResources_some: BpmnProcessWhereInput
   _MagicalBackRelation_BpmnProcessResources_none: BpmnProcessWhereInput
@@ -4633,7 +4564,7 @@ type Resource implements Node {
   resourceId: ID!
   type: ResourceType!
   title: String!
-  content: String!
+  content: String
   version: Int!
   publicationStatus: PublicationStatus!
   createdById: ID!
@@ -4658,7 +4589,7 @@ input ResourceCreateInput {
   resourceId: ID!
   type: ResourceType!
   title: String!
-  content: String!
+  content: String
   version: Int!
   publicationStatus: PublicationStatus!
   createdById: ID!
@@ -4716,7 +4647,7 @@ type ResourcePreviousValues {
   resourceId: ID!
   type: ResourceType!
   title: String!
-  content: String!
+  content: String
   version: Int!
   publicationStatus: PublicationStatus!
   createdById: ID!
@@ -5247,6 +5178,7 @@ input ResourceWhereUniqueInput {
 
 type Role implements Node {
   id: ID!
+  roleId: ID!
   name: String!
   description: String
 }
@@ -5262,6 +5194,7 @@ type RoleConnection {
 }
 
 input RoleCreateInput {
+  roleId: ID!
   name: String!
   description: String
 }
@@ -5278,6 +5211,8 @@ type RoleEdge {
 enum RoleOrderByInput {
   id_ASC
   id_DESC
+  roleId_ASC
+  roleId_DESC
   name_ASC
   name_DESC
   description_ASC
@@ -5290,6 +5225,7 @@ enum RoleOrderByInput {
 
 type RolePreviousValues {
   id: ID!
+  roleId: ID!
   name: String!
   description: String
 }
@@ -5334,6 +5270,7 @@ input RoleSubscriptionWhereInput {
 }
 
 input RoleUpdateInput {
+  roleId: ID
   name: String
   description: String
 }
@@ -5387,6 +5324,46 @@ input RoleWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  roleId: ID
+
+  """All values that are not equal to given value."""
+  roleId_not: ID
+
+  """All values that are contained in given list."""
+  roleId_in: [ID!]
+
+  """All values that are not contained in given list."""
+  roleId_not_in: [ID!]
+
+  """All values less than the given value."""
+  roleId_lt: ID
+
+  """All values less than or equal the given value."""
+  roleId_lte: ID
+
+  """All values greater than the given value."""
+  roleId_gt: ID
+
+  """All values greater than or equal the given value."""
+  roleId_gte: ID
+
+  """All values containing the given string."""
+  roleId_contains: ID
+
+  """All values not containing the given string."""
+  roleId_not_contains: ID
+
+  """All values starting with the given string."""
+  roleId_starts_with: ID
+
+  """All values not starting with the given string."""
+  roleId_not_starts_with: ID
+
+  """All values ending with the given string."""
+  roleId_ends_with: ID
+
+  """All values not ending with the given string."""
+  roleId_not_ends_with: ID
   name: String
 
   """All values that are not equal to given value."""
@@ -5471,6 +5448,7 @@ input RoleWhereInput {
 
 input RoleWhereUniqueInput {
   id: ID
+  roleId: ID
 }
 
 type Schema implements Node {

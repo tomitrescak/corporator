@@ -33,20 +33,20 @@ export class Access {
     if (!this.readRole) {
       return true;
     }
-    return this.readRole.some(role => user.roles.some(r => r.id === role));
+    return this.readRole.some(role => user.roles.some(r => r === role));
   }
 
   canWrite(user: Prisma.User) {
     if (!this.writeRole) {
       return true;
     }
-    return this.writeRole.some(role => user.roles.some(r => r.id === role));
+    return this.writeRole.some(role => user.roles.some(r => r === role));
   }
 
   canExecute(user: Prisma.User) {
     if (!this.executeRole) {
       return true;
     }
-    return this.executeRole.some(role => user.roles.some(r => r.id === role));
+    return this.executeRole.some(role => user.roles.some(r => r === role));
   }
 }

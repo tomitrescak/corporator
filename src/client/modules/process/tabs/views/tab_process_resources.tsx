@@ -13,6 +13,7 @@ type Props = {
   process: QueryTypes.BpmnProcessDefinition;
   context: App.Context;
   processInstance?: QueryTypes.BpmnProcessInstance;
+  taskInstanceId: string;
   contentType: ProcessViewType;
   viewType: EditableViewType;
   resourceId?: string;

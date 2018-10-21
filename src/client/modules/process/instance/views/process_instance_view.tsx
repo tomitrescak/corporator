@@ -16,6 +16,7 @@ interface Props {
   context: App.Context;
   view: ProcessViewType;
   resourceId?: string;
+  taskInstanceId?: string;
 }
 
 export class ProcessInstanceView extends React.Component<Props> {
@@ -73,6 +74,7 @@ export class ProcessInstanceView extends React.Component<Props> {
             context={context}
             contentType={view}
             resourceId={this.props.resourceId}
+            taskInstanceId={this.props.taskInstanceId}
             viewType={editableViewType}
             ownerId={id}
           />

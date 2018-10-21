@@ -1,10 +1,10 @@
-import { Mutation, purge, Query, Resolver, Yoga } from '../../utils';
+import { Mutation, purge, Query, Yoga } from '../../utils';
 
 export const query: Query = {
-  async process(_parent, { id }, ctx, info) {
+  async bpmnProcessQuery(_parent, { id }, ctx, info) {
     return ctx.db.query.bpmnProcess({ where: { id } }, info);
   },
-  async processes(
+  async bpmnProcessesQuery(
     _parent,
     { input: { status = 'Published', name, skip = 0, first = 20 } },
     ctx,

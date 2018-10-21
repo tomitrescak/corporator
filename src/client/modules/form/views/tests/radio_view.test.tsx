@@ -3,74 +3,68 @@ import * as renderer from 'react-test-renderer';
 
 import { Segment } from 'semantic-ui-react';
 
-import { QueryTypes } from 'data/client';
+import { JSONSchema } from 'data/schema/schema';
 import { FormModel } from '../../models/form_model';
 import { FormView } from '../form_view';
 import { create } from './form_query_data';
 
 describe('Form', () => {
-  const descriptors = [
-    create.descriptor({ name: 'religion', type: QueryTypes.DataType.String }),
-    create.descriptor({ name: 'lined_religion', type: QueryTypes.DataType.String })
-  ];
-
-  const lists = [
-    {
-      name: 'religions',
-      items: [
-        { text: 'Christian', value: 'CH' },
-        { text: 'Buddhist', value: 'BU' },
-        { text: 'Jedi', value: 'JE' }
-      ]
+  const schema: JSONSchema = {
+    type: 'object',
+    properties: {
+      religion: {
+        type: 'string'
+      },
+      lined_religion: {
+        type: 'string'
+      },
+      religions: {
+        enum: [
+          { text: 'Christian', value: 'CH' },
+          { text: 'Buddhist', value: 'BU' },
+          { text: 'Jedi', value: 'JE' }
+        ]
+      }
     }
-  ];
+  };
 
   const controlData = { religion: 'JE', lined_religion: 'BU' };
-  const dataSet = FormModel.buildMstModel(descriptors, controlData, lists);
+
+  const formDefinition: Form = create.form({
+    elements: [
+      create.formElement({
+        row: 0,
+        column: 0,
+        width: 16,
+        list: 'religions',
+        control: 'Radio',
+        label: 'Religions',
+        source: 'religion',
+        inline: true
+      }),
+      create.formElement({
+        row: 1,
+        column: 0,
+        width: 16,
+        list: 'religions',
+        control: 'Radio',
+        label: 'Religions',
+        source: 'lined_religion',
+        vertical: true
+      })
+    ]
+  });
 
   storyOf(
     'Radio',
     {
       get component() {
-        const form = new FormModel(
-          create.form({
-            elements: [
-              create.formElement({
-                id: '1',
-                row: 0,
-                column: 0,
-                width: 16,
-                list: 'religions',
-                control: QueryTypes.FormControl.Radio,
-                label: 'Religions',
-                source: create.descriptor({
-                  id: '',
-                  name: 'religion'
-                }),
-                inline: true
-              }),
-              create.formElement({
-                id: '2',
-                row: 1,
-                column: 0,
-                width: 16,
-                list: 'religions',
-                control: QueryTypes.FormControl.Radio,
-                label: 'Religions',
-                source: create.descriptor({
-                  id: '',
-                  name: 'lined_religion'
-                }),
-                vertical: true
-              })
-            ]
-          })
-        );
+        const form = new FormModel(formDefinition, schema, controlData);
 
         // just another notation
         return (
           <Segment className="ui form">
-            <FormView formControl={form} owner={dataSet} />
+            <FormView formControl={form} owner={form.dataSet} />
           </Segment>
         );
       }

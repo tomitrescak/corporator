@@ -1,5 +1,3 @@
-#import * from '../../generated/prisma.graphql'
-
 # ========================================================= #
 #  QUERIES
 # ========================================================= # */
@@ -12,8 +10,8 @@ input BpmnProcessesInput {
 }
 
 type Query {
-  processes(input: BpmnProcessesInput!): [BpmnProcess]!
-  process(id: ID!): BpmnProcess!
+  bpmnProcessesQuery(input: BpmnProcessesInput!): [BpmnProcess]!
+  bpmnProcessQuery(id: ID!): BpmnProcess!
 }
 
 # ========================================================= #

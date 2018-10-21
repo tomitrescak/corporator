@@ -27,7 +27,7 @@ export const ProcessInstanceItem: React.SFC<Props> = ({ processInstance, context
   const waitingText = waitingTasks
     .map(
       t =>
-        context.i18n`${t.performerRoles.join(' or ')} to ${
+        context.i18n`${t.task.performerRoles.join(' or ')} to ${
           t.task.name
         } since ${context.Ui.relativeDate(t.dateStarted)}`
     )

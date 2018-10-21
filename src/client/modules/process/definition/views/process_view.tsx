@@ -45,6 +45,7 @@ export class ProcessView extends React.Component<Props> {
               context={context}
               contentType={view}
               resourceId={this.props.resourceId}
+              taskInstanceId={null}
               viewType={'preview'}
               ownerId={process.id}
             />

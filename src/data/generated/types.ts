@@ -2,35 +2,6 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: ResourceQuery
-// ====================================================
-
-export interface ResourceQuery_ResourceQuery {
-  id: string;
-  type: ResourceType;
-  title: string;
-  content: string;
-}
-
-export interface ResourceQuery_Process {
-  id: string;
-  schema: any | null;
-}
-
-export interface ResourceQuery {
-  resourceQuery: ResourceQuery_ResourceQuery | null;
-  process: ResourceQuery_Process;
-}
-
-export interface ResourceQueryVariables {
-  formId: string;
-  processId: string;
-}
-
-/* tslint:disable */
-// This file was automatically generated and should not be edited.
-
-// ====================================================
 // GraphQL mutation operation: Login
 // ====================================================
 
@@ -144,30 +115,31 @@ export interface NotificationsQueryVariables {
 // GraphQL query operation: ProcessQuery
 // ====================================================
 
-export interface ProcessQuery_Process_Resources_Resource {
+export interface ProcessQuery_BpmnProcessQuery_Resources_Resource {
+  id: string;
   type: ResourceType;
   title: string;
-  content: string;
+  content: string | null;
 }
 
-export interface ProcessQuery_Process_Resources {
+export interface ProcessQuery_BpmnProcessQuery_Resources {
   id: string;
-  readRole: string | null;
-  resource: ProcessQuery_Process_Resources_Resource | null;
+  readRoles: string[] | null;
+  resource: ProcessQuery_BpmnProcessQuery_Resources_Resource;
 }
 
-export interface ProcessQuery_Process {
+export interface ProcessQuery_BpmnProcessQuery {
   id: string;
   name: string;
   description: string | null;
   type: string;
   model: string;
   schema: any | null;
-  resources: ProcessQuery_Process_Resources[] | null;
+  resources: ProcessQuery_BpmnProcessQuery_Resources[] | null;
 }
 
 export interface ProcessQuery {
-  process: ProcessQuery_Process;
+  bpmnProcessQuery: ProcessQuery_BpmnProcessQuery;
 }
 
 export interface ProcessQueryVariables {
@@ -178,10 +150,10 @@ export interface ProcessQueryVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: ProcessesQuery
+// GraphQL query operation: BpmnProcessesQuery
 // ====================================================
 
-export interface ProcessesQuery_Processes {
+export interface BpmnProcessesQuery_BpmnProcessesQuery {
   actionCount: number;
   description: string | null;
   id: string;
@@ -189,11 +161,11 @@ export interface ProcessesQuery_Processes {
   type: string;
 }
 
-export interface ProcessesQuery {
-  processes: (ProcessesQuery_Processes | null)[];
+export interface BpmnProcessesQuery {
+  bpmnProcessesQuery: (BpmnProcessesQuery_BpmnProcessesQuery | null)[];
 }
 
-export interface ProcessesQueryVariables {
+export interface BpmnProcessesQueryVariables {
   input: BpmnProcessesInput;
 }
 
@@ -203,28 +175,6 @@ export interface ProcessesQueryVariables {
 // ====================================================
 // GraphQL query operation: BpmnProcessInstanceQuery
 // ====================================================
-
-export interface BpmnProcessInstanceQuery_BpmnProcessInstanceQuery_Process_Resources_Resource {
-  type: ResourceType;
-  title: string;
-  content: string;
-}
-
-export interface BpmnProcessInstanceQuery_BpmnProcessInstanceQuery_Process_Resources {
-  id: string;
-  readRole: string | null;
-  resource: BpmnProcessInstanceQuery_BpmnProcessInstanceQuery_Process_Resources_Resource | null;
-}
-
-export interface BpmnProcessInstanceQuery_BpmnProcessInstanceQuery_Process {
-  id: string;
-  name: string;
-  description: string | null;
-  type: string;
-  model: string;
-  schema: any | null;
-  resources: BpmnProcessInstanceQuery_BpmnProcessInstanceQuery_Process_Resources[] | null;
-}
 
 export interface BpmnProcessInstanceQuery_BpmnProcessInstanceQuery_Owner {
   id: string;
@@ -236,22 +186,12 @@ export interface BpmnProcessInstanceQuery_BpmnProcessInstanceQuery_Tasks_Perform
   name: string;
 }
 
-export interface BpmnProcessInstanceQuery_BpmnProcessInstanceQuery_Tasks_Task_Resources {
-  id: string;
-  type: ResourceType;
-  title: string;
-  content: string;
-}
-
 export interface BpmnProcessInstanceQuery_BpmnProcessInstanceQuery_Tasks_Task {
   id: string;
   name: string;
   type: BpmnTaskType | null;
-  resources: BpmnProcessInstanceQuery_BpmnProcessInstanceQuery_Tasks_Task_Resources[] | null;
-}
-
-export interface BpmnProcessInstanceQuery_BpmnProcessInstanceQuery_Tasks_PerformerRole {
-  name: string;
+  resources: string[];
+  performerRoles: string[];
 }
 
 export interface BpmnProcessInstanceQuery_BpmnProcessInstanceQuery_Tasks {
@@ -262,7 +202,6 @@ export interface BpmnProcessInstanceQuery_BpmnProcessInstanceQuery_Tasks {
   performer: BpmnProcessInstanceQuery_BpmnProcessInstanceQuery_Tasks_Performer | null;
   data: any | null;
   task: BpmnProcessInstanceQuery_BpmnProcessInstanceQuery_Tasks_Task | null;
-  performerRole: BpmnProcessInstanceQuery_BpmnProcessInstanceQuery_Tasks_PerformerRole | null;
 }
 
 export interface BpmnProcessInstanceQuery_BpmnProcessInstanceQuery_Log_Performer {
@@ -289,28 +228,52 @@ export interface BpmnProcessInstanceQuery_BpmnProcessInstanceQuery_Comments {
   date: any;
   replyTo: string | null;
   text: string;
-  user: BpmnProcessInstanceQuery_BpmnProcessInstanceQuery_Comments_User | null;
+  user: BpmnProcessInstanceQuery_BpmnProcessInstanceQuery_Comments_User;
 }
 
 export interface BpmnProcessInstanceQuery_BpmnProcessInstanceQuery {
   id: string;
   status: BpmnProcessInstanceStatus;
-  process: BpmnProcessInstanceQuery_BpmnProcessInstanceQuery_Process | null;
   owner: BpmnProcessInstanceQuery_BpmnProcessInstanceQuery_Owner | null;
-  tasks: BpmnProcessInstanceQuery_BpmnProcessInstanceQuery_Tasks[] | null;
-  log: BpmnProcessInstanceQuery_BpmnProcessInstanceQuery_Log[] | null;
-  comments: BpmnProcessInstanceQuery_BpmnProcessInstanceQuery_Comments[] | null;
+  tasks: BpmnProcessInstanceQuery_BpmnProcessInstanceQuery_Tasks[];
+  log: BpmnProcessInstanceQuery_BpmnProcessInstanceQuery_Log[];
+  comments: BpmnProcessInstanceQuery_BpmnProcessInstanceQuery_Comments[];
   data: string;
   dateStarted: any;
   dateFinished: any | null;
 }
 
+export interface BpmnProcessInstanceQuery_BpmnProcessQuery_Resources_Resource {
+  id: string;
+  type: ResourceType;
+  title: string;
+  content: string | null;
+}
+
+export interface BpmnProcessInstanceQuery_BpmnProcessQuery_Resources {
+  id: string;
+  readRoles: string[] | null;
+  resource: BpmnProcessInstanceQuery_BpmnProcessQuery_Resources_Resource;
+}
+
+export interface BpmnProcessInstanceQuery_BpmnProcessQuery {
+  id: string;
+  name: string;
+  description: string | null;
+  type: string;
+  model: string;
+  schema: any | null;
+  resources: BpmnProcessInstanceQuery_BpmnProcessQuery_Resources[] | null;
+}
+
 export interface BpmnProcessInstanceQuery {
   bpmnProcessInstanceQuery: BpmnProcessInstanceQuery_BpmnProcessInstanceQuery | null;
+  bpmnProcessQuery: BpmnProcessInstanceQuery_BpmnProcessQuery;
 }
 
 export interface BpmnProcessInstanceQueryVariables {
-  id: string;
+  processId: string;
+  processInstanceId: string;
 }
 
 /* tslint:disable */
@@ -335,14 +298,11 @@ export interface BpmnProcessInstancesQuery_BpmnProcessInstancesQuery_Owner {
 export interface BpmnProcessInstancesQuery_BpmnProcessInstancesQuery_Tasks_Task {
   id: string;
   name: string;
+  performerRoles: string[];
 }
 
 export interface BpmnProcessInstancesQuery_BpmnProcessInstancesQuery_Tasks_Performer {
   id: string;
-  name: string;
-}
-
-export interface BpmnProcessInstancesQuery_BpmnProcessInstancesQuery_Tasks_PerformerRole {
   name: string;
 }
 
@@ -352,7 +312,6 @@ export interface BpmnProcessInstancesQuery_BpmnProcessInstancesQuery_Tasks {
   dateFinished: any | null;
   task: BpmnProcessInstancesQuery_BpmnProcessInstancesQuery_Tasks_Task | null;
   performer: BpmnProcessInstancesQuery_BpmnProcessInstancesQuery_Tasks_Performer | null;
-  performerRole: BpmnProcessInstancesQuery_BpmnProcessInstancesQuery_Tasks_PerformerRole | null;
 }
 
 export interface BpmnProcessInstancesQuery_BpmnProcessInstancesQuery {
@@ -360,7 +319,7 @@ export interface BpmnProcessInstancesQuery_BpmnProcessInstancesQuery {
   status: BpmnProcessInstanceStatus;
   process: BpmnProcessInstancesQuery_BpmnProcessInstancesQuery_Process | null;
   owner: BpmnProcessInstancesQuery_BpmnProcessInstancesQuery_Owner | null;
-  tasks: BpmnProcessInstancesQuery_BpmnProcessInstancesQuery_Tasks[] | null;
+  tasks: BpmnProcessInstancesQuery_BpmnProcessInstancesQuery_Tasks[];
   dateStarted: any;
   dateFinished: any | null;
 }
@@ -377,21 +336,50 @@ export interface BpmnProcessInstancesQueryVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: DocumentQuery
+// GraphQL query operation: FormQuery
 // ====================================================
 
-export interface DocumentQuery_DocumentQuery {
-  content: string;
+export interface FormQuery_ProcessResourceQuery {
   id: string;
+  type: ResourceType;
   title: string;
-  version: number;
+  content: string | null;
 }
 
-export interface DocumentQuery {
-  documentQuery: DocumentQuery_DocumentQuery | null;
+export interface FormQuery_BpmnProcessQuery {
+  id: string;
+  schema: any | null;
 }
 
-export interface DocumentQueryVariables {
+export interface FormQuery {
+  processResourceQuery: FormQuery_ProcessResourceQuery | null;
+  bpmnProcessQuery: FormQuery_BpmnProcessQuery;
+}
+
+export interface FormQueryVariables {
+  formId: string;
+  processId: string;
+}
+
+/* tslint:disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: ProcessResourceQuery
+// ====================================================
+
+export interface ProcessResourceQuery_ProcessResourceQuery {
+  id: string;
+  type: ResourceType;
+  title: string;
+  content: string | null;
+}
+
+export interface ProcessResourceQuery {
+  processResourceQuery: ProcessResourceQuery_ProcessResourceQuery | null;
+}
+
+export interface ProcessResourceQueryVariables {
   id: string;
 }
 
@@ -399,14 +387,22 @@ export interface DocumentQueryVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL fragment: Resource
+// GraphQL query operation: ResourceQuery
 // ====================================================
 
-export interface Resource {
+export interface ResourceQuery_ResourceQuery {
   id: string;
   type: ResourceType;
   title: string;
-  content: string;
+  content: string | null;
+}
+
+export interface ResourceQuery {
+  resourceQuery: ResourceQuery_ResourceQuery | null;
+}
+
+export interface ResourceQueryVariables {
+  id: string;
 }
 
 /* tslint:disable */
@@ -419,7 +415,7 @@ export interface Resource {
 export interface Schema {
   id: string;
   name: string;
-  schema: any | null;
+  schema: any;
 }
 
 /* tslint:disable */
@@ -467,15 +463,16 @@ export interface Notifications {
 // ====================================================
 
 export interface BpmnProcessResource_Resource {
+  id: string;
   type: ResourceType;
   title: string;
-  content: string;
+  content: string | null;
 }
 
 export interface BpmnProcessResource {
   id: string;
-  readRole: string | null;
-  resource: BpmnProcessResource_Resource | null;
+  readRoles: string[] | null;
+  resource: BpmnProcessResource_Resource;
 }
 
 /* tslint:disable */
@@ -486,15 +483,16 @@ export interface BpmnProcessResource {
 // ====================================================
 
 export interface BpmnProcessDefinition_Resources_Resource {
+  id: string;
   type: ResourceType;
   title: string;
-  content: string;
+  content: string | null;
 }
 
 export interface BpmnProcessDefinition_Resources {
   id: string;
-  readRole: string | null;
-  resource: BpmnProcessDefinition_Resources_Resource | null;
+  readRoles: string[] | null;
+  resource: BpmnProcessDefinition_Resources_Resource;
 }
 
 export interface BpmnProcessDefinition {
@@ -505,6 +503,21 @@ export interface BpmnProcessDefinition {
   model: string;
   schema: any | null;
   resources: BpmnProcessDefinition_Resources[] | null;
+}
+
+/* tslint:disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL fragment: BpmnProcessItem
+// ====================================================
+
+export interface BpmnProcessItem {
+  actionCount: number;
+  description: string | null;
+  id: string;
+  name: string;
+  type: string;
 }
 
 /* tslint:disable */
@@ -523,7 +536,7 @@ export interface BpmnProcessComment {
   date: any;
   replyTo: string | null;
   text: string;
-  user: BpmnProcessComment_User | null;
+  user: BpmnProcessComment_User;
 }
 
 /* tslint:disable */
@@ -538,22 +551,12 @@ export interface BpmnProcessInstanceTask_Performer {
   name: string;
 }
 
-export interface BpmnProcessInstanceTask_Task_Resources {
-  id: string;
-  type: ResourceType;
-  title: string;
-  content: string;
-}
-
 export interface BpmnProcessInstanceTask_Task {
   id: string;
   name: string;
   type: BpmnTaskType | null;
-  resources: BpmnProcessInstanceTask_Task_Resources[] | null;
-}
-
-export interface BpmnProcessInstanceTask_PerformerRole {
-  name: string;
+  resources: string[];
+  performerRoles: string[];
 }
 
 export interface BpmnProcessInstanceTask {
@@ -564,7 +567,6 @@ export interface BpmnProcessInstanceTask {
   performer: BpmnProcessInstanceTask_Performer | null;
   data: any | null;
   task: BpmnProcessInstanceTask_Task | null;
-  performerRole: BpmnProcessInstanceTask_PerformerRole | null;
 }
 
 /* tslint:disable */
@@ -596,28 +598,6 @@ export interface LogMessage {
 // GraphQL fragment: BpmnProcessInstance
 // ====================================================
 
-export interface BpmnProcessInstance_Process_Resources_Resource {
-  type: ResourceType;
-  title: string;
-  content: string;
-}
-
-export interface BpmnProcessInstance_Process_Resources {
-  id: string;
-  readRole: string | null;
-  resource: BpmnProcessInstance_Process_Resources_Resource | null;
-}
-
-export interface BpmnProcessInstance_Process {
-  id: string;
-  name: string;
-  description: string | null;
-  type: string;
-  model: string;
-  schema: any | null;
-  resources: BpmnProcessInstance_Process_Resources[] | null;
-}
-
 export interface BpmnProcessInstance_Owner {
   id: string;
   name: string;
@@ -628,22 +608,12 @@ export interface BpmnProcessInstance_Tasks_Performer {
   name: string;
 }
 
-export interface BpmnProcessInstance_Tasks_Task_Resources {
-  id: string;
-  type: ResourceType;
-  title: string;
-  content: string;
-}
-
 export interface BpmnProcessInstance_Tasks_Task {
   id: string;
   name: string;
   type: BpmnTaskType | null;
-  resources: BpmnProcessInstance_Tasks_Task_Resources[] | null;
-}
-
-export interface BpmnProcessInstance_Tasks_PerformerRole {
-  name: string;
+  resources: string[];
+  performerRoles: string[];
 }
 
 export interface BpmnProcessInstance_Tasks {
@@ -654,7 +624,6 @@ export interface BpmnProcessInstance_Tasks {
   performer: BpmnProcessInstance_Tasks_Performer | null;
   data: any | null;
   task: BpmnProcessInstance_Tasks_Task | null;
-  performerRole: BpmnProcessInstance_Tasks_PerformerRole | null;
 }
 
 export interface BpmnProcessInstance_Log_Performer {
@@ -681,17 +650,16 @@ export interface BpmnProcessInstance_Comments {
   date: any;
   replyTo: string | null;
   text: string;
-  user: BpmnProcessInstance_Comments_User | null;
+  user: BpmnProcessInstance_Comments_User;
 }
 
 export interface BpmnProcessInstance {
   id: string;
   status: BpmnProcessInstanceStatus;
-  process: BpmnProcessInstance_Process | null;
   owner: BpmnProcessInstance_Owner | null;
-  tasks: BpmnProcessInstance_Tasks[] | null;
-  log: BpmnProcessInstance_Log[] | null;
-  comments: BpmnProcessInstance_Comments[] | null;
+  tasks: BpmnProcessInstance_Tasks[];
+  log: BpmnProcessInstance_Log[];
+  comments: BpmnProcessInstance_Comments[];
   data: string;
   dateStarted: any;
   dateFinished: any | null;
@@ -707,14 +675,11 @@ export interface BpmnProcessInstance {
 export interface BpmnProcessInstanceItemTask_Task {
   id: string;
   name: string;
+  performerRoles: string[];
 }
 
 export interface BpmnProcessInstanceItemTask_Performer {
   id: string;
-  name: string;
-}
-
-export interface BpmnProcessInstanceItemTask_PerformerRole {
   name: string;
 }
 
@@ -724,7 +689,6 @@ export interface BpmnProcessInstanceItemTask {
   dateFinished: any | null;
   task: BpmnProcessInstanceItemTask_Task | null;
   performer: BpmnProcessInstanceItemTask_Performer | null;
-  performerRole: BpmnProcessInstanceItemTask_PerformerRole | null;
 }
 
 /* tslint:disable */
@@ -749,14 +713,11 @@ export interface BpmnProcessInstanceItem_Owner {
 export interface BpmnProcessInstanceItem_Tasks_Task {
   id: string;
   name: string;
+  performerRoles: string[];
 }
 
 export interface BpmnProcessInstanceItem_Tasks_Performer {
   id: string;
-  name: string;
-}
-
-export interface BpmnProcessInstanceItem_Tasks_PerformerRole {
   name: string;
 }
 
@@ -766,7 +727,6 @@ export interface BpmnProcessInstanceItem_Tasks {
   dateFinished: any | null;
   task: BpmnProcessInstanceItem_Tasks_Task | null;
   performer: BpmnProcessInstanceItem_Tasks_Performer | null;
-  performerRole: BpmnProcessInstanceItem_Tasks_PerformerRole | null;
 }
 
 export interface BpmnProcessInstanceItem {
@@ -774,9 +734,23 @@ export interface BpmnProcessInstanceItem {
   status: BpmnProcessInstanceStatus;
   process: BpmnProcessInstanceItem_Process | null;
   owner: BpmnProcessInstanceItem_Owner | null;
-  tasks: BpmnProcessInstanceItem_Tasks[] | null;
+  tasks: BpmnProcessInstanceItem_Tasks[];
   dateStarted: any;
   dateFinished: any | null;
+}
+
+/* tslint:disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL fragment: Resource
+// ====================================================
+
+export interface Resource {
+  id: string;
+  type: ResourceType;
+  title: string;
+  content: string | null;
 }
 
 /* tslint:disable */

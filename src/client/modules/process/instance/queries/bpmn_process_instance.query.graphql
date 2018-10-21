@@ -22,14 +22,9 @@ fragment BpmnProcessInstanceTask on BpmnTaskInstance {
     id
     name
     type
-    resources {
-      id
-      type
-      title
-      content
-    }
+    resources
+    performerRoles
   }
-  performerRole
 }
 
 fragment LogMessage on Log {
@@ -48,14 +43,11 @@ fragment LogMessage on Log {
 fragment BpmnProcessInstance on BpmnProcessInstance {
   id
   status
-  process {
-    ...BpmnProcessDefinition
-  }
   owner {
     id
     name
   }
-  tasks(orderBy: dateFinished_ASC) {
+  tasks {
     ...BpmnProcessInstanceTask
   }
   log {
@@ -69,8 +61,12 @@ fragment BpmnProcessInstance on BpmnProcessInstance {
   dateFinished
 }
 
-query BpmnProcessInstanceQuery($id: String!) {
-  bpmnProcessInstanceQuery(id: $id) {
+query BpmnProcessInstanceQuery($processId: ID!, $processInstanceId: ID!) {
+  bpmnProcessInstanceQuery(id: $processInstanceId) {
     ...BpmnProcessInstance
+  }
+
+  bpmnProcessQuery(id: $processId) {
+    ...BpmnProcessDefinition
   }
 }

@@ -1,6 +1,6 @@
 import { create, its } from 'data/tests';
 import { BpmnProcessModel } from '../../../yoga/models/bpmn_process_model';
-import { mutation, query } from '../process_instance_resolver';
+import { mutation } from '../process_instance_resolver';
 
 describe('BpmnProcess', () => {
   const role = 'User';

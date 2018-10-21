@@ -29,23 +29,23 @@ Object {
 `;
 
 exports[`Dataset creates a root with object representation 1`] = `
-DataSetNode {
+Schema {
   "parent": null,
   "properties": Object {
-    "accountTotal": DataSetNode {
+    "accountTotal": Schema {
       "default": "this.accounts.reduce((p, n) => n.money + p, 0)",
       "parent": [Circular],
       "type": "expression",
     },
-    "accounts": DataSetNode {
-      "items": DataSetNode {
+    "accounts": Schema {
+      "items": Schema {
         "parent": [Circular],
         "properties": Object {
-          "money": DataSetNode {
+          "money": Schema {
             "parent": [Circular],
             "type": "number",
           },
-          "number": DataSetNode {
+          "number": Schema {
             "parent": [Circular],
             "pattern": /\\\\d\\\\d\\\\d-\\\\d\\\\d\\\\d/,
             "type": "string",
@@ -59,16 +59,16 @@ DataSetNode {
       "type": "array",
       "uniqueItems": true,
     },
-    "address": DataSetNode {
+    "address": Schema {
       "parent": [Circular],
       "properties": Object {
-        "number": DataSetNode {
+        "number": Schema {
           "exclusiveMaximum": 1000,
           "exclusiveMinimum": 0,
           "parent": [Circular],
           "type": "number",
         },
-        "street": DataSetNode {
+        "street": Schema {
           "maxLength": 30,
           "minLength": 5,
           "parent": [Circular],
@@ -77,34 +77,34 @@ DataSetNode {
       },
       "type": "object",
     },
-    "age": DataSetNode {
+    "age": Schema {
       "default": 0,
       "maximum": 130,
       "minimum": 0,
       "parent": [Circular],
       "type": "integer",
     },
-    "dateMarried": DataSetNode {
+    "dateMarried": Schema {
       "parent": [Circular],
       "type": "date",
     },
-    "fatherAge": DataSetNode {
+    "fatherAge": Schema {
       "expression": "value > this.age + 18",
       "parent": [Circular],
       "type": "integer",
       "validationMessage": "Father age must be at least 18 years more then your age",
     },
-    "married": DataSetNode {
+    "married": Schema {
       "default": false,
       "parent": [Circular],
       "type": "boolean",
     },
-    "name": DataSetNode {
+    "name": Schema {
       "parent": [Circular],
       "required": true,
       "type": "string",
     },
-    "salary": DataSetNode {
+    "salary": Schema {
       "default": 300,
       "minimum": 0,
       "parent": [Circular],

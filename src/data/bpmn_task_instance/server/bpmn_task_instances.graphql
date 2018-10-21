@@ -1,24 +1,3 @@
-#import BpmnTaskInstance from '../../generated/prisma.graphql'
-
-# ========================================================= #
-#  Types
-# ========================================================= # */
-
-type BpmnTaskInstance {
-  id: ID! @unique
-  dateFinished: DateTime
-  dateStarted: DateTime!
-  duration: Int
-  performerId: ID
-  performer: User @relation(name: "UserTasks")
-  performerRole: ID
-  processInstance: BpmnProcessInstance! @relation(name: "BpmnProcessInstanceTasks")
-  data: Json
-  status: BpmnTaskInstanceStatus!
-  taskId: ID!
-  task: BpmnTask
-}
-
 # ========================================================= #
 #  Queries
 # ========================================================= # */

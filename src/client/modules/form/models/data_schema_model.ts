@@ -2,14 +2,19 @@ import * as validations from './validation';
 
 import { JSONSchema, JSONSchemaType } from 'data/schema/schema';
 import i18n from 'es2015-i18n-tag';
-import { plural, random, safeEval } from './form_utils';
+import { plural, safeEval } from './form_utils';
 
-export class DataSetNode {
+export type ListItem = {
+  text: string;
+  value: string;
+};
+
+export class Schema {
   // store: typeof FormStore.Type;
-  parent: DataSetNode;
+  parent: Schema;
 
-  properties: { [index: string]: DataSetNode };
-  items: DataSetNode;
+  properties: { [index: string]: Schema };
+  items: Schema;
   type: JSONSchemaType;
   minimum: number;
   maximum: number;
@@ -23,13 +28,15 @@ export class DataSetNode {
   pattern: RegExp;
   default: any;
   required: boolean;
+  readOnly: boolean;
   expression: string;
   validationMessage: string;
+  enum: ListItem[];
 
-  constructor(schema: JSONSchema, parent: DataSetNode, required: boolean = false) {
+  constructor(schema: JSONSchema, parent: Schema = null, required: boolean = false) {
     this.parent = parent;
-
     this.init(schema, [
+      'readOnly',
       'type',
       'required',
       'default',
@@ -43,7 +50,8 @@ export class DataSetNode {
       'minItems',
       'maxItems',
       'expression',
-      'validationMessage'
+      'validationMessage',
+      'enum'
     ]);
 
     if (required) {
@@ -57,7 +65,7 @@ export class DataSetNode {
     if (schema.type === 'object') {
       this.properties = {};
       for (let key of Object.getOwnPropertyNames(schema.properties)) {
-        this.properties[key] = new DataSetNode(
+        this.properties[key] = new Schema(
           schema.properties[key] as JSONSchema,
           this,
           schema.required && schema.required.includes(key)
@@ -66,7 +74,7 @@ export class DataSetNode {
     }
 
     if (schema.type === 'array') {
-      this.items = new DataSetNode(schema.items as JSONSchema, this);
+      this.items = new Schema(schema.items as JSONSchema, this);
     }
   }
 
@@ -86,7 +94,7 @@ export class DataSetNode {
   //   return undefined;
   // }
 
-  init<T>(schema: T, keys: Array<keyof DataSetNode>) {
+  init<T>(schema: T, keys: Array<keyof Schema>) {
     for (let key of keys) {
       if ((schema as any)[key] != null) {
         this[key] = (schema as any)[key];
@@ -136,15 +144,15 @@ export class DataSetNode {
       Validations
      ======================================================== */
 
-  validate(value: any, data: any = null): string {
+  validate(value: any, datasetRoot: any = null): string {
     // expression
     let parsed = this.parse(value);
-    if (this.expression && !safeEval(data, this.expression, parsed)) {
+    if (this.expression && !safeEval(datasetRoot, this.expression, parsed)) {
       return this.validationMessage || 'Unexpected value';
     }
 
-    if ((this.required && value == null) || value === '') {
-      return i18n`Value is required`;
+    if (this.required && (value == null || value === '' || value === false)) {
+      return this.validationMessage || i18n`Value is required`;
     }
 
     // types
@@ -160,6 +168,8 @@ export class DataSetNode {
     if (this.type === 'array') {
       return this.isValid(this.arrayValidations(value));
     }
+
+    return undefined;
   }
 
   private numberValidations(value: string) {
@@ -229,19 +239,11 @@ export class DataSetNode {
         this.maxLength
       )}`;
     }
+
+    return undefined;
   }
 
   private isValid(result: string) {
     return result ? this.validationMessage || result : undefined;
-  }
-}
-
-export class DataSet {
-  schema: JSONSchema;
-  root: DataSetNode;
-
-  constructor(schema: JSONSchema) {
-    this.schema = schema;
-    this.root = new DataSetNode(schema, null);
   }
 }

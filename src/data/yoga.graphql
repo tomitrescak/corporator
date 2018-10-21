@@ -1,8 +1,8 @@
 #import * from './generated/prisma.graphql'
 #import Query.*, Mutation.* from './notifications/server/notifications.graphql'
 #import Query.*, Mutation.* from './bpmn_process/server/bpmn_process.graphql'
-#import Query.*, Mutation.* from './bpmn_process_instance/server/bpmn_process_instances.graphql'
-#import Query.*, Mutation.* from './bpmn_task_instance/server/bpmn_task_instances.graphql'
+#import BpmnProcessInstance, Query.*, Mutation.* from './bpmn_process_instance/server/bpmn_process_instances.graphql'
+#import *, Mutation.* from './bpmn_task_instance/server/bpmn_task_instances.graphql'
 #import Query.*, Mutation.* from './users/server/users.graphql'
 #import Query.* from './resources/server/resources.graphql'
 
@@ -13,4 +13,80 @@ type Query {
 type Mutation {
   testMutation: Boolean
   reset: Boolean
+}
+
+# ========================================================= #
+#  Overriden Types
+# ========================================================= #
+
+type BpmnProcessInstance {
+  id: ID!
+  comments: [Comment!]!
+  dateFinished: DateTime
+  dateStarted: DateTime!
+  duration: Int
+  ownerId: ID!
+  owner: User
+  processId: ID!
+  process: BpmnProcess
+  data: String!
+  log: [Log!]!
+  status: BpmnProcessInstanceStatus!
+  tasks: [BpmnTaskInstance!]!
+}
+
+type BpmnTaskInstance {
+  id: ID!
+  dateFinished: DateTime
+  dateStarted: DateTime!
+  duration: Int
+  performerId: ID
+  performer: User
+  processInstance: BpmnProcessInstance!
+  data: Json
+  status: BpmnTaskInstanceStatus!
+  taskId: ID!
+  task: BpmnTask
+}
+
+type Comment {
+  id: ID!
+  text: String!
+  userId: ID!
+  user: User!
+  date: DateTime!
+  replyTo: ID
+}
+
+type Log {
+  id: ID!
+  elementId: String!
+  elementName: String!
+  date: DateTime!
+  taskInstanceId: ID
+  performerId: ID
+  performer: User
+  status: BpmnTaskInstanceStatus
+  message: String
+}
+
+type Notification {
+  type: NotificationType!
+  id: ID!
+  userId: ID!
+  user: User
+  createdAt: DateTime!
+  code: NotificationCode!
+  text: String
+  processInstanceId: ID!
+  processInstance: BpmnProcessInstance
+  params: String
+  visible: Boolean!
+}
+
+type ProcessResource {
+  id: ID!
+  resourceId: ID!
+  resource: Resource!
+  readRoles: [String!]
 }

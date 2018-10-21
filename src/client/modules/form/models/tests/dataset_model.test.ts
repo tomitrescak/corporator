@@ -1,9 +1,10 @@
 import { JSONSchema } from 'data/schema/schema';
-import { DataSet } from '../dataset_model';
+import { autorun } from 'mobx';
+import { Schema } from '../data_schema_model';
 import { buildStore } from '../mst_builder';
 
 describe('Dataset', () => {
-  let schema: JSONSchema = {
+  let jsonSchema: JSONSchema = {
     type: 'object',
     properties: {
       name: {
@@ -73,14 +74,10 @@ describe('Dataset', () => {
     required: ['name']
   };
 
-  let dataset = new DataSet(schema);
-
-  it('creates a new instance', () => {
-    expect(dataset.schema).toBe(schema);
-  });
+  let schema = new Schema(jsonSchema);
 
   it('creates a root with object representation', () => {
-    expect(dataset.root).toMatchSnapshot();
+    expect(schema).toMatchSnapshot();
   });
 
   it('validates value', () => {
@@ -103,17 +100,17 @@ describe('Dataset', () => {
 
     // expression
 
-    expect(dataset.root.properties.age.validate(10)).toBeUndefined();
+    expect(schema.properties.age.validate(10)).toBeUndefined();
   });
 
   it('creates a default value', () => {
-    expect(dataset.root.defaultValue()).toMatchSnapshot();
+    expect(schema.defaultValue()).toMatchSnapshot();
 
-    expect(dataset.root.properties.accounts.items.defaultValue()).toMatchSnapshot();
+    expect(schema.properties.accounts.items.defaultValue()).toMatchSnapshot();
   });
 
   it('creates a new mst and validates values', () => {
-    const mst = buildStore(dataset.root);
+    const mst = buildStore(schema);
     const data = mst.create({});
     let error = '';
     // check conversion
@@ -299,7 +296,7 @@ describe('Dataset', () => {
   });
 
   it('creates mst with values', () => {
-    const mst = buildStore(dataset.root);
+    const mst = buildStore(schema);
     const data = mst.create({
       age: 50,
       name: 'Tomas',
@@ -318,17 +315,26 @@ describe('Dataset', () => {
   });
 
   it('creates mst with default values', () => {
-    const mst = buildStore(dataset.root);
+    const mst = buildStore(schema);
     const defaultData = mst.create({});
     expect(defaultData.toJS()).toMatchSnapshot();
   });
 
   it('allows to use expressions', () => {
-    const mst = buildStore(dataset.root);
+    const mst = buildStore(schema);
     const defaultData = mst.create({
       accounts: [{ number: '1', money: 1 }, { number: '2', money: 2 }, { number: '3', money: 3 }]
     });
 
     expect(defaultData.getValue('accountTotal')).toBe(6);
+
+    let finalAccount = 0;
+    autorun(() => {
+      finalAccount = defaultData.getValue('accountTotal');
+    });
+
+    // check computed fields
+    defaultData.getValue('accounts')[0].setValue('money', 10);
+    expect(finalAccount).toEqual(15);
   });
 });

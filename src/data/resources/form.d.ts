@@ -30,7 +30,7 @@ interface FormElement {
   filterSource?: string;
   filterColumn?: string;
   control?: FormControl;
-  controlProps?: { [index: string]: string };
+  controlProps?: { [index: string]: any };
   vertical?: boolean;
   elements: FormElement[];
 }

@@ -15,7 +15,7 @@ const FormRadio = styled(Radio)`
 export class RadioView extends React.Component<FormControlProps> {
   handleToggleChange = (_e: React.ChangeEvent<HTMLInputElement>, control: HTMLInputElement) => {
     // find value
-    this.props.owner.parseValue(this.props.formControl.source.name, control.value);
+    this.props.owner.setValue(this.props.formControl.source, control.value);
   };
 
   render() {
@@ -23,7 +23,7 @@ export class RadioView extends React.Component<FormControlProps> {
       formControl: { source, controlProps, list, vertical },
       owner
     } = this.props;
-    const radioValues = owner.getList(list);
+    const radioValues = owner.getSchema(list).enum;
 
     return (
       <>
@@ -31,10 +31,10 @@ export class RadioView extends React.Component<FormControlProps> {
           <React.Fragment key={item.value}>
             <FormRadio
               {...controlProps}
-              name={source.name}
+              name={source}
               label={item.text}
               value={item.value}
-              checked={owner.getValue(source.name) === item.value}
+              checked={owner.getValue(source) === item.value}
               onChange={this.handleToggleChange}
             />
             <If condition={vertical}>

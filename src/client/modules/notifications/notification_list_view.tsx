@@ -21,7 +21,7 @@ export const NotificationsListView: React.SFC<Props> = ({ notifications, context
           <Header content="Notifications" icon="bell" as="h5" dividing />
           <List relaxed divided>
             <TransitionGroup
-              component={React.Fragment}
+              component={React.Fragment as any}
               transitionName="example"
               transitionAppear={true}
               transitionAppearTimeout={500}

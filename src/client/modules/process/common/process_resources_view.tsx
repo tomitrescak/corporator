@@ -42,10 +42,10 @@ export class ProcessResources extends React.Component<Props> {
 
   createUrl(r: QueryTypes.BpmnProcessResource, id: String) {
     return this.props.processInstance
-      ? `/process/${this.props.process.name.url()}/view/${r.type.toLowerCase()}/${r.name.url()}/${
-          this.props.processInstance.id
-        }/${id}`
-      : `/process/${this.props.process.name.url()}/preview/${r.type.toLowerCase()}/${r.name.url()}/${
+      ? `/process/${this.props.process.name.url()}/view/${r.resource.type.toLowerCase()}/${r.resource.title.url()}/${
+          this.props.process.id
+        }/${this.props.processInstance.id}/${id}`
+      : `/process/${this.props.process.name.url()}/preview/${r.resource.type.toLowerCase()}/${r.resource.title.url()}/${
           this.props.process.id
         }/${id}`;
   }
@@ -53,10 +53,12 @@ export class ProcessResources extends React.Component<Props> {
   render() {
     const { process, filter } = this.props;
 
-    const forms = process.resources.filter(r => r.type === QueryTypes.ResourceType.Form);
-    const documents = process.resources.filter(r => r.type === QueryTypes.ResourceType.Document);
-    const files = process.resources.filter(r => r.type === QueryTypes.ResourceType.File);
-    const links = process.resources.filter(r => r.type === QueryTypes.ResourceType.Url);
+    const forms = process.resources.filter(r => r.resource.type === QueryTypes.ResourceType.Form);
+    const documents = process.resources.filter(
+      r => r.resource.type === QueryTypes.ResourceType.Document
+    );
+    const files = process.resources.filter(r => r.resource.type === QueryTypes.ResourceType.File);
+    const links = process.resources.filter(r => r.resource.type === QueryTypes.ResourceType.Url);
 
     return (
       <>
@@ -77,10 +79,10 @@ export class ProcessResources extends React.Component<Props> {
                   {forms.map(r => (
                     <List.Item
                       as={Link}
-                      to={this.createUrl(r, (r.form || { id: 'error' }).id)}
+                      to={this.createUrl(r, (r || { id: 'error' }).id)}
                       key={r.id}
                       icon="wordpress forms"
-                      content={r.name}
+                      content={r.resource.title}
                       // onClick={() => this.setState({ activeResource: r })}
                     />
                   ))}
@@ -101,10 +103,10 @@ export class ProcessResources extends React.Component<Props> {
                   {documents.map(r => (
                     <List.Item
                       as={Link}
-                      to={this.createUrl(r, r.document.id)}
+                      to={this.createUrl(r, r.id)}
                       key={r.id}
                       icon="file"
-                      content={r.name}
+                      content={r.resource.title}
                       onClick={() => this.setState({ activeResource: r })}
                     />
                   ))}
@@ -124,8 +126,8 @@ export class ProcessResources extends React.Component<Props> {
                       target="_blank"
                       key={r.id}
                       icon="file alternate"
-                      content={r.name}
-                      to={`/files/${process.id}/${r.link}`}
+                      content={r.resource.title}
+                      to={`/files/${process.id}/${r.resource.content}`}
                     />
                   ))}
                 </List.List>
@@ -144,8 +146,8 @@ export class ProcessResources extends React.Component<Props> {
                       target="_blank"
                       key={r.id}
                       icon="linkify"
-                      content={r.name}
-                      href={r.link}
+                      content={r.resource.title}
+                      href={r.resource.content}
                     />
                   ))}
                 </List.List>

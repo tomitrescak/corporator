@@ -18,7 +18,6 @@ import {
   Task,
   UserTask
 } from 'data/yoga/models/bpmn';
-import { Access } from './access_model';
 
 import BpmnModdle from 'bpmn-moddle';
 

@@ -1,25 +1,3 @@
-#import BpmnProcessInstance, BpmnProcessInstanceStatus from '../../generated/prisma.graphql'
-
-# ========================================================= #
-#  Types
-# ========================================================= # */
-
-type BpmnProcessInstance {
-  id: ID! @unique
-  comments: [Comment!]!
-  dateFinished: DateTime
-  dateStarted: DateTime!
-  duration: Int
-  ownerId: ID!
-  owner: User @relation(name: "UserProcesses")
-  processId: ID!
-  process: BpmnProcess @relation(name: "BpmnProcessInstanceProcess")
-  data: String!
-  log: [Log!]! @relation(name: "BpmnProcessInstanceLog", onDelete: CASCADE)
-  status: BpmnProcessInstanceStatus!
-  tasks: [BpmnTaskInstance!]! @relation(name: "BpmnProcessInstanceTasks", onDelete: CASCADE)
-}
-
 # ========================================================= #
 #  Queries
 # ========================================================= # */
@@ -37,7 +15,7 @@ input BpmnProcessInstancesInput {
 
 type Query {
   bpmnProcessInstancesQuery(input: BpmnProcessInstancesInput!): [BpmnProcessInstance]!
-  bpmnProcessInstanceQuery(id: String!): BpmnProcessInstance
+  bpmnProcessInstanceQuery(id: ID!): BpmnProcessInstance
 }
 
 # ========================================================= #

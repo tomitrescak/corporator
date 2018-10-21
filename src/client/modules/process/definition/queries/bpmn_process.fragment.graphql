@@ -1,7 +1,8 @@
 fragment BpmnProcessResource on ProcessResource {
   id
-  readRole
+  readRoles
   resource {
+    id
     type
     title
     content

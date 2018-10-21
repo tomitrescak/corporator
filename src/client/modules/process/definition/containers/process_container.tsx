@@ -44,19 +44,19 @@ type Props = {
   match: {
     params: {
       contentType?: ProcessViewType;
-      sourceId?: string;
+      processId?: string;
       resourceId?: string;
     };
   };
 };
 
 export const ProcessContainer: React.SFC<Props> = inject('context')(({ context, match }: Props) => (
-  <ProcessQuery variables={{ id: match.params.sourceId }}>
+  <ProcessQuery variables={{ id: match.params.processId }}>
     {result => {
       // console.log(result.data.processes)
       return renderResult(result, () => (
         <ProcessView
-          process={result.data.process}
+          process={result.data.bpmnProcessQuery}
           context={context}
           view={match.params.contentType}
           resourceId={match.params.resourceId}

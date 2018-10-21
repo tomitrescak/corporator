@@ -1,7 +1,6 @@
 import { JSONSchema } from 'data/schema/schema';
-import { Instance } from 'mobx-state-tree';
-import { DataSet } from './dataset_model';
-import { FormStore, IFormStore, ValidationResult } from './form_store';
+import { Schema } from './data_schema_model';
+import { DataSet, ValidationResult } from './form_store';
 import { buildStore } from './mst_builder';
 
 export interface IFormElementOwner {
@@ -10,7 +9,7 @@ export interface IFormElementOwner {
 
 export type FormControlProps = {
   formControl: FormElement;
-  owner: IFormStore;
+  owner: DataSet;
 };
 
 function formItemSort(a: FormElement, b: FormElement) {
@@ -30,24 +29,28 @@ function formItemSort(a: FormElement, b: FormElement) {
    ======================================================== */
 
 export class FormModel {
-  store: Instance<typeof FormStore>;
+  dataSet: DataSet;
   name: string;
   description: string;
   elements: FormElement[];
 
-  constructor(form: Form, schema: JSONSchema) {
+  constructor(form: Form, jsonSchema: JSONSchema, data: any) {
     this.name = form.name;
     this.description = form.description;
+    this.elements = form.elements;
 
     // sort elements by row and column
+
     this.elements.sort(formItemSort);
 
     // create dataset
-    const dataset = new DataSet(schema);
-    this.store = buildStore(dataset.root);
+    if (jsonSchema) {
+      const schema = new Schema(jsonSchema);
+      this.dataSet = buildStore(schema).create(data);
+    }
   }
 
-  validateWithReport(root: IFormElementOwner = this, owner = this.store): ValidationResult {
+  validateWithReport(root: IFormElementOwner = this, owner = this.dataSet): ValidationResult {
     let total = 0;
     let valid = 0;
 

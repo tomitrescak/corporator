@@ -1,14 +1,16 @@
 import * as React from 'react';
 
-import * as FORM_QUERY_NO_FRAGMENT from 'client/modules/form/queries/form_query.graphql';
+import * as FORM_QUERY_NO_FRAGMENT from 'client/modules/resources/queries/form_query.graphql';
+import * as RESOURCE_FRAGMENT from 'client/modules/resources/queries/resource_fragment.graphql';
 
 import { observer } from 'mobx-react';
 import { Query } from 'react-apollo';
 import styled from 'styled-components';
 
 import { renderResult } from 'client/modules/common';
-import { DataSet, FormModel, undoManager } from 'client/modules/form/models/form_model';
-import { FormView, IFieldOwner } from 'client/modules/form/views/form_view';
+import { FormModel } from 'client/modules/form/models/form_model';
+import { undoManager } from 'client/modules/form/models/undo_manager';
+import { FormView } from 'client/modules/form/views/form_view';
 import { gql, QueryTypes } from 'data/client';
 import { Breadcrumb, Button, Grid, Header, Icon, Segment } from 'semantic-ui-react';
 import { EditableViewType, ProcessViewType } from '../../common/process_styles';
@@ -16,6 +18,7 @@ import { TabBreadcrumbs } from './tab_breadcrumbs';
 
 export const FORM_QUERY = gql`
   ${FORM_QUERY_NO_FRAGMENT}
+  ${RESOURCE_FRAGMENT}
 `;
 
 const FieldSet = styled.fieldset`
@@ -78,6 +81,7 @@ class FormQuery extends Query<QueryTypes.FormQuery, QueryTypes.FormQueryVariable
 type Props = {
   process: QueryTypes.BpmnProcessDefinition;
   processInstance?: QueryTypes.BpmnProcessInstance;
+  taskInstanceId: string;
   contentType: ProcessViewType;
   context: App.Context;
   viewType: EditableViewType;
@@ -86,41 +90,39 @@ type Props = {
 };
 
 export class TabFormView extends React.Component<Props> {
-  data: DataSet;
+  form: FormModel;
 
   save = () => {
-    if (this.data) {
-      this.data.validate();
+    if (this.form) {
+      this.form.validateWithReport();
     }
   };
 
   render() {
     const props = this.props;
     const previewOnly = props.viewType === 'preview';
+    const data = props.processInstance
+      ? props.processInstance.tasks.find(t => t.id === props.taskInstanceId).data
+      : {};
 
     return (
       <FormQuery variables={{ formId: props.id, processId: props.process.id }}>
         {result =>
           renderResult(result, () => {
-            let form = new FormModel(result.data.formQuery);
-            this.data = FormModel.buildMstModel(
-              result.data.process.dataDescriptors,
-              this.props.processInstance ? this.props.processInstance.data : {},
-              [],
-              previewOnly
+            let formModel = JSON.parse(result.data.processResourceQuery.content);
+            this.form = new FormModel(
+              formModel,
+              result.data.bpmnProcessQuery.schema,
+              this.props.processInstance.data
             );
 
             return (
               <>
-                <FormViewHeader
-                  {...props}
-                  handlers={{ save: this.save }}
-                  form={result.data.formQuery}
-                />
+                <FormViewHeader {...props} handlers={{ save: this.save }} form={this.form} />
                 <FormViewContent
-                  form={form}
+                  form={this.form}
                   context={props.context}
-                  data={this.data}
+                  data={data}
                   previewOnly={previewOnly}
                 />
               </>
@@ -136,7 +138,7 @@ type HeaderProps = Props & {
   handlers: {
     save: () => void;
   };
-  form: QueryTypes.Form;
+  form: Form;
 };
 
 export class FormViewHeader extends React.Component<HeaderProps> {
@@ -236,8 +238,7 @@ export class FormViewHeader extends React.Component<HeaderProps> {
 
 type ContentProps = {
   context: App.Context;
-  form: IFieldOwner & { description: string };
-  data: DataSet;
+  form: FormModel;
   previewOnly: boolean;
 };
 
@@ -250,7 +251,7 @@ export class FormViewContent extends React.Component<ContentProps> {
       <Grid>
         <Grid.Column width={props.context.store.instructions ? 8 : 16}>
           <FieldSet disabled={props.previewOnly} aria-disabled={props.previewOnly}>
-            <FormView formControl={props.form} owner={props.data} />
+            <FormView formControl={props.form} owner={props.form.dataSet} />
           </FieldSet>
         </Grid.Column>
         <If condition={props.context.store.instructions}>

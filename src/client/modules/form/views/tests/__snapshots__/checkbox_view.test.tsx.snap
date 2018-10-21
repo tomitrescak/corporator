@@ -114,11 +114,13 @@ exports[`Form Checkbox changes value and all related formulas 1`] = `
               Must Agree With Terms and Conditions
             </label>
           </div>
-          <div
-            className="ui red pointing label"
-            onClick={[Function]}
-          >
-            You must agree to terms and conditions
+          <div>
+            <div
+              className="ui red pointing label"
+              onClick={[Function]}
+            >
+              You must agree to terms and conditions
+            </div>
           </div>
         </div>
       </div>
@@ -241,11 +243,13 @@ exports[`Form Checkbox renders correctly 1`] = `
               Must Agree With Terms and Conditions
             </label>
           </div>
-          <div
-            className="ui red pointing label"
-            onClick={[Function]}
-          >
-            You must agree to terms and conditions
+          <div>
+            <div
+              className="ui red pointing label"
+              onClick={[Function]}
+            >
+              You must agree to terms and conditions
+            </div>
           </div>
         </div>
       </div>
@@ -368,11 +372,13 @@ exports[`Form Checkbox renders other 1`] = `
               Must Agree With Terms and Conditions
             </label>
           </div>
-          <div
-            className="ui red pointing label"
-            onClick={[Function]}
-          >
-            You must agree to terms and conditions
+          <div>
+            <div
+              className="ui red pointing label"
+              onClick={[Function]}
+            >
+              You must agree to terms and conditions
+            </div>
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import * as PROCESS_FRAGMENT from '../../definition/queries/bpmn_process.fragment.graphql';
-import * as PROCESS_INSTANCE_QUERY from '../queries/bpmn_process_instance_query.graphql';
+import * as PROCESS_INSTANCE_QUERY from '../queries/bpmn_process_instance.query.graphql';
 import * as PROCESS_INSTANCE_LIST_QUERY from '../queries/bpmn_process_instances_query.graphql';
 
 import { Query, QueryProps } from 'react-apollo';

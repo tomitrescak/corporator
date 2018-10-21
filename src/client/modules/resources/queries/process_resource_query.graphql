@@ -1,0 +1,5 @@
+query ProcessResourceQuery($id: ID!) {
+  processResourceQuery(id: $id) {
+    ...Resource
+  }
+}

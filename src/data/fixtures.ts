@@ -64,16 +64,18 @@ async function insertFixtures() {
   // tslint:disable-next-line:no-console
   console.log('Creating role');
   const userRole = await create.roleMutation({
-    name: 'User'
+    name: 'User',
+    roleId: 'user'
   });
   const buyerRole = await create.roleMutation({
-    name: 'Buyer'
+    name: 'Buyer',
+    roleId: 'user'
   });
 
   // tslint:disable-next-line:no-console
   console.log('Creating user ...');
   const user = createUser
-    ? await create.userMutation({ roles: { connect: { id: userRole.id } } })
+    ? await create.userMutation({ roles: { set: [userRole.roleId] } })
     : (await db.query.users({}))[0];
 
   // create other user
@@ -81,7 +83,7 @@ async function insertFixtures() {
     ? await create.userMutation({
         name: 'Other User',
         uid: '30001234',
-        roles: { connect: { id: buyerRole.id } }
+        roles: { set: [buyerRole.roleId] }
       })
     : (await db.query.users({}))[0];
 
@@ -129,9 +131,11 @@ async function insertFixtures() {
     },
     properties: {
       name: {
+        type: 'object',
         $ref: '#/definitions/name'
       },
       age: {
+        type: 'object',
         $ref: '#/definitions/age'
       },
       children: {
@@ -294,22 +298,14 @@ async function insertFixtures() {
   const formTask = await create.bpmnTaskMutation({
     name: 'Form Task',
     taskId: 'Task_14qe8bh',
-    resources: {
-      connect: {
-        id: formResource.id
-      }
-    },
+    resources: { set: [formResource.id] },
     type: 'Form'
   });
 
   const reportTask = await create.bpmnTaskMutation({
     name: 'Report Task',
     taskId: 'Task_0f1st02',
-    resources: {
-      connect: {
-        id: reportResource.id
-      }
-    },
+    resources: { set: [reportResource.id] },
     type: 'Form'
   });
 
@@ -382,8 +378,8 @@ async function insertFixtures() {
 
   const processInstanceDefinitions: Prisma.BpmnProcessInstanceCreateInput[] = [
     create.bpmnProcessInstance({
-      process: { connect: { id: processes[0].id } },
-      owner: { connect: { id: user.id } },
+      processId: processes[0].id,
+      ownerId: user.id,
       data: JSON.stringify({
         'owner.personal.name': 'Tomas',
         'owner.personal.age': 0,
@@ -410,9 +406,7 @@ async function insertFixtures() {
           create.log({
             date: create.date(3),
             elementId: 'Task_17t05yl',
-            performer: {
-              connect: { id: otherUser.id }
-            },
+            performerId: otherUser.id,
             status: 'Approved',
             elementName: 'Approve Report',
             message: 'Everything went well. Bravo!'
@@ -429,27 +423,27 @@ async function insertFixtures() {
       }
     }),
     create.bpmnProcessInstance({
-      process: { connect: { id: processes[1].id } },
+      processId: processes[1].id,
       data: '{}',
-      owner: { connect: { id: user.id } },
+      ownerId: user.id,
       status: 'Running',
       dateStarted
     }),
     create.bpmnProcessInstance({
-      process: { connect: { id: processes[0].id } },
-      owner: { connect: { id: user.id } },
+      processId: processes[0].id,
+      ownerId: user.id,
       status: 'Finished',
       dateFinished
     }),
     create.bpmnProcessInstance({
-      process: { connect: { id: processes[0].id } },
-      owner: { connect: { id: user.id } },
+      processId: processes[0].id,
+      ownerId: user.id,
       status: 'Aborted',
       dateFinished
     }),
     create.bpmnProcessInstance({
-      process: { connect: { id: processes[1].id } },
-      owner: { connect: { id: user.id } },
+      processId: processes[1].id,
+      ownerId: user.id,
       status: 'Finished',
       dateFinished
     })
@@ -477,35 +471,30 @@ async function insertFixtures() {
             { dateStarted: create.date(4), dateFinished: create.date(5), status: 'Paused' },
             pid,
             genericTask.id,
-            userRole.id,
             otherUser.id
           ),
           create.bpmnTaskInstance(
             { dateStarted: create.date(2), dateFinished: create.date(3), status: 'Aborted' },
             pid,
             genericTask.id,
-            userRole.id,
             user.id
           ),
           create.bpmnTaskInstance(
             { dateStarted: create.date(0), dateFinished: create.date(1), status: 'Finished' },
             pid,
             formTask.id,
-            userRole.id,
             user.id
           ),
           create.bpmnTaskInstance(
             { dateStarted: create.date(5), dateFinished: create.date(6), status: 'Approved' },
             pid,
             genericTask.id,
-            userRole.id,
             otherUser.id
           ),
           create.bpmnTaskInstance(
             { dateStarted: create.date(8), dateFinished: create.date(9), status: 'Rejected' },
             pid,
             genericTask.id,
-            userRole.id,
             otherUser.id
           ),
           create.bpmnTaskInstance({ dateStarted: create.date(12) }, pid, formTask.id, userRole.id)
@@ -528,7 +517,7 @@ async function insertFixtures() {
   const notifications: Prisma.NotificationCreateInput[] = [
     create.notification({
       userId: user.id,
-      processInstance: { connect: { id: processInstances[0].id } },
+      processInstanceId: processInstances[0].id,
       visible: true,
       code: 'ProcessStarted',
       params: 'Process Name',
@@ -536,7 +525,7 @@ async function insertFixtures() {
     }),
     create.notification({
       userId: user.id,
-      processInstance: { connect: { id: processInstances[0].id } },
+      processInstanceId: processInstances[0].id,
       visible: true,
       code: 'ProcessFinished',
       params: 'Process Name',
@@ -544,7 +533,7 @@ async function insertFixtures() {
     }),
     create.notification({
       userId: user.id,
-      processInstance: { connect: { id: processInstances[0].id } },
+      processInstanceId: processInstances[0].id,
       visible: true,
       code: 'ProcessAborted',
       params: 'Process Name',
@@ -552,7 +541,7 @@ async function insertFixtures() {
     }),
     create.notification({
       userId: user.id,
-      processInstance: { connect: { id: processInstances[0].id } },
+      processInstanceId: processInstances[0].id,
       visible: true,
       code: 'ActionStarted',
       params: 'Action Name|Process Name',
@@ -560,7 +549,7 @@ async function insertFixtures() {
     }),
     create.notification({
       userId: user.id,
-      processInstance: { connect: { id: processInstances[0].id } },
+      processInstanceId: processInstances[0].id,
       visible: true,
       code: 'ActionFinished',
       params: 'Tomas Trescak|Action Name|Process Name',
@@ -568,7 +557,7 @@ async function insertFixtures() {
     }),
     create.notification({
       userId: user.id,
-      processInstance: { connect: { id: processInstances[0].id } },
+      processInstanceId: processInstances[0].id,
       visible: true,
       code: 'ActionRequired',
       params: 'Action Name|Process Name|Tomas Trescak',
@@ -576,7 +565,7 @@ async function insertFixtures() {
     }),
     create.notification({
       userId: user.id,
-      processInstance: { connect: { id: processInstances[0].id } },
+      processInstanceId: processInstances[0].id,
       visible: true,
       code: 'ActionAborted',
       params: 'Tomas Trescak|Action Name|Process Name|Reason',

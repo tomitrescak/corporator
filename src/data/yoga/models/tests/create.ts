@@ -22,7 +22,7 @@ export const create = {
       name: data.name,
       uid: data.uid,
       password: data.password,
-      roles: { create: data.roles.map(r => ({ name: r.name })) }
+      roles: { set: data.roles }
     };
     return ctx.db.mutation.createUser({
       data: merge(defaultUser, input)

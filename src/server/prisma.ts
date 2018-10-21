@@ -40,7 +40,7 @@ let db: Prisma.Prisma = new Prisma.Prisma({
 });
 
 export const i18n = {
-  EN: new Localisation(() => db, 'EN')
+  EN: new Localisation(db, 'EN')
 };
 
 /* =========================================================

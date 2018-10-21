@@ -6,8 +6,9 @@ import { Form, SemanticWIDTHSNUMBER } from 'semantic-ui-react';
 
 import { groupByArray } from 'data/helpers';
 
+import { editorStore } from 'client/stores/editor_store';
 import { renderControl } from '../models/form_control_factory';
-import { DataSet, FormElement } from '../models/form_model';
+import { DataSet } from '../models/form_store';
 
 export interface IFieldOwner {
   elements?: FormElement[];
@@ -19,9 +20,9 @@ interface Props {
   handlers?: { [index: string]: () => void };
 }
 
-const Blocker = observer(({ owner }) => (
+const Blocker = observer(() => (
   <Prompt
-    when={owner.dirty}
+    when={editorStore.dirty}
     message={location => `Are you sure you want to go to ${location.pathname}`}
   />
 ));
@@ -64,7 +65,7 @@ export class FormView extends React.Component<Props> {
         {formControl.label &&
           formControl.control !== 'Checkbox' &&
           formControl.label !== 'Radio' && (
-            <label htmlFor={(formControl.source && formControl.source.name) || undefined}>
+            <label htmlFor={(formControl.source && formControl.source) || undefined}>
               {formControl.label}
             </label>
           )}
@@ -84,7 +85,7 @@ export class FormView extends React.Component<Props> {
 
     return (
       <div className="ui form" style={{ maxWidth: '1000px' }}>
-        <Blocker owner={this.props.owner} />
+        <Blocker />
         {rows.map(row => (
           <Form.Group key={row.key}>
             {row.values.map(element => this.renderColumn(element))}

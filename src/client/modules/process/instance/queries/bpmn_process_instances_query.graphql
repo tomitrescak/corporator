@@ -5,12 +5,10 @@ fragment BpmnProcessInstanceItemTask on BpmnTaskInstance {
   task {
     id
     name
+    performerRoles
   }
   performer {
     id
-    name
-  }
-  performerRole {
     name
   }
 }

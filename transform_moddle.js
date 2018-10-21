@@ -19,7 +19,7 @@ function transformFiles(workPath) {
     if (path.extname(file) === '.js') {
       const content = fs.readFileSync(filePath, { encoding: 'utf-8' });
       const result = require('babel-core').transform(content, {
-        plugins: ['transform-es2015-modules-commonjs']
+        plugins: ['transform-es2015-modules-commonjs', 'transform-object-rest-spread']
       });
       // console.log(result.code);
       // const transformed = transform(content);
@@ -28,7 +28,14 @@ function transformFiles(workPath) {
   }
 }
 
-const dirs = ['moddle', 'moddle-xml', 'bpmn-moddle', 'bpmn-js', 'diagram-js'];
+const dirs = [
+  'moddle',
+  'moddle-xml',
+  'bpmn-moddle',
+  'bpmn-js',
+  'diagram-js',
+  'jest-styled-components'
+];
 
 for (let dir of dirs) {
   const workPath = __dirname + '/node_modules/' + dir;

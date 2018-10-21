@@ -2,8 +2,8 @@
 
 import { GraphQLResolveInfo } from 'graphql';
 
-import { Prisma } from 'data/generated/prisma';
-import { Mutation as PrismaMutation, Query as PrismaQuery, User } from 'data/generated/yoga';
+import { Prisma, User } from 'data/generated/prisma';
+import { Mutation as PrismaMutation, Query as PrismaQuery } from 'data/generated/yoga';
 import { CacheType } from 'server/cache';
 import { Localisation } from '../localisations/server/localisation_resolver';
 

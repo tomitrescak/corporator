@@ -10,7 +10,7 @@ type Resource {
   resourceId: ID!
   type: ResourceType!
   title: String!
-  content: String!
+  content: String
   version: Int!
   publicationStatus: PublicationStatus!
 
@@ -30,5 +30,5 @@ type ProcessResource {
 
   # Access
 
-  readRole: String
+  readRoles: [String!]
 }

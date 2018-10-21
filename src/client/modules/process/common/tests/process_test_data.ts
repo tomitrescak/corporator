@@ -1,7 +1,6 @@
 import { QueryTypes } from 'data/client';
 
 import { create } from 'client/tests';
-import { student_purchase } from './process_definitions';
 
 /* =========================================================
     Resources
@@ -10,43 +9,53 @@ import { student_purchase } from './process_definitions';
 const resources: QueryTypes.BpmnProcessResource[] = [
   {
     id: '1',
-    type: QueryTypes.ResourceType.Form,
-    name: 'Approval Form',
-    link: null,
-    form: { id: '1' },
-    document: null
+    readRoles: [],
+    resource: {
+      id: '1',
+      type: QueryTypes.ResourceType.Form,
+      title: 'Approval Form',
+      content: null
+    }
   },
   {
     id: '2',
-    type: QueryTypes.ResourceType.Form,
-    name: 'Approval Report',
-    link: null,
-    form: { id: '1' },
-    document: null
+    readRoles: [],
+    resource: {
+      id: '2',
+      type: QueryTypes.ResourceType.Form,
+      title: 'Approval Report',
+      content: null
+    }
   },
   {
     id: '3',
-    type: QueryTypes.ResourceType.File,
-    name: 'Excel File',
-    link: '/uploads/file.doc',
-    form: null,
-    document: null
+    readRoles: [],
+    resource: {
+      id: '3',
+      type: QueryTypes.ResourceType.File,
+      title: 'Excel File',
+      content: '/uploads/file.doc'
+    }
   },
   {
     id: '4',
-    type: QueryTypes.ResourceType.Url,
-    name: 'External Resource',
-    link: 'http://google.com',
-    form: null,
-    document: null
+    readRoles: [],
+    resource: {
+      id: '4',
+      type: QueryTypes.ResourceType.Url,
+      title: 'External Resource',
+      content: 'http://google.com'
+    }
   },
   {
     id: '5',
-    type: QueryTypes.ResourceType.Document,
-    name: 'Guidelines',
-    link: null,
-    form: null,
-    document: { id: '1' }
+    readRoles: [],
+    resource: {
+      id: '5',
+      type: QueryTypes.ResourceType.Document,
+      title: 'Guidelines',
+      content: null
+    }
   }
 ];
 
@@ -54,30 +63,30 @@ const resources: QueryTypes.BpmnProcessResource[] = [
     BpmnProcess
    ======================================================== */
 
-export function createProcessItem(process: Partial<QueryTypes.ProcessesQuery_Processes> = {}) {
+export function createProcessItem(process: Partial<QueryTypes.BpmnProcessItem> = {}) {
   return {
     id: '1',
     name: 'Process',
     description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`,
     actionCount: 4,
-    type: QueryTypes.ProcessType.Travel,
+    type: 'Travel',
     ...process
   };
 }
 
-export function createProcesses(): QueryTypes.ProcessesQuery_Processes[] {
+export function createProcesses(): QueryTypes.BpmnProcessItem[] {
   return [
     createProcessItem({ id: '1', name: 'Travel Process' }),
     createProcessItem({
       id: '2',
       name: 'Purchase Process',
-      type: QueryTypes.ProcessType.Purchases
+      type: 'Purchases'
     }),
-    createProcessItem({ id: '3', name: 'Sales Process', type: QueryTypes.ProcessType.Sales }),
+    createProcessItem({ id: '3', name: 'Sales Process', type: 'Sales' }),
     createProcessItem({
       id: '4',
       name: 'Human Resource Process',
-      type: QueryTypes.ProcessType.HumanResources
+      type: 'HumanResources'
     })
   ];
 }
@@ -88,9 +97,9 @@ export function createProcess(
   return {
     id: '1',
     name: 'Process',
-    dataDescriptors: [],
+    schema: null,
     description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`,
-    type: QueryTypes.ProcessType.Travel,
+    type: 'Travel',
     model: null,
     resources,
     ...process
@@ -169,14 +178,16 @@ export function createProcessInstanceTask(
     dateStarted: create.createdDate,
     dateFinished: create.finishedDate,
     performer: {
+      id: '1',
       name: 'Tomas Trescak'
     },
     task: {
+      id: '2',
       type: QueryTypes.BpmnTaskType.Form,
       resources: [],
-      name: 'Task Name'
+      name: 'Task Name',
+      performerRoles: ['Approver']
     },
-    performerRoles: ['Approver'],
     ...task
   };
 }
@@ -189,23 +200,25 @@ const processInstanceTasks: QueryTypes.BpmnProcessInstanceTask[] = [
     dateStarted: create.createdDate,
     dateFinished: null,
     performer: null,
-    performerRoles: ['Purchasing'],
     task: {
+      id: '1',
       type: QueryTypes.BpmnTaskType.Form,
       name: 'Complete Purchase',
-      resources: []
+      resources: [],
+      performerRoles: ['Purchasing']
     }
   }),
   createProcessInstanceTask({
     task: {
+      id: '2',
       type: QueryTypes.BpmnTaskType.Form,
       name: 'Deliver Technology',
-      resources: []
+      resources: [],
+      performerRoles: ['IT Support', 'IT Delivery']
     },
     dateStarted: create.createdDate,
     dateFinished: null,
-    performer: null,
-    performerRoles: ['IT Support', 'IT Delivery']
+    performer: null
   })
 ];
 
@@ -218,12 +231,14 @@ export function createProcessListInstance(
     dateStarted: create.createdDate,
     dateFinished: null,
     process: {
+      id: 'pid',
       description:
         'Exercitation laborum id mollit reprehenderit exercitation ad adipisicing duis id qui ut tempor ullamco. Duis magna eu pariatur sit aliquip consectetur occaecat quis officia Lorem tempor elit. Et sint ad dolor sint minim laborum aliqua Lorem. Quis laborum veniam ullamco id culpa occaecat deserunt incididunt esse. Sint irure sunt duis Lorem eu eu culpa reprehenderit Lorem. Do cupidatat nisi velit dolore mollit.',
       name: 'Process 1',
-      type: QueryTypes.ProcessType.Purchases
+      type: 'Purchases'
     },
     owner: {
+      id: 'bh',
       name: 'Buddy Holly'
     },
     status: QueryTypes.BpmnProcessInstanceStatus.Running,
@@ -259,18 +274,19 @@ export function createProcessInstance(
   return {
     id: 'piid',
     status: QueryTypes.BpmnProcessInstanceStatus.Running,
-    process: {
-      id: 'pid',
-      name: 'Process 1',
-      dataDescriptors: [],
-      description:
-        'Exercitation laborum id mollit reprehenderit exercitation ad adipisicing duis id qui ut tempor ullamco. Duis magna eu pariatur sit aliquip consectetur occaecat quis officia Lorem tempor elit. Et sint ad dolor sint minim laborum aliqua Lorem. Quis laborum veniam ullamco id culpa occaecat deserunt incididunt esse. Sint irure sunt duis Lorem eu eu culpa reprehenderit Lorem. Do cupidatat nisi velit dolore mollit.',
-      type: QueryTypes.ProcessType.Purchases,
-      model: student_purchase,
-      resources
-    },
+    // process: {
+    //   id: 'pid',
+    //   name: 'Process 1',
+    //   dataDescriptors: [],
+    //   description:
+    //     'Exercitation laborum id mollit reprehenderit exercitation ad adipisicing duis id qui ut tempor ullamco. Duis magna eu pariatur sit aliquip consectetur occaecat quis officia Lorem tempor elit. Et sint ad dolor sint minim laborum aliqua Lorem. Quis laborum veniam ullamco id culpa occaecat deserunt incididunt esse. Sint irure sunt duis Lorem eu eu culpa reprehenderit Lorem. Do cupidatat nisi velit dolore mollit.',
+    //   type: 'Purchases',
+    //   model: student_purchase,
+    //   resources
+    // },
     log: [],
     owner: {
+      id: 'bh',
       name: 'Buddy Holly'
     },
     tasks: processInstanceTasks,
@@ -282,7 +298,7 @@ export function createProcessInstance(
       createComment({ id: '5', text: 'Comment 5', replyTo: '2', date: create.date(3) }),
       createComment({ id: '6', text: 'Comment 1' })
     ],
-    data: {},
+    data: '{}',
     dateStarted: create.createdDate,
     dateFinished: null,
     ...process

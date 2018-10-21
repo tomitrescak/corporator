@@ -20,7 +20,6 @@ type BpmnTaskInstance {
   dateStarted: DateTime!
   duration: Int
   performerId: ID
-  performerRole: ID
   processInstance: BpmnProcessInstance! @relation(name: "BpmnProcessInstanceTasks")
   data: Json
   status: BpmnTaskInstanceStatus!

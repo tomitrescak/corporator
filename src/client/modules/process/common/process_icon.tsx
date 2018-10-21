@@ -3,17 +3,15 @@ import * as React from 'react';
 import { List, SemanticICONS } from 'semantic-ui-react';
 import styled from 'styled-components';
 
-import { QueryTypes } from 'data/client';
-
-export function processTypeToIcon(type: QueryTypes.ProcessType): SemanticICONS {
+export function processTypeToIcon(type: string): SemanticICONS {
   switch (type) {
-    case QueryTypes.ProcessType.Travel:
+    case 'Travel':
       return 'briefcase';
-    case QueryTypes.ProcessType.HumanResources:
+    case 'HumanResources':
       return 'user circle';
-    case QueryTypes.ProcessType.Purchases:
+    case 'Purchases':
       return 'money';
-    case QueryTypes.ProcessType.Sales:
+    case 'Sales':
       return 'money bill alternate outline';
   }
   return 'tasks';
@@ -27,7 +25,7 @@ const IconView = styled(List.Icon)`
 `;
 
 export type Props = {
-  type: QueryTypes.ProcessType;
+  type: string;
 };
 
 export const ProcessIcon: React.SFC<Props> = ({ type }) => (

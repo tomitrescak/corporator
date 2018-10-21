@@ -6,7 +6,7 @@ import { Loader } from 'data/utils/loader';
    ======================================================== */
 
 export class Localisation extends Loader<Prisma.Localisation, Prisma.LocalisationWhereInput> {
-  constructor(db: () => Prisma.Prisma, language: Prisma.LanguageCode) {
+  constructor(db: Prisma.Prisma, language: Prisma.LanguageCode) {
     super(db, null, 'localisations', undefined, id => ({ language, code: id }));
   }
 

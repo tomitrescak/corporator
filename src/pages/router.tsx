@@ -42,21 +42,21 @@ render(
             <div id="pageContent">
               <Route path="/" exact component={HomeContainer} />
               <Route
-                path="/process/:name/preview/:contentType/:resourceName/:sourceId/:resourceId"
+                path="/process/:name/preview/:contentType/:resourceName/:processId/:processInstanceId/:resourceId"
                 component={ProcessContainer}
               />
               <Route
-                path="/process/:name/preview/:contentType/:sourceId"
+                path="/process/:name/preview/:contentType/:processId"
                 component={ProcessContainer}
               />
               <Route
                 exact
-                path="/process/:name/view/:contentType/:resourceName/:sourceId/:resourceId"
+                path="/process/:name/view/:contentType/:resourceName/:processId/:processInstanceId/:resourceId"
                 component={ProcessInstanceContainer}
               />
               <Route
                 exact
-                path="/process/:name/view/:contentType/:sourceId"
+                path="/process/:name/view/:contentType/:processId"
                 component={ProcessInstanceContainer}
               />
               <Route path="/notifications" component={NotificationsContainer} />

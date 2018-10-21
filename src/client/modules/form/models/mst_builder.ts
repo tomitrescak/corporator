@@ -1,7 +1,7 @@
-import { Instance, types } from 'mobx-state-tree';
+import { types } from 'mobx-state-tree';
 import { UndoManager } from 'mst-middlewares';
 
-import { DataSetNode } from './dataset_model';
+import { Schema } from './data_schema_model';
 import { FormStore } from './form_store';
 import { safeEval } from './form_utils';
 
@@ -11,7 +11,7 @@ function shortId() {
   return (time + i++).toString();
 }
 
-function mstTypeFactory(desc: DataSetNode): any {
+function mstTypeFactory(desc: Schema): any {
   switch (desc.type) {
     case 'id':
       return types.optional(types.identifier, shortId);
@@ -43,7 +43,7 @@ function mstTypeFactory(desc: DataSetNode): any {
   throw new Error('MST Type not supported: ' + desc.type);
 }
 
-export function buildStore(store: DataSetNode) {
+export function buildStore(schema: Schema) {
   // prepare model and views
 
   const mstDefinition: { [index: string]: any } = {};
@@ -51,13 +51,13 @@ export function buildStore(store: DataSetNode) {
   /* =========================================================
     EXPRESSIONS
     ======================================================== */
-  const properties = Object.getOwnPropertyNames(store.properties);
+  const properties = Object.getOwnPropertyNames(schema.properties);
 
   const viewDefinition = () => {
     const view = {};
 
     for (let key of properties) {
-      let node = store.properties[key];
+      let node = schema.properties[key];
       // expressions do not need state tree entry they are evaluated automatically
       if (node.type === 'expression') {
         (view as any).__defineGetter__(key, function() {
@@ -75,14 +75,14 @@ export function buildStore(store: DataSetNode) {
      ======================================================== */
 
   for (let key of properties) {
-    let node = store.properties[key];
+    let node = schema.properties[key];
     let definition = mstTypeFactory(node);
     if (definition) {
       mstDefinition[key] = types.maybe(definition);
     }
   }
 
-  if (store.parent == null) {
+  if (schema.parent == null) {
     mstDefinition.history = types.optional(UndoManager, {});
   }
 
@@ -92,7 +92,7 @@ export function buildStore(store: DataSetNode) {
     .views(viewDefinition)
     .actions(() => ({
       getSchema(key: string) {
-        return key ? store.properties[key] : store;
+        return key ? schema.properties[key] : schema;
       }
     }));
 

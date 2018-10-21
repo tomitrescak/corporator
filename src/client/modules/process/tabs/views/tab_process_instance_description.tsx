@@ -36,7 +36,7 @@ export const TabProcessInstanceDescription: React.SFC<Props> = ({
         </Header.Content>
       </Header>
 
-      <ProcessCurrentAction processInstance={processInstance} context={context} />
+      <ProcessCurrentAction process={process} processInstance={processInstance} context={context} />
 
       <ProcessActivityView context={context} processInstance={processInstance} />
 

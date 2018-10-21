@@ -1,9 +1,9 @@
 import * as React from 'react';
 
 import { observer } from 'mobx-react';
-import { Dropdown } from 'semantic-ui-react';
+import { Dropdown, DropdownProps } from 'semantic-ui-react';
 
-import { DataSet, FormElement } from '../models/form_model';
+import { DataSet } from '../models/form_store';
 import { ErrorView } from './error_view';
 
 type Props = {
@@ -13,9 +13,10 @@ type Props = {
 
 @observer
 export class SelectView extends React.Component<Props> {
-  handleSelectChange = (_e: React.ChangeEvent<HTMLInputElement>, control: HTMLSelectElement) => {
+  handleSelectChange = (_e: any, control: DropdownProps) => {
+    // React.ChangeEvent<HTMLInputElement>
     // find value
-    this.props.owner.setStringValue(this.props.formControl.source.name, control.value);
+    this.props.owner.setValue(this.props.formControl.source, control.value.toString());
   };
 
   render() {
@@ -29,17 +30,17 @@ export class SelectView extends React.Component<Props> {
           options={
             filterSource
               ? owner
-                  .getList(list)
-                  .filter((v: any) => v[filterColumn] === owner.getValue(filterSource))
-              : owner.getList(list)
+                  .getSchema(list)
+                  .enum.filter((v: any) => v[filterColumn] === owner.getValue(filterSource))
+              : owner.getSchema(list).enum
           }
-          name={source.name}
+          name={source}
           selection={true}
-          value={owner.getStringValue(source.name)}
+          value={owner.getValue(source)}
           onChange={this.handleSelectChange}
         />
 
-        <ErrorView owner={owner} source={source.name} />
+        <ErrorView owner={owner} source={source} />
       </>
     );
   }

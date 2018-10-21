@@ -7,7 +7,7 @@ import { QueryTypes } from 'data/client';
 import { ProcessIcon } from '../../common/process_icon';
 
 type Props = {
-  process: QueryTypes.ProcessesQuery_Processes;
+  process: QueryTypes.BpmnProcessItem;
 };
 
 export const ProcessItemView: React.SFC<Props> = ({ process }) => (

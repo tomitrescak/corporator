@@ -2,11 +2,11 @@ import { toJS } from 'mobx';
 import { types } from 'mobx-state-tree';
 
 import { editorStore } from 'client/stores/editor_store';
-import { DataSetNode } from './dataset_model';
+import { Schema } from './data_schema_model';
 
 export type IValidator = (input: string) => string;
 
-export type IFormStore = typeof FormStore.Type;
+export type DataSet = typeof FormStore.Type;
 
 export type ValidationResult = {
   valid: number;
@@ -82,7 +82,7 @@ export const FormStore = types
     }
   }))
   .actions(() => ({
-    getSchema(_key: string = null): DataSetNode {
+    getSchema(_key: string = null): Schema {
       throw new Error('Not implemented');
     }
   }))
@@ -98,22 +98,25 @@ export const FormStore = types
     }
 
     return {
+      addRow(key: string) {
+        const data = self.getSchema(key).items.defaultValue();
+        self.getValue(key).push(data);
+
+        this.validate(key);
+      },
       isRequired(key: string) {
         return self.getSchema(key).required;
       },
-      validate(key: string) {
-        return this.validateValue(key, self.getValue(key));
+      parseValue(key: string, value: any) {
+        return self.getSchema(key).parse(value);
       },
-      validateValue(name: string, value: string) {
-        const error = self.getSchema().properties[name].validate(value, self);
-        self.errors.set(name, error || '');
-
-        return error;
+      removeRow(key: string, index: number) {
+        store[key].splice(index);
       },
-      toJS() {
-        return strip(toJS(self));
+      removeRowData<T>(key: string, data: T) {
+        store[key].remove(data);
       },
-      setValue(key: string, value: string): void {
+      setValue(key: string, value: any): void {
         if (key.indexOf('.') > 0) {
           let [first, ...rest] = key.split('.');
           return (self as any)[first].setValue(rest, value);
@@ -121,17 +124,37 @@ export const FormStore = types
           setValue(key, this.validateValue(key, value) ? value : self.getSchema(key).parse(value));
         }
       },
-      addRow(key: string) {
-        const data = self.getSchema(key).items.defaultValue();
-        self.getValue(key).push(data);
+      toJS() {
+        return strip(toJS(self));
+      },
+      validateAll(): boolean {
+        let schema = self.getSchema();
+        let valid = true;
+        for (let key of Object.getOwnPropertyNames(schema.properties)) {
+          let property = schema.properties[key];
 
-        this.validate(key);
+          if (property.type === 'object') {
+            valid = valid && self.getValue(key).validateAll();
+          } else if (property.type === 'array') {
+            for (let item of self.getValue(key)) {
+              valid = valid && !!schema.items.validate(item);
+            }
+          } else {
+            valid = valid && !!this.validate(key);
+          }
+        }
+        return valid;
       },
-      removeRow(key: string, index: number) {
-        store[key].splice(index);
+      validate(key: string) {
+        return this.validateValue(key, self.getValue(key));
       },
-      removeRowData<T>(key: string, data: T) {
-        store[key].remove(data);
+      validateValue(key: string, value: string = null) {
+        const error = self
+          .getSchema(key)
+          .validate(value === undefined ? self.getValue(key) : value, self);
+        self.errors.set(key, error || '');
+
+        return error;
       }
     };
   });

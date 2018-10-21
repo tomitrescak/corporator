@@ -1,89 +1,79 @@
 import * as React from 'react';
 import * as renderer from 'react-test-renderer';
 
-import { QueryTypes } from 'client/tests';
 import { FormModel } from '../../models/form_model';
 import { FormView } from '../form_view';
 import { create } from './form_query_data';
 
 import 'jest-styled-components';
 
+import { JSONSchema } from 'data/schema/schema';
 import { Segment } from 'semantic-ui-react';
 
 describe('Form', () => {
   describe('Checkbox', () => {
     function componentWithData() {
-      const descriptors = [
-        create.descriptor({ name: 'agree', type: QueryTypes.DataType.Boolean }),
-        create.descriptor({ name: 'disagree', type: QueryTypes.DataType.Boolean }),
-        create.descriptor({
-          name: 'must',
-          type: QueryTypes.DataType.Boolean,
-          validators: [
-            {
-              id: '1',
-              name: QueryTypes.ValidatorFunction.RequiredValidator,
-              params: ['You must agree to terms and conditions']
-            }
-          ]
-        })
-      ];
+      const schema: JSONSchema = {
+        type: 'object',
+        properties: {
+          agree: {
+            type: 'boolean'
+          },
+          disagree: {
+            type: 'boolean'
+          },
+          must: {
+            type: 'boolean',
+            validationMessage: 'You must agree to terms and conditions'
+          }
+        },
+        required: ['must']
+      };
 
-      const controlData = { agree: true, disagree: false };
-      const dataSet = FormModel.buildMstModel(descriptors, controlData);
+      const data = { agree: true, disagree: false };
 
       const form = new FormModel(
         create.form({
           elements: [
             create.formElement({
-              id: '1',
               row: 0,
               column: 0,
               width: 8,
-              control: QueryTypes.FormControl.Checkbox,
+              control: 'Checkbox',
               label: 'Agree With Terms and Conditions',
-              source: create.descriptor({
-                id: '',
-                name: 'agree'
-              })
+              source: 'agree'
             }),
             create.formElement({
-              id: '2',
               row: 1,
               column: 0,
               width: 8,
-              control: QueryTypes.FormControl.Checkbox,
+              control: 'Checkbox',
               controlProps: {
                 toggle: true
               },
               label: 'Disagree With Terms and Conditions',
-              source: create.descriptor({
-                id: '',
-                name: 'disagree'
-              })
+              source: 'disagree'
             }),
             create.formElement({
-              id: '1',
               row: 2,
               column: 0,
               width: 8,
-              control: QueryTypes.FormControl.Checkbox,
+              control: 'Checkbox',
               label: 'Must Agree With Terms and Conditions',
-              source: create.descriptor({
-                id: '',
-                name: 'must'
-              })
+              source: 'must'
             })
           ]
-        })
+        }),
+        schema,
+        data
       );
 
-      dataSet.validate();
+      form.validateWithReport();
 
       // just another notation
       return (
         <Segment className="ui form">
-          <FormView formControl={form} owner={dataSet} />
+          <FormView formControl={form} owner={form.dataSet} />
         </Segment>
       );
     }

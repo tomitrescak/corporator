@@ -3,18 +3,14 @@ import * as React from 'react';
 import { create, QueryTypes, render } from 'client/tests';
 
 import { ProcessResources } from '../process_resources_view';
-import { createProcessInstance } from './process_test_data';
+import { createProcess, createProcessInstance } from './process_test_data';
 
 describe('Resources', () => {
   const context = create.context();
-  const processInstance = createProcessInstance();
+  const defaultProcess = createProcess();
 
   const componentWithData = (process?: QueryTypes.BpmnProcessInstance) => (
-    <ProcessResources
-      process={processInstance.process}
-      processInstance={process}
-      context={context}
-    />
+    <ProcessResources process={defaultProcess} processInstance={process} context={context} />
   );
 
   describe('Process', () => {

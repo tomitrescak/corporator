@@ -107,7 +107,7 @@ export async function its(
 
     if (options.roles) {
       for (let role of options.roles) {
-        await context.db.mutation.createRole({ data: { name: role } });
+        await context.db.mutation.createRole({ data: { name: role, roleId: role } });
       }
     }
 

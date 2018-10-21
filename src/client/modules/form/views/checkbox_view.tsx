@@ -1,9 +1,9 @@
 import * as React from 'react';
 
 import { observer } from 'mobx-react';
-import { Checkbox, Form } from 'semantic-ui-react';
+import { Checkbox, CheckboxProps, Form } from 'semantic-ui-react';
 
-import { DataSet, FormElement } from '../models/form_model';
+import { DataSet } from '../models/form_store';
 import { ErrorView } from './error_view';
 
 type Props = {
@@ -13,9 +13,9 @@ type Props = {
 
 @observer
 export class CheckboxView extends React.Component<Props> {
-  handleToggleChange = (_e: React.ChangeEvent<HTMLInputElement>, control: HTMLInputElement) => {
+  handleToggleChange = (_e: any, control: CheckboxProps) => {
     // find value
-    this.props.owner.parseValue(this.props.formControl.source.name, control.checked);
+    this.props.owner.setValue(this.props.formControl.source, control.checked);
   };
 
   render() {
@@ -28,12 +28,12 @@ export class CheckboxView extends React.Component<Props> {
       <Form.Field>
         <Checkbox
           {...controlProps}
-          name={source.name}
+          name={source}
           label={label}
-          checked={owner.getValue(source.name)}
+          checked={owner.getValue(source)}
           onChange={this.handleToggleChange}
         />
-        <ErrorView owner={owner} source={source.name} />
+        <ErrorView owner={owner} source={source} newLine={true} />
       </Form.Field>
     );
   }

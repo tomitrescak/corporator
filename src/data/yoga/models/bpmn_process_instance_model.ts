@@ -16,7 +16,7 @@ export type ProcessActionResult = {
 
 export class BpmnProcessInstance {
   static async duplicateInstance(_processInstance: BpmnProcessInstance) {
-    throw new Error('not implmented');
+    throw new Error('not implemented');
   }
 
   // static async createInstance(
@@ -86,7 +86,7 @@ export class BpmnProcessInstance {
     // this.processId = instanceModelDao.processId;
     this.processModel = processModel;
     // this.resources = JSON.parse(instanceModelDao.resources);
-    this.ownerId = instanceModelDao.owner.id;
+    this.ownerId = instanceModelDao.ownerId;
     this.status = instanceModelDao.status;
     this.dateStarted = new Date(instanceModelDao.dateStarted);
     this.dateFinished = new Date(instanceModelDao.dateFinished);

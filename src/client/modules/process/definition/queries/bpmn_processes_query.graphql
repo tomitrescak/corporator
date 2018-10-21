@@ -1,9 +1,13 @@
-query ProcessesQuery($input: BpmnProcessesInput!) {
-  processes(input: $input) {
-    actionCount
-    description
-    id
-    name
-    type
+fragment BpmnProcessItem on BpmnProcess {
+  actionCount
+  description
+  id
+  name
+  type
+}
+
+query BpmnProcessesQuery($input: BpmnProcessesInput!) {
+  bpmnProcessesQuery(input: $input) {
+    ...BpmnProcessItem
   }
 }

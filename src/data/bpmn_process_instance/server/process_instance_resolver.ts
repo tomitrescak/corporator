@@ -6,7 +6,7 @@ const graphql = (e: TemplateStringsArray) => e[0];
 
 export const query: Query = {
   async bpmnProcessInstancesQuery(_parent, { input }, ctx, info) {
-    const result = await ctx.db.query.bpmnProcessInstances(
+    return ctx.db.query.bpmnProcessInstances(
       {
         where: purge<Yoga.BpmnProcessInstanceWhereInput>({
           status: input.status
@@ -17,11 +17,11 @@ export const query: Query = {
       info
     );
 
-    // sort by name
+    // // sort by name
 
-    return result.sort((a, b) => {
-      return a.process.name.localeCompare(b.process.name, 'en', { numeric: true });
-    });
+    // return result.sort((a, b) => {
+    //   return a.process.name.localeCompare(b.process.name, 'en', { numeric: true });
+    // });
   },
   async bpmnProcessInstanceQuery(_parent, { id }, ctx, info) {
     return ctx.db.query.bpmnProcessInstance({ where: { id } }, info);
@@ -39,7 +39,7 @@ export const userFragment = `
   id
 `;
 
-export const resolver: Resolver<Prisma.BpmnProcessInstance> = {
+export const resolver: Resolver<Yoga.BpmnProcessInstance> = {
   BpmnProcessInstance: {
     owner: {
       fragment: graphql`
@@ -49,12 +49,6 @@ export const resolver: Resolver<Prisma.BpmnProcessInstance> = {
       `,
       resolve(parent, _, ctx) {
         return ctx.cache.user.findById(parent.ownerId);
-      }
-    },
-    comments: {
-      fragment: ``,
-      resolve(parent, ctx) {
-        return parent.comments;
       }
     }
   }
@@ -81,17 +75,17 @@ export const mutation: Mutation = {
     }`
     );
 
-    const m = await ctx.db.query.bpmnProcessInstance(
-      { where: { id: processInstanceDAO.id } },
-      `{ 
-        id 
-        owner { 
-          ${userFragment} 
-        }
-      }`
-    );
+    // const m = await ctx.db.query.bpmnProcessInstance(
+    //   { where: { id: processInstanceDAO.id } },
+    //   `{
+    //     id
+    //     owner {
+    //       ${userFragment}
+    //     }
+    //   }`
+    // );
 
-    processInstanceDAO.owner = await ctx.cache.user.findById(userId);
+    // processInstanceDAO.owner = await ctx.cache.user.findById(userId);
 
     // await ctx.db.mutation.updateUser(
     //   {

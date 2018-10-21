@@ -16,7 +16,7 @@ export const ProcessListContainer: React.SFC<Props> = inject('context')(({ conte
     {result => {
       // console.log(result.data.processes)
       return renderResult(result, () => (
-        <ProcessListView processes={result.data.processes} context={context} />
+        <ProcessListView processes={result.data.bpmnProcessesQuery} context={context} />
       ));
     }}
   </ProcessListQuery>

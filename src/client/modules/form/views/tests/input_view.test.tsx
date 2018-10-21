@@ -3,100 +3,88 @@ import * as renderer from 'react-test-renderer';
 
 import { Segment } from 'semantic-ui-react';
 
-import { QueryTypes } from 'data/client';
+import { JSONSchema } from 'data/schema/schema';
 import { FormModel } from '../../models/form_model';
 import { FormView } from '../form_view';
 import { create } from './form_query_data';
 
 describe('Form', () => {
-  const descriptors = [
-    create.descriptor({ name: 'owner.personal.name' }),
-    create.descriptor({ name: 'owner.personal.age', type: QueryTypes.DataType.Float }),
-    create.descriptor({
-      name: 'younger',
-      type: QueryTypes.DataType.Int,
-      expression: `console.log(this); return this['owner.personal.age'] - 20`
-    }),
-    create.descriptor({
-      name: 'older',
-      type: QueryTypes.DataType.Int,
-      expression: `this['owner.personal.age'] + 10`
-    })
-  ];
-
-  const controlData = {
-    'owner.personal.name': 'Tomas',
-    'owner.personal.age': 33
+  const schema: JSONSchema = {
+    type: 'object',
+    properties: {
+      name: {
+        type: 'string'
+      },
+      age: {
+        type: 'number'
+      },
+      younger: {
+        type: 'expression',
+        default: `console.log(this); return this['age'] - 20`
+      },
+      older: {
+        type: 'expression',
+        readOnly: true,
+        default: `this['age'] + 10`
+      }
+    }
   };
 
-  const dataSet = FormModel.buildMstModel(descriptors, controlData);
+  const formDefinition: Form = create.form({
+    elements: [
+      create.formElement({
+        row: 0,
+        column: 0,
+        width: 14,
+        control: 'Input',
+        controlProps: {
+          label: 'Name'
+        },
+        label: 'Mimo',
+        source: 'name'
+      }),
+      create.formElement({
+        row: 1,
+        column: 1,
+        width: 7,
+        control: 'Input',
+        source: 'age',
+        label: 'Age: ',
+        inline: true
+      }),
+      create.formElement({
+        row: 1,
+        column: 10,
+        width: 2,
+        control: 'Input',
+        source: 'younger',
+        label: 'Younger:',
+        inline: true
+      }),
+      create.formElement({
+        row: 0,
+        column: 14,
+        width: 2,
+        control: 'Input',
+        source: 'older',
+        label: 'Older'
+      })
+    ]
+  });
+
+  const formData = {
+    name: 'Tomas',
+    age: 33
+  };
 
   describe('Input', () => {
     function componentWithData() {
-      const form = new FormModel(
-        create.form({
-          elements: [
-            create.formElement({
-              id: '1',
-              row: 0,
-              column: 0,
-              width: 14,
-              control: QueryTypes.FormControl.Input,
-              controlProps: {
-                label: 'Name'
-              },
-              label: 'Mimo',
-              source: create.descriptor({
-                id: '',
-                name: 'owner.personal.name'
-              })
-            }),
-            create.formElement({
-              id: '2',
-              row: 1,
-              column: 1,
-              width: 7,
-              control: QueryTypes.FormControl.Input,
-              source: create.descriptor({
-                id: '',
-                name: 'owner.personal.age'
-              }),
-              label: 'Age: ',
-              inline: true
-            }),
-            create.formElement({
-              id: '3',
-              row: 1,
-              column: 10,
-              width: 2,
-              control: QueryTypes.FormControl.Input,
-              source: create.descriptor({
-                id: '',
-                name: 'younger'
-              }),
-              label: 'Younger:',
-              inline: true
-            }),
-            create.formElement({
-              id: '4',
-              row: 0,
-              column: 14,
-              width: 2,
-              control: QueryTypes.FormControl.Input,
-              source: create.descriptor({
-                id: '',
-                name: 'older'
-              }),
-              label: 'Older'
-            })
-          ]
-        })
-      );
+      const form = new FormModel(formDefinition, schema, formData);
 
       // just another notation
       return (
         <Segment className="ui form">
-          <FormView formControl={form} owner={dataSet} />
+          <FormView formControl={form} owner={form.dataSet} />
         </Segment>
       );
     }
@@ -115,93 +103,5 @@ describe('Form', () => {
     });
 
     return { componentWithData };
-  });
-
-  describe('Validators', () => {
-    function componentWithData() {
-      const validators = [
-        ['IntPositiveValidator', '-1', '2'],
-        ['IntValidator', '2.5', '0'],
-        ['IntNonZeroValidator', '0', '7'],
-        ['FloatValidator', 'd', '2.7'],
-        ['FloatPositiveValidator', '-5', '7'],
-        ['FloatNonZeroValidator', '0', '6.8'],
-        ['RequiredValidator', '', 'ok'],
-        ['EmailValidator', 'bad', 'good@email.cz'],
-        ['RegExValidator', 'tomi', 'ttomi', 'tt'],
-        ['ExpressionValidator', 'foo', 'bar', 'value === "bar"', 'Say whut?']
-      ];
-
-      const elements = [];
-      const vdescriptors = [];
-      const vControlData: any = {};
-
-      for (let i = 0; i < validators.length; i++) {
-        let v: any = validators[i];
-        let badDescriptor = v[0] + '.Error';
-        let goodDescriptor = v[0] + '.OK';
-
-        vdescriptors.push(
-          create.descriptor({
-            name: badDescriptor,
-            validators: [{ id: '1', name: v[0], params: v[3] ? [v[3], v[4]] : [] }]
-          })
-        );
-        vdescriptors.push(
-          create.descriptor({
-            name: goodDescriptor,
-            validators: [{ id: '1', name: v[0], params: v[3] ? [v[3]] : [] }]
-          })
-        );
-
-        vControlData[badDescriptor] = v[1];
-        vControlData[goodDescriptor] = v[2];
-
-        elements.push(
-          create.formElement({
-            id: i.toString(),
-            row: i,
-            column: 0,
-            width: 8,
-            control: QueryTypes.FormControl.Input,
-            label: badDescriptor,
-            source: create.descriptor({
-              name: badDescriptor
-            })
-          }),
-          create.formElement({
-            id: i.toString(),
-            row: i,
-            column: 8,
-            width: 8,
-            control: QueryTypes.FormControl.Input,
-            label: goodDescriptor,
-            source: create.descriptor({
-              name: goodDescriptor
-            })
-          })
-        );
-      }
-
-      const vDataSet = FormModel.buildMstModel(vdescriptors, vControlData);
-      vDataSet.validate();
-
-      const form = new FormModel(
-        create.form({
-          elements
-        })
-      );
-
-      // just another notation
-      return (
-        <Segment className="ui form">
-          <FormView formControl={form} owner={vDataSet} />
-        </Segment>
-      );
-    }
-
-    return {
-      component: componentWithData()
-    };
   });
 });

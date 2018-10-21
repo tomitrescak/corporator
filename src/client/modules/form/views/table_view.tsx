@@ -7,7 +7,7 @@ import { Button, Form } from 'semantic-ui-react';
 import styled from 'styled-components';
 
 import { renderControl } from '../models/form_control_factory';
-import { DataSet, FormElement } from '../models/form_model';
+import { DataSet } from '../models/form_store';
 import { ErrorView } from './error_view';
 
 const FormHeader = styled(Form.Group)`
@@ -23,14 +23,14 @@ type RowProps = {
 class TableRow extends React.PureComponent<RowProps> {
   handlers = {
     delete: () => {
-      this.props.owner.removeRowData(this.props.formControl.source.name, this.props.data);
+      this.props.owner.removeRowData(this.props.formControl.source, this.props.data);
     }
   };
   render() {
     return (
       <Form.Group>
-        {this.props.formControl.elements.map(e => (
-          <Form.Field width={this.props.formControl.width as any} key={e.id}>
+        {this.props.formControl.elements.map((e, i) => (
+          <Form.Field width={this.props.formControl.width as any} key={i}>
             {renderControl(e, this.props.owner, null)}
           </Form.Field>
         ))}
@@ -54,14 +54,14 @@ export class TableView extends React.Component<Props> {
       formControl: { source },
       owner
     } = this.props;
-    owner.addRow(source.name);
+    owner.addRow(source);
   };
 
   render() {
     const owner = this.props.owner;
     const formControl = this.props.formControl as FormElement;
     const source = formControl.source;
-    const list: IObservableArray<DataSet> = owner.getValue(source.name);
+    const list: IObservableArray<DataSet> = owner.getValue(source);
 
     return (
       <div className="ui form">
@@ -79,7 +79,7 @@ export class TableView extends React.Component<Props> {
         <Button primary icon="plus" content="Add" labelPosition="left" onClick={this.addRow} />
         <ErrorView
           owner={this.props.owner}
-          source={this.props.formControl.source.name}
+          source={this.props.formControl.source}
           pointing="left"
         />
       </div>

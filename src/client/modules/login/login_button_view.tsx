@@ -49,7 +49,7 @@ export const LoginButton = ({ store }: Props) => {
             loading={loading}
             icon="thumbs up"
             onClick={() => {
-              if (store.login.validate()) {
+              if (store.login.validateAll()) {
                 login({
                   variables: { input: { user: store.login.user, password: store.login.password } }
                 });
