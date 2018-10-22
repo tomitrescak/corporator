@@ -1,6 +1,6 @@
 type Role {
   id: ID! @unique
-  roleId: ID! @unique
+  roleId: String! @unique
   name: String!
   description: String
 }

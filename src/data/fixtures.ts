@@ -1,5 +1,13 @@
 import * as Prisma from './generated/prisma';
 
+if (process.argv[5]) {
+  // tslint:disable-next-line:no-console
+  console.log('Setting up module references');
+
+  const alias = require('module-alias');
+  alias.addAlias('data', __dirname + '/');
+}
+
 import { spfBpmn } from './fixtures_data';
 import { access, create, dateFinished, dateStarted, db } from './tests/create_data';
 
@@ -61,6 +69,8 @@ async function insertFixtures() {
   // tslint:disable-next-line:no-console
   console.log('Loading fixtures ...');
 
+  await db.mutation.deleteManyRoles({});
+
   // tslint:disable-next-line:no-console
   console.log('Creating role');
   const userRole = await create.roleMutation({
@@ -69,7 +79,7 @@ async function insertFixtures() {
   });
   const buyerRole = await create.roleMutation({
     name: 'Buyer',
-    roleId: 'user'
+    roleId: 'buyer'
   });
 
   // tslint:disable-next-line:no-console
@@ -95,6 +105,7 @@ async function insertFixtures() {
   console.log('Cleanup ...');
 
   await db.mutation.deleteManyLogs({});
+  await db.mutation.deleteManySchemas({});
   await db.mutation.deleteManyResources({});
   await db.mutation.deleteManyNotifications({});
   await db.mutation.deleteManyBpmnTaskInstances({});
@@ -107,7 +118,7 @@ async function insertFixtures() {
      ======================================================== */
 
   // tslint:disable-next-line:no-console
-  console.log('Creating resources ...');
+  console.log('Creating schemas ...');
 
   const nameSchema = await create.schemaMutation({
     name: 'name',
@@ -117,12 +128,15 @@ async function insertFixtures() {
   });
 
   const ageSchema = await create.schemaMutation({
-    name: 'name',
+    name: 'age',
     schema: create.jsonSchemaProperty({
       type: 'integer',
       minimum: 0
     })
   });
+
+  // tslint:disable-next-line:no-console
+  console.log('Creating resources ...');
 
   const schema = create.jsonSchema({
     definitions: {
@@ -258,30 +272,40 @@ async function insertFixtures() {
 
   const formResource = await create.resourceMutation({
     type: 'Form',
+    resourceId: 'form1',
+    createdById: user.id,
     title: form.name,
     content: JSON.stringify(form)
   });
 
   const reportResource = await create.resourceMutation({
     type: 'Form',
+    resourceId: 'form2',
+    createdById: user.id,
     title: report.name,
     content: JSON.stringify(report)
   });
 
   const fileResource = await create.resourceMutation({
     type: 'File',
+    resourceId: 'file',
+    createdById: user.id,
     title: 'Excel File',
     content: '/uploads/file.doc'
   });
 
   const urlResource = await create.resourceMutation({
     type: 'Url',
+    resourceId: 'url',
+    createdById: user.id,
     title: 'External Resource',
     content: 'http://google.com'
   });
 
   const documentResource = await create.resourceMutation({
+    resourceId: 'document',
     type: 'Document',
+    createdById: user.id,
     title: 'Guidelines',
     content: `<h1>Guidelines</h1><p>This is guideline document</p>`
   });
@@ -326,12 +350,12 @@ async function insertFixtures() {
         connect: [{ id: formTask.id }, { id: reportTask.id }, { id: genericTask.id }]
       },
       resources: {
-        connect: [
-          { id: reportResource.id },
-          { id: formResource.id },
-          { id: fileResource.id },
-          { id: urlResource.id },
-          { id: documentResource.id }
+        create: [
+          { resourceId: reportResource.id },
+          { resourceId: formResource.id },
+          { resourceId: fileResource.id },
+          { resourceId: urlResource.id },
+          { resourceId: documentResource.id }
         ]
       },
       version: 0,
@@ -381,8 +405,8 @@ async function insertFixtures() {
       processId: processes[0].id,
       ownerId: user.id,
       data: JSON.stringify({
-        'owner.personal.name': 'Tomas',
-        'owner.personal.age': 0,
+        name: 'Tomas',
+        age: 0,
         address: {
           city: '',
           zip: ''
@@ -461,8 +485,11 @@ async function insertFixtures() {
       Task Instances
      ======================================================== */
 
+  // tslint:disable-next-line:no-console
+  console.log('Creating task instances ...');
+
   const pid = processInstances[0].id;
-  db.mutation.updateBpmnProcessInstance({
+  await db.mutation.updateBpmnProcessInstance({
     where: { id: pid },
     data: {
       tasks: {

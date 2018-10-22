@@ -1,6 +1,7 @@
 // import { Prisma as Types } from '../../prisma';
 
 import { GraphQLResolveInfo } from 'graphql';
+export { default as gql } from 'graphql-tag';
 
 import { Prisma, User } from 'data/generated/prisma';
 import { Mutation as PrismaMutation, Query as PrismaQuery } from 'data/generated/yoga';
@@ -10,7 +11,6 @@ import { Localisation } from '../localisations/server/localisation_resolver';
 export { Prisma } from 'data/prisma';
 export { Yoga } from 'data/yoga';
 
-export { default as gql } from 'graphql-tag';
 export { Loader } from './loader';
 
 export type FirstArgument<T> = T extends (arg1: infer U, ...args: any[]) => any ? U : any;

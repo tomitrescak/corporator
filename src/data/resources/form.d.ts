@@ -32,5 +32,5 @@ interface FormElement {
   control?: FormControl;
   controlProps?: { [index: string]: any };
   vertical?: boolean;
-  elements: FormElement[];
+  elements?: FormElement[];
 }

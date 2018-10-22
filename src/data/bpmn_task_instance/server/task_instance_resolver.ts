@@ -17,7 +17,7 @@ export const query: Query = {
     return ctx.db.query.bpmnTaskInstances(
       {
         where: purge<Yoga.BpmnTaskInstanceWhereInput>({
-          processInstance: { id: input.processInstanceId }
+          processInstanceId: input.processInstanceId
         })
       },
       info

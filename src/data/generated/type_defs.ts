@@ -53,6 +53,7 @@ type BpmnTaskInstance {
   duration: Int
   performerId: ID
   performer: User
+  processInstanceId: ID
   processInstance: BpmnProcessInstance!
   data: Json
   status: BpmnTaskInstanceStatus!
@@ -1662,7 +1663,7 @@ type Organisation implements Node {
 
 type Role implements Node {
   id: ID!
-  roleId: ID!
+  roleId: String!
   name: String!
   description: String
 }
@@ -3700,6 +3701,59 @@ input BpmnTaskInstanceWhereInput {
   All values not ending with the given string.
   """
   performerId_not_ends_with: ID
+  processInstanceId: ID
+  """
+  All values that are not equal to given value.
+  """
+  processInstanceId_not: ID
+  """
+  All values that are contained in given list.
+  """
+  processInstanceId_in: [ID!]
+  """
+  All values that are not contained in given list.
+  """
+  processInstanceId_not_in: [ID!]
+  """
+  All values less than the given value.
+  """
+  processInstanceId_lt: ID
+  """
+  All values less than or equal the given value.
+  """
+  processInstanceId_lte: ID
+  """
+  All values greater than the given value.
+  """
+  processInstanceId_gt: ID
+  """
+  All values greater than or equal the given value.
+  """
+  processInstanceId_gte: ID
+  """
+  All values containing the given string.
+  """
+  processInstanceId_contains: ID
+  """
+  All values not containing the given string.
+  """
+  processInstanceId_not_contains: ID
+  """
+  All values starting with the given string.
+  """
+  processInstanceId_starts_with: ID
+  """
+  All values not starting with the given string.
+  """
+  processInstanceId_not_starts_with: ID
+  """
+  All values ending with the given string.
+  """
+  processInstanceId_ends_with: ID
+  """
+  All values not ending with the given string.
+  """
+  processInstanceId_not_ends_with: ID
   status: BpmnTaskInstanceStatus
   """
   All values that are not equal to given value.
@@ -3766,7 +3820,9 @@ input BpmnTaskInstanceWhereInput {
   All values not ending with the given string.
   """
   taskId_not_ends_with: ID
-  processInstance: BpmnProcessInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceTasks_every: BpmnProcessInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceTasks_some: BpmnProcessInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceTasks_none: BpmnProcessInstanceWhereInput
 }
 
 enum LanguageCode {

@@ -1029,6 +1029,20 @@ export interface BpmnTaskInstanceWhereInput {
   performerId_not_starts_with?: ID_Input
   performerId_ends_with?: ID_Input
   performerId_not_ends_with?: ID_Input
+  processInstanceId?: ID_Input
+  processInstanceId_not?: ID_Input
+  processInstanceId_in?: ID_Input[] | ID_Input
+  processInstanceId_not_in?: ID_Input[] | ID_Input
+  processInstanceId_lt?: ID_Input
+  processInstanceId_lte?: ID_Input
+  processInstanceId_gt?: ID_Input
+  processInstanceId_gte?: ID_Input
+  processInstanceId_contains?: ID_Input
+  processInstanceId_not_contains?: ID_Input
+  processInstanceId_starts_with?: ID_Input
+  processInstanceId_not_starts_with?: ID_Input
+  processInstanceId_ends_with?: ID_Input
+  processInstanceId_not_ends_with?: ID_Input
   status?: BpmnTaskInstanceStatus
   status_not?: BpmnTaskInstanceStatus
   status_in?: BpmnTaskInstanceStatus[] | BpmnTaskInstanceStatus
@@ -1047,7 +1061,9 @@ export interface BpmnTaskInstanceWhereInput {
   taskId_not_starts_with?: ID_Input
   taskId_ends_with?: ID_Input
   taskId_not_ends_with?: ID_Input
-  processInstance?: BpmnProcessInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceTasks_every?: BpmnProcessInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceTasks_some?: BpmnProcessInstanceWhereInput
+  _MagicalBackRelation_BpmnProcessInstanceTasks_none?: BpmnProcessInstanceWhereInput
 }
 
 export interface AuthInput {
@@ -1239,6 +1255,7 @@ export interface BpmnTaskInstance {
   duration?: Int
   performerId?: ID_Output
   performer?: User
+  processInstanceId?: ID_Output
   processInstance: BpmnProcessInstance
   data?: Json
   status: BpmnTaskInstanceStatus
@@ -1384,7 +1401,7 @@ export interface BpmnProcess extends Node {
 
 export interface Role extends Node {
   id: ID_Output
-  roleId: ID_Output
+  roleId: String
   name: String
   description?: String
 }

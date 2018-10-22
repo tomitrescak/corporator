@@ -42,6 +42,7 @@ type BpmnTaskInstance {
   duration: Int
   performerId: ID
   performer: User
+  processInstanceId: ID!
   processInstance: BpmnProcessInstance!
   data: Json
   status: BpmnTaskInstanceStatus!

@@ -23,7 +23,7 @@ export const access = (owner: string, role: string, permission: string) => ({
    ======================================================== */
 
 export let db: Prisma.Prisma = new Prisma.Prisma({
-  endpoint: 'http://localhost:4466/test'
+  endpoint: 'http://localhost:4466'
   // debug: true
   // secret: 'my_secret123', // only needed if specified in `database/prisma.yml`
 });
@@ -176,7 +176,7 @@ export const create = {
   ): Prisma.BpmnProcessInstanceCreateInput => ({
     ownerId: null,
     processId: null,
-    data: null,
+    data: '{}',
     status: 'Running',
     dateStarted,
     ...partial
@@ -212,7 +212,7 @@ export const create = {
     data: {},
     status: 'Finished',
     performerId,
-    processInstance: { connect: { id: processInstanceId } },
+    processInstanceId,
     taskId,
     ...partial
   }),

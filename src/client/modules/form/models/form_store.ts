@@ -137,10 +137,10 @@ export const FormStore = types
             valid = valid && self.getValue(key).validateAll();
           } else if (property.type === 'array') {
             for (let item of self.getValue(key)) {
-              valid = valid && !!schema.items.validate(item);
+              valid = valid && !schema.items.validate(item);
             }
           } else {
-            valid = valid && !!this.validate(key);
+            valid = valid && !this.validate(key);
           }
         }
         return valid;

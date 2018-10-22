@@ -27,11 +27,7 @@ export class UserTask extends Task {
         taskId: this.id,
         // performerRoleId: role,
         performerId: context.userId,
-        processInstance: {
-          connect: {
-            id: state.id
-          }
-        },
+        processInstanceId: state.id,
         status: 'Started'
       }
     });

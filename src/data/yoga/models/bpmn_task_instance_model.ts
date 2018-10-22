@@ -15,7 +15,7 @@ export class BpmnTaskInstanceModel {
   constructor(taskInstanceModelDao: Partial<Prisma.BpmnTaskInstance>, task?: Task) {
     this.id = taskInstanceModelDao.id;
     this.task = task ? task : null;
-    this.processInstanceId = taskInstanceModelDao.processInstance.id;
+    this.processInstanceId = taskInstanceModelDao.processInstanceId;
     this.performerId = taskInstanceModelDao.performerId;
     // this.performerRole = taskInstanceModelDao.performerRoleId;
     this.dateStarted = new Date(taskInstanceModelDao.dateStarted);

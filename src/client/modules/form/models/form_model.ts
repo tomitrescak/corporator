@@ -4,7 +4,7 @@ import { DataSet, ValidationResult } from './form_store';
 import { buildStore } from './mst_builder';
 
 export interface IFormElementOwner {
-  elements: FormElement[];
+  elements?: FormElement[];
 }
 
 export type FormControlProps = {

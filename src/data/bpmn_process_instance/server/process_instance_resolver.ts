@@ -144,9 +144,7 @@ export const mutation: Mutation = {
     // update all taskInstances of this process
     const taskInstances = await ctx.db.query.bpmnTaskInstances({
       where: {
-        processInstance: {
-          id: processId
-        }
+        processInstanceId: processId
       }
     });
 
