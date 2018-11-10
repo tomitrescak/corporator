@@ -7,7 +7,6 @@ export class BpmnTaskInstanceModel {
     context: ServerContext,
     taskId: string,
     processInstanceId: string,
-    roles: string[],
     info?: any
   ): Promise<Prisma.BpmnTaskInstance> {
     const user = await context.getUser();
@@ -20,9 +19,8 @@ export class BpmnTaskInstanceModel {
           dateStarted: new Date(),
           data: {},
           status: 'Started',
-          performerRoles: { set: roles },
-          processInstance: { connect: { id: processInstanceId } },
-          task: { connect: { taskId } }
+          processInstanceId,
+          taskId
         }
       },
       info
@@ -87,6 +85,7 @@ export class BpmnTaskInstanceModel {
   }
 
   id: string;
+  status: Yoga.BpmnTaskInstanceStatus;
   task: Task;
   processInstanceId: string;
   performerId: string;
@@ -98,6 +97,7 @@ export class BpmnTaskInstanceModel {
 
   constructor(taskInstanceModelDao: Partial<Prisma.BpmnTaskInstance>, task?: Task) {
     this.id = taskInstanceModelDao.id;
+    this.status = taskInstanceModelDao.status;
     this.task = task ? task : null;
     this.processInstanceId = taskInstanceModelDao.processInstanceId;
     this.performerId = taskInstanceModelDao.performerId;
@@ -119,18 +119,37 @@ export class BpmnTaskInstanceModel {
         data
     */
 
+    if(this.status === 'Started') {
+
     await context.db.mutation.updateBpmnTaskInstance({
       where: {
         id: this.id
       },
       data: {
-        status: 'Finished'
+        status: 'Finished',
+        performerId: context.userId
       }
     });
+    }
 
     // deep clone of data using form
+    const processInstance = await context.db.query.bpmnProcessInstance({
+      where: {
+        id: this.processInstanceId
+      }
+    });
+    
+    const newData = { ...JSON.parse(processInstance.data), ...JSON.parse(this.data) };
 
     // pass back into state.resources
+    await context.db.mutation.updateBpmnProcessInstance({
+      where: {
+        id: processInstance.id
+      },
+      data: {
+        data: JSON.stringify(newData)
+      }
+    })
   }
 
   validation() {

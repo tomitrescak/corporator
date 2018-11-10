@@ -3,7 +3,7 @@ import { Gateway } from './bpmn_gateway_model';
 import { Lane } from './bpmn_lane_model';
 import { SequenceFlow } from './bpmn_sequence_flow_model';
 
-export default class ParallelGateway extends Gateway {
+export class ParallelGateway extends Gateway {
   nodesToWaitFor: number; // number of incoming flows that have to arrive before the gate can move on
 
   constructor(

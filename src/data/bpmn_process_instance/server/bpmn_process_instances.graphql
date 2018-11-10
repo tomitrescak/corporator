@@ -49,6 +49,7 @@ input AddCommentInput {
   processInstanceId: String!
   comment: String!
   replyTo: String
+  resourceId: String
 }
 
 type Mutation {

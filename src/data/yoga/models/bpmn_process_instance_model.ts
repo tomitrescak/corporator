@@ -41,16 +41,8 @@ export class BpmnProcessInstance {
             : null,
           status: 'Running',
 
-          owner: {
-            connect: {
-              id: context.userId
-            }
-          },
-          process: {
-            connect: {
-              id: processInstanceDAO.process.id
-            }
-          }
+          ownerId: context.userId,
+          processId: processInstanceDAO.processId
         }
       },
       info
@@ -129,7 +121,7 @@ export class BpmnProcessInstance {
     });
 
     if (stakeholders) {
-      stakeholders.forEach(stakeholder => {
+      stakeholders.forEach(_stakeholder => {
         // send email?
       });
     }
@@ -158,6 +150,7 @@ export class BpmnProcessInstance {
     context: ServerContext,
     comment: string,
     replyTo?: string,
+    resourceId?: string,
     info?: any
   ): Promise<Prisma.BpmnProcessInstance> {
     /* add comment to array */
@@ -172,11 +165,8 @@ export class BpmnProcessInstance {
               text: comment,
               date: new Date(),
               replyTo: replyTo ? replyTo : null,
-              user: {
-                connect: {
-                  id: context.userId
-                }
-              }
+              userId: context.userId,
+              resourceId: resourceId ? resourceId : null
             }
           }
         }

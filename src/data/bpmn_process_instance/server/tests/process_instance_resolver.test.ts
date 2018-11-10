@@ -8,10 +8,7 @@ describe('Bpmn Process Instance Resolver', () => {
   its(
     'Launches a Process Instance',
     {
-      clear: ['Notification', 'BpmnProcessInstance', 'BpmnProcess', 'Log'],
-      user: {
-        name: 'Dean'
-      }
+      clear: ['BpmnTaskInstance', 'BpmnProcessInstance', 'BpmnProcess', 'Log'],
     },
     async ctx => {
       const role = 'User';
@@ -25,9 +22,29 @@ describe('Bpmn Process Instance Resolver', () => {
     }
   );
 
-  // its('set process state', {}, async _ctx => {
-  //   // testMockedResolver(BpmnProcessInstance, 'setStatus', (args, context, info) => {
-  //   //   return mutation.setProcessInstanceStatus(null, args, context, info);
-  //   // });
-  // });
+  its('Duplicates Process', {}, async _ctx => {
+    testMockedResolver(BpmnProcessInstance, 'duplicateInstance', (args, context, info) => {
+      return mutation.duplicateProcessInstance(null, args, context, info);
+    });
+  });
+
+  its('Aborts Process', {}, async _ctx => {
+    testMockedResolver(BpmnProcessInstance, 'abortInstance', (args, context, info) => {
+      return mutation.abortProcessInstance(null, args, context, info);
+    });
+  });
+
+  its('Pauses Process', {}, async _ctx => {
+    testMockedResolver(BpmnProcessInstance, 'pauseInstance', (args, context, info) => {
+      return mutation.pauseProcessInstance(null, args, context, info);
+    });
+  });
+
+  its('Adds Comment to Process', {}, async _ctx => {
+    testMockedResolver(BpmnProcessInstance, 'addComment', (args, context, info) => {
+      return mutation.addComment(null, args, context, info);
+    });
+  });
+
+
 });

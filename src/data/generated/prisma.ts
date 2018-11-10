@@ -2322,7 +2322,8 @@ type Comment implements Node {
   text: String!
   userId: ID!
   date: DateTime!
-  replyTo: ID
+  replyTo: String
+  resourceId: ID
 }
 
 """A connection to a list of items."""
@@ -2339,7 +2340,8 @@ input CommentCreateInput {
   text: String!
   userId: ID!
   date: DateTime!
-  replyTo: ID
+  replyTo: String
+  resourceId: ID
 }
 
 input CommentCreateManyInput {
@@ -2380,7 +2382,8 @@ type CommentPreviousValues {
   text: String!
   userId: ID!
   date: DateTime!
-  replyTo: ID
+  replyTo: String
+  resourceId: ID
 }
 
 type CommentSubscriptionPayload {
@@ -2426,14 +2429,16 @@ input CommentUpdateDataInput {
   text: String
   userId: ID
   date: DateTime
-  replyTo: ID
+  replyTo: String
+  resourceId: ID
 }
 
 input CommentUpdateInput {
   text: String
   userId: ID
   date: DateTime
-  replyTo: ID
+  replyTo: String
+  resourceId: ID
 }
 
 input CommentUpdateManyInput {
@@ -2607,46 +2612,86 @@ input CommentWhereInput {
 
   """All values greater than or equal the given value."""
   date_gte: DateTime
-  replyTo: ID
+  replyTo: String
 
   """All values that are not equal to given value."""
-  replyTo_not: ID
+  replyTo_not: String
 
   """All values that are contained in given list."""
-  replyTo_in: [ID!]
+  replyTo_in: [String!]
 
   """All values that are not contained in given list."""
-  replyTo_not_in: [ID!]
+  replyTo_not_in: [String!]
 
   """All values less than the given value."""
-  replyTo_lt: ID
+  replyTo_lt: String
 
   """All values less than or equal the given value."""
-  replyTo_lte: ID
+  replyTo_lte: String
 
   """All values greater than the given value."""
-  replyTo_gt: ID
+  replyTo_gt: String
 
   """All values greater than or equal the given value."""
-  replyTo_gte: ID
+  replyTo_gte: String
 
   """All values containing the given string."""
-  replyTo_contains: ID
+  replyTo_contains: String
 
   """All values not containing the given string."""
-  replyTo_not_contains: ID
+  replyTo_not_contains: String
 
   """All values starting with the given string."""
-  replyTo_starts_with: ID
+  replyTo_starts_with: String
 
   """All values not starting with the given string."""
-  replyTo_not_starts_with: ID
+  replyTo_not_starts_with: String
 
   """All values ending with the given string."""
-  replyTo_ends_with: ID
+  replyTo_ends_with: String
 
   """All values not ending with the given string."""
-  replyTo_not_ends_with: ID
+  replyTo_not_ends_with: String
+  resourceId: ID
+
+  """All values that are not equal to given value."""
+  resourceId_not: ID
+
+  """All values that are contained in given list."""
+  resourceId_in: [ID!]
+
+  """All values that are not contained in given list."""
+  resourceId_not_in: [ID!]
+
+  """All values less than the given value."""
+  resourceId_lt: ID
+
+  """All values less than or equal the given value."""
+  resourceId_lte: ID
+
+  """All values greater than the given value."""
+  resourceId_gt: ID
+
+  """All values greater than or equal the given value."""
+  resourceId_gte: ID
+
+  """All values containing the given string."""
+  resourceId_contains: ID
+
+  """All values not containing the given string."""
+  resourceId_not_contains: ID
+
+  """All values starting with the given string."""
+  resourceId_starts_with: ID
+
+  """All values not starting with the given string."""
+  resourceId_not_starts_with: ID
+
+  """All values ending with the given string."""
+  resourceId_ends_with: ID
+
+  """All values not ending with the given string."""
+  resourceId_not_ends_with: ID
   _MagicalBackRelation_BpmnProcessInstanceComments_every: BpmnProcessInstanceWhereInput
   _MagicalBackRelation_BpmnProcessInstanceComments_some: BpmnProcessInstanceWhereInput
   _MagicalBackRelation_BpmnProcessInstanceComments_none: BpmnProcessInstanceWhereInput
@@ -6562,7 +6607,9 @@ export type ResourceOrderByInput =   'id_ASC' |
   'writeUser_ASC' |
   'writeUser_DESC' |
   'updatedAt_ASC' |
-  'updatedAt_DESC'
+  'updatedAt_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC'
 
 export type LocalisationOrderByInput =   'id_ASC' |
   'id_DESC' |
@@ -6589,6 +6636,8 @@ export type CommentOrderByInput =   'id_ASC' |
   'date_DESC' |
   'replyTo_ASC' |
   'replyTo_DESC' |
+  'resourceId_ASC' |
+  'resourceId_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
@@ -6598,42 +6647,16 @@ export type PublicationStatus =   'Draft' |
   'Proposal' |
   'Published'
 
-export type OrganisationOrderByInput =   'id_ASC' |
+export type UserOrderByInput =   'id_ASC' |
   'id_DESC' |
+  'uid_ASC' |
+  'uid_DESC' |
   'name_ASC' |
   'name_DESC' |
   'description_ASC' |
   'description_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
-  'createdAt_ASC' |
-  'createdAt_DESC'
-
-export type AccessConditionOrderByInput =   'organisationId_ASC' |
-  'organisationId_DESC' |
-  'roleId_ASC' |
-  'roleId_DESC' |
-  'userId_ASC' |
-  'userId_DESC' |
-  'id_ASC' |
-  'id_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
-  'createdAt_ASC' |
-  'createdAt_DESC'
-
-export type BpmnTaskInstanceOrderByInput =   'id_ASC' |
-  'id_DESC' |
-  'dateFinished_ASC' |
-  'dateFinished_DESC' |
-  'dateStarted_ASC' |
-  'dateStarted_DESC' |
-  'duration_ASC' |
-  'duration_DESC' |
-  'data_ASC' |
-  'data_DESC' |
-  'status_ASC' |
-  'status_DESC' |
+  'password_ASC' |
+  'password_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
@@ -6668,29 +6691,10 @@ export interface BpmnTaskCreateInput {
   resources?: BpmnTaskCreateresourcesInput
 }
 
-export interface DataDescriptorSubscriptionWhereInput {
-  AND?: DataDescriptorSubscriptionWhereInput[] | DataDescriptorSubscriptionWhereInput
-  OR?: DataDescriptorSubscriptionWhereInput[] | DataDescriptorSubscriptionWhereInput
-  NOT?: DataDescriptorSubscriptionWhereInput[] | DataDescriptorSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: DataDescriptorWhereInput
-}
-
-export interface DataUpdateDataInput {
-  organisationId?: String
-  version?: Int
-  date?: DateTime
-  value?: String
-  descriptor?: DataDescriptorUpdateOneInput
-}
-
-export interface DataDescriptorWhereInput {
-  AND?: DataDescriptorWhereInput[] | DataDescriptorWhereInput
-  OR?: DataDescriptorWhereInput[] | DataDescriptorWhereInput
-  NOT?: DataDescriptorWhereInput[] | DataDescriptorWhereInput
+export interface BpmnProcessWhereInput {
+  AND?: BpmnProcessWhereInput[] | BpmnProcessWhereInput
+  OR?: BpmnProcessWhereInput[] | BpmnProcessWhereInput
+  NOT?: BpmnProcessWhereInput[] | BpmnProcessWhereInput
   id?: ID_Input
   id_not?: ID_Input
   id_in?: ID_Input[] | ID_Input
@@ -6741,24 +6745,20 @@ export interface DataDescriptorWhereInput {
   description_not_starts_with?: String
   description_ends_with?: String
   description_not_ends_with?: String
-  expression?: String
-  expression_not?: String
-  expression_in?: String[] | String
-  expression_not_in?: String[] | String
-  expression_lt?: String
-  expression_lte?: String
-  expression_gt?: String
-  expression_gte?: String
-  expression_contains?: String
-  expression_not_contains?: String
-  expression_starts_with?: String
-  expression_not_starts_with?: String
-  expression_ends_with?: String
-  expression_not_ends_with?: String
-  isArray?: Boolean
-  isArray_not?: Boolean
-  clone?: Boolean
-  clone_not?: Boolean
+  model?: String
+  model_not?: String
+  model_in?: String[] | String
+  model_not_in?: String[] | String
+  model_lt?: String
+  model_lte?: String
+  model_gt?: String
+  model_gte?: String
+  model_contains?: String
+  model_not_contains?: String
+  model_starts_with?: String
+  model_not_starts_with?: String
+  model_ends_with?: String
+  model_not_ends_with?: String
   name?: String
   name_not?: String
   name_in?: String[] | String
@@ -7091,7 +7091,54 @@ export interface CommentUpsertWithWhereUniqueNestedInput {
   create: CommentCreateInput
 }
 
-export interface CommentUpdateDataInput {
+export interface NotificationWhereInput {
+  AND?: NotificationWhereInput[] | NotificationWhereInput
+  OR?: NotificationWhereInput[] | NotificationWhereInput
+  NOT?: NotificationWhereInput[] | NotificationWhereInput
+  type?: NotificationType
+  type_not?: NotificationType
+  type_in?: NotificationType[] | NotificationType
+  type_not_in?: NotificationType[] | NotificationType
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  userId?: ID_Input
+  userId_not?: ID_Input
+  userId_in?: ID_Input[] | ID_Input
+  userId_not_in?: ID_Input[] | ID_Input
+  userId_lt?: ID_Input
+  userId_lte?: ID_Input
+  userId_gt?: ID_Input
+  userId_gte?: ID_Input
+  userId_contains?: ID_Input
+  userId_not_contains?: ID_Input
+  userId_starts_with?: ID_Input
+  userId_not_starts_with?: ID_Input
+  userId_ends_with?: ID_Input
+  userId_not_ends_with?: ID_Input
+  createdAt?: DateTime
+  createdAt_not?: DateTime
+  createdAt_in?: DateTime[] | DateTime
+  createdAt_not_in?: DateTime[] | DateTime
+  createdAt_lt?: DateTime
+  createdAt_lte?: DateTime
+  createdAt_gt?: DateTime
+  createdAt_gte?: DateTime
+  code?: NotificationCode
+  code_not?: NotificationCode
+  code_in?: NotificationCode[] | NotificationCode
+  code_not_in?: NotificationCode[] | NotificationCode
   text?: String
   text_not?: String
   text_in?: String[] | String
@@ -7145,7 +7192,8 @@ export interface CommentUpdateDataInput {
   text?: String
   userId?: ID_Input
   date?: DateTime
-  replyTo?: ID_Input
+  replyTo?: String
+  resourceId?: ID_Input
 }
 
 export interface SchemaWhereInput {
@@ -7217,7 +7265,10 @@ export interface CommentUpdateWithWhereUniqueNestedInput {
   data: CommentUpdateDataInput
 }
 
-export interface ValidatorWhereUniqueInput {
+export interface BpmnProcessInstanceWhereInput {
+  AND?: BpmnProcessInstanceWhereInput[] | BpmnProcessInstanceWhereInput
+  OR?: BpmnProcessInstanceWhereInput[] | BpmnProcessInstanceWhereInput
+  NOT?: BpmnProcessInstanceWhereInput[] | BpmnProcessInstanceWhereInput
   id?: ID_Input
   id_not?: ID_Input
   id_in?: ID_Input[] | ID_Input
@@ -7379,20 +7430,34 @@ export interface CommentWhereInput {
   date_lte?: DateTime
   date_gt?: DateTime
   date_gte?: DateTime
-  replyTo?: ID_Input
-  replyTo_not?: ID_Input
-  replyTo_in?: ID_Input[] | ID_Input
-  replyTo_not_in?: ID_Input[] | ID_Input
-  replyTo_lt?: ID_Input
-  replyTo_lte?: ID_Input
-  replyTo_gt?: ID_Input
-  replyTo_gte?: ID_Input
-  replyTo_contains?: ID_Input
-  replyTo_not_contains?: ID_Input
-  replyTo_starts_with?: ID_Input
-  replyTo_not_starts_with?: ID_Input
-  replyTo_ends_with?: ID_Input
-  replyTo_not_ends_with?: ID_Input
+  replyTo?: String
+  replyTo_not?: String
+  replyTo_in?: String[] | String
+  replyTo_not_in?: String[] | String
+  replyTo_lt?: String
+  replyTo_lte?: String
+  replyTo_gt?: String
+  replyTo_gte?: String
+  replyTo_contains?: String
+  replyTo_not_contains?: String
+  replyTo_starts_with?: String
+  replyTo_not_starts_with?: String
+  replyTo_ends_with?: String
+  replyTo_not_ends_with?: String
+  resourceId?: ID_Input
+  resourceId_not?: ID_Input
+  resourceId_in?: ID_Input[] | ID_Input
+  resourceId_not_in?: ID_Input[] | ID_Input
+  resourceId_lt?: ID_Input
+  resourceId_lte?: ID_Input
+  resourceId_gt?: ID_Input
+  resourceId_gte?: ID_Input
+  resourceId_contains?: ID_Input
+  resourceId_not_contains?: ID_Input
+  resourceId_starts_with?: ID_Input
+  resourceId_not_starts_with?: ID_Input
+  resourceId_ends_with?: ID_Input
+  resourceId_not_ends_with?: ID_Input
   _MagicalBackRelation_BpmnProcessInstanceComments_every?: BpmnProcessInstanceWhereInput
   _MagicalBackRelation_BpmnProcessInstanceComments_some?: BpmnProcessInstanceWhereInput
   _MagicalBackRelation_BpmnProcessInstanceComments_none?: BpmnProcessInstanceWhereInput
@@ -7746,7 +7811,8 @@ export interface CommentUpdateInput {
   text?: String
   userId?: ID_Input
   date?: DateTime
-  replyTo?: ID_Input
+  replyTo?: String
+  resourceId?: ID_Input
 }
 
 export interface BpmnTaskUpsertWithWhereUniqueNestedInput {
@@ -7836,10 +7902,10 @@ export interface BpmnProcessCreateInput {
   resources?: ProcessResourceCreateManyInput
 }
 
-export interface RoleWhereInput {
-  AND?: RoleWhereInput[] | RoleWhereInput
-  OR?: RoleWhereInput[] | RoleWhereInput
-  NOT?: RoleWhereInput[] | RoleWhereInput
+export interface UserWhereInput {
+  AND?: UserWhereInput[] | UserWhereInput
+  OR?: UserWhereInput[] | UserWhereInput
+  NOT?: UserWhereInput[] | UserWhereInput
   id?: ID_Input
   id_not?: ID_Input
   id_in?: ID_Input[] | ID_Input
@@ -7854,6 +7920,20 @@ export interface RoleWhereInput {
   id_not_starts_with?: ID_Input
   id_ends_with?: ID_Input
   id_not_ends_with?: ID_Input
+  uid?: String
+  uid_not?: String
+  uid_in?: String[] | String
+  uid_not_in?: String[] | String
+  uid_lt?: String
+  uid_lte?: String
+  uid_gt?: String
+  uid_gte?: String
+  uid_contains?: String
+  uid_not_contains?: String
+  uid_starts_with?: String
+  uid_not_starts_with?: String
+  uid_ends_with?: String
+  uid_not_ends_with?: String
   name?: String
   name_not?: String
   name_in?: String[] | String
@@ -8147,9 +8227,8 @@ export interface ProcessResourceCreatereadRolesInput {
   set?: String[] | String
 }
 
-export interface BpmnProcessInstanceUpdateWithWhereUniqueWithoutOwnerInput {
-  where: BpmnProcessInstanceWhereUniqueInput
-  data: BpmnProcessInstanceUpdateWithoutOwnerDataInput
+export interface LocalisationWhereUniqueInput {
+  id?: ID_Input
 }
 
 export interface SchemaCreateInput {
@@ -8531,7 +8610,8 @@ export interface CommentCreateInput {
   text: String
   userId: ID_Input
   date: DateTime
-  replyTo?: ID_Input
+  replyTo?: String
+  resourceId?: ID_Input
 }
 
 export interface OrganisationWhereInput {
@@ -9028,7 +9108,8 @@ export interface Comment extends Node {
   text: String
   userId: ID_Output
   date: DateTime
-  replyTo?: ID_Output
+  replyTo?: String
+  resourceId?: ID_Output
 }
 
 export interface AggregateUser {
@@ -9105,18 +9186,16 @@ export interface ResourceConnection {
 
 export interface OrganisationPreviousValues {
   id: ID_Output
-  text: String
-  date: DateTime
-  replyTo?: String
-  resourceId?: ID_Output
+  name: String
+  description?: String
 }
 
 /*
  * An edge in a connection.
 
  */
-export interface RoleEdge {
-  node: Role
+export interface OrganisationEdge {
+  node: Organisation
   cursor: String
 }
 
@@ -9145,7 +9224,7 @@ export interface BpmnProcess extends Node {
   executeUser?: String
 }
 
-export interface AggregateOrganisation {
+export interface AggregateLocalisation {
   count: Int
 }
 
@@ -9160,10 +9239,10 @@ export interface ResourceSubscriptionPayload {
  * A connection to a list of items.
 
  */
-export interface OrganisationConnection {
+export interface LocalisationConnection {
   pageInfo: PageInfo
-  edges: OrganisationEdge[]
-  aggregate: AggregateOrganisation
+  edges: LocalisationEdge[]
+  aggregate: AggregateLocalisation
 }
 
 export interface ResourcePreviousValues {
@@ -9329,7 +9408,8 @@ export interface CommentPreviousValues {
   text: String
   userId: ID_Output
   date: DateTime
-  replyTo?: ID_Output
+  replyTo?: String
+  resourceId?: ID_Output
 }
 
 export interface AggregateRole {
@@ -9365,10 +9445,10 @@ export interface BpmnTaskSubscriptionPayload {
  * A connection to a list of items.
 
  */
-export interface RoleConnection {
+export interface OrganisationConnection {
   pageInfo: PageInfo
-  edges: RoleEdge[]
-  aggregate: AggregateRole
+  edges: OrganisationEdge[]
+  aggregate: AggregateOrganisation
 }
 
 export interface BpmnTaskPreviousValues {
@@ -9594,10 +9674,7 @@ The `String` scalar type represents textual data, represented as UTF-8 character
 */
 export type String = string
 
-/*
-The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
-*/
-export type String = string
+export type DateTime = Date | string
 
 /*
 The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 

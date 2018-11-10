@@ -1,5 +1,6 @@
 import { BpmnProcessInstance, ProcessActionResult } from 'data/yoga/models/bpmn_process_instance_model';
 import { Dictionary } from 'typescript-collections';
+import { BpmnTypes } from '../bpmn_process_model';
 import { BaseElement } from './bpmn_base_element_model';
 import { LaneElement } from './bpmn_lane_element_model';
 
@@ -30,8 +31,11 @@ export class Lane extends BaseElement {
     // }
   }
 
-  execute(_state: BpmnProcessInstance, _context: ServerContext, _result: ProcessActionResult) {
+  execute(state: BpmnProcessInstance, context: ServerContext, result: ProcessActionResult) {
     // execute the entry point
+    this.nodes.getValue(BpmnTypes.Start).values().forEach(node => {
+      node.execute(state, context, result);
+    });
     return;
   }
 }

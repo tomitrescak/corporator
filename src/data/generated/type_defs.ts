@@ -55,7 +55,7 @@ type BpmnTaskInstance {
   duration: Int
   performerId: ID
   performer: User
-  processInstanceId: ID
+  processInstanceId: ID!
   processInstance: BpmnProcessInstance!
   data: Json
   status: BpmnTaskInstanceStatus!
@@ -233,6 +233,7 @@ input AddCommentInput {
   processInstanceId: String!
   comment: String!
   replyTo: String
+  resourceId: String
 }
 
 input UpdateTaskInstanceStatusInput {
@@ -3068,59 +3069,112 @@ input CommentWhereInput {
   All values greater than or equal the given value.
   """
   date_gte: DateTime
-  replyTo: ID
+  replyTo: String
   """
   All values that are not equal to given value.
   """
-  replyTo_not: ID
+  replyTo_not: String
   """
   All values that are contained in given list.
   """
-  replyTo_in: [ID!]
+  replyTo_in: [String!]
   """
   All values that are not contained in given list.
   """
-  replyTo_not_in: [ID!]
+  replyTo_not_in: [String!]
   """
   All values less than the given value.
   """
-  replyTo_lt: ID
+  replyTo_lt: String
   """
   All values less than or equal the given value.
   """
-  replyTo_lte: ID
+  replyTo_lte: String
   """
   All values greater than the given value.
   """
-  replyTo_gt: ID
+  replyTo_gt: String
   """
   All values greater than or equal the given value.
   """
-  replyTo_gte: ID
+  replyTo_gte: String
   """
   All values containing the given string.
   """
-  replyTo_contains: ID
+  replyTo_contains: String
   """
   All values not containing the given string.
   """
-  replyTo_not_contains: ID
+  replyTo_not_contains: String
   """
   All values starting with the given string.
   """
-  replyTo_starts_with: ID
+  replyTo_starts_with: String
   """
   All values not starting with the given string.
   """
-  replyTo_not_starts_with: ID
+  replyTo_not_starts_with: String
   """
   All values ending with the given string.
   """
-  replyTo_ends_with: ID
+  replyTo_ends_with: String
   """
   All values not ending with the given string.
   """
-  replyTo_not_ends_with: ID
+  replyTo_not_ends_with: String
+  resourceId: ID
+  """
+  All values that are not equal to given value.
+  """
+  resourceId_not: ID
+  """
+  All values that are contained in given list.
+  """
+  resourceId_in: [ID!]
+  """
+  All values that are not contained in given list.
+  """
+  resourceId_not_in: [ID!]
+  """
+  All values less than the given value.
+  """
+  resourceId_lt: ID
+  """
+  All values less than or equal the given value.
+  """
+  resourceId_lte: ID
+  """
+  All values greater than the given value.
+  """
+  resourceId_gt: ID
+  """
+  All values greater than or equal the given value.
+  """
+  resourceId_gte: ID
+  """
+  All values containing the given string.
+  """
+  resourceId_contains: ID
+  """
+  All values not containing the given string.
+  """
+  resourceId_not_contains: ID
+  """
+  All values starting with the given string.
+  """
+  resourceId_starts_with: ID
+  """
+  All values not starting with the given string.
+  """
+  resourceId_not_starts_with: ID
+  """
+  All values ending with the given string.
+  """
+  resourceId_ends_with: ID
+  """
+  All values not ending with the given string.
+  """
+  resourceId_not_ends_with: ID
   _MagicalBackRelation_BpmnProcessInstanceComments_every: BpmnProcessInstanceWhereInput
   _MagicalBackRelation_BpmnProcessInstanceComments_some: BpmnProcessInstanceWhereInput
   _MagicalBackRelation_BpmnProcessInstanceComments_none: BpmnProcessInstanceWhereInput
@@ -3837,4 +3891,4 @@ input BpmnTaskInstanceWhereInput {
 enum LanguageCode {
   EN
 }
-`;
+`

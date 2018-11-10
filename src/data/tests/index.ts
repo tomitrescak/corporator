@@ -45,7 +45,7 @@ async function clear(options: Options) {
         await (db.mutation as any)[pluralKey]({});
       } catch (ex) {
         // tslint:disable-next-line:no-console
-        console.log('Mutation does not exist: ' + pluralKey);
+        // console.log('Mutation does not exist: ' + pluralKey);
         throw ex;
       }
     }

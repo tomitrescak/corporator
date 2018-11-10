@@ -121,7 +121,7 @@ export const create = {
     type: 'Form',
     ...partial
   }),
-  bpmnTaskMutation(partial: Partial<Prisma.BpmnTaskCreateInput>) {
+  bpmnTaskMutation(partial: Partial<Prisma.BpmnTaskCreateInput> = {}) {
     return db.mutation.createBpmnTask({ data: create.bpmnTask(partial) });
   },
   bpmnProcess: (
@@ -148,7 +148,7 @@ export const create = {
       ...data
     };
   },
-  bpmnProcessMutation(partial: Partial<Prisma.BpmnProcessCreateInput>) {
+  bpmnProcessMutation(partial: Partial<Prisma.BpmnProcessCreateInput> = {}) {
     return db.mutation.createBpmnProcess({ data: create.bpmnProcess(partial) });
   },
   processDao(from: Partial<Prisma.BpmnProcess> = {}): Prisma.BpmnProcess {

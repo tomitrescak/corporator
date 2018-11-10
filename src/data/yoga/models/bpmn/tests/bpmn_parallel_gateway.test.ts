@@ -1,5 +1,5 @@
 import { ProcessActionResult } from '../../bpmn_process_instance_model';
-import ParallelGateway from '../bpmn_parallel_gateway_model';
+import { ParallelGateway } from '../bpmn_parallel_gateway_model';
 
 describe('Bpmn Parallel Gateway', () => {
   it('executes with 3 incoming nodes', () => {

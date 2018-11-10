@@ -354,19 +354,22 @@ export class BpmnProcessModel {
   }
 
   private linkSequenceFlow(value: SequenceFlow) {
+
+    
     const flowNodeDict = this.elementsDict.getValue(BpmnTypes.FlowNode);
     let source = flowNodeDict ? flowNodeDict.getValue(value.sourceId) : null;
     let target = flowNodeDict ? flowNodeDict.getValue(value.targetId) : null;
-
+    
     if (source instanceof FlowNode) {
       value.sourceRef = source;
     } else {
       throw new Error('Invalid Source Node');
     }
-
+    
     if (target instanceof FlowNode) {
       value.targetRef = target;
     } else {
+      console.log(target);
       throw new Error('Invalid Target Node');
     }
   }

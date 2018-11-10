@@ -107,8 +107,8 @@ export const mutation: Mutation = {
   async pauseProcessInstance(_parent, { input: { processInstanceId } }, ctx, info) {
     return BpmnProcessInstance.pauseInstance(processInstanceId, ctx, info);
   },
-  async addComment(_parent, { input: { processInstanceId, comment, replyTo } }, ctx, info) {
+  async addComment(_parent, { input: { processInstanceId, comment, replyTo, resourceId } }, ctx, info) {
     /* push given comment to process instance */
-    return BpmnProcessInstance.addComment(processInstanceId, ctx, comment, replyTo, info);
+    return BpmnProcessInstance.addComment(processInstanceId, ctx, comment, replyTo, resourceId, info);
   }
 };

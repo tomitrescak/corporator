@@ -1,4 +1,4 @@
-import { create, its, testMockedResolver } from '../../../../tests/index';
+import { create, its } from '../../../../tests/index';
 import { ProcessActionResult } from '../../bpmn_process_instance_model';
 import { BpmnTaskInstanceModel } from '../../bpmn_task_instance_model';
 import { UserTask } from '../bpmn_user_task_model';
@@ -36,24 +36,11 @@ describe('Bpmn User Task', () => {
     async ctx => {
       // expect(true).toBe(false);
       
-      const bpmnProcess = await create.process(ctx);
+      const bpmnProcess = await create.bpmnProcessMutation();
 
-      const processInstance = await ctx.db.mutation.createBpmnProcessInstance({
-        data: {
-          dateStarted: new Date(),
-          data: {},
-          status: 'Running',
-          owner: {
-            connect: {
-              id: ctx.userId
-            }
-          },
-          process: {
-            connect: {
-              id: bpmnProcess.id
-            }
-          }
-        }
+      const processInstance = await create.bpmnProcessInstanceMutation({
+          ownerId: ctx.userId,
+          processId:bpmnProcess.id
       });
 
       const userTask = new UserTask({ $type: 'userTask' } as any, { roles: ['role1'] } as any);

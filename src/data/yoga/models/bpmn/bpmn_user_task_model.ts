@@ -49,8 +49,7 @@ export class UserTask extends Task {
       const taskInstanceDAO = await BpmnTaskInstanceModel.createInstance(
         context,
         this.id,
-        state.id,
-        this.lane.roles
+        state.id
       );
       result.active.push(taskInstanceDAO.id);
     } catch (ex) {

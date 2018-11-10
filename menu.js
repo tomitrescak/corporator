@@ -41,6 +41,10 @@ menu
   .addItem('Deploy to Prisma', function() {
     nexec('prisma deploy');
   })
+  .addItem('Deploy to Test', function() {
+    nexec('prisma delete -e .env.test');
+    nexec('prisma deploy -e .env.test');
+  })
   .addItem('Reset', function() {
     nexec('prisma reset');
   })
